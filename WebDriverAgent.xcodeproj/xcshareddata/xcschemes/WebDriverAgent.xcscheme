@@ -20,6 +20,20 @@
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "91F9DB011B99DBC2001349B2"
+               BuildableName = "WebDriverAgentTests.xctest"
+               BlueprintName = "WebDriverAgentTests"
+               ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -35,6 +49,16 @@
                BlueprintIdentifier = "91F9DB1F1B99DC2F001349B2"
                BuildableName = "WebDriverAgentLibTests.xctest"
                BlueprintName = "WebDriverAgentLibTests"
+               ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "91F9DB011B99DBC2001349B2"
+               BuildableName = "WebDriverAgentTests.xctest"
+               BlueprintName = "WebDriverAgentTests"
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
             </BuildableReference>
          </TestableReference>
