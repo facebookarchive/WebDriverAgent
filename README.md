@@ -21,12 +21,9 @@ In practice, you would want to start it up alongside your application. You can u
 ```
 # 1. Open the Simulator and application you wish to test.
 
-# 2. Determine the UDID of the Simulator.
-xcrun simctl list | grep Booted
-
-# 3. Start WebDriverAgent.
-xcrun simctl spawn <Device_UDID> <WebDriverAgent_path>
-# e.g. xcrun simctl spawn 787CA858-1A7D-43CE-BE36-F040CB9AF6E3 /Users/mehdi/src/WebDriverAgent/Build/Products/Debug-iphonesimulator/WebDriverAgent.app/WebDriverAgent
+# 2. Start WebDriverAgent.
+xcrun simctl spawn booted <WebDriverAgent_path>
+# e.g. xcrun simctl spawn booted /Users/mehdi/src/WebDriverAgent/Build/Products/Debug-iphonesimulator/WebDriverAgent.app/WebDriverAgent
 ```
 
 ## How it works
