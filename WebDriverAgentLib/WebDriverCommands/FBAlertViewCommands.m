@@ -56,15 +56,19 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 
 + (void)ensureElementIsNotObstructedByAlertView:(UIAElement *)element
 {
-  if (![self isElementObstructedByAlertView:element]) {
+  [self ensureElementIsNotObstructedByAlertView:element alert:[self _currentAlert]];
+}
+
++ (void)ensureElementIsNotObstructedByAlertView:(UIAElement *)element alert:(UIAElement *)alert
+{
+  if (![self isElementObstructedByAlertView:element alert:alert]) {
     return;
   }
   [self throwRequestedItemObstructedByAlertException];
 }
 
-+ (BOOL)isElementObstructedByAlertView:(UIAElement *)element
++ (BOOL)isElementObstructedByAlertView:(UIAElement *)element alert:(UIAElement *)alert
 {
-  UIAElement *alert = [self _currentAlert];
   if (!alert) {
     return NO;
   }
@@ -79,9 +83,11 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 
 + (NSArray *)filterElementsObstructedByAlertView:(NSArray *)elements
 {
+  UIAElement *alert = [self _currentAlert];
+
   NSMutableArray *elementBox = [NSMutableArray array];
   for (UIAElement *iElement in elements) {
-    if ([FBAlertViewCommands isElementObstructedByAlertView:iElement]) {
+    if ([FBAlertViewCommands isElementObstructedByAlertView:iElement alert:alert]) {
       continue;
     }
     [elementBox addObject:iElement];
