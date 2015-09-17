@@ -33,6 +33,9 @@ NSDictionary *InfoForElement(UIAElement *element, BOOL verbose);
     @"GET@/session/:sessionID/tree" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
       [self handleTreeCommandWithParams:request completionHandler:completionHandler];
     },
+    @"GET@/session/:sessionID/source" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
+      [self handleTreeCommandWithParams:request completionHandler:completionHandler];
+    },
   };
 }
 
