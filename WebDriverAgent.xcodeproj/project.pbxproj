@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		17FAFB7CEBC0F6E3621FAA62 /* libPods-WebDriverAgentLibTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 126BB2958BC0D6129BB43082 /* libPods-WebDriverAgentLibTests.a */; };
+		498495CB1BB2EB9B009CC848 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */; };
+		4995759D1BB2BF1C000CD94B /* FBResponseFilePayload.h in Headers */ = {isa = PBXBuildFile; fileRef = 4995759B1BB2BF1C000CD94B /* FBResponseFilePayload.h */; };
+		4995759E1BB2BF1C000CD94B /* FBResponseFilePayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 4995759C1BB2BF1C000CD94B /* FBResponseFilePayload.m */; };
+		499575A11BB2BF4D000CD94B /* FBResponseJSONPayload.h in Headers */ = {isa = PBXBuildFile; fileRef = 4995759F1BB2BF4D000CD94B /* FBResponseJSONPayload.h */; };
+		499575A21BB2BF4D000CD94B /* FBResponseJSONPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 499575A01BB2BF4D000CD94B /* FBResponseJSONPayload.m */; };
+		499575A41BB2BF91000CD94B /* FBResponsePayload.h in Headers */ = {isa = PBXBuildFile; fileRef = 499575A31BB2BF91000CD94B /* FBResponsePayload.h */; };
+		499575A71BB2BFD2000CD94B /* FBInspectorCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 499575A51BB2BFD2000CD94B /* FBInspectorCommands.h */; };
+		499575A81BB2BFD2000CD94B /* FBInspectorCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 499575A61BB2BFD2000CD94B /* FBInspectorCommands.m */; };
 		91DD17791B99E33B00A57C66 /* FBWebDriverAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F9DB301B99DC7A001349B2 /* FBWebDriverAgent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91E7D8581B99E45400F8BA6F /* UIAutomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8571B99E45400F8BA6F /* UIAutomation.framework */; };
 		91E7D85A1B99E46D00F8BA6F /* AccessibilityUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */; };
@@ -75,6 +83,15 @@
 		1989FD87BD8DD035A0FF66B4 /* libPods-WebDriverAgentTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgentTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A840E10D402D89F7FDA64D0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		3B16C2A60F36356996EE8EBB /* Pods-WebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLib/Pods-WebDriverAgentLib.release.xcconfig"; sourceTree = "<group>"; };
+		498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WebDriverAgent.bundle; sourceTree = "<group>"; };
+		4995759A1BB2BEF1000CD94B /* FBCommandStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBCommandStatus.h; sourceTree = "<group>"; };
+		4995759B1BB2BF1C000CD94B /* FBResponseFilePayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBResponseFilePayload.h; sourceTree = "<group>"; };
+		4995759C1BB2BF1C000CD94B /* FBResponseFilePayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBResponseFilePayload.m; sourceTree = "<group>"; };
+		4995759F1BB2BF4D000CD94B /* FBResponseJSONPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBResponseJSONPayload.h; sourceTree = "<group>"; };
+		499575A01BB2BF4D000CD94B /* FBResponseJSONPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBResponseJSONPayload.m; sourceTree = "<group>"; };
+		499575A31BB2BF91000CD94B /* FBResponsePayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBResponsePayload.h; sourceTree = "<group>"; };
+		499575A51BB2BFD2000CD94B /* FBInspectorCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBInspectorCommands.h; sourceTree = "<group>"; };
+		499575A61BB2BFD2000CD94B /* FBInspectorCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBInspectorCommands.m; sourceTree = "<group>"; };
 		5D6EAD48D91D44DDAB21D256 /* libPods-WebDriverAgentLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgentLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86762B93D2FADAABEE7E2B3D /* Pods-WebDriverAgentLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLib/Pods-WebDriverAgentLib.debug.xcconfig"; sourceTree = "<group>"; };
 		91E7D8571B99E45400F8BA6F /* UIAutomation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIAutomation.framework; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks/UIAutomation.framework; sourceTree = DEVELOPER_DIR; };
@@ -232,6 +249,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		498495C81BB2E6FA009CC848 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		8BFA51FAC80E4114EBFF8577 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				91F9DB731B99DDD8001349B2 /* PrivateHeaders */,
+				498495C81BB2E6FA009CC848 /* Resources */,
 				91F9DAEB1B99DBC2001349B2 /* WebDriverAgent */,
 				91F9DB171B99DC2F001349B2 /* WebDriverAgentLib */,
 				91F9DB241B99DC2F001349B2 /* WebDriverAgentLibTests */,
@@ -334,6 +360,12 @@
 				91F9DB401B99DCF9001349B2 /* FBElementCache.m */,
 				91F9DB411B99DCF9001349B2 /* FBRouteRequest.h */,
 				91F9DB421B99DCF9001349B2 /* FBRouteRequest.m */,
+				4995759A1BB2BEF1000CD94B /* FBCommandStatus.h */,
+				4995759B1BB2BF1C000CD94B /* FBResponseFilePayload.h */,
+				4995759C1BB2BF1C000CD94B /* FBResponseFilePayload.m */,
+				4995759F1BB2BF4D000CD94B /* FBResponseJSONPayload.h */,
+				499575A01BB2BF4D000CD94B /* FBResponseJSONPayload.m */,
+				499575A31BB2BF91000CD94B /* FBResponsePayload.h */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -353,6 +385,8 @@
 			children = (
 				91F9DB4C1B99DD94001349B2 /* FBAlertViewCommands.h */,
 				91F9DB4D1B99DD94001349B2 /* FBAlertViewCommands.m */,
+				499575A51BB2BFD2000CD94B /* FBInspectorCommands.h */,
+				499575A61BB2BFD2000CD94B /* FBInspectorCommands.m */,
 				91F9DB4E1B99DD94001349B2 /* FBCapabilitiesCommands.h */,
 				91F9DB4F1B99DD94001349B2 /* FBCapabilitiesCommands.m */,
 				91F9DB501B99DD94001349B2 /* FBDebugCommands.h */,
@@ -469,7 +503,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				499575A71BB2BFD2000CD94B /* FBInspectorCommands.h in Headers */,
+				4995759D1BB2BF1C000CD94B /* FBResponseFilePayload.h in Headers */,
 				91DD17791B99E33B00A57C66 /* FBWebDriverAgent.h in Headers */,
+				499575A41BB2BF91000CD94B /* FBResponsePayload.h in Headers */,
+				499575A11BB2BF4D000CD94B /* FBResponseJSONPayload.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +521,7 @@
 				EEE27CBD9703CA34A43EB1D5 /* Check Pods Manifest.lock */,
 				91F9DAE51B99DBC2001349B2 /* Sources */,
 				91F9DAE61B99DBC2001349B2 /* Frameworks */,
+				498495C91BB2E731009CC848 /* Generate Resource Bundle */,
 				91F9DAE71B99DBC2001349B2 /* Resources */,
 				02F1E1648526B43D8B953193 /* Copy Pods Resources */,
 			);
@@ -605,6 +644,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				498495CB1BB2EB9B009CC848 /* WebDriverAgent.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,6 +694,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		498495C91BB2E731009CC848 /* Generate Resource Bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Resource Bundle";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${SRCROOT} && bash ./build_resource_bundle.sh";
 		};
 		5A082A5FA3B9939DAD440712 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -772,6 +826,8 @@
 				91F9DB451B99DCF9001349B2 /* FBRouteRequest.m in Sources */,
 				91F9DB4A1B99DD3E001349B2 /* FBWDAConstants.m in Sources */,
 				91F9DB621B99DD94001349B2 /* FBDebugCommands.m in Sources */,
+				499575A81BB2BFD2000CD94B /* FBInspectorCommands.m in Sources */,
+				4995759E1BB2BF1C000CD94B /* FBResponseFilePayload.m in Sources */,
 				91F9DB391B99DC7A001349B2 /* FBWebServer.m in Sources */,
 				91F9DB441B99DCF9001349B2 /* FBElementCache.m in Sources */,
 				91F9DB601B99DD94001349B2 /* FBAlertViewCommands.m in Sources */,
@@ -783,6 +839,7 @@
 				91F9DB631B99DD94001349B2 /* FBElementCommands.m in Sources */,
 				91F9DB371B99DC7A001349B2 /* FBAutomationTargetDelegate.m in Sources */,
 				91F9DB661B99DD94001349B2 /* FBScreenshotCommands.m in Sources */,
+				499575A21BB2BF4D000CD94B /* FBResponseJSONPayload.m in Sources */,
 				91F9DB681B99DD94001349B2 /* UIAElement+ChildHelpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,26 +9,34 @@
 
 #import "FBCommandHandler.h"
 
-NSDictionary *FBResponseDictionaryWithElementID(NSUInteger elementID)
+#import "FBResponseFilePayload.h"
+#import "FBResponseJSONPayload.h"
+
+id<FBResponsePayload> FBResponseDictionaryWithElementID(NSUInteger elementID)
 {
-  return
-  @{
-    @"id" : @(elementID),
-    @"value" : @"",
-    @"status" : @0,
-  };
+  return [[FBResponseJSONPayload alloc] initWithDictionary:
+      @{
+        @"id" : @(elementID),
+        @"value" : @"",
+        @"status" : @0,
+      }];
 }
 
-NSDictionary *FBResponseDictionaryWithStatus(FBCommandStatus status, id object)
+id<FBResponsePayload> FBResponseDictionaryWithStatus(FBCommandStatus status, id object)
 {
-  return
-  @{
-    @"value" : object,
-    @"status" : @(status),
-  };
+  return [[FBResponseJSONPayload alloc] initWithDictionary:
+      @{
+        @"value" : object,
+        @"status" : @(status),
+      }];
 }
 
-NSDictionary *FBResponseDictionaryWithOK(void)
+id<FBResponsePayload> FBResponseDictionaryWithOK(void)
 {
   return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @"");
+}
+
+id<FBResponsePayload> FBResponseFileWithPath(NSString *path)
+{
+    return [[FBResponseFilePayload alloc] initWithFilePath:path];
 }

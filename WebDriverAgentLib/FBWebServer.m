@@ -153,30 +153,32 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
                                                                  elementCache:elementCache
             ];
           @try {
-            routeCommandHandler(routeParams,^(NSDictionary *responseDictionary){
-              [self respondWithRouteResponse:response responseDictionary:responseDictionary];
+            routeCommandHandler(routeParams,^(id<FBResponsePayload> payload) {
+              [payload dispatchWithResponse:response];
             });
           }
           @catch (NSException *exception) {
             if ([exception.name isEqualToString:FBUAlertObstructingElementException]) {
-              [self respondWithRouteResponse:response responseDictionary:FBResponseDictionaryWithStatus(FBCommandStatusUnexpectedAlertPresent, @"Alert is obstructing view")];
+              id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
+                  FBCommandStatusUnexpectedAlertPresent, @"Alert is obstructing view");
+              [payload dispatchWithResponse:response];
               return;
             }
             if ([[exception name] isEqualToString:kUIAExceptionInvalidElement]) {
-              [self respondWithRouteResponse:response
-                          responseDictionary:FBResponseDictionaryWithStatus(FBCommandStatusInvalidElementState, [exception description])
-               ];
+              id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
+                  FBCommandStatusInvalidElementState, [exception description]);
+              [payload dispatchWithResponse:response];
               return;
             }
             if ([[exception name] isEqualToString:kUIAExceptionBadPoint]) {
-              [self respondWithRouteResponse:response
-                          responseDictionary:FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, [exception description])
-               ];
+              id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
+                  FBCommandStatusUnhandled, [exception description]);
+              [payload dispatchWithResponse:response];
               return;
             }
-            [self respondWithRouteResponse:response
-                        responseDictionary:FBResponseDictionaryWithStatus(FBCommandStatusStaleElementReference, [exception description])
-             ];
+            id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
+                FBCommandStatusStaleElementReference, [exception description]);
+            [payload dispatchWithResponse:response];
           }
         }];
     }];
@@ -185,19 +187,10 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
 
 - (void)registerServerKeyRouteHandlers
 {
-
   [self.server get:@"/health" withBlock:^(RouteRequest *request, RouteResponse *response) {
     [response respondWithString:@"I-AM-ALIVE"];
   }];
   [self registerRouteHandlers:@[FBUnknownCommands.class]];
-}
-
-- (void)respondWithRouteResponse:(RouteResponse *)response responseDictionary:(NSDictionary *)responseDictionary
-{
-  NSError *error;
-  NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseDictionary options:NSJSONWritingPrettyPrinted error:&error];
-  NSCAssert(jsonData, @"Valid JSON must be responded, error of %@", error);
-  [response respondWithData:jsonData];
 }
 
 @end

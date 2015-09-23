@@ -1,0 +1,29 @@
+/**
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+.section.second .section-content-container {
+  padding-top: 0px;
+}
+
+.tree-container {
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+.tree-header {
+  height: 25px;
+}
+
+.tree-node {
+  cursor: pointer;
+}
+
+.tree-node.selected {
+  background-color: #D690A0;
+}
