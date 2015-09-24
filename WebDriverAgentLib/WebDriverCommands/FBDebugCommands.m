@@ -17,7 +17,7 @@
 #import "UIATarget.h"
 #import "UIAXElement.h"
 
-NSDictionary *InfoForElement(UIAElement *element, BOOL verbose);
+static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose);
 
 @implementation FBDebugCommands
 
@@ -63,7 +63,16 @@ static id ValueOrNull(id value) {
   return value ?: [NSNull null];
 }
 
-NSDictionary *InfoForElement(UIAElement *element, BOOL verbose)
+static NSDictionary *DictionaryFromCGRect(CGRect rect) {
+  return @{
+    @"x": @(CGRectGetMinX(rect)),
+    @"y": @(CGRectGetMinY(rect)),
+    @"width": @(CGRectGetWidth(rect)),
+    @"height": @(CGRectGetHeight(rect)),
+  };
+}
+
+static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose)
 {
   NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 
@@ -96,7 +105,7 @@ NSDictionary *InfoForElement(UIAElement *element, BOOL verbose)
       [info[@"children"] addObject:InfoForElement(childElement, verbose)];
     }
   }
-  info[@"rect"] = NSStringFromCGRect([[element rect] CGRectValue]);
+  info[@"rect"] = DictionaryFromCGRect([[element rect] CGRectValue]);
 
   return info;
 }

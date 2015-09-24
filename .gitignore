@@ -41,3 +41,6 @@ Pods/
 # Carthage/Checkouts
 
 Carthage/Build
+
+# Resource bundle recreated on each build
+Resources/WebDriverAgent.bundle
