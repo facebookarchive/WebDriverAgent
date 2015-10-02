@@ -35,6 +35,13 @@
     @"POST@/session/:sessionID/tap/:reference" : ^(FBRouteRequest *params, FBRouteResponseCompletion completionHandler) {
       CGFloat x = [params.arguments[@"x"] floatValue];
       CGFloat y = [params.arguments[@"y"] floatValue];
+      NSInteger elementID = [params.parameters[@"reference"] integerValue];
+      UIAElement *element = [params.elementCache elementForIndex:elementID];
+      if (element != nil) {
+        CGRect rect = [[element valueForKey:@"rect"] CGRectValue];
+        x += rect.origin.x;
+        y += rect.origin.y;
+      }
       [[UIATarget localTarget] tap:@{ @"x": @(x), @"y": @(y) }];
       completionHandler(FBResponseDictionaryWithOK());
     },
