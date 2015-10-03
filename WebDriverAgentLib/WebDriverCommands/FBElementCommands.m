@@ -46,7 +46,7 @@
       completionHandler(FBResponseDictionaryWithOK());
     },
     @"POST@/session/:sessionID/element/:id/click" : ^(FBRouteRequest *params, FBRouteResponseCompletion completionHandler) {
-      NSInteger elementID = [params.arguments[@"id"] integerValue];
+      NSInteger elementID = [params.parameters[@"id"] integerValue];
       UIAElement *element = [params.elementCache elementForIndex:elementID];
       [element tap];
       completionHandler(FBResponseDictionaryWithElementID(elementID));
