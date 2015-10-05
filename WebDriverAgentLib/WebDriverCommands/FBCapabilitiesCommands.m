@@ -95,23 +95,23 @@ extern BOOL AXDeviceIsPad();
 + (NSDictionary *)currentCapabilities
 {
   return @{
-    @"CFBundleIdentifier": [[[UIATarget localTarget] frontMostApp] bundleID],
-    @"CFBundleVersion": [[[UIATarget localTarget] frontMostApp] bundleVersion],
+    @"CFBundleIdentifier": [[[UIATarget localTarget] frontMostApp] bundleID] ?: NSNull.null,
+    @"CFBundleVersion": [[[UIATarget localTarget] frontMostApp] bundleVersion] ?: NSNull.null,
     @"device": AXDeviceIsPad() ? @"ipad" : @"iphone",
-    @"sdkVersion": [[UIATarget localTarget] systemVersion],
-    @"browserName": [[[UIATarget localTarget] frontMostApp] name],
+    @"sdkVersion": [[UIATarget localTarget] systemVersion] ?: NSNull.null,
+    @"browserName": [[[UIATarget localTarget] frontMostApp] name] ?: NSNull.null,
   };
 }
 
 + (NSDictionary *)applicationDetailsForApplication:(UIAApplication *)application
 {
   return @{
-    @"name" : [application name],
-    @"version" : [application version],
-    @"bundleVersion" : [application bundleVersion],
-    @"bundleID" : [application bundleID],
-    @"bundlePath" : [application bundlePath],
-    @"stateDescription" : [application stateDescription],
+    @"name" : [application name] ?: NSNull.null,
+    @"version" : [application version] ?: NSNull.null,
+    @"bundleVersion" : [application bundleVersion] ?: NSNull.null,
+    @"bundleID" : [application bundleID] ?: NSNull.null,
+    @"bundlePath" : [application bundlePath] ?: NSNull.null,
+    @"stateDescription" : [application stateDescription] ?: NSNull.null,
   };
 }
 
