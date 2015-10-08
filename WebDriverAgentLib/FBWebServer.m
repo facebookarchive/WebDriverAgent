@@ -90,17 +90,16 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
   NSError *error;
   BOOL serverStarted = NO;
 
-  for (NSInteger i = 0; i < serverPortRange.length; i++) {
-    NSInteger port = serverPortRange.location + i;
+  for (NSInteger index = 0; index < serverPortRange.length; index++) {
+    NSInteger port = serverPortRange.location + index;
     [self.server setPort:port];
 
-    serverStarted = [self.server start:&error];
-
+    serverStarted = [self attemptToStartServer:self.server onPort:port withError:&error];
     if (serverStarted) {
       break;
     }
 
-    NSLog(@"Failed to start web server with error %@", [error description]);
+    NSLog(@"Failed to start web server on port %ld with error %@", (long)port, [error description]);
   }
 
   if (!serverStarted) {
