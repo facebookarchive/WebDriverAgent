@@ -23,29 +23,28 @@ static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose);
 
 #pragma mark - <FBCommandHandler>
 
-+ (NSDictionary *)routeHandlers
++ (NSArray *)routes
 {
-  return
-  @{
-    @"GET@/tree" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
-      [self handleTreeCommandWithParams:request completionHandler:completionHandler];
-    },
-    @"GET@/session/:sessionID/tree" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
-      [self handleTreeCommandWithParams:request completionHandler:completionHandler];
-    },
-    @"GET@/session/:sessionID/source" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
-      [self handleTreeCommandWithParams:request completionHandler:completionHandler];
-    },
-  };
+  return @[
+    [[FBRoute GET:@"/tree"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+      return [self handleTreeCommandWithParams:request];
+    }],
+    [[FBRoute GET:@"/session/:sessionID/tree"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+      return [self handleTreeCommandWithParams:request];
+    }],
+    [[FBRoute GET:@"session/:sessionID/source"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+      return [self handleTreeCommandWithParams:request];
+    }],
+  ];
 }
 
 #pragma mark - Helpers
 
-+ (void)handleTreeCommandWithParams:(FBRouteRequest *)params completionHandler:(FBRouteResponseCompletion)completionHandler
++ (id<FBResponsePayload>)handleTreeCommandWithParams:(FBRouteRequest *)params
 {
   BOOL verbose = [params.parameters[@"verbose"] boolValue];
   NSDictionary *info = [self.class JSONTreeForTargetWithVerbose:verbose];
-  completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{ @"tree": info }));
+  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{ @"tree": info });
 }
 
 + (NSDictionary *)JSONTreeForTargetWithVerbose:(BOOL)verbose

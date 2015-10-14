@@ -11,29 +11,23 @@
 
 #import "FBCommandStatus.h"
 #import "FBResponsePayload.h"
+#import "FBRoute.h"
+#import "FBResponsePayload.h"
 
 #define UIAClassString(class_) \
 @(((void)(NO && ([class_ class], NO)), # class_))
 
-@class FBRouteRequest;
-
-id<FBResponsePayload> FBResponseDictionaryWithOK(void);
-id<FBResponsePayload> FBResponseDictionaryWithElementID(NSUInteger elementID);
-id<FBResponsePayload> FBResponseDictionaryWithStatus(FBCommandStatus status, id object);
-id<FBResponsePayload> FBResponseFileWithPath(NSString *path);
-
-typedef void (^FBRouteResponseCompletion)(id<FBResponsePayload>);
-typedef void (^FBRouteCommandHandler)(FBRouteRequest *arguments, FBRouteResponseCompletion completionHandler);
-
+/**
+ Protocol for Classes to declare intent to implement responses to commands
+ */
 @protocol FBCommandHandler <NSObject>
 
 /**
  * Should return map of FBRouteCommandHandler block with keys as supported routes
- * Key should be defined as '[GET|PUT|POST|DELETE]@/route'
  *
- * @return map map route to FBRouteCommandHandler
+ * @return map an NSArray<FBRoute *> of routes.
  */
-+ (NSDictionary *)routeHandlers;
++ (NSArray *)routes;
 
 @optional
 /**

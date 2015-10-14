@@ -21,16 +21,23 @@
   return NO;
 }
 
-+ (NSDictionary *)routeHandlers
++ (NSArray *)routes
 {
-  return
-  @{
-    @"GET@/*" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
-      completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusUnsupported, [NSString stringWithFormat:@"Unhandled endpoint: %@ with parameters %@", request.URL, request.parameters]));
-    },
-    @"POST@/*" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
-      completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusUnsupported, [NSString stringWithFormat:@"Unhandled endpoint: %@ with arguments %@", request.URL, request.arguments]));
-    }
+  return @[
+    [[FBRoute GET:@"@/*"] respond:self.unhandledHandler],
+    [[FBRoute POST:@"@/*"] respond:self.unhandledHandler],
+    [[FBRoute PUT:@"@/*"] respond:self.unhandledHandler],
+    [[FBRoute DELETE:@"@/*"] respond:self.unhandledHandler]
+  ];
+}
+
++ (FBRouteSyncHandler)unhandledHandler
+{
+  return ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    return FBResponseDictionaryWithStatus(
+      FBCommandStatusUnsupported,
+      [NSString stringWithFormat:@"Unhandled endpoint: %@ with parameters %@", request.URL, request.parameters]
+    );
   };
 }
 

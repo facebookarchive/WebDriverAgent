@@ -18,16 +18,15 @@ typedef void (^ScreenShotCallback)(NSData *data);
 
 #pragma mark - <FBCommandHandler>
 
-+ (NSDictionary *)routeHandlers
++ (NSArray *)routes
 {
-  return
-  @{
-    @"GET@/session/:sessionID/screenshot" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
-      [self.class captureScreenShotOnTarget:[UIATarget localTarget] callback:^(NSData *data) {
+  return @[
+    [[FBRoute GET:@"/session/:sessionID/screenshot"] respondAsync:^(FBRouteRequest *arguments, FBRouteResponseCompletion completionHandler) {
+      [FBScreenshotCommands captureScreenShotOnTarget:[UIATarget localTarget] callback:^(NSData *data) {
         completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoError, [data base64EncodedStringWithOptions:0]));
       }];
-    },
-  };
+    }]
+  ];
 }
 
 
