@@ -9,6 +9,8 @@
 
 #import "UIAElement+WebDriverXML.h"
 
+#import <KissXML/DDXML.h>
+
 #import "FBWDAMacros.h"
 
 static NSString *const kXMLIndexPathKey = @"private_indexPath";
