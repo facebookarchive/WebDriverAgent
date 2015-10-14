@@ -13,17 +13,16 @@
 
 #pragma mark - <FBCommandHandler>
 
-+ (NSDictionary *)routeHandlers
++ (NSArray *)routes
 {
-  return
-  @{
-    @"GET@/inspector" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
-        completionHandler(FBResponseFileWithPath([[self class] inspectorHTMLFilePath]));
-    },
-    @"GET@/inspector.js" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
-        completionHandler(FBResponseFileWithPath([[self class] inspectorJSFilePath]));
-    },
-  };
+  return @[
+    [[FBRoute GET:@"/inspector"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+      return FBResponseFileWithPath([[self class] inspectorHTMLFilePath]);
+    }],
+    [[FBRoute GET:@"/inspector.js"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+        return FBResponseFileWithPath([[self class] inspectorJSFilePath]);
+    }],
+  ];
 }
 
 + (NSBundle *)inspectorResourcesBundle

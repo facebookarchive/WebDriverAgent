@@ -138,49 +138,43 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
 {
   FBElementCache *elementCache = [FBElementCache new];
   for (Class<FBCommandHandler> commandHandler in commandHandlerClasses) {
-    NSDictionary *routeHandlers = [commandHandler routeHandlers];
-    [routeHandlers enumerateKeysAndObjectsUsingBlock:^(NSString *route, FBRouteCommandHandler routeCommandHandler, BOOL *stop) {
-        NSArray *components = [route componentsSeparatedByString:@"@"];
-        if (components.count != 2) {
-          NSLog(@"Routing dictionary key should look like '[GET|PUT|POST|DELETE]@/route' (%@) ", route);
-          return;
+    NSArray *routes = [commandHandler routes];
+    for (FBRoute *route in routes) {
+      [self.server handleMethod:route.verb withPath:route.path block:^(RouteRequest *request, RouteResponse *response) {
+        FBRouteRequest *routeParams = [FBRouteRequest
+          routeRequestWithURL:request.url
+          parameters:request.params
+          arguments:[NSJSONSerialization JSONObjectWithData:request.body options:0 error:NULL]
+          elementCache:elementCache];
+
+        @try {
+          [route mountRequest:routeParams intoResponse:response];
         }
-        [self.server handleMethod:[components[0] uppercaseString] withPath:components[1] block:^(RouteRequest *request, RouteResponse *response) {
-            FBRouteRequest *routeParams = [FBRouteRequest routeRequestWithURL:request.url
-                                                                   parameters:request.params
-                                                                    arguments:[NSJSONSerialization JSONObjectWithData:request.body options:0 error:NULL]
-                                                                 elementCache:elementCache
-            ];
-          @try {
-            routeCommandHandler(routeParams,^(id<FBResponsePayload> payload) {
-              [payload dispatchWithResponse:response];
-            });
-          }
-          @catch (NSException *exception) {
-            if ([exception.name isEqualToString:FBUAlertObstructingElementException]) {
-              id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
-                  FBCommandStatusUnexpectedAlertPresent, @"Alert is obstructing view");
-              [payload dispatchWithResponse:response];
-              return;
-            }
-            if ([[exception name] isEqualToString:kUIAExceptionInvalidElement]) {
-              id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
-                  FBCommandStatusInvalidElementState, [exception description]);
-              [payload dispatchWithResponse:response];
-              return;
-            }
-            if ([[exception name] isEqualToString:kUIAExceptionBadPoint]) {
-              id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
-                  FBCommandStatusUnhandled, [exception description]);
-              [payload dispatchWithResponse:response];
-              return;
-            }
+        @catch (NSException *exception) {
+          if ([exception.name isEqualToString:FBUAlertObstructingElementException]) {
             id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
-                FBCommandStatusStaleElementReference, [exception description]);
+                                                                           FBCommandStatusUnexpectedAlertPresent, @"Alert is obstructing view");
             [payload dispatchWithResponse:response];
+            return;
           }
-        }];
-    }];
+          if ([[exception name] isEqualToString:kUIAExceptionInvalidElement]) {
+            id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
+                                                                           FBCommandStatusInvalidElementState, [exception description]);
+            [payload dispatchWithResponse:response];
+            return;
+          }
+          if ([[exception name] isEqualToString:kUIAExceptionBadPoint]) {
+            id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
+                                                                           FBCommandStatusUnhandled, [exception description]);
+            [payload dispatchWithResponse:response];
+            return;
+          }
+          id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
+                                                                         FBCommandStatusStaleElementReference, [exception description]);
+          [payload dispatchWithResponse:response];
+        }
+      }];
+    }
   }
 }
 

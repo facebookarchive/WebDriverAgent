@@ -22,36 +22,32 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 
 #pragma mark - <FBCommandHandler>
 
-+ (NSDictionary *)routeHandlers
++ (NSArray *)routes
 {
-  return
-  @{
-    @"GET@/session/:sessionID/alert_text" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
+  return @[
+    [[FBRoute GET:@"/session/:sessionID/alert_text"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSString *alertText = [self.class currentAlertText];
       if (!alertText) {
         NSLog(@"Did not find an alert, returning an error.");
-        completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert"));
-        return;
+        return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
       }
-      completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoError, alertText));
-    },
-    @"POST@/session/:sessionID/accept_alert" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
+      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, alertText);
+    }],
+    [[FBRoute POST:@"/session/:sessionID/accept_alert"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       if (![self.class acceptAlert]) {
         NSLog(@"Did not find an alert/default button, returning an error.");
-        completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert"));
-        return;
+        return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
       }
-      completionHandler(FBResponseDictionaryWithOK());
-    },
-    @"POST@/session/:sessionID/dismiss_alert" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
+      return FBResponseDictionaryWithOK();
+    }],
+    [[FBRoute POST:@"/session/:sessionID/dismiss_alert"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       if (![self.class dismissAlert]) {
         NSLog(@"Did not find an alert/cancel button, returning an error.");
-        completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert"));
-        return;
+        return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
       }
-      completionHandler(FBResponseDictionaryWithOK());
-    },
-  };
+      return FBResponseDictionaryWithOK();
+    }],
+  ];
 }
 
 + (void)ensureElementIsNotObstructedByAlertView:(UIAElement *)element

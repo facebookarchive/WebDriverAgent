@@ -9,11 +9,6 @@
 /* Begin PBXBuildFile section */
 		17FAFB7CEBC0F6E3621FAA62 /* libPods-WebDriverAgentLibTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 126BB2958BC0D6129BB43082 /* libPods-WebDriverAgentLibTests.a */; };
 		498495CB1BB2EB9B009CC848 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */; };
-		4995759D1BB2BF1C000CD94B /* FBResponseFilePayload.h in Headers */ = {isa = PBXBuildFile; fileRef = 4995759B1BB2BF1C000CD94B /* FBResponseFilePayload.h */; };
-		4995759E1BB2BF1C000CD94B /* FBResponseFilePayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 4995759C1BB2BF1C000CD94B /* FBResponseFilePayload.m */; };
-		499575A11BB2BF4D000CD94B /* FBResponseJSONPayload.h in Headers */ = {isa = PBXBuildFile; fileRef = 4995759F1BB2BF4D000CD94B /* FBResponseJSONPayload.h */; };
-		499575A21BB2BF4D000CD94B /* FBResponseJSONPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 499575A01BB2BF4D000CD94B /* FBResponseJSONPayload.m */; };
-		499575A41BB2BF91000CD94B /* FBResponsePayload.h in Headers */ = {isa = PBXBuildFile; fileRef = 499575A31BB2BF91000CD94B /* FBResponsePayload.h */; };
 		499575A71BB2BFD2000CD94B /* FBInspectorCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 499575A51BB2BFD2000CD94B /* FBInspectorCommands.h */; };
 		499575A81BB2BFD2000CD94B /* FBInspectorCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 499575A61BB2BFD2000CD94B /* FBInspectorCommands.m */; };
 		91DD17791B99E33B00A57C66 /* FBWebDriverAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F9DB301B99DC7A001349B2 /* FBWebDriverAgent.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -24,9 +19,6 @@
 		91F9DB371B99DC7A001349B2 /* FBAutomationTargetDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DB2F1B99DC7A001349B2 /* FBAutomationTargetDelegate.m */; };
 		91F9DB381B99DC7A001349B2 /* FBWebDriverAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DB311B99DC7A001349B2 /* FBWebDriverAgent.m */; };
 		91F9DB391B99DC7A001349B2 /* FBWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DB331B99DC7A001349B2 /* FBWebServer.m */; };
-		91F9DB431B99DCF9001349B2 /* FBCommandHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DB3E1B99DCF9001349B2 /* FBCommandHandler.m */; };
-		91F9DB441B99DCF9001349B2 /* FBElementCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DB401B99DCF9001349B2 /* FBElementCache.m */; };
-		91F9DB451B99DCF9001349B2 /* FBRouteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DB421B99DCF9001349B2 /* FBRouteRequest.m */; };
 		91F9DB4A1B99DD3E001349B2 /* FBWDAConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DB481B99DD3E001349B2 /* FBWDAConstants.m */; };
 		91F9DB601B99DD94001349B2 /* FBAlertViewCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DB4D1B99DD94001349B2 /* FBAlertViewCommands.m */; };
 		91F9DB611B99DD94001349B2 /* FBCapabilitiesCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DB4F1B99DD94001349B2 /* FBCapabilitiesCommands.m */; };
@@ -44,6 +36,20 @@
 		91F9DB721B99DDCA001349B2 /* FBWebDriverViewHierarchyMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DB6E1B99DDCA001349B2 /* FBWebDriverViewHierarchyMock.m */; };
 		91F9DBAF1B99DE0B001349B2 /* libWebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91F9DB161B99DC2F001349B2 /* libWebDriverAgentLib.a */; };
 		9BF1A5CFBE7FECEC3F8BD83A /* libPods-WebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D6EAD48D91D44DDAB21D256 /* libPods-WebDriverAgentLib.a */; };
+		AA71B58F1BCE7D7D003EE10C /* FBCommandHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = AA71B5811BCE7D7D003EE10C /* FBCommandHandler.h */; settings = {ASSET_TAGS = (); }; };
+		AA71B5901BCE7D7D003EE10C /* FBCommandStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = AA71B5821BCE7D7D003EE10C /* FBCommandStatus.h */; settings = {ASSET_TAGS = (); }; };
+		AA71B5911BCE7D7D003EE10C /* FBElementCache.h in Headers */ = {isa = PBXBuildFile; fileRef = AA71B5831BCE7D7D003EE10C /* FBElementCache.h */; settings = {ASSET_TAGS = (); }; };
+		AA71B5921BCE7D7D003EE10C /* FBElementCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AA71B5841BCE7D7D003EE10C /* FBElementCache.m */; settings = {ASSET_TAGS = (); }; };
+		AA71B5931BCE7D7D003EE10C /* FBResponseFilePayload.h in Headers */ = {isa = PBXBuildFile; fileRef = AA71B5851BCE7D7D003EE10C /* FBResponseFilePayload.h */; settings = {ASSET_TAGS = (); }; };
+		AA71B5941BCE7D7D003EE10C /* FBResponseFilePayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AA71B5861BCE7D7D003EE10C /* FBResponseFilePayload.m */; settings = {ASSET_TAGS = (); }; };
+		AA71B5951BCE7D7D003EE10C /* FBResponseJSONPayload.h in Headers */ = {isa = PBXBuildFile; fileRef = AA71B5871BCE7D7D003EE10C /* FBResponseJSONPayload.h */; settings = {ASSET_TAGS = (); }; };
+		AA71B5961BCE7D7D003EE10C /* FBResponseJSONPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AA71B5881BCE7D7D003EE10C /* FBResponseJSONPayload.m */; settings = {ASSET_TAGS = (); }; };
+		AA71B5971BCE7D7D003EE10C /* FBResponsePayload.h in Headers */ = {isa = PBXBuildFile; fileRef = AA71B5891BCE7D7D003EE10C /* FBResponsePayload.h */; settings = {ASSET_TAGS = (); }; };
+		AA71B5981BCE7D7D003EE10C /* FBResponsePayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AA71B58A1BCE7D7D003EE10C /* FBResponsePayload.m */; settings = {ASSET_TAGS = (); }; };
+		AA71B5991BCE7D7D003EE10C /* FBRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = AA71B58B1BCE7D7D003EE10C /* FBRoute.h */; settings = {ASSET_TAGS = (); }; };
+		AA71B59A1BCE7D7D003EE10C /* FBRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = AA71B58C1BCE7D7D003EE10C /* FBRoute.m */; settings = {ASSET_TAGS = (); }; };
+		AA71B59B1BCE7D7D003EE10C /* FBRouteRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AA71B58D1BCE7D7D003EE10C /* FBRouteRequest.h */; settings = {ASSET_TAGS = (); }; };
+		AA71B59C1BCE7D7D003EE10C /* FBRouteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AA71B58E1BCE7D7D003EE10C /* FBRouteRequest.m */; settings = {ASSET_TAGS = (); }; };
 		C4CA855D79D58A75C1A6E3A2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA846E1E751106917FCF1B26 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -75,12 +81,6 @@
 		1A840E10D402D89F7FDA64D0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		3B16C2A60F36356996EE8EBB /* Pods-WebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLib/Pods-WebDriverAgentLib.release.xcconfig"; sourceTree = "<group>"; };
 		498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WebDriverAgent.bundle; sourceTree = "<group>"; };
-		4995759A1BB2BEF1000CD94B /* FBCommandStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBCommandStatus.h; sourceTree = "<group>"; };
-		4995759B1BB2BF1C000CD94B /* FBResponseFilePayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBResponseFilePayload.h; sourceTree = "<group>"; };
-		4995759C1BB2BF1C000CD94B /* FBResponseFilePayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBResponseFilePayload.m; sourceTree = "<group>"; };
-		4995759F1BB2BF4D000CD94B /* FBResponseJSONPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBResponseJSONPayload.h; sourceTree = "<group>"; };
-		499575A01BB2BF4D000CD94B /* FBResponseJSONPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBResponseJSONPayload.m; sourceTree = "<group>"; };
-		499575A31BB2BF91000CD94B /* FBResponsePayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBResponsePayload.h; sourceTree = "<group>"; };
 		499575A51BB2BFD2000CD94B /* FBInspectorCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBInspectorCommands.h; sourceTree = "<group>"; };
 		499575A61BB2BFD2000CD94B /* FBInspectorCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBInspectorCommands.m; sourceTree = "<group>"; };
 		5D6EAD48D91D44DDAB21D256 /* libPods-WebDriverAgentLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgentLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,12 +100,6 @@
 		91F9DB311B99DC7A001349B2 /* FBWebDriverAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBWebDriverAgent.m; sourceTree = "<group>"; };
 		91F9DB321B99DC7A001349B2 /* FBWebServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBWebServer.h; sourceTree = "<group>"; };
 		91F9DB331B99DC7A001349B2 /* FBWebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBWebServer.m; sourceTree = "<group>"; };
-		91F9DB3D1B99DCF9001349B2 /* FBCommandHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCommandHandler.h; sourceTree = "<group>"; };
-		91F9DB3E1B99DCF9001349B2 /* FBCommandHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBCommandHandler.m; sourceTree = "<group>"; };
-		91F9DB3F1B99DCF9001349B2 /* FBElementCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBElementCache.h; sourceTree = "<group>"; };
-		91F9DB401B99DCF9001349B2 /* FBElementCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementCache.m; sourceTree = "<group>"; };
-		91F9DB411B99DCF9001349B2 /* FBRouteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRouteRequest.h; sourceTree = "<group>"; };
-		91F9DB421B99DCF9001349B2 /* FBRouteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRouteRequest.m; sourceTree = "<group>"; };
 		91F9DB471B99DD3E001349B2 /* FBWDAConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBWDAConstants.h; sourceTree = "<group>"; };
 		91F9DB481B99DD3E001349B2 /* FBWDAConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBWDAConstants.m; sourceTree = "<group>"; };
 		91F9DB491B99DD3E001349B2 /* FBWDAMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBWDAMacros.h; sourceTree = "<group>"; };
@@ -193,6 +187,20 @@
 		91F9DBAD1B99DDF0001349B2 /* UIAXElement-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAXElement-Protocol.h"; sourceTree = "<group>"; };
 		91F9DBAE1B99DDF0001349B2 /* UIAXElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAXElement.h; sourceTree = "<group>"; };
 		A67EDF71224F1433B2D77736 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		AA71B5811BCE7D7D003EE10C /* FBCommandHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCommandHandler.h; sourceTree = "<group>"; };
+		AA71B5821BCE7D7D003EE10C /* FBCommandStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCommandStatus.h; sourceTree = "<group>"; };
+		AA71B5831BCE7D7D003EE10C /* FBElementCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBElementCache.h; sourceTree = "<group>"; };
+		AA71B5841BCE7D7D003EE10C /* FBElementCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementCache.m; sourceTree = "<group>"; };
+		AA71B5851BCE7D7D003EE10C /* FBResponseFilePayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBResponseFilePayload.h; sourceTree = "<group>"; };
+		AA71B5861BCE7D7D003EE10C /* FBResponseFilePayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBResponseFilePayload.m; sourceTree = "<group>"; };
+		AA71B5871BCE7D7D003EE10C /* FBResponseJSONPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBResponseJSONPayload.h; sourceTree = "<group>"; };
+		AA71B5881BCE7D7D003EE10C /* FBResponseJSONPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBResponseJSONPayload.m; sourceTree = "<group>"; };
+		AA71B5891BCE7D7D003EE10C /* FBResponsePayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBResponsePayload.h; sourceTree = "<group>"; };
+		AA71B58A1BCE7D7D003EE10C /* FBResponsePayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBResponsePayload.m; sourceTree = "<group>"; };
+		AA71B58B1BCE7D7D003EE10C /* FBRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRoute.h; sourceTree = "<group>"; };
+		AA71B58C1BCE7D7D003EE10C /* FBRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRoute.m; sourceTree = "<group>"; };
+		AA71B58D1BCE7D7D003EE10C /* FBRouteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRouteRequest.h; sourceTree = "<group>"; };
+		AA71B58E1BCE7D7D003EE10C /* FBRouteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRouteRequest.m; sourceTree = "<group>"; };
 		D17FD3E4AF3ECD6BC73CACFA /* Pods-WebDriverAgentLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLibTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests.release.xcconfig"; sourceTree = "<group>"; };
 		DA846E1E751106917FCF1B26 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -300,7 +308,7 @@
 				91F9DB311B99DC7A001349B2 /* FBWebDriverAgent.m */,
 				91F9DB321B99DC7A001349B2 /* FBWebServer.h */,
 				91F9DB331B99DC7A001349B2 /* FBWebServer.m */,
-				91F9DB3C1B99DCEF001349B2 /* Routing */,
+				AA71B5801BCE7D7D003EE10C /* Routing */,
 				91F9DB461B99DD23001349B2 /* Utilities */,
 				91F9DB4B1B99DD60001349B2 /* WebDriverCommands */,
 			);
@@ -326,25 +334,6 @@
 				91F9DB261B99DC2F001349B2 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		91F9DB3C1B99DCEF001349B2 /* Routing */ = {
-			isa = PBXGroup;
-			children = (
-				91F9DB3D1B99DCF9001349B2 /* FBCommandHandler.h */,
-				91F9DB3E1B99DCF9001349B2 /* FBCommandHandler.m */,
-				91F9DB3F1B99DCF9001349B2 /* FBElementCache.h */,
-				91F9DB401B99DCF9001349B2 /* FBElementCache.m */,
-				91F9DB411B99DCF9001349B2 /* FBRouteRequest.h */,
-				91F9DB421B99DCF9001349B2 /* FBRouteRequest.m */,
-				4995759A1BB2BEF1000CD94B /* FBCommandStatus.h */,
-				4995759B1BB2BF1C000CD94B /* FBResponseFilePayload.h */,
-				4995759C1BB2BF1C000CD94B /* FBResponseFilePayload.m */,
-				4995759F1BB2BF4D000CD94B /* FBResponseJSONPayload.h */,
-				499575A01BB2BF4D000CD94B /* FBResponseJSONPayload.m */,
-				499575A31BB2BF91000CD94B /* FBResponsePayload.h */,
-			);
-			path = Routing;
 			sourceTree = "<group>";
 		};
 		91F9DB461B99DD23001349B2 /* Utilities */ = {
@@ -459,6 +448,27 @@
 			path = UIAutomation;
 			sourceTree = "<group>";
 		};
+		AA71B5801BCE7D7D003EE10C /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				AA71B5811BCE7D7D003EE10C /* FBCommandHandler.h */,
+				AA71B5821BCE7D7D003EE10C /* FBCommandStatus.h */,
+				AA71B5831BCE7D7D003EE10C /* FBElementCache.h */,
+				AA71B5841BCE7D7D003EE10C /* FBElementCache.m */,
+				AA71B5851BCE7D7D003EE10C /* FBResponseFilePayload.h */,
+				AA71B5861BCE7D7D003EE10C /* FBResponseFilePayload.m */,
+				AA71B5871BCE7D7D003EE10C /* FBResponseJSONPayload.h */,
+				AA71B5881BCE7D7D003EE10C /* FBResponseJSONPayload.m */,
+				AA71B5891BCE7D7D003EE10C /* FBResponsePayload.h */,
+				AA71B58A1BCE7D7D003EE10C /* FBResponsePayload.m */,
+				AA71B58B1BCE7D7D003EE10C /* FBRoute.h */,
+				AA71B58C1BCE7D7D003EE10C /* FBRoute.m */,
+				AA71B58D1BCE7D7D003EE10C /* FBRouteRequest.h */,
+				AA71B58E1BCE7D7D003EE10C /* FBRouteRequest.m */,
+			);
+			path = Routing;
+			sourceTree = "<group>";
+		};
 		B6E83A410C45944B036B6B0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,11 +489,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA71B58F1BCE7D7D003EE10C /* FBCommandHandler.h in Headers */,
 				499575A71BB2BFD2000CD94B /* FBInspectorCommands.h in Headers */,
-				4995759D1BB2BF1C000CD94B /* FBResponseFilePayload.h in Headers */,
+				AA71B59B1BCE7D7D003EE10C /* FBRouteRequest.h in Headers */,
+				AA71B5971BCE7D7D003EE10C /* FBResponsePayload.h in Headers */,
+				AA71B5931BCE7D7D003EE10C /* FBResponseFilePayload.h in Headers */,
+				AA71B5951BCE7D7D003EE10C /* FBResponseJSONPayload.h in Headers */,
+				AA71B5911BCE7D7D003EE10C /* FBElementCache.h in Headers */,
+				AA71B5901BCE7D7D003EE10C /* FBCommandStatus.h in Headers */,
 				91DD17791B99E33B00A57C66 /* FBWebDriverAgent.h in Headers */,
-				499575A41BB2BF91000CD94B /* FBResponsePayload.h in Headers */,
-				499575A11BB2BF4D000CD94B /* FBResponseJSONPayload.h in Headers */,
+				AA71B5991BCE7D7D003EE10C /* FBRoute.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,25 +776,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				91F9DB671B99DD94001349B2 /* FBUnknownCommands.m in Sources */,
+				AA71B5921BCE7D7D003EE10C /* FBElementCache.m in Sources */,
 				91F9DB381B99DC7A001349B2 /* FBWebDriverAgent.m in Sources */,
-				91F9DB451B99DCF9001349B2 /* FBRouteRequest.m in Sources */,
 				91F9DB4A1B99DD3E001349B2 /* FBWDAConstants.m in Sources */,
 				91F9DB621B99DD94001349B2 /* FBDebugCommands.m in Sources */,
 				499575A81BB2BFD2000CD94B /* FBInspectorCommands.m in Sources */,
-				4995759E1BB2BF1C000CD94B /* FBResponseFilePayload.m in Sources */,
+				AA71B5981BCE7D7D003EE10C /* FBResponsePayload.m in Sources */,
+				AA71B59A1BCE7D7D003EE10C /* FBRoute.m in Sources */,
 				91F9DB391B99DC7A001349B2 /* FBWebServer.m in Sources */,
-				91F9DB441B99DCF9001349B2 /* FBElementCache.m in Sources */,
 				91F9DB601B99DD94001349B2 /* FBAlertViewCommands.m in Sources */,
+				AA71B59C1BCE7D7D003EE10C /* FBRouteRequest.m in Sources */,
 				91F9DB641B99DD94001349B2 /* FBFindElementCommands.m in Sources */,
-				91F9DB431B99DCF9001349B2 /* FBCommandHandler.m in Sources */,
 				91F9DB691B99DD94001349B2 /* UIAElement+WebDriverXML.m in Sources */,
 				91F9DB611B99DD94001349B2 /* FBCapabilitiesCommands.m in Sources */,
 				91F9DB651B99DD94001349B2 /* FBOrientationCommands.m in Sources */,
 				91F9DB631B99DD94001349B2 /* FBElementCommands.m in Sources */,
+				AA71B5941BCE7D7D003EE10C /* FBResponseFilePayload.m in Sources */,
 				91F9DB371B99DC7A001349B2 /* FBAutomationTargetDelegate.m in Sources */,
 				91F9DB661B99DD94001349B2 /* FBScreenshotCommands.m in Sources */,
-				499575A21BB2BF4D000CD94B /* FBResponseJSONPayload.m in Sources */,
 				91F9DB681B99DD94001349B2 /* UIAElement+ChildHelpers.m in Sources */,
+				AA71B5961BCE7D7D003EE10C /* FBResponseJSONPayload.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,15 +20,14 @@ extern BOOL AXDeviceIsPad();
 
 #pragma mark - <FBCommandHandler>
 
-+ (NSDictionary *)routeHandlers
++ (NSArray *)routes
 {
-  return
-  @{
-    @"GET@/session/:sessionID" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
-      completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self.class currentCapabilities]));
-    },
-    @"GET@/status" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
-      completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{
+  return @[
+    [[FBRoute GET:@"/session/:sessionID"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self.class currentCapabilities]);
+    }],
+    [[FBRoute GET:@"/status"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{
           @"state" : @"success",
           @"os" : @{
             @"name" : [[UIATarget localTarget] systemName],
@@ -46,9 +45,9 @@ extern BOOL AXDeviceIsPad();
           },
           @"currentApp": [self applicationDetailsForApplication:UIATarget.localTarget.frontMostApp]
         }
-      ));
-    },
-    @"POST@/session/:sessionID/deactivateApp" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
+      );
+    }],
+    [[FBRoute POST:@"/session/:sessionID/deactivateApp"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       id duration = request.arguments[@"duration"];
       // TODO(t8051359): This is terrible and we should file a Radar for this.
       if (FBWDAConstants.isIOS9OrGreater) {
@@ -56,21 +55,21 @@ extern BOOL AXDeviceIsPad();
       } else {
         duration ? [UIATarget.localTarget deactivateAppForDuration:duration] : [UIATarget.localTarget deactivateApp];
       }
-      completionHandler(FBResponseDictionaryWithOK());
-    },
-    @"DELETE@/session/:sessionID" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
+      return FBResponseDictionaryWithOK();
+    }],
+    [[FBRoute DELETE:@"session/:sessionID"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSLog(@"Just issued command to quit!");
-      completionHandler(FBResponseDictionaryWithOK());
-    },
-    @"POST@/session/:sessionID/timeouts/implicit_wait" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
+      return FBResponseDictionaryWithOK();
+    }],
+    [[FBRoute POST:@"/session/:sessionID/timeouts/implicit_wait"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       // This method is intentionally not supported.
-      completionHandler(FBResponseDictionaryWithOK());
-    },
-    @"POST@/session/:sessionID/location" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
+      return FBResponseDictionaryWithOK();
+    }],
+    [[FBRoute POST:@"/session/:sessionID/location"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       [[UIATarget localTarget] setLocation:@{ @"latitude": request.arguments[@"latitude"], @"longitude": request.arguments[@"longitude"] }];
-      completionHandler(FBResponseDictionaryWithOK());
-    },
-  };
+      return FBResponseDictionaryWithOK();
+    }],
+  ];
 }
 
 #pragma mark - Helpers
