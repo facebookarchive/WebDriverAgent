@@ -44,18 +44,10 @@
 		91F9DB721B99DDCA001349B2 /* FBWebDriverViewHierarchyMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DB6E1B99DDCA001349B2 /* FBWebDriverViewHierarchyMock.m */; };
 		91F9DBAF1B99DE0B001349B2 /* libWebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91F9DB161B99DC2F001349B2 /* libWebDriverAgentLib.a */; };
 		9BF1A5CFBE7FECEC3F8BD83A /* libPods-WebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D6EAD48D91D44DDAB21D256 /* libPods-WebDriverAgentLib.a */; };
-		AAC64453A6092622D02D6D97 /* libPods-WebDriverAgentTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1989FD87BD8DD035A0FF66B4 /* libPods-WebDriverAgentTests.a */; };
 		C4CA855D79D58A75C1A6E3A2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA846E1E751106917FCF1B26 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		91F9DB031B99DBC2001349B2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 91F9DAE81B99DBC2001349B2;
-			remoteInfo = WebDriverAgent;
-		};
 		91F9DB221B99DC2F001349B2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
@@ -80,7 +72,6 @@
 /* Begin PBXFileReference section */
 		126BB2958BC0D6129BB43082 /* libPods-WebDriverAgentLibTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgentLibTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		154D92108667239A91439DD4 /* Pods-WebDriverAgentLibTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLibTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests.debug.xcconfig"; sourceTree = "<group>"; };
-		1989FD87BD8DD035A0FF66B4 /* libPods-WebDriverAgentTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgentTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A840E10D402D89F7FDA64D0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		3B16C2A60F36356996EE8EBB /* Pods-WebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLib/Pods-WebDriverAgentLib.release.xcconfig"; sourceTree = "<group>"; };
 		498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WebDriverAgent.bundle; sourceTree = "<group>"; };
@@ -100,7 +91,6 @@
 		91F9DAE91B99DBC2001349B2 /* WebDriverAgent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebDriverAgent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F9DAED1B99DBC2001349B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91F9DAEE1B99DBC2001349B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		91F9DB021B99DBC2001349B2 /* WebDriverAgentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F9DB161B99DC2F001349B2 /* libWebDriverAgentLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWebDriverAgentLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F9DB201B99DC2F001349B2 /* WebDriverAgentLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F9DB261B99DC2F001349B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -202,9 +192,7 @@
 		91F9DBAC1B99DDF0001349B2 /* UIAWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAWindow.h; sourceTree = "<group>"; };
 		91F9DBAD1B99DDF0001349B2 /* UIAXElement-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAXElement-Protocol.h"; sourceTree = "<group>"; };
 		91F9DBAE1B99DDF0001349B2 /* UIAXElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAXElement.h; sourceTree = "<group>"; };
-		9F2BEDDA19B970B58C0C7C58 /* Pods-WebDriverAgentTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentTests/Pods-WebDriverAgentTests.release.xcconfig"; sourceTree = "<group>"; };
 		A67EDF71224F1433B2D77736 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		BEB0E6E6934DAF56A42D667A /* Pods-WebDriverAgentTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentTests/Pods-WebDriverAgentTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D17FD3E4AF3ECD6BC73CACFA /* Pods-WebDriverAgentLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLibTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests.release.xcconfig"; sourceTree = "<group>"; };
 		DA846E1E751106917FCF1B26 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -218,14 +206,6 @@
 				91E7D8581B99E45400F8BA6F /* UIAutomation.framework in Frameworks */,
 				91F9DBAF1B99DE0B001349B2 /* libWebDriverAgentLib.a in Frameworks */,
 				C4CA855D79D58A75C1A6E3A2 /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		91F9DAFF1B99DBC2001349B2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAC64453A6092622D02D6D97 /* libPods-WebDriverAgentTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,8 +242,6 @@
 			children = (
 				1A840E10D402D89F7FDA64D0 /* Pods.debug.xcconfig */,
 				A67EDF71224F1433B2D77736 /* Pods.release.xcconfig */,
-				BEB0E6E6934DAF56A42D667A /* Pods-WebDriverAgentTests.debug.xcconfig */,
-				9F2BEDDA19B970B58C0C7C58 /* Pods-WebDriverAgentTests.release.xcconfig */,
 				86762B93D2FADAABEE7E2B3D /* Pods-WebDriverAgentLib.debug.xcconfig */,
 				3B16C2A60F36356996EE8EBB /* Pods-WebDriverAgentLib.release.xcconfig */,
 				154D92108667239A91439DD4 /* Pods-WebDriverAgentLibTests.debug.xcconfig */,
@@ -290,7 +268,6 @@
 			isa = PBXGroup;
 			children = (
 				91F9DAE91B99DBC2001349B2 /* WebDriverAgent.app */,
-				91F9DB021B99DBC2001349B2 /* WebDriverAgentTests.xctest */,
 				91F9DB161B99DC2F001349B2 /* libWebDriverAgentLib.a */,
 				91F9DB201B99DC2F001349B2 /* WebDriverAgentLibTests.xctest */,
 			);
@@ -489,7 +466,6 @@
 				91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */,
 				91E7D8571B99E45400F8BA6F /* UIAutomation.framework */,
 				DA846E1E751106917FCF1B26 /* libPods.a */,
-				1989FD87BD8DD035A0FF66B4 /* libPods-WebDriverAgentTests.a */,
 				5D6EAD48D91D44DDAB21D256 /* libPods-WebDriverAgentLib.a */,
 				126BB2958BC0D6129BB43082 /* libPods-WebDriverAgentLibTests.a */,
 			);
@@ -533,26 +509,6 @@
 			productName = WebDriverAgent;
 			productReference = 91F9DAE91B99DBC2001349B2 /* WebDriverAgent.app */;
 			productType = "com.apple.product-type.application";
-		};
-		91F9DB011B99DBC2001349B2 /* WebDriverAgentTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 91F9DB0F1B99DBC2001349B2 /* Build configuration list for PBXNativeTarget "WebDriverAgentTests" */;
-			buildPhases = (
-				5A082A5FA3B9939DAD440712 /* Check Pods Manifest.lock */,
-				91F9DAFE1B99DBC2001349B2 /* Sources */,
-				91F9DAFF1B99DBC2001349B2 /* Frameworks */,
-				91F9DB001B99DBC2001349B2 /* Resources */,
-				B1DDD7D09E2526687DAC3984 /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				91F9DB041B99DBC2001349B2 /* PBXTargetDependency */,
-			);
-			name = WebDriverAgentTests;
-			productName = WebDriverAgentTests;
-			productReference = 91F9DB021B99DBC2001349B2 /* WebDriverAgentTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		91F9DB151B99DC2F001349B2 /* WebDriverAgentLib */ = {
 			isa = PBXNativeTarget;
@@ -606,10 +562,6 @@
 					91F9DAE81B99DBC2001349B2 = {
 						CreatedOnToolsVersion = 6.4;
 					};
-					91F9DB011B99DBC2001349B2 = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = 91F9DAE81B99DBC2001349B2;
-					};
 					91F9DB151B99DC2F001349B2 = {
 						CreatedOnToolsVersion = 6.4;
 					};
@@ -632,7 +584,6 @@
 			projectRoot = "";
 			targets = (
 				91F9DAE81B99DBC2001349B2 /* WebDriverAgent */,
-				91F9DB011B99DBC2001349B2 /* WebDriverAgentTests */,
 				91F9DB151B99DC2F001349B2 /* WebDriverAgentLib */,
 				91F9DB1F1B99DC2F001349B2 /* WebDriverAgentLibTests */,
 			);
@@ -645,13 +596,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				498495CB1BB2EB9B009CC848 /* WebDriverAgent.bundle in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		91F9DB001B99DBC2001349B2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,21 +653,6 @@
 			shellPath = /bin/sh;
 			shellScript = "cd ${SRCROOT} && bash ./build_resource_bundle.sh";
 		};
-		5A082A5FA3B9939DAD440712 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		9A5B9836CD263C618FFBAB2A /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -737,21 +666,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B1DDD7D09E2526687DAC3984 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgentTests/Pods-WebDriverAgentTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B8BA988662BFD5886A891D3C /* Copy Pods Resources */ = {
@@ -810,13 +724,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		91F9DAFE1B99DBC2001349B2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		91F9DB121B99DC2F001349B2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -858,11 +765,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		91F9DB041B99DBC2001349B2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 91F9DAE81B99DBC2001349B2 /* WebDriverAgent */;
-			targetProxy = 91F9DB031B99DBC2001349B2 /* PBXContainerItemProxy */;
-		};
 		91F9DB231B99DC2F001349B2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 91F9DB151B99DC2F001349B2 /* WebDriverAgentLib */;
@@ -993,42 +895,6 @@
 			};
 			name = Release;
 		};
-		91F9DB101B99DBC2001349B2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BEB0E6E6934DAF56A42D667A /* Pods-WebDriverAgentTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = WebDriverAgentTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WebDriverAgent.app/WebDriverAgent";
-			};
-			name = Debug;
-		};
-		91F9DB111B99DBC2001349B2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F2BEDDA19B970B58C0C7C58 /* Pods-WebDriverAgentTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = WebDriverAgentTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WebDriverAgent.app/WebDriverAgent";
-			};
-			name = Release;
-		};
 		91F9DB281B99DC2F001349B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 86762B93D2FADAABEE7E2B3D /* Pods-WebDriverAgentLib.debug.xcconfig */;
@@ -1100,15 +966,6 @@
 			buildConfigurations = (
 				91F9DB0D1B99DBC2001349B2 /* Debug */,
 				91F9DB0E1B99DBC2001349B2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		91F9DB0F1B99DBC2001349B2 /* Build configuration list for PBXNativeTarget "WebDriverAgentTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				91F9DB101B99DBC2001349B2 /* Debug */,
-				91F9DB111B99DBC2001349B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
