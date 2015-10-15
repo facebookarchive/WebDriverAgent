@@ -10,12 +10,16 @@
 #import "FBElementCache.h"
 
 #import "FBAlertViewCommands.h"
+#import "UIAElement.h"
 
 @class UIAElement;
 
 @interface FBElementCache ()
-@property (atomic, assign) NSUInteger currentElementIndex;
-@property (atomic, strong) NSMutableDictionary *elementCache;
+
+@property (nonatomic, assign, readwrite) NSUInteger incrementingIndex;
+@property (nonatomic, strong, readwrite) NSMapTable *axElementsToIds;
+@property (nonatomic, strong, readwrite) NSMapTable *idsToElements;
+
 @end
 
 @implementation FBElementCache
@@ -26,25 +30,39 @@
   if (!self) {
     return nil;
   }
-  _currentElementIndex = 3;
-  _elementCache = [[NSMutableDictionary alloc] init];
+
+  _incrementingIndex = 3;
+  _axElementsToIds = [NSMapTable weakToStrongObjectsMapTable];
+  _idsToElements = [NSMapTable strongToWeakObjectsMapTable];
   return self;
 }
 
 - (NSUInteger)storeElement:(UIAElement *)element
 {
-  self.currentElementIndex++;
-  self.elementCache[@(self.currentElementIndex)] = element;
-  return self.currentElementIndex;
+  @synchronized(self)
+  {
+    NSNumber *elementNumber = [self.axElementsToIds objectForKey:element.uiaxElement];
+    if (elementNumber) {
+      return elementNumber.unsignedIntegerValue;
+    }
+
+    elementNumber = @(self.incrementingIndex);
+    [self.axElementsToIds setObject:elementNumber forKey:element.uiaxElement];
+    [self.idsToElements setObject:element forKey:elementNumber];
+    self.incrementingIndex++;
+
+    return elementNumber.unsignedIntegerValue;
+  }
 }
 
 - (UIAElement *)elementForIndex:(NSUInteger)index
 {
-  UIAElement *element = self.elementCache[@(index)];
-  [FBAlertViewCommands ensureElementIsNotObstructedByAlertView:element];
-  return element;
+  @synchronized(self)
+  {
+    UIAElement *element = [self.idsToElements objectForKey:@(index)];
+    [FBAlertViewCommands ensureElementIsNotObstructedByAlertView:element];
+    return element;
+  }
 }
-
-
 
 @end
