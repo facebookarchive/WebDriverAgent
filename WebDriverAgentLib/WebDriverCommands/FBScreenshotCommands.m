@@ -12,7 +12,7 @@
 #import "FBAutomationTargetDelegate.h"
 #import "UIATarget.h"
 
-typedef void (^ScreenShotCallback)(NSData *data);
+static NSString *const kUIALoggingKeyScreenshotData = @"kUIALoggingKeyScreenshotData";
 
 @implementation FBScreenshotCommands
 
@@ -21,24 +21,23 @@ typedef void (^ScreenShotCallback)(NSData *data);
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute GET:@"/session/:sessionID/screenshot"] respondAsync:^(FBRouteRequest *arguments, FBRouteResponseCompletion completionHandler) {
-      [FBScreenshotCommands captureScreenShotOnTarget:[UIATarget localTarget] callback:^(NSData *data) {
-        completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoError, [data base64EncodedStringWithOptions:0]));
-      }];
+    [[FBRoute GET:@"/session/:sessionID/screenshot"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+      NSString *screenshot = [[self captureScreenShotOnTarget:UIATarget.localTarget] base64EncodedStringWithOptions:0];
+      return [FBResponsePayload okWith:screenshot];
     }]
   ];
 }
 
-
 #pragma mark - Helpers
 
-const NSString *kUIALoggingKeyScreenshotData = @"kUIALoggingKeyScreenshotData";
-+ (void)captureScreenShotOnTarget:(UIATarget *)target callback:(ScreenShotCallback)callback
++ (NSData *)captureScreenShotOnTarget:(UIATarget *)target
 {
+  __block NSData *screenshotData = nil;
+
   // Store old delgate
   id oldDelegate = [target delegate];
-  id newDelegate = [FBAutomationTargetDelegate delegateWithLogCallback:^BOOL(NSDictionary *data) {
-    callback(data[kUIALoggingKeyScreenshotData]);
+  id newDelegate = [FBAutomationTargetDelegate delegateWithLogCallback:^ BOOL (NSDictionary *userInfo) {
+    screenshotData = userInfo[kUIALoggingKeyScreenshotData];
     // Restore old delegate
     [target setDelegate:oldDelegate];
     return YES;
@@ -46,6 +45,6 @@ const NSString *kUIALoggingKeyScreenshotData = @"kUIALoggingKeyScreenshotData";
 
   [target setDelegate:newDelegate];
   [target captureScreenWithName:@"irrelevant"];
+  return screenshotData;
 }
-
 @end

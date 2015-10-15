@@ -34,23 +34,6 @@
 
 @end
 
-@interface FBRoute_Async : FBRoute
-
-@property (nonatomic, copy, readwrite) FBRouteAsyncHandler handler;
-
-@end
-
-@implementation FBRoute_Async
-
-- (void)mountRequest:(FBRouteRequest *)request intoResponse:(RouteResponse *)response
-{
-  self.handler(request, ^(id<FBResponsePayload> payload){
-    [payload dispatchWithResponse:response];
-  });
-}
-
-@end
-
 @implementation FBRoute
 
 + (instancetype)withVerb:(NSString *)verb path:(NSString *)pathPattern
@@ -84,13 +67,6 @@
 - (instancetype)respond:(FBRouteSyncHandler)handler
 {
   FBRoute_Sync *route = [FBRoute_Sync withVerb:self.verb path:self.path];
-  route.handler = handler;
-  return route;
-}
-
-- (instancetype)respondAsync:(FBRouteAsyncHandler)handler
-{
-  FBRoute_Async *route = [FBRoute_Async withVerb:self.verb path:self.path];
   route.handler = handler;
   return route;
 }
