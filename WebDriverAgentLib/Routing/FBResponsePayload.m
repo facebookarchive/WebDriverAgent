@@ -9,6 +9,8 @@
 
 #import "FBResponsePayload.h"
 
+#import "FBSessionCommands.h"
+
 #import "FBResponseFilePayload.h"
 #import "FBResponseJSONPayload.h"
 
@@ -48,6 +50,7 @@ id<FBResponsePayload> FBResponseFileWithPath(NSString *path)
 {
   return [[FBResponseJSONPayload alloc] initWithDictionary:@{
     @"id" : @(elementID),
+    @"sessionId" : FBSessionCommands.sessionId ?: NSNull.null,
     @"value" : @"",
     @"status" : @0,
   }];
@@ -62,6 +65,7 @@ id<FBResponsePayload> FBResponseFileWithPath(NSString *path)
 {
   return [[FBResponseJSONPayload alloc] initWithDictionary:@{
     @"value" : object ?: @{},
+    @"sessionId" : FBSessionCommands.sessionId ?: NSNull.null,
     @"status" : @(status),
   }];
 }
