@@ -9,7 +9,7 @@
 
 #import "FBSessionCommands.h"
 
-#import "FBRouteRequest.h"
+#import "FBRequest.h"
 
 #import "UIAApplication.h"
 #import "UIATarget.h"
@@ -23,46 +23,26 @@ static NSString *currentSessionID;
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute GET:@"/status"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return [FBResponsePayload okWith:FBSessionCommands.statusDictionary];
+    [[FBRoute GET:@"/status"].sessionNotRequired respond: ^ id<FBResponse> (FBRequest *request) {
+      return [FBResponse okWith:FBSessionCommands.statusDictionary];
     }],
-    [[FBRoute POST:@"/session"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/session"].sessionNotRequired respond:^ id<FBResponse> (FBRequest *request) {
       if (FBSessionCommands.sessionId) {
-        return [FBResponsePayload withStatus:FBCommandStatusNoSuchSession object:currentSessionID];
+        return [FBResponse withStatus:FBCommandStatusNoSuchSession object:currentSessionID];
       }
 
       currentSessionID = NSUUID.UUID.UUIDString;
-      return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
+      return [FBResponse okWith:FBSessionCommands.sessionInformation];
     }],
-    [[FBRoute GET:@"/session/:sessionID"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      NSString *sessionID = request.parameters[@"sessionID"];
-      if (!currentSessionID) {
-        return [FBResponsePayload withStatus:FBCommandStatusNoSuchSession];
-      }
-      if (![sessionID isEqualToString:FBSessionCommands.sessionId]) {
-        return [FBResponsePayload withStatus:FBCommandStatusNoSuchSession];
-      }
-
-      return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
+    [[FBRoute GET:@"/sessions"].sessionNotRequired respond:^ id<FBResponse> (FBRequest *request) {
+      return [FBResponse okWith:@[FBSessionCommands.sessionInformation]];
     }],
-    [[FBRoute GET:@"/sessions"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      if (!currentSessionID) {
-        return [FBResponsePayload okWith:@[]];
-      }
-
-      return [FBResponsePayload okWith:@[FBSessionCommands.sessionInformation]];
+    [[FBRoute GET:@""] respond: ^ id<FBResponse> (FBRequest *request) {
+      return [FBResponse okWith:FBSessionCommands.currentCapabilities];
     }],
-    [[FBRoute DELETE:@"/session/:sessionID"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      NSString *sessionID = request.parameters[@"sessionID"];
-      if (!currentSessionID) {
-        return [FBResponsePayload withStatus:FBCommandStatusNoSuchSession];
-      }
-      if (![sessionID isEqualToString:currentSessionID]){
-        return [FBResponsePayload withStatus:FBCommandStatusNoSuchSession];
-      }
-
+    [[FBRoute DELETE:@""] respond:^ id<FBResponse> (FBRequest *request) {
       currentSessionID = nil;
-      return FBResponseDictionaryWithOK();
+      return FBResponse.ok;
     }]
   ];
 }

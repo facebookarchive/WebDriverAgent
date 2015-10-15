@@ -10,9 +10,9 @@
 #import <Foundation/Foundation.h>
 
 #import "FBCommandStatus.h"
-#import "FBResponsePayload.h"
+#import "FBResponse.h"
 #import "FBRoute.h"
-#import "FBResponsePayload.h"
+#import "FBResponse.h"
 
 #define UIAClassString(class_) \
 @(((void)(NO && ([class_ class], NO)), # class_))

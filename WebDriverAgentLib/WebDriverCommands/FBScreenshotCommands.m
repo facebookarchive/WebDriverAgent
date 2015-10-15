@@ -21,9 +21,9 @@ static NSString *const kUIALoggingKeyScreenshotData = @"kUIALoggingKeyScreenshot
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute GET:@"/session/:sessionID/screenshot"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/screenshot"].sessionNotRequired respond:^ id<FBResponse> (FBRequest *request) {
       NSString *screenshot = [[self captureScreenShotOnTarget:UIATarget.localTarget] base64EncodedStringWithOptions:0];
-      return [FBResponsePayload okWith:screenshot];
+      return [FBResponse okWith:screenshot];
     }]
   ];
 }

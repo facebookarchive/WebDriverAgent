@@ -17,13 +17,11 @@
 #import "FBAlertViewCommands.h"
 #import "FBCommandHandler.h"
 #import "FBElementCache.h"
-#import "FBRouteRequest.h"
+#import "FBRequest.h"
 #import "FBUnknownCommands.h"
 #import "FBWDALogger.h"
 #import "FBWDAConstants.h"
 
-extern NSString *kUIAExceptionBadPoint;
-extern NSString *kUIAExceptionInvalidElement;
 NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer";
 
 @interface FBHTTPConnection : RoutingConnection
@@ -135,45 +133,11 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
 - (void)registerRouteHandlers:(NSArray *)commandHandlerClasses
 {
   FBElementCache *elementCache = [FBElementCache new];
+  RoutingHTTPServer *server = self.server;
   for (Class<FBCommandHandler> commandHandler in commandHandlerClasses) {
     NSArray *routes = [commandHandler routes];
     for (FBRoute *route in routes) {
-      [self.server handleMethod:route.verb withPath:route.path block:^(RouteRequest *request, RouteResponse *response) {
-        FBRouteRequest *routeParams = [FBRouteRequest
-          routeRequestWithURL:request.url
-          parameters:request.params
-          arguments:[NSJSONSerialization JSONObjectWithData:request.body options:0 error:NULL]
-          elementCache:elementCache];
-
-        [FBWDALogger verboseLog:routeParams.description];
-
-        @try {
-          [route mountRequest:routeParams intoResponse:response];
-        }
-        @catch (NSException *exception) {
-          if ([exception.name isEqualToString:FBUAlertObstructingElementException]) {
-            id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
-                                                                           FBCommandStatusUnexpectedAlertPresent, @"Alert is obstructing view");
-            [payload dispatchWithResponse:response];
-            return;
-          }
-          if ([[exception name] isEqualToString:kUIAExceptionInvalidElement]) {
-            id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
-                                                                           FBCommandStatusInvalidElementState, [exception description]);
-            [payload dispatchWithResponse:response];
-            return;
-          }
-          if ([[exception name] isEqualToString:kUIAExceptionBadPoint]) {
-            id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
-                                                                           FBCommandStatusUnhandled, [exception description]);
-            [payload dispatchWithResponse:response];
-            return;
-          }
-          id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
-                                                                         FBCommandStatusStaleElementReference, [exception description]);
-          [payload dispatchWithResponse:response];
-        }
-      }];
+      [route applyToServer:server withElementCache:elementCache];
     }
   }
 }

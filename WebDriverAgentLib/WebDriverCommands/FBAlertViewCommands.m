@@ -27,27 +27,27 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute GET:@"/session/:sessionID/alert_text"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/alert_text"] respond:^ id<FBResponse> (FBRequest *request) {
       NSString *alertText = [self.class currentAlertText];
       if (!alertText) {
         [FBWDALogger log:@"Did not find an alert, returning an error."];
-        return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
+        return [FBResponse withStatus:FBCommandStatusNoSuchElement object:@"unable to find an alert"];
       }
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, alertText);
+      return [FBResponse okWith:alertText];
     }],
-    [[FBRoute POST:@"/session/:sessionID/accept_alert"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/accept_alert"] respond:^ id<FBResponse> (FBRequest *request) {
       if (![self.class acceptAlert]) {
         [FBWDALogger log:@"Did not find an alert/default button, returning an error."];
-        return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
+        return [FBResponse withStatus:FBCommandStatusNoSuchElement object:@"unable to find an alert"];
       }
-      return FBResponseDictionaryWithOK();
+      return FBResponse.ok;
     }],
-    [[FBRoute POST:@"/session/:sessionID/dismiss_alert"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/dismiss_alert"] respond: ^ id<FBResponse> (FBRequest *request) {
       if (![self.class dismissAlert]) {
         [FBWDALogger log:@"Did not find an alert/cancel button, returning an error."];
-        return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
+        return [FBResponse withStatus:FBCommandStatusNoSuchElement object:@"unable to find an alert"];
       }
-      return FBResponseDictionaryWithOK();
+      return FBResponse.ok;
     }],
   ];
 }

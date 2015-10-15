@@ -11,7 +11,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "FBRouteRequest.h"
+#import "FBRequest.h"
 #import "UIAApplication.h"
 #import "UIAElement.h"
 #import "UIATarget.h"
@@ -26,13 +26,10 @@ static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose);
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute GET:@"/tree"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/tree"].sessionNotRequired respond: ^ id<FBResponse> (FBRequest *request) {
       return [self handleTreeCommandWithParams:request];
     }],
-    [[FBRoute GET:@"/session/:sessionID/tree"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return [self handleTreeCommandWithParams:request];
-    }],
-    [[FBRoute GET:@"session/:sessionID/source"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/source"] respond: ^ id<FBResponse> (FBRequest *request) {
       return [self handleTreeCommandWithParams:request];
     }],
   ];
@@ -40,11 +37,11 @@ static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose);
 
 #pragma mark - Helpers
 
-+ (id<FBResponsePayload>)handleTreeCommandWithParams:(FBRouteRequest *)params
++ (id<FBResponse>)handleTreeCommandWithParams:(FBRequest *)params
 {
   BOOL verbose = [params.parameters[@"verbose"] boolValue];
   NSDictionary *info = [self.class JSONTreeForTargetWithVerbose:verbose];
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{ @"tree": info });
+  return [FBResponse okWith:@{ @"tree": info }];
 }
 
 + (NSDictionary *)JSONTreeForTargetWithVerbose:(BOOL)verbose

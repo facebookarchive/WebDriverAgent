@@ -9,7 +9,7 @@
 
 #import "FBCustomCommands.h"
 
-#import "FBRouteRequest.h"
+#import "FBRequest.h"
 #import "FBWDAConstants.h"
 #import "UIAApplication.h"
 #import "UIATarget.h"
@@ -21,7 +21,7 @@
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute POST:@"/session/:sessionID/deactivateApp"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/deactivateApp"] respond: ^ id<FBResponse> (FBRequest *request) {
       id duration = request.arguments[@"duration"];
       // TODO(t8051359): This is terrible and we should file a Radar for this.
       if (FBWDAConstants.isIOS9OrGreater) {
@@ -29,15 +29,15 @@
       } else {
         duration ? [UIATarget.localTarget deactivateAppForDuration:duration] : [UIATarget.localTarget deactivateApp];
       }
-      return FBResponseDictionaryWithOK();
+      return FBResponse.ok;
     }],
-    [[FBRoute POST:@"/session/:sessionID/timeouts/implicit_wait"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/timeouts/implicit_wait"] respond: ^ id<FBResponse> (FBRequest *request) {
       // This method is intentionally not supported.
-      return FBResponseDictionaryWithOK();
+      return FBResponse.ok;
     }],
-    [[FBRoute POST:@"/session/:sessionID/location"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/location"] respond: ^ id<FBResponse> (FBRequest *request) {
       [[UIATarget localTarget] setLocation:@{ @"latitude": request.arguments[@"latitude"], @"longitude": request.arguments[@"longitude"] }];
-      return FBResponseDictionaryWithOK();
+      return FBResponse.ok;
     }],
   ];
 }

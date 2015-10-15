@@ -9,24 +9,50 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol FBResponsePayload;
-@class FBRouteRequest;
+#import "FBResponseHandler.h"
+
+@protocol FBResponse;
+@class FBElementCache;
+@class FBRequest;
 @class RouteResponse;
+@class RoutingHTTPServer;
 
-typedef id<FBResponsePayload> (^FBRouteSyncHandler)(FBRouteRequest *request);
-
+/**
+ Describes the format of a handled URL route.
+ */
 @interface FBRoute : NSObject
 
++ (instancetype)GET;
 + (instancetype)GET:(NSString *)pathPattern;
+
++ (instancetype)POST;
 + (instancetype)POST:(NSString *)pathPattern;
+
++ (instancetype)PUT;
 + (instancetype)PUT:(NSString *)pathPattern;
+
++ (instancetype)DELETE;
 + (instancetype)DELETE:(NSString *)pathPattern;
 
-- (instancetype)respond:(FBRouteSyncHandler)handler;
+/**
+ Removes the Session ID requirement on the route.
+ With a `pathPattern` of '/foo', the two endpoints are made: '/session/sessionID/foo' and '/foo'
+ */
+- (instancetype)sessionNotRequired;
 
-@property (nonatomic, copy, readonly) NSString *verb;
-@property (nonatomic, copy, readonly) NSString *path;
+/**
+ Replaces the Response Handler with the provided handler.
+ */
+- (instancetype)respondWith:(id<FBResponseHandler>)handler;
 
-- (void)mountRequest:(FBRouteRequest *)request intoResponse:(RouteResponse *)response;
+/**
+ Replaces the Response Handler using the provided block.
+ */
+- (instancetype)respond:(FBResponseHandlerBlock)block;
+
+/**
+ Adds the Route to the provided server.
+ */
+- (instancetype)applyToServer:(RoutingHTTPServer *)server withElementCache:(FBElementCache *)cache;
 
 @end

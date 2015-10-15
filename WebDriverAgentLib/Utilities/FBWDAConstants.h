@@ -29,4 +29,14 @@
  */
 + (BOOL)verboseLoggingEnabled;
 
+/**
+ YES if Session IDs are validated, NO otherwise.
+ */
++ (BOOL)validatesSession;
+
+/**
+ Returns a String representing the values of the constants.
+ */
++ (NSString *)constantsDescription;
+
 @end
