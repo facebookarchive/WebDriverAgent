@@ -15,7 +15,7 @@ function ci() {
   xctool \
       -workspace $1.xcworkspace \
       -scheme $1 \
-      -sdk macosx \
+      -sdk iphonesimulator \
       build
 }
 
