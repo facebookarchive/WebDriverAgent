@@ -2,6 +2,8 @@
 
 WebDriverAgent is a WebDriver server for iOS that runs inside the Simulator and is written entirely in Objective-C. 
 
+[![Build Status](https://travis-ci.org/facebook/WebDriverAgent.svg?branch=master)](https://travis-ci.org/facebook/WebDriverAgent)
+
 ## Building
 
 Our dependencies are tracked with CocoaPods. First run
