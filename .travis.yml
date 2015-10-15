@@ -1,0 +1,7 @@
+language: objective-c
+
+script: ./build.sh ci
+
+branches:
+  only:
+    - master
