@@ -13,6 +13,8 @@
 
 #import "FBAutomationTargetDelegate.h"
 #import "FBWebServer.h"
+#import "FBWDALogger.h"
+
 #import "UIAApplication.h"
 #import "UIATarget.h"
 
@@ -38,7 +40,7 @@
 
 - (void)start
 {
-  NSLog(@"Built at %s %s", __DATE__, __TIME__);
+  [FBWDALogger logFmt:@"Built at %s %s", __DATE__, __TIME__];
 
   [self setUpUIAutomation];
   self.server = [[FBWebServer alloc] init];

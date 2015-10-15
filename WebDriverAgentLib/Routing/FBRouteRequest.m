@@ -27,4 +27,15 @@
   request.elementCache = elementCache;
   return request;
 }
+
+- (NSString *)description
+{
+  return [NSString stringWithFormat:
+    @"Request URL %@ | Params %@ | Arguments %@",
+    self.URL,
+    self.parameters,
+    self.arguments
+  ];
+}
+
 @end

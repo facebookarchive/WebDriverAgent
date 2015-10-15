@@ -50,6 +50,8 @@
 		AA71B59A1BCE7D7D003EE10C /* FBRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = AA71B58C1BCE7D7D003EE10C /* FBRoute.m */; settings = {ASSET_TAGS = (); }; };
 		AA71B59B1BCE7D7D003EE10C /* FBRouteRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AA71B58D1BCE7D7D003EE10C /* FBRouteRequest.h */; settings = {ASSET_TAGS = (); }; };
 		AA71B59C1BCE7D7D003EE10C /* FBRouteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AA71B58E1BCE7D7D003EE10C /* FBRouteRequest.m */; settings = {ASSET_TAGS = (); }; };
+		AAA282921BCF88700027DE10 /* FBWDALogger.h in Headers */ = {isa = PBXBuildFile; fileRef = AAA282901BCF88700027DE10 /* FBWDALogger.h */; settings = {ASSET_TAGS = (); }; };
+		AAA282931BCF88700027DE10 /* FBWDALogger.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA282911BCF88700027DE10 /* FBWDALogger.m */; settings = {ASSET_TAGS = (); }; };
 		C4CA855D79D58A75C1A6E3A2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA846E1E751106917FCF1B26 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -201,6 +203,8 @@
 		AA71B58C1BCE7D7D003EE10C /* FBRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRoute.m; sourceTree = "<group>"; };
 		AA71B58D1BCE7D7D003EE10C /* FBRouteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRouteRequest.h; sourceTree = "<group>"; };
 		AA71B58E1BCE7D7D003EE10C /* FBRouteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRouteRequest.m; sourceTree = "<group>"; };
+		AAA282901BCF88700027DE10 /* FBWDALogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBWDALogger.h; sourceTree = "<group>"; };
+		AAA282911BCF88700027DE10 /* FBWDALogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBWDALogger.m; sourceTree = "<group>"; };
 		D17FD3E4AF3ECD6BC73CACFA /* Pods-WebDriverAgentLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLibTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests.release.xcconfig"; sourceTree = "<group>"; };
 		DA846E1E751106917FCF1B26 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -341,6 +345,8 @@
 			children = (
 				91F9DB471B99DD3E001349B2 /* FBWDAConstants.h */,
 				91F9DB481B99DD3E001349B2 /* FBWDAConstants.m */,
+				AAA282901BCF88700027DE10 /* FBWDALogger.h */,
+				AAA282911BCF88700027DE10 /* FBWDALogger.m */,
 				91F9DB491B99DD3E001349B2 /* FBWDAMacros.h */,
 			);
 			path = Utilities;
@@ -499,6 +505,7 @@
 				AA71B5901BCE7D7D003EE10C /* FBCommandStatus.h in Headers */,
 				91DD17791B99E33B00A57C66 /* FBWebDriverAgent.h in Headers */,
 				AA71B5991BCE7D7D003EE10C /* FBRoute.h in Headers */,
+				AAA282921BCF88700027DE10 /* FBWDALogger.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -775,6 +782,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAA282931BCF88700027DE10 /* FBWDALogger.m in Sources */,
 				91F9DB671B99DD94001349B2 /* FBUnknownCommands.m in Sources */,
 				AA71B5921BCE7D7D003EE10C /* FBElementCache.m in Sources */,
 				91F9DB381B99DC7A001349B2 /* FBWebDriverAgent.m in Sources */,

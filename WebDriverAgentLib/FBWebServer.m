@@ -19,6 +19,7 @@
 #import "FBElementCache.h"
 #import "FBRouteRequest.h"
 #import "FBUnknownCommands.h"
+#import "FBWDALogger.h"
 #import "FBWDAConstants.h"
 
 extern NSString *kUIAExceptionBadPoint;
@@ -32,7 +33,7 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
 
 - (void)handleResourceNotFound
 {
-  NSLog(@"Received request for %@ which we do not handle", self.requestURI);
+  [FBWDALogger logFmt:@"Received request for %@ which we do not handle", self.requestURI];
   [super handleResourceNotFound];
 }
 
@@ -94,11 +95,11 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
       break;
     }
 
-    NSLog(@"Failed to start web server on port %ld with error %@", (long)port, [error description]);
+    [FBWDALogger logFmt:@"Failed to start web server on port %ld with error %@", (long)port, [error description]];
   }
 
   if (!serverStarted) {
-    NSLog(@"Last attempt to start web server failed with error %@", [error description]);
+    [FBWDALogger logFmt:@"Last attempt to start web server failed with error %@", [error description]];
     abort();
   }
 
@@ -141,6 +142,8 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
           parameters:request.params
           arguments:[NSJSONSerialization JSONObjectWithData:request.body options:0 error:NULL]
           elementCache:elementCache];
+
+        [FBWDALogger verboseLog:routeParams.description];
 
         @try {
           [route mountRequest:routeParams intoResponse:response];
