@@ -11,6 +11,6 @@
 
 #import "FBCommandHandler.h"
 
-@interface FBCapabilitiesCommands : NSObject <FBCommandHandler>
+@interface FBCustomCommands : NSObject <FBCommandHandler>
 
 @end
