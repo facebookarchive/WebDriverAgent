@@ -19,6 +19,7 @@
 #import "FBElementCache.h"
 #import "FBRouteRequest.h"
 #import "FBUnknownCommands.h"
+#import "FBWDAConstants.h"
 
 extern NSString *kUIAExceptionBadPoint;
 extern NSString *kUIAExceptionInvalidElement;
@@ -80,13 +81,7 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
   [self registerRouteHandlers:[self.class collectCommandHandlerClasses]];
   [self registerServerKeyRouteHandlers];
 
-  NSInteger startPort = 8100;
-  NSRange serverPortRange = NSMakeRange(startPort, 100);
-
-  if (NSProcessInfo.processInfo.environment[@"PORT_OFFSET"]) {
-    serverPortRange = NSMakeRange(8100 + [NSProcessInfo.processInfo.environment[@"PORT_OFFSET"] integerValue] , 1);
-  }
-
+  NSRange serverPortRange = FBWDAConstants.bindingPortRange;
   NSError *error;
   BOOL serverStarted = NO;
 
