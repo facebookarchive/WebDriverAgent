@@ -11,6 +11,8 @@
 
 #import "FBRouteRequest.h"
 #import "FBWDAConstants.h"
+#import "FBWDALogger.h"
+
 #import "UIAApplication.h"
 #import "UIATarget.h"
 
@@ -58,7 +60,7 @@ extern BOOL AXDeviceIsPad();
       return FBResponseDictionaryWithOK();
     }],
     [[FBRoute DELETE:@"session/:sessionID"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      NSLog(@"Just issued command to quit!");
+      [FBWDALogger log:@"Just issued command to quit!"];
       return FBResponseDictionaryWithOK();
     }],
     [[FBRoute POST:@"/session/:sessionID/timeouts/implicit_wait"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {

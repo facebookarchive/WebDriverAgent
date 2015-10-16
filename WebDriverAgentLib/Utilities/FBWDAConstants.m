@@ -33,6 +33,11 @@ static NSUInteger const DefaultPortRange = 100;
   return NSMakeRange(self.startingPort, DefaultPortRange);
 }
 
++ (BOOL)verboseLoggingEnabled
+{
+  return [NSProcessInfo.processInfo.environment[@"VERBOSE_LOGGING"] boolValue];
+}
+
 #pragma mark Private
 
 + (NSUInteger)startingPort

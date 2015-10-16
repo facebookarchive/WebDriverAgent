@@ -13,6 +13,8 @@
 #import "FBElementCache.h"
 #import "FBRouteRequest.h"
 #import "FBWDAMacros.h"
+#import "FBWDALogger.h"
+
 #import "UIAApplication.h"
 #import "UIACollectionView.h"
 #import "UIAElement+WebDriverXML.h"
@@ -34,10 +36,10 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
     [[FBRoute POST:@"/session/:sessionID/element"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       UIAElement *element = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"]];
       if (!element) {
-        NSLog(@"Did not find an element, returning an error.");
+        [FBWDALogger log:@"Did not find an element, returning an error."];
         return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
       }
-      NSLog(@"Found element: %@", element);
+      [FBWDALogger logFmt:@"Found element: %@", element];
       NSInteger elementID = [request.elementCache storeElement:element];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{
         @"ELEMENT": @(elementID),
@@ -47,7 +49,7 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
     [[FBRoute POST:@"/session/:sessionID/elements"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSArray *elements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"]];
 
-      NSLog(@"Found elements: %@", elements);
+      [FBWDALogger logFmt:@"Found elements: %@", elements];
       NSMutableArray *elementsResponse = [[NSMutableArray alloc] init];
       for (UIAElement *element in elements) {
         NSInteger elementID = [request.elementCache storeElement:element];
@@ -80,7 +82,7 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
       UIAElement *element = [request.elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       UIAElement *foundElement = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
       if (!foundElement) {
-        NSLog(@"Did not find an element, returning an error.");
+        [FBWDALogger log:@"Did not find an element, returning an error."];
         return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
       }
       NSInteger elementID = [request.elementCache storeElement:foundElement];
