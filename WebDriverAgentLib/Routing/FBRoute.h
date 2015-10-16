@@ -13,8 +13,6 @@
 @class FBRouteRequest;
 @class RouteResponse;
 
-typedef void (^FBRouteResponseCompletion)(id<FBResponsePayload> payload);
-typedef void (^FBRouteAsyncHandler)(FBRouteRequest *request, FBRouteResponseCompletion completionHandler);
 typedef id<FBResponsePayload> (^FBRouteSyncHandler)(FBRouteRequest *request);
 
 @interface FBRoute : NSObject
@@ -25,7 +23,6 @@ typedef id<FBResponsePayload> (^FBRouteSyncHandler)(FBRouteRequest *request);
 + (instancetype)DELETE:(NSString *)pathPattern;
 
 - (instancetype)respond:(FBRouteSyncHandler)handler;
-- (instancetype)respondAsync:(FBRouteAsyncHandler)handler;
 
 @property (nonatomic, copy, readonly) NSString *verb;
 @property (nonatomic, copy, readonly) NSString *path;
