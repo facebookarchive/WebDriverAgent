@@ -15,7 +15,7 @@
 
 + (void)log:(NSString *)message
 {
-  NSLog(message);
+  NSLog(@"%@", message);
 }
 
 + (void)logFmt:(NSString *)format, ...
@@ -31,7 +31,7 @@
   if (!FBWDAConstants.verboseLoggingEnabled) {
     return;
   }
-  NSLog(message);
+  [self log:message];
 }
 
 + (void)verboseLogFmt:(NSString *)format, ...
