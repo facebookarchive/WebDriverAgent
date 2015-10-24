@@ -106,6 +106,7 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
   NSDictionary *startInfo = @{
     @"port": @([self.server port]),
   };
+  [FBWDALogger logFmt:@"WebDriverAgent started on port %hu", [self.server port]];
   [[NSNotificationCenter defaultCenter] postNotificationName:@"WebDriverAgentDidStart" object:nil userInfo:startInfo];
 }
 
