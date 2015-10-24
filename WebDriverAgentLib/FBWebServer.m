@@ -77,6 +77,7 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
   self.server = [[RoutingHTTPServer alloc] init];
   [self.server setRouteQueue:dispatch_get_main_queue()];
   [self.server setDefaultHeader:@"Server" value:@"WebDriverAgent/1.0"];
+  [self.server setDefaultHeader:@"Content-Type" value:@"application/json;charset=UTF-8"];
   [self.server setConnectionClass:[FBHTTPConnection self]];
 
   [self registerRouteHandlers:[self.class collectCommandHandlerClasses]];
