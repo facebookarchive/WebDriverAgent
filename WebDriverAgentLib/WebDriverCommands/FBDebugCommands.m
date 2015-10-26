@@ -32,7 +32,7 @@ static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose);
     [[FBRoute GET:@"/session/:sessionID/tree"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       return [self handleTreeCommandWithParams:request];
     }],
-    [[FBRoute GET:@"session/:sessionID/source"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/session/:sessionID/source"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       return [self handleTreeCommandWithParams:request];
     }],
   ];
