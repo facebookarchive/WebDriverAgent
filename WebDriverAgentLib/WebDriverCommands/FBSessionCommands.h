@@ -11,8 +11,19 @@
 
 #import "FBCommandHandler.h"
 
+/**
+ CRUD Commands for Session endpoints
+ */
 @interface FBSessionCommands : NSObject <FBCommandHandler>
 
+/**
+ The Session ID of the current Session
+ */
 + (NSString *)sessionId;
+
+/**
+ A Dictionary representing the current session's details.
+ */
++ (NSDictionary *)sessionInformation;
 
 @end

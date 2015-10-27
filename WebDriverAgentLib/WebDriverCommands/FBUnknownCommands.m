@@ -9,7 +9,7 @@
 
 #import "FBUnknownCommands.h"
 
-#import "FBRouteRequest.h"
+#import "FBRequest.h"
 #import "UIATarget.h"
 
 @implementation FBUnknownCommands
@@ -24,20 +24,20 @@
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute GET:@"/*"] respond:self.unhandledHandler],
-    [[FBRoute POST:@"/*"] respond:self.unhandledHandler],
-    [[FBRoute PUT:@"/*"] respond:self.unhandledHandler],
-    [[FBRoute DELETE:@"/*"] respond:self.unhandledHandler]
+    [[FBRoute GET:@"/*"].sessionNotRequired respond:self.unhandledHandler],
+    [[FBRoute POST:@"/*"].sessionNotRequired respond:self.unhandledHandler],
+    [[FBRoute PUT:@"/*"].sessionNotRequired respond:self.unhandledHandler],
+    [[FBRoute DELETE:@"/*"].sessionNotRequired respond:self.unhandledHandler]
   ];
 }
 
-+ (FBRouteSyncHandler)unhandledHandler
++ (FBResponseHandlerBlock)unhandledHandler
 {
-  return ^ id<FBResponsePayload> (FBRouteRequest *request) {
-    return FBResponseDictionaryWithStatus(
-      FBCommandStatusUnsupported,
-      [NSString stringWithFormat:@"Unhandled endpoint: %@ with parameters %@", request.URL, request.parameters]
-    );
+  return ^ id<FBResponse> (FBRequest *request) {
+    return [FBResponse
+      withStatus:FBCommandStatusUnsupported
+      object:[NSString stringWithFormat:@"Unhandled endpoint: %@ with parameters %@", request.URL, request.parameters]
+    ];
   };
 }
 

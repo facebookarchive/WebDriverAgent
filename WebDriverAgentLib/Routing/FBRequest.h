@@ -11,11 +11,35 @@
 
 @class FBElementCache;
 
-@interface FBRouteRequest : NSObject
+/**
+ An Value representing the useful information for processing a WebDriver request
+ */
+@interface FBRequest : NSObject <NSCopying>
+
+/**
+ The Full URL of the request.
+ */
 @property (nonatomic, strong, readonly) NSURL *URL;
+
+/**
+ The URL Parameters as a NSDictionary<NSString *, NSString *>
+ */
 @property (nonatomic, copy, readonly) NSDictionary *parameters;
+
+/**
+ The Arguments from the JSON Body of the Request
+ */
 @property (nonatomic, copy, readonly) NSDictionary *arguments;
+
+/**
+ The Element Cache for obtaining pre-cached elements by id
+ */
 @property (nonatomic, strong, readonly) FBElementCache *elementCache;
+
+/**
+ The Session ID from the URL.
+ */
+@property (nonatomic, copy, readonly) NSString *sessionID;
 
 + (instancetype)routeRequestWithURL:(NSURL *)URL parameters:(NSDictionary *)parameters arguments:(NSDictionary *)arguments elementCache:(FBElementCache *)elementCache;
 

@@ -16,11 +16,11 @@
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute GET:@"/inspector"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return FBResponseFileWithPath([[self class] inspectorHTMLFilePath]);
+    [[FBRoute GET:@"/inspector"].sessionNotRequired respond: ^ id<FBResponse> (FBRequest *request) {
+      return [FBResponse withFileAtPath:[[self class] inspectorHTMLFilePath]];
     }],
-    [[FBRoute GET:@"/inspector.js"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-        return FBResponseFileWithPath([[self class] inspectorJSFilePath]);
+    [[FBRoute GET:@"/inspector.js"].sessionNotRequired respond: ^ id<FBResponse> (FBRequest *request) {
+        return [FBResponse withFileAtPath:[[self class] inspectorJSFilePath]];
     }],
   ];
 }

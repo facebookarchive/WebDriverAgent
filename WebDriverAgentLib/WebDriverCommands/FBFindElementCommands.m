@@ -11,7 +11,7 @@
 
 #import "FBAlertViewCommands.h"
 #import "FBElementCache.h"
-#import "FBRouteRequest.h"
+#import "FBRequest.h"
 #import "FBWDAMacros.h"
 #import "FBWDALogger.h"
 
@@ -33,20 +33,20 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute POST:@"/session/:sessionID/element"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element"] respond: ^ id<FBResponse> (FBRequest *request) {
       UIAElement *element = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"]];
       if (!element) {
         [FBWDALogger log:@"Did not find an element, returning an error."];
-        return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
+        return [FBResponse withStatus:FBCommandStatusNoSuchElement object:@"unable to find an element"];
       }
       [FBWDALogger logFmt:@"Found element: %@", element];
       NSInteger elementID = [request.elementCache storeElement:element];
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{
+      return [FBResponse okWith:@{
         @"ELEMENT": @(elementID),
         @"type": NSStringFromClass([element class]),
-      });
+      }];
     }],
-    [[FBRoute POST:@"/session/:sessionID/elements"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/elements"] respond: ^ id<FBResponse> (FBRequest *request) {
       NSArray *elements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"]];
 
       [FBWDALogger logFmt:@"Found elements: %@", elements];
@@ -60,9 +60,9 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
            }
          ];
       }
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
+      return [FBResponse okWith:elementsResponse];
     }],
-    [[FBRoute GET:@"/session/:sessionID/uiaElement/:elementID/getVisibleCells"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/uiaElement/:elementID/getVisibleCells"] respond: ^ id<FBResponse> (FBRequest *request) {
       NSInteger elementID = [request.parameters[@"elementID"] integerValue];
       UIACollectionView *collection = (UIACollectionView *)[request.elementCache elementForIndex:elementID];
 
@@ -76,27 +76,27 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
            }
          ];
       }
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
+      return [FBResponse okWith:elementsResponse];
     }],
-    [[FBRoute POST:@"/session/:sessionID/element/:id/element"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element/:id/element"] respond: ^ id<FBResponse> (FBRequest *request) {
       UIAElement *element = [request.elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       UIAElement *foundElement = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
       if (!foundElement) {
         [FBWDALogger log:@"Did not find an element, returning an error."];
-        return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
+        return [FBResponse withStatus:FBCommandStatusNoSuchElement object:@"unable to find an element"];
       }
       NSInteger elementID = [request.elementCache storeElement:foundElement];
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{
+      return [FBResponse okWith:@{
         @"ELEMENT": @(elementID),
         @"type": NSStringFromClass([foundElement class]),
-      });
+      }];
     }],
-    [[FBRoute POST:@"/session/:sessionID/element/:id/elements"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element/:id/elements"] respond: ^ id<FBResponse> (FBRequest *request) {
       UIAElement *element = [request.elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       NSArray *foundElements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
 
       if (foundElements.count == 0) {
-        return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
+        return [FBResponse withStatus:FBCommandStatusNoSuchElement object:@"unable to find an element"];
       }
 
       NSMutableArray *elementsResponse = [NSMutableArray array];
@@ -109,7 +109,7 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
            }
          ];
       }
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
+      return [FBResponse okWith:elementsResponse];
     }]
   ];
 }

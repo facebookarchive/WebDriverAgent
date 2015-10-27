@@ -7,20 +7,22 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBRouteRequest.h"
+#import "FBRequest.h"
 
-@interface FBRouteRequest ()
+@interface FBRequest ()
+
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, copy) NSDictionary *parameters;
 @property (nonatomic, copy) NSDictionary *arguments;
 @property (nonatomic, strong) FBElementCache *elementCache;
+
 @end
 
-@implementation FBRouteRequest
+@implementation FBRequest
 
 + (instancetype)routeRequestWithURL:(NSURL *)URL parameters:(NSDictionary *)parameters arguments:(NSDictionary *)arguments elementCache:(FBElementCache *)elementCache;
 {
-  FBRouteRequest *request = [self.class new];
+  FBRequest *request = [self.class new];
   request.URL = URL;
   request.parameters = parameters;
   request.arguments = arguments;
@@ -36,6 +38,25 @@
     self.parameters,
     self.arguments
   ];
+}
+
+#pragma mark Accessors
+
+- (NSString *)sessionID
+{
+  return self.parameters[@"sessionID"];
+}
+
+#pragma mark NSCopying
+
+- (instancetype)copyWithZone:(NSZone *)zone
+{
+  FBRequest *request = [self.class new];
+  request.URL = self.URL;
+  request.parameters = request.parameters;
+  request.arguments = request.arguments;
+  request.elementCache = request.elementCache;
+  return request;
 }
 
 @end

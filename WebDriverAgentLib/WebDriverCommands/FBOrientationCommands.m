@@ -9,7 +9,7 @@
 
 #import "FBOrientationCommands.h"
 
-#import "FBRouteRequest.h"
+#import "FBRequest.h"
 #import "FBWDAMacros.h"
 #import "UIAApplication.h"
 #import "UIATarget.h"
@@ -37,14 +37,14 @@ const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute GET:@"/session/:sessionID/orientation"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self.class deviceOrientation]);
+    [[FBRoute GET:@"/orientation"] respond: ^ id<FBResponse> (FBRequest *request) {
+      return [FBResponse okWith:[self.class deviceOrientation]];
     }],
-    [[FBRoute POST:@"POST@/session/:sessionID/orientation"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/orientation"] respond: ^ id<FBResponse> (FBRequest *request) {
       if ([self.class setDeviceOrientation:request.arguments[@"orientation"]]) {
-        return FBResponseDictionaryWithOK();
+        return FBResponse.ok;
       }
-      return FBResponseDictionaryWithStatus(FBCommandStatusRotationNotAllowed, @"The orientation specified is not supported by the application");
+      return [FBResponse withStatus:FBCommandStatusRotationNotAllowed object:@"The orientation specified is not supported by the application"];
     }],
   ];
 }

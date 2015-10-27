@@ -38,6 +38,25 @@ static NSUInteger const DefaultPortRange = 100;
   return [NSProcessInfo.processInfo.environment[@"VERBOSE_LOGGING"] boolValue];
 }
 
++ (BOOL)validatesSession
+{
+  NSString *validatesSession = NSProcessInfo.processInfo.environment[@"VALIDATES_SESSION"];
+  if (!validatesSession) {
+    return YES;
+  }
+  return [validatesSession boolValue];
+}
+
++ (NSString *)constantsDescription
+{
+  return [NSString stringWithFormat:
+    @"Binding Port Range %@ | Verbose Enabled %@ | Validates Session %@",
+    NSStringFromRange(self.bindingPortRange),
+    @(self.verboseLoggingEnabled),
+    @(self.validatesSession)
+  ];
+}
+
 #pragma mark Private
 
 + (NSUInteger)startingPort
