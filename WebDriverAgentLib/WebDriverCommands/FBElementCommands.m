@@ -62,6 +62,12 @@
       BOOL isEnabled = [[element isEnabled] boolValue];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, isEnabled ? @"1" : @"0");
     }],
+    [[FBRoute GET:@"/session/:sessionID/element/:id/text"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+      NSInteger elementID = [request.parameters[@"id"] integerValue];
+      UIAElement *element = [request.elementCache elementForIndex:elementID];
+      id text = [element value];
+      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, text);
+    }],
     [[FBRoute POST:@"/session/:sessionID/element/:id/clear"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.arguments[@"id"] integerValue];
       UIAElement *element = [request.elementCache elementForIndex:elementID];
