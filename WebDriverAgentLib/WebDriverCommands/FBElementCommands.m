@@ -89,7 +89,7 @@
       return FBResponseDictionaryWithElementID(elementID);
     }],
     [[FBRoute POST:@"/session/:sessionID/element/:id/value"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      NSInteger elementID = [request.arguments[@"id"] integerValue];
+      NSInteger elementID = [request.parameters[@"id"] integerValue];
       UIAElement *element = [request.elementCache elementForIndex:elementID];
       if (![[element hasKeyboardFocus] boolValue]) {
         [element tap];
