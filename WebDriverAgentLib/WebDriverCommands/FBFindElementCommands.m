@@ -148,6 +148,8 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
   if (partialSearch || [usingText isEqualToString:@"link text"]) {
     NSArray *components = [value componentsSeparatedByString:@"="];
     elements = elementsWithProperty(element, components[0], components[1], partialSearch);
+  } else if ([usingText isEqualToString:@"name"]) {
+    elements = elementsWithProperty(element, @"name", value, NO);
   } else if ([usingText isEqualToString:@"class name"]) {
     elements = elementsWithProperty(element, @"className", value, NO);
   } else if ([usingText isEqualToString:@"xpath"]) {
