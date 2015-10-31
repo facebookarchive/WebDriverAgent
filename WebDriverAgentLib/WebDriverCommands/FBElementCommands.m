@@ -69,7 +69,7 @@
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, text);
     }],
     [[FBRoute POST:@"/session/:sessionID/element/:id/clear"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      NSInteger elementID = [request.arguments[@"id"] integerValue];
+      NSInteger elementID = [request.parameters[@"id"] integerValue];
       UIAElement *element = [request.elementCache elementForIndex:elementID];
 
       // TODO(t8077426): This is a terrible workaround to get tests in t8036026 passing.
