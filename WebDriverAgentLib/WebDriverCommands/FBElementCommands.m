@@ -60,7 +60,7 @@
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       UIAElement *element = [request.elementCache elementForIndex:elementID];
       BOOL isEnabled = [[element isEnabled] boolValue];
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, isEnabled ? @"1" : @"0");
+      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, isEnabled ? @YES : @NO);
     }],
     [[FBRoute GET:@"/session/:sessionID/element/:id/text"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
