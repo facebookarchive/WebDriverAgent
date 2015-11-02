@@ -4,8 +4,10 @@ platform :ios, '7.0'
 
 xcodeproj 'WebDriverAgent.xcodeproj'
 
-pod 'KissXML'
-pod 'RoutingHTTPServer'
+target :WebDriverAgent, :exclusive => true do
+  pod 'KissXML'
+  pod 'RoutingHTTPServer'
+end
 
 target :WebDriverAgentLib, :exclusive => true do
   pod 'KissXML'
@@ -14,4 +16,14 @@ end
 
 target :WebDriverAgentLibTests, :exclusive => true do
   pod 'OCMock'
+end
+
+target :XCTWebDriverAgentLib, :exclusive => true do
+  pod 'KissXML'
+  pod 'RoutingHTTPServer'
+end
+
+target :XCTUITestRunner, :exclusive => true do
+  pod 'KissXML'
+  pod 'RoutingHTTPServer'
 end
