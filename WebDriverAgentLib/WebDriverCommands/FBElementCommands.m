@@ -60,7 +60,7 @@
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       UIAElement *element = [request.elementCache elementForIndex:elementID];
       BOOL isEnabled = [[element isEnabled] boolValue];
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, isEnabled ? @"1" : @"0");
+      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, isEnabled ? @YES : @NO);
     }],
     [[FBRoute GET:@"/session/:sessionID/element/:id/text"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
@@ -69,7 +69,7 @@
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, text);
     }],
     [[FBRoute POST:@"/session/:sessionID/element/:id/clear"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      NSInteger elementID = [request.arguments[@"id"] integerValue];
+      NSInteger elementID = [request.parameters[@"id"] integerValue];
       UIAElement *element = [request.elementCache elementForIndex:elementID];
 
       // TODO(t8077426): This is a terrible workaround to get tests in t8036026 passing.
@@ -89,7 +89,7 @@
       return FBResponseDictionaryWithElementID(elementID);
     }],
     [[FBRoute POST:@"/session/:sessionID/element/:id/value"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      NSInteger elementID = [request.arguments[@"id"] integerValue];
+      NSInteger elementID = [request.parameters[@"id"] integerValue];
       UIAElement *element = [request.elementCache elementForIndex:elementID];
       if (![[element hasKeyboardFocus] boolValue]) {
         [element tap];
