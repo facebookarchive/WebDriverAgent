@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		17FAFB7CEBC0F6E3621FAA62 /* libPods-WebDriverAgentLibTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 126BB2958BC0D6129BB43082 /* libPods-WebDriverAgentLibTests.a */; };
+		2CFB7CED1BE8309A0041C071 /* UITestingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC0F1E01BE76F86006FDA25 /* UITestingUITests.m */; };
+		2CFB7CF11BE837990041C071 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CFB7CF01BE837990041C071 /* Default-568h@2x.png */; };
 		498495CB1BB2EB9B009CC848 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */; };
 		4DB0209AA0F45A16A459080F /* libPods-XCTUITestRunner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A9896241400ACB04E5D44E /* libPods-XCTUITestRunner.a */; };
 		590F3B86F2601672B13583B0 /* libPods-WebDriverAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5BDA74E9931ECC97867307 /* libPods-WebDriverAgent.a */; };
@@ -72,7 +74,6 @@
 		EEC0F20D1BE76F86006FDA25 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC0F1DB1BE76F86006FDA25 /* main.m */; };
 		EEC0F20E1BE76F86006FDA25 /* SimpleApp-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEC0F1DC1BE76F86006FDA25 /* SimpleApp-Info.plist */; };
 		EEC0F20F1BE76F86006FDA25 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEC0F1DF1BE76F86006FDA25 /* Info.plist */; };
-		EEC0F2101BE76F86006FDA25 /* UITestingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC0F1E01BE76F86006FDA25 /* UITestingUITests.m */; };
 		EEC0F2111BE76F86006FDA25 /* FBWebDriverAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC0F1E31BE76F86006FDA25 /* FBWebDriverAgent.m */; };
 		EEC0F2121BE76F86006FDA25 /* FBWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC0F1E51BE76F86006FDA25 /* FBWebServer.m */; };
 		EEC0F2131BE76F86006FDA25 /* FBCommandHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC0F1E81BE76F86006FDA25 /* FBCommandHandler.m */; };
@@ -375,6 +376,7 @@
 		126BB2958BC0D6129BB43082 /* libPods-WebDriverAgentLibTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgentLibTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		154D92108667239A91439DD4 /* Pods-WebDriverAgentLibTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLibTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1A840E10D402D89F7FDA64D0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		2CFB7CF01BE837990041C071 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3B16C2A60F36356996EE8EBB /* Pods-WebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLib/Pods-WebDriverAgentLib.release.xcconfig"; sourceTree = "<group>"; };
 		3E5BDA74E9931ECC97867307 /* libPods-WebDriverAgent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgent.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WebDriverAgent.bundle; sourceTree = "<group>"; };
@@ -840,6 +842,7 @@
 		91F9DAE01B99DBC2001349B2 = {
 			isa = PBXGroup;
 			children = (
+				2CFB7CF01BE837990041C071 /* Default-568h@2x.png */,
 				EEC0F1D31BE76F68006FDA25 /* XCUITests */,
 				91F9DB731B99DDD8001349B2 /* PrivateHeaders */,
 				498495C81BB2E6FA009CC848 /* Resources */,
@@ -1658,6 +1661,7 @@
 				498495C91BB2E731009CC848 /* Generate Resource Bundle */,
 				91F9DAE71B99DBC2001349B2 /* Resources */,
 				02F1E1648526B43D8B953193 /* Copy Pods Resources */,
+				D50BC0D52996D21DFA86DCA6 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1697,6 +1701,7 @@
 				91F9DB1D1B99DC2F001349B2 /* Frameworks */,
 				91F9DB1E1B99DC2F001349B2 /* Resources */,
 				0AA31EAF0CDB9729BA61E947 /* Copy Pods Resources */,
+				4DC97C83D8E6D832B12A3A5B /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1754,6 +1759,7 @@
 				EEC0F2921BE76F9F006FDA25 /* Frameworks */,
 				EEC0F2951BE76F9F006FDA25 /* Resources */,
 				EEC0F2961BE76F9F006FDA25 /* Copy Pods Resources */,
+				FBC9811B9E179D522786F563 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1772,7 +1778,7 @@
 		91F9DAE11B99DBC2001349B2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					91F9DAE81B99DBC2001349B2 = {
@@ -1783,6 +1789,9 @@
 					};
 					91F9DB1F1B99DC2F001349B2 = {
 						CreatedOnToolsVersion = 6.4;
+					};
+					EEC0F2231BE76F9B006FDA25 = {
+						DevelopmentTeam = 7YPEWC4JFX;
 					};
 					EEC0F2891BE76F9F006FDA25 = {
 						TestTargetID = EEC0F2231BE76F9B006FDA25;
@@ -1834,6 +1843,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CFB7CF11BE837990041C071 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1891,6 +1901,21 @@
 			shellPath = /bin/sh;
 			shellScript = "cd ${SRCROOT} && bash ./build_resource_bundle.sh";
 		};
+		4DC97C83D8E6D832B12A3A5B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9A5B9836CD263C618FFBAB2A /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1934,6 +1959,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D50BC0D52996D21DFA86DCA6 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgent/Pods-WebDriverAgent-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EEC0F2511BE76F9D006FDA25 /* Check Pods Manifest.lock */ = {
@@ -2011,6 +2051,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		FBC9811B9E179D522786F563 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2020,6 +2075,7 @@
 			files = (
 				EEC0F21E1BE76F86006FDA25 /* FBElementCommands.m in Sources */,
 				EEC0F2161BE76F86006FDA25 /* FBSession.m in Sources */,
+				2CFB7CED1BE8309A0041C071 /* UITestingUITests.m in Sources */,
 				EEC0F20C1BE76F86006FDA25 /* FBUIAppDelegate.m in Sources */,
 				EEC0F21B1BE76F86006FDA25 /* FBAlertViewCommands.m in Sources */,
 				EEC0F2141BE76F86006FDA25 /* FBElementCache.m in Sources */,
@@ -2033,7 +2089,6 @@
 				EEC0F21D1BE76F86006FDA25 /* FBDebugCommands.m in Sources */,
 				EEC0F2201BE76F86006FDA25 /* FBOrientationCommands.m in Sources */,
 				EEC0F21F1BE76F86006FDA25 /* FBFindElementCommands.m in Sources */,
-				EEC0F2101BE76F86006FDA25 /* UITestingUITests.m in Sources */,
 				EEC0F2171BE76F86006FDA25 /* XCUIElement+FBIsVisible.m in Sources */,
 				91F9DAEF1B99DBC2001349B2 /* main.m in Sources */,
 				EEC0F2151BE76F86006FDA25 /* FBRouteRequest.m in Sources */,
@@ -2168,6 +2223,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2246,6 +2302,7 @@
 				);
 				INFOPLIST_FILE = WebDriverAgent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks \"$(DEVELOPER_LIBRARY_DIR)/Frameworks\" \"$(DEVELOPER_DIR)/../SharedFrameworks\" \"$SDKROOT/Developer/Library/PrivateFrameworks\" \"$SDKROOT/System/Library/PrivateFrameworks\" \"$(DEVELOPER_DIR)/../Frameworks\" \"$SDKROOT/System/Library/Frameworks\"";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -2267,6 +2324,7 @@
 				);
 				INFOPLIST_FILE = WebDriverAgent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks \"$(DEVELOPER_LIBRARY_DIR)/Frameworks\" \"$(DEVELOPER_DIR)/../SharedFrameworks\" \"$SDKROOT/Developer/Library/PrivateFrameworks\" \"$SDKROOT/System/Library/PrivateFrameworks\" \"$(DEVELOPER_DIR)/../Frameworks\" \"$SDKROOT/System/Library/Frameworks\"";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -2297,6 +2355,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 154D92108667239A91439DD4 /* Pods-WebDriverAgentLibTests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2307,7 +2366,9 @@
 				);
 				INFOPLIST_FILE = WebDriverAgentLibTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -2315,12 +2376,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D17FD3E4AF3ECD6BC73CACFA /* Pods-WebDriverAgentLibTests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WebDriverAgentLibTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -2329,21 +2392,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks",
-					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"$(DEVELOPER_DIR)/../SharedFrameworks\"",
-					"\"$SDKROOT/Developer/Library/PrivateFrameworks\"",
-					"\"$SDKROOT/System/Library/PrivateFrameworks\"",
-					"\"$(DEVELOPER_DIR)/../Frameworks\"",
-					"$(PROJECT_DIR)/PrivateFrameworks",
-				);
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "SimpleApp/SimpleApp-Prefix.pch";
 				INFOPLIST_FILE = "SimpleApp/SimpleApp-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks \"$(DEVELOPER_LIBRARY_DIR)/Frameworks\" \"$(DEVELOPER_DIR)/../SharedFrameworks\" \"$SDKROOT/Developer/Library/PrivateFrameworks\" \"$SDKROOT/System/Library/PrivateFrameworks\" \"$(DEVELOPER_DIR)/../Frameworks\" \"$SDKROOT/System/Library/Frameworks\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.simpleapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2351,21 +2408,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks",
-					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"$(DEVELOPER_DIR)/../SharedFrameworks\"",
-					"\"$SDKROOT/Developer/Library/PrivateFrameworks\"",
-					"\"$SDKROOT/System/Library/PrivateFrameworks\"",
-					"\"$(DEVELOPER_DIR)/../Frameworks\"",
-					"$(PROJECT_DIR)/PrivateFrameworks",
-				);
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "SimpleApp/SimpleApp-Prefix.pch";
 				INFOPLIST_FILE = "SimpleApp/SimpleApp-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks \"$(DEVELOPER_LIBRARY_DIR)/Frameworks\" \"$(DEVELOPER_DIR)/../SharedFrameworks\" \"$SDKROOT/Developer/Library/PrivateFrameworks\" \"$SDKROOT/System/Library/PrivateFrameworks\" \"$(DEVELOPER_DIR)/../Frameworks\" \"$SDKROOT/System/Library/Frameworks\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.simpleapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -2413,6 +2464,7 @@
 				);
 				INFOPLIST_FILE = XCTUITestRunner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.testrunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SimpleApp.app/SimpleApp";
 			};
@@ -2428,6 +2480,7 @@
 				);
 				INFOPLIST_FILE = XCTUITestRunner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.testrunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SimpleApp.app/SimpleApp";
 			};
