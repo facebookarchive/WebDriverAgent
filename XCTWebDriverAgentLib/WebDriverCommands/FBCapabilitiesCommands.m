@@ -25,8 +25,8 @@
     @"POST@/session" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
 
       NSDictionary *requirements = request.arguments[@"desiredCapabilities"];
-      NSString *bundleID = requirements[@"CFBundleIdentifier"];
-      NSString *appPath = requirements[@"FBBinaryPath"];
+      NSString *bundleID = requirements[@"app"];
+      NSString *appPath = requirements[@"bundleId"];
       NSAssert(bundleID != nil, @"Should have bundle ID");
       NSAssert(appPath != nil, @"Should have app path");
       
