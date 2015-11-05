@@ -2290,16 +2290,7 @@
 			baseConfigurationReference = A7F735E5AD68F240779D3DE2 /* Pods-WebDriverAgent.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks",
-					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"$(DEVELOPER_DIR)/../SharedFrameworks\"",
-					"\"$SDKROOT/Developer/Library/PrivateFrameworks\"",
-					"\"$SDKROOT/System/Library/PrivateFrameworks\"",
-					"\"$(DEVELOPER_DIR)/../Frameworks\"",
-					"$(PROJECT_DIR)/PrivateFrameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = WebDriverAgent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks \"$(DEVELOPER_LIBRARY_DIR)/Frameworks\" \"$(DEVELOPER_DIR)/../SharedFrameworks\" \"$SDKROOT/Developer/Library/PrivateFrameworks\" \"$SDKROOT/System/Library/PrivateFrameworks\" \"$(DEVELOPER_DIR)/../Frameworks\" \"$SDKROOT/System/Library/Frameworks\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.$(PRODUCT_NAME:rfc1034identifier)";
@@ -2312,16 +2303,7 @@
 			baseConfigurationReference = EBCD3FBF9A60556D2EFB4B61 /* Pods-WebDriverAgent.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks",
-					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"$(DEVELOPER_DIR)/../SharedFrameworks\"",
-					"\"$SDKROOT/Developer/Library/PrivateFrameworks\"",
-					"\"$SDKROOT/System/Library/PrivateFrameworks\"",
-					"\"$(DEVELOPER_DIR)/../Frameworks\"",
-					"$(PROJECT_DIR)/PrivateFrameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = WebDriverAgent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks \"$(DEVELOPER_LIBRARY_DIR)/Frameworks\" \"$(DEVELOPER_DIR)/../SharedFrameworks\" \"$SDKROOT/Developer/Library/PrivateFrameworks\" \"$SDKROOT/System/Library/PrivateFrameworks\" \"$(DEVELOPER_DIR)/../Frameworks\" \"$SDKROOT/System/Library/Frameworks\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.$(PRODUCT_NAME:rfc1034identifier)";
