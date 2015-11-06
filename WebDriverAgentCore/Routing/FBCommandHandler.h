@@ -27,7 +27,7 @@
  *
  * @return map an NSArray<FBRoute *> of routes.
  */
-+ (NSArray <FBRoute *>*)routes;
++ (NSArray *)routes;
 
 @optional
 /**
