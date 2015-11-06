@@ -40,7 +40,7 @@
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       XCUIElement *element = [request.session.elementCache elementForIndex:elementID];
       BOOL isEnabled = element.isEnabled;
-      completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoError, isEnabled ? @"1" : @"0"));
+      completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoError, isEnabled ? @YES : @NO));
     },
     @"GET@/session/:sessionID/element/:id/rect" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
       XCUIElement *element = [request.session.elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
@@ -69,7 +69,7 @@
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       XCUIElement *element = [request.session.elementCache elementForIndex:elementID];
       BOOL isVisible = element.isFBVisible;
-      completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoError, isVisible ? @"1" : @"0"));
+      completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoError, isVisible ? @YES : @NO));
     },
     @"POST@/session/:sessionID/element/:id/click" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
