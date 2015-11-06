@@ -70,12 +70,6 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
   return handlers.copy;
 }
 
-- (instancetype)init
-{
-  @throw [NSException exceptionWithName:@"Bad initializer" reason:@"Should NOT use -[FBWebServer init] method. Use -[FBWebServer initWithElementCache:] instead" userInfo:nil];
-  return [self initWithElementCache:nil]; // Keep complier happy
-}
-
 - (instancetype)initWithElementCache:(id <FBElementCache>)elementCache
 {
   FBWebServer *server = [FBWebServer new];

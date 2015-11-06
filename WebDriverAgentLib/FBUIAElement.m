@@ -95,7 +95,7 @@
 {
   FBWDAAssertMainThread();
   [UIAElement pushPatience:0];
-  id value = [self valueForKey:key];
+  id value = [super valueForKey:key];
   [UIAElement popPatience];
   return value;
 }

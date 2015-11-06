@@ -6,11 +6,12 @@
 //  Copyright © 2015 Facebook. All rights reserved.
 //
 
+#import <RoutingHTTPServer/RouteResponse.h>
+
 #import "FBUIAExceptionHandler.h"
 
 #import "FBAlertViewCommands.h"
 #import "FBResponsePayload.h"
-#import "RouteResponse.h"
 
 extern NSString *kUIAExceptionBadPoint;
 extern NSString *kUIAExceptionInvalidElement;
