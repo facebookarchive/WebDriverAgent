@@ -53,6 +53,18 @@
       attributeValue = attributeValue ?: [NSNull null];
       completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoError, attributeValue));
     },
+    @"GET@/session/:sessionID/element/:id/text" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
+        NSInteger elementID = [request.parameters[@"id"] integerValue];
+        XCUIElement *element = [request.session.elementCache elementForIndex:elementID];
+        id text;
+        if ([element elementType] == XCUIElementTypeStaticText) {
+          text = [element label];
+        } else {
+          text = [element value];
+        }
+        text = text ?: [NSNull null];
+        completionHandler(FBResponseDictionaryWithStatus(FBCommandStatusNoError, text));
+    },
     @"GET@/session/:sessionID/element/:id/displayed" : ^(FBRouteRequest *request, FBRouteResponseCompletion completionHandler) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       XCUIElement *element = [request.session.elementCache elementForIndex:elementID];
