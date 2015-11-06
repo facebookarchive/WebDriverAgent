@@ -7,11 +7,11 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <WebDriverAgentLib/FBWebDriverAgent.h>
+#import <WebDriverAgentLib/FBUIAWebDriverAgent.h>
 
 int main(int argc, char *argv[]) {
   @autoreleasepool {
-    [[FBWebDriverAgent sharedAgent] start];
+    [[FBUIAWebDriverAgent sharedAgent] start];
   }
 
   return 0;

@@ -7,11 +7,9 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <Foundation/Foundation.h>
+@protocol FBElement;
 
-@class UIAElement;
-
-@interface FBElementCache : NSObject
+@protocol FBElementCache <NSObject>
 
 /**
  * Stores element in cache
@@ -19,7 +17,7 @@
  * @param element element to store
  * @return element's index
  */
-- (NSUInteger)storeElement:(UIAElement *)element;
+- (NSUInteger)storeElement:(id <FBElement>)element;
 
 /**
  * Returns cached element
@@ -27,6 +25,6 @@
  * @param index index of element to fetch
  * @return element
  */
-- (UIAElement *)elementForIndex:(NSUInteger)index;
+- (id <FBElement>)elementForIndex:(NSUInteger)index;
 
 @end

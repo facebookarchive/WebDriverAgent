@@ -7,53 +7,44 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBWebDriverAgent.h"
-
-#import <CoreGraphics/CoreGraphics.h>
+#import "FBUIAWebDriverAgent.h"
 
 #import "FBAutomationTargetDelegate.h"
-#import "FBWebServer.h"
+#import "FBUIAElementCache.h"
+#import "FBUIAExceptionHandler.h"
 #import "FBWDALogger.h"
+#import "FBWebServer.h"
 
 #import "UIAApplication.h"
 #import "UIATarget.h"
 
-@interface FBWebDriverAgent ()
-
+@interface FBUIAWebDriverAgent ()
 @property (atomic, strong, readwrite) id<UIATargetDelegate> automationDelegate;
 @property (atomic, strong, readwrite) FBWebServer *server;
-
 @end
 
-@implementation FBWebDriverAgent
+
+@implementation FBUIAWebDriverAgent
 
 + (instancetype)sharedAgent
 {
   static id agent;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    agent = [[self alloc] init];
+    agent = [self.class new];
   });
-
   return agent;
 }
 
 - (void)start
 {
   [FBWDALogger logFmt:@"Built at %s %s", __DATE__, __TIME__];
-
-  [self setUpUIAutomation];
-  self.server = [[FBWebServer alloc] init];
-  [self.server startServing];
-
-  [[NSRunLoop mainRunLoop] run];
-}
-
-- (void)setUpUIAutomation
-{
   self.automationDelegate = [[FBAutomationTargetDelegate alloc] init];
-
   [[UIATarget localTarget] setDelegate:self.automationDelegate];
+  self.server = [[FBWebServer alloc] initWithElementCache:FBUIAElementCache.new];
+  self.server.exceptionHandler = [FBUIAExceptionHandler new];
+  [self.server startServing];
+  [[NSRunLoop mainRunLoop] run];
 }
 
 @end
