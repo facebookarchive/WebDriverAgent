@@ -8,10 +8,11 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <WebDriverAgentLib/FBElementCache.h>
 
 @class UIAElement;
 
-@interface FBElementCache : NSObject
+@interface FBUIAElementCache : NSObject <FBElementCache>
 
 /**
  * Stores element in cache

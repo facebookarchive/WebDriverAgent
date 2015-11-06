@@ -7,14 +7,14 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBElementCache.h"
+#import "FBUIAElementCache.h"
 
 #import "FBAlertViewCommands.h"
 #import "UIAElement.h"
 
 @class UIAElement;
 
-@interface FBElementCache ()
+@interface FBUIAElementCache ()
 
 @property (nonatomic, assign, readwrite) NSUInteger incrementingIndex;
 @property (nonatomic, strong, readwrite) NSMapTable *axElementsToIds;
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation FBElementCache
+@implementation FBUIAElementCache
 
 - (instancetype)init
 {

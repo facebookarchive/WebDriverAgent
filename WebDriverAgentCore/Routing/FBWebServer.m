@@ -14,16 +14,13 @@
 #import <RoutingHTTPServer/RoutingConnection.h>
 #import <RoutingHTTPServer/RoutingHTTPServer.h>
 
-#import "FBAlertViewCommands.h"
 #import "FBCommandHandler.h"
-#import "FBElementCache.h"
+#import "FBUIAElementCache.h"
 #import "FBRouteRequest.h"
 #import "FBUnknownCommands.h"
 #import "FBWDALogger.h"
 #import "FBWDAConstants.h"
 
-extern NSString *kUIAExceptionBadPoint;
-extern NSString *kUIAExceptionInvalidElement;
 NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer";
 
 @interface FBHTTPConnection : RoutingConnection
@@ -42,6 +39,7 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
 
 @interface FBWebServer ()
 @property (atomic, strong, readwrite) RoutingHTTPServer *server;
+@property (atomic, strong, readwrite) id <FBElementCache> elementCache;
 @end
 
 @implementation FBWebServer
@@ -70,6 +68,19 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
   }
   free(classes);
   return handlers.copy;
+}
+
+- (instancetype)init
+{
+  @throw [NSException exceptionWithName:@"Bad initializer" reason:@"Should NOT use -[FBWebServer init] method. Use -[FBWebServer initWithElementCache:] instead" userInfo:nil];
+  return [self initWithElementCache:nil]; // Keep complier happy
+}
+
+- (instancetype)initWithElementCache:(id <FBElementCache>)elementCache
+{
+  FBWebServer *server = [FBWebServer new];
+  server.elementCache = elementCache;
+  return server;
 }
 
 - (void)startServing
@@ -134,7 +145,8 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
 
 - (void)registerRouteHandlers:(NSArray *)commandHandlerClasses
 {
-  FBElementCache *elementCache = [FBElementCache new];
+  FBUIAElementCache *elementCache = self.elementCache;
+  
   for (Class<FBCommandHandler> commandHandler in commandHandlerClasses) {
     NSArray *routes = [commandHandler routes];
     for (FBRoute *route in routes) {
@@ -151,27 +163,7 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
           [route mountRequest:routeParams intoResponse:response];
         }
         @catch (NSException *exception) {
-          if ([exception.name isEqualToString:FBUAlertObstructingElementException]) {
-            id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
-                                                                           FBCommandStatusUnexpectedAlertPresent, @"Alert is obstructing view");
-            [payload dispatchWithResponse:response];
-            return;
-          }
-          if ([[exception name] isEqualToString:kUIAExceptionInvalidElement]) {
-            id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
-                                                                           FBCommandStatusInvalidElementState, [exception description]);
-            [payload dispatchWithResponse:response];
-            return;
-          }
-          if ([[exception name] isEqualToString:kUIAExceptionBadPoint]) {
-            id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
-                                                                           FBCommandStatusUnhandled, [exception description]);
-            [payload dispatchWithResponse:response];
-            return;
-          }
-          id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(
-                                                                         FBCommandStatusStaleElementReference, [exception description]);
-          [payload dispatchWithResponse:response];
+          [self.exceptionHandler webServer:self handleException:exception forResponse:response];
         }
       }];
     }
