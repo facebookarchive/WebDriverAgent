@@ -122,6 +122,8 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
     elements = [self descendantsOfElement:element withClassName:value];
   } else if ([usingText isEqualToString:@"xpath"]) {
     elements = [self descendantsOfElement:element withXPathQuery:value];
+  } else if ([usingText isEqualToString:@"accessibility id"]) {
+      elements = [self descendantsOfElement:element withIdentifier:value];
   }
   return [FBAlertViewCommands filterElementsObstructedByAlertView:elements];
 }
@@ -138,6 +140,19 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
   }
   [result addObjectsFromArray:[[element descendantsMatchingType:type] allElementsBoundByIndex]];
   return result.copy;
+}
+
+#pragma mark - Search by Accessibility Id
+
++ (NSArray *)descendantsOfElement:(XCUIElement *)element withIdentifier:(NSString *)accessibilityId
+{
+    NSMutableArray *result = [NSMutableArray array];
+    if (element.identifier == accessibilityId) {
+        [result addObject:result];
+    }
+    NSArray *children = [[[element descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:accessibilityId] allElementsBoundByIndex];
+    [result addObjectsFromArray: children];
+    return result.copy;
 }
 
 
