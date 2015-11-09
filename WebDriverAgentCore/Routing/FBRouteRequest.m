@@ -8,24 +8,24 @@
  */
 
 #import "FBRouteRequest.h"
-#import "FBElementCache.h"
+#import "FBSession.h"
 
 @interface FBRouteRequest ()
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, copy) NSDictionary *parameters;
 @property (nonatomic, copy) NSDictionary *arguments;
-@property (nonatomic, strong) id <FBElementCache> elementCache;
+@property (nonatomic, strong) FBSession *session;
 @end
 
 @implementation FBRouteRequest
 
-+ (instancetype)routeRequestWithURL:(NSURL *)URL parameters:(NSDictionary *)parameters arguments:(NSDictionary *)arguments elementCache:(id <FBElementCache>)elementCache
++ (instancetype)routeRequestWithURL:(NSURL *)URL parameters:(NSDictionary *)parameters arguments:(NSDictionary *)arguments session:(FBSession *)session
 {
   FBRouteRequest *request = [self.class new];
   request.URL = URL;
   request.parameters = parameters;
   request.arguments = arguments;
-  request.elementCache = elementCache;
+  request.session = session;
   return request;
 }
 
