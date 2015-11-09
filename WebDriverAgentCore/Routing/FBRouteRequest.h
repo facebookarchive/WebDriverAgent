@@ -9,14 +9,14 @@
 
 #import <Foundation/Foundation.h>
 
-@class FBElementCache;
+@protocol FBElementCache;
 
 @interface FBRouteRequest : NSObject
 @property (nonatomic, strong, readonly) NSURL *URL;
 @property (nonatomic, copy, readonly) NSDictionary *parameters;
 @property (nonatomic, copy, readonly) NSDictionary *arguments;
-@property (nonatomic, strong, readonly) FBElementCache *elementCache;
+@property (nonatomic, strong, readonly) id <FBElementCache> elementCache;
 
-+ (instancetype)routeRequestWithURL:(NSURL *)URL parameters:(NSDictionary *)parameters arguments:(NSDictionary *)arguments elementCache:(FBElementCache *)elementCache;
++ (instancetype)routeRequestWithURL:(NSURL *)URL parameters:(NSDictionary *)parameters arguments:(NSDictionary *)arguments elementCache:(id <FBElementCache>)elementCache;
 
 @end

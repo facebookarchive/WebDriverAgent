@@ -7,14 +7,14 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBElementCache.h"
+#import "FBUIAElementCache.h"
 
 #import "FBAlertViewCommands.h"
+#import "FBUIAElement.h"
+
 #import "UIAElement.h"
 
-@class UIAElement;
-
-@interface FBElementCache ()
+@interface FBUIAElementCache ()
 
 @property (nonatomic, assign, readwrite) NSUInteger incrementingIndex;
 @property (nonatomic, strong, readwrite) NSMapTable *axElementsToIds;
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation FBElementCache
+@implementation FBUIAElementCache
 
 - (instancetype)init
 {
@@ -33,21 +33,21 @@
 
   _incrementingIndex = 3;
   _axElementsToIds = [NSMapTable weakToStrongObjectsMapTable];
-  _idsToElements = [NSMapTable strongToWeakObjectsMapTable];
+  _idsToElements = [NSMapTable strongToStrongObjectsMapTable];
   return self;
 }
 
-- (NSUInteger)storeElement:(UIAElement *)element
+- (NSUInteger)storeElement:(FBUIAElement *)element
 {
   @synchronized(self)
   {
-    NSNumber *elementNumber = [self.axElementsToIds objectForKey:element.uiaxElement];
+    NSNumber *elementNumber = [self.axElementsToIds objectForKey:element.uiaElement.uiaxElement];
     if (elementNumber) {
       return elementNumber.unsignedIntegerValue;
     }
 
     elementNumber = @(self.incrementingIndex);
-    [self.axElementsToIds setObject:elementNumber forKey:element.uiaxElement];
+    [self.axElementsToIds setObject:elementNumber forKey:element.uiaElement.uiaxElement];
     [self.idsToElements setObject:element forKey:elementNumber];
     self.incrementingIndex++;
 
@@ -55,12 +55,12 @@
   }
 }
 
-- (UIAElement *)elementForIndex:(NSUInteger)index
+- (FBUIAElement *)elementForIndex:(NSUInteger)index
 {
   @synchronized(self)
   {
-    UIAElement *element = [self.idsToElements objectForKey:@(index)];
-    [FBAlertViewCommands ensureElementIsNotObstructedByAlertView:element];
+    FBUIAElement *element = [self.idsToElements objectForKey:@(index)];
+    [FBAlertViewCommands ensureElementIsNotObstructedByAlertView:element.uiaElement];
     return element;
   }
 }

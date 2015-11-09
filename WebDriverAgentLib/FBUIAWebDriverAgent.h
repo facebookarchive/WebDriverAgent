@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FBWebDriverAgent : NSObject
+@interface FBUIAWebDriverAgent : NSObject
 
 + (instancetype)sharedAgent;
 
