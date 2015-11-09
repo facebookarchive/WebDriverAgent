@@ -1,10 +1,11 @@
-//
-//  FBUIAElement.m
-//  WebDriverAgent
-//
-//  Created by Marek Cirkos on 06/11/2015.
-//  Copyright © 2015 Facebook. All rights reserved.
-//
+/**
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
 
 #import <CoreGraphics/CoreGraphics.h>
 #import <objc/runtime.h>
