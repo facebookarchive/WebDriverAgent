@@ -13,6 +13,4 @@
 
 @interface FBSessionCommands : NSObject <FBCommandHandler>
 
-+ (NSString *)sessionId;
-
 @end
