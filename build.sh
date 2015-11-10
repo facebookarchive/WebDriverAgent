@@ -11,6 +11,12 @@ set -eu
 
 MODE=$1
 
+KEY_CHAIN=ios-build.keychain
+security create-keychain -p travis $KEY_CHAIN
+security default-keychain -s $KEY_CHAIN
+security unlock-keychain -p travis $KEY_CHAIN
+security set-keychain-settings -t 3600 -u $KEY_CHAIN
+
 function ci() {
   xctool \
       -workspace WebDriverAgent.xcworkspace \
