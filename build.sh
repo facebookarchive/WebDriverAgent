@@ -13,13 +13,15 @@ MODE=$1
 
 function ci() {
   xctool \
-      -workspace $1.xcworkspace \
+      -workspace WebDriverAgent.xcworkspace \
       -scheme $1 \
-      -sdk iphonesimulator \
-      build
+      -sdk $2 \
+      $3
 }
 
 if [ "$MODE" = "ci" ]; then
-  ci WebDriverAgent
+  ci WebDriverAgent iphonesimulator build
+  ci XCTUITestRunner iphonesimulator build-tests
+  ci XCTUITestRunner iphoneos build-tests
 fi
 
