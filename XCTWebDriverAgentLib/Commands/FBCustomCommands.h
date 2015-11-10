@@ -8,15 +8,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <WebDriverAgentLib/FBElement.h>
 
-@class UIAElement;
+#import <XCTWebDriverAgentLib/FBCommandHandler.h>
 
-@interface FBUIAElement : NSObject <FBElement>
-@property (nonatomic, strong, readonly) UIAElement *uiaElement;
-
-+ (instancetype)targetElement;
-+ (instancetype)applicationElement;
-+ (instancetype)elementWithUIAElement:(UIAElement *)uiaElement;
+@interface FBCustomCommands : NSObject <FBCommandHandler>
 
 @end

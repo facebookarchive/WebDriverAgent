@@ -16,8 +16,8 @@
 #import "FBSession.h"
 #import "FBWDAConstants.h"
 #import "FBWDAMacros.h"
-#import "FBUIAElement.h"
 #import "UIAApplication.h"
+#import "UIAElement+WebDriverAttributes.h"
 #import "UIACollectionView.h"
 #import "UIAKeyboard.h"
 #import "UIAPickerWheel.h"
@@ -37,9 +37,10 @@
       CGFloat x = [request.arguments[@"x"] floatValue];
       CGFloat y = [request.arguments[@"y"] floatValue];
       NSInteger elementID = [request.parameters[@"reference"] integerValue];
-      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
+      FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
+      UIAElement *element = [elementCache elementForIndex:elementID];
       if (element != nil) {
-        CGRect rect = element.frame;
+        CGRect rect = element.wdFrame;
         x += rect.origin.x;
         y += rect.origin.y;
       }
@@ -48,28 +49,33 @@
     }],
     [[FBRoute POST:@"/session/:sessionID/element/:id/click"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
-      [element.uiaElement tap];
+      FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
+      UIAElement *element = [elementCache elementForIndex:elementID];
+      [element tap];
       return FBResponseDictionaryWithElementID(elementID);
     }],
     [[FBRoute GET:@"/session/:sessionID/element/:id/displayed"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.isVisible ? @"1" : @"0");
+      FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
+      UIAElement *element = [elementCache elementForIndex:elementID];
+      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.isWDVisible ? @YES : @NO);
     }],
     [[FBRoute GET:@"/session/:sessionID/element/:id/enabled"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.isEnabled ? @YES : @NO);
+      FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
+      UIAElement *element = [elementCache elementForIndex:elementID];
+      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.isWDEnabled ? @YES : @NO);
     }],
     [[FBRoute GET:@"/session/:sessionID/element/:id/text"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.value);
+      FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
+      UIAElement *element = [elementCache elementForIndex:elementID];
+      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdValue);
     }],
     [[FBRoute POST:@"/session/:sessionID/element/:id/clear"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
+      FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
+      UIAElement *element = [elementCache elementForIndex:elementID];
 
       // TODO(t8077426): This is a terrible workaround to get tests in t8036026 passing.
       // It's possible that the client has allready called tap on the element.
@@ -77,21 +83,22 @@
       // In thise case an exception will be thrown.
       if (FBWDAConstants.isIOS9OrGreater) {
         @try {
-          [element.uiaElement setValue:@""];
+          [element setValue:@""];
         }
         @catch (NSException *exception) {
         }
       } else {
-        [element.uiaElement setValue:@""];
+        [element setValue:@""];
       }
 
       return FBResponseDictionaryWithElementID(elementID);
     }],
     [[FBRoute POST:@"/session/:sessionID/element/:id/value"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
-      if (![element.uiaElement.hasKeyboardFocus boolValue]) {
-        [element.uiaElement tap];
+      FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
+      UIAElement *element = [elementCache elementForIndex:elementID];
+      if (![element.hasKeyboardFocus boolValue]) {
+        [element tap];
       }
       NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
       [self.class typeText:textToType];
@@ -103,13 +110,15 @@
       return FBResponseDictionaryWithOK();
     }],
     [[FBRoute POST:@"/session/:sessionID/uiaElement/:elementID/doubleTap"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBUIAElement *element = [request.session.elementCache elementForIndex:[request.parameters[@"elementID"] integerValue]];
-      [element.uiaElement doubleTap];
+      FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
+      UIAElement *element = [elementCache elementForIndex:[request.parameters[@"elementID"] integerValue]];
+      [element doubleTap];
       return FBResponseDictionaryWithOK();
     }],
     [[FBRoute POST:@"/session/:sessionID/uiaElement/:id/touchAndHold"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBUIAElement *element = [request.session.elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
-      [element.uiaElement touchAndHold:@([request.arguments[@"duration"] floatValue])];
+      FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
+      UIAElement *element = [elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
+      [element touchAndHold:@([request.arguments[@"duration"] floatValue])];
       return FBResponseDictionaryWithOK();
     }],
     [[FBRoute POST:@"/session/:sessionID/uiaTarget/:id/dragfromtoforduration"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
@@ -117,47 +126,50 @@
       return FBResponseDictionaryWithOK();
     }],
     [[FBRoute GET:@"/session/:sessionID/element/:elementID/rect"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBUIAElement *element = [request.session.elementCache elementForIndex:[request.parameters[@"elementID"] integerValue]];
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.rect);
+      FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
+      UIAElement *element = [elementCache elementForIndex:[request.parameters[@"elementID"] integerValue]];
+      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdRect);
     }],
     [[FBRoute GET:@"/session/:sessionID/element/:id/attribute/:name"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+      FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
-      id attributeValue = [element valueForKey:request.parameters[@"name"]];
+      UIAElement *element = [elementCache elementForIndex:elementID];
+      id attributeValue = [element valueForWDAttributeName:request.parameters[@"name"]];
       attributeValue = attributeValue ?: [NSNull null];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, attributeValue);
     }],
     [[FBRoute GET:@"/session/:sessionID/window/:windowHandle/size"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [FBUIAElement targetElement].rect[@"size"]);
+      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [UIATarget localTarget].wdRect[@"size"]);
     }],
     [[FBRoute POST:@"/session/:sessionID/uiaElement/:element/scroll"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBUIAElement *element = [request.session.elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
+      FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
+      UIAElement *element = [elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
 
       // Using presence of arguments as a way to convey control flow seems like a pretty bad idea but it's
       // what ios-driver did and sadly, we must copy them.
       if (request.arguments[@"name"]) {
-        [element.uiaElement scrollToElementWithName:request.arguments[@"name"]];
+        [element scrollToElementWithName:request.arguments[@"name"]];
       } else if (request.arguments[@"direction"]) {
         NSString *direction = request.arguments[@"direction"];
         if ([direction isEqualToString:@"up"]) {
-          [element.uiaElement scrollUp];
+          [element scrollUp];
         } else if ([direction isEqualToString:@"down"]) {
-          [element.uiaElement scrollDown];
+          [element scrollDown];
         } else if ([direction isEqualToString:@"left"]) {
-          [element.uiaElement scrollLeft];
+          [element scrollLeft];
         } else if ([direction isEqualToString:@"right"]) {
-          [element.uiaElement scrollRight];
+          [element scrollRight];
         }
       } else if (request.arguments[@"predicateString"]) {
-        [element.uiaElement scrollToElementWithPredicate:request.arguments[@"predicateString"]];
+        [element scrollToElementWithPredicate:request.arguments[@"predicateString"]];
       } else if (request.arguments[@"toVisible"]) {
         id rect;
         int counter = 0;
         // Calling scrollToVisible sometimes scrolls element in a way that it is still invisible.
         // This will try 10 times to scroll element till stable rect is reached.
-        while (![[element.uiaElement rect] isEqual:rect]) {
-          rect = [element.uiaElement rect];
-          [element.uiaElement scrollToVisible];
+        while (![[element rect] isEqual:rect]) {
+          rect = [element rect];
+          [element scrollToVisible];
           if (counter > 10) {
             break;
           }
@@ -167,8 +179,7 @@
       return FBResponseDictionaryWithOK();
     }],
     [[FBRoute POST:@"/session/:sessionID/uiaElement/:elementID/value"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBUIAElement *element = [request.session.elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
-      UIAPickerWheel *wheelElement = (UIAPickerWheel *)element.uiaElement;
+      UIAPickerWheel *wheelElement = (UIAPickerWheel *)[request.session.elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
       [wheelElement selectValue:request.arguments[@"value"]];
       return FBResponseDictionaryWithOK();
     }],

@@ -39,7 +39,6 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
 
 @interface FBWebServer ()
 @property (atomic, strong, readwrite) RoutingHTTPServer *server;
-@property (atomic, strong, readwrite) id <FBElementCache> elementCache;
 @end
 
 @implementation FBWebServer
@@ -68,13 +67,6 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
   }
   free(classes);
   return handlers.copy;
-}
-
-- (instancetype)initWithElementCache:(id <FBElementCache>)elementCache
-{
-  FBWebServer *server = [FBWebServer new];
-  server.elementCache = elementCache;
-  return server;
 }
 
 - (void)startServing
