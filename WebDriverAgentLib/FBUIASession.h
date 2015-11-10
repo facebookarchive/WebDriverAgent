@@ -8,9 +8,16 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "FBSession.h"
 
-#import "FBCommandHandler.h"
+@interface FBUIASession : FBSession
 
-@interface FBSessionCommands : NSObject <FBCommandHandler>
+/**
+ Creates new session with identifier
+ 
+ @param identifier Identifer for new session
+ @return session.
+ */
++ (instancetype)newSessionWithIdentifier:(NSString *)identifier;
 
 @end

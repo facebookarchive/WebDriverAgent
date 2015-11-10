@@ -43,6 +43,11 @@
 		AAA282E01BCF8FB70027DE10 /* UIAElement+WebDriverXML.h in Headers */ = {isa = PBXBuildFile; fileRef = AAA282C81BCF8FB70027DE10 /* UIAElement+WebDriverXML.h */; };
 		AAA282E11BCF8FB70027DE10 /* UIAElement+WebDriverXML.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA282C91BCF8FB70027DE10 /* UIAElement+WebDriverXML.m */; };
 		C4CA855D79D58A75C1A6E3A2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA846E1E751106917FCF1B26 /* libPods.a */; };
+		EE0CA1DF1BF0D0E3005C43CD /* FBSession.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */; };
+		EE0CA1E01BF0D0E3005C43CD /* FBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0CA1DE1BF0D0E3005C43CD /* FBSession.m */; };
+		EE0CA1E31BF0D397005C43CD /* FBUIASession.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1E11BF0D397005C43CD /* FBUIASession.h */; };
+		EE0CA1E41BF0D397005C43CD /* FBUIASession.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0CA1E21BF0D397005C43CD /* FBUIASession.m */; };
+		EE0CA1E61BF0D459005C43CD /* FBSession-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */; };
 		EE3D73801BECC9590034D1E9 /* FBUIAWebDriverAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3D737E1BECC9590034D1E9 /* FBUIAWebDriverAgent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3D73811BECC9590034D1E9 /* FBUIAWebDriverAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D737F1BECC9590034D1E9 /* FBUIAWebDriverAgent.m */; };
 		EE3D73A21BECCA5A0034D1E9 /* FBCommandHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3D738A1BECCA5A0034D1E9 /* FBCommandHandler.h */; };
@@ -205,6 +210,11 @@
 		AAA282C91BCF8FB70027DE10 /* UIAElement+WebDriverXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAElement+WebDriverXML.m"; sourceTree = "<group>"; };
 		D17FD3E4AF3ECD6BC73CACFA /* Pods-WebDriverAgentLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLibTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests.release.xcconfig"; sourceTree = "<group>"; };
 		DA846E1E751106917FCF1B26 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSession.h; sourceTree = "<group>"; };
+		EE0CA1DE1BF0D0E3005C43CD /* FBSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSession.m; sourceTree = "<group>"; };
+		EE0CA1E11BF0D397005C43CD /* FBUIASession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBUIASession.h; sourceTree = "<group>"; };
+		EE0CA1E21BF0D397005C43CD /* FBUIASession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBUIASession.m; sourceTree = "<group>"; };
+		EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FBSession-Private.h"; sourceTree = "<group>"; };
 		EE3D737E1BECC9590034D1E9 /* FBUIAWebDriverAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBUIAWebDriverAgent.h; sourceTree = "<group>"; };
 		EE3D737F1BECC9590034D1E9 /* FBUIAWebDriverAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBUIAWebDriverAgent.m; sourceTree = "<group>"; };
 		EE3D738A1BECCA5A0034D1E9 /* FBCommandHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCommandHandler.h; sourceTree = "<group>"; };
@@ -342,10 +352,12 @@
 				EE3D73C21BECD0310034D1E9 /* FBUIAElement.m */,
 				EE3D73B91BECCA770034D1E9 /* FBUIAElementCache.h */,
 				EE3D73BA1BECCA770034D1E9 /* FBUIAElementCache.m */,
-				EE3D737E1BECC9590034D1E9 /* FBUIAWebDriverAgent.h */,
-				EE3D737F1BECC9590034D1E9 /* FBUIAWebDriverAgent.m */,
 				EE3D73CF1BECDE8A0034D1E9 /* FBUIAExceptionHandler.h */,
 				EE3D73D01BECDE8A0034D1E9 /* FBUIAExceptionHandler.m */,
+				EE0CA1E11BF0D397005C43CD /* FBUIASession.h */,
+				EE0CA1E21BF0D397005C43CD /* FBUIASession.m */,
+				EE3D737E1BECC9590034D1E9 /* FBUIAWebDriverAgent.h */,
+				EE3D737F1BECC9590034D1E9 /* FBUIAWebDriverAgent.m */,
 				AAA282B11BCF8FB70027DE10 /* WebDriverCommands */,
 			);
 			path = WebDriverAgentLib;
@@ -514,6 +526,9 @@
 				EE3D73931BECCA5A0034D1E9 /* FBRoute.m */,
 				EE3D73941BECCA5A0034D1E9 /* FBRouteRequest.h */,
 				EE3D73951BECCA5A0034D1E9 /* FBRouteRequest.m */,
+				EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */,
+				EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */,
+				EE0CA1DE1BF0D0E3005C43CD /* FBSession.m */,
 				EE3D73981BECCA5A0034D1E9 /* FBWebServer.h */,
 				EE3D73991BECCA5A0034D1E9 /* FBWebServer.m */,
 			);
@@ -553,6 +568,7 @@
 				EE3D73C51BECD0600034D1E9 /* FBElement.h in Headers */,
 				EE3D73AC1BECCA5A0034D1E9 /* FBRouteRequest.h in Headers */,
 				AAA282CA1BCF8FB70027DE10 /* FBAlertViewCommands.h in Headers */,
+				EE0CA1DF1BF0D0E3005C43CD /* FBSession.h in Headers */,
 				EE3D73801BECC9590034D1E9 /* FBUIAWebDriverAgent.h in Headers */,
 				AAA282CE1BCF8FB70027DE10 /* FBDebugCommands.h in Headers */,
 				EE3D73A21BECCA5A0034D1E9 /* FBCommandHandler.h in Headers */,
@@ -576,6 +592,8 @@
 				EE3D73B61BECCA5A0034D1E9 /* FBWDALogger.h in Headers */,
 				EE3D73A41BECCA5A0034D1E9 /* FBResponseFilePayload.h in Headers */,
 				EE3D73BB1BECCA770034D1E9 /* FBUIAElementCache.h in Headers */,
+				EE0CA1E61BF0D459005C43CD /* FBSession-Private.h in Headers */,
+				EE0CA1E31BF0D397005C43CD /* FBUIASession.h in Headers */,
 				AAA282DA1BCF8FB70027DE10 /* FBSessionCommands.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -861,6 +879,7 @@
 				AAA282D31BCF8FB70027DE10 /* FBFindElementCommands.m in Sources */,
 				AAA282D71BCF8FB70027DE10 /* FBOrientationCommands.m in Sources */,
 				EE3D73B51BECCA5A0034D1E9 /* FBWDAConstants.m in Sources */,
+				EE0CA1E41BF0D397005C43CD /* FBUIASession.m in Sources */,
 				EE3D73BC1BECCA770034D1E9 /* FBUIAElementCache.m in Sources */,
 				AAA282CB1BCF8FB70027DE10 /* FBAlertViewCommands.m in Sources */,
 				AAA282D51BCF8FB70027DE10 /* FBInspectorCommands.m in Sources */,
@@ -869,6 +888,7 @@
 				EE3D73D21BECDE8A0034D1E9 /* FBUIAExceptionHandler.m in Sources */,
 				EE3D73C41BECD0310034D1E9 /* FBUIAElement.m in Sources */,
 				AAA282E11BCF8FB70027DE10 /* UIAElement+WebDriverXML.m in Sources */,
+				EE0CA1E01BF0D0E3005C43CD /* FBSession.m in Sources */,
 				EE3D73A91BECCA5A0034D1E9 /* FBResponsePayload.m in Sources */,
 				AAA282CD1BCF8FB70027DE10 /* FBCustomCommands.m in Sources */,
 				AAA282DF1BCF8FB70027DE10 /* UIAElement+ChildHelpers.m in Sources */,

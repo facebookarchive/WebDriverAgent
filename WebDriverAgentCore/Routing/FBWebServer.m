@@ -15,8 +15,8 @@
 #import <RoutingHTTPServer/RoutingHTTPServer.h>
 
 #import "FBCommandHandler.h"
-#import "FBUIAElementCache.h"
 #import "FBRouteRequest.h"
+#import "FBSession.h"
 #import "FBUnknownCommands.h"
 #import "FBWDALogger.h"
 #import "FBWDAConstants.h"
@@ -139,8 +139,6 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
 
 - (void)registerRouteHandlers:(NSArray *)commandHandlerClasses
 {
-  FBUIAElementCache *elementCache = self.elementCache;
-  
   for (Class<FBCommandHandler> commandHandler in commandHandlerClasses) {
     NSArray *routes = [commandHandler routes];
     for (FBRoute *route in routes) {
@@ -149,7 +147,7 @@ NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer
           routeRequestWithURL:request.url
           parameters:request.params
           arguments:[NSJSONSerialization JSONObjectWithData:request.body options:0 error:NULL]
-          elementCache:elementCache];
+          session:[FBSession sessionWithIdentifier:request.params[@"sessionID"]]];
 
         [FBWDALogger verboseLog:routeParams.description];
 

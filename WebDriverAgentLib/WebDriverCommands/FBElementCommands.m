@@ -13,6 +13,7 @@
 
 #import "FBUIAElementCache.h"
 #import "FBRouteRequest.h"
+#import "FBSession.h"
 #import "FBWDAConstants.h"
 #import "FBWDAMacros.h"
 #import "FBUIAElement.h"
@@ -36,7 +37,7 @@
       CGFloat x = [request.arguments[@"x"] floatValue];
       CGFloat y = [request.arguments[@"y"] floatValue];
       NSInteger elementID = [request.parameters[@"reference"] integerValue];
-      FBUIAElement *element = [request.elementCache elementForIndex:elementID];
+      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
       if (element != nil) {
         CGRect rect = element.frame;
         x += rect.origin.x;
@@ -47,28 +48,28 @@
     }],
     [[FBRoute POST:@"/session/:sessionID/element/:id/click"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.elementCache elementForIndex:elementID];
+      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
       [element.uiaElement tap];
       return FBResponseDictionaryWithElementID(elementID);
     }],
     [[FBRoute GET:@"/session/:sessionID/element/:id/displayed"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.elementCache elementForIndex:elementID];
+      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.isVisible ? @"1" : @"0");
     }],
     [[FBRoute GET:@"/session/:sessionID/element/:id/enabled"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.elementCache elementForIndex:elementID];
+      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.isEnabled ? @YES : @NO);
     }],
     [[FBRoute GET:@"/session/:sessionID/element/:id/text"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.elementCache elementForIndex:elementID];
+      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.value);
     }],
     [[FBRoute POST:@"/session/:sessionID/element/:id/clear"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.elementCache elementForIndex:elementID];
+      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
 
       // TODO(t8077426): This is a terrible workaround to get tests in t8036026 passing.
       // It's possible that the client has allready called tap on the element.
@@ -88,7 +89,7 @@
     }],
     [[FBRoute POST:@"/session/:sessionID/element/:id/value"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.elementCache elementForIndex:elementID];
+      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
       if (![element.uiaElement.hasKeyboardFocus boolValue]) {
         [element.uiaElement tap];
       }
@@ -102,12 +103,12 @@
       return FBResponseDictionaryWithOK();
     }],
     [[FBRoute POST:@"/session/:sessionID/uiaElement/:elementID/doubleTap"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBUIAElement *element = [request.elementCache elementForIndex:[request.parameters[@"elementID"] integerValue]];
+      FBUIAElement *element = [request.session.elementCache elementForIndex:[request.parameters[@"elementID"] integerValue]];
       [element.uiaElement doubleTap];
       return FBResponseDictionaryWithOK();
     }],
     [[FBRoute POST:@"/session/:sessionID/uiaElement/:id/touchAndHold"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBUIAElement *element = [request.elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
+      FBUIAElement *element = [request.session.elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
       [element.uiaElement touchAndHold:@([request.arguments[@"duration"] floatValue])];
       return FBResponseDictionaryWithOK();
     }],
@@ -116,12 +117,12 @@
       return FBResponseDictionaryWithOK();
     }],
     [[FBRoute GET:@"/session/:sessionID/element/:elementID/rect"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBUIAElement *element = [request.elementCache elementForIndex:[request.parameters[@"elementID"] integerValue]];
+      FBUIAElement *element = [request.session.elementCache elementForIndex:[request.parameters[@"elementID"] integerValue]];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.rect);
     }],
     [[FBRoute GET:@"/session/:sessionID/element/:id/attribute/:name"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
-      FBUIAElement *element = [request.elementCache elementForIndex:elementID];
+      FBUIAElement *element = [request.session.elementCache elementForIndex:elementID];
       id attributeValue = [element valueForKey:request.parameters[@"name"]];
       attributeValue = attributeValue ?: [NSNull null];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, attributeValue);
@@ -130,7 +131,7 @@
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [FBUIAElement targetElement].rect[@"size"]);
     }],
     [[FBRoute POST:@"/session/:sessionID/uiaElement/:element/scroll"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBUIAElement *element = [request.elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
+      FBUIAElement *element = [request.session.elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
 
       // Using presence of arguments as a way to convey control flow seems like a pretty bad idea but it's
       // what ios-driver did and sadly, we must copy them.
@@ -166,7 +167,7 @@
       return FBResponseDictionaryWithOK();
     }],
     [[FBRoute POST:@"/session/:sessionID/uiaElement/:elementID/value"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBUIAElement *element = [request.elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
+      FBUIAElement *element = [request.session.elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
       UIAPickerWheel *wheelElement = (UIAPickerWheel *)element.uiaElement;
       [wheelElement selectValue:request.arguments[@"value"]];
       return FBResponseDictionaryWithOK();
