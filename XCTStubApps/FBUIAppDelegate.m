@@ -14,6 +14,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   self.window = [UIWindow new];
   self.window.frame = [UIScreen mainScreen].bounds;
+  self.window.backgroundColor = [UIColor blueColor];
   self.window.rootViewController = [UIViewController new];
   [self.window makeKeyAndVisible];
   return YES;
