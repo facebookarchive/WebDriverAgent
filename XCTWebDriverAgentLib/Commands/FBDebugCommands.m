@@ -37,7 +37,7 @@ static id ValueOrNull(id value) {
     [[FBRoute GET:@"/session/:sessionID/tree"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       return [self handleTreeCommandWithParams:request];
     }],
-    [[FBRoute POST:@"/session/:sessionID/source"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/session/:sessionID/source"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       return [self handleTreeCommandWithParams:request];
     }],
   ];
