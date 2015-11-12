@@ -34,7 +34,6 @@
         @"height": @(rect.size.height),
         },
     };
-  
 }
 
 - (NSDictionary *)wdSize
@@ -45,7 +44,6 @@
         @"width": @(rect.size.width),
         @"height": @(rect.size.height),
       };
-    
 }
 
 - (NSString *)wdName
