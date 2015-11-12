@@ -10,7 +10,6 @@
 #import "FBUIAElementCache.h"
 
 #import "FBAlertViewCommands.h"
-#import "FBUIAElement.h"
 
 #import "UIAElement.h"
 
@@ -37,17 +36,17 @@
   return self;
 }
 
-- (NSUInteger)storeElement:(FBUIAElement *)element
+- (NSUInteger)storeElement:(UIAElement *)element
 {
   @synchronized(self)
   {
-    NSNumber *elementNumber = [self.axElementsToIds objectForKey:element.uiaElement.uiaxElement];
+    NSNumber *elementNumber = [self.axElementsToIds objectForKey:element.uiaxElement];
     if (elementNumber) {
       return elementNumber.unsignedIntegerValue;
     }
 
     elementNumber = @(self.incrementingIndex);
-    [self.axElementsToIds setObject:elementNumber forKey:element.uiaElement.uiaxElement];
+    [self.axElementsToIds setObject:elementNumber forKey:element.uiaxElement];
     [self.idsToElements setObject:element forKey:elementNumber];
     self.incrementingIndex++;
 
@@ -55,12 +54,12 @@
   }
 }
 
-- (FBUIAElement *)elementForIndex:(NSUInteger)index
+- (UIAElement *)elementForIndex:(NSUInteger)index
 {
   @synchronized(self)
   {
-    FBUIAElement *element = [self.idsToElements objectForKey:@(index)];
-    [FBAlertViewCommands ensureElementIsNotObstructedByAlertView:element.uiaElement];
+    UIAElement *element = [self.idsToElements objectForKey:@(index)];
+    [FBAlertViewCommands ensureElementIsNotObstructedByAlertView:element];
     return element;
   }
 }

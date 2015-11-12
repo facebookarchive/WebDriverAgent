@@ -41,7 +41,7 @@
   [FBWDALogger logFmt:@"Built at %s %s", __DATE__, __TIME__];
   self.automationDelegate = [[FBAutomationTargetDelegate alloc] init];
   [[UIATarget localTarget] setDelegate:self.automationDelegate];
-  self.server = [[FBWebServer alloc] initWithElementCache:FBUIAElementCache.new];
+  self.server = [[FBWebServer alloc] init];
   self.server.exceptionHandler = [FBUIAExceptionHandler new];
   [self.server startServing];
   [[NSRunLoop mainRunLoop] run];

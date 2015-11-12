@@ -17,8 +17,6 @@ extern NSString *const FBWebServerErrorDomain;
 @interface FBWebServer : NSObject
 @property (nonatomic, strong) id <FBWebServerExceptionHandler> exceptionHandler;
 
-- (instancetype)initWithElementCache:(id <FBElementCache>)elementCache;
-
 - (void)startServing;
 
 @end
