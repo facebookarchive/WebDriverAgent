@@ -26,10 +26,10 @@
     [[FBRoute POST:@"/session"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
 
       NSDictionary *requirements = request.arguments[@"desiredCapabilities"];
-      NSString *bundleID = requirements[@"CFBundleIdentifier"];
-      NSString *appPath = requirements[@"FBBinaryPath"];
-      NSAssert(bundleID, @"Should have bundle ID");
-      NSAssert(appPath, @"Should have app path");
+        NSString *bundleID = requirements[@"bundleId"];
+        NSString *appPath = requirements[@"app"];
+        NSAssert(bundleID, @"'bundleId' desired capability not provided");
+        NSAssert(appPath, @"'app' desired capability not provided");
 
       XCUIApplication *app = [[XCUIApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
       app.launchArguments = requirements[@"arguments"] ?: @[];
