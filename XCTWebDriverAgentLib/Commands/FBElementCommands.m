@@ -76,6 +76,13 @@
       BOOL isVisible = element.isWDVisible;
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, isVisible ? @YES : @NO);
     }],
+    [[FBRoute GET:@"/session/:sessionID/element/:id/name"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+        FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+        NSInteger elementID = [request.parameters[@"id"] integerValue];
+        XCUIElement *element = [elementCache elementForIndex:elementID];
+        id type = [element wdType];
+        return FBResponseDictionaryWithStatus(FBCommandStatusNoError, type);
+    }],
     [[FBRoute POST:@"/session/:sessionID/element/:id/click"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"id"] integerValue];
