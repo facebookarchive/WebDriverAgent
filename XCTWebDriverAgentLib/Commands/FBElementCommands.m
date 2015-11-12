@@ -48,6 +48,11 @@
       XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdRect);
     }],
+    [[FBRoute GET:@"/session/:sessionID/element/:id/size"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+        FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+        XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+        return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdSize);
+    }],
     [[FBRoute GET:@"/session/:sessionID/element/:id/attribute/:name"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"id"] integerValue];

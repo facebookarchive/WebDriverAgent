@@ -99,4 +99,13 @@
     };
 }
 
+- (NSDictionary *)wdSize
+{
+    return
+    @{
+        @"width": @(CGRectGetWidth(self.frame)),
+        @"height": @(CGRectGetHeight(self.frame)),
+      };
+}
+
 @end

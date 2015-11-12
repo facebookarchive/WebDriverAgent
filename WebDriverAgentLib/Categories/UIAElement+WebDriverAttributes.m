@@ -37,6 +37,17 @@
   
 }
 
+- (NSDictionary *)wdSize
+{
+    CGRect rect = self.wdFrame;
+    return
+    @{
+        @"width": @(rect.size.width),
+        @"height": @(rect.size.height),
+      };
+    
+}
+
 - (NSString *)wdName
 {
   return self.name;

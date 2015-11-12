@@ -16,6 +16,7 @@ NSString *wdAttributeNameForAttributeName(NSString *name);
 
 @property (readonly, assign) CGRect wdFrame;
 @property (readonly, copy) NSDictionary *wdRect;
+@property (readonly, copy) NSDictionary *wdSize;
 @property (readonly, copy) NSString *wdName;
 @property (readonly, copy) NSString *wdLabel;
 @property (readonly, copy) NSString *wdType;
