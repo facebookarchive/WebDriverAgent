@@ -28,6 +28,6 @@ function ci() {
 if [ "$MODE" = "ci" ]; then
   ci WebDriverAgent iphonesimulator build
   ci XCTUITestRunner iphonesimulator build-tests
-  ci XCTUITestRunner iphoneos build-tests
+  #ci XCTUITestRunner iphoneos build-tests
 fi
 
