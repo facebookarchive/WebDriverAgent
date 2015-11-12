@@ -61,7 +61,7 @@
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       XCUIElement *element = [elementCache elementForIndex:elementID];
       id text;
-      if ([element elementType] == XCUIElementTypeStaticText) {
+      if ([element elementType] == XCUIElementTypeStaticText || [element elementType] == XCUIElementTypeButton) {
         text = [element wdLabel];
       } else {
         text = [element wdValue];
