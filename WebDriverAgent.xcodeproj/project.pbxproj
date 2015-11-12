@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		165C260210AEEB3A269ADF7D /* libPods-XCTWebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E1C646F36B5582132DA12 /* libPods-XCTWebDriverAgentLib.a */; };
 		17FAFB7CEBC0F6E3621FAA62 /* libPods-WebDriverAgentLibTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 126BB2958BC0D6129BB43082 /* libPods-WebDriverAgentLibTests.a */; };
+		2CF583CB1BF52BFE00A70DF6 /* FBNavigationCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF583CA1BF52BFE00A70DF6 /* FBNavigationCommands.h */; };
+		2CF583CD1BF52C2A00A70DF6 /* FBNavigationCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF583CC1BF52C2A00A70DF6 /* FBNavigationCommands.m */; };
 		37CA45C6BBDF2A99EA05035E /* libPods-XCTUITestRunner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A34459487822F33D42FD222E /* libPods-XCTUITestRunner.a */; };
 		3CC397CE664E295947463C5C /* libPods-WebDriverAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F204A7ED0F3E8EEFB1A1C300 /* libPods-WebDriverAgent.a */; };
 		498495CB1BB2EB9B009CC848 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */; };
@@ -291,6 +293,8 @@
 		154D92108667239A91439DD4 /* Pods-WebDriverAgentLibTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLibTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1A840E10D402D89F7FDA64D0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		25290BED4D47D70D6CAC81AA /* Pods-WebDriverAgent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgent/Pods-WebDriverAgent.debug.xcconfig"; sourceTree = "<group>"; };
+		2CF583CA1BF52BFE00A70DF6 /* FBNavigationCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBNavigationCommands.h; sourceTree = "<group>"; };
+		2CF583CC1BF52C2A00A70DF6 /* FBNavigationCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBNavigationCommands.m; sourceTree = "<group>"; };
 		3B16C2A60F36356996EE8EBB /* Pods-WebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLib/Pods-WebDriverAgentLib.release.xcconfig"; sourceTree = "<group>"; };
 		410A1F98CE4D889BDD2640C8 /* Pods-XCTUITestRunner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTUITestRunner.release.xcconfig"; path = "Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner.release.xcconfig"; sourceTree = "<group>"; };
 		498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WebDriverAgent.bundle; sourceTree = "<group>"; };
@@ -1079,6 +1083,8 @@
 				EEC288FB1BF0ED2500B4DC79 /* FBAlertViewCommands.m */,
 				EEC289CE1BF0EF4500B4DC79 /* FBCustomCommands.h */,
 				EEC289CF1BF0EF4500B4DC79 /* FBCustomCommands.m */,
+				2CF583CA1BF52BFE00A70DF6 /* FBNavigationCommands.h */,
+				2CF583CC1BF52C2A00A70DF6 /* FBNavigationCommands.m */,
 				EEC288FE1BF0ED2500B4DC79 /* FBDebugCommands.h */,
 				EEC288FF1BF0ED2500B4DC79 /* FBDebugCommands.m */,
 				EEC289001BF0ED2500B4DC79 /* FBElementCommands.h */,
@@ -1481,6 +1487,7 @@
 				EEC28B041BF2124700B4DC79 /* XCUIElement+WebDriverAttributes.h in Headers */,
 				EEC28ADE1BF0FA7100B4DC79 /* XCTestObserver.h in Headers */,
 				EEC28AA31BF0FA7100B4DC79 /* _XCTestDriverTestObserver.h in Headers */,
+				2CF583CB1BF52BFE00A70DF6 /* FBNavigationCommands.h in Headers */,
 				EEC28ABD1BF0FA7100B4DC79 /* XCKeyboardLayout.h in Headers */,
 				EEC28ABE1BF0FA7100B4DC79 /* XCKeyMappingPath.h in Headers */,
 				EEC289D01BF0EF4500B4DC79 /* FBCustomCommands.h in Headers */,
@@ -2003,6 +2010,7 @@
 				EEC2896E1BF0ED3000B4DC79 /* FBResponseJSONPayload.m in Sources */,
 				EEC289701BF0ED3000B4DC79 /* FBResponseFilePayload.m in Sources */,
 				EEC289711BF0ED3000B4DC79 /* FBRoute.m in Sources */,
+				2CF583CD1BF52C2A00A70DF6 /* FBNavigationCommands.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
