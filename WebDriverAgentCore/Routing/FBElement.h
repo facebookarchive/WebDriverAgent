@@ -8,16 +8,22 @@
  */
 
 #import <CoreGraphics/CoreGraphics.h>
+#import <Foundation/Foundation.h>
+
+NSString *wdAttributeNameForAttributeName(NSString *name);
 
 @protocol FBElement <NSObject>
 
-@property (readonly, assign) CGRect frame;
-@property (readonly, copy) NSDictionary *rect;
-@property (readonly, copy) NSString *name;
-@property (readonly, copy) NSString *label;
-@property (readonly, copy) NSString *type;
-@property (readonly, strong) id value;
-@property (readonly, getter = isEnabled) BOOL enabled;
-@property (readonly, getter = isVisible) BOOL visible;
+@property (readonly, assign) CGRect wdFrame;
+@property (readonly, copy) NSDictionary *wdRect;
+@property (readonly, copy) NSDictionary *wdSize;
+@property (readonly, copy) NSString *wdName;
+@property (readonly, copy) NSString *wdLabel;
+@property (readonly, copy) NSString *wdType;
+@property (readonly, strong) id wdValue;
+@property (readonly, getter = isWDEnabled) BOOL wdEnabled;
+@property (readonly, getter = isWDVisible) BOOL wdVisible;
+
+- (id)valueForWDAttributeName:(NSString *)name;
 
 @end

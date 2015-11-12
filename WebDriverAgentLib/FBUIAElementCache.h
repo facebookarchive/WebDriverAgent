@@ -9,8 +9,9 @@
 
 #import <Foundation/Foundation.h>
 #import <WebDriverAgentLib/FBElementCache.h>
+#import <WebDriverAgentLib/UIAElement+WebDriverAttributes.h>
 
-@class FBUIAElement;
+@class UIAElement;
 
 @interface FBUIAElementCache : NSObject <FBElementCache>
 
@@ -20,7 +21,7 @@
  * @param element element to store
  * @return element's index
  */
-- (NSUInteger)storeElement:(FBUIAElement *)element;
+- (NSUInteger)storeElement:(UIAElement *)element;
 
 /**
  * Returns cached element
@@ -28,6 +29,6 @@
  * @param index index of element to fetch
  * @return element
  */
-- (FBUIAElement *)elementForIndex:(NSUInteger)index;
+- (UIAElement *)elementForIndex:(NSUInteger)index;
 
 @end

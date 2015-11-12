@@ -14,6 +14,7 @@
 #import "FBRouteRequest.h"
 #import "UIAApplication.h"
 #import "UIAElement.h"
+#import "UIAElement+WebDriverAttributes.h"
 #import "UIATarget.h"
 #import "UIAXElement.h"
 
@@ -76,15 +77,15 @@ static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose)
   NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 
   info[@"type"] = NSStringFromClass([element class]);
-  info[@"name"] = ValueOrNull([element name]);
-  info[@"value"] = ValueOrNull([element value]);
-  info[@"label"] = ValueOrNull([element label]);
+  info[@"name"] = ValueOrNull([element wdName]);
+  info[@"value"] = ValueOrNull([element wdValue]);
+  info[@"label"] = ValueOrNull([element wdLabel]);
 
   if ([element isEnabled]) {
-    info[@"isEnabled"] = [[element isEnabled] stringValue];
+    info[@"isEnabled"] = [@([element isWDEnabled]) stringValue];
   }
   if ([element isVisible]) {
-    info[@"isVisible"] = [[element isVisible] stringValue];
+    info[@"isVisible"] = [@([element isWDVisible]) stringValue];
   }
   if ([element attributes]) {
     NSDictionary *attributes = [element attributes];
@@ -104,7 +105,7 @@ static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose)
       [info[@"children"] addObject:InfoForElement(childElement, verbose)];
     }
   }
-  info[@"rect"] = DictionaryFromCGRect([[element rect] CGRectValue]);
+  info[@"rect"] = DictionaryFromCGRect([element wdFrame]);
 
   return info;
 }

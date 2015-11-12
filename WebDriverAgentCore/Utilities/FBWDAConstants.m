@@ -9,7 +9,7 @@
 
 #import "FBWDAConstants.h"
 
-#import "UIATarget.h"
+#import <UIKit/UIKit.h>
 
 static NSUInteger const DefaultStartingPort = 8100;
 static NSUInteger const DefaultPortRange = 100;
@@ -18,7 +18,7 @@ static NSUInteger const DefaultPortRange = 100;
 
 + (BOOL)isIOS9OrGreater
 {
-  NSDecimalNumber *versionNumber = [NSDecimalNumber decimalNumberWithString:UIATarget.localTarget.systemVersion];
+  NSDecimalNumber *versionNumber = [NSDecimalNumber decimalNumberWithString:[UIDevice currentDevice].systemVersion];
   NSComparisonResult comparisonResult = [versionNumber compare:[NSDecimalNumber decimalNumberWithString:@"9.0"]];
   return comparisonResult != NSOrderedAscending;
 }
