@@ -10,7 +10,6 @@
 #import "FBUnknownCommands.h"
 
 #import "FBRouteRequest.h"
-#import "UIATarget.h"
 
 @implementation FBUnknownCommands
 
