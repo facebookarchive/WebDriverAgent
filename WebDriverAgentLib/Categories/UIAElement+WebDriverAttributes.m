@@ -38,12 +38,12 @@
 
 - (NSDictionary *)wdSize
 {
-    CGRect rect = self.wdFrame;
-    return
-    @{
-        @"width": @(rect.size.width),
-        @"height": @(rect.size.height),
-      };
+    return self.wdRect[@"size"];
+}
+
+- (NSDictionary *)wdLocation
+{
+    return self.wdRect[@"origin"];
 }
 
 - (NSString *)wdName
