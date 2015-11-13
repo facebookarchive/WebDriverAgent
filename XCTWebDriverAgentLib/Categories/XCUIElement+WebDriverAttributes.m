@@ -108,4 +108,13 @@
       };
 }
 
+- (NSDictionary *)wdLocation
+{
+    return
+    @{
+        @"x": @(CGRectGetMinX(self.frame)),
+        @"y": @(CGRectGetMinY(self.frame)),
+      };
+}
+
 @end
