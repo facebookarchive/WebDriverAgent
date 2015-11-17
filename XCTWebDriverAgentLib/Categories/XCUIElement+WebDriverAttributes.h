@@ -7,10 +7,9 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <XCElementSnapshot.h>
-
-#import <XCTWebDriverAgentLib/XCUIElement.h>
 #import <XCTWebDriverAgentLib/FBElement.h>
+#import <XCTWebDriverAgentLib/XCElementSnapshot.h>
+#import <XCTWebDriverAgentLib/XCUIElement.h>
 
 @interface XCUIElement (WebDriverAttributes) <FBElement>
 

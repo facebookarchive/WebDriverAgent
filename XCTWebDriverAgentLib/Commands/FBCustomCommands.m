@@ -9,11 +9,11 @@
 
 #import "FBCustomCommands.h"
 
+#import <XCTest/XCUIDevice.h>
+
+#import "FBResponsePayload.h"
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
-#import "FBResponsePayload.h"
-
-#import "XCUIDevice.h"
 
 @implementation FBCustomCommands
 
