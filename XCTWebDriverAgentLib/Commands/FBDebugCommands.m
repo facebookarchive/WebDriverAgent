@@ -19,6 +19,8 @@
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 
+#import <CoreGraphics/CoreGraphics.h>
+
 static id ValueOrNull(id value) {
   return value ?: [NSNull null];
 }
@@ -65,7 +67,11 @@ static id ValueOrNull(id value) {
   info[@"name"] = ValueOrNull(snapshot.wdName);
   info[@"value"] = ValueOrNull(snapshot.wdValue);
   info[@"label"] = ValueOrNull(snapshot.wdLabel);
+#if TARGET_OS_IPHONE
   info[@"rect"] = NSStringFromCGRect(snapshot.wdFrame);
+#else
+  info[@"rect"] = NSStringFromRect(snapshot.wdFrame);
+#endif
   info[@"isEnabled"] = [@([snapshot isWDEnabled]) stringValue];
   info[@"isVisible"] = [@([snapshot isWDVisible]) stringValue];
 

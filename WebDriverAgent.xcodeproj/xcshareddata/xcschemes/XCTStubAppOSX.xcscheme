@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EEC2892D1BF0ED2E00B4DC79"
-               BuildableName = "XCTStubApps.app"
-               BlueprintName = "XCTStubApps"
+               BlueprintIdentifier = "EE4FD68F1BF6306000F5B031"
+               BuildableName = "XCTStubAppOSX.app"
+               BlueprintName = "XCTStubAppOSX"
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,13 +28,23 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EE4FD6A11BF6306000F5B031"
+               BuildableName = "XCTUITestRunnerOSX.xctest"
+               BlueprintName = "XCTUITestRunnerOSX"
+               ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EEC2892D1BF0ED2E00B4DC79"
-            BuildableName = "XCTStubApps.app"
-            BlueprintName = "XCTStubApps"
+            BlueprintIdentifier = "EE4FD68F1BF6306000F5B031"
+            BuildableName = "XCTStubAppOSX.app"
+            BlueprintName = "XCTStubAppOSX"
             ReferencedContainer = "container:WebDriverAgent.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,9 +65,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EEC2892D1BF0ED2E00B4DC79"
-            BuildableName = "XCTStubApps.app"
-            BlueprintName = "XCTStubApps"
+            BlueprintIdentifier = "EE4FD68F1BF6306000F5B031"
+            BuildableName = "XCTStubAppOSX.app"
+            BlueprintName = "XCTStubAppOSX"
             ReferencedContainer = "container:WebDriverAgent.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,9 +84,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EEC2892D1BF0ED2E00B4DC79"
-            BuildableName = "XCTStubApps.app"
-            BlueprintName = "XCTStubApps"
+            BlueprintIdentifier = "EE4FD68F1BF6306000F5B031"
+            BuildableName = "XCTStubAppOSX.app"
+            BlueprintName = "XCTStubAppOSX"
             ReferencedContainer = "container:WebDriverAgent.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

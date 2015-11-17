@@ -92,9 +92,35 @@
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       XCUIElement *element = [elementCache elementForIndex:elementID];
-      [element tap];
+      [element wdActivate];
       return FBResponseDictionaryWithElementID(elementID);
     }],
+    [[FBRoute POST:@"/session/:sessionID/element/:id/value"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+      FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+      NSInteger elementID = [request.parameters[@"id"] integerValue];
+      XCUIElement *element = [elementCache elementForIndex:elementID];
+      if (!element.hasKeyboardFocus) {
+        [element wdActivate];
+      }
+      NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
+      [element typeText:textToType];
+      return FBResponseDictionaryWithElementID(elementID);
+    }],
+    [[FBRoute POST:@"/session/:sessionID/element/:id/clear"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+      FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+      NSInteger elementID = [request.parameters[@"id"] integerValue];
+      XCUIElement *element = [elementCache elementForIndex:elementID];
+      if (!element.hasKeyboardFocus) {
+        [element wdActivate];
+      }
+      NSMutableString *textToType = @"".mutableCopy;
+      for (NSUInteger i = 0 ; i < [element.value length] ; i++) {
+        [textToType appendString:@"\b"];
+      }
+      [element typeText:textToType];
+      return FBResponseDictionaryWithElementID(elementID);
+    }],
+#if TARGET_OS_IOS
     [[FBRoute POST:@"/session/:sessionID/uiaElement/:id/doubleTap"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
@@ -146,36 +172,11 @@
       }
       return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, @{});
     }],
-    [[FBRoute POST:@"/session/:sessionID/element/:id/value"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
-      NSInteger elementID = [request.parameters[@"id"] integerValue];
-      XCUIElement *element = [elementCache elementForIndex:elementID];
-      if (!element.hasKeyboardFocus) {
-        [element tap];
-      }
-      NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
-      [element typeText:textToType];
-      return FBResponseDictionaryWithElementID(elementID);
-    }],
     [[FBRoute POST:@"/session/:sessionID/uiaElement/:id/value"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       [element adjustToPickerWheelValue:request.arguments[@"value"]];
       return FBResponseDictionaryWithOK();
-    }],
-    [[FBRoute POST:@"/session/:sessionID/element/:id/clear"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
-      NSInteger elementID = [request.parameters[@"id"] integerValue];
-      XCUIElement *element = [elementCache elementForIndex:elementID];
-      if (!element.hasKeyboardFocus) {
-        [element tap];
-      }
-      NSMutableString *textToType = @"".mutableCopy;
-      for (NSUInteger i = 0 ; i < [element.value length] ; i++) {
-        [textToType appendString:@"\b"];
-      }
-      [element typeText:textToType];
-      return FBResponseDictionaryWithElementID(elementID);
     }],
     [[FBRoute POST:@"/session/:sessionID/uiaTarget/:id/dragfromtoforduration"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTSession *session = (FBXCTSession *)request.session;
@@ -205,6 +206,7 @@
       [tapCoordinate tap];
       return FBResponseDictionaryWithOK();
     }],
+#endif
     [[FBRoute POST:@"/session/:sessionID/keys"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
       // TODO: async payload
@@ -226,6 +228,8 @@
 
 #pragma mark - Helpers
 
+#if TARGET_OS_IOS
+
 + (id<FBResponsePayload>)handleScrollElementToVisible:(XCUIElement *)element withRequest:(FBRouteRequest *)request
 {
   [element resolve];
@@ -236,5 +240,7 @@
   }
   return FBResponseDictionaryWithOK();
 }
+
+#endif
 
 @end

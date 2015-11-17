@@ -8,16 +8,19 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <TargetConditionals.h>
 
 /**
  Accessors for Global Constants.
  */
 @interface FBWDAConstants : NSObject
 
+#if TARGET_OS_IPHONE
 /**
  YES if running on an iOS 9-or-greater Host, NO otherwise
  */
 + (BOOL)isIOS9OrGreater;
+#endif
 
 /**
  The range of ports that the HTTP Server should attempt to bind on launch

@@ -9,6 +9,8 @@
 
 #import <XCTWebDriverAgentLib/XCUIElement.h>
 
+#if TARGET_OS_IPHONE
+
 @interface XCUIElement (FBScrolling)
 
 - (void)scrollUp;
@@ -19,3 +21,5 @@
 - (void)scrollToVisible;
 
 @end
+
+#endif

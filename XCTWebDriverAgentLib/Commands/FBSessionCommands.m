@@ -47,13 +47,7 @@
     [[FBRoute GET:@"/status"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{
           @"state" : @"success",
-          @"os" : @{
-            @"name" : [[UIDevice currentDevice] systemName],
-            @"version" : [[UIDevice currentDevice] systemVersion],
-          },
-          @"ios" : @{
-            @"simulatorVersion" : [[UIDevice currentDevice] systemVersion],
-          },
+          @"os" : [self.class systemInto],
           @"build" : @{
             @"time" : [self.class buildTimestamp],
           },
@@ -77,12 +71,28 @@
   ];
 }
 
++ (NSDictionary *)systemInto
+{
+  return
+  @{
+#if TARGET_OS_IPHONE
+    @"name" : [[UIDevice currentDevice] systemName],
+    @"version" : [[UIDevice currentDevice] systemVersion],
+#elif TARGET_OS_MAC
+#endif
+  };
+}
+
 + (NSDictionary *)currentCapabilities
 {
   return @{
+#if TARGET_OS_IPHONE
     @"device": ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ? @"ipad" : @"iphone",
     @"sdkVersion": [[UIDevice currentDevice] systemVersion],
     @"browserName": [[UIDevice currentDevice] name],
+#elif TARGET_OS_MAC
+    @"browserName": [[NSHost currentHost] name],
+#endif
   };
 }
 

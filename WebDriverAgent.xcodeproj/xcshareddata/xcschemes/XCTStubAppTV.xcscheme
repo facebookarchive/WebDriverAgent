@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EEC289541BF0ED3000B4DC79"
-               BuildableName = "libXCTWebDriverAgentLib.a"
-               BlueprintName = "XCTWebDriverAgentLib"
+               BlueprintIdentifier = "EE4FD6691BF6304500F5B031"
+               BuildableName = "XCTStubAppTV.app"
+               BlueprintName = "XCTStubAppTV"
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EE4FD67E1BF6304500F5B031"
+               BuildableName = "XCTUITestRunnerTV.xctest"
+               BlueprintName = "XCTUITestRunnerTV"
+               ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "EE4FD6691BF6304500F5B031"
+            BuildableName = "XCTStubAppTV.app"
+            BlueprintName = "XCTStubAppTV"
+            ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -42,15 +61,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EEC289541BF0ED3000B4DC79"
-            BuildableName = "libXCTWebDriverAgentLib.a"
-            BlueprintName = "XCTWebDriverAgentLib"
+            BlueprintIdentifier = "EE4FD6691BF6304500F5B031"
+            BuildableName = "XCTStubAppTV.app"
+            BlueprintName = "XCTStubAppTV"
             ReferencedContainer = "container:WebDriverAgent.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -60,15 +80,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EEC289541BF0ED3000B4DC79"
-            BuildableName = "libXCTWebDriverAgentLib.a"
-            BlueprintName = "XCTWebDriverAgentLib"
+            BlueprintIdentifier = "EE4FD6691BF6304500F5B031"
+            BuildableName = "XCTStubAppTV.app"
+            BlueprintName = "XCTStubAppTV"
             ReferencedContainer = "container:WebDriverAgent.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -138,7 +138,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   if (!defaultButton) {
     return NO;
   }
-  [defaultButton tap];
+  [defaultButton wdActivate];
   return YES;
 }
 
@@ -154,7 +154,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   if (!cancelButton) {
     return NO;
   }
-  [cancelButton tap];
+  [cancelButton wdActivate];
   return YES;
 }
 

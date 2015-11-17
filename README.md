@@ -43,9 +43,17 @@ xcrun simctl spawn booted <WebDriverAgent_path>
 XCTWebDriverAgent works by linking to `XCTest.framework` and calling the same APIs that are exposed through Apple's XCUITest framework. This approach allows to run tests on devices!
 
 ### Running XCTWebDriverAgent
-To play around with XCTWebDriverAgent you can simply start XCTUITestRunner tests in Xcode or use xcodebuild:
+To play around with XCTWebDriverAgent you can simply start XCTUITestRunner tests in Xcode (with proper platform scheme selected `XCTStubAppIOS`, `XCTStubAppOSX` or `XCTStubAppTV`)
+or use xcodebuild:
 ```
-xcodebuild -workspace WebDriverAgent.xcworkspace -scheme XCTUITestRunner -destination id='<DEVICE_UDID>' test
+# Start iOS test runner
+xcodebuild -workspace WebDriverAgent.xcworkspace -scheme XCTStubAppIOS -destination id='<DEVICE_UDID>' test
+
+# Start OSX test runner
+xcodebuild -workspace WebDriverAgent.xcworkspace -scheme XCTStubAppOSX -destination id='<DEVICE_UDID>' test
+
+# Start TVOS test runner
+xcodebuild -workspace WebDriverAgent.xcworkspace -scheme XCTStubAppTV -destination id='<DEVICE_UDID>' test
 ```
 
 When simlulator/device launches with blue screen it should be ready for receiving requests. To get ip address under with device is available you can check device logs for line "ServerURLHere->[DEVICE_URL]<-ServerURLHere"
