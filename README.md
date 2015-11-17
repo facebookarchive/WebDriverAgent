@@ -43,7 +43,7 @@ xcrun simctl spawn booted <WebDriverAgent_path>
 XCTWebDriverAgent works by linking to `XCTest.framework` and calling the same APIs that are exposed through Apple's XCUITest framework. This approach allows to run tests on devices!
 
 ### Running XCTWebDriverAgent
-To play around with XCTWebDriverAgent you can simply start XCTUITestRunner tests in Xcode (with proper platform scheme selected `XCTStubAppIOS`, `XCTStubAppOSX` or `XCTStubAppTV`)
+To play around with XCTWebDriverAgent you can simply start XCTUITestRunner tests in Xcode (with proper platform scheme selected `XCTStubAppIOS`, `XCTStubAppOSX` or `XCTStubAppTV`)
 or use xcodebuild:
 ```
 # Start iOS test runner
