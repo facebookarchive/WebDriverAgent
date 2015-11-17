@@ -134,93 +134,6 @@
 		EEC289D01BF0EF4500B4DC79 /* FBCustomCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC289CE1BF0EF4500B4DC79 /* FBCustomCommands.h */; };
 		EEC289D11BF0EF4500B4DC79 /* FBCustomCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC289CF1BF0EF4500B4DC79 /* FBCustomCommands.m */; };
 		EEC28A9A1BF0F9D900B4DC79 /* libXCTWebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC2899A1BF0ED3000B4DC79 /* libXCTWebDriverAgentLib.a */; };
-		EEC28A9B1BF0F9F500B4DC79 /* XCUIElement.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A901BF0F87B00B4DC79 /* XCUIElement.h */; };
-		EEC28A9C1BF0FA7100B4DC79 /* _XCDarwinNotificationExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A421BF0F87B00B4DC79 /* _XCDarwinNotificationExpectation.h */; };
-		EEC28A9D1BF0FA7100B4DC79 /* _XCInternalTestRun.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A431BF0F87B00B4DC79 /* _XCInternalTestRun.h */; };
-		EEC28A9E1BF0FA7100B4DC79 /* _XCKVOExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A441BF0F87B00B4DC79 /* _XCKVOExpectation.h */; };
-		EEC28A9F1BF0FA7100B4DC79 /* _XCNotificationExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A451BF0F87B00B4DC79 /* _XCNotificationExpectation.h */; };
-		EEC28AA01BF0FA7100B4DC79 /* _XCPredicateExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A461BF0F87B00B4DC79 /* _XCPredicateExpectation.h */; };
-		EEC28AA11BF0FA7100B4DC79 /* _XCTestCaseImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A471BF0F87B00B4DC79 /* _XCTestCaseImplementation.h */; };
-		EEC28AA21BF0FA7100B4DC79 /* _XCTestCaseInterruptionException.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A481BF0F87B00B4DC79 /* _XCTestCaseInterruptionException.h */; };
-		EEC28AA31BF0FA7100B4DC79 /* _XCTestDriverTestObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A491BF0F87B00B4DC79 /* _XCTestDriverTestObserver.h */; };
-		EEC28AA41BF0FA7100B4DC79 /* _XCTestExpectationImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A4A1BF0F87B00B4DC79 /* _XCTestExpectationImplementation.h */; };
-		EEC28AA51BF0FA7100B4DC79 /* _XCTestImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A4B1BF0F87B00B4DC79 /* _XCTestImplementation.h */; };
-		EEC28AA61BF0FA7100B4DC79 /* _XCTestObservationCenterImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A4C1BF0F87B00B4DC79 /* _XCTestObservationCenterImplementation.h */; };
-		EEC28AA71BF0FA7100B4DC79 /* CDStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A4D1BF0F87B00B4DC79 /* CDStructures.h */; };
-		EEC28AA81BF0FA7100B4DC79 /* NSObject-ClassDescription_Extras.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A4E1BF0F87B00B4DC79 /* NSObject-ClassDescription_Extras.h */; };
-		EEC28AA91BF0FA7100B4DC79 /* NSValue-XCTestAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A4F1BF0F87B00B4DC79 /* NSValue-XCTestAdditions.h */; };
-		EEC28AAA1BF0FA7100B4DC79 /* UIGestureRecognizer-RecordingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A501BF0F87B00B4DC79 /* UIGestureRecognizer-RecordingAdditions.h */; };
-		EEC28AAB1BF0FA7100B4DC79 /* UILongPressGestureRecognizer-RecordingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A511BF0F87B00B4DC79 /* UILongPressGestureRecognizer-RecordingAdditions.h */; };
-		EEC28AAC1BF0FA7100B4DC79 /* UIPanGestureRecognizer-RecordingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A521BF0F87B00B4DC79 /* UIPanGestureRecognizer-RecordingAdditions.h */; };
-		EEC28AAD1BF0FA7100B4DC79 /* UIPinchGestureRecognizer-RecordingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A531BF0F87B00B4DC79 /* UIPinchGestureRecognizer-RecordingAdditions.h */; };
-		EEC28AAE1BF0FA7100B4DC79 /* UISwipeGestureRecognizer-RecordingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A541BF0F87B00B4DC79 /* UISwipeGestureRecognizer-RecordingAdditions.h */; };
-		EEC28AAF1BF0FA7100B4DC79 /* UITapGestureRecognizer-RecordingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A551BF0F87B00B4DC79 /* UITapGestureRecognizer-RecordingAdditions.h */; };
-		EEC28AB01BF0FA7100B4DC79 /* XCAccessibilityElement.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A561BF0F87B00B4DC79 /* XCAccessibilityElement.h */; };
-		EEC28AB11BF0FA7100B4DC79 /* XCActivityRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A571BF0F87B00B4DC79 /* XCActivityRecord.h */; };
-		EEC28AB21BF0FA7100B4DC79 /* XCApplicationMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A581BF0F87B00B4DC79 /* XCApplicationMonitor.h */; };
-		EEC28AB31BF0FA7100B4DC79 /* XCApplicationMonitor_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A591BF0F87B00B4DC79 /* XCApplicationMonitor_iOS.h */; };
-		EEC28AB41BF0FA7100B4DC79 /* XCApplicationQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A5A1BF0F87B00B4DC79 /* XCApplicationQuery.h */; };
-		EEC28AB51BF0FA7100B4DC79 /* XCAXClient_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A5B1BF0F87B00B4DC79 /* XCAXClient_iOS.h */; };
-		EEC28AB61BF0FA7100B4DC79 /* XCDeviceEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A5C1BF0F87B00B4DC79 /* XCDeviceEvent.h */; };
-		EEC28AB71BF0FA7100B4DC79 /* XCElementAttributesPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A5D1BF0F87B00B4DC79 /* XCElementAttributesPrivate.h */; };
-		EEC28AB81BF0FA7100B4DC79 /* XCElementSnapshot-Hitpoint.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A5E1BF0F87B00B4DC79 /* XCElementSnapshot-Hitpoint.h */; };
-		EEC28AB91BF0FA7100B4DC79 /* XCElementSnapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A5F1BF0F87B00B4DC79 /* XCElementSnapshot.h */; };
-		EEC28ABA1BF0FA7100B4DC79 /* XCEventGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A601BF0F87B00B4DC79 /* XCEventGenerator.h */; };
-		EEC28ABB1BF0FA7100B4DC79 /* XCKeyboardInputSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A611BF0F87B00B4DC79 /* XCKeyboardInputSolver.h */; };
-		EEC28ABC1BF0FA7100B4DC79 /* XCKeyboardKeyMap.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A621BF0F87B00B4DC79 /* XCKeyboardKeyMap.h */; };
-		EEC28ABD1BF0FA7100B4DC79 /* XCKeyboardLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A631BF0F87B00B4DC79 /* XCKeyboardLayout.h */; };
-		EEC28ABE1BF0FA7100B4DC79 /* XCKeyMappingPath.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A641BF0F87B00B4DC79 /* XCKeyMappingPath.h */; };
-		EEC28ABF1BF0FA7100B4DC79 /* XCPointerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A651BF0F87B00B4DC79 /* XCPointerEvent.h */; };
-		EEC28AC01BF0FA7100B4DC79 /* XCPointerEventPath.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A661BF0F87B00B4DC79 /* XCPointerEventPath.h */; };
-		EEC28AC11BF0FA7100B4DC79 /* XCSourceCodeRecording.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A671BF0F87B00B4DC79 /* XCSourceCodeRecording.h */; };
-		EEC28AC21BF0FA7100B4DC79 /* XCSourceCodeTreeNode.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A681BF0F87B00B4DC79 /* XCSourceCodeTreeNode.h */; };
-		EEC28AC31BF0FA7100B4DC79 /* XCSourceCodeTreeNodeEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A691BF0F87B00B4DC79 /* XCSourceCodeTreeNodeEnumerator.h */; };
-		EEC28AC41BF0FA7100B4DC79 /* XCSymbolicationRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A6A1BF0F87B00B4DC79 /* XCSymbolicationRecord.h */; };
-		EEC28AC51BF0FA7100B4DC79 /* XCSymbolicatorHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A6B1BF0F87B00B4DC79 /* XCSymbolicatorHolder.h */; };
-		EEC28AC61BF0FA7100B4DC79 /* XCSynthesizedEventRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A6C1BF0F87B00B4DC79 /* XCSynthesizedEventRecord.h */; };
-		EEC28AC71BF0FA7100B4DC79 /* XCTest-ReportingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A6D1BF0F87B00B4DC79 /* XCTest-ReportingAdditions.h */; };
-		EEC28AC81BF0FA7100B4DC79 /* XCTest-XCTestProbeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A6E1BF0F87B00B4DC79 /* XCTest-XCTestProbeExtensions.h */; };
-		EEC28AC91BF0FA7100B4DC79 /* XCTest.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A6F1BF0F87B00B4DC79 /* XCTest.h */; };
-		EEC28ACA1BF0FA7100B4DC79 /* XCTestCase-AsynchronousTesting.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A701BF0F87B00B4DC79 /* XCTestCase-AsynchronousTesting.h */; };
-		EEC28ACB1BF0FA7100B4DC79 /* XCTestCase-AsynchronousTesting_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A711BF0F87B00B4DC79 /* XCTestCase-AsynchronousTesting_Internal.h */; };
-		EEC28ACC1BF0FA7100B4DC79 /* XCTestCase-AsynchronousTestingPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A721BF0F87B00B4DC79 /* XCTestCase-AsynchronousTestingPrivate.h */; };
-		EEC28ACD1BF0FA7100B4DC79 /* XCTestCase-RuntimeUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A731BF0F87B00B4DC79 /* XCTestCase-RuntimeUtilities.h */; };
-		EEC28ACE1BF0FA7100B4DC79 /* XCTestCase-XCTestSuiteExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A741BF0F87B00B4DC79 /* XCTestCase-XCTestSuiteExtensions.h */; };
-		EEC28ACF1BF0FA7100B4DC79 /* XCTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A751BF0F87B00B4DC79 /* XCTestCase.h */; };
-		EEC28AD01BF0FA7100B4DC79 /* XCTestCaseRun.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A761BF0F87B00B4DC79 /* XCTestCaseRun.h */; };
-		EEC28AD11BF0FA7100B4DC79 /* XCTestCaseSuite.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A771BF0F87B00B4DC79 /* XCTestCaseSuite.h */; };
-		EEC28AD21BF0FA7100B4DC79 /* XCTestConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A781BF0F87B00B4DC79 /* XCTestConfiguration.h */; };
-		EEC28AD31BF0FA7100B4DC79 /* XCTestContext.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A791BF0F87B00B4DC79 /* XCTestContext.h */; };
-		EEC28AD41BF0FA7100B4DC79 /* XCTestContextScope.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A7A1BF0F87B00B4DC79 /* XCTestContextScope.h */; };
-		EEC28AD51BF0FA7100B4DC79 /* XCTestDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A7B1BF0F87B00B4DC79 /* XCTestDriver.h */; };
-		EEC28AD61BF0FA7100B4DC79 /* XCTestDriverInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A7C1BF0F87B00B4DC79 /* XCTestDriverInterface.h */; };
-		EEC28AD71BF0FA7100B4DC79 /* XCTestExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A7D1BF0F87B00B4DC79 /* XCTestExpectation.h */; };
-		EEC28AD81BF0FA7100B4DC79 /* XCTestLog.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A7E1BF0F87B00B4DC79 /* XCTestLog.h */; };
-		EEC28AD91BF0FA7100B4DC79 /* XCTestManager_IDEInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A7F1BF0F87B00B4DC79 /* XCTestManager_IDEInterface.h */; };
-		EEC28ADA1BF0FA7100B4DC79 /* XCTestManager_ManagerInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A801BF0F87B00B4DC79 /* XCTestManager_ManagerInterface.h */; };
-		EEC28ADB1BF0FA7100B4DC79 /* XCTestManager_TestsInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A811BF0F87B00B4DC79 /* XCTestManager_TestsInterface.h */; };
-		EEC28ADC1BF0FA7100B4DC79 /* XCTestObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A821BF0F87B00B4DC79 /* XCTestObservation.h */; };
-		EEC28ADD1BF0FA7100B4DC79 /* XCTestObservationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A831BF0F87B00B4DC79 /* XCTestObservationCenter.h */; };
-		EEC28ADE1BF0FA7100B4DC79 /* XCTestObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A841BF0F87B00B4DC79 /* XCTestObserver.h */; };
-		EEC28ADF1BF0FA7100B4DC79 /* XCTestProbe.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A851BF0F87B00B4DC79 /* XCTestProbe.h */; };
-		EEC28AE01BF0FA7100B4DC79 /* XCTestRun.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A861BF0F87B00B4DC79 /* XCTestRun.h */; };
-		EEC28AE11BF0FA7100B4DC79 /* XCTestSuite-XCTestProbeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A871BF0F87B00B4DC79 /* XCTestSuite-XCTestProbeExtensions.h */; };
-		EEC28AE21BF0FA7100B4DC79 /* XCTestSuite.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A881BF0F87B00B4DC79 /* XCTestSuite.h */; };
-		EEC28AE31BF0FA7100B4DC79 /* XCTestSuiteRun.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A891BF0F87B00B4DC79 /* XCTestSuiteRun.h */; };
-		EEC28AE41BF0FA7100B4DC79 /* XCTouchEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A8A1BF0F87B00B4DC79 /* XCTouchEvent.h */; };
-		EEC28AE51BF0FA7100B4DC79 /* XCTouchGesture.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A8B1BF0F87B00B4DC79 /* XCTouchGesture.h */; };
-		EEC28AE61BF0FA7100B4DC79 /* XCTouchPath.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A8C1BF0F87B00B4DC79 /* XCTouchPath.h */; };
-		EEC28AE71BF0FA7100B4DC79 /* XCUIApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A8D1BF0F87B00B4DC79 /* XCUIApplication.h */; };
-		EEC28AE81BF0FA7100B4DC79 /* XCUICoordinate.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A8E1BF0F87B00B4DC79 /* XCUICoordinate.h */; };
-		EEC28AE91BF0FA7100B4DC79 /* XCUIDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A8F1BF0F87B00B4DC79 /* XCUIDevice.h */; };
-		EEC28AEA1BF0FA7100B4DC79 /* XCUIElementAsynchronousHandlerWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A911BF0F87B00B4DC79 /* XCUIElementAsynchronousHandlerWrapper.h */; };
-		EEC28AEB1BF0FA7100B4DC79 /* XCUIElementAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A921BF0F87B00B4DC79 /* XCUIElementAttributes.h */; };
-		EEC28AEC1BF0FA7100B4DC79 /* XCUIElementHitPointCoordinate.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A931BF0F87B00B4DC79 /* XCUIElementHitPointCoordinate.h */; };
-		EEC28AED1BF0FA7100B4DC79 /* XCUIElementQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A941BF0F87B00B4DC79 /* XCUIElementQuery.h */; };
-		EEC28AEE1BF0FA7100B4DC79 /* XCUIElementTypeQueryProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A951BF0F87B00B4DC79 /* XCUIElementTypeQueryProvider.h */; };
-		EEC28AEF1BF0FA7100B4DC79 /* XCUIElementTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A961BF0F87B00B4DC79 /* XCUIElementTypes.h */; };
-		EEC28AF01BF0FA7100B4DC79 /* XCUIRecorderTimingMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28A971BF0F87B00B4DC79 /* XCUIRecorderTimingMessage.h */; };
-		EEC28AF21BF0FAEF00B4DC79 /* XCTestDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28AF11BF0FAEF00B4DC79 /* XCTestDefines.h */; };
 		EEC28AFE1BF2124700B4DC79 /* XCUIElement+FBIsVisible.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28AF61BF2124700B4DC79 /* XCUIElement+FBIsVisible.h */; };
 		EEC28AFF1BF2124700B4DC79 /* XCUIElement+FBIsVisible.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC28AF71BF2124700B4DC79 /* XCUIElement+FBIsVisible.m */; };
 		EEC28B001BF2124700B4DC79 /* XCUIElement+FBScrolling.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28AF81BF2124700B4DC79 /* XCUIElement+FBScrolling.h */; };
@@ -232,6 +145,97 @@
 		EEC28B081BF2128200B4DC79 /* FBUIASession.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28B061BF2128200B4DC79 /* FBUIASession.h */; };
 		EEC28B091BF2128200B4DC79 /* FBUIASession.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC28B071BF2128200B4DC79 /* FBUIASession.m */; };
 		EEC28B0F1BF215D800B4DC79 /* FBElement.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC28B0E1BF215D800B4DC79 /* FBElement.m */; };
+		EED0313A1BFA3720007EDC1D /* CDStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E71BFA3461007EDC1D /* CDStructures.h */; };
+		EED0313B1BFA397A007EDC1D /* _XCDarwinNotificationExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030DC1BFA3461007EDC1D /* _XCDarwinNotificationExpectation.h */; };
+		EED0313C1BFA397A007EDC1D /* _XCInternalTestRun.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030DD1BFA3461007EDC1D /* _XCInternalTestRun.h */; };
+		EED0313D1BFA397A007EDC1D /* _XCKVOExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030DE1BFA3461007EDC1D /* _XCKVOExpectation.h */; };
+		EED0313E1BFA397A007EDC1D /* _XCNotificationExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030DF1BFA3461007EDC1D /* _XCNotificationExpectation.h */; };
+		EED0313F1BFA397A007EDC1D /* _XCPredicateExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E01BFA3461007EDC1D /* _XCPredicateExpectation.h */; };
+		EED031401BFA397A007EDC1D /* _XCTestCaseImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E11BFA3461007EDC1D /* _XCTestCaseImplementation.h */; };
+		EED031411BFA397A007EDC1D /* _XCTestCaseInterruptionException.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E21BFA3461007EDC1D /* _XCTestCaseInterruptionException.h */; };
+		EED031421BFA397A007EDC1D /* _XCTestDriverTestObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E31BFA3461007EDC1D /* _XCTestDriverTestObserver.h */; };
+		EED031431BFA397A007EDC1D /* _XCTestExpectationImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E41BFA3461007EDC1D /* _XCTestExpectationImplementation.h */; };
+		EED031441BFA397A007EDC1D /* _XCTestImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E51BFA3461007EDC1D /* _XCTestImplementation.h */; };
+		EED031451BFA397A007EDC1D /* _XCTestObservationCenterImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E61BFA3461007EDC1D /* _XCTestObservationCenterImplementation.h */; };
+		EED031461BFA397A007EDC1D /* UIGestureRecognizer-RecordingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E81BFA3461007EDC1D /* UIGestureRecognizer-RecordingAdditions.h */; };
+		EED031471BFA397A007EDC1D /* UILongPressGestureRecognizer-RecordingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E91BFA3461007EDC1D /* UILongPressGestureRecognizer-RecordingAdditions.h */; };
+		EED031481BFA397A007EDC1D /* UIPanGestureRecognizer-RecordingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030EA1BFA3461007EDC1D /* UIPanGestureRecognizer-RecordingAdditions.h */; };
+		EED031491BFA397A007EDC1D /* UIPinchGestureRecognizer-RecordingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030EB1BFA3461007EDC1D /* UIPinchGestureRecognizer-RecordingAdditions.h */; };
+		EED0314A1BFA397A007EDC1D /* UISwipeGestureRecognizer-RecordingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030EC1BFA3461007EDC1D /* UISwipeGestureRecognizer-RecordingAdditions.h */; };
+		EED0314B1BFA397A007EDC1D /* UITapGestureRecognizer-RecordingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030ED1BFA3461007EDC1D /* UITapGestureRecognizer-RecordingAdditions.h */; };
+		EED0314C1BFA397A007EDC1D /* XCAccessibilityElement.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030EE1BFA3461007EDC1D /* XCAccessibilityElement.h */; };
+		EED0314D1BFA397A007EDC1D /* XCActivityRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030EF1BFA3461007EDC1D /* XCActivityRecord.h */; };
+		EED0314E1BFA397A007EDC1D /* XCApplicationMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F01BFA3461007EDC1D /* XCApplicationMonitor.h */; };
+		EED0314F1BFA397A007EDC1D /* XCApplicationMonitor_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F11BFA3461007EDC1D /* XCApplicationMonitor_iOS.h */; };
+		EED031501BFA397A007EDC1D /* XCApplicationMonitor_OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F21BFA3461007EDC1D /* XCApplicationMonitor_OSX.h */; };
+		EED031511BFA397A007EDC1D /* XCApplicationQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F31BFA3461007EDC1D /* XCApplicationQuery.h */; };
+		EED031521BFA397A007EDC1D /* XCAXClient_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F41BFA3461007EDC1D /* XCAXClient_iOS.h */; };
+		EED031531BFA397A007EDC1D /* XCAXManager_OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F51BFA3461007EDC1D /* XCAXManager_OSX.h */; };
+		EED031541BFA397A007EDC1D /* XCDebugLogDelegate-Protocol.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F61BFA3461007EDC1D /* XCDebugLogDelegate-Protocol.h */; };
+		EED031551BFA397A007EDC1D /* XCDeviceEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F71BFA3461007EDC1D /* XCDeviceEvent.h */; };
+		EED031561BFA397A007EDC1D /* XCElementSnapshot-Hitpoint.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F91BFA3461007EDC1D /* XCElementSnapshot-Hitpoint.h */; };
+		EED031571BFA397A007EDC1D /* XCElementSnapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030FA1BFA3461007EDC1D /* XCElementSnapshot.h */; };
+		EED031581BFA397A007EDC1D /* XCEventGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030FB1BFA3461007EDC1D /* XCEventGenerator.h */; };
+		EED031591BFA397A007EDC1D /* XCKeyboardInputSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030FC1BFA3461007EDC1D /* XCKeyboardInputSolver.h */; };
+		EED0315A1BFA397A007EDC1D /* XCKeyboardKeyMap.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030FD1BFA3461007EDC1D /* XCKeyboardKeyMap.h */; };
+		EED0315B1BFA397A007EDC1D /* XCKeyboardLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030FE1BFA3461007EDC1D /* XCKeyboardLayout.h */; };
+		EED0315C1BFA397A007EDC1D /* XCKeyMappingPath.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030FF1BFA3461007EDC1D /* XCKeyMappingPath.h */; };
+		EED0315D1BFA397A007EDC1D /* XCPointerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031001BFA3461007EDC1D /* XCPointerEvent.h */; };
+		EED0315E1BFA397A007EDC1D /* XCPointerEventPath.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031011BFA3461007EDC1D /* XCPointerEventPath.h */; };
+		EED0315F1BFA397A007EDC1D /* XCSourceCodeRecording.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031021BFA3461007EDC1D /* XCSourceCodeRecording.h */; };
+		EED031601BFA397A007EDC1D /* XCSourceCodeTreeNode.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031031BFA3461007EDC1D /* XCSourceCodeTreeNode.h */; };
+		EED031611BFA397A007EDC1D /* XCSourceCodeTreeNodeEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031041BFA3461007EDC1D /* XCSourceCodeTreeNodeEnumerator.h */; };
+		EED031621BFA397A007EDC1D /* XCSymbolicationRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031051BFA3461007EDC1D /* XCSymbolicationRecord.h */; };
+		EED031631BFA397A007EDC1D /* XCSymbolicatorHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031061BFA3461007EDC1D /* XCSymbolicatorHolder.h */; };
+		EED031641BFA397A007EDC1D /* XCSynthesizedEventRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031071BFA3461007EDC1D /* XCSynthesizedEventRecord.h */; };
+		EED031651BFA397A007EDC1D /* XCTest-ReportingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031081BFA3461007EDC1D /* XCTest-ReportingAdditions.h */; };
+		EED031661BFA397A007EDC1D /* XCTest-XCTestProbeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031091BFA3461007EDC1D /* XCTest-XCTestProbeExtensions.h */; };
+		EED031671BFA397A007EDC1D /* XCTest.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0310A1BFA3461007EDC1D /* XCTest.h */; };
+		EED031681BFA397A007EDC1D /* XCTestCase-AsynchronousTesting.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0310B1BFA3461007EDC1D /* XCTestCase-AsynchronousTesting.h */; };
+		EED031691BFA397A007EDC1D /* XCTestCase-AsynchronousTesting_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0310C1BFA3461007EDC1D /* XCTestCase-AsynchronousTesting_Internal.h */; };
+		EED0316A1BFA397A007EDC1D /* XCTestCase-AsynchronousTestingPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0310D1BFA3461007EDC1D /* XCTestCase-AsynchronousTestingPrivate.h */; };
+		EED0316B1BFA397A007EDC1D /* XCTestCase-RuntimeUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0310E1BFA3461007EDC1D /* XCTestCase-RuntimeUtilities.h */; };
+		EED0316C1BFA397A007EDC1D /* XCTestCase-XCTestSuiteExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0310F1BFA3461007EDC1D /* XCTestCase-XCTestSuiteExtensions.h */; };
+		EED0316D1BFA397A007EDC1D /* XCTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031101BFA3461007EDC1D /* XCTestCase.h */; };
+		EED0316E1BFA397A007EDC1D /* XCTestCaseRun.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031111BFA3461007EDC1D /* XCTestCaseRun.h */; };
+		EED0316F1BFA397A007EDC1D /* XCTestCaseSuite.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031121BFA3461007EDC1D /* XCTestCaseSuite.h */; };
+		EED031701BFA397A007EDC1D /* XCTestConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031131BFA3461007EDC1D /* XCTestConfiguration.h */; };
+		EED031711BFA397A007EDC1D /* XCTestContext.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031141BFA3461007EDC1D /* XCTestContext.h */; };
+		EED031721BFA397A007EDC1D /* XCTestContextScope.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031151BFA3461007EDC1D /* XCTestContextScope.h */; };
+		EED031731BFA397A007EDC1D /* XCTestDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031161BFA3461007EDC1D /* XCTestDriver.h */; };
+		EED031741BFA397A007EDC1D /* XCTestDriverInterface-Protocol.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031171BFA3461007EDC1D /* XCTestDriverInterface-Protocol.h */; };
+		EED031751BFA397A007EDC1D /* XCTestExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031181BFA3461007EDC1D /* XCTestExpectation.h */; };
+		EED031761BFA397A007EDC1D /* XCTestLog.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031191BFA3461007EDC1D /* XCTestLog.h */; };
+		EED031771BFA397A007EDC1D /* XCTestManager_IDEInterface-Protocol.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0311A1BFA3461007EDC1D /* XCTestManager_IDEInterface-Protocol.h */; };
+		EED031781BFA397A007EDC1D /* XCTestManager_ManagerInterface-Protocol.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0311B1BFA3461007EDC1D /* XCTestManager_ManagerInterface-Protocol.h */; };
+		EED031791BFA397A007EDC1D /* XCTestManager_TestsInterface-Protocol.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0311C1BFA3461007EDC1D /* XCTestManager_TestsInterface-Protocol.h */; };
+		EED0317A1BFA397A007EDC1D /* XCTestObservation-Protocol.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0311D1BFA3461007EDC1D /* XCTestObservation-Protocol.h */; };
+		EED0317B1BFA397A007EDC1D /* XCTestObservationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0311E1BFA3461007EDC1D /* XCTestObservationCenter.h */; };
+		EED0317C1BFA397A007EDC1D /* XCTestObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0311F1BFA3461007EDC1D /* XCTestObserver.h */; };
+		EED0317D1BFA397A007EDC1D /* XCTestProbe.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031201BFA3461007EDC1D /* XCTestProbe.h */; };
+		EED0317E1BFA397A007EDC1D /* XCTestRun.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031211BFA3461007EDC1D /* XCTestRun.h */; };
+		EED0317F1BFA397A007EDC1D /* XCTestSuite-XCTestProbeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031221BFA3461007EDC1D /* XCTestSuite-XCTestProbeExtensions.h */; };
+		EED031801BFA397A007EDC1D /* XCTestSuite.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031231BFA3461007EDC1D /* XCTestSuite.h */; };
+		EED031811BFA397A007EDC1D /* XCTestSuiteRun.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031241BFA3461007EDC1D /* XCTestSuiteRun.h */; };
+		EED031821BFA397A007EDC1D /* XCTouchEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031251BFA3461007EDC1D /* XCTouchEvent.h */; };
+		EED031831BFA397A007EDC1D /* XCTouchGesture.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031261BFA3461007EDC1D /* XCTouchGesture.h */; };
+		EED031841BFA397A007EDC1D /* XCTouchPath.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031271BFA3461007EDC1D /* XCTouchPath.h */; };
+		EED031851BFA397A007EDC1D /* XCUIApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031281BFA3461007EDC1D /* XCUIApplication.h */; };
+		EED031861BFA397A007EDC1D /* XCUICoordinate.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031291BFA3461007EDC1D /* XCUICoordinate.h */; };
+		EED031871BFA397A007EDC1D /* XCUIDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0312A1BFA3461007EDC1D /* XCUIDevice.h */; };
+		EED031881BFA397A007EDC1D /* XCUIElement-PrivateEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0312B1BFA3461007EDC1D /* XCUIElement-PrivateEvents.h */; };
+		EED031891BFA397A007EDC1D /* XCUIElement-XCUIElementEventSynthesis.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0312C1BFA3461007EDC1D /* XCUIElement-XCUIElementEventSynthesis.h */; };
+		EED0318A1BFA397A007EDC1D /* XCUIElement-XCUIElementTypePickerWheel.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0312D1BFA3461007EDC1D /* XCUIElement-XCUIElementTypePickerWheel.h */; };
+		EED0318B1BFA397A007EDC1D /* XCUIElement-XCUIElementTypeSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0312E1BFA3461007EDC1D /* XCUIElement-XCUIElementTypeSlider.h */; };
+		EED0318C1BFA397A007EDC1D /* XCUIElement.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0312F1BFA3461007EDC1D /* XCUIElement.h */; };
+		EED0318D1BFA397A007EDC1D /* XCUIElementAsynchronousHandlerWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031301BFA3461007EDC1D /* XCUIElementAsynchronousHandlerWrapper.h */; };
+		EED0318E1BFA397A007EDC1D /* XCUIElementHitPointCoordinate.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031321BFA3461007EDC1D /* XCUIElementHitPointCoordinate.h */; };
+		EED0318F1BFA397A007EDC1D /* XCUIElementQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031331BFA3461007EDC1D /* XCUIElementQuery.h */; };
+		EED031901BFA397A007EDC1D /* XCUIRecorderNodeFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031351BFA3461007EDC1D /* XCUIRecorderNodeFinder.h */; };
+		EED031911BFA397A007EDC1D /* XCUIRecorderNodeFinderMatch.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031361BFA3461007EDC1D /* XCUIRecorderNodeFinderMatch.h */; };
+		EED031921BFA397A007EDC1D /* XCUIRecorderTimingMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031371BFA3461007EDC1D /* XCUIRecorderTimingMessage.h */; };
+		EED031931BFA397A007EDC1D /* XCUIRecorderUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031381BFA3461007EDC1D /* XCUIRecorderUtilities.h */; };
+		EED031941BFA397A007EDC1D /* XCUIRemote.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031391BFA3461007EDC1D /* XCUIRemote.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -325,12 +329,12 @@
 		91F9DB7C1B99DDF0001349B2 /* UIAActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAActivityIndicator.h; sourceTree = "<group>"; };
 		91F9DB7D1B99DDF0001349B2 /* UIAActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAActivityView.h; sourceTree = "<group>"; };
 		91F9DB7E1B99DDF0001349B2 /* UIAAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAAlert.h; sourceTree = "<group>"; };
-		91F9DB7F1B99DDF0001349B2 /* UIAApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAApplication.h; sourceTree = "<group>"; };
+		91F9DB7F1B99DDF0001349B2 /* UIAApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = UIAApplication.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		91F9DB801B99DDF0001349B2 /* UIAButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAButton.h; sourceTree = "<group>"; };
 		91F9DB811B99DDF0001349B2 /* UIACollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIACollectionCell.h; sourceTree = "<group>"; };
 		91F9DB821B99DDF0001349B2 /* UIACollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIACollectionView.h; sourceTree = "<group>"; };
 		91F9DB831B99DDF0001349B2 /* UIAEditingMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAEditingMenu.h; sourceTree = "<group>"; };
-		91F9DB841B99DDF0001349B2 /* UIAElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAElement.h; sourceTree = "<group>"; };
+		91F9DB841B99DDF0001349B2 /* UIAElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = UIAElement.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		91F9DB851B99DDF0001349B2 /* UIAElementArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAElementArray.h; sourceTree = "<group>"; };
 		91F9DB861B99DDF0001349B2 /* UIAElementNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAElementNil.h; sourceTree = "<group>"; };
 		91F9DB871B99DDF0001349B2 /* UIAElementSynonym.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAElementSynonym.h; sourceTree = "<group>"; };
@@ -468,93 +472,6 @@
 		EEC289AD1BF0ED3100B4DC79 /* XCTUITestRunner.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCTUITestRunner.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEC289CE1BF0EF4500B4DC79 /* FBCustomCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCustomCommands.h; sourceTree = "<group>"; };
 		EEC289CF1BF0EF4500B4DC79 /* FBCustomCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBCustomCommands.m; sourceTree = "<group>"; };
-		EEC28A421BF0F87B00B4DC79 /* _XCDarwinNotificationExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCDarwinNotificationExpectation.h; sourceTree = "<group>"; };
-		EEC28A431BF0F87B00B4DC79 /* _XCInternalTestRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCInternalTestRun.h; sourceTree = "<group>"; };
-		EEC28A441BF0F87B00B4DC79 /* _XCKVOExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCKVOExpectation.h; sourceTree = "<group>"; };
-		EEC28A451BF0F87B00B4DC79 /* _XCNotificationExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCNotificationExpectation.h; sourceTree = "<group>"; };
-		EEC28A461BF0F87B00B4DC79 /* _XCPredicateExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCPredicateExpectation.h; sourceTree = "<group>"; };
-		EEC28A471BF0F87B00B4DC79 /* _XCTestCaseImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCTestCaseImplementation.h; sourceTree = "<group>"; };
-		EEC28A481BF0F87B00B4DC79 /* _XCTestCaseInterruptionException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCTestCaseInterruptionException.h; sourceTree = "<group>"; };
-		EEC28A491BF0F87B00B4DC79 /* _XCTestDriverTestObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCTestDriverTestObserver.h; sourceTree = "<group>"; };
-		EEC28A4A1BF0F87B00B4DC79 /* _XCTestExpectationImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCTestExpectationImplementation.h; sourceTree = "<group>"; };
-		EEC28A4B1BF0F87B00B4DC79 /* _XCTestImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCTestImplementation.h; sourceTree = "<group>"; };
-		EEC28A4C1BF0F87B00B4DC79 /* _XCTestObservationCenterImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCTestObservationCenterImplementation.h; sourceTree = "<group>"; };
-		EEC28A4D1BF0F87B00B4DC79 /* CDStructures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDStructures.h; sourceTree = "<group>"; };
-		EEC28A4E1BF0F87B00B4DC79 /* NSObject-ClassDescription_Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject-ClassDescription_Extras.h"; sourceTree = "<group>"; };
-		EEC28A4F1BF0F87B00B4DC79 /* NSValue-XCTestAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue-XCTestAdditions.h"; sourceTree = "<group>"; };
-		EEC28A501BF0F87B00B4DC79 /* UIGestureRecognizer-RecordingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer-RecordingAdditions.h"; sourceTree = "<group>"; };
-		EEC28A511BF0F87B00B4DC79 /* UILongPressGestureRecognizer-RecordingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILongPressGestureRecognizer-RecordingAdditions.h"; sourceTree = "<group>"; };
-		EEC28A521BF0F87B00B4DC79 /* UIPanGestureRecognizer-RecordingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPanGestureRecognizer-RecordingAdditions.h"; sourceTree = "<group>"; };
-		EEC28A531BF0F87B00B4DC79 /* UIPinchGestureRecognizer-RecordingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPinchGestureRecognizer-RecordingAdditions.h"; sourceTree = "<group>"; };
-		EEC28A541BF0F87B00B4DC79 /* UISwipeGestureRecognizer-RecordingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISwipeGestureRecognizer-RecordingAdditions.h"; sourceTree = "<group>"; };
-		EEC28A551BF0F87B00B4DC79 /* UITapGestureRecognizer-RecordingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITapGestureRecognizer-RecordingAdditions.h"; sourceTree = "<group>"; };
-		EEC28A561BF0F87B00B4DC79 /* XCAccessibilityElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCAccessibilityElement.h; sourceTree = "<group>"; };
-		EEC28A571BF0F87B00B4DC79 /* XCActivityRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActivityRecord.h; sourceTree = "<group>"; };
-		EEC28A581BF0F87B00B4DC79 /* XCApplicationMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCApplicationMonitor.h; sourceTree = "<group>"; };
-		EEC28A591BF0F87B00B4DC79 /* XCApplicationMonitor_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCApplicationMonitor_iOS.h; sourceTree = "<group>"; };
-		EEC28A5A1BF0F87B00B4DC79 /* XCApplicationQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCApplicationQuery.h; sourceTree = "<group>"; };
-		EEC28A5B1BF0F87B00B4DC79 /* XCAXClient_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCAXClient_iOS.h; sourceTree = "<group>"; };
-		EEC28A5C1BF0F87B00B4DC79 /* XCDeviceEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDeviceEvent.h; sourceTree = "<group>"; };
-		EEC28A5D1BF0F87B00B4DC79 /* XCElementAttributesPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCElementAttributesPrivate.h; sourceTree = "<group>"; };
-		EEC28A5E1BF0F87B00B4DC79 /* XCElementSnapshot-Hitpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCElementSnapshot-Hitpoint.h"; sourceTree = "<group>"; };
-		EEC28A5F1BF0F87B00B4DC79 /* XCElementSnapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCElementSnapshot.h; sourceTree = "<group>"; };
-		EEC28A601BF0F87B00B4DC79 /* XCEventGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCEventGenerator.h; sourceTree = "<group>"; };
-		EEC28A611BF0F87B00B4DC79 /* XCKeyboardInputSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCKeyboardInputSolver.h; sourceTree = "<group>"; };
-		EEC28A621BF0F87B00B4DC79 /* XCKeyboardKeyMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCKeyboardKeyMap.h; sourceTree = "<group>"; };
-		EEC28A631BF0F87B00B4DC79 /* XCKeyboardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCKeyboardLayout.h; sourceTree = "<group>"; };
-		EEC28A641BF0F87B00B4DC79 /* XCKeyMappingPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCKeyMappingPath.h; sourceTree = "<group>"; };
-		EEC28A651BF0F87B00B4DC79 /* XCPointerEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCPointerEvent.h; sourceTree = "<group>"; };
-		EEC28A661BF0F87B00B4DC79 /* XCPointerEventPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCPointerEventPath.h; sourceTree = "<group>"; };
-		EEC28A671BF0F87B00B4DC79 /* XCSourceCodeRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSourceCodeRecording.h; sourceTree = "<group>"; };
-		EEC28A681BF0F87B00B4DC79 /* XCSourceCodeTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSourceCodeTreeNode.h; sourceTree = "<group>"; };
-		EEC28A691BF0F87B00B4DC79 /* XCSourceCodeTreeNodeEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSourceCodeTreeNodeEnumerator.h; sourceTree = "<group>"; };
-		EEC28A6A1BF0F87B00B4DC79 /* XCSymbolicationRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSymbolicationRecord.h; sourceTree = "<group>"; };
-		EEC28A6B1BF0F87B00B4DC79 /* XCSymbolicatorHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSymbolicatorHolder.h; sourceTree = "<group>"; };
-		EEC28A6C1BF0F87B00B4DC79 /* XCSynthesizedEventRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSynthesizedEventRecord.h; sourceTree = "<group>"; };
-		EEC28A6D1BF0F87B00B4DC79 /* XCTest-ReportingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTest-ReportingAdditions.h"; sourceTree = "<group>"; };
-		EEC28A6E1BF0F87B00B4DC79 /* XCTest-XCTestProbeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTest-XCTestProbeExtensions.h"; sourceTree = "<group>"; };
-		EEC28A6F1BF0F87B00B4DC79 /* XCTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTest.h; sourceTree = "<group>"; };
-		EEC28A701BF0F87B00B4DC79 /* XCTestCase-AsynchronousTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase-AsynchronousTesting.h"; sourceTree = "<group>"; };
-		EEC28A711BF0F87B00B4DC79 /* XCTestCase-AsynchronousTesting_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase-AsynchronousTesting_Internal.h"; sourceTree = "<group>"; };
-		EEC28A721BF0F87B00B4DC79 /* XCTestCase-AsynchronousTestingPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase-AsynchronousTestingPrivate.h"; sourceTree = "<group>"; };
-		EEC28A731BF0F87B00B4DC79 /* XCTestCase-RuntimeUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase-RuntimeUtilities.h"; sourceTree = "<group>"; };
-		EEC28A741BF0F87B00B4DC79 /* XCTestCase-XCTestSuiteExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase-XCTestSuiteExtensions.h"; sourceTree = "<group>"; };
-		EEC28A751BF0F87B00B4DC79 /* XCTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestCase.h; sourceTree = "<group>"; };
-		EEC28A761BF0F87B00B4DC79 /* XCTestCaseRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestCaseRun.h; sourceTree = "<group>"; };
-		EEC28A771BF0F87B00B4DC79 /* XCTestCaseSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestCaseSuite.h; sourceTree = "<group>"; };
-		EEC28A781BF0F87B00B4DC79 /* XCTestConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestConfiguration.h; sourceTree = "<group>"; };
-		EEC28A791BF0F87B00B4DC79 /* XCTestContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestContext.h; sourceTree = "<group>"; };
-		EEC28A7A1BF0F87B00B4DC79 /* XCTestContextScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestContextScope.h; sourceTree = "<group>"; };
-		EEC28A7B1BF0F87B00B4DC79 /* XCTestDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestDriver.h; sourceTree = "<group>"; };
-		EEC28A7C1BF0F87B00B4DC79 /* XCTestDriverInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestDriverInterface.h; sourceTree = "<group>"; };
-		EEC28A7D1BF0F87B00B4DC79 /* XCTestExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestExpectation.h; sourceTree = "<group>"; };
-		EEC28A7E1BF0F87B00B4DC79 /* XCTestLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestLog.h; sourceTree = "<group>"; };
-		EEC28A7F1BF0F87B00B4DC79 /* XCTestManager_IDEInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestManager_IDEInterface.h; sourceTree = "<group>"; };
-		EEC28A801BF0F87B00B4DC79 /* XCTestManager_ManagerInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestManager_ManagerInterface.h; sourceTree = "<group>"; };
-		EEC28A811BF0F87B00B4DC79 /* XCTestManager_TestsInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestManager_TestsInterface.h; sourceTree = "<group>"; };
-		EEC28A821BF0F87B00B4DC79 /* XCTestObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestObservation.h; sourceTree = "<group>"; };
-		EEC28A831BF0F87B00B4DC79 /* XCTestObservationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestObservationCenter.h; sourceTree = "<group>"; };
-		EEC28A841BF0F87B00B4DC79 /* XCTestObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestObserver.h; sourceTree = "<group>"; };
-		EEC28A851BF0F87B00B4DC79 /* XCTestProbe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestProbe.h; sourceTree = "<group>"; };
-		EEC28A861BF0F87B00B4DC79 /* XCTestRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestRun.h; sourceTree = "<group>"; };
-		EEC28A871BF0F87B00B4DC79 /* XCTestSuite-XCTestProbeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestSuite-XCTestProbeExtensions.h"; sourceTree = "<group>"; };
-		EEC28A881BF0F87B00B4DC79 /* XCTestSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestSuite.h; sourceTree = "<group>"; };
-		EEC28A891BF0F87B00B4DC79 /* XCTestSuiteRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestSuiteRun.h; sourceTree = "<group>"; };
-		EEC28A8A1BF0F87B00B4DC79 /* XCTouchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTouchEvent.h; sourceTree = "<group>"; };
-		EEC28A8B1BF0F87B00B4DC79 /* XCTouchGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTouchGesture.h; sourceTree = "<group>"; };
-		EEC28A8C1BF0F87B00B4DC79 /* XCTouchPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTouchPath.h; sourceTree = "<group>"; };
-		EEC28A8D1BF0F87B00B4DC79 /* XCUIApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIApplication.h; sourceTree = "<group>"; };
-		EEC28A8E1BF0F87B00B4DC79 /* XCUICoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUICoordinate.h; sourceTree = "<group>"; };
-		EEC28A8F1BF0F87B00B4DC79 /* XCUIDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIDevice.h; sourceTree = "<group>"; };
-		EEC28A901BF0F87B00B4DC79 /* XCUIElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIElement.h; sourceTree = "<group>"; };
-		EEC28A911BF0F87B00B4DC79 /* XCUIElementAsynchronousHandlerWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIElementAsynchronousHandlerWrapper.h; sourceTree = "<group>"; };
-		EEC28A921BF0F87B00B4DC79 /* XCUIElementAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIElementAttributes.h; sourceTree = "<group>"; };
-		EEC28A931BF0F87B00B4DC79 /* XCUIElementHitPointCoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIElementHitPointCoordinate.h; sourceTree = "<group>"; };
-		EEC28A941BF0F87B00B4DC79 /* XCUIElementQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIElementQuery.h; sourceTree = "<group>"; };
-		EEC28A951BF0F87B00B4DC79 /* XCUIElementTypeQueryProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIElementTypeQueryProvider.h; sourceTree = "<group>"; };
-		EEC28A961BF0F87B00B4DC79 /* XCUIElementTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIElementTypes.h; sourceTree = "<group>"; };
-		EEC28A971BF0F87B00B4DC79 /* XCUIRecorderTimingMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderTimingMessage.h; sourceTree = "<group>"; };
-		EEC28AF11BF0FAEF00B4DC79 /* XCTestDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestDefines.h; sourceTree = "<group>"; };
 		EEC28AF61BF2124700B4DC79 /* XCUIElement+FBIsVisible.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBIsVisible.h"; sourceTree = "<group>"; };
 		EEC28AF71BF2124700B4DC79 /* XCUIElement+FBIsVisible.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+FBIsVisible.m"; sourceTree = "<group>"; };
 		EEC28AF81BF2124700B4DC79 /* XCUIElement+FBScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBScrolling.h"; sourceTree = "<group>"; };
@@ -566,6 +483,97 @@
 		EEC28B061BF2128200B4DC79 /* FBUIASession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBUIASession.h; sourceTree = "<group>"; };
 		EEC28B071BF2128200B4DC79 /* FBUIASession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBUIASession.m; sourceTree = "<group>"; };
 		EEC28B0E1BF215D800B4DC79 /* FBElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElement.m; sourceTree = "<group>"; };
+		EED030DC1BFA3461007EDC1D /* _XCDarwinNotificationExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCDarwinNotificationExpectation.h; sourceTree = "<group>"; };
+		EED030DD1BFA3461007EDC1D /* _XCInternalTestRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _XCInternalTestRun.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		EED030DE1BFA3461007EDC1D /* _XCKVOExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _XCKVOExpectation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		EED030DF1BFA3461007EDC1D /* _XCNotificationExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCNotificationExpectation.h; sourceTree = "<group>"; };
+		EED030E01BFA3461007EDC1D /* _XCPredicateExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCPredicateExpectation.h; sourceTree = "<group>"; };
+		EED030E11BFA3461007EDC1D /* _XCTestCaseImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _XCTestCaseImplementation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		EED030E21BFA3461007EDC1D /* _XCTestCaseInterruptionException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCTestCaseInterruptionException.h; sourceTree = "<group>"; };
+		EED030E31BFA3461007EDC1D /* _XCTestDriverTestObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCTestDriverTestObserver.h; sourceTree = "<group>"; };
+		EED030E41BFA3461007EDC1D /* _XCTestExpectationImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _XCTestExpectationImplementation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		EED030E51BFA3461007EDC1D /* _XCTestImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCTestImplementation.h; sourceTree = "<group>"; };
+		EED030E61BFA3461007EDC1D /* _XCTestObservationCenterImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _XCTestObservationCenterImplementation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		EED030E71BFA3461007EDC1D /* CDStructures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDStructures.h; sourceTree = "<group>"; };
+		EED030E81BFA3461007EDC1D /* UIGestureRecognizer-RecordingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer-RecordingAdditions.h"; sourceTree = "<group>"; };
+		EED030E91BFA3461007EDC1D /* UILongPressGestureRecognizer-RecordingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILongPressGestureRecognizer-RecordingAdditions.h"; sourceTree = "<group>"; };
+		EED030EA1BFA3461007EDC1D /* UIPanGestureRecognizer-RecordingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPanGestureRecognizer-RecordingAdditions.h"; sourceTree = "<group>"; };
+		EED030EB1BFA3461007EDC1D /* UIPinchGestureRecognizer-RecordingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPinchGestureRecognizer-RecordingAdditions.h"; sourceTree = "<group>"; };
+		EED030EC1BFA3461007EDC1D /* UISwipeGestureRecognizer-RecordingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISwipeGestureRecognizer-RecordingAdditions.h"; sourceTree = "<group>"; };
+		EED030ED1BFA3461007EDC1D /* UITapGestureRecognizer-RecordingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITapGestureRecognizer-RecordingAdditions.h"; sourceTree = "<group>"; };
+		EED030EE1BFA3461007EDC1D /* XCAccessibilityElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCAccessibilityElement.h; sourceTree = "<group>"; };
+		EED030EF1BFA3461007EDC1D /* XCActivityRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActivityRecord.h; sourceTree = "<group>"; };
+		EED030F01BFA3461007EDC1D /* XCApplicationMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCApplicationMonitor.h; sourceTree = "<group>"; };
+		EED030F11BFA3461007EDC1D /* XCApplicationMonitor_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCApplicationMonitor_iOS.h; sourceTree = "<group>"; };
+		EED030F21BFA3461007EDC1D /* XCApplicationMonitor_OSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCApplicationMonitor_OSX.h; sourceTree = "<group>"; };
+		EED030F31BFA3461007EDC1D /* XCApplicationQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCApplicationQuery.h; sourceTree = "<group>"; };
+		EED030F41BFA3461007EDC1D /* XCAXClient_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCAXClient_iOS.h; sourceTree = "<group>"; };
+		EED030F51BFA3461007EDC1D /* XCAXManager_OSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCAXManager_OSX.h; sourceTree = "<group>"; };
+		EED030F61BFA3461007EDC1D /* XCDebugLogDelegate-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCDebugLogDelegate-Protocol.h"; sourceTree = "<group>"; };
+		EED030F71BFA3461007EDC1D /* XCDeviceEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDeviceEvent.h; sourceTree = "<group>"; };
+		EED030F91BFA3461007EDC1D /* XCElementSnapshot-Hitpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCElementSnapshot-Hitpoint.h"; sourceTree = "<group>"; };
+		EED030FA1BFA3461007EDC1D /* XCElementSnapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCElementSnapshot.h; sourceTree = "<group>"; };
+		EED030FB1BFA3461007EDC1D /* XCEventGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCEventGenerator.h; sourceTree = "<group>"; };
+		EED030FC1BFA3461007EDC1D /* XCKeyboardInputSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCKeyboardInputSolver.h; sourceTree = "<group>"; };
+		EED030FD1BFA3461007EDC1D /* XCKeyboardKeyMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCKeyboardKeyMap.h; sourceTree = "<group>"; };
+		EED030FE1BFA3461007EDC1D /* XCKeyboardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCKeyboardLayout.h; sourceTree = "<group>"; };
+		EED030FF1BFA3461007EDC1D /* XCKeyMappingPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCKeyMappingPath.h; sourceTree = "<group>"; };
+		EED031001BFA3461007EDC1D /* XCPointerEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCPointerEvent.h; sourceTree = "<group>"; };
+		EED031011BFA3461007EDC1D /* XCPointerEventPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCPointerEventPath.h; sourceTree = "<group>"; };
+		EED031021BFA3461007EDC1D /* XCSourceCodeRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSourceCodeRecording.h; sourceTree = "<group>"; };
+		EED031031BFA3461007EDC1D /* XCSourceCodeTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSourceCodeTreeNode.h; sourceTree = "<group>"; };
+		EED031041BFA3461007EDC1D /* XCSourceCodeTreeNodeEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSourceCodeTreeNodeEnumerator.h; sourceTree = "<group>"; };
+		EED031051BFA3461007EDC1D /* XCSymbolicationRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSymbolicationRecord.h; sourceTree = "<group>"; };
+		EED031061BFA3461007EDC1D /* XCSymbolicatorHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSymbolicatorHolder.h; sourceTree = "<group>"; };
+		EED031071BFA3461007EDC1D /* XCSynthesizedEventRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSynthesizedEventRecord.h; sourceTree = "<group>"; };
+		EED031081BFA3461007EDC1D /* XCTest-ReportingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTest-ReportingAdditions.h"; sourceTree = "<group>"; };
+		EED031091BFA3461007EDC1D /* XCTest-XCTestProbeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTest-XCTestProbeExtensions.h"; sourceTree = "<group>"; };
+		EED0310A1BFA3461007EDC1D /* XCTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTest.h; sourceTree = "<group>"; };
+		EED0310B1BFA3461007EDC1D /* XCTestCase-AsynchronousTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase-AsynchronousTesting.h"; sourceTree = "<group>"; };
+		EED0310C1BFA3461007EDC1D /* XCTestCase-AsynchronousTesting_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase-AsynchronousTesting_Internal.h"; sourceTree = "<group>"; };
+		EED0310D1BFA3461007EDC1D /* XCTestCase-AsynchronousTestingPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase-AsynchronousTestingPrivate.h"; sourceTree = "<group>"; };
+		EED0310E1BFA3461007EDC1D /* XCTestCase-RuntimeUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase-RuntimeUtilities.h"; sourceTree = "<group>"; };
+		EED0310F1BFA3461007EDC1D /* XCTestCase-XCTestSuiteExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase-XCTestSuiteExtensions.h"; sourceTree = "<group>"; };
+		EED031101BFA3461007EDC1D /* XCTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestCase.h; sourceTree = "<group>"; };
+		EED031111BFA3461007EDC1D /* XCTestCaseRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestCaseRun.h; sourceTree = "<group>"; };
+		EED031121BFA3461007EDC1D /* XCTestCaseSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestCaseSuite.h; sourceTree = "<group>"; };
+		EED031131BFA3461007EDC1D /* XCTestConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestConfiguration.h; sourceTree = "<group>"; };
+		EED031141BFA3461007EDC1D /* XCTestContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestContext.h; sourceTree = "<group>"; };
+		EED031151BFA3461007EDC1D /* XCTestContextScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestContextScope.h; sourceTree = "<group>"; };
+		EED031161BFA3461007EDC1D /* XCTestDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestDriver.h; sourceTree = "<group>"; };
+		EED031171BFA3461007EDC1D /* XCTestDriverInterface-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestDriverInterface-Protocol.h"; sourceTree = "<group>"; };
+		EED031181BFA3461007EDC1D /* XCTestExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestExpectation.h; sourceTree = "<group>"; };
+		EED031191BFA3461007EDC1D /* XCTestLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestLog.h; sourceTree = "<group>"; };
+		EED0311A1BFA3461007EDC1D /* XCTestManager_IDEInterface-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestManager_IDEInterface-Protocol.h"; sourceTree = "<group>"; };
+		EED0311B1BFA3461007EDC1D /* XCTestManager_ManagerInterface-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestManager_ManagerInterface-Protocol.h"; sourceTree = "<group>"; };
+		EED0311C1BFA3461007EDC1D /* XCTestManager_TestsInterface-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestManager_TestsInterface-Protocol.h"; sourceTree = "<group>"; };
+		EED0311D1BFA3461007EDC1D /* XCTestObservation-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestObservation-Protocol.h"; sourceTree = "<group>"; };
+		EED0311E1BFA3461007EDC1D /* XCTestObservationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestObservationCenter.h; sourceTree = "<group>"; };
+		EED0311F1BFA3461007EDC1D /* XCTestObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestObserver.h; sourceTree = "<group>"; };
+		EED031201BFA3461007EDC1D /* XCTestProbe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestProbe.h; sourceTree = "<group>"; };
+		EED031211BFA3461007EDC1D /* XCTestRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestRun.h; sourceTree = "<group>"; };
+		EED031221BFA3461007EDC1D /* XCTestSuite-XCTestProbeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestSuite-XCTestProbeExtensions.h"; sourceTree = "<group>"; };
+		EED031231BFA3461007EDC1D /* XCTestSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestSuite.h; sourceTree = "<group>"; };
+		EED031241BFA3461007EDC1D /* XCTestSuiteRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestSuiteRun.h; sourceTree = "<group>"; };
+		EED031251BFA3461007EDC1D /* XCTouchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTouchEvent.h; sourceTree = "<group>"; };
+		EED031261BFA3461007EDC1D /* XCTouchGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTouchGesture.h; sourceTree = "<group>"; };
+		EED031271BFA3461007EDC1D /* XCTouchPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTouchPath.h; sourceTree = "<group>"; };
+		EED031281BFA3461007EDC1D /* XCUIApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIApplication.h; sourceTree = "<group>"; };
+		EED031291BFA3461007EDC1D /* XCUICoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUICoordinate.h; sourceTree = "<group>"; };
+		EED0312A1BFA3461007EDC1D /* XCUIDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIDevice.h; sourceTree = "<group>"; };
+		EED0312B1BFA3461007EDC1D /* XCUIElement-PrivateEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement-PrivateEvents.h"; sourceTree = "<group>"; };
+		EED0312C1BFA3461007EDC1D /* XCUIElement-XCUIElementEventSynthesis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement-XCUIElementEventSynthesis.h"; sourceTree = "<group>"; };
+		EED0312D1BFA3461007EDC1D /* XCUIElement-XCUIElementTypePickerWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement-XCUIElementTypePickerWheel.h"; sourceTree = "<group>"; };
+		EED0312E1BFA3461007EDC1D /* XCUIElement-XCUIElementTypeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement-XCUIElementTypeSlider.h"; sourceTree = "<group>"; };
+		EED0312F1BFA3461007EDC1D /* XCUIElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIElement.h; sourceTree = "<group>"; };
+		EED031301BFA3461007EDC1D /* XCUIElementAsynchronousHandlerWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIElementAsynchronousHandlerWrapper.h; sourceTree = "<group>"; };
+		EED031321BFA3461007EDC1D /* XCUIElementHitPointCoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIElementHitPointCoordinate.h; sourceTree = "<group>"; };
+		EED031331BFA3461007EDC1D /* XCUIElementQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIElementQuery.h; sourceTree = "<group>"; };
+		EED031351BFA3461007EDC1D /* XCUIRecorderNodeFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderNodeFinder.h; sourceTree = "<group>"; };
+		EED031361BFA3461007EDC1D /* XCUIRecorderNodeFinderMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderNodeFinderMatch.h; sourceTree = "<group>"; };
+		EED031371BFA3461007EDC1D /* XCUIRecorderTimingMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderTimingMessage.h; sourceTree = "<group>"; };
+		EED031381BFA3461007EDC1D /* XCUIRecorderUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderUtilities.h; sourceTree = "<group>"; };
+		EED031391BFA3461007EDC1D /* XCUIRemote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRemote.h; sourceTree = "<group>"; };
 		F204A7ED0F3E8EEFB1A1C300 /* libPods-WebDriverAgent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgent.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -743,8 +751,8 @@
 		91F9DB731B99DDD8001349B2 /* PrivateHeaders */ = {
 			isa = PBXGroup;
 			children = (
-				EEC28A411BF0F87B00B4DC79 /* XCTest */,
 				91F9DB741B99DDE3001349B2 /* UIAutomation */,
+				EED030DB1BFA3461007EDC1D /* XCTest */,
 			);
 			path = PrivateHeaders;
 			sourceTree = "<group>";
@@ -986,100 +994,6 @@
 			path = Commands;
 			sourceTree = "<group>";
 		};
-		EEC28A411BF0F87B00B4DC79 /* XCTest */ = {
-			isa = PBXGroup;
-			children = (
-				EEC28A421BF0F87B00B4DC79 /* _XCDarwinNotificationExpectation.h */,
-				EEC28A431BF0F87B00B4DC79 /* _XCInternalTestRun.h */,
-				EEC28A441BF0F87B00B4DC79 /* _XCKVOExpectation.h */,
-				EEC28A451BF0F87B00B4DC79 /* _XCNotificationExpectation.h */,
-				EEC28A461BF0F87B00B4DC79 /* _XCPredicateExpectation.h */,
-				EEC28A471BF0F87B00B4DC79 /* _XCTestCaseImplementation.h */,
-				EEC28A481BF0F87B00B4DC79 /* _XCTestCaseInterruptionException.h */,
-				EEC28A491BF0F87B00B4DC79 /* _XCTestDriverTestObserver.h */,
-				EEC28A4A1BF0F87B00B4DC79 /* _XCTestExpectationImplementation.h */,
-				EEC28A4B1BF0F87B00B4DC79 /* _XCTestImplementation.h */,
-				EEC28A4C1BF0F87B00B4DC79 /* _XCTestObservationCenterImplementation.h */,
-				EEC28A4D1BF0F87B00B4DC79 /* CDStructures.h */,
-				EEC28A4E1BF0F87B00B4DC79 /* NSObject-ClassDescription_Extras.h */,
-				EEC28A4F1BF0F87B00B4DC79 /* NSValue-XCTestAdditions.h */,
-				EEC28A501BF0F87B00B4DC79 /* UIGestureRecognizer-RecordingAdditions.h */,
-				EEC28A511BF0F87B00B4DC79 /* UILongPressGestureRecognizer-RecordingAdditions.h */,
-				EEC28A521BF0F87B00B4DC79 /* UIPanGestureRecognizer-RecordingAdditions.h */,
-				EEC28A531BF0F87B00B4DC79 /* UIPinchGestureRecognizer-RecordingAdditions.h */,
-				EEC28A541BF0F87B00B4DC79 /* UISwipeGestureRecognizer-RecordingAdditions.h */,
-				EEC28A551BF0F87B00B4DC79 /* UITapGestureRecognizer-RecordingAdditions.h */,
-				EEC28A561BF0F87B00B4DC79 /* XCAccessibilityElement.h */,
-				EEC28A571BF0F87B00B4DC79 /* XCActivityRecord.h */,
-				EEC28A591BF0F87B00B4DC79 /* XCApplicationMonitor_iOS.h */,
-				EEC28A581BF0F87B00B4DC79 /* XCApplicationMonitor.h */,
-				EEC28A5A1BF0F87B00B4DC79 /* XCApplicationQuery.h */,
-				EEC28A5B1BF0F87B00B4DC79 /* XCAXClient_iOS.h */,
-				EEC28A5C1BF0F87B00B4DC79 /* XCDeviceEvent.h */,
-				EEC28A5D1BF0F87B00B4DC79 /* XCElementAttributesPrivate.h */,
-				EEC28A5E1BF0F87B00B4DC79 /* XCElementSnapshot-Hitpoint.h */,
-				EEC28A5F1BF0F87B00B4DC79 /* XCElementSnapshot.h */,
-				EEC28A601BF0F87B00B4DC79 /* XCEventGenerator.h */,
-				EEC28A611BF0F87B00B4DC79 /* XCKeyboardInputSolver.h */,
-				EEC28A621BF0F87B00B4DC79 /* XCKeyboardKeyMap.h */,
-				EEC28A631BF0F87B00B4DC79 /* XCKeyboardLayout.h */,
-				EEC28A641BF0F87B00B4DC79 /* XCKeyMappingPath.h */,
-				EEC28A651BF0F87B00B4DC79 /* XCPointerEvent.h */,
-				EEC28A661BF0F87B00B4DC79 /* XCPointerEventPath.h */,
-				EEC28A671BF0F87B00B4DC79 /* XCSourceCodeRecording.h */,
-				EEC28A681BF0F87B00B4DC79 /* XCSourceCodeTreeNode.h */,
-				EEC28A691BF0F87B00B4DC79 /* XCSourceCodeTreeNodeEnumerator.h */,
-				EEC28A6A1BF0F87B00B4DC79 /* XCSymbolicationRecord.h */,
-				EEC28A6B1BF0F87B00B4DC79 /* XCSymbolicatorHolder.h */,
-				EEC28A6C1BF0F87B00B4DC79 /* XCSynthesizedEventRecord.h */,
-				EEC28A6D1BF0F87B00B4DC79 /* XCTest-ReportingAdditions.h */,
-				EEC28A6E1BF0F87B00B4DC79 /* XCTest-XCTestProbeExtensions.h */,
-				EEC28A6F1BF0F87B00B4DC79 /* XCTest.h */,
-				EEC28A711BF0F87B00B4DC79 /* XCTestCase-AsynchronousTesting_Internal.h */,
-				EEC28A701BF0F87B00B4DC79 /* XCTestCase-AsynchronousTesting.h */,
-				EEC28A721BF0F87B00B4DC79 /* XCTestCase-AsynchronousTestingPrivate.h */,
-				EEC28A731BF0F87B00B4DC79 /* XCTestCase-RuntimeUtilities.h */,
-				EEC28A741BF0F87B00B4DC79 /* XCTestCase-XCTestSuiteExtensions.h */,
-				EEC28A751BF0F87B00B4DC79 /* XCTestCase.h */,
-				EEC28A761BF0F87B00B4DC79 /* XCTestCaseRun.h */,
-				EEC28A771BF0F87B00B4DC79 /* XCTestCaseSuite.h */,
-				EEC28A781BF0F87B00B4DC79 /* XCTestConfiguration.h */,
-				EEC28A791BF0F87B00B4DC79 /* XCTestContext.h */,
-				EEC28A7A1BF0F87B00B4DC79 /* XCTestContextScope.h */,
-				EEC28AF11BF0FAEF00B4DC79 /* XCTestDefines.h */,
-				EEC28A7B1BF0F87B00B4DC79 /* XCTestDriver.h */,
-				EEC28A7C1BF0F87B00B4DC79 /* XCTestDriverInterface.h */,
-				EEC28A7D1BF0F87B00B4DC79 /* XCTestExpectation.h */,
-				EEC28A7E1BF0F87B00B4DC79 /* XCTestLog.h */,
-				EEC28A7F1BF0F87B00B4DC79 /* XCTestManager_IDEInterface.h */,
-				EEC28A801BF0F87B00B4DC79 /* XCTestManager_ManagerInterface.h */,
-				EEC28A811BF0F87B00B4DC79 /* XCTestManager_TestsInterface.h */,
-				EEC28A821BF0F87B00B4DC79 /* XCTestObservation.h */,
-				EEC28A831BF0F87B00B4DC79 /* XCTestObservationCenter.h */,
-				EEC28A841BF0F87B00B4DC79 /* XCTestObserver.h */,
-				EEC28A851BF0F87B00B4DC79 /* XCTestProbe.h */,
-				EEC28A861BF0F87B00B4DC79 /* XCTestRun.h */,
-				EEC28A871BF0F87B00B4DC79 /* XCTestSuite-XCTestProbeExtensions.h */,
-				EEC28A881BF0F87B00B4DC79 /* XCTestSuite.h */,
-				EEC28A891BF0F87B00B4DC79 /* XCTestSuiteRun.h */,
-				EEC28A8A1BF0F87B00B4DC79 /* XCTouchEvent.h */,
-				EEC28A8B1BF0F87B00B4DC79 /* XCTouchGesture.h */,
-				EEC28A8C1BF0F87B00B4DC79 /* XCTouchPath.h */,
-				EEC28A8D1BF0F87B00B4DC79 /* XCUIApplication.h */,
-				EEC28A8E1BF0F87B00B4DC79 /* XCUICoordinate.h */,
-				EEC28A8F1BF0F87B00B4DC79 /* XCUIDevice.h */,
-				EEC28A901BF0F87B00B4DC79 /* XCUIElement.h */,
-				EEC28A911BF0F87B00B4DC79 /* XCUIElementAsynchronousHandlerWrapper.h */,
-				EEC28A921BF0F87B00B4DC79 /* XCUIElementAttributes.h */,
-				EEC28A931BF0F87B00B4DC79 /* XCUIElementHitPointCoordinate.h */,
-				EEC28A941BF0F87B00B4DC79 /* XCUIElementQuery.h */,
-				EEC28A951BF0F87B00B4DC79 /* XCUIElementTypeQueryProvider.h */,
-				EEC28A961BF0F87B00B4DC79 /* XCUIElementTypes.h */,
-				EEC28A971BF0F87B00B4DC79 /* XCUIRecorderTimingMessage.h */,
-			);
-			path = XCTest;
-			sourceTree = "<group>";
-		};
 		EEC28AF51BF2124700B4DC79 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -1093,6 +1007,104 @@
 				EEC28AFD1BF2124700B4DC79 /* XCUIElement+WebDriverAttributes.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		EED030DB1BFA3461007EDC1D /* XCTest */ = {
+			isa = PBXGroup;
+			children = (
+				EED030DC1BFA3461007EDC1D /* _XCDarwinNotificationExpectation.h */,
+				EED030DD1BFA3461007EDC1D /* _XCInternalTestRun.h */,
+				EED030DE1BFA3461007EDC1D /* _XCKVOExpectation.h */,
+				EED030DF1BFA3461007EDC1D /* _XCNotificationExpectation.h */,
+				EED030E01BFA3461007EDC1D /* _XCPredicateExpectation.h */,
+				EED030E11BFA3461007EDC1D /* _XCTestCaseImplementation.h */,
+				EED030E21BFA3461007EDC1D /* _XCTestCaseInterruptionException.h */,
+				EED030E31BFA3461007EDC1D /* _XCTestDriverTestObserver.h */,
+				EED030E41BFA3461007EDC1D /* _XCTestExpectationImplementation.h */,
+				EED030E51BFA3461007EDC1D /* _XCTestImplementation.h */,
+				EED030E61BFA3461007EDC1D /* _XCTestObservationCenterImplementation.h */,
+				EED030E71BFA3461007EDC1D /* CDStructures.h */,
+				EED030E81BFA3461007EDC1D /* UIGestureRecognizer-RecordingAdditions.h */,
+				EED030E91BFA3461007EDC1D /* UILongPressGestureRecognizer-RecordingAdditions.h */,
+				EED030EA1BFA3461007EDC1D /* UIPanGestureRecognizer-RecordingAdditions.h */,
+				EED030EB1BFA3461007EDC1D /* UIPinchGestureRecognizer-RecordingAdditions.h */,
+				EED030EC1BFA3461007EDC1D /* UISwipeGestureRecognizer-RecordingAdditions.h */,
+				EED030ED1BFA3461007EDC1D /* UITapGestureRecognizer-RecordingAdditions.h */,
+				EED030EE1BFA3461007EDC1D /* XCAccessibilityElement.h */,
+				EED030EF1BFA3461007EDC1D /* XCActivityRecord.h */,
+				EED030F01BFA3461007EDC1D /* XCApplicationMonitor.h */,
+				EED030F11BFA3461007EDC1D /* XCApplicationMonitor_iOS.h */,
+				EED030F21BFA3461007EDC1D /* XCApplicationMonitor_OSX.h */,
+				EED030F31BFA3461007EDC1D /* XCApplicationQuery.h */,
+				EED030F41BFA3461007EDC1D /* XCAXClient_iOS.h */,
+				EED030F51BFA3461007EDC1D /* XCAXManager_OSX.h */,
+				EED030F61BFA3461007EDC1D /* XCDebugLogDelegate-Protocol.h */,
+				EED030F71BFA3461007EDC1D /* XCDeviceEvent.h */,
+				EED030F91BFA3461007EDC1D /* XCElementSnapshot-Hitpoint.h */,
+				EED030FA1BFA3461007EDC1D /* XCElementSnapshot.h */,
+				EED030FB1BFA3461007EDC1D /* XCEventGenerator.h */,
+				EED030FC1BFA3461007EDC1D /* XCKeyboardInputSolver.h */,
+				EED030FD1BFA3461007EDC1D /* XCKeyboardKeyMap.h */,
+				EED030FE1BFA3461007EDC1D /* XCKeyboardLayout.h */,
+				EED030FF1BFA3461007EDC1D /* XCKeyMappingPath.h */,
+				EED031001BFA3461007EDC1D /* XCPointerEvent.h */,
+				EED031011BFA3461007EDC1D /* XCPointerEventPath.h */,
+				EED031021BFA3461007EDC1D /* XCSourceCodeRecording.h */,
+				EED031031BFA3461007EDC1D /* XCSourceCodeTreeNode.h */,
+				EED031041BFA3461007EDC1D /* XCSourceCodeTreeNodeEnumerator.h */,
+				EED031051BFA3461007EDC1D /* XCSymbolicationRecord.h */,
+				EED031061BFA3461007EDC1D /* XCSymbolicatorHolder.h */,
+				EED031071BFA3461007EDC1D /* XCSynthesizedEventRecord.h */,
+				EED031081BFA3461007EDC1D /* XCTest-ReportingAdditions.h */,
+				EED031091BFA3461007EDC1D /* XCTest-XCTestProbeExtensions.h */,
+				EED0310A1BFA3461007EDC1D /* XCTest.h */,
+				EED0310B1BFA3461007EDC1D /* XCTestCase-AsynchronousTesting.h */,
+				EED0310C1BFA3461007EDC1D /* XCTestCase-AsynchronousTesting_Internal.h */,
+				EED0310D1BFA3461007EDC1D /* XCTestCase-AsynchronousTestingPrivate.h */,
+				EED0310E1BFA3461007EDC1D /* XCTestCase-RuntimeUtilities.h */,
+				EED0310F1BFA3461007EDC1D /* XCTestCase-XCTestSuiteExtensions.h */,
+				EED031101BFA3461007EDC1D /* XCTestCase.h */,
+				EED031111BFA3461007EDC1D /* XCTestCaseRun.h */,
+				EED031121BFA3461007EDC1D /* XCTestCaseSuite.h */,
+				EED031131BFA3461007EDC1D /* XCTestConfiguration.h */,
+				EED031141BFA3461007EDC1D /* XCTestContext.h */,
+				EED031151BFA3461007EDC1D /* XCTestContextScope.h */,
+				EED031161BFA3461007EDC1D /* XCTestDriver.h */,
+				EED031171BFA3461007EDC1D /* XCTestDriverInterface-Protocol.h */,
+				EED031181BFA3461007EDC1D /* XCTestExpectation.h */,
+				EED031191BFA3461007EDC1D /* XCTestLog.h */,
+				EED0311A1BFA3461007EDC1D /* XCTestManager_IDEInterface-Protocol.h */,
+				EED0311B1BFA3461007EDC1D /* XCTestManager_ManagerInterface-Protocol.h */,
+				EED0311C1BFA3461007EDC1D /* XCTestManager_TestsInterface-Protocol.h */,
+				EED0311D1BFA3461007EDC1D /* XCTestObservation-Protocol.h */,
+				EED0311E1BFA3461007EDC1D /* XCTestObservationCenter.h */,
+				EED0311F1BFA3461007EDC1D /* XCTestObserver.h */,
+				EED031201BFA3461007EDC1D /* XCTestProbe.h */,
+				EED031211BFA3461007EDC1D /* XCTestRun.h */,
+				EED031221BFA3461007EDC1D /* XCTestSuite-XCTestProbeExtensions.h */,
+				EED031231BFA3461007EDC1D /* XCTestSuite.h */,
+				EED031241BFA3461007EDC1D /* XCTestSuiteRun.h */,
+				EED031251BFA3461007EDC1D /* XCTouchEvent.h */,
+				EED031261BFA3461007EDC1D /* XCTouchGesture.h */,
+				EED031271BFA3461007EDC1D /* XCTouchPath.h */,
+				EED031281BFA3461007EDC1D /* XCUIApplication.h */,
+				EED031291BFA3461007EDC1D /* XCUICoordinate.h */,
+				EED0312A1BFA3461007EDC1D /* XCUIDevice.h */,
+				EED0312B1BFA3461007EDC1D /* XCUIElement-PrivateEvents.h */,
+				EED0312C1BFA3461007EDC1D /* XCUIElement-XCUIElementEventSynthesis.h */,
+				EED0312D1BFA3461007EDC1D /* XCUIElement-XCUIElementTypePickerWheel.h */,
+				EED0312E1BFA3461007EDC1D /* XCUIElement-XCUIElementTypeSlider.h */,
+				EED0312F1BFA3461007EDC1D /* XCUIElement.h */,
+				EED031301BFA3461007EDC1D /* XCUIElementAsynchronousHandlerWrapper.h */,
+				EED031321BFA3461007EDC1D /* XCUIElementHitPointCoordinate.h */,
+				EED031331BFA3461007EDC1D /* XCUIElementQuery.h */,
+				EED031351BFA3461007EDC1D /* XCUIRecorderNodeFinder.h */,
+				EED031361BFA3461007EDC1D /* XCUIRecorderNodeFinderMatch.h */,
+				EED031371BFA3461007EDC1D /* XCUIRecorderTimingMessage.h */,
+				EED031381BFA3461007EDC1D /* XCUIRecorderUtilities.h */,
+				EED031391BFA3461007EDC1D /* XCUIRemote.h */,
+			);
+			path = XCTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1141,125 +1153,129 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EED031821BFA397A007EDC1D /* XCTouchEvent.h in Headers */,
+				EED031571BFA397A007EDC1D /* XCElementSnapshot.h in Headers */,
 				EEC289BE1BF0EE4E00B4DC79 /* FBDebugCommands.h in Headers */,
-				EEC28AD61BF0FA7100B4DC79 /* XCTestDriverInterface.h in Headers */,
-				EEC28AE11BF0FA7100B4DC79 /* XCTestSuite-XCTestProbeExtensions.h in Headers */,
-				EEC28AC21BF0FA7100B4DC79 /* XCSourceCodeTreeNode.h in Headers */,
+				EED031871BFA397A007EDC1D /* XCUIDevice.h in Headers */,
+				EED031761BFA397A007EDC1D /* XCTestLog.h in Headers */,
 				EEC289791BF0ED3000B4DC79 /* FBElement.h in Headers */,
-				EEC28AC91BF0FA7100B4DC79 /* XCTest.h in Headers */,
 				EEC2897A1BF0ED3000B4DC79 /* FBRouteRequest.h in Headers */,
-				EEC28AC71BF0FA7100B4DC79 /* XCTest-ReportingAdditions.h in Headers */,
-				EEC28AC51BF0FA7100B4DC79 /* XCSymbolicatorHolder.h in Headers */,
-				EEC28ADC1BF0FA7100B4DC79 /* XCTestObservation.h in Headers */,
-				EEC28AE61BF0FA7100B4DC79 /* XCTouchPath.h in Headers */,
+				EED031591BFA397A007EDC1D /* XCKeyboardInputSolver.h in Headers */,
+				EED031831BFA397A007EDC1D /* XCTouchGesture.h in Headers */,
+				EED0318C1BFA397A007EDC1D /* XCUIElement.h in Headers */,
+				EED031491BFA397A007EDC1D /* UIPinchGestureRecognizer-RecordingAdditions.h in Headers */,
+				EED031651BFA397A007EDC1D /* XCTest-ReportingAdditions.h in Headers */,
 				EEC2897C1BF0ED3000B4DC79 /* FBSession.h in Headers */,
-				EEC28ACB1BF0FA7100B4DC79 /* XCTestCase-AsynchronousTesting_Internal.h in Headers */,
-				EEC28AB71BF0FA7100B4DC79 /* XCElementAttributesPrivate.h in Headers */,
-				EEC28AA11BF0FA7100B4DC79 /* _XCTestCaseImplementation.h in Headers */,
-				EEC28AC11BF0FA7100B4DC79 /* XCSourceCodeRecording.h in Headers */,
-				EEC28AAE1BF0FA7100B4DC79 /* UISwipeGestureRecognizer-RecordingAdditions.h in Headers */,
-				EEC28AAB1BF0FA7100B4DC79 /* UILongPressGestureRecognizer-RecordingAdditions.h in Headers */,
-				EEC28AEB1BF0FA7100B4DC79 /* XCUIElementAttributes.h in Headers */,
+				EED031501BFA397A007EDC1D /* XCApplicationMonitor_OSX.h in Headers */,
+				EED0317E1BFA397A007EDC1D /* XCTestRun.h in Headers */,
+				EED0315B1BFA397A007EDC1D /* XCKeyboardLayout.h in Headers */,
+				EED031681BFA397A007EDC1D /* XCTestCase-AsynchronousTesting.h in Headers */,
+				EED0317A1BFA397A007EDC1D /* XCTestObservation-Protocol.h in Headers */,
+				EED031401BFA397A007EDC1D /* _XCTestCaseImplementation.h in Headers */,
 				EEC2897F1BF0ED3000B4DC79 /* FBCommandHandler.h in Headers */,
-				EEC28AC01BF0FA7100B4DC79 /* XCPointerEventPath.h in Headers */,
+				EED0314A1BFA397A007EDC1D /* UISwipeGestureRecognizer-RecordingAdditions.h in Headers */,
+				EED031911BFA397A007EDC1D /* XCUIRecorderNodeFinderMatch.h in Headers */,
 				EEC289C11BF0EE4E00B4DC79 /* FBOrientationCommands.h in Headers */,
-				EEC28AA01BF0FA7100B4DC79 /* _XCPredicateExpectation.h in Headers */,
-				EEC28AB81BF0FA7100B4DC79 /* XCElementSnapshot-Hitpoint.h in Headers */,
-				EEC28AE41BF0FA7100B4DC79 /* XCTouchEvent.h in Headers */,
-				EEC28AB91BF0FA7100B4DC79 /* XCElementSnapshot.h in Headers */,
+				EED0316A1BFA397A007EDC1D /* XCTestCase-AsynchronousTestingPrivate.h in Headers */,
+				EED031561BFA397A007EDC1D /* XCElementSnapshot-Hitpoint.h in Headers */,
+				EED031661BFA397A007EDC1D /* XCTest-XCTestProbeExtensions.h in Headers */,
+				EED0313F1BFA397A007EDC1D /* _XCPredicateExpectation.h in Headers */,
+				EED0318B1BFA397A007EDC1D /* XCUIElement-XCUIElementTypeSlider.h in Headers */,
 				EEC289BF1BF0EE4E00B4DC79 /* FBElementCommands.h in Headers */,
+				EED0314D1BFA397A007EDC1D /* XCActivityRecord.h in Headers */,
+				EED031881BFA397A007EDC1D /* XCUIElement-PrivateEvents.h in Headers */,
+				EED0315F1BFA397A007EDC1D /* XCSourceCodeRecording.h in Headers */,
 				EEC289C21BF0EE4E00B4DC79 /* FBScreenshotCommands.h in Headers */,
-				EEC28AEA1BF0FA7100B4DC79 /* XCUIElementAsynchronousHandlerWrapper.h in Headers */,
-				EEC28AD21BF0FA7100B4DC79 /* XCTestConfiguration.h in Headers */,
-				EEC28AA71BF0FA7100B4DC79 /* CDStructures.h in Headers */,
 				EEC289821BF0ED3000B4DC79 /* FBRoute.h in Headers */,
+				EED031511BFA397A007EDC1D /* XCApplicationQuery.h in Headers */,
+				EED0317F1BFA397A007EDC1D /* XCTestSuite-XCTestProbeExtensions.h in Headers */,
+				EED0315A1BFA397A007EDC1D /* XCKeyboardKeyMap.h in Headers */,
+				EED031581BFA397A007EDC1D /* XCEventGenerator.h in Headers */,
 				EEC289C41BF0EE4E00B4DC79 /* FBXCTElementCache.h in Headers */,
 				EEC289841BF0ED3000B4DC79 /* FBResponseJSONPayload.h in Headers */,
 				EEC289BD1BF0EE4E00B4DC79 /* FBSessionCommands.h in Headers */,
+				EED031721BFA397A007EDC1D /* XCTestContextScope.h in Headers */,
+				EED031611BFA397A007EDC1D /* XCSourceCodeTreeNodeEnumerator.h in Headers */,
 				EEC289851BF0ED3000B4DC79 /* FBWDAMacros.h in Headers */,
-				EEC28AA81BF0FA7100B4DC79 /* NSObject-ClassDescription_Extras.h in Headers */,
-				EEC28AA21BF0FA7100B4DC79 /* _XCTestCaseInterruptionException.h in Headers */,
-				EEC28A9B1BF0F9F500B4DC79 /* XCUIElement.h in Headers */,
+				EED031781BFA397A007EDC1D /* XCTestManager_ManagerInterface-Protocol.h in Headers */,
+				EED031641BFA397A007EDC1D /* XCSynthesizedEventRecord.h in Headers */,
+				EED031481BFA397A007EDC1D /* UIPanGestureRecognizer-RecordingAdditions.h in Headers */,
+				EED031811BFA397A007EDC1D /* XCTestSuiteRun.h in Headers */,
+				EED031531BFA397A007EDC1D /* XCAXManager_OSX.h in Headers */,
 				EEC289881BF0ED3000B4DC79 /* FBWDAConstants.h in Headers */,
-				EEC28A9C1BF0FA7100B4DC79 /* _XCDarwinNotificationExpectation.h in Headers */,
-				EEC28AF01BF0FA7100B4DC79 /* XCUIRecorderTimingMessage.h in Headers */,
-				EEC28AA91BF0FA7100B4DC79 /* NSValue-XCTestAdditions.h in Headers */,
-				EEC28AE21BF0FA7100B4DC79 /* XCTestSuite.h in Headers */,
+				EED0314E1BFA397A007EDC1D /* XCApplicationMonitor.h in Headers */,
+				EED031411BFA397A007EDC1D /* _XCTestCaseInterruptionException.h in Headers */,
 				EEC289C51BF0EE4E00B4DC79 /* FBXCTExceptionHandler.h in Headers */,
-				EEC28AB21BF0FA7100B4DC79 /* XCApplicationMonitor.h in Headers */,
-				EEC28AE31BF0FA7100B4DC79 /* XCTestSuiteRun.h in Headers */,
-				EEC28AD51BF0FA7100B4DC79 /* XCTestDriver.h in Headers */,
-				EEC28AB11BF0FA7100B4DC79 /* XCActivityRecord.h in Headers */,
-				EEC28ACF1BF0FA7100B4DC79 /* XCTestCase.h in Headers */,
 				EEC2898A1BF0ED3000B4DC79 /* FBElementCache.h in Headers */,
-				EEC28ABB1BF0FA7100B4DC79 /* XCKeyboardInputSolver.h in Headers */,
-				EEC28AB61BF0FA7100B4DC79 /* XCDeviceEvent.h in Headers */,
-				EEC28ADA1BF0FA7100B4DC79 /* XCTestManager_ManagerInterface.h in Headers */,
+				EED0314C1BFA397A007EDC1D /* XCAccessibilityElement.h in Headers */,
+				EED031621BFA397A007EDC1D /* XCSymbolicationRecord.h in Headers */,
+				EED0313B1BFA397A007EDC1D /* _XCDarwinNotificationExpectation.h in Headers */,
+				EED0313A1BFA3720007EDC1D /* CDStructures.h in Headers */,
+				EED031771BFA397A007EDC1D /* XCTestManager_IDEInterface-Protocol.h in Headers */,
+				EED031551BFA397A007EDC1D /* XCDeviceEvent.h in Headers */,
+				EED0318D1BFA397A007EDC1D /* XCUIElementAsynchronousHandlerWrapper.h in Headers */,
 				EEC2898C1BF0ED3000B4DC79 /* FBUnknownCommands.h in Headers */,
-				EEC28AD31BF0FA7100B4DC79 /* XCTestContext.h in Headers */,
-				EEC28ACD1BF0FA7100B4DC79 /* XCTestCase-RuntimeUtilities.h in Headers */,
-				EEC28AA41BF0FA7100B4DC79 /* _XCTestExpectationImplementation.h in Headers */,
-				EEC28AEC1BF0FA7100B4DC79 /* XCUIElementHitPointCoordinate.h in Headers */,
-				EEC28AEF1BF0FA7100B4DC79 /* XCUIElementTypes.h in Headers */,
-				EEC28AA51BF0FA7100B4DC79 /* _XCTestImplementation.h in Headers */,
+				EED0315E1BFA397A007EDC1D /* XCPointerEventPath.h in Headers */,
+				EED0315C1BFA397A007EDC1D /* XCKeyMappingPath.h in Headers */,
 				EEC289C61BF0EE4E00B4DC79 /* FBXCTSession.h in Headers */,
-				EEC28A9D1BF0FA7100B4DC79 /* _XCInternalTestRun.h in Headers */,
-				EEC28AAC1BF0FA7100B4DC79 /* UIPanGestureRecognizer-RecordingAdditions.h in Headers */,
-				EEC28A9E1BF0FA7100B4DC79 /* _XCKVOExpectation.h in Headers */,
-				EEC28AE51BF0FA7100B4DC79 /* XCTouchGesture.h in Headers */,
-				EEC28AC31BF0FA7100B4DC79 /* XCSourceCodeTreeNodeEnumerator.h in Headers */,
+				EED031791BFA397A007EDC1D /* XCTestManager_TestsInterface-Protocol.h in Headers */,
 				EEC28AFE1BF2124700B4DC79 /* XCUIElement+FBIsVisible.h in Headers */,
-				EEC28ADD1BF0FA7100B4DC79 /* XCTestObservationCenter.h in Headers */,
-				EEC28AE81BF0FA7100B4DC79 /* XCUICoordinate.h in Headers */,
-				EEC28AB51BF0FA7100B4DC79 /* XCAXClient_iOS.h in Headers */,
-				EEC28AEE1BF0FA7100B4DC79 /* XCUIElementTypeQueryProvider.h in Headers */,
-				EEC28AD01BF0FA7100B4DC79 /* XCTestCaseRun.h in Headers */,
-				EEC28AB41BF0FA7100B4DC79 /* XCApplicationQuery.h in Headers */,
-				EEC28ACE1BF0FA7100B4DC79 /* XCTestCase-XCTestSuiteExtensions.h in Headers */,
-				EEC28AED1BF0FA7100B4DC79 /* XCUIElementQuery.h in Headers */,
-				EEC28AD91BF0FA7100B4DC79 /* XCTestManager_IDEInterface.h in Headers */,
-				EEC28AD41BF0FA7100B4DC79 /* XCTestContextScope.h in Headers */,
-				EEC28AE01BF0FA7100B4DC79 /* XCTestRun.h in Headers */,
+				EED031731BFA397A007EDC1D /* XCTestDriver.h in Headers */,
+				EED031741BFA397A007EDC1D /* XCTestDriverInterface-Protocol.h in Headers */,
+				EED031431BFA397A007EDC1D /* _XCTestExpectationImplementation.h in Headers */,
+				EED031441BFA397A007EDC1D /* _XCTestImplementation.h in Headers */,
+				EED031601BFA397A007EDC1D /* XCSourceCodeTreeNode.h in Headers */,
+				EED031941BFA397A007EDC1D /* XCUIRemote.h in Headers */,
 				EEC2898D1BF0ED3000B4DC79 /* FBResponsePayload.h in Headers */,
-				EEC28ABA1BF0FA7100B4DC79 /* XCEventGenerator.h in Headers */,
+				EED0318A1BFA397A007EDC1D /* XCUIElement-XCUIElementTypePickerWheel.h in Headers */,
+				EED0316F1BFA397A007EDC1D /* XCTestCaseSuite.h in Headers */,
+				EED031851BFA397A007EDC1D /* XCUIApplication.h in Headers */,
+				EED0313C1BFA397A007EDC1D /* _XCInternalTestRun.h in Headers */,
+				EED031541BFA397A007EDC1D /* XCDebugLogDelegate-Protocol.h in Headers */,
+				EED031701BFA397A007EDC1D /* XCTestConfiguration.h in Headers */,
+				EED0313D1BFA397A007EDC1D /* _XCKVOExpectation.h in Headers */,
+				EED0316D1BFA397A007EDC1D /* XCTestCase.h in Headers */,
+				EED031891BFA397A007EDC1D /* XCUIElement-XCUIElementEventSynthesis.h in Headers */,
 				EEC2898F1BF0ED3000B4DC79 /* FBWebServer.h in Headers */,
+				EED031711BFA397A007EDC1D /* XCTestContext.h in Headers */,
+				EED031521BFA397A007EDC1D /* XCAXClient_iOS.h in Headers */,
 				EEC289BC1BF0EE4E00B4DC79 /* FBAlertViewCommands.h in Headers */,
 				EEC289901BF0ED3000B4DC79 /* FBCommandStatus.h in Headers */,
-				EEC28ACA1BF0FA7100B4DC79 /* XCTestCase-AsynchronousTesting.h in Headers */,
-				EEC28AF21BF0FAEF00B4DC79 /* XCTestDefines.h in Headers */,
-				EEC28ADF1BF0FA7100B4DC79 /* XCTestProbe.h in Headers */,
+				EED0317B1BFA397A007EDC1D /* XCTestObservationCenter.h in Headers */,
+				EED031471BFA397A007EDC1D /* UILongPressGestureRecognizer-RecordingAdditions.h in Headers */,
+				EED031461BFA397A007EDC1D /* UIGestureRecognizer-RecordingAdditions.h in Headers */,
+				EED0317C1BFA397A007EDC1D /* XCTestObserver.h in Headers */,
 				EEC28B001BF2124700B4DC79 /* XCUIElement+FBScrolling.h in Headers */,
-				EEC28AC41BF0FA7100B4DC79 /* XCSymbolicationRecord.h in Headers */,
-				EEC28AAF1BF0FA7100B4DC79 /* UITapGestureRecognizer-RecordingAdditions.h in Headers */,
-				EEC28A9F1BF0FA7100B4DC79 /* _XCNotificationExpectation.h in Headers */,
-				EEC28ACC1BF0FA7100B4DC79 /* XCTestCase-AsynchronousTestingPrivate.h in Headers */,
-				EEC28AC61BF0FA7100B4DC79 /* XCSynthesizedEventRecord.h in Headers */,
 				EEC289C71BF0EE4E00B4DC79 /* FBXCTWebDriverAgent.h in Headers */,
-				EEC28AC81BF0FA7100B4DC79 /* XCTest-XCTestProbeExtensions.h in Headers */,
-				EEC28AD11BF0FA7100B4DC79 /* XCTestCaseSuite.h in Headers */,
-				EEC28AB01BF0FA7100B4DC79 /* XCAccessibilityElement.h in Headers */,
+				EED031861BFA397A007EDC1D /* XCUICoordinate.h in Headers */,
+				EED0313E1BFA397A007EDC1D /* _XCNotificationExpectation.h in Headers */,
+				EED0314F1BFA397A007EDC1D /* XCApplicationMonitor_iOS.h in Headers */,
 				EEC289911BF0ED3000B4DC79 /* FBWDALogger.h in Headers */,
+				EED031631BFA397A007EDC1D /* XCSymbolicatorHolder.h in Headers */,
+				EED0316C1BFA397A007EDC1D /* XCTestCase-XCTestSuiteExtensions.h in Headers */,
+				EED031921BFA397A007EDC1D /* XCUIRecorderTimingMessage.h in Headers */,
+				EED0316B1BFA397A007EDC1D /* XCTestCase-RuntimeUtilities.h in Headers */,
 				EEC289921BF0ED3000B4DC79 /* FBResponseFilePayload.h in Headers */,
-				EEC28ABF1BF0FA7100B4DC79 /* XCPointerEvent.h in Headers */,
-				EEC28AD81BF0FA7100B4DC79 /* XCTestLog.h in Headers */,
 				EEC289C01BF0EE4E00B4DC79 /* FBFindElementCommands.h in Headers */,
+				EED031751BFA397A007EDC1D /* XCTestExpectation.h in Headers */,
 				EEC28B021BF2124700B4DC79 /* XCUIElement+UIAClassMapping.h in Headers */,
-				EEC28ABC1BF0FA7100B4DC79 /* XCKeyboardKeyMap.h in Headers */,
-				EEC28AB31BF0FA7100B4DC79 /* XCApplicationMonitor_iOS.h in Headers */,
-				EEC28AE91BF0FA7100B4DC79 /* XCUIDevice.h in Headers */,
-				EEC28AD71BF0FA7100B4DC79 /* XCTestExpectation.h in Headers */,
+				EED0314B1BFA397A007EDC1D /* UITapGestureRecognizer-RecordingAdditions.h in Headers */,
+				EED0318E1BFA397A007EDC1D /* XCUIElementHitPointCoordinate.h in Headers */,
+				EED031841BFA397A007EDC1D /* XCTouchPath.h in Headers */,
+				EED031421BFA397A007EDC1D /* _XCTestDriverTestObserver.h in Headers */,
+				EED031691BFA397A007EDC1D /* XCTestCase-AsynchronousTesting_Internal.h in Headers */,
+				EED031931BFA397A007EDC1D /* XCUIRecorderUtilities.h in Headers */,
+				EED0316E1BFA397A007EDC1D /* XCTestCaseRun.h in Headers */,
 				EEC28B041BF2124700B4DC79 /* XCUIElement+WebDriverAttributes.h in Headers */,
-				EEC28ADE1BF0FA7100B4DC79 /* XCTestObserver.h in Headers */,
-				EEC28AA31BF0FA7100B4DC79 /* _XCTestDriverTestObserver.h in Headers */,
-				EEC28ABD1BF0FA7100B4DC79 /* XCKeyboardLayout.h in Headers */,
-				EEC28ABE1BF0FA7100B4DC79 /* XCKeyMappingPath.h in Headers */,
+				EED0315D1BFA397A007EDC1D /* XCPointerEvent.h in Headers */,
 				EEC289D01BF0EF4500B4DC79 /* FBCustomCommands.h in Headers */,
-				EEC28AAA1BF0FA7100B4DC79 /* UIGestureRecognizer-RecordingAdditions.h in Headers */,
-				EEC28ADB1BF0FA7100B4DC79 /* XCTestManager_TestsInterface.h in Headers */,
-				EEC28AE71BF0FA7100B4DC79 /* XCUIApplication.h in Headers */,
-				EEC28AAD1BF0FA7100B4DC79 /* UIPinchGestureRecognizer-RecordingAdditions.h in Headers */,
+				EED031671BFA397A007EDC1D /* XCTest.h in Headers */,
 				EEC289941BF0ED3000B4DC79 /* FBSession-Private.h in Headers */,
-				EEC28AA61BF0FA7100B4DC79 /* _XCTestObservationCenterImplementation.h in Headers */,
+				EED031901BFA397A007EDC1D /* XCUIRecorderNodeFinder.h in Headers */,
+				EED0317D1BFA397A007EDC1D /* XCTestProbe.h in Headers */,
+				EED031801BFA397A007EDC1D /* XCTestSuite.h in Headers */,
+				EED031451BFA397A007EDC1D /* _XCTestObservationCenterImplementation.h in Headers */,
+				EED0318F1BFA397A007EDC1D /* XCUIElementQuery.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2013,6 +2029,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8286A75C98FB0AA2448EF1E7 /* Pods-XCTWebDriverAgentLib.debug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2026,6 +2043,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7191916E53767F463FBE793C /* Pods-XCTWebDriverAgentLib.release.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};

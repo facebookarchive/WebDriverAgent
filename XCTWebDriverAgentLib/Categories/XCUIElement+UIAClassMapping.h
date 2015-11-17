@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <XCTWebDriverAgentLib/XCUIElement.h>
+#import <XCTest/XCUIElement.h>
 
 @interface XCUIElement (UIAClassMapping)
 
