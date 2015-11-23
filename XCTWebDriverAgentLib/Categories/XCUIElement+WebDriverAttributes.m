@@ -101,11 +101,12 @@
 
 - (NSDictionary *)wdSize
 {
-    return
-    @{
-        @"width": @(CGRectGetWidth(self.frame)),
-        @"height": @(CGRectGetHeight(self.frame)),
-      };
+    return self.wdRect[@"size"];
+}
+
+- (NSDictionary *)wdLocation
+{
+    return self.wdRect[@"origin"];
 }
 
 @end
