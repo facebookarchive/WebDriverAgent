@@ -11,10 +11,10 @@
 
 #import <XCTWebDriverAgentLib/FBXCTWebDriverAgent.h>
 
-@interface UITestingUITests : XCTestCase
+@interface XCTUITestRunner : XCTestCase
 @end
 
-@implementation UITestingUITests
+@implementation XCTUITestRunner
 
 - (void)setUp
 {
@@ -22,7 +22,7 @@
   self.continueAfterFailure = NO;
 }
 
-- (void)testRunner
+- (void)testStartRunner
 {
   [[FBXCTWebDriverAgent sharedAgent] start];
 }

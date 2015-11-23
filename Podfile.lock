@@ -3,13 +3,13 @@ PODS:
   - CocoaHTTPServer (2.3):
     - CocoaAsyncSocket
     - CocoaLumberjack
-  - CocoaLumberjack (2.0.3):
-    - CocoaLumberjack/Default (= 2.0.3)
-    - CocoaLumberjack/Extensions (= 2.0.3)
-  - CocoaLumberjack/Core (2.0.3)
-  - CocoaLumberjack/Default (2.0.3):
+  - CocoaLumberjack (2.2.0):
+    - CocoaLumberjack/Default (= 2.2.0)
+    - CocoaLumberjack/Extensions (= 2.2.0)
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.0.3):
+  - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
   - KissXML (5.0)
   - OCMock (3.2)
@@ -17,16 +17,26 @@ PODS:
     - CocoaHTTPServer (~> 2.3)
 
 DEPENDENCIES:
+  - CocoaAsyncSocket (from `CocoaAsyncSocket.podspec`)
+  - CocoaHTTPServer (from `CocoaHTTPServer.podspec.json`)
   - KissXML
   - OCMock
-  - RoutingHTTPServer
+  - RoutingHTTPServer (from `RoutingHTTPServer.podspec`)
+
+EXTERNAL SOURCES:
+  CocoaAsyncSocket:
+    :podspec: CocoaAsyncSocket.podspec
+  CocoaHTTPServer:
+    :podspec: CocoaHTTPServer.podspec.json
+  RoutingHTTPServer:
+    :podspec: RoutingHTTPServer.podspec
 
 SPEC CHECKSUMS:
-  CocoaAsyncSocket: f5783bdedd232d91b89769bc4b5a1580aed518ad
-  CocoaHTTPServer: 5624681fc3473d43b18202f635f9b3abb013b530
-  CocoaLumberjack: f58d8a19629f4d8379ae14bb3534def24161430e
+  CocoaAsyncSocket: d367ba90d2f7eebeca605d3212228688aea07090
+  CocoaHTTPServer: 62e8fec4c56d849bbf7021cc6e928bcac8debcf6
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   KissXML: ce643413d618ad69886d0d43c3792b7dedfe476e
   OCMock: 28def049ef47f996b515a8eeea958be7ccab2dbb
-  RoutingHTTPServer: fab8b13e725f26720500c146d43c98c11ebc4d47
+  RoutingHTTPServer: 79012ddee0dedd22e22d25a0c7442985900fea53
 
 COCOAPODS: 0.39.0

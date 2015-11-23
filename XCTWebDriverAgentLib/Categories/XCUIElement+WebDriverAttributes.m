@@ -33,6 +33,17 @@
   return nil;
 }
 
+- (void)wdActivate
+{
+#if TARGET_OS_TV
+  // TODO:
+#elif TARGET_OS_IOS
+  [self tap];
+#elif TARGET_OS_MAC
+  [self click];
+#endif
+}
+
 @end
 
 

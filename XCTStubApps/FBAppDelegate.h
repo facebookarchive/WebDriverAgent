@@ -7,17 +7,10 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <XCTWebDriverAgentLib/FBElement.h>
-#import <XCTWebDriverAgentLib/XCElementSnapshot.h>
-#import <XCTWebDriverAgentLib/XCUIElement.h>
+#import <Cocoa/Cocoa.h>
 
-@interface XCUIElement (WebDriverAttributes) <FBElement>
+@interface FBAppDelegate : NSObject <NSApplicationDelegate>
 
-- (void)wdActivate;
 
 @end
 
-
-@interface XCElementSnapshot (WebDriverAttributes) <FBElement>
-
-@end

@@ -17,6 +17,8 @@
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
 
+#if TARGET_OS_IPHONE
+
 const CGFloat FBNormalizedDragDistance = 0.95;
 const CGFloat FBScrollVelocity = 200;
 const CGFloat FBScrollBoundingVelocityPadding = 5.0;
@@ -110,9 +112,12 @@ const CGFloat FBScrollBoundingVelocityPadding = 5.0;
   CGFloat estimatedDuration = [[XCEventGenerator sharedGenerator] pressAtPoint:startCoordinate.screenPoint forDuration:0.0 liftAtPoint:endCoordinate.screenPoint velocity:FBScrollVelocity orientation:self.application.interfaceOrientation name:@"FBScrolling" handler:^{
     didFinishScrolling = YES;
   }];
+  
   while (!didFinishScrolling) {
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:estimatedDuration/4.0]];
   }
 }
 
 @end
+
+#endif

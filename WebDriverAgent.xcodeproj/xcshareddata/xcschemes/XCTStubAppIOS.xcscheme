@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "91F9DB151B99DC2F001349B2"
-               BuildableName = "libWebDriverAgentLib.a"
-               BlueprintName = "WebDriverAgentLib"
+               BlueprintIdentifier = "EEC2892D1BF0ED2E00B4DC79"
+               BuildableName = "XCTStubAppIOS.app"
+               BlueprintName = "XCTStubAppIOS"
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "91F9DB1F1B99DC2F001349B2"
-               BuildableName = "WebDriverAgentLibTests.xctest"
-               BlueprintName = "WebDriverAgentLibTests"
+               BlueprintIdentifier = "EE4FD6B21BF6317300F5B031"
+               BuildableName = "XCTUITestRunnerIOS.xctest"
+               BlueprintName = "XCTUITestRunnerIOS"
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "91F9DB151B99DC2F001349B2"
-            BuildableName = "libWebDriverAgentLib.a"
-            BlueprintName = "WebDriverAgentLib"
+            BlueprintIdentifier = "EEC2892D1BF0ED2E00B4DC79"
+            BuildableName = "XCTStubAppIOS.app"
+            BlueprintName = "XCTStubAppIOS"
             ReferencedContainer = "container:WebDriverAgent.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -61,15 +61,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "91F9DB151B99DC2F001349B2"
-            BuildableName = "libWebDriverAgentLib.a"
-            BlueprintName = "WebDriverAgentLib"
+            BlueprintIdentifier = "EEC2892D1BF0ED2E00B4DC79"
+            BuildableName = "XCTStubAppIOS.app"
+            BlueprintName = "XCTStubAppIOS"
             ReferencedContainer = "container:WebDriverAgent.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -79,15 +80,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "91F9DB151B99DC2F001349B2"
-            BuildableName = "libWebDriverAgentLib.a"
-            BlueprintName = "WebDriverAgentLib"
+            BlueprintIdentifier = "EEC2892D1BF0ED2E00B4DC79"
+            BuildableName = "XCTStubAppIOS.app"
+            BlueprintName = "XCTStubAppIOS"
             ReferencedContainer = "container:WebDriverAgent.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

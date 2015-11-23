@@ -29,6 +29,6 @@
 - (id)initWithElement:(id)arg1 normalizedOffset:(CGVector)arg2;
 - (id)init;
 
-#endif
-
 @end
+
+#endif

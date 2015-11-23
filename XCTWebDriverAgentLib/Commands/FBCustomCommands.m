@@ -21,10 +21,12 @@
 {
   return
   @[
+#if TARGET_OS_IPHONE
     [[FBRoute POST:@"/session/:sessionID/deactivateApp"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
       return FBResponseDictionaryWithOK();
     }],
+#endif
     [[FBRoute POST:@"/session/:sessionID/timeouts/implicit_wait"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       // This method is intentionally not supported.
       return FBResponseDictionaryWithOK();
