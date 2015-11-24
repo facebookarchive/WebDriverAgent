@@ -33,6 +33,7 @@
 
       XCUIApplication *app = [[XCUIApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
       app.launchArguments = requirements[@"arguments"] ?: @[];
+      app.launchEnvironment = requirements[@"environment"] ?: @{};
       [app launch];
       [FBXCTSession sessionWithXCUIApplication:app];
       return [FBResponsePayload okWith:
