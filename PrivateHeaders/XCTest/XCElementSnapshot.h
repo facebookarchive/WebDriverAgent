@@ -73,7 +73,7 @@
 - (BOOL)_matchesElement:(id)arg1;
 - (id)_allDescendants;
 - (BOOL)hasDescendantMatchingFilter:(CDUnknownBlockType)arg1;
-- (id)descendantsByFilteringWithBlock:(CDUnknownBlockType)arg1;
+- (id)descendantsByFilteringWithBlock:(BOOL(^)(XCElementSnapshot *snapshot))block;
 - (id)elementSnapshotMatchingAccessibilityElement:(id)arg1;
 - (void)enumerateDescendantsUsingBlock:(void(^)(XCElementSnapshot *snapshot))block;
 - (id)recursiveDescriptionWithIndent:(id)arg1 includeAccessibilityElement:(BOOL)arg2;

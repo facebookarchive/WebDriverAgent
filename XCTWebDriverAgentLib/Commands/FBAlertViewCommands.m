@@ -9,12 +9,18 @@
 
 #import "FBAlertViewCommands.h"
 
+#import <XCTest/XCUICoordinate.h>
+
 #import "FBFindElementCommands.h"
 #import "FBRouteRequest.h"
 #import "FBXCTSession.h"
-
+#import "XCAXClient_iOS.h"
+#import "XCElementSnapshot+Helpers.h"
+#import "XCElementSnapshot-Hitpoint.h"
 #import "XCElementSnapshot.h"
+#import "XCTestManager_ManagerInterface-Protocol.h"
 #import "XCUIApplication.h"
+#import "XCUICoordinate.h"
 #import "XCUIElement+WebDriverAttributes.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
@@ -56,7 +62,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 
 + (void)ensureElementIsNotObstructedByAlertView:(XCUIElement *)element
 {
-  [self ensureElementIsNotObstructedByAlertView:element alert:[self currentAlertWithApplication:element.application]];
+  [self ensureElementIsNotObstructedByAlertView:element alert:[self applicationAlertWithApplication:element.application]];
 }
 
 + (void)ensureElementIsNotObstructedByAlertView:(XCUIElement *)element alert:(XCUIElement *)alert
@@ -89,7 +95,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   if (!element) {
     return elements;
   }
-  XCUIElement *alert = [self currentAlertWithApplication:element.application];
+  XCUIElement *alert = [self applicationAlertWithApplication:element.application];
 
   NSMutableArray *elementBox = [NSMutableArray array];
   for (XCUIElement *iElement in elements) {
@@ -114,12 +120,12 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 
 + (id)currentAlertTextWithApplication:(XCUIApplication *)application
 {
-  XCUIElement *alert = [self currentAlertWithApplication:application];
-  if (!alert.exists) {
+  XCElementSnapshot *alertSnapshot = [self alertSnapshotWithApplication:application];
+  if (!alertSnapshot) {
     return nil;
   }
-  NSArray<XCUIElement *> *texts = [alert.staticTexts allElementsBoundByIndex];
-  NSString *text = [texts.lastObject wdLabel];
+  NSArray<XCElementSnapshot *> *staticTexts = [alertSnapshot fb_descendantsMatchingType:XCUIElementTypeStaticText];
+  NSString *text = [staticTexts.lastObject wdLabel];
   if (!text) {
     return [NSNull null];
   }
@@ -128,43 +134,75 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 
 + (BOOL)acceptAlertWithApplication:(XCUIApplication *)application
 {
-  XCUIElement *defaultButton;
-  XCUIElement *currentAlert = [self currentAlertWithApplication:application];
-  if (currentAlert.elementType == XCUIElementTypeAlert) {
-    defaultButton = [[currentAlert.buttons allElementsBoundByIndex] lastObject];
+  XCElementSnapshot *alertSnapshot = [self alertSnapshotWithApplication:application];
+  NSArray<XCElementSnapshot *> *buttons = [alertSnapshot fb_descendantsMatchingType:XCUIElementTypeButton];
+
+  XCElementSnapshot *defaultButton;
+  if (alertSnapshot.elementType == XCUIElementTypeAlert) {
+    defaultButton = buttons.lastObject;
   } else {
-    defaultButton = [[currentAlert.buttons allElementsBoundByIndex] firstObject];
+    defaultButton = buttons.firstObject;
   }
   if (!defaultButton) {
     return NO;
   }
-  [defaultButton tap];
+  XCUICoordinate *appCoordinate = [application coordinateWithNormalizedOffset:CGVectorMake(0, 0)];
+  XCUICoordinate *coordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(defaultButton.hitPoint.x, defaultButton.hitPoint.y)];
+  [coordinate tap];
   return YES;
 }
 
 + (BOOL)dismissAlertWithApplication:(XCUIApplication *)application
 {
-  XCUIElement *cancelButton;
-  XCUIElement *currentAlert = [self currentAlertWithApplication:application];
-  if (currentAlert.elementType == XCUIElementTypeAlert) {
-    cancelButton = [[currentAlert.buttons allElementsBoundByIndex] firstObject];
+  XCElementSnapshot *cancelButton;
+  XCElementSnapshot *alertSnapshot = [self alertSnapshotWithApplication:application];
+  NSArray<XCElementSnapshot *> *buttons = [alertSnapshot fb_descendantsMatchingType:XCUIElementTypeButton];
+
+  if (alertSnapshot.elementType == XCUIElementTypeAlert) {
+    cancelButton = buttons.firstObject;
   } else {
-    cancelButton = [[currentAlert.buttons allElementsBoundByIndex] lastObject];
+    alertSnapshot = buttons.lastObject;
   }
   if (!cancelButton) {
     return NO;
   }
-  [cancelButton tap];
+  XCUICoordinate *appCoordinate = [application coordinateWithNormalizedOffset:CGVectorMake(0, 0)];
+  XCUICoordinate *coordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(cancelButton.hitPoint.x, cancelButton.hitPoint.y)];
+  [coordinate tap];
   return YES;
 }
 
-+ (XCUIElement *)currentAlertWithApplication:(XCUIApplication *)application
++ (XCUIElement *)applicationAlertWithApplication:(XCUIApplication *)application
 {
   XCUIElement *alert = application.alerts.element;
   if (!alert.exists) {
     alert = application.sheets.element;
   }
   return alert;
+}
+
++ (XCElementSnapshot *)alertSnapshotWithApplication:(XCUIApplication *)application
+{
+  XCUIElement *alert = [self applicationAlertWithApplication:application];
+  if (alert.exists) {
+    [alert resolve];
+    return alert.lastSnapshot;
+  }
+
+  NSError *error;
+  XCUICoordinate *coordinate = [application coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)];
+  XCAccessibilityElement *accessibilityElement = [[XCAXClient_iOS sharedClient] elementAtPoint:coordinate.screenPoint error:&error];
+  XCElementSnapshot *alertSnapshot;
+
+  XCElementSnapshot *snapshot = [XCElementSnapshot fb_snapshotForAccessibilityElement:accessibilityElement];
+  while (snapshot.parentAccessibilityElement) {
+    if (snapshot.elementType == XCUIElementTypeAlert) {
+      alertSnapshot = snapshot;
+      break;
+    }
+    snapshot = [XCElementSnapshot fb_snapshotForAccessibilityElement:snapshot.parentAccessibilityElement];
+  }
+  return alertSnapshot;
 }
 
 @end

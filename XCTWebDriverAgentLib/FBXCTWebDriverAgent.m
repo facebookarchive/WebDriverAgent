@@ -9,6 +9,7 @@
 
 #import "FBXCTWebDriverAgent.h"
 
+#import "FBWDALogger.h"
 #import "FBWebServer.h"
 #import "FBXCTExceptionHandler.h"
 
@@ -30,7 +31,7 @@
 
 - (void)start
 {
-  NSLog(@"Built at %s %s", __DATE__, __TIME__);
+  [FBWDALogger logFmt:@"Built at %s %s", __DATE__, __TIME__];
   self.server = [[FBWebServer alloc] init];
   self.server.exceptionHandler = [FBXCTExceptionHandler new];
   [self.server startServing];
