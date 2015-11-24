@@ -7,8 +7,8 @@
 #import <XCTWebDriverAgentLib/XCElementSnapshot.h>
 
 @interface XCElementSnapshot (Hitpoint)
-@property(readonly) struct CGPoint hitPointForScrolling;
-@property(readonly) struct CGPoint hitPoint;
+@property(readonly) CGPoint hitPointForScrolling;
+@property(readonly) CGPoint hitPoint;
 
 - (id)hitTest:(struct CGPoint)arg1;
 

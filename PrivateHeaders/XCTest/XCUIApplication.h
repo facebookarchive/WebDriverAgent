@@ -53,7 +53,7 @@
 - (id)lastSnapshot;
 - (id)query;
 - (void)clearQuery;
-- (unsigned long long)elementType;
+- (XCUIElementType)elementType;
 - (id)initPrivateWithPath:(id)arg1 bundleID:(id)arg2;
 - (id)init;
 
