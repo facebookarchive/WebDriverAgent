@@ -13,7 +13,7 @@
     unsigned long long _index;
     long long _interfaceOrientation;
 }
-@property(readonly) long long interfaceOrientation; // @synthesize interfaceOrientation=_interfaceOrientation;
+@property(readonly) UIInterfaceOrientation interfaceOrientation; // @synthesize interfaceOrientation=_interfaceOrientation;
 @property unsigned long long index; // @synthesize index=_index;
 @property BOOL immutable; // @synthesize immutable=_immutable;
 @property(readonly) BOOL complete;
