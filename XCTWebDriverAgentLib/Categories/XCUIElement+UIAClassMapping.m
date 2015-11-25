@@ -27,8 +27,8 @@ static NSDictionary *ElementTypeToUIAClassMapping;
     @"UIAAlert" : @(XCUIElementTypeAlert),
     @"UIAApplication" : @(XCUIElementTypeApplication),
     @"UIAButton" : @(XCUIElementTypeButton),
-    @"UIACollectionCell" : @(XCUIElementTypeCell),
     @"UIACollectionView" : @(XCUIElementTypeCollectionView),
+    @"UIACellView" : @(XCUIElementTypeCell),
     @"UIAImage" : @(XCUIElementTypeImage),
     @"UIAKey" : @(XCUIElementTypeKey),
     @"UIAKeyboard" : @(XCUIElementTypeKeyboard),
@@ -47,7 +47,6 @@ static NSDictionary *ElementTypeToUIAClassMapping;
     @"UIAStatusBar" : @(XCUIElementTypeStatusBar),
     @"UIASwitch" : @(XCUIElementTypeSwitch),
     @"UIATabBar" : @(XCUIElementTypeTabBar),
-    @"UIATableCell" : @(XCUIElementTypeTableRow),
     @"UIATableGroup" : @(XCUIElementTypeTableColumn), //?
     @"UIATableView" : @(XCUIElementTypeTable),
     @"UIATextField" : @(XCUIElementTypeTextField),
@@ -112,12 +111,32 @@ static NSDictionary *ElementTypeToUIAClassMapping;
 
 + (XCUIElementType)elementTypeWithUIAClassName:(NSString *)className
 {
-  return (XCUIElementType)[UIAClassToElementTypeMapping[className] unsignedIntegerValue] ?: XCUIElementTypeAny;
+  NSNumber *type = UIAClassToElementTypeMapping[className];
+  if (type) {
+    return (XCUIElementType)[type unsignedIntegerValue];
+  }
+  const BOOL isCellType = ([className isEqualToString:@"UIATableCell"] || [className isEqualToString:@"UIACollectionCell"]);
+  if (isCellType) {
+    return XCUIElementTypeCell;
+  }
+  return XCUIElementTypeAny;
 }
 
 + (NSString *)UIAClassNameWithElementType:(XCUIElementType)elementType
 {
   return ElementTypeToUIAClassMapping[@(elementType)] ?: @"UIAElement";
+}
+
++ (NSString *)patchXPathQueryUIAClassNames:(NSString *)xpath
+{
+  /* TODO: t9218527
+     This is oversimplified approach that would work for massive majority of test cases.
+     It will fail for xpaths like "//UIAWindow// *[@label = 'UIACollectionCell']" so apps that contain 'UIATableCell' and 'UIACollectionCell' strings
+   */
+  NSMutableString *mutableXPath = xpath.mutableCopy;
+  [mutableXPath replaceOccurrencesOfString:@"UIATableCell" withString:@"UIACellView" options:NSLiteralSearch range:NSMakeRange(0, mutableXPath.length)];
+  [mutableXPath replaceOccurrencesOfString:@"UIACollectionCell" withString:@"UIACellView" options:NSLiteralSearch range:NSMakeRange(0, mutableXPath.length)];
+  return mutableXPath.copy;
 }
 
 - (NSString *)UIAClassName
