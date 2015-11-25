@@ -58,16 +58,6 @@ static id ValueOrNull(id value) {
   return info;
 }
 
-static NSDictionary *dictionaryFromCGRect(CGRect rect) {
-  return
-  @{
-    @"x": @(CGRectGetMinX(rect)),
-    @"y": @(CGRectGetMinY(rect)),
-    @"width": @(CGRectGetWidth(rect)),
-    @"height": @(CGRectGetHeight(rect)),
-  };
-}
-
 + (NSDictionary *)infoForElement:(XCElementSnapshot *)snapshot
 {
   NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
@@ -75,7 +65,7 @@ static NSDictionary *dictionaryFromCGRect(CGRect rect) {
   info[@"name"] = ValueOrNull(snapshot.wdName);
   info[@"value"] = ValueOrNull(snapshot.wdValue);
   info[@"label"] = ValueOrNull(snapshot.wdLabel);
-  info[@"rect"] = dictionaryFromCGRect(snapshot.wdFrame);
+  info[@"rect"] = snapshot.wdRect;
   info[@"isEnabled"] = [@([snapshot isWDEnabled]) stringValue];
   info[@"isVisible"] = [@([snapshot isWDVisible]) stringValue];
 
