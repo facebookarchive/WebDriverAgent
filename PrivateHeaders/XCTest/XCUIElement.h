@@ -19,7 +19,7 @@
 @property BOOL safeQueryResolutionEnabled; // @synthesize safeQueryResolutionEnabled=_safeQueryResolutionEnabled;
 @property(retain) XCElementSnapshot *lastSnapshot; // @synthesize lastSnapshot=_lastSnapshot;
 @property(readonly) XCUIElementQuery *query; // @synthesize query=_query;
-@property(readonly, nonatomic) long long interfaceOrientation;
+@property(readonly, nonatomic) UIInterfaceOrientation interfaceOrientation;
 @property(readonly) BOOL hasKeyboardFocus;
 @property(readonly, nonatomic) XCUIApplication *application;
 
