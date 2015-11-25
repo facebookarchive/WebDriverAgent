@@ -65,7 +65,7 @@ static id ValueOrNull(id value) {
   info[@"name"] = ValueOrNull(snapshot.wdName);
   info[@"value"] = ValueOrNull(snapshot.wdValue);
   info[@"label"] = ValueOrNull(snapshot.wdLabel);
-  info[@"rect"] = NSStringFromCGRect(snapshot.wdFrame);
+  info[@"rect"] = snapshot.wdRect;
   info[@"isEnabled"] = [@([snapshot isWDEnabled]) stringValue];
   info[@"isVisible"] = [@([snapshot isWDVisible]) stringValue];
 

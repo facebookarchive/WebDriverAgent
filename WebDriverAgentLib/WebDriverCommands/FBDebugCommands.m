@@ -63,15 +63,6 @@ static id ValueOrNull(id value) {
   return value ?: [NSNull null];
 }
 
-static NSDictionary *DictionaryFromCGRect(CGRect rect) {
-  return @{
-    @"x": @(CGRectGetMinX(rect)),
-    @"y": @(CGRectGetMinY(rect)),
-    @"width": @(CGRectGetWidth(rect)),
-    @"height": @(CGRectGetHeight(rect)),
-  };
-}
-
 static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose)
 {
   NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
@@ -105,7 +96,7 @@ static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose)
       [info[@"children"] addObject:InfoForElement(childElement, verbose)];
     }
   }
-  info[@"rect"] = DictionaryFromCGRect([element wdFrame]);
+  info[@"rect"] = [element wdRect];
 
   return info;
 }
