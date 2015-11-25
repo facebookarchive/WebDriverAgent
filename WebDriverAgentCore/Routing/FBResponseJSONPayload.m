@@ -40,6 +40,7 @@
                                                      options:NSJSONWritingPrettyPrinted
                                                        error:&error];
   NSCAssert(jsonData, @"Valid JSON must be responded, error of %@", error);
+  [response setHeader:@"Content-Type" value:@"application/json;charset=UTF-8"];
   [response respondWithData:jsonData];
 }
 
