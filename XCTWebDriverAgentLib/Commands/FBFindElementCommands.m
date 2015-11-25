@@ -193,6 +193,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
   DDXMLElement *xmlElement = [self XMLElementFromElement:element.lastSnapshot indexPath:@"top" elementStore:elementStore];
   NSError *error;
+  xpathQuery = [XCUIElement patchXPathQueryUIAClassNames:xpathQuery];
   NSArray *xpathNodes = [xmlElement nodesForXPath:xpathQuery error:&error];
   if (![xpathNodes count]) {
     return nil;

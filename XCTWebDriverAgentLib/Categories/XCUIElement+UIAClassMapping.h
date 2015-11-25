@@ -14,6 +14,8 @@
 + (XCUIElementType)elementTypeWithUIAClassName:(NSString *)className;
 + (NSString *)UIAClassNameWithElementType:(XCUIElementType)elementType;
 
++ (NSString *)patchXPathQueryUIAClassNames:(NSString *)xpath;
+
 - (NSString *)UIAClassName;
 
 @end
