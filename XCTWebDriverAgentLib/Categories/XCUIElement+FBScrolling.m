@@ -9,6 +9,7 @@
 
 #import "XCUIElement+FBScrolling.h"
 
+#import "FBWDALogger.h"
 #import "XCElementSnapshot-Hitpoint.h"
 #import "XCElementSnapshot.h"
 #import "XCEventGenerator.h"
@@ -107,7 +108,10 @@ const CGFloat FBScrollBoundingVelocityPadding = 5.0;
   XCUICoordinate *startCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:hitpointOffset];
   XCUICoordinate *endCoordinate = [[XCUICoordinate alloc] initWithCoordinate:startCoordinate pointsOffset:vector];
   __block BOOL didFinishScrolling = NO;
-  CGFloat estimatedDuration = [[XCEventGenerator sharedGenerator] pressAtPoint:startCoordinate.screenPoint forDuration:0.0 liftAtPoint:endCoordinate.screenPoint velocity:FBScrollVelocity orientation:self.application.interfaceOrientation name:@"FBScrolling" handler:^{
+  CGFloat estimatedDuration = [[XCEventGenerator sharedGenerator] pressAtPoint:startCoordinate.screenPoint forDuration:0.0 liftAtPoint:endCoordinate.screenPoint velocity:FBScrollVelocity orientation:self.application.interfaceOrientation name:@"FBScroll" handler:^(NSError *error){
+    if (error) {
+      [FBWDALogger logFmt:@"Failed to perform scroll: %@", error];
+    }
     didFinishScrolling = YES;
   }];
   while (!didFinishScrolling) {

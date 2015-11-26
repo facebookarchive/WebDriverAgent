@@ -6,6 +6,8 @@
 
 #import <TargetConditionals.h>
 
+typedef void (^XCEventGeneratorHandler)(NSError *error);
+
 @interface XCEventGenerator : NSObject
 {
     NSObject<OS_dispatch_queue> *_eventQueue;
@@ -18,14 +20,14 @@
 @property(readonly) NSObject<OS_dispatch_queue> *eventQueue; // @synthesize eventQueue=_eventQueue;
 
 #if TARGET_OS_IPHONE
-- (double)rotateInRect:(CGRect)arg1 withRotation:(double)arg2 velocity:(double)arg3 orientation:(long long)arg4 handler:(CDUnknownBlockType)arg5;
-- (double)pinchInRect:(CGRect)arg1 withScale:(double)arg2 velocity:(double)arg3 orientation:(long long)arg4 handler:(CDUnknownBlockType)arg5;
-- (double)pressAtPoint:(CGPoint)arg1 forDuration:(double)arg2 liftAtPoint:(CGPoint)arg3 velocity:(double)arg4 orientation:(long long)arg5 name:(id)arg6 handler:(CDUnknownBlockType)arg7;
-- (double)pressAtPoint:(CGPoint)arg1 forDuration:(double)arg2 orientation:(long long)arg3 handler:(CDUnknownBlockType)arg4;
-- (double)tapWithNumberOfTaps:(unsigned long long)arg1 numberOfTouches:(unsigned long long)arg2 inRect:(CGRect)arg3 orientation:(long long)arg4 handler:(CDUnknownBlockType)arg5;
-- (double)twoFingerTapInRect:(CGRect)arg1 orientation:(long long)arg2 handler:(CDUnknownBlockType)arg3;
-- (double)doubleTapAtPoint:(CGPoint)arg1 orientation:(long long)arg2 handler:(CDUnknownBlockType)arg3;
-- (double)tapAtPoint:(CGPoint)arg1 orientation:(long long)arg2 handler:(CDUnknownBlockType)arg3;
+- (double)rotateInRect:(CGRect)arg1 withRotation:(double)arg2 velocity:(double)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
+- (double)pinchInRect:(CGRect)arg1 withScale:(double)arg2 velocity:(double)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
+- (double)pressAtPoint:(CGPoint)arg1 forDuration:(double)arg2 liftAtPoint:(CGPoint)arg3 velocity:(double)arg4 orientation:(UIInterfaceOrientation)arg5 name:(NSString *)arg6 handler:(XCEventGeneratorHandler)arg7;
+- (double)pressAtPoint:(CGPoint)arg1 forDuration:(double)arg2 orientation:(UIInterfaceOrientation)arg3 handler:(XCEventGeneratorHandler)arg4;
+- (double)tapWithNumberOfTaps:(unsigned long long)arg1 numberOfTouches:(unsigned long long)arg2 inRect:(CGRect)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
+- (double)twoFingerTapInRect:(CGRect)arg1 orientation:(UIInterfaceOrientation)arg2 handler:(XCEventGeneratorHandler)arg3;
+- (double)doubleTapAtPoint:(CGPoint)arg1 orientation:(UIInterfaceOrientation)arg2 handler:(XCEventGeneratorHandler)arg3;
+- (double)tapAtPoint:(CGPoint)arg1 orientation:(UIInterfaceOrientation)arg2 handler:(XCEventGeneratorHandler)arg3;
 
 #elif TARGET_OS_MAC
 - (double)sendKeyboardInputs:(id)arg1 layout:(id)arg2 handler:(CDUnknownBlockType)arg3;
