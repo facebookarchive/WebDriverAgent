@@ -6,18 +6,22 @@
 
 #import <TargetConditionals.h>
 
+#import <UIKit/UIKit.h>
+
+#import <XCTWebDriverAgentLib/CDStructures.h>
+
 typedef void (^XCEventGeneratorHandler)(NSError *error);
 
 @interface XCEventGenerator : NSObject
 {
-    NSObject<OS_dispatch_queue> *_eventQueue;
-    struct __CFRunLoopObserver *_generationObserver;
-    unsigned long long _generation;
+  NSObject<OS_dispatch_queue> *_eventQueue;
+  struct __CFRunLoopObserver *_generationObserver;
+  unsigned long long _generation;
 }
 
 + (id)sharedGenerator;
 @property unsigned long long generation; // @synthesize generation=_generation;
-@property(readonly) NSObject<OS_dispatch_queue> *eventQueue; // @synthesize eventQueue=_eventQueue;
+//@property(readonly) NSObject<OS_dispatch_queue> *eventQueue; // @synthesize eventQueue=_eventQueue;
 
 #if TARGET_OS_IPHONE
 - (double)rotateInRect:(CGRect)arg1 withRotation:(double)arg2 velocity:(double)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
