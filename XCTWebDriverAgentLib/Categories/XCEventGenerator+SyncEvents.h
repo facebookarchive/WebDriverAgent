@@ -7,9 +7,9 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <XCTWebDriverAgentLib/XCEventGenerator.h>
-
 #import <UIKit/UIKit.h>
+
+#import <XCTWebDriverAgentLib/XCEventGenerator.h>
 
 @interface XCEventGenerator (SyncEvents)
 
