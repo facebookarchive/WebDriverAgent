@@ -18,6 +18,7 @@
 #import "XCElementSnapshot+Helpers.h"
 #import "XCElementSnapshot-Hitpoint.h"
 #import "XCElementSnapshot.h"
+#import "XCEventGenerator+SyncEvents.h"
 #import "XCTestManager_ManagerInterface-Protocol.h"
 #import "XCUIApplication.h"
 #import "XCUICoordinate.h"
@@ -146,10 +147,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   if (!defaultButton) {
     return NO;
   }
-  XCUICoordinate *appCoordinate = [application coordinateWithNormalizedOffset:CGVectorMake(0, 0)];
-  XCUICoordinate *coordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(defaultButton.hitPoint.x, defaultButton.hitPoint.y)];
-  [coordinate tap];
-  return YES;
+  return [[XCEventGenerator sharedGenerator] fb_syncTapAtPoint:defaultButton.hitPoint orientation:application.interfaceOrientation error:nil];
 }
 
 + (BOOL)dismissAlertWithApplication:(XCUIApplication *)application
@@ -166,10 +164,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   if (!cancelButton) {
     return NO;
   }
-  XCUICoordinate *appCoordinate = [application coordinateWithNormalizedOffset:CGVectorMake(0, 0)];
-  XCUICoordinate *coordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(cancelButton.hitPoint.x, cancelButton.hitPoint.y)];
-  [coordinate tap];
-  return YES;
+  return [[XCEventGenerator sharedGenerator] fb_syncTapAtPoint:cancelButton.hitPoint orientation:application.interfaceOrientation error:nil];
 }
 
 + (XCUIElement *)applicationAlertWithApplication:(XCUIApplication *)application

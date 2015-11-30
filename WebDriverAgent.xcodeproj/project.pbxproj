@@ -82,6 +82,8 @@
 		EE5503591BF2211400CD04B3 /* FBElement.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC28B0E1BF215D800B4DC79 /* FBElement.m */; };
 		EE5906CE1C049B7C00355001 /* XCElementSnapshot+Helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = EE5906CC1C049B7C00355001 /* XCElementSnapshot+Helpers.h */; };
 		EE5906CF1C049B7C00355001 /* XCElementSnapshot+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5906CD1C049B7C00355001 /* XCElementSnapshot+Helpers.m */; };
+		EE8300E71C08CF7200217020 /* XCEventGenerator+SyncEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = EE8300E51C08CF7200217020 /* XCEventGenerator+SyncEvents.h */; };
+		EE8300E81C08CF7200217020 /* XCEventGenerator+SyncEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8300E61C08CF7200217020 /* XCEventGenerator+SyncEvents.m */; };
 		EEC289321BF0ED2E00B4DC79 /* FBUIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC288F21BF0ED2500B4DC79 /* FBUIAppDelegate.m */; };
 		EEC2893C1BF0ED2E00B4DC79 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC288F41BF0ED2500B4DC79 /* main.m */; };
 		EEC289591BF0ED3000B4DC79 /* FBWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D73991BECCA5A0034D1E9 /* FBWebServer.m */; };
@@ -443,6 +445,8 @@
 		EE5503501BF218A800CD04B3 /* UIAElement+WebDriverXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAElement+WebDriverXML.m"; sourceTree = "<group>"; };
 		EE5906CC1C049B7C00355001 /* XCElementSnapshot+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCElementSnapshot+Helpers.h"; sourceTree = "<group>"; };
 		EE5906CD1C049B7C00355001 /* XCElementSnapshot+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCElementSnapshot+Helpers.m"; sourceTree = "<group>"; };
+		EE8300E51C08CF7200217020 /* XCEventGenerator+SyncEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCEventGenerator+SyncEvents.h"; sourceTree = "<group>"; };
+		EE8300E61C08CF7200217020 /* XCEventGenerator+SyncEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCEventGenerator+SyncEvents.m"; sourceTree = "<group>"; };
 		EEC288F11BF0ED2500B4DC79 /* FBUIAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBUIAppDelegate.h; sourceTree = "<group>"; };
 		EEC288F21BF0ED2500B4DC79 /* FBUIAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBUIAppDelegate.m; sourceTree = "<group>"; };
 		EEC288F31BF0ED2500B4DC79 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1003,6 +1007,8 @@
 			children = (
 				EE5906CC1C049B7C00355001 /* XCElementSnapshot+Helpers.h */,
 				EE5906CD1C049B7C00355001 /* XCElementSnapshot+Helpers.m */,
+				EE8300E51C08CF7200217020 /* XCEventGenerator+SyncEvents.h */,
+				EE8300E61C08CF7200217020 /* XCEventGenerator+SyncEvents.m */,
 				EEC28AF61BF2124700B4DC79 /* XCUIElement+FBIsVisible.h */,
 				EEC28AF71BF2124700B4DC79 /* XCUIElement+FBIsVisible.m */,
 				EEC28AF81BF2124700B4DC79 /* XCUIElement+FBScrolling.h */,
@@ -1179,6 +1185,7 @@
 				EED031681BFA397A007EDC1D /* XCTestCase-AsynchronousTesting.h in Headers */,
 				EED0317A1BFA397A007EDC1D /* XCTestObservation-Protocol.h in Headers */,
 				EED031401BFA397A007EDC1D /* _XCTestCaseImplementation.h in Headers */,
+				EE8300E71C08CF7200217020 /* XCEventGenerator+SyncEvents.h in Headers */,
 				EEC2897F1BF0ED3000B4DC79 /* FBCommandHandler.h in Headers */,
 				EED0314A1BFA397A007EDC1D /* UISwipeGestureRecognizer-RecordingAdditions.h in Headers */,
 				EED031911BFA397A007EDC1D /* XCUIRecorderNodeFinderMatch.h in Headers */,
@@ -1785,6 +1792,7 @@
 				EEC289BB1BF0EE4000B4DC79 /* FBXCTWebDriverAgent.m in Sources */,
 				EEC289681BF0ED3000B4DC79 /* FBSession.m in Sources */,
 				EEC289B31BF0EE4000B4DC79 /* FBElementCommands.m in Sources */,
+				EE8300E81C08CF7200217020 /* XCEventGenerator+SyncEvents.m in Sources */,
 				EEC289B81BF0EE4000B4DC79 /* FBXCTElementCache.m in Sources */,
 				EEC289B51BF0EE4000B4DC79 /* FBOrientationCommands.m in Sources */,
 				EEC289BA1BF0EE4000B4DC79 /* FBXCTSession.m in Sources */,

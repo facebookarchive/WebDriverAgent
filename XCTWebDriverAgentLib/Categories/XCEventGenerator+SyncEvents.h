@@ -7,12 +7,12 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <XCTWebDriverAgentLib/XCElementSnapshot.h>
+#import <XCTWebDriverAgentLib/XCEventGenerator.h>
 
-@interface XCElementSnapshot (Helpers)
+#import <UIKit/UIKit.h>
 
-+ (XCElementSnapshot *)fb_snapshotForAccessibilityElement:(XCAccessibilityElement *)accessibilityElement;
+@interface XCEventGenerator (SyncEvents)
 
-- (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type;
+- (BOOL)fb_syncTapAtPoint:(CGPoint)point orientation:(UIInterfaceOrientation)orientation error:(NSError **)error;
 
 @end
