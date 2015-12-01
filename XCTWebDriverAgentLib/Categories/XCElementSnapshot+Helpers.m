@@ -42,4 +42,13 @@
   }];
 }
 
+- (XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type
+{
+  XCElementSnapshot *snapshot = self.parent;
+  while (snapshot && snapshot.elementType != type) {
+    snapshot = snapshot.parent;
+  }
+  return snapshot;
+}
+
 @end

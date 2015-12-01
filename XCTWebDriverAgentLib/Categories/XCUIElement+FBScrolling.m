@@ -10,6 +10,7 @@
 #import "XCUIElement+FBScrolling.h"
 
 #import "FBWDALogger.h"
+#import "XCElementSnapshot+Helpers.h"
 #import "XCElementSnapshot-Hitpoint.h"
 #import "XCElementSnapshot.h"
 #import "XCEventGenerator.h"
@@ -22,38 +23,52 @@ const CGFloat FBNormalizedDragDistance = 0.95;
 const CGFloat FBScrollVelocity = 200;
 const CGFloat FBScrollBoundingVelocityPadding = 5.0;
 
+@interface XCElementSnapshot (FBScrolling)
+
+- (void)scrollByNormalizedVector:(CGVector)normalizedScrollVector;
+- (void)scrollByVector:(CGVector)vector;
+//- (void)scrollAncestorScrollViewByVectorWithinScrollViewFrame:(CGVector)vector;
+
+@end
+
 @implementation XCUIElement (FBScrolling)
 
 - (void)scrollUp
 {
-  [self scrollByNormalizedVector:CGVectorMake(0.0, FBNormalizedDragDistance)];
+  [self.lastSnapshot scrollByNormalizedVector:CGVectorMake(0.0, FBNormalizedDragDistance)];
 }
 
 - (void)scrollDown
 {
-  [self scrollByNormalizedVector:CGVectorMake(0.0, -FBNormalizedDragDistance)];
+  [self.lastSnapshot scrollByNormalizedVector:CGVectorMake(0.0, -FBNormalizedDragDistance)];
 }
 
 - (void)scrollLeft
 {
-  [self scrollByNormalizedVector:CGVectorMake(FBNormalizedDragDistance, 0.0)];
+  [self.lastSnapshot scrollByNormalizedVector:CGVectorMake(FBNormalizedDragDistance, 0.0)];
 }
 
 - (void)scrollRight
 {
-  [self scrollByNormalizedVector:CGVectorMake(-FBNormalizedDragDistance, 0.0)];
+  [self.lastSnapshot scrollByNormalizedVector:CGVectorMake(-FBNormalizedDragDistance, 0.0)];
 }
 
 - (void)scrollToVisible
 {
   NSMutableArray *visibleCells = [NSMutableArray array];
   __block XCElementSnapshot *parentCellSnapshot = nil;
-  [self.lastSnapshot.scrollView enumerateDescendantsUsingBlock:^(XCElementSnapshot *snapshot){
-    NSNumber *value = [snapshot valueForKeyPath:@"_elementType"];
-    if (value.unsignedIntegerValue != XCUIElementTypeCell) {
+  XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeScrollView];
+  scrollView = scrollView ?: [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeTable];
+  scrollView = scrollView ?: [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeCollectionView];
+
+  [scrollView enumerateDescendantsUsingBlock:^(XCElementSnapshot *snapshot){
+    if (snapshot.elementType != XCUIElementTypeCell) {
       return;
     }
     if ([snapshot _isAncestorOfElement:self.lastSnapshot]) {
+      parentCellSnapshot = snapshot;
+    }
+    if ([snapshot _matchesElement:self.lastSnapshot]) {
       parentCellSnapshot = snapshot;
     }
     if (snapshot.isFBVisible) {
@@ -70,22 +85,27 @@ const CGFloat FBScrollBoundingVelocityPadding = 5.0;
   CGVector scrollVector = CGVectorMake(visibleCellSnapshot.frame.origin.x - parentCellSnapshot.frame.origin.x,
                                        visibleCellSnapshot.frame.origin.y - parentCellSnapshot.frame.origin.y
                                        );
-  [self scrollAncestorScrollViewByVector:scrollVector];
+  [scrollView scrollByVector:scrollVector];
 }
+
+@end
+
+
+@implementation XCElementSnapshot (FBScrolling)
 
 - (void)scrollByNormalizedVector:(CGVector)normalizedScrollVector
 {
-  CGVector scrollVector = CGVectorMake(CGRectGetWidth(self.lastSnapshot.scrollView.frame) * normalizedScrollVector.dx,
-                                       CGRectGetHeight(self.lastSnapshot.scrollView.frame) * normalizedScrollVector.dy
+  CGVector scrollVector = CGVectorMake(CGRectGetWidth(self.frame) * normalizedScrollVector.dx,
+                                       CGRectGetHeight(self.frame) * normalizedScrollVector.dy
                                        );
-  [self scrollAncestorScrollViewByVector:scrollVector];
+  [self scrollByVector:scrollVector];
 }
 
-- (void)scrollAncestorScrollViewByVector:(CGVector)vector
+- (void)scrollByVector:(CGVector)vector
 {
-  CGVector scrollBoundingVector = CGVectorMake(CGRectGetWidth(self.lastSnapshot.scrollView.frame)/2.0 - FBScrollBoundingVelocityPadding,
-                                            CGRectGetHeight(self.lastSnapshot.scrollView.frame)/2.0 - FBScrollBoundingVelocityPadding
-                                            );
+  CGVector scrollBoundingVector = CGVectorMake(CGRectGetWidth(self.frame)/2.0 - FBScrollBoundingVelocityPadding,
+                                               CGRectGetHeight(self.frame)/2.0 - FBScrollBoundingVelocityPadding
+                                               );
   scrollBoundingVector.dx = copysignf(scrollBoundingVector.dx, vector.dx);
   scrollBoundingVector.dy = copysignf(scrollBoundingVector.dy, vector.dy);
 
@@ -103,7 +123,7 @@ const CGFloat FBScrollBoundingVelocityPadding = 5.0;
 
 - (void)scrollAncestorScrollViewByVectorWithinScrollViewFrame:(CGVector)vector
 {
-  CGVector hitpointOffset = CGVectorMake(self.lastSnapshot.scrollView.hitPointForScrolling.x, self.lastSnapshot.scrollView.hitPointForScrolling.y);
+  CGVector hitpointOffset = CGVectorMake(self.hitPointForScrolling.x, self.hitPointForScrolling.y);
   XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:self.application normalizedOffset:CGVectorMake(0.0, 0.0)];
   XCUICoordinate *startCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:hitpointOffset];
   XCUICoordinate *endCoordinate = [[XCUICoordinate alloc] initWithCoordinate:startCoordinate pointsOffset:vector];

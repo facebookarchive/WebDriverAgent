@@ -15,4 +15,6 @@
 
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type;
 
+- (XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type;
+
 @end
