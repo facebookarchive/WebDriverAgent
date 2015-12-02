@@ -27,13 +27,13 @@ static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose);
 + (NSArray *)routes
 {
   return @[
+    [[FBRoute GET:@"/tree"].withoutSession respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+      return [self handleTreeCommandWithParams:request];
+    }],
     [[FBRoute GET:@"/tree"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       return [self handleTreeCommandWithParams:request];
     }],
-    [[FBRoute GET:@"/session/:sessionID/tree"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return [self handleTreeCommandWithParams:request];
-    }],
-    [[FBRoute GET:@"/session/:sessionID/source"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/source"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       return [self handleTreeCommandWithParams:request];
     }],
   ];

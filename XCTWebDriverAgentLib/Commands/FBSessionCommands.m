@@ -23,7 +23,7 @@
 {
   return
   @[
-    [[FBRoute POST:@"/session"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/session"].withoutSession respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
 
       NSDictionary *requirements = request.arguments[@"desiredCapabilities"];
         NSString *bundleID = requirements[@"bundleId"];
@@ -42,10 +42,10 @@
         }
        ];
     }],
-    [[FBRoute GET:@"/session/:sessionID"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@""] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self.class currentCapabilities]);
     }],
-    [[FBRoute GET:@"/status"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/status"].withoutSession respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{
           @"state" : @"success",
           @"os" : @{
@@ -61,7 +61,7 @@
         }
       );
     }],
-    [[FBRoute DELETE:@"/session/:sessionID"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute DELETE:@""] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       [request.session kill];
       return FBResponseDictionaryWithOK();
     }],

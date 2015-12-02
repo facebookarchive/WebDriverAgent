@@ -21,11 +21,11 @@
 {
   return
   @[
-    [[FBRoute POST:@"/session/:sessionID/deactivateApp"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/deactivateApp"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/session/:sessionID/timeouts/implicit_wait"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/timeouts/implicit_wait"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       // This method is intentionally not supported.
       return FBResponseDictionaryWithOK();
     }],

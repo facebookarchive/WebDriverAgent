@@ -36,29 +36,29 @@
 {
   return
   @[
-    [[FBRoute GET:@"/session/:sessionID/element/:id/enabled"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/element/:id/enabled"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       XCUIElement *element = [elementCache elementForIndex:elementID];
       BOOL isEnabled = element.isWDEnabled;
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, isEnabled ? @YES : @NO);
     }],
-    [[FBRoute GET:@"/session/:sessionID/element/:id/rect"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/element/:id/rect"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdRect);
     }],
-    [[FBRoute GET:@"/session/:sessionID/element/:id/size"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/element/:id/size"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
         FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
         XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
         return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdSize);
     }],
-    [[FBRoute GET:@"/session/:sessionID/element/:id/location"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/element/:id/location"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
         FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
         XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
         return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdLocation);
     }],
-    [[FBRoute GET:@"/session/:sessionID/element/:id/attribute/:name"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/element/:id/attribute/:name"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       XCUIElement *element = [elementCache elementForIndex:elementID];
@@ -66,7 +66,7 @@
       attributeValue = attributeValue ?: [NSNull null];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, attributeValue);
     }],
-    [[FBRoute GET:@"/session/:sessionID/element/:id/text"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/element/:id/text"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       XCUIElement *element = [elementCache elementForIndex:elementID];
@@ -79,40 +79,40 @@
       text = text ?: [NSNull null];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, text);
     }],
-    [[FBRoute GET:@"/session/:sessionID/element/:id/displayed"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/element/:id/displayed"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       XCUIElement *element = [elementCache elementForIndex:elementID];
       BOOL isVisible = element.isWDVisible;
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, isVisible ? @YES : @NO);
     }],
-    [[FBRoute GET:@"/session/:sessionID/element/:id/name"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/element/:id/name"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
         FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
         NSInteger elementID = [request.parameters[@"id"] integerValue];
         XCUIElement *element = [elementCache elementForIndex:elementID];
         id type = [element wdType];
         return FBResponseDictionaryWithStatus(FBCommandStatusNoError, type);
     }],
-    [[FBRoute POST:@"/session/:sessionID/element/:id/click"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element/:id/click"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       XCUIElement *element = [elementCache elementForIndex:elementID];
       [element tap];
       return FBResponseDictionaryWithElementID(elementID);
     }],
-    [[FBRoute POST:@"/session/:sessionID/uiaElement/:id/doubleTap"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/uiaElement/:id/doubleTap"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       [element doubleTap];
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/session/:sessionID/uiaElement/:id/touchAndHold"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/uiaElement/:id/touchAndHold"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       [element pressForDuration:[request.arguments[@"duration"] floatValue]];
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/session/:sessionID/uiaElement/:id/scroll"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/uiaElement/:id/scroll"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       
@@ -151,7 +151,7 @@
       }
       return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, @{});
     }],
-    [[FBRoute POST:@"/session/:sessionID/element/:id/value"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element/:id/value"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       XCUIElement *element = [elementCache elementForIndex:elementID];
@@ -162,13 +162,13 @@
       [element typeText:textToType];
       return FBResponseDictionaryWithElementID(elementID);
     }],
-    [[FBRoute POST:@"/session/:sessionID/uiaElement/:id/value"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/uiaElement/:id/value"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       [element adjustToPickerWheelValue:request.arguments[@"value"]];
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/session/:sessionID/element/:id/clear"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element/:id/clear"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       XCUIElement *element = [elementCache elementForIndex:elementID];
@@ -182,7 +182,7 @@
       [element typeText:textToType];
       return FBResponseDictionaryWithElementID(elementID);
     }],
-    [[FBRoute POST:@"/session/:sessionID/uiaTarget/:id/dragfromtoforduration"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/uiaTarget/:id/dragfromtoforduration"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTSession *session = (FBXCTSession *)request.session;
       CGVector startPoint = CGVectorMake([request.arguments[@"fromX"] floatValue], [request.arguments[@"fromY"] floatValue]);
       CGVector endPoint = CGVectorMake([request.arguments[@"toX"] floatValue], [request.arguments[@"toY"] floatValue]);
@@ -193,7 +193,7 @@
       [startCoordinate pressForDuration:duration thenDragToCoordinate:endCoordinate];
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/session/:sessionID/tap/:id"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/tap/:id"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       FBXCTSession *session = (FBXCTSession *)request.session;
       CGFloat x = [request.arguments[@"x"] floatValue];
@@ -210,7 +210,7 @@
       [tapCoordinate tap];
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/session/:sessionID/keys"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/keys"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
       // TODO: async payload
       [[XCTestDriver sharedTestDriver].managerProxy _XCT_sendString:textToType completion:^(NSError *error){
@@ -221,7 +221,7 @@
       }];
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute GET:@"/session/:sessionID/window/:id/size"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/window/:id/size"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTSession *session = (FBXCTSession *)request.session;
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, session.application.wdRect[@"size"]);
     }],

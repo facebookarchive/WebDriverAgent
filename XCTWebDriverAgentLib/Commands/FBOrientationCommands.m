@@ -40,11 +40,11 @@ const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
 {
   return
   @[
-    [[FBRoute GET:@"/session/:sessionID/orientation"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/orientation"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTSession *session = (FBXCTSession *)request.session;
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self.class interfaceOrientationForApplication:session.application]);
     }],
-    [[FBRoute POST:@"/session/:sessionID/orientation"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/orientation"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTSession *session = (FBXCTSession *)request.session;
       if ([self.class setDeviceOrientation:request.arguments[@"orientation"] forApplication:session.application]) {
         return FBResponseDictionaryWithOK();

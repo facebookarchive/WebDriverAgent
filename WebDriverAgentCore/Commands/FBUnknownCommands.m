@@ -23,10 +23,10 @@
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute GET:@"/*"] respond:self.unhandledHandler],
-    [[FBRoute POST:@"/*"] respond:self.unhandledHandler],
-    [[FBRoute PUT:@"/*"] respond:self.unhandledHandler],
-    [[FBRoute DELETE:@"/*"] respond:self.unhandledHandler]
+    [[FBRoute GET:@"/*"].withoutSession respond:self.unhandledHandler],
+    [[FBRoute POST:@"/*"].withoutSession respond:self.unhandledHandler],
+    [[FBRoute PUT:@"/*"].withoutSession respond:self.unhandledHandler],
+    [[FBRoute DELETE:@"/*"].withoutSession respond:self.unhandledHandler]
   ];
 }
 

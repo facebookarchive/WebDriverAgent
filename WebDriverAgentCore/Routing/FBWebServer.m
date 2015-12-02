@@ -171,8 +171,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
         FBRouteRequest *routeParams = [FBRouteRequest
           routeRequestWithURL:request.url
           parameters:request.params
-          arguments:[NSJSONSerialization JSONObjectWithData:request.body options:0 error:NULL]
-          session:[FBSession sessionWithIdentifier:request.params[@"sessionID"]]];
+          arguments:[NSJSONSerialization JSONObjectWithData:request.body options:0 error:NULL]];
 
         [FBWDALogger verboseLog:routeParams.description];
 
@@ -180,11 +179,22 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
           [route mountRequest:routeParams intoResponse:response];
         }
         @catch (NSException *exception) {
-          [self.exceptionHandler webServer:self handleException:exception forResponse:response];
+          [self handleException:exception forResponse:response];
         }
       }];
     }
   }
+}
+
+- (void)handleException:(NSException *)exception forResponse:(RouteResponse *)response
+{
+  for (id<FBWebServerExceptionHandler> exceptionHandler in self.exceptionHandlers) {
+    if ([exceptionHandler webServer:self handleException:exception forResponse:response]) {
+      return;
+    }
+  }
+  id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, [exception description]);
+  [payload dispatchWithResponse:response];
 }
 
 - (void)registerServerKeyRouteHandlers

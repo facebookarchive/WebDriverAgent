@@ -27,7 +27,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute GET:@"/session/:sessionID/alert_text"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/alert_text"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSString *alertText = [self.class currentAlertText];
       if (!alertText) {
         [FBWDALogger log:@"Did not find an alert, returning an error."];
@@ -35,14 +35,14 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
       }
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, alertText);
     }],
-    [[FBRoute POST:@"/session/:sessionID/accept_alert"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/accept_alert"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       if (![self.class acceptAlert]) {
         [FBWDALogger log:@"Did not find an alert/default button, returning an error."];
         return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
       }
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/session/:sessionID/dismiss_alert"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/dismiss_alert"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       if (![self.class dismissAlert]) {
         [FBWDALogger log:@"Did not find an alert/cancel button, returning an error."];
         return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");

@@ -10,11 +10,11 @@
 #import "FBUIAWebDriverAgent.h"
 
 #import "FBAutomationTargetDelegate.h"
+#import "FBCoreExceptionHandler.h"
 #import "FBUIAElementCache.h"
 #import "FBUIAExceptionHandler.h"
 #import "FBWDALogger.h"
 #import "FBWebServer.h"
-
 #import "UIAApplication.h"
 #import "UIATarget.h"
 
@@ -42,7 +42,7 @@
   self.automationDelegate = [[FBAutomationTargetDelegate alloc] init];
   [[UIATarget localTarget] setDelegate:self.automationDelegate];
   self.server = [[FBWebServer alloc] init];
-  self.server.exceptionHandler = [FBUIAExceptionHandler new];
+  self.server.exceptionHandlers = @[[FBCoreExceptionHandler new], [FBUIAExceptionHandler new]];
   [self.server startServing];
   [[NSRunLoop mainRunLoop] run];
 }

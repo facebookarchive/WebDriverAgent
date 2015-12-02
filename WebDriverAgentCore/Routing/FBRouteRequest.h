@@ -17,6 +17,6 @@
 @property (nonatomic, copy, readonly) NSDictionary *arguments;
 @property (nonatomic, strong, readonly) FBSession *session;
 
-+ (instancetype)routeRequestWithURL:(NSURL *)URL parameters:(NSDictionary *)parameters arguments:(NSDictionary *)arguments session:(FBSession *)session;
++ (instancetype)routeRequestWithURL:(NSURL *)URL parameters:(NSDictionary *)parameters arguments:(NSDictionary *)arguments;
 
 @end

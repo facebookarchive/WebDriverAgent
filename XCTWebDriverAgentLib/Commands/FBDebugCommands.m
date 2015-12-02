@@ -31,24 +31,26 @@ static id ValueOrNull(id value) {
 {
   return
   @[
+    [[FBRoute GET:@"/tree"].withoutSession respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+      FBXCTSession *session = (FBXCTSession *)[FBSession activeSession];
+      return [self handleTreeCommandWithParams:session.application];
+    }],
     [[FBRoute GET:@"/tree"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return [self handleTreeCommandWithParams:request];
+      FBXCTSession *session = (FBXCTSession *)request.session;
+      return [self handleTreeCommandWithParams:session.application];
     }],
-    [[FBRoute GET:@"/session/:sessionID/tree"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return [self handleTreeCommandWithParams:request];
-    }],
-    [[FBRoute GET:@"/session/:sessionID/source"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return [self handleTreeCommandWithParams:request];
+    [[FBRoute GET:@"/source"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+      FBXCTSession *session = (FBXCTSession *)request.session;
+      return [self handleTreeCommandWithParams:session.application];
     }],
   ];
 }
 
 #pragma mark - Helpers
 
-+ (id<FBResponsePayload>)handleTreeCommandWithParams:(FBRouteRequest *)request
++ (id<FBResponsePayload>)handleTreeCommandWithParams:(XCUIApplication *)application
 {
-  FBXCTSession *session = (FBXCTSession *)request.session;
-  NSDictionary *info = [self.class JSONTreeForTargetForApplication:session.application];
+  NSDictionary *info = [self.class JSONTreeForTargetForApplication:application];
   return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{ @"tree": info });
 }
 
