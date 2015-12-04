@@ -147,11 +147,12 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
   FBWDAAssertMainThread();
 
   NSArray *elements;
-  BOOL partialSearch = [usingText isEqualToString:@"partial link text"];
+  const BOOL partialSearch = [usingText isEqualToString:@"partial link text"];
+  const BOOL isSearchByIdentifier = ([usingText isEqualToString:@"name"] || [usingText isEqualToString:@"id"] || [usingText isEqualToString:@"accessibility id"]);
   if (partialSearch || [usingText isEqualToString:@"link text"]) {
     NSArray *components = [value componentsSeparatedByString:@"="];
     elements = elementsWithProperty(element, components[0], components[1], partialSearch);
-  } else if ([usingText isEqualToString:@"name"] || [usingText isEqualToString:@"id"]) {
+  } else if (isSearchByIdentifier) {
     elements = elementsWithProperty(element, @"name", value, NO);
   } else if ([usingText isEqualToString:@"class name"]) {
     elements = elementsWithProperty(element, @"type", value, NO);
