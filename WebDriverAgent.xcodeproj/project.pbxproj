@@ -41,6 +41,8 @@
 		AAA282D91BCF8FB70027DE10 /* FBScreenshotCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA282C11BCF8FB70027DE10 /* FBScreenshotCommands.m */; };
 		AAA282DA1BCF8FB70027DE10 /* FBSessionCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = AAA282C21BCF8FB70027DE10 /* FBSessionCommands.h */; };
 		AAA282DB1BCF8FB70027DE10 /* FBSessionCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA282C31BCF8FB70027DE10 /* FBSessionCommands.m */; };
+		EE040DC51C1201BB00D0945C /* UIAutomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8571B99E45400F8BA6F /* UIAutomation.framework */; };
+		EE040DC61C12041500D0945C /* AccessibilityUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */; };
 		EE0CA1DF1BF0D0E3005C43CD /* FBSession.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */; };
 		EE0CA1E01BF0D0E3005C43CD /* FBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0CA1DE1BF0D0E3005C43CD /* FBSession.m */; };
 		EE0CA1E61BF0D459005C43CD /* FBSession-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */; };
@@ -611,6 +613,8 @@
 			files = (
 				91F9DB211B99DC2F001349B2 /* libWebDriverAgentLib.a in Frameworks */,
 				17FAFB7CEBC0F6E3621FAA62 /* libPods-WebDriverAgentLibTests.a in Frameworks */,
+				EE040DC61C12041500D0945C /* AccessibilityUtilities.framework in Frameworks */,
+				EE040DC51C1201BB00D0945C /* UIAutomation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1930,16 +1934,12 @@
 			baseConfigurationReference = 25290BED4D47D70D6CAC81AA /* Pods-WebDriverAgent.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks",
-					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"$(DEVELOPER_DIR)/../SharedFrameworks\"",
+					"$(inherited)",
 					"\"$SDKROOT/Developer/Library/PrivateFrameworks\"",
 					"\"$SDKROOT/System/Library/PrivateFrameworks\"",
-					"\"$(DEVELOPER_DIR)/../Frameworks\"",
 				);
 				INFOPLIST_FILE = WebDriverAgent/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks \"$(DEVELOPER_LIBRARY_DIR)/Frameworks\" \"$(DEVELOPER_DIR)/../SharedFrameworks\" \"$SDKROOT/Developer/Library/PrivateFrameworks\" \"$SDKROOT/System/Library/PrivateFrameworks\" \"$(DEVELOPER_DIR)/../Frameworks\" \"$SDKROOT/System/Library/Frameworks\"";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks \"$(SDKROOT)/Developer/Library/PrivateFrameworks\" \"$(SDKROOT)/System/Library/PrivateFrameworks\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1950,16 +1950,12 @@
 			baseConfigurationReference = DE2E79F594F94C8B6896C776 /* Pods-WebDriverAgent.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks",
-					"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"$(DEVELOPER_DIR)/../SharedFrameworks\"",
+					"$(inherited)",
 					"\"$SDKROOT/Developer/Library/PrivateFrameworks\"",
 					"\"$SDKROOT/System/Library/PrivateFrameworks\"",
-					"\"$(DEVELOPER_DIR)/../Frameworks\"",
 				);
 				INFOPLIST_FILE = WebDriverAgent/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks \"$(DEVELOPER_LIBRARY_DIR)/Frameworks\" \"$(DEVELOPER_DIR)/../SharedFrameworks\" \"$SDKROOT/Developer/Library/PrivateFrameworks\" \"$SDKROOT/System/Library/PrivateFrameworks\" \"$(DEVELOPER_DIR)/../Frameworks\" \"$SDKROOT/System/Library/Frameworks\"";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks \"$(SDKROOT)/Developer/Library/PrivateFrameworks\" \"$(SDKROOT)/System/Library/PrivateFrameworks\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1992,15 +1988,16 @@
 			baseConfigurationReference = 154D92108667239A91439DD4 /* Pods-WebDriverAgentLibTests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/PrivateFrameworks",
+					"$(SDKROOT)/System/Library/PrivateFrameworks",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WebDriverAgentLibTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks \"$(SDKROOT)/Developer/Library/PrivateFrameworks\" \"$(SDKROOT)/System/Library/PrivateFrameworks\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -2011,11 +2008,12 @@
 			baseConfigurationReference = D17FD3E4AF3ECD6BC73CACFA /* Pods-WebDriverAgentLibTests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/PrivateFrameworks",
+					"$(SDKROOT)/System/Library/PrivateFrameworks",
 				);
 				INFOPLIST_FILE = WebDriverAgentLibTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks \"$(SDKROOT)/Developer/Library/PrivateFrameworks\" \"$(SDKROOT)/System/Library/PrivateFrameworks\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

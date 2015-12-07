@@ -19,6 +19,8 @@ target :WebDriverAgentLib, :exclusive => true do
 end
 
 target :WebDriverAgentLibTests, :exclusive => true do
+  pod 'KissXML'
+  pod 'RoutingHTTPServer'
   pod 'OCMock'
 end
 
