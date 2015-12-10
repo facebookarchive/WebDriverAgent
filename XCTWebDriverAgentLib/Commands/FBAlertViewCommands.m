@@ -36,7 +36,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 {
   return
   @[
-    [[FBRoute GET:@"/session/:sessionID/alert_text"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/alert_text"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTSession *session = (FBXCTSession *)request.session;
       NSString *alertText = [self.class currentAlertTextWithApplication:session.application];
       if (!alertText) {
@@ -44,14 +44,14 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
       }
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, alertText);
     }],
-    [[FBRoute POST:@"/session/:sessionID/accept_alert"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/accept_alert"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTSession *session = (FBXCTSession *)request.session;
       if (![self.class acceptAlertWithApplication:session.application]) {
         return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
       }
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/session/:sessionID/dismiss_alert"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/dismiss_alert"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTSession *session = (FBXCTSession *)request.session;
       if (![self.class dismissAlertWithApplication:session.application]) {
         return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");

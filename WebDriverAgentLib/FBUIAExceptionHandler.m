@@ -19,25 +19,26 @@ extern NSString *kUIAExceptionInvalidElement;
 
 @implementation FBUIAExceptionHandler
 
-- (void)webServer:(FBWebServer *)webServer handleException:(NSException *)exception forResponse:(RouteResponse *)response
+- (BOOL)webServer:(FBWebServer *)webServer handleException:(NSException *)exception forResponse:(RouteResponse *)response
 {
   if ([exception.name isEqualToString:FBUAlertObstructingElementException]) {
     id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusUnexpectedAlertPresent, @"Alert is obstructing view");
     [payload dispatchWithResponse:response];
-    return;
+    return YES;
   }
   if ([[exception name] isEqualToString:kUIAExceptionInvalidElement]) {
     id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusInvalidElementState, [exception description]);
     [payload dispatchWithResponse:response];
-    return;
+    return YES;
   }
   if ([[exception name] isEqualToString:kUIAExceptionBadPoint]) {
     id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, [exception description]);
     [payload dispatchWithResponse:response];
-    return;
+    return YES;
   }
   id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusStaleElementReference, [exception description]);
   [payload dispatchWithResponse:response];
+  return YES;
 }
 
 @end

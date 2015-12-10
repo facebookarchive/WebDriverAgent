@@ -33,7 +33,7 @@
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute POST:@"/session/:sessionID/tap/:reference"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/tap/:reference"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       CGFloat x = [request.arguments[@"x"] floatValue];
       CGFloat y = [request.arguments[@"y"] floatValue];
       NSInteger elementID = [request.parameters[@"reference"] integerValue];
@@ -47,32 +47,32 @@
       [[UIATarget localTarget] tap:@{ @"x": @(x), @"y": @(y) }];
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/session/:sessionID/element/:id/click"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element/:id/click"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       UIAElement *element = [elementCache elementForIndex:elementID];
       [element tap];
       return FBResponseDictionaryWithElementID(elementID);
     }],
-    [[FBRoute GET:@"/session/:sessionID/element/:id/displayed"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/element/:id/displayed"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       UIAElement *element = [elementCache elementForIndex:elementID];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.isWDVisible ? @YES : @NO);
     }],
-    [[FBRoute GET:@"/session/:sessionID/element/:id/enabled"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/element/:id/enabled"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       UIAElement *element = [elementCache elementForIndex:elementID];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.isWDEnabled ? @YES : @NO);
     }],
-    [[FBRoute GET:@"/session/:sessionID/element/:id/text"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/element/:id/text"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       UIAElement *element = [elementCache elementForIndex:elementID];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdValue);
     }],
-    [[FBRoute POST:@"/session/:sessionID/element/:id/clear"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element/:id/clear"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       UIAElement *element = [elementCache elementForIndex:elementID];
@@ -93,7 +93,7 @@
 
       return FBResponseDictionaryWithElementID(elementID);
     }],
-    [[FBRoute POST:@"/session/:sessionID/element/:id/value"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element/:id/value"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       UIAElement *element = [elementCache elementForIndex:elementID];
@@ -104,33 +104,33 @@
       [self.class typeText:textToType];
       return FBResponseDictionaryWithElementID(elementID);
     }],
-    [[FBRoute POST:@"/session/:sessionID/keys"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/keys"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
       [self.class typeText:textToType];
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/session/:sessionID/uiaElement/:elementID/doubleTap"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/uiaElement/:elementID/doubleTap"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       UIAElement *element = [elementCache elementForIndex:[request.parameters[@"elementID"] integerValue]];
       [element doubleTap];
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/session/:sessionID/uiaElement/:id/touchAndHold"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/uiaElement/:id/touchAndHold"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       UIAElement *element = [elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
       [element touchAndHold:@([request.arguments[@"duration"] floatValue])];
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/session/:sessionID/uiaTarget/:id/dragfromtoforduration"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/uiaTarget/:id/dragfromtoforduration"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       [[UIATarget localTarget] dragFrom:@{ @"x": request.arguments[@"fromX"], @"y": request.arguments[@"fromY"] } to:@{ @"x": request.arguments[@"toX"], @"y": request.arguments[@"toY"] } forDuration:request.arguments[@"duration"]];
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute GET:@"/session/:sessionID/element/:elementID/rect"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/element/:elementID/rect"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       UIAElement *element = [elementCache elementForIndex:[request.parameters[@"elementID"] integerValue]];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdRect);
     }],
-    [[FBRoute GET:@"/session/:sessionID/element/:id/attribute/:name"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/element/:id/attribute/:name"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"id"] integerValue];
       UIAElement *element = [elementCache elementForIndex:elementID];
@@ -138,10 +138,10 @@
       attributeValue = attributeValue ?: [NSNull null];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, attributeValue);
     }],
-    [[FBRoute GET:@"/session/:sessionID/window/:windowHandle/size"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/window/:windowHandle/size"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [UIATarget localTarget].wdRect[@"size"]);
     }],
-    [[FBRoute POST:@"/session/:sessionID/uiaElement/:element/scroll"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/uiaElement/:element/scroll"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       UIAElement *element = [elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
 
@@ -178,7 +178,7 @@
       }
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/session/:sessionID/uiaElement/:elementID/value"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/uiaElement/:elementID/value"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       UIAPickerWheel *wheelElement = (UIAPickerWheel *)[request.session.elementCache elementForIndex:[request.arguments[@"element"] integerValue]];
       [wheelElement selectValue:request.arguments[@"value"]];
       return FBResponseDictionaryWithOK();

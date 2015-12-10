@@ -7,19 +7,20 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+#import "FBCoreExceptionHandler.h"
+
 #import <RoutingHTTPServer/RouteResponse.h>
 
-#import "FBXCTExceptionHandler.h"
-
-#import "FBAlertViewCommands.h"
 #import "FBResponsePayload.h"
 
-@implementation FBXCTExceptionHandler
+NSString *const FBSessionDoesNotExistException = @"FBSessionDoesNotExistException";
+
+@implementation FBCoreExceptionHandler
 
 - (BOOL)webServer:(FBWebServer *)webServer handleException:(NSException *)exception forResponse:(RouteResponse *)response
 {
-  if ([exception.name isEqualToString:FBUAlertObstructingElementException]) {
-    id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusUnexpectedAlertPresent, @"Alert is obstructing view");
+  if ([exception.name isEqualToString:FBSessionDoesNotExistException]) {
+    id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusNoSuchSession, [exception description]);
     [payload dispatchWithResponse:response];
     return YES;
   }

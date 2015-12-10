@@ -9,7 +9,8 @@
 
 #import "FBXCTElementCache.h"
 
-#import "FBAlertViewCommands.h"
+#import <XCTWebDriverAgentLib/FBAlertViewCommands.h>
+
 #import "XCUIElement.h"
 
 @class UIAElement;

@@ -36,7 +36,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
 {
   return
   @[
-    [[FBRoute POST:@"/session/:sessionID/element"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTSession *session = (FBXCTSession *)request.session;
       XCUIElement *element = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application];
       if (!element) {
@@ -45,7 +45,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
       NSInteger elementID = [request.session.elementCache storeElement:element];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:element elementID:elementID]);
     }],
-    [[FBRoute POST:@"/session/:sessionID/elements"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/elements"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTSession *session = (FBXCTSession *)request.session;
       NSArray *elements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application];
       NSMutableArray *elementsResponse = [[NSMutableArray alloc] init];
@@ -55,7 +55,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
       }
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
     }],
-    [[FBRoute GET:@"/session/:sessionID/uiaElement/:elementID/getVisibleCells"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/uiaElement/:elementID/getVisibleCells"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"elementID"] integerValue];
       XCUIElement *collection = [elementCache elementForIndex:elementID];
@@ -69,7 +69,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
       }
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
     }],
-    [[FBRoute POST:@"/session/:sessionID/element/:id/element"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element/:id/element"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       XCUIElement *foundElement = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
@@ -79,7 +79,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
       NSInteger elementID = [request.session.elementCache storeElement:foundElement];
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:foundElement elementID:elementID]);
     }],
-    [[FBRoute POST:@"/session/:sessionID/element/:id/elements"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element/:id/elements"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       NSArray *foundElements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];

@@ -16,6 +16,8 @@
 typedef id<FBResponsePayload> (^FBRouteSyncHandler)(FBRouteRequest *request);
 
 @interface FBRoute : NSObject
+@property (nonatomic, copy, readonly) NSString *verb;
+@property (nonatomic, copy, readonly) NSString *path;
 
 + (instancetype)GET:(NSString *)pathPattern;
 + (instancetype)POST:(NSString *)pathPattern;
@@ -23,9 +25,7 @@ typedef id<FBResponsePayload> (^FBRouteSyncHandler)(FBRouteRequest *request);
 + (instancetype)DELETE:(NSString *)pathPattern;
 
 - (instancetype)respond:(FBRouteSyncHandler)handler;
-
-@property (nonatomic, copy, readonly) NSString *verb;
-@property (nonatomic, copy, readonly) NSString *path;
+- (instancetype)withoutSession;
 
 - (void)mountRequest:(FBRouteRequest *)request intoResponse:(RouteResponse *)response;
 
