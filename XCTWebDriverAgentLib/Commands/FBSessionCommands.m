@@ -80,10 +80,12 @@
 
 + (NSDictionary *)currentCapabilities
 {
+  FBXCTSession *session = (FBXCTSession *)[FBSession activeSession];
   return @{
     @"device": ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ? @"ipad" : @"iphone",
     @"sdkVersion": [[UIDevice currentDevice] systemVersion],
-    @"browserName": [[UIDevice currentDevice] name],
+    @"browserName": session.application.label,
+    @"CFBundleIdentifier": session.application.bundleID,
   };
 }
 

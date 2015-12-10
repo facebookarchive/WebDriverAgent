@@ -122,7 +122,8 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
   FBWDAAssertMainThread();
 
   NSArray *elements;
-  BOOL partialSearch = [usingText isEqualToString:@"partial link text"];
+  const BOOL partialSearch = [usingText isEqualToString:@"partial link text"];
+  const BOOL isSearchByIdentifier = ([usingText isEqualToString:@"name"] || [usingText isEqualToString:@"id"] || [usingText isEqualToString:@"accessibility id"]);
   if (partialSearch || [usingText isEqualToString:@"link text"]) {
     NSArray *components = [value componentsSeparatedByString:@"="];
     elements = [self descendantsOfElement:element withProperty:components[0] value:components[1] partial:partialSearch];
@@ -130,7 +131,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
     elements = [self descendantsOfElement:element withClassName:value];
   } else if ([usingText isEqualToString:@"xpath"]) {
     elements = [self descendantsOfElement:element withXPathQuery:value];
-  } else if ([usingText isEqualToString:@"accessibility id"]) {
+  } else if (isSearchByIdentifier) {
     elements = [self descendantsOfElement:element withIdentifier:value];
   }
   return [FBAlertViewCommands filterElementsObstructedByAlertView:elements];

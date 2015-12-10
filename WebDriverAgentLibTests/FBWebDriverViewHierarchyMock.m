@@ -66,14 +66,11 @@
   id elementMock = [OCMockObject partialMockForObject:element];
 
   NSArray *childElements = definition[@"elements"];
-  if ([childElements count]) {
-    NSMutableArray *mockChildren = [NSMutableArray array];
-
-    for (NSDictionary *childDefinition in childElements) {
-      [mockChildren addObject:[self _mockElementFromDefinition:childDefinition]];
-    }
-    [[[elementMock stub] andReturn:mockChildren] elements];
+  NSMutableArray *mockChildren = [NSMutableArray array];
+  for (NSDictionary *childDefinition in childElements) {
+    [mockChildren addObject:[self _mockElementFromDefinition:childDefinition]];
   }
+  [[[elementMock stub] andReturn:mockChildren] elements];
 
   [[[elementMock stub] andReturn:definition[@"class"]] className];
   if (definition[@"name"]) {
