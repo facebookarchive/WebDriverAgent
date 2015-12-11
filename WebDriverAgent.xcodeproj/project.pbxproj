@@ -117,7 +117,7 @@
 		EEC2898D1BF0ED3000B4DC79 /* FBResponsePayload.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3D73901BECCA5A0034D1E9 /* FBResponsePayload.h */; };
 		EEC2898F1BF0ED3000B4DC79 /* FBWebServer.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3D73981BECCA5A0034D1E9 /* FBWebServer.h */; };
 		EEC289901BF0ED3000B4DC79 /* FBCommandStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3D738B1BECCA5A0034D1E9 /* FBCommandStatus.h */; };
-		EEC289911BF0ED3000B4DC79 /* FBWDALogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3D739F1BECCA5A0034D1E9 /* FBWDALogger.h */; };
+		EEC289911BF0ED3000B4DC79 /* FBWDALogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3D739F1BECCA5A0034D1E9 /* FBWDALogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEC289921BF0ED3000B4DC79 /* FBResponseFilePayload.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3D738C1BECCA5A0034D1E9 /* FBResponseFilePayload.h */; };
 		EEC289941BF0ED3000B4DC79 /* FBSession-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */; };
 		EEC289AF1BF0EE2B00B4DC79 /* UITestingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC288F71BF0ED2500B4DC79 /* UITestingUITests.m */; };
@@ -157,13 +157,13 @@
 		EEC28B081BF2128200B4DC79 /* FBUIASession.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28B061BF2128200B4DC79 /* FBUIASession.h */; };
 		EEC28B091BF2128200B4DC79 /* FBUIASession.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC28B071BF2128200B4DC79 /* FBUIASession.m */; };
 		EEC28B0F1BF215D800B4DC79 /* FBElement.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC28B0E1BF215D800B4DC79 /* FBElement.m */; };
-		EED0313A1BFA3720007EDC1D /* CDStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E71BFA3461007EDC1D /* CDStructures.h */; };
+		EED0313A1BFA3720007EDC1D /* CDStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E71BFA3461007EDC1D /* CDStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EED0313B1BFA397A007EDC1D /* _XCDarwinNotificationExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030DC1BFA3461007EDC1D /* _XCDarwinNotificationExpectation.h */; };
 		EED0313C1BFA397A007EDC1D /* _XCInternalTestRun.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030DD1BFA3461007EDC1D /* _XCInternalTestRun.h */; };
 		EED0313D1BFA397A007EDC1D /* _XCKVOExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030DE1BFA3461007EDC1D /* _XCKVOExpectation.h */; };
 		EED0313E1BFA397A007EDC1D /* _XCNotificationExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030DF1BFA3461007EDC1D /* _XCNotificationExpectation.h */; };
 		EED0313F1BFA397A007EDC1D /* _XCPredicateExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E01BFA3461007EDC1D /* _XCPredicateExpectation.h */; };
-		EED031401BFA397A007EDC1D /* _XCTestCaseImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E11BFA3461007EDC1D /* _XCTestCaseImplementation.h */; };
+		EED031401BFA397A007EDC1D /* _XCTestCaseImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E11BFA3461007EDC1D /* _XCTestCaseImplementation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EED031411BFA397A007EDC1D /* _XCTestCaseInterruptionException.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E21BFA3461007EDC1D /* _XCTestCaseInterruptionException.h */; };
 		EED031421BFA397A007EDC1D /* _XCTestDriverTestObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E31BFA3461007EDC1D /* _XCTestDriverTestObserver.h */; };
 		EED031431BFA397A007EDC1D /* _XCTestExpectationImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E41BFA3461007EDC1D /* _XCTestExpectationImplementation.h */; };
@@ -208,7 +208,7 @@
 		EED0316A1BFA397A007EDC1D /* XCTestCase-AsynchronousTestingPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0310D1BFA3461007EDC1D /* XCTestCase-AsynchronousTestingPrivate.h */; };
 		EED0316B1BFA397A007EDC1D /* XCTestCase-RuntimeUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0310E1BFA3461007EDC1D /* XCTestCase-RuntimeUtilities.h */; };
 		EED0316C1BFA397A007EDC1D /* XCTestCase-XCTestSuiteExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0310F1BFA3461007EDC1D /* XCTestCase-XCTestSuiteExtensions.h */; };
-		EED0316D1BFA397A007EDC1D /* XCTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031101BFA3461007EDC1D /* XCTestCase.h */; };
+		EED0316D1BFA397A007EDC1D /* XCTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031101BFA3461007EDC1D /* XCTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EED0316E1BFA397A007EDC1D /* XCTestCaseRun.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031111BFA3461007EDC1D /* XCTestCaseRun.h */; };
 		EED0316F1BFA397A007EDC1D /* XCTestCaseSuite.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031121BFA3461007EDC1D /* XCTestCaseSuite.h */; };
 		EED031701BFA397A007EDC1D /* XCTestConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031131BFA3461007EDC1D /* XCTestConfiguration.h */; };
@@ -2245,6 +2245,7 @@
 				EE836C0C1C0F118600D87246 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EEC2894F1BF0ED2E00B4DC79 /* Build configuration list for PBXNativeTarget "XCTStubApps" */ = {
 			isa = XCConfigurationList;

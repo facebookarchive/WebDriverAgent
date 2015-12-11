@@ -9,7 +9,40 @@
 
 #import <XCTest/XCTest.h>
 
+#import <XCTWebDriverAgentLib/_XCTestCaseImplementation.h>
+#import <XCTWebDriverAgentLib/FBWDALogger.h>
 #import <XCTWebDriverAgentLib/FBXCTWebDriverAgent.h>
+#import <XCTWebDriverAgentLib/XCTestCase.h>
+
+@interface FBXCTestCaseImplementationFailureHoldingProxy : NSProxy
+@property (nonatomic, strong) _XCTestCaseImplementation *internalImplementation;
+
++ (instancetype)proxyWithXCTestCaseImplementation:(_XCTestCaseImplementation *)internalImplementation;
+
+@end
+
+@implementation FBXCTestCaseImplementationFailureHoldingProxy
+
++ (instancetype)proxyWithXCTestCaseImplementation:(_XCTestCaseImplementation *)internalImplementation
+{
+  FBXCTestCaseImplementationFailureHoldingProxy *proxy = [super alloc];
+  proxy.internalImplementation = internalImplementation;
+  return proxy;
+}
+
+- (id)forwardingTargetForSelector:(SEL)aSelector
+{
+  return self.internalImplementation;
+}
+
+// This will prevert test from quiting on app crash or any other test failure
+- (BOOL)shouldHaltWhenReceivesControl
+{
+  return NO;
+}
+
+@end
+
 
 @interface UITestingUITests : XCTestCase
 @end
@@ -19,12 +52,18 @@
 - (void)setUp
 {
   [super setUp];
-  self.continueAfterFailure = NO;
+  self.continueAfterFailure = YES;
 }
 
 - (void)testRunner
 {
+  self.internalImplementation = (_XCTestCaseImplementation *)[FBXCTestCaseImplementationFailureHoldingProxy proxyWithXCTestCaseImplementation:self.internalImplementation];
   [[FBXCTWebDriverAgent sharedAgent] start];
+}
+
+- (void)_enqueueFailureWithDescription:(NSString *)description inFile:(NSString *)filePath atLine:(NSUInteger)lineNumber expected:(BOOL)expected
+{
+  [FBWDALogger logFmt:@"Enqueue Failure: %@ %@ %lu %d", description, filePath, (unsigned long)lineNumber, expected];
 }
 
 @end

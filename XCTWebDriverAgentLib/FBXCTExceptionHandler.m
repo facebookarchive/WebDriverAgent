@@ -7,12 +7,13 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <RoutingHTTPServer/RouteResponse.h>
-
 #import "FBXCTExceptionHandler.h"
+
+#import <RoutingHTTPServer/RouteResponse.h>
 
 #import "FBAlertViewCommands.h"
 #import "FBResponsePayload.h"
+#import "FBXCTSession.h"
 
 @implementation FBXCTExceptionHandler
 
@@ -20,6 +21,11 @@
 {
   if ([exception.name isEqualToString:FBUAlertObstructingElementException]) {
     id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusUnexpectedAlertPresent, @"Alert is obstructing view");
+    [payload dispatchWithResponse:response];
+    return YES;
+  }
+  if ([exception.name isEqualToString:FBApplicationCrashedException]) {
+    id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusStaleElementReference, [exception description]);
     [payload dispatchWithResponse:response];
     return YES;
   }
