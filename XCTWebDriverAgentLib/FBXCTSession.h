@@ -12,6 +12,8 @@
 #import <XCTWebDriverAgentLib/FBSession.h>
 #import <XCTWebDriverAgentLib/XCUIApplication.h>
 
+extern NSString *const FBApplicationCrashedException;
+
 @interface FBXCTSession : FBSession
 @property (nonatomic, strong, readonly) XCUIApplication *application;
 

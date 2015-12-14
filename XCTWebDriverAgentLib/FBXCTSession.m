@@ -18,6 +18,8 @@
 
 #import "FBXCTElementCache.h"
 
+NSString *const FBApplicationCrashedException = @"FBApplicationCrashedException";
+
 @interface FBXCTSession ()
 @property (nonatomic, strong, readwrite) XCUIApplication *application;
 @end
@@ -36,6 +38,9 @@
 
 - (XCUIApplication *)application
 {
+  if (!_application.running) {
+    [[NSException exceptionWithName:FBApplicationCrashedException reason:@"Application is not running, possibly crashed" userInfo:nil] raise];
+  }
   [_application resolve];
   return _application;
 }
