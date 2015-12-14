@@ -9,19 +9,17 @@
 
 #import "FBWebServer.h"
 
-#import <arpa/inet.h>
-#import <ifaddrs.h>
-#import <objc/runtime.h>
-
 #import <RoutingHTTPServer/RoutingConnection.h>
 #import <RoutingHTTPServer/RoutingHTTPServer.h>
 
 #import "FBCommandHandler.h"
 #import "FBRouteRequest.h"
+#import "FBRuntimeUtils.h"
 #import "FBSession.h"
 #import "FBUnknownCommands.h"
-#import "FBWDALogger.h"
 #import "FBWDAConstants.h"
+#import "FBWDALogger.h"
+#import "UIDevice+Wifi_IP.h"
 
 NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer";
 static NSString *const FBServerURLBeginMarker = @"ServerURLHere->";
@@ -47,58 +45,18 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 @implementation FBWebServer
 
-+ (NSString *)getIPAddress
++ (NSArray<Class<FBCommandHandler>> *)collectCommandHandlerClasses
 {
-  struct ifaddrs *interfaces = NULL;
-  struct ifaddrs *temp_addr = NULL;
-  int success = getifaddrs(&interfaces);
-  if (success != 0) {
-    freeifaddrs(interfaces);
-    return nil;
-  }
-  
-  NSString *address;
-  temp_addr = interfaces;
-  while(temp_addr != NULL) {
-    if(temp_addr->ifa_addr->sa_family != AF_INET) {
-      temp_addr = temp_addr->ifa_next;
-      continue;
-    }
-    NSString *interfaceName = [NSString stringWithUTF8String:temp_addr->ifa_name];
-    if(![interfaceName containsString:@"en"]) {
-      temp_addr = temp_addr->ifa_next;
-      continue;
-    }
-    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
-    break;
-  }
-  freeifaddrs(interfaces);
-  return address;
-}
-
-+ (NSArray *)collectCommandHandlerClasses
-{
-  Class *classes = NULL;
+  NSArray *handlersClasses = FBClassesThatConformsToProtocol(@protocol(FBCommandHandler));
   NSMutableArray *handlers = [NSMutableArray array];
-  int numClasses = objc_getClassList(NULL, 0);
-  if (numClasses == 0 ) {
-    return nil;
-  }
-
-  classes = (__unsafe_unretained Class*)malloc(sizeof(Class) * numClasses);
-  numClasses = objc_getClassList(classes, numClasses);
-  for (int index = 0; index < numClasses; index++) {
-    Class aClass = classes[index];
-    if (class_conformsToProtocol(aClass, @protocol(FBCommandHandler))) {
-      if ([aClass respondsToSelector:@selector(shouldRegisterAutomatically)]) {
-        if (![aClass shouldRegisterAutomatically]) {
-          continue;
-        }
+  for (Class aClass in handlersClasses) {
+    if ([aClass respondsToSelector:@selector(shouldRegisterAutomatically)]) {
+      if (![aClass shouldRegisterAutomatically]) {
+        continue;
       }
-      [handlers addObject:aClass];
     }
+    [handlers addObject:aClass];
   }
-  free(classes);
   return handlers.copy;
 }
 
@@ -138,7 +96,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   };
   [FBWDALogger logFmt:@"WebDriverAgent started on port %hu", [self.server port]];
   [[NSNotificationCenter defaultCenter] postNotificationName:@"WebDriverAgentDidStart" object:nil userInfo:startInfo];
-  [FBWDALogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [self.class getIPAddress], [self.server port], FBServerURLEndMarker];
+  [FBWDALogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [UIDevice currentDevice].wifiIPAddress, [self.server port], FBServerURLEndMarker];
 }
 
 - (BOOL)attemptToStartServer:(RoutingHTTPServer *)server onPort:(NSInteger)port withError:(NSError **)error
