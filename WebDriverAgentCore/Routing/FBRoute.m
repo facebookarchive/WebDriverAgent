@@ -23,7 +23,7 @@
 
 @end
 
-static NSString *const FBRouteSessionPrefix = @"/session/:sessionID/";
+static NSString *const FBRouteSessionPrefix = @"/session/:sessionID";
 
 @interface FBRoute_Sync : FBRoute
 @property (nonatomic, copy, readwrite) FBRouteSyncHandler handler;
@@ -82,8 +82,11 @@ static NSString *const FBRouteSessionPrefix = @"/session/:sessionID/";
     }
   } else {
     if (range.location == 0) {
-      pathPattern = [pathPattern stringByReplacingCharactersInRange:range withString:@"/"];
+      pathPattern = [pathPattern stringByReplacingCharactersInRange:range withString:@""];
     }
+  }
+  if (pathPattern.length == 0) {
+    pathPattern = @"/";
   }
   return pathPattern;
 }
