@@ -23,11 +23,22 @@
   return @[
     [[FBRoute POST:@"/deactivateApp"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       id duration = request.arguments[@"duration"];
-      // TODO(t8051359): This is terrible and we should file a Radar for this.
-      if (FBWDAConstants.isIOS9OrGreater) {
-        [UIATarget.localTarget lockForDuration:duration];
-      } else {
-        duration ? [UIATarget.localTarget deactivateAppForDuration:duration] : [UIATarget.localTarget deactivateApp];
+      @try {
+        // TODO(t8051359): This is terrible and we should file a Radar for this.
+        if (FBWDAConstants.isIOS9OrGreater) {
+          [UIATarget.localTarget lockForDuration:duration];
+        } else {
+          duration ? [UIATarget.localTarget deactivateAppForDuration:duration] : [UIATarget.localTarget deactivateApp];
+        }
+      }
+      @catch (NSException *exception) {
+        if ([exception.reason rangeOfString:@"-lock element not found"].location == NSNotFound) {
+          @throw exception;
+        }
+        if ([UIATarget.localTarget.frontMostApp.name isEqualToString:@"SpringBoard"]) {
+          @throw exception;
+        }
+        // In this case we ignore exception, because it is common false failure that happens since Xcode 7.1
       }
       return FBResponseDictionaryWithOK();
     }],
