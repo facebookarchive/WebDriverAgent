@@ -47,6 +47,7 @@
 		ADA470371C0E814F002CDE9C /* FBCoreExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA470311C0E7FD8002CDE9C /* FBCoreExceptionHandler.m */; };
 		EE040DC51C1201BB00D0945C /* UIAutomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8571B99E45400F8BA6F /* UIAutomation.framework */; };
 		EE040DC61C12041500D0945C /* AccessibilityUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */; };
+		EE0666D21C21A40800A0A703 /* FBDebugLogDelegateDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0666D11C21A40800A0A703 /* FBDebugLogDelegateDecorator.m */; };
 		EE0CA1DF1BF0D0E3005C43CD /* FBSession.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */; };
 		EE0CA1E01BF0D0E3005C43CD /* FBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0CA1DE1BF0D0E3005C43CD /* FBSession.m */; };
 		EE0CA1E61BF0D459005C43CD /* FBSession-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */; };
@@ -183,7 +184,7 @@
 		EED031511BFA397A007EDC1D /* XCApplicationQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F31BFA3461007EDC1D /* XCApplicationQuery.h */; };
 		EED031521BFA397A007EDC1D /* XCAXClient_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F41BFA3461007EDC1D /* XCAXClient_iOS.h */; };
 		EED031531BFA397A007EDC1D /* XCAXManager_OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F51BFA3461007EDC1D /* XCAXManager_OSX.h */; };
-		EED031541BFA397A007EDC1D /* XCDebugLogDelegate-Protocol.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F61BFA3461007EDC1D /* XCDebugLogDelegate-Protocol.h */; };
+		EED031541BFA397A007EDC1D /* XCDebugLogDelegate-Protocol.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F61BFA3461007EDC1D /* XCDebugLogDelegate-Protocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EED031551BFA397A007EDC1D /* XCDeviceEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F71BFA3461007EDC1D /* XCDeviceEvent.h */; };
 		EED031561BFA397A007EDC1D /* XCElementSnapshot-Hitpoint.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030F91BFA3461007EDC1D /* XCElementSnapshot-Hitpoint.h */; };
 		EED031571BFA397A007EDC1D /* XCElementSnapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030FA1BFA3461007EDC1D /* XCElementSnapshot.h */; };
@@ -431,6 +432,8 @@
 		D17FD3E4AF3ECD6BC73CACFA /* Pods-WebDriverAgentLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLibTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests.release.xcconfig"; sourceTree = "<group>"; };
 		DA846E1E751106917FCF1B26 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE2E79F594F94C8B6896C776 /* Pods-WebDriverAgent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgent.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgent/Pods-WebDriverAgent.release.xcconfig"; sourceTree = "<group>"; };
+		EE0666D01C21A40800A0A703 /* FBDebugLogDelegateDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDebugLogDelegateDecorator.h; sourceTree = "<group>"; };
+		EE0666D11C21A40800A0A703 /* FBDebugLogDelegateDecorator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBDebugLogDelegateDecorator.m; sourceTree = "<group>"; };
 		EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSession.h; sourceTree = "<group>"; };
 		EE0CA1DE1BF0D0E3005C43CD /* FBSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSession.m; sourceTree = "<group>"; };
 		EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FBSession-Private.h"; sourceTree = "<group>"; };
@@ -1019,6 +1022,8 @@
 			children = (
 				EEC288F61BF0ED2500B4DC79 /* Info.plist */,
 				EEC288F71BF0ED2500B4DC79 /* UITestingUITests.m */,
+				EE0666D01C21A40800A0A703 /* FBDebugLogDelegateDecorator.h */,
+				EE0666D11C21A40800A0A703 /* FBDebugLogDelegateDecorator.m */,
 			);
 			path = XCTUITestRunner;
 			sourceTree = "<group>";
@@ -1923,6 +1928,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEC289AF1BF0EE2B00B4DC79 /* UITestingUITests.m in Sources */,
+				EE0666D21C21A40800A0A703 /* FBDebugLogDelegateDecorator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

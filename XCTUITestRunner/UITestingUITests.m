@@ -14,6 +14,8 @@
 #import <XCTWebDriverAgentLib/FBXCTWebDriverAgent.h>
 #import <XCTWebDriverAgentLib/XCTestCase.h>
 
+#import "FBDebugLogDelegateDecorator.h"
+
 @interface FBXCTestCaseImplementationFailureHoldingProxy : NSProxy
 @property (nonatomic, strong) _XCTestCaseImplementation *internalImplementation;
 
@@ -48,6 +50,12 @@
 @end
 
 @implementation UITestingUITests
+
++ (void)setUp
+{
+  [FBDebugLogDelegateDecorator decorateXCTestLogger];
+  [super setUp];
+}
 
 - (void)setUp
 {
