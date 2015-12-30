@@ -38,7 +38,7 @@
       [FBXCTSession sessionWithXCUIApplication:app];
       return [FBResponsePayload okWith:
        @{
-         @"capabilities" : [self.class currentCapabilities],
+         @"capabilities" : [self.class currentCapabilitiesForApplication:app],
         }
        ];
     }],
@@ -81,11 +81,18 @@
 + (NSDictionary *)currentCapabilities
 {
   FBXCTSession *session = (FBXCTSession *)[FBSession activeSession];
+  return [self currentCapabilitiesForApplication:session.application];
+}
+
++ (NSDictionary *)currentCapabilitiesForApplication:(XCUIApplication *)application
+{
   return @{
     @"device": ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ? @"ipad" : @"iphone",
     @"sdkVersion": [[UIDevice currentDevice] systemVersion],
-    @"browserName": session.application.label,
-    @"CFBundleIdentifier": session.application.bundleID,
+    @"browserName": application.label ?: [NSNull null],
+    @"CFBundleIdentifier": application.bundleID ?: [NSNull null],
+    @"applicationProcessID": @(application.processID),
+    @"webdriverProcessID": @([NSProcessInfo processInfo].processIdentifier),
   };
 }
 
