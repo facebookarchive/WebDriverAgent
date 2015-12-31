@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 
 #import <XCTWebDriverAgentLib/_XCTestCaseImplementation.h>
+#import <XCTWebDriverAgentLib/FBCoreExceptionHandler.h>
 #import <XCTWebDriverAgentLib/FBWDALogger.h>
 #import <XCTWebDriverAgentLib/FBXCTWebDriverAgent.h>
 #import <XCTWebDriverAgentLib/XCTestCase.h>
@@ -72,6 +73,12 @@
 - (void)_enqueueFailureWithDescription:(NSString *)description inFile:(NSString *)filePath atLine:(NSUInteger)lineNumber expected:(BOOL)expected
 {
   [FBWDALogger logFmt:@"Enqueue Failure: %@ %@ %lu %d", description, filePath, (unsigned long)lineNumber, expected];
+
+  // Failure to fetch snapshot indicates app deadlock
+  const BOOL isPossibleDeadlock = ([description rangeOfString:@"Failed to get refreshed snapshot"].location != NSNotFound);
+  if (isPossibleDeadlock) {
+    [[NSException exceptionWithName:FBApplicationDeadlockDetectedException reason:@"Can't communicate with deadlocked application" userInfo:nil] raise];
+  }
 }
 
 @end
