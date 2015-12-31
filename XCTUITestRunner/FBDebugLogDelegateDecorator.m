@@ -35,8 +35,8 @@ id<XCDebugLogDelegate> XCDebugLogger();
 {
   NSString *debugLogEntry = logEntry;
   if ([logEntry rangeOfString:@" XCTStubApps["].location != NSNotFound) {
-    // It will ignore "13:37:07.638 XCTStubApps[56374:10997466] " from log entry
-    const NSUInteger ignoreCharCount = 41;
+    // Ignoring "13:37:07.638 XCTStubApps[56374:10997466] " from log entry
+    NSUInteger ignoreCharCount = [logEntry rangeOfString:@"]"].location + 2;
     debugLogEntry = [logEntry substringWithRange:NSMakeRange(ignoreCharCount, logEntry.length - ignoreCharCount)];
   }
   NSLog(@"%@", debugLogEntry);
