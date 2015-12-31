@@ -40,4 +40,5 @@ typedef NS_ENUM(NSUInteger, FBCommandStatus){
     FBCommandStatusInvalidXPathSelectorReturnType = 52,// "Invalid XPath selector return type")
     FBCommandStatusMethodNotAllowed = 405,// "Method not allowed")
     FBCommandStatusRotationNotAllowed = 777,// "Rotation not allowed")
+    FBCommandStatusApplicationDeadlockDetected = 888,// "Application deadlock detected")
 };

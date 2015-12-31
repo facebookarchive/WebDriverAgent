@@ -12,6 +12,7 @@
 #import "FBWebServer.h"
 
 extern NSString *const FBSessionDoesNotExistException;
+extern NSString *const FBApplicationDeadlockDetectedException;
 
 @interface FBCoreExceptionHandler : NSObject <FBWebServerExceptionHandler>
 

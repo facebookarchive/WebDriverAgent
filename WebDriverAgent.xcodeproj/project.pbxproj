@@ -42,7 +42,7 @@
 		AAA282DA1BCF8FB70027DE10 /* FBSessionCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = AAA282C21BCF8FB70027DE10 /* FBSessionCommands.h */; };
 		AAA282DB1BCF8FB70027DE10 /* FBSessionCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA282C31BCF8FB70027DE10 /* FBSessionCommands.m */; };
 		ADA470341C0E814B002CDE9C /* FBCoreExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = ADA470301C0E7FD8002CDE9C /* FBCoreExceptionHandler.h */; };
-		ADA470351C0E814B002CDE9C /* FBCoreExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = ADA470301C0E7FD8002CDE9C /* FBCoreExceptionHandler.h */; };
+		ADA470351C0E814B002CDE9C /* FBCoreExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = ADA470301C0E7FD8002CDE9C /* FBCoreExceptionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ADA470361C0E814E002CDE9C /* FBCoreExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA470311C0E7FD8002CDE9C /* FBCoreExceptionHandler.m */; };
 		ADA470371C0E814F002CDE9C /* FBCoreExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA470311C0E7FD8002CDE9C /* FBCoreExceptionHandler.m */; };
 		EE040DC51C1201BB00D0945C /* UIAutomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8571B99E45400F8BA6F /* UIAutomation.framework */; };

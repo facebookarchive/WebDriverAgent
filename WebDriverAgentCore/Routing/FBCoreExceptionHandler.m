@@ -14,11 +14,18 @@
 #import "FBResponsePayload.h"
 
 NSString *const FBSessionDoesNotExistException = @"FBSessionDoesNotExistException";
+NSString *const FBApplicationDeadlockDetectedException = @"FBApplicationDeadlockDetectedException";
 
 @implementation FBCoreExceptionHandler
 
 - (BOOL)webServer:(FBWebServer *)webServer handleException:(NSException *)exception forResponse:(RouteResponse *)response
 {
+  if ([exception.name isEqualToString:FBApplicationDeadlockDetectedException]) {
+    id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusApplicationDeadlockDetected, [exception description]);
+    [payload dispatchWithResponse:response];
+    return YES;
+  }
+
   if ([exception.name isEqualToString:FBSessionDoesNotExistException]) {
     id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusNoSuchSession, [exception description]);
     [payload dispatchWithResponse:response];
