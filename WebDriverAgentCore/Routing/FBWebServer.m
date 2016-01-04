@@ -12,6 +12,7 @@
 #import <RoutingHTTPServer/RoutingConnection.h>
 #import <RoutingHTTPServer/RoutingHTTPServer.h>
 
+#import "FBCoreExceptionHandler.h"
 #import "FBCommandHandler.h"
 #import "FBRouteRequest.h"
 #import "FBRuntimeUtils.h"
@@ -142,6 +143,11 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
       }];
     }
   }
+}
+
+- (void)handleAppDeadlockDetection
+{
+  [[NSException exceptionWithName:FBApplicationDeadlockDetectedException reason:@"Can't communicate with deadlocked application" userInfo:nil] raise];
 }
 
 - (void)handleException:(NSException *)exception forResponse:(RouteResponse *)response

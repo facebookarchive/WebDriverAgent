@@ -13,22 +13,14 @@
 #import "FBWDALogger.h"
 #import "FBWebServer.h"
 #import "FBXCTExceptionHandler.h"
+#import "FBSession-Private.h"
+#import "FBXCTSession.h"
 
 @interface FBXCTWebDriverAgent ()
 @property (atomic, strong, readwrite) FBWebServer *server;
 @end
 
 @implementation FBXCTWebDriverAgent
-
-+ (instancetype)sharedAgent
-{
-  static id agent;
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    agent = [[self alloc] init];
-  });
-  return agent;
-}
 
 - (void)start
 {
@@ -37,6 +29,18 @@
   self.server.exceptionHandlers = @[[FBCoreExceptionHandler new], [FBXCTExceptionHandler new]];
   [self.server startServing];
   [[NSRunLoop mainRunLoop] run];
+}
+
+- (void)handleTestFailureWithDescription:(NSString *)failureDescription
+{
+  FBXCTSession *session = [FBXCTSession activeSession];
+  const BOOL isPossibleDeadlock = ([failureDescription rangeOfString:@"Failed to get refreshed snapshot"].location != NSNotFound);
+  if (!isPossibleDeadlock) {
+    session.didRegisterAXTestFailure = YES;
+  }
+  else if (session.didRegisterAXTestFailure) {
+    [self.server handleAppDeadlockDetection];
+  }
 }
 
 @end
