@@ -12,6 +12,7 @@
 		37CA45C6BBDF2A99EA05035E /* libPods-XCTUITestRunner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A34459487822F33D42FD222E /* libPods-XCTUITestRunner.a */; };
 		3CC397CE664E295947463C5C /* libPods-WebDriverAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F204A7ED0F3E8EEFB1A1C300 /* libPods-WebDriverAgent.a */; };
 		498495CB1BB2EB9B009CC848 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */; };
+		91607A951C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 91607A941C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h */; };
 		91E7D8581B99E45400F8BA6F /* UIAutomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8571B99E45400F8BA6F /* UIAutomation.framework */; };
 		91E7D85A1B99E46D00F8BA6F /* AccessibilityUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */; };
 		91F9DAEF1B99DBC2001349B2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DAEE1B99DBC2001349B2 /* main.m */; };
@@ -331,6 +332,7 @@
 		8286A75C98FB0AA2448EF1E7 /* Pods-XCTWebDriverAgentLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTWebDriverAgentLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XCTWebDriverAgentLib/Pods-XCTWebDriverAgentLib.debug.xcconfig"; sourceTree = "<group>"; };
 		86762B93D2FADAABEE7E2B3D /* Pods-WebDriverAgentLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLib/Pods-WebDriverAgentLib.debug.xcconfig"; sourceTree = "<group>"; };
 		8C01E5F49840B2A26406048F /* Pods-XCTUITestRunner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTUITestRunner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner.debug.xcconfig"; sourceTree = "<group>"; };
+		91607A941C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAHardwareKeyboard.h; sourceTree = "<group>"; };
 		91E7D8571B99E45400F8BA6F /* UIAutomation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIAutomation.framework; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks/UIAutomation.framework; sourceTree = DEVELOPER_DIR; };
 		91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AccessibilityUtilities.framework; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks/AccessibilityUtilities.framework; sourceTree = DEVELOPER_DIR; };
 		91E7D85B1B99E90400F8BA6F /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -835,6 +837,7 @@
 				91F9DB851B99DDF0001349B2 /* UIAElementArray.h */,
 				91F9DB861B99DDF0001349B2 /* UIAElementNil.h */,
 				91F9DB871B99DDF0001349B2 /* UIAElementSynonym.h */,
+				91607A941C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h */,
 				91F9DB881B99DDF0001349B2 /* UIAHost.h */,
 				91F9DB891B99DDF0001349B2 /* UIAImage.h */,
 				91F9DB8A1B99DDF0001349B2 /* UIAKey.h */,
@@ -1225,6 +1228,7 @@
 				EE3D73BB1BECCA770034D1E9 /* FBUIAElementCache.h in Headers */,
 				EE0CA1E61BF0D459005C43CD /* FBSession-Private.h in Headers */,
 				EEC28B081BF2128200B4DC79 /* FBUIASession.h in Headers */,
+				91607A951C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h in Headers */,
 				EE5503551BF218A800CD04B3 /* UIAElement+WebDriverXML.h in Headers */,
 				AAA282DA1BCF8FB70027DE10 /* FBSessionCommands.h in Headers */,
 			);
