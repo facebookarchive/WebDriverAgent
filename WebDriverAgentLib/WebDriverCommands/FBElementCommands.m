@@ -19,6 +19,7 @@
 #import "UIAApplication.h"
 #import "UIAElement+WebDriverAttributes.h"
 #import "UIACollectionView.h"
+#import "UIAHardwareKeyboard.h"
 #import "UIAKeyboard.h"
 #import "UIAPickerWheel.h"
 #import "UIATarget.h"
@@ -191,9 +192,63 @@
 
 + (void)typeText:(NSString *)text
 {
-  UIAKeyboard *keyboard = [[[UIATarget localTarget] frontMostApp] keyboard];
-  [keyboard setInterKeyDelay:0.25];
-  [keyboard typeString:text];
+  for (NSInteger i = 0; i < [text length]; i++) {
+    NSString *characterString = [text substringWithRange:NSMakeRange(i, 1)];
+    NSDictionary *shift =
+    @{
+      @"!": @"1",
+      @"@": @"2",
+      @"#": @"3",
+      @"$": @"4",
+      @"%": @"5",
+      @"^": @"6",
+      @"&": @"7",
+      @"*": @"8",
+      @"(": @"9",
+      @")": @"0",
+      @"_": @"-",
+      @"?": @"/",
+      @"+": @"=",
+      @":": @";",
+      @"~": @"`",
+      @"{": @"[",
+      @"}": @"]",
+      @"\"": @"'",
+      @"<": @",",
+      @">": @".",
+      @"~": @"`",
+      @"|": @"\\",
+      };
+    NSArray *specialKeyCodes = @[ @"-", @"=", @"[", @"]", @"\\", @"\\", @";", @"'", @"`", @",", @".", @"/" ];
+    NSString *characterToType = @"";
+    BOOL useShift = NO;
+    if ([[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[characterString characterAtIndex:0]]) {
+      useShift = YES;
+      characterToType = [characterString lowercaseString];
+    } else if (shift[characterString]) {
+      useShift = YES;
+      characterToType = shift[characterString];
+    } else {
+      characterToType = characterString;
+    }
+    NSInteger keyCode = [specialKeyCodes indexOfObject:characterToType];
+    UIAHardwareKeyboard *hardwareKeyboard = [UIAHardwareKeyboard sharedHardwareKeyboard];
+    if (useShift) {
+      [hardwareKeyboard shiftKeyDown];
+    }
+
+    if (keyCode != NSNotFound) {
+      [hardwareKeyboard pressKeyWithKeyCode:(45 + keyCode)];
+    } else {
+      [hardwareKeyboard pressKeyWithString:characterToType];
+    }
+
+    usleep(10000);
+
+    if (useShift) {
+      [hardwareKeyboard shiftKeyUp];
+    }
+  }
 }
 
 @end
