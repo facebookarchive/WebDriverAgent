@@ -11,8 +11,8 @@
 
 @interface FBXCTWebDriverAgent : NSObject
 
-+ (instancetype)sharedAgent;
-
 - (void)start;
+
+- (void)handleTestFailureWithDescription:(NSString *)failureDescription;
 
 @end

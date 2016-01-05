@@ -19,6 +19,8 @@ extern NSString *const FBWebServerErrorDomain;
 
 - (void)startServing;
 
+- (void)handleAppDeadlockDetection;
+
 @end
 
 

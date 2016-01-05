@@ -48,6 +48,7 @@
 
 
 @interface UITestingUITests : XCTestCase
+@property (nonatomic, strong) FBXCTWebDriverAgent *agent;
 @end
 
 @implementation UITestingUITests
@@ -62,23 +63,19 @@
 {
   [super setUp];
   self.continueAfterFailure = YES;
+  self.agent = [FBXCTWebDriverAgent new];
 }
 
 - (void)testRunner
 {
   self.internalImplementation = (_XCTestCaseImplementation *)[FBXCTestCaseImplementationFailureHoldingProxy proxyWithXCTestCaseImplementation:self.internalImplementation];
-  [[FBXCTWebDriverAgent sharedAgent] start];
+  [self.agent start];
 }
 
 - (void)_enqueueFailureWithDescription:(NSString *)description inFile:(NSString *)filePath atLine:(NSUInteger)lineNumber expected:(BOOL)expected
 {
   [FBWDALogger logFmt:@"Enqueue Failure: %@ %@ %lu %d", description, filePath, (unsigned long)lineNumber, expected];
-
-  // Failure to fetch snapshot indicates app deadlock
-  const BOOL isPossibleDeadlock = ([description rangeOfString:@"Failed to get refreshed snapshot"].location != NSNotFound);
-  if (isPossibleDeadlock) {
-    [[NSException exceptionWithName:FBApplicationDeadlockDetectedException reason:@"Can't communicate with deadlocked application" userInfo:nil] raise];
-  }
+  [self.agent handleTestFailureWithDescription:description];
 }
 
 @end
