@@ -219,7 +219,7 @@
       @"~": @"`",
       @"|": @"\\",
       };
-    NSArray *specialKeyCodes = @[ @"-", @"=", @"[", @"]", @"\\", @"\\", @";", @"'", @"`", @",", @".", @"/" ];
+    NSArray *specialKeyCodes = @[ @"\n", @"", @"\b", @"\t", @" ", @"-", @"=", @"[", @"]", @"\\", @"\\", @";", @"'", @"`", @",", @".", @"/" ];
     NSString *characterToType = @"";
     BOOL useShift = NO;
     if ([[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[characterString characterAtIndex:0]]) {
@@ -238,7 +238,7 @@
     }
 
     if (keyCode != NSNotFound) {
-      [hardwareKeyboard pressKeyWithKeyCode:(45 + keyCode)];
+      [hardwareKeyboard pressKeyWithKeyCode:(40 + keyCode)];
     } else {
       [hardwareKeyboard pressKeyWithString:characterToType];
     }
