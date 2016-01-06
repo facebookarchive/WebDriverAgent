@@ -192,6 +192,15 @@
 
 + (void)typeText:(NSString *)text
 {
+  // Our hardware keyboard hack breaks when we try to hit backspace, so let's revert to the old strategy in those cases.
+  // Like all terrible code, I claim this will be gone completely in a couple months when we switch drivers.
+  if ([text containsString:@"\b"]) {
+    UIAKeyboard *keyboard = [[[UIATarget localTarget] frontMostApp] keyboard];
+    [keyboard setInterKeyDelay:0.25];
+    [keyboard typeString:text];
+    return;
+  }
+
   for (NSInteger i = 0; i < [text length]; i++) {
     NSString *characterString = [text substringWithRange:NSMakeRange(i, 1)];
     NSDictionary *shift =
