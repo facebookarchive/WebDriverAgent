@@ -250,6 +250,8 @@
 		EED031921BFA397A007EDC1D /* XCUIRecorderTimingMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031371BFA3461007EDC1D /* XCUIRecorderTimingMessage.h */; };
 		EED031931BFA397A007EDC1D /* XCUIRecorderUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031381BFA3461007EDC1D /* XCUIRecorderUtilities.h */; };
 		EED031941BFA397A007EDC1D /* XCUIRemote.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031391BFA3461007EDC1D /* XCUIRemote.h */; };
+		EEE7785F1C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE7785D1C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.h */; };
+		EEE778601C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE7785E1C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.m */; };
 		EEF1F18B1C1EC542008EABD2 /* UIDevice+Wifi_IP.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF1F1891C1EC542008EABD2 /* UIDevice+Wifi_IP.h */; };
 		EEF1F18C1C1EC542008EABD2 /* UIDevice+Wifi_IP.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF1F1891C1EC542008EABD2 /* UIDevice+Wifi_IP.h */; };
 		EEF1F18D1C1EC542008EABD2 /* UIDevice+Wifi_IP.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF1F18A1C1EC542008EABD2 /* UIDevice+Wifi_IP.m */; };
@@ -616,6 +618,8 @@
 		EED031371BFA3461007EDC1D /* XCUIRecorderTimingMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderTimingMessage.h; sourceTree = "<group>"; };
 		EED031381BFA3461007EDC1D /* XCUIRecorderUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderUtilities.h; sourceTree = "<group>"; };
 		EED031391BFA3461007EDC1D /* XCUIRemote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRemote.h; sourceTree = "<group>"; };
+		EEE7785D1C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIApplication+SpringBoard.h"; sourceTree = "<group>"; };
+		EEE7785E1C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIApplication+SpringBoard.m"; sourceTree = "<group>"; };
 		EEF1F1891C1EC542008EABD2 /* UIDevice+Wifi_IP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Wifi_IP.h"; sourceTree = "<group>"; };
 		EEF1F18A1C1EC542008EABD2 /* UIDevice+Wifi_IP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Wifi_IP.m"; sourceTree = "<group>"; };
 		EEF1F18F1C1EC623008EABD2 /* FBRuntimeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRuntimeUtils.m; sourceTree = "<group>"; };
@@ -1078,6 +1082,8 @@
 				EE5906CD1C049B7C00355001 /* XCElementSnapshot+Helpers.m */,
 				EE8300E51C08CF7200217020 /* XCEventGenerator+SyncEvents.h */,
 				EE8300E61C08CF7200217020 /* XCEventGenerator+SyncEvents.m */,
+				EEE7785D1C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.h */,
+				EEE7785E1C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.m */,
 				EEC28AF61BF2124700B4DC79 /* XCUIElement+FBIsVisible.h */,
 				EEC28AF71BF2124700B4DC79 /* XCUIElement+FBIsVisible.m */,
 				EEC28AF81BF2124700B4DC79 /* XCUIElement+FBScrolling.h */,
@@ -1295,6 +1301,7 @@
 				EED0314E1BFA397A007EDC1D /* XCApplicationMonitor.h in Headers */,
 				EED031411BFA397A007EDC1D /* _XCTestCaseInterruptionException.h in Headers */,
 				EEC289C51BF0EE4E00B4DC79 /* FBXCTExceptionHandler.h in Headers */,
+				EEE7785F1C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.h in Headers */,
 				EEC2898A1BF0ED3000B4DC79 /* FBElementCache.h in Headers */,
 				EED0314C1BFA397A007EDC1D /* XCAccessibilityElement.h in Headers */,
 				EED031621BFA397A007EDC1D /* XCSymbolicationRecord.h in Headers */,
@@ -1898,6 +1905,7 @@
 				EEC289B41BF0EE4000B4DC79 /* FBFindElementCommands.m in Sources */,
 				EE5503591BF2211400CD04B3 /* FBElement.m in Sources */,
 				EE5906CF1C049B7C00355001 /* XCElementSnapshot+Helpers.m in Sources */,
+				EEE778601C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.m in Sources */,
 				EEC289591BF0ED3000B4DC79 /* FBWebServer.m in Sources */,
 				EEC2895E1BF0ED3000B4DC79 /* FBWDAConstants.m in Sources */,
 				EEC289631BF0ED3000B4DC79 /* FBRouteRequest.m in Sources */,
