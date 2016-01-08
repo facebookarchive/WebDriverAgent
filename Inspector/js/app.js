@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-import React from 'react';  
+import React from 'react';
 
 import HTTP from 'js/http';
 import Screen from 'js/screen';
@@ -19,9 +19,9 @@ import Inspector from 'js/inspector';
 
 require('css/app.css')
 
-const SCREENSHOT_ENDPOINT = 'session/1/screenshot';
+const SCREENSHOT_ENDPOINT = 'screenshot';
 const TREE_ENDPOINT = 'tree';
-const ORIENTATION_ENDPOINT = 'session/1/orientation';
+const ORIENTATION_ENDPOINT = 'orientation';
 
 class App extends React.Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class App extends React.Component {
   }
 
   fetchTree() {
-    HTTP.get(TREE_ENDPOINT, (treeInfo) => {      
+    HTTP.get(TREE_ENDPOINT, (treeInfo) => {
       this.setState({
         rootNode: TreeNode.buildNode(treeInfo.tree, new TreeContext()),
       });

@@ -39,17 +39,18 @@ class Inspector extends React.Component {
     const attributes = this.props.selectedNode.attributes;
     return (
       <div>
-        {this.renderField('Class', attributes.class)}
-        {this.renderField('HasKeyboardFocus', boolToString(attributes.hasKeyboardFocus))}
-        {this.renderField('IsEnabled', boolToString(attributes.isEnabled))}
-        {this.renderField('IsValid', boolToString(attributes.isValid))}
+        {this.renderField('Class', attributes.type)}
         {this.renderField('Name', attributes.name)}
+        {this.renderField('Value', attributes.value)}
+        {this.renderField('Label', attributes.label)}
         {this.renderField('Rect', attributes.rect)}
+        {this.renderField('isEnabled', boolToString(attributes.isEnabled))}
+        {this.renderField('isVisible', boolToString(attributes.isVisible))}
       </div>
     );
   }
 
-  renderField(fieldName, fieldValue) {    
+  renderField(fieldName, fieldValue) {
     if (fieldValue == null) {
       return null;
     }

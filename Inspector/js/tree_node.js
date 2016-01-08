@@ -12,7 +12,7 @@ class TreeNode {
     const key = context.buildUniqueNodeKey();
     const name = TreeNode.buildFullName(node);
     const children = TreeNode.buildChildren(node, context);
-    return new TreeNode(key, name, children, node.rect, node.attributes);
+    return new TreeNode(key, name, children, node);
   }
 
   static buildFullName(node) {
@@ -33,12 +33,20 @@ class TreeNode {
     return children;
   }
 
-  constructor(key, name, children, rect, attributes) {
+  constructor(key, name, children, node) {
     this.key = key;
     this.name = name;
     this.children = children;
-    this.attributes = attributes;
-    this.rect = rect;
+    this.rect = node.rect;
+    this.attributes = {
+      type: node.type,
+      name: node.name,
+      value: node.value,
+      label: node.label,
+      rect: node.rect,
+      isEnabled: node.isEnabled,
+      isVisible: node.isVisible,
+    };
   }
 }
 
