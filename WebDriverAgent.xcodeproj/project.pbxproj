@@ -34,8 +34,6 @@
 		AAA282D11BCF8FB70027DE10 /* FBElementCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA282B91BCF8FB70027DE10 /* FBElementCommands.m */; };
 		AAA282D21BCF8FB70027DE10 /* FBFindElementCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = AAA282BA1BCF8FB70027DE10 /* FBFindElementCommands.h */; };
 		AAA282D31BCF8FB70027DE10 /* FBFindElementCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA282BB1BCF8FB70027DE10 /* FBFindElementCommands.m */; };
-		AAA282D41BCF8FB70027DE10 /* FBInspectorCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = AAA282BC1BCF8FB70027DE10 /* FBInspectorCommands.h */; };
-		AAA282D51BCF8FB70027DE10 /* FBInspectorCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA282BD1BCF8FB70027DE10 /* FBInspectorCommands.m */; };
 		AAA282D61BCF8FB70027DE10 /* FBOrientationCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = AAA282BE1BCF8FB70027DE10 /* FBOrientationCommands.h */; };
 		AAA282D71BCF8FB70027DE10 /* FBOrientationCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA282BF1BCF8FB70027DE10 /* FBOrientationCommands.m */; };
 		AAA282D81BCF8FB70027DE10 /* FBScreenshotCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = AAA282C01BCF8FB70027DE10 /* FBScreenshotCommands.h */; };
@@ -159,6 +157,9 @@
 		EEC28B081BF2128200B4DC79 /* FBUIASession.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28B061BF2128200B4DC79 /* FBUIASession.h */; };
 		EEC28B091BF2128200B4DC79 /* FBUIASession.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC28B071BF2128200B4DC79 /* FBUIASession.m */; };
 		EEC28B0F1BF215D800B4DC79 /* FBElement.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC28B0E1BF215D800B4DC79 /* FBElement.m */; };
+		EEC402061C40106200053801 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */; };
+		EEC402091C4010CB00053801 /* FBInspectorCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC402041C40104E00053801 /* FBInspectorCommands.m */; };
+		EEC4020A1C4010CC00053801 /* FBInspectorCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC402041C40104E00053801 /* FBInspectorCommands.m */; };
 		EED0313A1BFA3720007EDC1D /* CDStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E71BFA3461007EDC1D /* CDStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EED0313B1BFA397A007EDC1D /* _XCDarwinNotificationExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030DC1BFA3461007EDC1D /* _XCDarwinNotificationExpectation.h */; };
 		EED0313C1BFA397A007EDC1D /* _XCInternalTestRun.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030DD1BFA3461007EDC1D /* _XCInternalTestRun.h */; };
@@ -421,8 +422,6 @@
 		AAA282B91BCF8FB70027DE10 /* FBElementCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementCommands.m; sourceTree = "<group>"; };
 		AAA282BA1BCF8FB70027DE10 /* FBFindElementCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFindElementCommands.h; sourceTree = "<group>"; };
 		AAA282BB1BCF8FB70027DE10 /* FBFindElementCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBFindElementCommands.m; sourceTree = "<group>"; };
-		AAA282BC1BCF8FB70027DE10 /* FBInspectorCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBInspectorCommands.h; sourceTree = "<group>"; };
-		AAA282BD1BCF8FB70027DE10 /* FBInspectorCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBInspectorCommands.m; sourceTree = "<group>"; };
 		AAA282BE1BCF8FB70027DE10 /* FBOrientationCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBOrientationCommands.h; sourceTree = "<group>"; };
 		AAA282BF1BCF8FB70027DE10 /* FBOrientationCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBOrientationCommands.m; sourceTree = "<group>"; };
 		AAA282C01BCF8FB70027DE10 /* FBScreenshotCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBScreenshotCommands.h; sourceTree = "<group>"; };
@@ -527,6 +526,8 @@
 		EEC28B061BF2128200B4DC79 /* FBUIASession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBUIASession.h; sourceTree = "<group>"; };
 		EEC28B071BF2128200B4DC79 /* FBUIASession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBUIASession.m; sourceTree = "<group>"; };
 		EEC28B0E1BF215D800B4DC79 /* FBElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElement.m; sourceTree = "<group>"; };
+		EEC402031C40104E00053801 /* FBInspectorCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBInspectorCommands.h; sourceTree = "<group>"; };
+		EEC402041C40104E00053801 /* FBInspectorCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBInspectorCommands.m; sourceTree = "<group>"; };
 		EED030DC1BFA3461007EDC1D /* _XCDarwinNotificationExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCDarwinNotificationExpectation.h; sourceTree = "<group>"; };
 		EED030DD1BFA3461007EDC1D /* _XCInternalTestRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _XCInternalTestRun.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EED030DE1BFA3461007EDC1D /* _XCKVOExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _XCKVOExpectation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -898,8 +899,6 @@
 				AAA282B91BCF8FB70027DE10 /* FBElementCommands.m */,
 				AAA282BA1BCF8FB70027DE10 /* FBFindElementCommands.h */,
 				AAA282BB1BCF8FB70027DE10 /* FBFindElementCommands.m */,
-				AAA282BC1BCF8FB70027DE10 /* FBInspectorCommands.h */,
-				AAA282BD1BCF8FB70027DE10 /* FBInspectorCommands.m */,
 				AAA282BE1BCF8FB70027DE10 /* FBOrientationCommands.h */,
 				AAA282BF1BCF8FB70027DE10 /* FBOrientationCommands.m */,
 				AAA282C01BCF8FB70027DE10 /* FBScreenshotCommands.h */,
@@ -985,6 +984,8 @@
 		EE3D73CA1BECDBE80034D1E9 /* Commands */ = {
 			isa = PBXGroup;
 			children = (
+				EEC402031C40104E00053801 /* FBInspectorCommands.h */,
+				EEC402041C40104E00053801 /* FBInspectorCommands.m */,
 				EE3D73CB1BECDBE80034D1E9 /* FBUnknownCommands.h */,
 				EE3D73CC1BECDBE80034D1E9 /* FBUnknownCommands.m */,
 			);
@@ -1218,7 +1219,6 @@
 				EE3D73A61BECCA5A0034D1E9 /* FBResponseJSONPayload.h in Headers */,
 				EEF1F18B1C1EC542008EABD2 /* UIDevice+Wifi_IP.h in Headers */,
 				EE3D73B81BECCA5A0034D1E9 /* FBWDAMacros.h in Headers */,
-				AAA282D41BCF8FB70027DE10 /* FBInspectorCommands.h in Headers */,
 				EE3D73B41BECCA5A0034D1E9 /* FBWDAConstants.h in Headers */,
 				AAA282CC1BCF8FB70027DE10 /* FBCustomCommands.h in Headers */,
 				EE3D73BF1BECCC2E0034D1E9 /* FBElementCache.h in Headers */,
@@ -1504,6 +1504,7 @@
 				EEC2899E1BF0ED3100B4DC79 /* Check Pods Manifest.lock */,
 				EEC2899F1BF0ED3100B4DC79 /* Sources */,
 				EEC289A41BF0ED3100B4DC79 /* Frameworks */,
+				EEC402071C40107A00053801 /* Generate Resource Bundle */,
 				EEC289A71BF0ED3100B4DC79 /* Resources */,
 				EEC289A81BF0ED3100B4DC79 /* Copy Pods Resources */,
 				EEC289A91BF0ED3100B4DC79 /* Embed Pods Frameworks */,
@@ -1603,6 +1604,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEC402061C40106200053801 /* WebDriverAgent.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1803,6 +1805,20 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EEC402071C40107A00053801 /* Generate Resource Bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Resource Bundle";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${SRCROOT} && bash ./build_resource_bundle.sh";
+		};
 		EEE27CBD9703CA34A43EB1D5 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1847,7 +1863,7 @@
 				EE3D73B51BECCA5A0034D1E9 /* FBWDAConstants.m in Sources */,
 				EE3D73BC1BECCA770034D1E9 /* FBUIAElementCache.m in Sources */,
 				AAA282CB1BCF8FB70027DE10 /* FBAlertViewCommands.m in Sources */,
-				AAA282D51BCF8FB70027DE10 /* FBInspectorCommands.m in Sources */,
+				EEC402091C4010CB00053801 /* FBInspectorCommands.m in Sources */,
 				EEC28B0F1BF215D800B4DC79 /* FBElement.m in Sources */,
 				EE3D73AD1BECCA5A0034D1E9 /* FBRouteRequest.m in Sources */,
 				EE3D73B71BECCA5A0034D1E9 /* FBWDALogger.m in Sources */,
@@ -1908,6 +1924,7 @@
 				EEE778601C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.m in Sources */,
 				EEC289591BF0ED3000B4DC79 /* FBWebServer.m in Sources */,
 				EEC2895E1BF0ED3000B4DC79 /* FBWDAConstants.m in Sources */,
+				EEC4020A1C4010CC00053801 /* FBInspectorCommands.m in Sources */,
 				EEC289631BF0ED3000B4DC79 /* FBRouteRequest.m in Sources */,
 				EEC28B051BF2124700B4DC79 /* XCUIElement+WebDriverAttributes.m in Sources */,
 				EEC289B91BF0EE4000B4DC79 /* FBXCTExceptionHandler.m in Sources */,
