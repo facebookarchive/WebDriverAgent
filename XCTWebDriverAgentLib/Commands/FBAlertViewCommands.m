@@ -20,6 +20,7 @@
 #import "XCElementSnapshot.h"
 #import "XCEventGenerator+SyncEvents.h"
 #import "XCTestManager_ManagerInterface-Protocol.h"
+#import "XCUIApplication+SpringBoard.h"
 #import "XCUIApplication.h"
 #import "XCUICoordinate.h"
 #import "XCUIElement+WebDriverAttributes.h"
@@ -184,20 +185,12 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
     return alert.lastSnapshot;
   }
 
-  NSError *error;
-  XCUICoordinate *coordinate = [application coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)];
-  XCAccessibilityElement *accessibilityElement = [[XCAXClient_iOS sharedClient] elementAtPoint:coordinate.screenPoint error:&error];
-  XCElementSnapshot *alertSnapshot;
-
-  XCElementSnapshot *snapshot = [XCElementSnapshot fb_snapshotForAccessibilityElement:accessibilityElement];
-  while (snapshot.parentAccessibilityElement) {
-    if (snapshot.elementType == XCUIElementTypeAlert) {
-      alertSnapshot = snapshot;
-      break;
-    }
-    snapshot = [XCElementSnapshot fb_snapshotForAccessibilityElement:snapshot.parentAccessibilityElement];
+  alert = [self applicationAlertWithApplication:[XCUIApplication fb_SpringBoard]];
+  if (alert.exists) {
+    [alert resolve];
+    return alert.lastSnapshot;
   }
-  return alertSnapshot;
+  return nil;
 }
 
 @end
