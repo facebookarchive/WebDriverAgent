@@ -233,6 +233,9 @@
 
 + (id<FBResponsePayload>)handleScrollElementToVisible:(XCUIElement *)element withRequest:(FBRouteRequest *)request
 {
+  if (element.isFBVisible) {
+    return FBResponseDictionaryWithOK();
+  }
   [element resolve];
   [element scrollToVisible];
   [element resolve];

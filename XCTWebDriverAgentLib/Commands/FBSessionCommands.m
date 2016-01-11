@@ -36,14 +36,10 @@
       app.launchEnvironment = requirements[@"environment"] ?: @{};
       [app launch];
       [FBXCTSession sessionWithXCUIApplication:app];
-      return [FBResponsePayload okWith:
-       @{
-         @"capabilities" : [self.class currentCapabilitiesForApplication:app],
-        }
-       ];
+      return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
     }],
     [[FBRoute GET:@""] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self.class currentCapabilities]);
+      return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
     }],
     [[FBRoute GET:@"/status"].withoutSession respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{
@@ -78,15 +74,20 @@
   ];
 }
 
-+ (NSDictionary *)currentCapabilities
++ (NSDictionary *)sessionInformation
 {
-  FBXCTSession *session = (FBXCTSession *)[FBSession activeSession];
-  return [self currentCapabilitiesForApplication:session.application];
+  return
+  @{
+    @"sessionId" : [FBSession activeSession].identifier ?: NSNull.null,
+    @"capabilities" : FBSessionCommands.currentCapabilities
+  };
 }
 
-+ (NSDictionary *)currentCapabilitiesForApplication:(XCUIApplication *)application
++ (NSDictionary *)currentCapabilities
 {
-  return @{
+  XCUIApplication *application = ((FBXCTSession *)[FBSession activeSession]).application;
+  return
+  @{
     @"device": ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ? @"ipad" : @"iphone",
     @"sdkVersion": [[UIDevice currentDevice] systemVersion],
     @"browserName": application.label ?: [NSNull null],
