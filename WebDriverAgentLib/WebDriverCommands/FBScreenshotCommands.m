@@ -24,6 +24,10 @@ static NSString *const kUIALoggingKeyScreenshotData = @"kUIALoggingKeyScreenshot
     [[FBRoute GET:@"/screenshot"].withoutSession respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSString *screenshot = [[self captureScreenShotOnTarget:UIATarget.localTarget] base64EncodedStringWithOptions:0];
       return [FBResponsePayload okWith:screenshot];
+    }],
+    [[FBRoute GET:@"/screenshot"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+      NSString *screenshot = [[self captureScreenShotOnTarget:UIATarget.localTarget] base64EncodedStringWithOptions:0];
+      return [FBResponsePayload okWith:screenshot];
     }]
   ];
 }
