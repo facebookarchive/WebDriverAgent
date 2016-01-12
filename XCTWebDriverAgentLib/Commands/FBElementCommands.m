@@ -58,6 +58,17 @@
         XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
         return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdLocation);
     }],
+    [[FBRoute GET:@"/element/:id/location_in_view"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+        FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+        XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+        [element resolve];
+        [element scrollToVisible];
+        [element resolve];
+        if (!element.isFBVisible) {
+            return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, @{});
+        }
+        return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdLocation);
+    }],
     [[FBRoute GET:@"/element/:id/attribute/:name"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       NSInteger elementID = [request.parameters[@"id"] integerValue];
