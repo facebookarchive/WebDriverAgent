@@ -12,10 +12,10 @@
 		37CA45C6BBDF2A99EA05035E /* libPods-XCTUITestRunner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A34459487822F33D42FD222E /* libPods-XCTUITestRunner.a */; };
 		3CC397CE664E295947463C5C /* libPods-WebDriverAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F204A7ED0F3E8EEFB1A1C300 /* libPods-WebDriverAgent.a */; };
 		498495CB1BB2EB9B009CC848 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */; };
-		5B0592491C40404400C72B2B /* FBTouchIDCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B0592471C40404400C72B2B /* FBTouchIDCommands.h */; };
-		5B05924A1C40404400C72B2B /* FBTouchIDCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B0592471C40404400C72B2B /* FBTouchIDCommands.h */; };
-		5B05924B1C40404400C72B2B /* FBTouchIDCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0592481C40404400C72B2B /* FBTouchIDCommands.m */; };
-		5B05924C1C40404400C72B2B /* FBTouchIDCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0592481C40404400C72B2B /* FBTouchIDCommands.m */; };
+		5BF023211C468F5E00AC725C /* FBTouchIDCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BF0231F1C468F5E00AC725C /* FBTouchIDCommands.h */; };
+		5BF023221C468F5E00AC725C /* FBTouchIDCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BF0231F1C468F5E00AC725C /* FBTouchIDCommands.h */; };
+		5BF023231C468F5E00AC725C /* FBTouchIDCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF023201C468F5E00AC725C /* FBTouchIDCommands.m */; };
+		5BF023241C468F5E00AC725C /* FBTouchIDCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF023201C468F5E00AC725C /* FBTouchIDCommands.m */; };
 		91607A951C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 91607A941C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h */; };
 		91E7D8581B99E45400F8BA6F /* UIAutomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8571B99E45400F8BA6F /* UIAutomation.framework */; };
 		91E7D85A1B99E46D00F8BA6F /* AccessibilityUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */; };
@@ -334,8 +334,8 @@
 		3B16C2A60F36356996EE8EBB /* Pods-WebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLib/Pods-WebDriverAgentLib.release.xcconfig"; sourceTree = "<group>"; };
 		410A1F98CE4D889BDD2640C8 /* Pods-XCTUITestRunner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTUITestRunner.release.xcconfig"; path = "Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner.release.xcconfig"; sourceTree = "<group>"; };
 		498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WebDriverAgent.bundle; sourceTree = "<group>"; };
-		5B0592471C40404400C72B2B /* FBTouchIDCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTouchIDCommands.h; sourceTree = "<group>"; };
-		5B0592481C40404400C72B2B /* FBTouchIDCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTouchIDCommands.m; sourceTree = "<group>"; };
+		5BF0231F1C468F5E00AC725C /* FBTouchIDCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTouchIDCommands.h; sourceTree = "<group>"; };
+		5BF023201C468F5E00AC725C /* FBTouchIDCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTouchIDCommands.m; sourceTree = "<group>"; };
 		5D6EAD48D91D44DDAB21D256 /* libPods-WebDriverAgentLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgentLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7191916E53767F463FBE793C /* Pods-XCTWebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTWebDriverAgentLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-XCTWebDriverAgentLib/Pods-XCTWebDriverAgentLib.release.xcconfig"; sourceTree = "<group>"; };
 		8286A75C98FB0AA2448EF1E7 /* Pods-XCTWebDriverAgentLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTWebDriverAgentLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XCTWebDriverAgentLib/Pods-XCTWebDriverAgentLib.debug.xcconfig"; sourceTree = "<group>"; };
@@ -911,8 +911,6 @@
 				AAA282C11BCF8FB70027DE10 /* FBScreenshotCommands.m */,
 				AAA282C21BCF8FB70027DE10 /* FBSessionCommands.h */,
 				AAA282C31BCF8FB70027DE10 /* FBSessionCommands.m */,
-				5B0592471C40404400C72B2B /* FBTouchIDCommands.h */,
-				5B0592481C40404400C72B2B /* FBTouchIDCommands.m */,
 			);
 			path = WebDriverCommands;
 			sourceTree = "<group>";
@@ -994,6 +992,8 @@
 			children = (
 				EEC402031C40104E00053801 /* FBInspectorCommands.h */,
 				EEC402041C40104E00053801 /* FBInspectorCommands.m */,
+				5BF0231F1C468F5E00AC725C /* FBTouchIDCommands.h */,
+				5BF023201C468F5E00AC725C /* FBTouchIDCommands.m */,
 				EE3D73CB1BECDBE80034D1E9 /* FBUnknownCommands.h */,
 				EE3D73CC1BECDBE80034D1E9 /* FBUnknownCommands.m */,
 			);
@@ -1229,6 +1229,7 @@
 				EE3D73B81BECCA5A0034D1E9 /* FBWDAMacros.h in Headers */,
 				EE3D73B41BECCA5A0034D1E9 /* FBWDAConstants.h in Headers */,
 				AAA282CC1BCF8FB70027DE10 /* FBCustomCommands.h in Headers */,
+				5BF023211C468F5E00AC725C /* FBTouchIDCommands.h in Headers */,
 				EE3D73BF1BECCC2E0034D1E9 /* FBElementCache.h in Headers */,
 				AAA282D61BCF8FB70027DE10 /* FBOrientationCommands.h in Headers */,
 				EE3D73CD1BECDBE80034D1E9 /* FBUnknownCommands.h in Headers */,
@@ -1241,7 +1242,6 @@
 				EE3D73A41BECCA5A0034D1E9 /* FBResponseFilePayload.h in Headers */,
 				EE3D73BB1BECCA770034D1E9 /* FBUIAElementCache.h in Headers */,
 				EE0CA1E61BF0D459005C43CD /* FBSession-Private.h in Headers */,
-				5B0592491C40404400C72B2B /* FBTouchIDCommands.h in Headers */,
 				EEC28B081BF2128200B4DC79 /* FBUIASession.h in Headers */,
 				91607A951C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h in Headers */,
 				EE5503551BF218A800CD04B3 /* UIAElement+WebDriverXML.h in Headers */,
@@ -1308,7 +1308,6 @@
 				EED031531BFA397A007EDC1D /* XCAXManager_OSX.h in Headers */,
 				EEC289881BF0ED3000B4DC79 /* FBWDAConstants.h in Headers */,
 				EED0314E1BFA397A007EDC1D /* XCApplicationMonitor.h in Headers */,
-				5B05924A1C40404400C72B2B /* FBTouchIDCommands.h in Headers */,
 				EED031411BFA397A007EDC1D /* _XCTestCaseInterruptionException.h in Headers */,
 				EEC289C51BF0EE4E00B4DC79 /* FBXCTExceptionHandler.h in Headers */,
 				EEE7785F1C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.h in Headers */,
@@ -1317,6 +1316,7 @@
 				EED031621BFA397A007EDC1D /* XCSymbolicationRecord.h in Headers */,
 				EED0313B1BFA397A007EDC1D /* _XCDarwinNotificationExpectation.h in Headers */,
 				EED0313A1BFA3720007EDC1D /* CDStructures.h in Headers */,
+				5BF023221C468F5E00AC725C /* FBTouchIDCommands.h in Headers */,
 				EED031771BFA397A007EDC1D /* XCTestManager_IDEInterface-Protocol.h in Headers */,
 				EED031551BFA397A007EDC1D /* XCDeviceEvent.h in Headers */,
 				EED0318D1BFA397A007EDC1D /* XCUIElementAsynchronousHandlerWrapper.h in Headers */,
@@ -1883,7 +1883,7 @@
 				EE0CA1E01BF0D0E3005C43CD /* FBSession.m in Sources */,
 				EE5503561BF218A800CD04B3 /* UIAElement+WebDriverXML.m in Sources */,
 				EE3D73A91BECCA5A0034D1E9 /* FBResponsePayload.m in Sources */,
-				5B05924B1C40404400C72B2B /* FBTouchIDCommands.m in Sources */,
+				5BF023231C468F5E00AC725C /* FBTouchIDCommands.m in Sources */,
 				AAA282CD1BCF8FB70027DE10 /* FBCustomCommands.m in Sources */,
 				AAA282D91BCF8FB70027DE10 /* FBScreenshotCommands.m in Sources */,
 				EE3D73CE1BECDBE80034D1E9 /* FBUnknownCommands.m in Sources */,
@@ -1934,11 +1934,11 @@
 				EE5906CF1C049B7C00355001 /* XCElementSnapshot+Helpers.m in Sources */,
 				EEE778601C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.m in Sources */,
 				EEC289591BF0ED3000B4DC79 /* FBWebServer.m in Sources */,
+				5BF023241C468F5E00AC725C /* FBTouchIDCommands.m in Sources */,
 				EEC2895E1BF0ED3000B4DC79 /* FBWDAConstants.m in Sources */,
 				EEC4020A1C4010CC00053801 /* FBInspectorCommands.m in Sources */,
 				EEC289631BF0ED3000B4DC79 /* FBRouteRequest.m in Sources */,
 				EEC28B051BF2124700B4DC79 /* XCUIElement+WebDriverAttributes.m in Sources */,
-				5B05924C1C40404400C72B2B /* FBTouchIDCommands.m in Sources */,
 				EEC289B91BF0EE4000B4DC79 /* FBXCTExceptionHandler.m in Sources */,
 				EEC289D11BF0EF4500B4DC79 /* FBCustomCommands.m in Sources */,
 				EEC289641BF0ED3000B4DC79 /* FBWDALogger.m in Sources */,
