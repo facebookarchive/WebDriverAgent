@@ -127,6 +127,11 @@ const CGFloat FBScrollBoundingVelocityPadding = 5.0;
   XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:self.application normalizedOffset:CGVectorMake(0.0, 0.0)];
   XCUICoordinate *startCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:hitpointOffset];
   XCUICoordinate *endCoordinate = [[XCUICoordinate alloc] initWithCoordinate:startCoordinate pointsOffset:vector];
+
+  if (CGPointEqualToPoint(startCoordinate.screenPoint, endCoordinate.screenPoint)) {
+    return;
+  }
+
   __block BOOL didFinishScrolling = NO;
   CGFloat estimatedDuration = [[XCEventGenerator sharedGenerator] pressAtPoint:startCoordinate.screenPoint forDuration:0.0 liftAtPoint:endCoordinate.screenPoint velocity:FBScrollVelocity orientation:self.application.interfaceOrientation name:@"FBScroll" handler:^(NSError *error){
     if (error) {
