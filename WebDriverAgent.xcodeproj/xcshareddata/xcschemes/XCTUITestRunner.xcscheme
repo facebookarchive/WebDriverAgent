@@ -16,7 +16,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EEC2899B1BF0ED3100B4DC79"
+               BlueprintIdentifier = "EEF988291C486603005CA669"
                BuildableName = "XCTUITestRunner.xctest"
                BlueprintName = "XCTUITestRunner"
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
