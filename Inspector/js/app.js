@@ -20,7 +20,7 @@ import Inspector from 'js/inspector';
 require('css/app.css')
 
 const SCREENSHOT_ENDPOINT = 'screenshot';
-const TREE_ENDPOINT = 'tree';
+const TREE_ENDPOINT = 'source';
 const ORIENTATION_ENDPOINT = 'orientation';
 
 class App extends React.Component {

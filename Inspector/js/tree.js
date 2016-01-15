@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-import React from 'react';  
+import React from 'react';
 import TreeView from 'react-treeview';
 
 import classNames from 'classnames';
@@ -15,8 +15,8 @@ import classNames from 'classnames';
 require('css/tree.css');
 require('react-treeview/react-treeview.css');
 
-const CAPTION_HEIGHT = 100; 
-const CAPTION_PADDING = 20; 
+const CAPTION_HEIGHT = 100;
+const CAPTION_PADDING = 20;
 
 class Tree extends React.Component {
   render() {
@@ -66,7 +66,7 @@ class Tree extends React.Component {
     const className = classNames(
       "tree-node",
       {
-        "selected" : isSelected 
+        "selected" : isSelected
       }
     );
 
@@ -87,7 +87,7 @@ class Tree extends React.Component {
       });
     }
 
-    return (      
+    return (
       <TreeView
         key={node.key}
         nodeLabel={nodeLabelView}

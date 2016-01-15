@@ -1,66 +1,39 @@
-# WebDriverAgent
+# WebDriverAgent [![GitHub license](https://img.shields.io/badge/license-BSD-lightgrey.svg)](LICENSE) [![Build Status](https://travis-ci.org/facebook/WebDriverAgent.svg?branch=master)](https://travis-ci.org/facebook/WebDriverAgent) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-WebDriverAgent is a WebDriver server for iOS that runs inside the Simulator and is written entirely in Objective-C. 
+WebDriverAgent is a [WebDriver server](https://w3c.github.io/webdriver/webdriver-spec.html) implementation for iOS that can be used to remote control iOS devices. It allows you to launch & kill applications, tap & scroll views or confirm view presence on a screen. This makes it a perfect tool for application end-to-end testing or general purpose device automation. It works by linking `XCTest.framework` and calling Apple's API to execute commands directly on a device. WebDriverAgent is developed and used at Facebook for end-to-end testing and is successfully adopted by [Appium](http://appium.io). It is currently maintained by [Marek Cirkos](https://github.com/marekcirkos) and [Mehdi Mulani](https://github.com/mmmulani).
 
-[![Build Status](https://travis-ci.org/facebook/WebDriverAgent.svg?branch=master)](https://travis-ci.org/facebook/WebDriverAgent)
+## Features
+ * Works with device & simulator
+ * Implements most of [WebDriver spec](https://w3c.github.io/webdriver/webdriver-spec.html)
+ * [USB support](https://github.com/facebook/WebDriverAgent/wiki/USB-support) for devices
+ * Inspector [endpoint](http://localhost:8100/inspector) with friendly user interface to inspect current device state
+ * Easy development cycle as it can be launched & debugged directly via Xcode
+ * Unsupported yet, but works with tvOS & OSX
 
-## Building
+[![Demo Video](https://j.gifs.com/gJymG9.gif)](https://youtu.be/EatiYGFxBxY)
 
-Our dependencies are tracked with CocoaPods. First run
-
-``
-pod install
-``
-
-and then open `WebDriverAgent.xcworkspace`.
-
-WebDriverAgent workspace contains two kind of WebDriverAgents:
- - `UIAWebDriverAgent` (that links to `UIAutomation.framework`)
- - `XCTWebDriverAgent` (that links to `XCTest.framework`), also works with devices
-
-## UIAWebDriverAgent
-
-UIAWebDriverAgent works under-the-hood by linking to `UIAutomation.framework` and calling the same APIs that are exposed through Apple's UIAutomation.js framework.
-
-Because it is not tied to an Instruments run, it is able to run across applications or even on the home screen. Furthermore, it's much faster than any JavaScript UIAutomation.js driver as it runs a native HTTP server and does not need to ferry commands and results through a makeshift run loop.
-
-### Running UIAWebDriverAgent 
-
-To add new commands or just fool around with UIAWebDriverAgent, you can run it from within Xcode. Because UIAWebDriverAgent is a daemon, you will not notice any UI when it runs. Hit [the /tree endpoint](http://localhost:8100/tree) to confirm it's running.
-
-In practice, you would want to start it up alongside your application. You can use Apple's `simctl` tool for this or [FBSimulatorControl](https://github.com/facebook/FBSimulatorControl). This is how you might do it with `simctl`:
-
+## Getting Started
+To get the project set up just run bootstrap script:
 ```
-# 1. Open the Simulator and application you wish to test.
-
-# 2. Start WebDriverAgent.
-xcrun simctl spawn booted <WebDriverAgent_path>
-# e.g. xcrun simctl spawn booted /Users/mehdi/src/WebDriverAgent/Build/Products/Debug-iphonesimulator/WebDriverAgent.app/WebDriverAgent
+./Scripts/bootstrap.sh
 ```
+It will:
+* fetch all dependencies with [Carthage](https://github.com/Carthage/Carthage)
+* build Inspector bundle using [npm](https://www.npmjs.com)
 
-## XCTWebDriverAgent
+After it is finished you can simply open `WebDriverAgent.xcodeproj` and start `WebDriverAgentRunner` test
+and start sending [requests](https://github.com/facebook/WebDriverAgent/wiki/Queries).
 
-XCTWebDriverAgent works by linking to `XCTest.framework` and calling the same APIs that are exposed through Apple's XCUITest framework. This approach allows to run tests on devices!
+More about how to start WebDriverAgent [here](https://github.com/facebook/WebDriverAgent/wiki/Starting-WebDriverAgent).
 
-### Running XCTWebDriverAgent
-To play around with XCTWebDriverAgent you can simply start XCTUITestRunner tests in Xcode or use xcodebuild:
-```
-xcodebuild -workspace WebDriverAgent.xcworkspace -scheme XCTUITestRunner -destination id='<DEVICE_UDID>' test
-```
+## Known Issues
+If you are having some issues please checkout [wiki](https://github.com/facebook/WebDriverAgent/wiki/Common-Issues) first.
 
-When simlulator/device launches with blue screen it should be ready for receiving requests. To get ip address under with device is available you can check device logs for line "ServerURLHere->[DEVICE_URL]<-ServerURLHere"
-
-To start tasting app you can use curl to fire request:
-```
-curl -X POST -H "Content-Type: application/json" -d "{\"desiredCapabilities\":{\"bundleId\":\"$BUNDLE_ID\", \"app\":\"/path/to/app/on/local/machine/magicapp.app\"}}" http://[DEVICE_URL]/session/
-```
-
-Have fun!
-
-## Contributing
-
-See the CONTRIBUTING file for how to help out.
+## For Contributors
+If you want to help us out, you are more than welcome to. However please make sure you have followed the guidelines in [CONTRIBUTING](CONTRIBUTING.md).
 
 ## License
 
-WebDriverAgent is BSD-licensed. We also provide an additional patent grant.
+[`WebDriverAgent` is BSD-licensed](LICENSE). We also provide an additional [patent grant](PATENTS).
+
+Have fun!

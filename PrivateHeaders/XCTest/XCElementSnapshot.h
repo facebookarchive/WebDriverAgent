@@ -4,7 +4,7 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-#import <XCTWebDriverAgentLib/CDStructures.h>
+#import <WebDriverAgentLib/CDStructures.h>
 
 #import <XCTest/XCUIElementAttributes.h>
 
@@ -71,9 +71,9 @@
 - (BOOL)_frameFuzzyMatchesElement:(id)arg1;
 - (BOOL)_fuzzyMatchesElement:(id)arg1;
 - (BOOL)_matchesElement:(id)arg1;
-- (id)_allDescendants;
+- (NSArray<XCElementSnapshot *> *)_allDescendants;
 - (BOOL)hasDescendantMatchingFilter:(CDUnknownBlockType)arg1;
-- (id)descendantsByFilteringWithBlock:(BOOL(^)(XCElementSnapshot *snapshot))block;
+- (NSArray<XCElementSnapshot *> *)descendantsByFilteringWithBlock:(BOOL(^)(XCElementSnapshot *snapshot))block;
 - (id)elementSnapshotMatchingAccessibilityElement:(id)arg1;
 - (void)enumerateDescendantsUsingBlock:(void(^)(XCElementSnapshot *snapshot))block;
 - (id)recursiveDescriptionWithIndent:(id)arg1 includeAccessibilityElement:(BOOL)arg2;
