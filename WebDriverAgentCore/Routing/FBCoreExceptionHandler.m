@@ -15,6 +15,7 @@
 
 NSString *const FBSessionDoesNotExistException = @"FBSessionDoesNotExistException";
 NSString *const FBApplicationDeadlockDetectedException = @"FBApplicationDeadlockDetectedException";
+NSString *const FBElementAttributeUnknownException = @"FBElementAttributeUnknownException";
 
 @implementation FBCoreExceptionHandler
 
@@ -28,6 +29,12 @@ NSString *const FBApplicationDeadlockDetectedException = @"FBApplicationDeadlock
 
   if ([exception.name isEqualToString:FBSessionDoesNotExistException]) {
     id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusNoSuchSession, [exception description]);
+    [payload dispatchWithResponse:response];
+    return YES;
+  }
+
+  if ([exception.name isEqualToString:FBElementAttributeUnknownException]) {
+    id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusInvalidSelector, [exception description]);
     [payload dispatchWithResponse:response];
     return YES;
   }

@@ -13,6 +13,7 @@
 
 extern NSString *const FBSessionDoesNotExistException;
 extern NSString *const FBApplicationDeadlockDetectedException;
+extern NSString *const FBElementAttributeUnknownException;
 
 @interface FBCoreExceptionHandler : NSObject <FBWebServerExceptionHandler>
 
