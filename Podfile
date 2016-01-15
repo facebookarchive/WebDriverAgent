@@ -9,19 +9,16 @@ xcodeproj 'WebDriverAgent.xcodeproj'
 # UIAutomation Testing
 
 target :WebDriverAgent, :exclusive => true do
-  pod 'fishhook', :git => 'https://github.com/facebook/fishhook.git', :commit => '8dbd09b'
   pod 'KissXML'
   pod 'RoutingHTTPServer'
 end
 
 target :WebDriverAgentLib, :exclusive => true do
-  pod 'fishhook', :git => 'https://github.com/facebook/fishhook.git', :commit => '8dbd09b'
   pod 'KissXML'
   pod 'RoutingHTTPServer'
 end
 
 target :WebDriverAgentLibTests, :exclusive => true do
-  pod 'fishhook', :git => 'https://github.com/facebook/fishhook.git', :commit => '8dbd09b'
   pod 'KissXML'
   pod 'RoutingHTTPServer'
   pod 'OCMock'
@@ -31,13 +28,11 @@ end
 # XCT Testing
 
 target :XCTWebDriverAgentLib, :exclusive => true do
-  pod 'fishhook', :git => 'https://github.com/facebook/fishhook.git', :commit => '8dbd09b'
   pod 'KissXML'
   pod 'RoutingHTTPServer'
 end
 
 target :XCTUITestRunner, :exclusive => true do
-  pod 'fishhook', :git => 'https://github.com/facebook/fishhook.git', :commit => '8dbd09b'
   pod 'KissXML'
   pod 'RoutingHTTPServer'
 end
