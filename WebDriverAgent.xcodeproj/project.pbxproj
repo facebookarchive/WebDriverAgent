@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		165C260210AEEB3A269ADF7D /* libPods-XCTWebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E1C646F36B5582132DA12 /* libPods-XCTWebDriverAgentLib.a */; };
 		17FAFB7CEBC0F6E3621FAA62 /* libPods-WebDriverAgentLibTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 126BB2958BC0D6129BB43082 /* libPods-WebDriverAgentLibTests.a */; };
-		37CA45C6BBDF2A99EA05035E /* libPods-XCTUITestRunner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A34459487822F33D42FD222E /* libPods-XCTUITestRunner.a */; };
 		3CC397CE664E295947463C5C /* libPods-WebDriverAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F204A7ED0F3E8EEFB1A1C300 /* libPods-WebDriverAgent.a */; };
 		498495CB1BB2EB9B009CC848 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */; };
 		5BF023211C468F5E00AC725C /* FBTouchIDCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BF0231F1C468F5E00AC725C /* FBTouchIDCommands.h */; };
@@ -48,9 +47,9 @@
 		ADA470351C0E814B002CDE9C /* FBCoreExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = ADA470301C0E7FD8002CDE9C /* FBCoreExceptionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ADA470361C0E814E002CDE9C /* FBCoreExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA470311C0E7FD8002CDE9C /* FBCoreExceptionHandler.m */; };
 		ADA470371C0E814F002CDE9C /* FBCoreExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA470311C0E7FD8002CDE9C /* FBCoreExceptionHandler.m */; };
+		B64FCE022A2DCE1C3F02F741 /* libPods-XCTUITestRunner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A34459487822F33D42FD222E /* libPods-XCTUITestRunner.a */; };
 		EE040DC51C1201BB00D0945C /* UIAutomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8571B99E45400F8BA6F /* UIAutomation.framework */; };
 		EE040DC61C12041500D0945C /* AccessibilityUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */; };
-		EE0666D21C21A40800A0A703 /* FBDebugLogDelegateDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0666D11C21A40800A0A703 /* FBDebugLogDelegateDecorator.m */; };
 		EE0CA1DF1BF0D0E3005C43CD /* FBSession.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */; };
 		EE0CA1E01BF0D0E3005C43CD /* FBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0CA1DE1BF0D0E3005C43CD /* FBSession.m */; };
 		EE0CA1E61BF0D459005C43CD /* FBSession-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */; };
@@ -96,8 +95,6 @@
 		EE8300E81C08CF7200217020 /* XCEventGenerator+SyncEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8300E61C08CF7200217020 /* XCEventGenerator+SyncEvents.m */; };
 		EE836C071C0F118600D87246 /* libXCTWebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC2899A1BF0ED3000B4DC79 /* libXCTWebDriverAgentLib.a */; };
 		EE836C0E1C0F11B000D87246 /* FBRouteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE836C0D1C0F11B000D87246 /* FBRouteTests.m */; };
-		EEC289321BF0ED2E00B4DC79 /* FBUIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC288F21BF0ED2500B4DC79 /* FBUIAppDelegate.m */; };
-		EEC2893C1BF0ED2E00B4DC79 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC288F41BF0ED2500B4DC79 /* main.m */; };
 		EEC289591BF0ED3000B4DC79 /* FBWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D73991BECCA5A0034D1E9 /* FBWebServer.m */; };
 		EEC2895E1BF0ED3000B4DC79 /* FBWDAConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D739E1BECCA5A0034D1E9 /* FBWDAConstants.m */; };
 		EEC289631BF0ED3000B4DC79 /* FBRouteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D73951BECCA5A0034D1E9 /* FBRouteRequest.m */; };
@@ -124,7 +121,6 @@
 		EEC289911BF0ED3000B4DC79 /* FBWDALogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3D739F1BECCA5A0034D1E9 /* FBWDALogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEC289921BF0ED3000B4DC79 /* FBResponseFilePayload.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3D738C1BECCA5A0034D1E9 /* FBResponseFilePayload.h */; };
 		EEC289941BF0ED3000B4DC79 /* FBSession-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */; };
-		EEC289AF1BF0EE2B00B4DC79 /* UITestingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC288F71BF0ED2500B4DC79 /* UITestingUITests.m */; };
 		EEC289B01BF0EE4000B4DC79 /* FBAlertViewCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC288FB1BF0ED2500B4DC79 /* FBAlertViewCommands.m */; };
 		EEC289B11BF0EE4000B4DC79 /* FBSessionCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC288FD1BF0ED2500B4DC79 /* FBSessionCommands.m */; };
 		EEC289B21BF0EE4000B4DC79 /* FBDebugCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC288FF1BF0ED2500B4DC79 /* FBDebugCommands.m */; };
@@ -149,7 +145,6 @@
 		EEC289C71BF0EE4E00B4DC79 /* FBXCTWebDriverAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC289101BF0ED2500B4DC79 /* FBXCTWebDriverAgent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEC289D01BF0EF4500B4DC79 /* FBCustomCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC289CE1BF0EF4500B4DC79 /* FBCustomCommands.h */; };
 		EEC289D11BF0EF4500B4DC79 /* FBCustomCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC289CF1BF0EF4500B4DC79 /* FBCustomCommands.m */; };
-		EEC28A9A1BF0F9D900B4DC79 /* libXCTWebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC2899A1BF0ED3000B4DC79 /* libXCTWebDriverAgentLib.a */; };
 		EEC28AFE1BF2124700B4DC79 /* XCUIElement+FBIsVisible.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28AF61BF2124700B4DC79 /* XCUIElement+FBIsVisible.h */; };
 		EEC28AFF1BF2124700B4DC79 /* XCUIElement+FBIsVisible.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC28AF71BF2124700B4DC79 /* XCUIElement+FBIsVisible.m */; };
 		EEC28B001BF2124700B4DC79 /* XCUIElement+FBScrolling.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28AF81BF2124700B4DC79 /* XCUIElement+FBScrolling.h */; };
@@ -161,7 +156,6 @@
 		EEC28B081BF2128200B4DC79 /* FBUIASession.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC28B061BF2128200B4DC79 /* FBUIASession.h */; };
 		EEC28B091BF2128200B4DC79 /* FBUIASession.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC28B071BF2128200B4DC79 /* FBUIASession.m */; };
 		EEC28B0F1BF215D800B4DC79 /* FBElement.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC28B0E1BF215D800B4DC79 /* FBElement.m */; };
-		EEC402061C40106200053801 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */; };
 		EEC402091C4010CB00053801 /* FBInspectorCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC402041C40104E00053801 /* FBInspectorCommands.m */; };
 		EEC4020A1C4010CC00053801 /* FBInspectorCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC402041C40104E00053801 /* FBInspectorCommands.m */; };
 		EED0313A1BFA3720007EDC1D /* CDStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E71BFA3461007EDC1D /* CDStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -265,6 +259,10 @@
 		EEF1F1921C1EC623008EABD2 /* FBRuntimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF1F18F1C1EC623008EABD2 /* FBRuntimeUtils.m */; };
 		EEF1F1931C1EC623008EABD2 /* FBRuntimeUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF1F1901C1EC623008EABD2 /* FBRuntimeUtils.h */; };
 		EEF1F1941C1EC623008EABD2 /* FBRuntimeUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF1F1901C1EC623008EABD2 /* FBRuntimeUtils.h */; };
+		EEF9883D1C486795005CA669 /* FBDebugLogDelegateDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF988361C486655005CA669 /* FBDebugLogDelegateDecorator.m */; };
+		EEF9883E1C486795005CA669 /* UITestingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF988381C486655005CA669 /* UITestingUITests.m */; };
+		EEF9883F1C4867A1005CA669 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */; };
+		EEF988421C4867C8005CA669 /* libXCTWebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC2899A1BF0ED3000B4DC79 /* libXCTWebDriverAgentLib.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -289,19 +287,12 @@
 			remoteGlobalIDString = EEC289541BF0ED3000B4DC79;
 			remoteInfo = XCTWebDriverAgentLib;
 		};
-		EEC28A981BF0F92F00B4DC79 /* PBXContainerItemProxy */ = {
+		EEF988401C4867C3005CA669 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = EEC289541BF0ED3000B4DC79;
 			remoteInfo = XCTWebDriverAgentLib;
-		};
-		EEC28AF31BF1086100B4DC79 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EEC2892D1BF0ED2E00B4DC79;
-			remoteInfo = XCTStubApps;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -441,8 +432,6 @@
 		D17FD3E4AF3ECD6BC73CACFA /* Pods-WebDriverAgentLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLibTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests.release.xcconfig"; sourceTree = "<group>"; };
 		DA846E1E751106917FCF1B26 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE2E79F594F94C8B6896C776 /* Pods-WebDriverAgent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgent.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgent/Pods-WebDriverAgent.release.xcconfig"; sourceTree = "<group>"; };
-		EE0666D01C21A40800A0A703 /* FBDebugLogDelegateDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDebugLogDelegateDecorator.h; sourceTree = "<group>"; };
-		EE0666D11C21A40800A0A703 /* FBDebugLogDelegateDecorator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBDebugLogDelegateDecorator.m; sourceTree = "<group>"; };
 		EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSession.h; sourceTree = "<group>"; };
 		EE0CA1DE1BF0D0E3005C43CD /* FBSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSession.m; sourceTree = "<group>"; };
 		EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FBSession-Private.h"; sourceTree = "<group>"; };
@@ -488,12 +477,6 @@
 		EE836C021C0F118600D87246 /* WebDriverAgentCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE836C061C0F118600D87246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE836C0D1C0F11B000D87246 /* FBRouteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRouteTests.m; sourceTree = "<group>"; };
-		EEC288F11BF0ED2500B4DC79 /* FBUIAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBUIAppDelegate.h; sourceTree = "<group>"; };
-		EEC288F21BF0ED2500B4DC79 /* FBUIAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBUIAppDelegate.m; sourceTree = "<group>"; };
-		EEC288F31BF0ED2500B4DC79 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EEC288F41BF0ED2500B4DC79 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		EEC288F61BF0ED2500B4DC79 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EEC288F71BF0ED2500B4DC79 /* UITestingUITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITestingUITests.m; sourceTree = "<group>"; };
 		EEC288FA1BF0ED2500B4DC79 /* FBAlertViewCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAlertViewCommands.h; sourceTree = "<group>"; };
 		EEC288FB1BF0ED2500B4DC79 /* FBAlertViewCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBAlertViewCommands.m; sourceTree = "<group>"; };
 		EEC288FC1BF0ED2500B4DC79 /* FBSessionCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSessionCommands.h; sourceTree = "<group>"; };
@@ -516,9 +499,7 @@
 		EEC2890F1BF0ED2500B4DC79 /* FBXCTSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXCTSession.m; sourceTree = "<group>"; };
 		EEC289101BF0ED2500B4DC79 /* FBXCTWebDriverAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXCTWebDriverAgent.h; sourceTree = "<group>"; };
 		EEC289111BF0ED2500B4DC79 /* FBXCTWebDriverAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXCTWebDriverAgent.m; sourceTree = "<group>"; };
-		EEC289521BF0ED2E00B4DC79 /* XCTStubApps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XCTStubApps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEC2899A1BF0ED3000B4DC79 /* libXCTWebDriverAgentLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libXCTWebDriverAgentLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		EEC289AD1BF0ED3100B4DC79 /* XCTUITestRunner.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCTUITestRunner.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEC289CE1BF0EF4500B4DC79 /* FBCustomCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCustomCommands.h; sourceTree = "<group>"; };
 		EEC289CF1BF0EF4500B4DC79 /* FBCustomCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBCustomCommands.m; sourceTree = "<group>"; };
 		EEC28AF61BF2124700B4DC79 /* XCUIElement+FBIsVisible.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBIsVisible.h"; sourceTree = "<group>"; };
@@ -631,6 +612,11 @@
 		EEF1F18A1C1EC542008EABD2 /* UIDevice+Wifi_IP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Wifi_IP.m"; sourceTree = "<group>"; };
 		EEF1F18F1C1EC623008EABD2 /* FBRuntimeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRuntimeUtils.m; sourceTree = "<group>"; };
 		EEF1F1901C1EC623008EABD2 /* FBRuntimeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRuntimeUtils.h; sourceTree = "<group>"; };
+		EEF9882A1C486603005CA669 /* XCTUITestRunner.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCTUITestRunner.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEF988351C486655005CA669 /* FBDebugLogDelegateDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDebugLogDelegateDecorator.h; sourceTree = "<group>"; };
+		EEF988361C486655005CA669 /* FBDebugLogDelegateDecorator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBDebugLogDelegateDecorator.m; sourceTree = "<group>"; };
+		EEF988371C486655005CA669 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EEF988381C486655005CA669 /* UITestingUITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITestingUITests.m; sourceTree = "<group>"; };
 		F204A7ED0F3E8EEFB1A1C300 /* libPods-WebDriverAgent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgent.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -673,13 +659,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EEC289431BF0ED2E00B4DC79 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		EEC289721BF0ED3000B4DC79 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -688,12 +667,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EEC289A41BF0ED3100B4DC79 /* Frameworks */ = {
+		EEF988271C486603005CA669 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEC28A9A1BF0F9D900B4DC79 /* libXCTWebDriverAgentLib.a in Frameworks */,
-				37CA45C6BBDF2A99EA05035E /* libPods-XCTUITestRunner.a in Frameworks */,
+				EEF988421C4867C8005CA669 /* libXCTWebDriverAgentLib.a in Frameworks */,
+				B64FCE022A2DCE1C3F02F741 /* libPods-XCTUITestRunner.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,8 +716,7 @@
 				EE836C031C0F118600D87246 /* WebDriverAgentCoreTests */,
 				91F9DB171B99DC2F001349B2 /* WebDriverAgentLib */,
 				91F9DB241B99DC2F001349B2 /* WebDriverAgentLibTests */,
-				EEC288F01BF0ED2500B4DC79 /* XCTStubApps */,
-				EEC288F51BF0ED2500B4DC79 /* XCTUITestRunner */,
+				EEF988341C486655005CA669 /* XCTUITestRunner */,
 				EEC288F81BF0ED2500B4DC79 /* XCTWebDriverAgentLib */,
 				91F9DAEA1B99DBC2001349B2 /* Products */,
 				8BFA51FAC80E4114EBFF8577 /* Pods */,
@@ -752,10 +730,9 @@
 				91F9DAE91B99DBC2001349B2 /* WebDriverAgent.app */,
 				91F9DB161B99DC2F001349B2 /* libWebDriverAgentLib.a */,
 				91F9DB201B99DC2F001349B2 /* WebDriverAgentLibTests.xctest */,
-				EEC289521BF0ED2E00B4DC79 /* XCTStubApps.app */,
 				EEC2899A1BF0ED3000B4DC79 /* libXCTWebDriverAgentLib.a */,
-				EEC289AD1BF0ED3100B4DC79 /* XCTUITestRunner.xctest */,
 				EE836C021C0F118600D87246 /* WebDriverAgentCoreTests.xctest */,
+				EEF9882A1C486603005CA669 /* XCTUITestRunner.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1022,28 +999,6 @@
 			path = WebDriverAgentCoreTests;
 			sourceTree = SOURCE_ROOT;
 		};
-		EEC288F01BF0ED2500B4DC79 /* XCTStubApps */ = {
-			isa = PBXGroup;
-			children = (
-				EEC288F11BF0ED2500B4DC79 /* FBUIAppDelegate.h */,
-				EEC288F21BF0ED2500B4DC79 /* FBUIAppDelegate.m */,
-				EEC288F31BF0ED2500B4DC79 /* Info.plist */,
-				EEC288F41BF0ED2500B4DC79 /* main.m */,
-			);
-			path = XCTStubApps;
-			sourceTree = "<group>";
-		};
-		EEC288F51BF0ED2500B4DC79 /* XCTUITestRunner */ = {
-			isa = PBXGroup;
-			children = (
-				EEC288F61BF0ED2500B4DC79 /* Info.plist */,
-				EEC288F71BF0ED2500B4DC79 /* UITestingUITests.m */,
-				EE0666D01C21A40800A0A703 /* FBDebugLogDelegateDecorator.h */,
-				EE0666D11C21A40800A0A703 /* FBDebugLogDelegateDecorator.m */,
-			);
-			path = XCTUITestRunner;
-			sourceTree = "<group>";
-		};
 		EEC288F81BF0ED2500B4DC79 /* XCTWebDriverAgentLib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1202,6 +1157,17 @@
 			);
 			path = XCTest;
 			sourceTree = "<group>";
+		};
+		EEF988341C486655005CA669 /* XCTUITestRunner */ = {
+			isa = PBXGroup;
+			children = (
+				EEF988351C486655005CA669 /* FBDebugLogDelegateDecorator.h */,
+				EEF988361C486655005CA669 /* FBDebugLogDelegateDecorator.m */,
+				EEF988371C486655005CA669 /* Info.plist */,
+				EEF988381C486655005CA669 /* UITestingUITests.m */,
+			);
+			path = XCTUITestRunner;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -1470,23 +1436,6 @@
 			productReference = EE836C021C0F118600D87246 /* WebDriverAgentCoreTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		EEC2892D1BF0ED2E00B4DC79 /* XCTStubApps */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EEC2894F1BF0ED2E00B4DC79 /* Build configuration list for PBXNativeTarget "XCTStubApps" */;
-			buildPhases = (
-				EEC2892F1BF0ED2E00B4DC79 /* Sources */,
-				EEC289431BF0ED2E00B4DC79 /* Frameworks */,
-				EEC289491BF0ED2E00B4DC79 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = XCTStubApps;
-			productName = WebDriverAgent;
-			productReference = EEC289521BF0ED2E00B4DC79 /* XCTStubApps.app */;
-			productType = "com.apple.product-type.application";
-		};
 		EEC289541BF0ED3000B4DC79 /* XCTWebDriverAgentLib */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EEC289971BF0ED3000B4DC79 /* Build configuration list for PBXNativeTarget "XCTWebDriverAgentLib" */;
@@ -1507,28 +1456,26 @@
 			productReference = EEC2899A1BF0ED3000B4DC79 /* libXCTWebDriverAgentLib.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		EEC2899B1BF0ED3100B4DC79 /* XCTUITestRunner */ = {
+		EEF988291C486603005CA669 /* XCTUITestRunner */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EEC289AA1BF0ED3100B4DC79 /* Build configuration list for PBXNativeTarget "XCTUITestRunner" */;
+			buildConfigurationList = EEF988311C486604005CA669 /* Build configuration list for PBXNativeTarget "XCTUITestRunner" */;
 			buildPhases = (
-				EEC2899E1BF0ED3100B4DC79 /* Check Pods Manifest.lock */,
-				EEC2899F1BF0ED3100B4DC79 /* Sources */,
-				EEC289A41BF0ED3100B4DC79 /* Frameworks */,
-				EEC402071C40107A00053801 /* Generate Resource Bundle */,
-				EEC289A71BF0ED3100B4DC79 /* Resources */,
-				EEC289A81BF0ED3100B4DC79 /* Copy Pods Resources */,
-				EEC289A91BF0ED3100B4DC79 /* Embed Pods Frameworks */,
+				7CBC9991DAC2009B25F7B4E7 /* Check Pods Manifest.lock */,
+				EEF988261C486603005CA669 /* Sources */,
+				EEF988271C486603005CA669 /* Frameworks */,
+				EEF9883C1C486768005CA669 /* Generate Resource Bundle */,
+				EEF988281C486603005CA669 /* Resources */,
+				84E99BA5A11D6EF368DAFB3C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				EEC28A991BF0F92F00B4DC79 /* PBXTargetDependency */,
-				EEC28AF41BF1086100B4DC79 /* PBXTargetDependency */,
+				EEF988411C4867C3005CA669 /* PBXTargetDependency */,
 			);
 			name = XCTUITestRunner;
-			productName = WebDriverAgentLibTests;
-			productReference = EEC289AD1BF0ED3100B4DC79 /* XCTUITestRunner.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
+			productName = XCTUITestRunner;
+			productReference = EEF9882A1C486603005CA669 /* XCTUITestRunner.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -1551,8 +1498,8 @@
 					EE836C011C0F118600D87246 = {
 						CreatedOnToolsVersion = 7.1.1;
 					};
-					EEC2899B1BF0ED3100B4DC79 = {
-						TestTargetID = EEC2892D1BF0ED2E00B4DC79;
+					EEF988291C486603005CA669 = {
+						CreatedOnToolsVersion = 7.2;
 					};
 				};
 			};
@@ -1573,9 +1520,8 @@
 				91F9DAE81B99DBC2001349B2 /* WebDriverAgent */,
 				91F9DB151B99DC2F001349B2 /* WebDriverAgentLib */,
 				91F9DB1F1B99DC2F001349B2 /* WebDriverAgentLibTests */,
-				EEC2892D1BF0ED2E00B4DC79 /* XCTStubApps */,
 				EEC289541BF0ED3000B4DC79 /* XCTWebDriverAgentLib */,
-				EEC2899B1BF0ED3100B4DC79 /* XCTUITestRunner */,
+				EEF988291C486603005CA669 /* XCTUITestRunner */,
 			);
 		};
 /* End PBXProject section */
@@ -1603,18 +1549,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EEC289491BF0ED2E00B4DC79 /* Resources */ = {
+		EEF988281C486603005CA669 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EEC289A71BF0ED3100B4DC79 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EEC402061C40106200053801 /* WebDriverAgent.bundle in Resources */,
+				EEF9883F1C4867A1005CA669 /* WebDriverAgent.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1678,6 +1617,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgent/Pods-WebDriverAgent-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7CBC9991DAC2009B25F7B4E7 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		84E99BA5A11D6EF368DAFB3C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9A5B9836CD263C618FFBAB2A /* Check Pods Manifest.lock */ = {
@@ -1770,65 +1739,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XCTWebDriverAgentLib/Pods-XCTWebDriverAgentLib-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EEC2899E1BF0ED3100B4DC79 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		EEC289A81BF0ED3100B4DC79 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EEC289A91BF0ED3100B4DC79 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EEC402071C40107A00053801 /* Generate Resource Bundle */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Generate Resource Bundle";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd ${SRCROOT} && bash ./build_resource_bundle.sh";
-		};
 		EEE27CBD9703CA34A43EB1D5 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1843,6 +1753,20 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		EEF9883C1C486768005CA669 /* Generate Resource Bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Resource Bundle";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${SRCROOT} && bash ./build_resource_bundle.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1913,15 +1837,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EEC2892F1BF0ED2E00B4DC79 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EEC289321BF0ED2E00B4DC79 /* FBUIAppDelegate.m in Sources */,
-				EEC2893C1BF0ED2E00B4DC79 /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		EEC289561BF0ED3000B4DC79 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1964,12 +1879,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EEC2899F1BF0ED3100B4DC79 /* Sources */ = {
+		EEF988261C486603005CA669 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEC289AF1BF0EE2B00B4DC79 /* UITestingUITests.m in Sources */,
-				EE0666D21C21A40800A0A703 /* FBDebugLogDelegateDecorator.m in Sources */,
+				EEF9883E1C486795005CA669 /* UITestingUITests.m in Sources */,
+				EEF9883D1C486795005CA669 /* FBDebugLogDelegateDecorator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1991,15 +1906,10 @@
 			target = EEC289541BF0ED3000B4DC79 /* XCTWebDriverAgentLib */;
 			targetProxy = EE836C081C0F118600D87246 /* PBXContainerItemProxy */;
 		};
-		EEC28A991BF0F92F00B4DC79 /* PBXTargetDependency */ = {
+		EEF988411C4867C3005CA669 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EEC289541BF0ED3000B4DC79 /* XCTWebDriverAgentLib */;
-			targetProxy = EEC28A981BF0F92F00B4DC79 /* PBXContainerItemProxy */;
-		};
-		EEC28AF41BF1086100B4DC79 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EEC2892D1BF0ED2E00B4DC79 /* XCTStubApps */;
-			targetProxy = EEC28AF31BF1086100B4DC79 /* PBXContainerItemProxy */;
+			targetProxy = EEF988401C4867C3005CA669 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2182,7 +2092,7 @@
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = WebDriverAgentCoreTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.WebDriverAgentCoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2193,29 +2103,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = WebDriverAgentCoreTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.WebDriverAgentCoreTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		EEC289501BF0ED2E00B4DC79 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "";
-				INFOPLIST_FILE = XCTStubApps/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		EEC289511BF0ED2E00B4DC79 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "";
-				INFOPLIST_FILE = XCTStubApps/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -2229,6 +2119,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -2239,34 +2130,38 @@
 			baseConfigurationReference = 7191916E53767F463FBE793C /* Pods-XCTWebDriverAgentLib.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
-		EEC289AB1BF0ED3100B4DC79 /* Debug */ = {
+		EEF988321C486604005CA669 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8C01E5F49840B2A26406048F /* Pods-XCTUITestRunner.debug.xcconfig */;
 			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = XCTUITestRunner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cirkos.marek.XCTUITestRunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XCTStubApps.app/XCTStubApps";
+				PROVISIONING_PROFILE = "";
+				USES_XCTRUNNER = YES;
 			};
 			name = Debug;
 		};
-		EEC289AC1BF0ED3100B4DC79 /* Release */ = {
+		EEF988331C486604005CA669 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 410A1F98CE4D889BDD2640C8 /* Pods-XCTUITestRunner.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = XCTUITestRunner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cirkos.marek.XCTUITestRunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XCTStubApps.app/XCTStubApps";
+				PROVISIONING_PROFILE = "";
+				USES_XCTRUNNER = YES;
 			};
 			name = Release;
 		};
@@ -2318,15 +2213,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EEC2894F1BF0ED2E00B4DC79 /* Build configuration list for PBXNativeTarget "XCTStubApps" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EEC289501BF0ED2E00B4DC79 /* Debug */,
-				EEC289511BF0ED2E00B4DC79 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		EEC289971BF0ED3000B4DC79 /* Build configuration list for PBXNativeTarget "XCTWebDriverAgentLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2336,11 +2222,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EEC289AA1BF0ED3100B4DC79 /* Build configuration list for PBXNativeTarget "XCTUITestRunner" */ = {
+		EEF988311C486604005CA669 /* Build configuration list for PBXNativeTarget "XCTUITestRunner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EEC289AB1BF0ED3100B4DC79 /* Debug */,
-				EEC289AC1BF0ED3100B4DC79 /* Release */,
+				EEF988321C486604005CA669 /* Debug */,
+				EEF988331C486604005CA669 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
