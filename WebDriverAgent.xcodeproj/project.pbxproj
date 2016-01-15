@@ -2092,7 +2092,7 @@
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = WebDriverAgentCoreTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.WebDriverAgentCoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2103,7 +2103,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = WebDriverAgentCoreTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.WebDriverAgentCoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2119,6 +2119,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -2129,6 +2130,7 @@
 			baseConfigurationReference = 7191916E53767F463FBE793C /* Pods-XCTWebDriverAgentLib.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -2140,6 +2142,7 @@
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = XCTUITestRunner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cirkos.marek.XCTUITestRunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2153,6 +2156,7 @@
 			baseConfigurationReference = 410A1F98CE4D889BDD2640C8 /* Pods-XCTUITestRunner.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = XCTUITestRunner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cirkos.marek.XCTUITestRunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
