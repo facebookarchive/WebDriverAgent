@@ -38,6 +38,16 @@
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EE836C011C0F118600D87246"
+               BuildableName = "WebDriverAgentCoreTests.xctest"
+               BlueprintName = "WebDriverAgentCoreTests"
+               ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
