@@ -26,4 +26,3 @@ if [ "$MODE" = "ci" ]; then
   ci XCTUITestRunner iphonesimulator build-tests
   ci XCTUITestRunner iphoneos build-tests
 fi
-
