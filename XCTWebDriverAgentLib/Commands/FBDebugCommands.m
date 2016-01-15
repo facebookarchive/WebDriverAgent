@@ -64,6 +64,7 @@ static id ValueOrNull(id value) {
 {
   NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
   info[@"type"] = [XCUIElement UIAClassNameWithElementType:snapshot.elementType];
+  info[@"rawIdentifier"] = ValueOrNull([snapshot.identifier isEqual:@""] ? nil : snapshot.identifier);
   info[@"name"] = ValueOrNull(snapshot.wdName);
   info[@"value"] = ValueOrNull(snapshot.wdValue);
   info[@"label"] = ValueOrNull(snapshot.wdLabel);
