@@ -9,9 +9,13 @@
 
 #import "FBTouchIDCommands.h"
 
-#include <notify.h>
-
 #import "FBRouteRequest.h"
+#import "FBUIASession.h"
+
+#import "UIAApplication.h"
+#import "UIATarget.h"
+
+#include <notify.h>
 
 @implementation FBTouchIDCommands
 
