@@ -1,4 +1,5 @@
 #!/bin/sh
+#
 
 if [ -z $1 ]; then
   echo "usage: build.sh <subcommand>"
