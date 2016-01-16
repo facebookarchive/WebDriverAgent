@@ -44,6 +44,8 @@
 		ADA470361C0E814E002CDE9C /* FBCoreExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA470311C0E7FD8002CDE9C /* FBCoreExceptionHandler.m */; };
 		ADA470371C0E814F002CDE9C /* FBCoreExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA470311C0E7FD8002CDE9C /* FBCoreExceptionHandler.m */; };
 		B64FCE022A2DCE1C3F02F741 /* libPods-XCTUITestRunner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A34459487822F33D42FD222E /* libPods-XCTUITestRunner.a */; };
+		EE00CF631C49CC3300C8239A /* FBTouchIDCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE00CF611C49CBE100C8239A /* FBTouchIDCommands.m */; };
+		EE00CF641C49CC3400C8239A /* FBTouchIDCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE00CF611C49CBE100C8239A /* FBTouchIDCommands.m */; };
 		EE040DC51C1201BB00D0945C /* UIAutomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8571B99E45400F8BA6F /* UIAutomation.framework */; };
 		EE040DC61C12041500D0945C /* AccessibilityUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */; };
 		EE0CA1DF1BF0D0E3005C43CD /* FBSession.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */; };
@@ -426,6 +428,8 @@
 		D17FD3E4AF3ECD6BC73CACFA /* Pods-WebDriverAgentLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLibTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests.release.xcconfig"; sourceTree = "<group>"; };
 		DA846E1E751106917FCF1B26 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE2E79F594F94C8B6896C776 /* Pods-WebDriverAgent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgent.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgent/Pods-WebDriverAgent.release.xcconfig"; sourceTree = "<group>"; };
+		EE00CF601C49CBE100C8239A /* FBTouchIDCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTouchIDCommands.h; sourceTree = "<group>"; };
+		EE00CF611C49CBE100C8239A /* FBTouchIDCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTouchIDCommands.m; sourceTree = "<group>"; };
 		EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSession.h; sourceTree = "<group>"; };
 		EE0CA1DE1BF0D0E3005C43CD /* FBSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSession.m; sourceTree = "<group>"; };
 		EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FBSession-Private.h"; sourceTree = "<group>"; };
@@ -963,6 +967,8 @@
 			children = (
 				EEC402031C40104E00053801 /* FBInspectorCommands.h */,
 				EEC402041C40104E00053801 /* FBInspectorCommands.m */,
+				EE00CF601C49CBE100C8239A /* FBTouchIDCommands.h */,
+				EE00CF611C49CBE100C8239A /* FBTouchIDCommands.m */,
 				EE3D73CB1BECDBE80034D1E9 /* FBUnknownCommands.h */,
 				EE3D73CC1BECDBE80034D1E9 /* FBUnknownCommands.m */,
 			);
@@ -1797,6 +1803,7 @@
 				EE0CA1E01BF0D0E3005C43CD /* FBSession.m in Sources */,
 				EE5503561BF218A800CD04B3 /* UIAElement+WebDriverXML.m in Sources */,
 				EE3D73A91BECCA5A0034D1E9 /* FBResponsePayload.m in Sources */,
+				EE00CF631C49CC3300C8239A /* FBTouchIDCommands.m in Sources */,
 				AAA282CD1BCF8FB70027DE10 /* FBCustomCommands.m in Sources */,
 				AAA282D91BCF8FB70027DE10 /* FBScreenshotCommands.m in Sources */,
 				EE3D73CE1BECDBE80034D1E9 /* FBUnknownCommands.m in Sources */,
@@ -1838,6 +1845,7 @@
 				EE5906CF1C049B7C00355001 /* XCElementSnapshot+Helpers.m in Sources */,
 				EEE778601C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.m in Sources */,
 				EEC289591BF0ED3000B4DC79 /* FBWebServer.m in Sources */,
+				EE00CF641C49CC3400C8239A /* FBTouchIDCommands.m in Sources */,
 				EEC2895E1BF0ED3000B4DC79 /* FBWDAConstants.m in Sources */,
 				EEC4020A1C4010CC00053801 /* FBInspectorCommands.m in Sources */,
 				EEC289631BF0ED3000B4DC79 /* FBRouteRequest.m in Sources */,
