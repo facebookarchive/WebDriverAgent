@@ -10,6 +10,7 @@
 #import "FBFindElementCommands.h"
 
 #import "FBAlertViewCommands.h"
+#import "FBCoreExceptionHandler.h"
 #import "FBUIAElementCache.h"
 #import "FBRouteRequest.h"
 #import "FBUIASession.h"
@@ -158,6 +159,8 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
     elements = elementsWithProperty(element, @"type", value, NO);
   } else if ([usingText isEqualToString:@"xpath"]) {
     elements = elementsFromXpath(element, value);
+  } else {
+    [[NSException exceptionWithName:FBElementAttributeUnknownException reason:[NSString stringWithFormat:@"Invalid locator requested: %@", usingText] userInfo:nil] raise];
   }
   return [FBAlertViewCommands filterElementsObstructedByAlertView:elements];
 }

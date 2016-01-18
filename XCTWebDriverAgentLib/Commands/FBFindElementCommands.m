@@ -12,6 +12,7 @@
 #import <KissXML/DDXML.h>
 
 #import "FBAlertViewCommands.h"
+#import "FBCoreExceptionHandler.h"
 #import "FBElementCache.h"
 #import "FBRouteRequest.h"
 #import "FBWDAMacros.h"
@@ -133,6 +134,8 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
     elements = [self descendantsOfElement:element withXPathQuery:value];
   } else if (isSearchByIdentifier) {
     elements = [self descendantsOfElement:element withIdentifier:value];
+  } else {
+    [[NSException exceptionWithName:FBElementAttributeUnknownException reason:[NSString stringWithFormat:@"Invalid locator requested: %@", usingText] userInfo:nil] raise];
   }
   return [FBAlertViewCommands filterElementsObstructedByAlertView:elements];
 }
