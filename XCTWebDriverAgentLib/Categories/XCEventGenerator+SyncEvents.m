@@ -18,13 +18,13 @@
   __block BOOL didSuccess;
   __block BOOL isWaiting = YES;
   [[XCEventGenerator sharedGenerator] tapAtPoint:point orientation:orientation handler:^(NSError *commandError) {
-    if (error) {
+    if (commandError) {
       [FBWDALogger logFmt:@"Failed to perform tap: %@", commandError];
     }
     if (error) {
       *error = commandError;
     }
-    didSuccess = (error == nil);
+    didSuccess = (commandError == nil);
     isWaiting = NO;
   }];
   while (isWaiting) {
