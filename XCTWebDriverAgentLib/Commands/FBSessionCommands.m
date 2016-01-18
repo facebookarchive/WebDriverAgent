@@ -11,7 +11,6 @@
 
 #import "FBRouteRequest.h"
 #import "FBXCTSession.h"
-
 #import "XCUIApplication.h"
 #import "XCUIDevice.h"
 
@@ -24,12 +23,10 @@
   return
   @[
     [[FBRoute POST:@"/session"].withoutSession respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-
       NSDictionary *requirements = request.arguments[@"desiredCapabilities"];
-        NSString *bundleID = requirements[@"bundleId"];
-        NSString *appPath = requirements[@"app"];
-        NSAssert(bundleID, @"'bundleId' desired capability not provided");
-        NSAssert(appPath, @"'app' desired capability not provided");
+      NSString *bundleID = requirements[@"bundleId"];
+      NSString *appPath = requirements[@"app"];
+      NSAssert(bundleID, @"'bundleId' desired capability not provided");
 
       XCUIApplication *app = [[XCUIApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
       app.launchArguments = requirements[@"arguments"] ?: @[];
