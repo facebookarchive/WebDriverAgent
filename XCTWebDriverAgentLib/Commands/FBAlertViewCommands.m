@@ -13,6 +13,7 @@
 
 #import "FBFindElementCommands.h"
 #import "FBRouteRequest.h"
+#import "FBWDALogger.h"
 #import "FBXCTSession.h"
 #import "XCAXClient_iOS.h"
 #import "XCElementSnapshot+Helpers.h"
@@ -146,6 +147,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
     defaultButton = buttons.firstObject;
   }
   if (!defaultButton) {
+    [FBWDALogger logFmt:@"Failed to find accept button for alert snapshot: %@", alertSnapshot];
     return NO;
   }
   return [[XCEventGenerator sharedGenerator] fb_syncTapAtPoint:defaultButton.hitPoint orientation:application.interfaceOrientation error:nil];
@@ -163,6 +165,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
     alertSnapshot = buttons.lastObject;
   }
   if (!cancelButton) {
+    [FBWDALogger logFmt:@"Failed to find dismiss button for alert snapshot: %@", alertSnapshot];
     return NO;
   }
   return [[XCEventGenerator sharedGenerator] fb_syncTapAtPoint:cancelButton.hitPoint orientation:application.interfaceOrientation error:nil];

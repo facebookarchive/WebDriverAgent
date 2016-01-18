@@ -12,12 +12,15 @@
 #import "XCUIApplication+SpringBoard.h"
 
 #import "XCUIApplication.h"
+#import "XCUIElement.h"
 
 @implementation XCUIApplication (SpringBoard)
 
 + (instancetype)fb_SpringBoard
 {
-  return [[XCUIApplication alloc] initPrivateWithPath:nil bundleID:@"com.apple.springboard"];
+  XCUIApplication *springboard = [[XCUIApplication alloc] initPrivateWithPath:nil bundleID:@"com.apple.springboard"];
+  [springboard resolve];
+  return springboard;
 }
 
 - (void)fb_tapApplicationWithIdentifier:(NSString *)identifier
