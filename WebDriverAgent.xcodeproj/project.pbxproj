@@ -51,6 +51,7 @@
 		EE0CA1DF1BF0D0E3005C43CD /* FBSession.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */; };
 		EE0CA1E01BF0D0E3005C43CD /* FBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0CA1DE1BF0D0E3005C43CD /* FBSession.m */; };
 		EE0CA1E61BF0D459005C43CD /* FBSession-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */; };
+		EE3646951C4EB47200A876A1 /* FBXCTestCaseImplementationFailureHoldingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3646941C4EB47200A876A1 /* FBXCTestCaseImplementationFailureHoldingProxy.m */; };
 		EE3D73801BECC9590034D1E9 /* FBUIAWebDriverAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3D737E1BECC9590034D1E9 /* FBUIAWebDriverAgent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3D73811BECC9590034D1E9 /* FBUIAWebDriverAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D737F1BECC9590034D1E9 /* FBUIAWebDriverAgent.m */; };
 		EE3D73A21BECCA5A0034D1E9 /* FBCommandHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3D738A1BECCA5A0034D1E9 /* FBCommandHandler.h */; };
@@ -433,6 +434,8 @@
 		EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSession.h; sourceTree = "<group>"; };
 		EE0CA1DE1BF0D0E3005C43CD /* FBSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSession.m; sourceTree = "<group>"; };
 		EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FBSession-Private.h"; sourceTree = "<group>"; };
+		EE3646931C4EB47200A876A1 /* FBXCTestCaseImplementationFailureHoldingProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXCTestCaseImplementationFailureHoldingProxy.h; sourceTree = "<group>"; };
+		EE3646941C4EB47200A876A1 /* FBXCTestCaseImplementationFailureHoldingProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXCTestCaseImplementationFailureHoldingProxy.m; sourceTree = "<group>"; };
 		EE3D737E1BECC9590034D1E9 /* FBUIAWebDriverAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBUIAWebDriverAgent.h; sourceTree = "<group>"; };
 		EE3D737F1BECC9590034D1E9 /* FBUIAWebDriverAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBUIAWebDriverAgent.m; sourceTree = "<group>"; };
 		EE3D738A1BECCA5A0034D1E9 /* FBCommandHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCommandHandler.h; sourceTree = "<group>"; };
@@ -1161,6 +1164,8 @@
 			children = (
 				EEF988351C486655005CA669 /* FBDebugLogDelegateDecorator.h */,
 				EEF988361C486655005CA669 /* FBDebugLogDelegateDecorator.m */,
+				EE3646931C4EB47200A876A1 /* FBXCTestCaseImplementationFailureHoldingProxy.h */,
+				EE3646941C4EB47200A876A1 /* FBXCTestCaseImplementationFailureHoldingProxy.m */,
 				EEF988371C486655005CA669 /* Info.plist */,
 				EEF988381C486655005CA669 /* UITestingUITests.m */,
 			);
@@ -1879,6 +1884,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE3646951C4EB47200A876A1 /* FBXCTestCaseImplementationFailureHoldingProxy.m in Sources */,
 				EEF9883E1C486795005CA669 /* UITestingUITests.m in Sources */,
 				EEF9883D1C486795005CA669 /* FBDebugLogDelegateDecorator.m in Sources */,
 			);
@@ -2140,6 +2146,22 @@
 				INFOPLIST_FILE = XCTUITestRunner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"CocoaAsyncSocket\"",
+					"-l\"CocoaHTTPServer\"",
+					"-l\"CocoaLumberjack\"",
+					"-l\"KissXML\"",
+					"-l\"RoutingHTTPServer\"",
+					"-l\"fishhook\"",
+					"-l\"xml2\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"Security\"",
+					"-lAccessibility",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cirkos.marek.XCTUITestRunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2154,6 +2176,22 @@
 				INFOPLIST_FILE = XCTUITestRunner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"CocoaAsyncSocket\"",
+					"-l\"CocoaHTTPServer\"",
+					"-l\"CocoaLumberjack\"",
+					"-l\"KissXML\"",
+					"-l\"RoutingHTTPServer\"",
+					"-l\"fishhook\"",
+					"-l\"xml2\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"Security\"",
+					"-lAccessibility",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cirkos.marek.XCTUITestRunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
