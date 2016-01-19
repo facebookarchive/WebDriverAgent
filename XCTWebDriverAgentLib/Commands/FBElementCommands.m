@@ -124,7 +124,7 @@
     [[FBRoute POST:@"/uiaElement/:id/scroll"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
-      
+
       // Using presence of arguments as a way to convey control flow seems like a pretty bad idea but it's
       // what ios-driver did and sadly, we must copy them.
       NSString *const name = request.arguments[@"name"];
@@ -133,7 +133,7 @@
         XCUIElement *childElement = [[[[element descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate] allElementsBoundByIndex] lastObject];
         return [self.class handleScrollElementToVisible:childElement withRequest:request];
       }
-      
+
       NSString *const direction = request.arguments[@"direction"];
       if (direction) {
         if ([direction isEqualToString:@"up"]) {
@@ -147,14 +147,14 @@
         }
         return FBResponseDictionaryWithOK();
       }
-      
+
       NSString *const predicateString = request.arguments[@"predicateString"];
       if (predicateString) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
         XCUIElement *childElement = [[[[element descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate] allElementsBoundByIndex] lastObject];
         return [self.class handleScrollElementToVisible:childElement withRequest:request];
       }
-      
+
       if (request.arguments[@"toVisible"]) {
         return [self.class handleScrollElementToVisible:element withRequest:request];
       }
@@ -251,8 +251,8 @@
 
 /**
  * Performs scrolling (if needed) of the element to make it visible. Returns YES
- * if element is then visible, or NO if element is not visible even after the 
- * scroll attempt. 
+ * if element is then visible, or NO if element is not visible even after the
+ * scroll attempt.
  * @param element The XCUIElement to scroll to visible
  * @return YES if element is now visible, NO if not.
  */
