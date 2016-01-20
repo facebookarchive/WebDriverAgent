@@ -97,6 +97,7 @@ static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose)
     }
   }
   info[@"rect"] = [element wdRect];
+  info[@"frame"] = NSStringFromCGRect(element.wdFrame);
 
   return info;
 }
