@@ -9,11 +9,12 @@
 
 #import "FBElementCommands.h"
 
+#import <libkern/OSAtomic.h>
+
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
 #import "FBXCTElementCache.h"
 #import "FBXCTSession.h"
-
 #import "XCTestDriver.h"
 #import "XCUIApplication.h"
 #import "XCUICoordinate.h"
@@ -168,7 +169,10 @@
         [element tap];
       }
       NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
-      [element typeText:textToType];
+      NSError *error;
+      if (![self.class typeText:textToType error:&error]) {
+        return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error);
+      }
       return FBResponseDictionaryWithElementID(elementID);
     }],
     [[FBRoute POST:@"/uiaElement/:id/value"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
@@ -188,7 +192,10 @@
       for (NSUInteger i = 0 ; i < [element.value length] ; i++) {
         [textToType appendString:@"\b"];
       }
-      [element typeText:textToType];
+      NSError *error;
+      if (![self.class typeText:textToType error:&error]) {
+        return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error);
+      }
       return FBResponseDictionaryWithElementID(elementID);
     }],
     [[FBRoute POST:@"/uiaTarget/:id/dragfromtoforduration"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
@@ -221,13 +228,10 @@
     }],
     [[FBRoute POST:@"/keys"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
-      // TODO: async payload
-      [[XCTestDriver sharedTestDriver].managerProxy _XCT_sendString:textToType completion:^(NSError *error){
-        if (error) {
-          // FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error);
-        }
-        // FBResponseDictionaryWithOK();
-      }];
+      NSError *error;
+      if (![self.class typeText:textToType error:&error]) {
+        return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error);
+      }
       return FBResponseDictionaryWithOK();
     }],
     [[FBRoute GET:@"/window/:id/size"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
@@ -239,6 +243,32 @@
 
 
 #pragma mark - Helpers
+
+/*!
+ * Types a string into the element. The element or a descendant must have keyboard focus; otherwise an
+ * error is raised.
+ *
+ * This API discards any modifiers set in the current context by +performWithKeyModifiers:block: so that
+ * it strictly interprets the provided text. To input keys with modifier flags, use  -typeKey:modifierFlags:.
+ */
++ (BOOL)typeText:(NSString *)text error:(NSError **)error
+{
+  __block volatile uint32_t didFinishTyping = 0;
+  __block BOOL didSucceed = NO;
+
+  [[XCTestDriver sharedTestDriver].managerProxy _XCT_sendString:text completion:^(NSError *innerError){
+    didSucceed = (innerError == nil);
+    if (error) {
+      *error = innerError;
+    }
+    OSAtomicOr32Barrier(1, &didFinishTyping);
+  }];
+
+  while (!didFinishTyping) {
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+  }
+  return didSucceed;
+}
 
 + (id<FBResponsePayload>)handleScrollElementToVisible:(XCUIElement *)element withRequest:(FBRouteRequest *)request
 {
