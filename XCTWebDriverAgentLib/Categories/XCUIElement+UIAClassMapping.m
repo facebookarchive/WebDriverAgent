@@ -29,6 +29,8 @@ static NSDictionary *ElementTypeToUIAClassMapping;
     @"UIAButton" : @(XCUIElementTypeButton),
     @"UIACollectionView" : @(XCUIElementTypeCollectionView),
     @"UIACellView" : @(XCUIElementTypeCell),
+    @"UIAEditingMenu" : @(XCUIElementTypeMenu),
+    @"UIAEditingMenuItem" : @(XCUIElementTypeMenuItem),
     @"UIAImage" : @(XCUIElementTypeImage),
     @"UIAKey" : @(XCUIElementTypeKey),
     @"UIAKeyboard" : @(XCUIElementTypeKeyboard),
