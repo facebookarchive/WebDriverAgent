@@ -189,10 +189,18 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
 
 #pragma mark - Search by xpath
 
-+ (NSArray *)descendantsOfElement:(XCUIElement *)element withXPathQuery:(NSString *)xpathQuery
++ (NSArray<XCUIElement *> *)descendantsOfElement:(XCUIElement *)element withXPathQuery:(NSString *)xpathQuery
+{
+  NSArray *matchingSnapshots = [self descendantsOfElementSnapshot:element.lastSnapshot withXPathQuery:xpathQuery];
+  NSArray *allElements = [[element descendantsMatchingType:XCUIElementTypeAny] allElementsBoundByIndex];
+  NSArray *matchingElements = [self filterElements:allElements matchingSnapshots:matchingSnapshots];
+  return matchingElements;
+}
+
++ (NSArray<XCElementSnapshot *> *)descendantsOfElementSnapshot:(XCElementSnapshot *)elementSnapshot withXPathQuery:(NSString *)xpathQuery
 {
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
-  DDXMLElement *xmlElement = [self XMLElementFromElement:element.lastSnapshot indexPath:@"top" elementStore:elementStore];
+  DDXMLElement *xmlElement = [self XMLElementFromElement:elementSnapshot indexPath:@"top" elementStore:elementStore];
   NSError *error;
   xpathQuery = [XCUIElement patchXPathQueryUIAClassNames:xpathQuery];
   NSArray *xpathNodes = [xmlElement nodesForXPath:xpathQuery error:&error];
@@ -204,10 +212,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
   for (DDXMLElement *childXMLElement in xpathNodes) {
     [matchingSnapshots addObject:[elementStore objectForKey:[[childXMLElement attributeForName:kXMLIndexPathKey] stringValue]]];
   }
-
-  NSArray *allElements = [[element descendantsMatchingType:XCUIElementTypeAny] allElementsBoundByIndex];
-  NSArray *matchingElements = [self filterElements:allElements matchingSnapshots:matchingSnapshots];
-  return matchingElements;
+  return matchingSnapshots;
 }
 
 + (NSArray *)filterElements:(NSArray *)elements matchingSnapshots:(NSArray *)snapshots

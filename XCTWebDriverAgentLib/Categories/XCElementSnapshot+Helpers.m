@@ -9,7 +9,10 @@
 
 #import "XCElementSnapshot+Helpers.h"
 
+#import "XCTWebDriverAgentLib/FBFindElementCommands.h"
+
 #import "FBWDALogger.h"
+#import "FBXPathCreator.h"
 #import "XCAXClient_iOS.h"
 #import "XCTestDriver.h"
 
@@ -37,9 +40,7 @@
 
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type
 {
-  return [self descendantsByFilteringWithBlock:^BOOL(XCElementSnapshot *snapshot){
-    return snapshot.elementType == type;
-  }];
+  return [FBFindElementCommands descendantsOfElementSnapshot:self withXPathQuery:[FBXPathCreator xpathWithSubelementsOfType:XCUIElementTypeButton]];
 }
 
 - (XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type

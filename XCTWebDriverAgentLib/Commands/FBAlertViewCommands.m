@@ -162,7 +162,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   if (alertSnapshot.elementType == XCUIElementTypeAlert) {
     cancelButton = buttons.firstObject;
   } else {
-    alertSnapshot = buttons.lastObject;
+    cancelButton = buttons.lastObject;
   }
   if (!cancelButton) {
     [FBWDALogger logFmt:@"Failed to find dismiss button for alert snapshot: %@", alertSnapshot];
