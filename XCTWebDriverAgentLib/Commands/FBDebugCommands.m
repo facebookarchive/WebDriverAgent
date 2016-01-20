@@ -12,6 +12,7 @@
 #import "FBRouteRequest.h"
 #import "FBXCTSession.h"
 
+#import "XCElementSnapshot+FBElementType.h"
 #import "XCUIApplication.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+UIAClassMapping.h"
@@ -64,6 +65,7 @@ static id ValueOrNull(id value) {
 {
   NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
   info[@"type"] = [XCUIElement UIAClassNameWithElementType:snapshot.elementType];
+  info[@"xctType"] = snapshot.fb_elementTypeString;
   info[@"rawIdentifier"] = ValueOrNull([snapshot.identifier isEqual:@""] ? nil : snapshot.identifier);
   info[@"name"] = ValueOrNull(snapshot.wdName);
   info[@"value"] = ValueOrNull(snapshot.wdValue);
