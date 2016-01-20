@@ -16,6 +16,6 @@
 - (void)scrollLeft;
 - (void)scrollRight;
 
-- (void)scrollToVisible;
+- (BOOL)scrollToVisible;
 
 @end

@@ -62,7 +62,7 @@
     [[FBRoute GET:@"/element/:id/location_in_view"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
         FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
         XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
-        if ([self scrollElementToVisible:element]) {
+        if ([element scrollToVisible]) {
           return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdLocation);
         } else {
           return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, @{});
@@ -272,31 +272,11 @@
 
 + (id<FBResponsePayload>)handleScrollElementToVisible:(XCUIElement *)element withRequest:(FBRouteRequest *)request
 {
-  if ([self scrollElementToVisible:element]) {
+  if ([element scrollToVisible]) {
     return FBResponseDictionaryWithOK();
   } else {
     return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, @{});
   }
-}
-
-/**
- * Performs scrolling (if needed) of the element to make it visible. Returns YES
- * if element is then visible, or NO if element is not visible even after the
- * scroll attempt.
- * @param element The XCUIElement to scroll to visible
- * @return YES if element is now visible, NO if not.
- */
-+ (BOOL)scrollElementToVisible:(XCUIElement *)element {
-  if (element.isFBVisible) {
-    return YES;
-  }
-  [element resolve];
-  [element scrollToVisible];
-  [element resolve];
-  if (!element.isFBVisible) {
-    return NO;
-  }
-  return YES;
 }
 
 @end
