@@ -25,10 +25,16 @@ const CGFloat FBNormalizedDragDistance = 0.95;
 const CGFloat FBScrollVelocity = 200;
 const CGFloat FBScrollBoundingVelocityPadding = 5.0;
 
+void FBHandleScrollingErrorWithDescription(NSError **error, NSString *description);
+
 @interface XCElementSnapshot (FBScrolling)
 
+- (void)scrollUp;
+- (void)scrollDown;
+- (void)scrollLeft;
+- (void)scrollRight;
 - (BOOL)scrollByNormalizedVector:(CGVector)normalizedScrollVector;
-- (BOOL)scrollByVector:(CGVector)vector;
+- (BOOL)scrollByVector:(CGVector)vector error:(NSError **)error;
 
 @end
 
@@ -36,57 +42,86 @@ const CGFloat FBScrollBoundingVelocityPadding = 5.0;
 
 - (void)scrollUp
 {
-  [self.lastSnapshot scrollByNormalizedVector:CGVectorMake(0.0, FBNormalizedDragDistance)];
+  [self.lastSnapshot scrollUp];
 }
 
 - (void)scrollDown
 {
-  [self.lastSnapshot scrollByNormalizedVector:CGVectorMake(0.0, -FBNormalizedDragDistance)];
+  [self.lastSnapshot scrollDown];
 }
 
 - (void)scrollLeft
 {
-  [self.lastSnapshot scrollByNormalizedVector:CGVectorMake(FBNormalizedDragDistance, 0.0)];
+  [self.lastSnapshot scrollLeft];
 }
 
 - (void)scrollRight
 {
-  [self.lastSnapshot scrollByNormalizedVector:CGVectorMake(-FBNormalizedDragDistance, 0.0)];
+  [self.lastSnapshot scrollRight];
 }
 
-- (BOOL)scrollToVisible
+- (BOOL)scrollToVisibleWithError:(NSError **)error
 {
-  NSMutableArray *visibleCells = [NSMutableArray array];
-  __block XCElementSnapshot *parentCellSnapshot = nil;
+  [self resolve];
   XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeScrollView];
   scrollView = scrollView ?: [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeTable];
   scrollView = scrollView ?: [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeCollectionView];
 
-  [scrollView enumerateDescendantsUsingBlock:^(XCElementSnapshot *snapshot){
-    if (snapshot.elementType != XCUIElementTypeCell) {
-      return;
-    }
-    if ([snapshot _isAncestorOfElement:self.lastSnapshot]) {
-      parentCellSnapshot = snapshot;
-    }
-    if ([snapshot _matchesElement:self.lastSnapshot]) {
-      parentCellSnapshot = snapshot;
-    }
-    if (snapshot.isFBVisible) {
-      [visibleCells addObject:snapshot];
-    }
-  }];
+  XCElementSnapshot *targetCellSnapshot = self.parentCellSnapshot;
+  NSArray<XCElementSnapshot *> *cellSnapshots = [scrollView fb_descendantsMatchingType:XCUIElementTypeCell];
+  NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFBVisible == YES"]];
 
-  if (visibleCells.count == 0 || parentCellSnapshot == nil) {
+  if (visibleCellSnapshots.count < 2) {
+    FBHandleScrollingErrorWithDescription(error, [NSString stringWithFormat:@"Failed to perform scroll with visible cell count %d", visibleCellSnapshots.count]);
     return NO;
   }
 
-  // Always trying to grab cell that is not in the edge (first or last)
-  XCElementSnapshot *visibleCellSnapshot = visibleCells.count > 2 ? visibleCells[1] : visibleCells.lastObject;
-  CGVector scrollVector = CGVectorMake(visibleCellSnapshot.frame.origin.x - parentCellSnapshot.frame.origin.x,
-                                       visibleCellSnapshot.frame.origin.y - parentCellSnapshot.frame.origin.y
+  NSUInteger targetCellIndex = [cellSnapshots indexOfObject:targetCellSnapshot];
+  NSUInteger visibleCellIndex = [cellSnapshots indexOfObject:visibleCellSnapshots.lastObject];
+
+  XCElementSnapshot *firsVisibleCell = visibleCellSnapshots.firstObject;
+  XCElementSnapshot *lastVisibleCell = visibleCellSnapshots.lastObject;
+  CGVector cellGrowthVector = CGVectorMake(firsVisibleCell.frame.origin.x - lastVisibleCell.frame.origin.x,
+                                       firsVisibleCell.frame.origin.y - lastVisibleCell.frame.origin.y
                                        );
-  return [scrollView scrollByVector:scrollVector];
+
+  const BOOL isVerticalScroll = (ABS(cellGrowthVector.dy) > ABS(cellGrowthVector.dx));
+
+  const NSUInteger maxScrollCount = 25;
+  NSUInteger scrollCount = 0;
+
+  // Scrolling till cell is visible and got corrent value of frames
+  while (!self.isFBVisible && scrollCount < maxScrollCount) {
+    if (targetCellIndex < visibleCellIndex) {
+      isVerticalScroll ? [scrollView scrollUp] : [scrollView scrollLeft];
+    }
+    else {
+      isVerticalScroll ? [scrollView scrollDown] : [scrollView scrollRight];
+    }
+    [self resolve]; // Resolve is needed for correct visibility
+    scrollCount++;
+  }
+
+  if (scrollCount >= maxScrollCount) {
+    FBHandleScrollingErrorWithDescription(error, @"Failed to perform scroll with visible cell due to max scroll count reached");
+    return NO;
+  }
+
+  // Cell is now visible, but it might be only partialy visible, scrolling till whole frame is visible
+  targetCellSnapshot = self.parentCellSnapshot;
+  CGVector scrollVector = CGVectorMake(targetCellSnapshot.visibleFrame.size.width - targetCellSnapshot.frame.size.width,
+                                       targetCellSnapshot.visibleFrame.size.height - targetCellSnapshot.frame.size.height
+                                       );
+  return [scrollView scrollByVector:scrollVector error:error];
+}
+
+- (XCElementSnapshot *)parentCellSnapshot
+{
+  XCElementSnapshot *targetCellSnapshot = self.lastSnapshot;
+  if (self.elementType != XCUIElementTypeCell) {
+    targetCellSnapshot = [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeCell];
+  }
+  return targetCellSnapshot;
 }
 
 @end
@@ -94,15 +129,36 @@ const CGFloat FBScrollBoundingVelocityPadding = 5.0;
 
 @implementation XCElementSnapshot (FBScrolling)
 
+- (void)scrollUp
+{
+  [self scrollByNormalizedVector:CGVectorMake(0.0, FBNormalizedDragDistance)];
+}
+
+- (void)scrollDown
+{
+  [self scrollByNormalizedVector:CGVectorMake(0.0, -FBNormalizedDragDistance)];
+}
+
+- (void)scrollLeft
+{
+  [self scrollByNormalizedVector:CGVectorMake(FBNormalizedDragDistance, 0.0)];
+}
+
+- (void)scrollRight
+{
+  [self scrollByNormalizedVector:CGVectorMake(-FBNormalizedDragDistance, 0.0)];
+}
+
+
 - (BOOL)scrollByNormalizedVector:(CGVector)normalizedScrollVector
 {
   CGVector scrollVector = CGVectorMake(CGRectGetWidth(self.frame) * normalizedScrollVector.dx,
                                        CGRectGetHeight(self.frame) * normalizedScrollVector.dy
                                        );
-  return [self scrollByVector:scrollVector];
+  return [self scrollByVector:scrollVector error:nil];
 }
 
-- (BOOL)scrollByVector:(CGVector)vector
+- (BOOL)scrollByVector:(CGVector)vector error:(NSError **)error
 {
   CGVector scrollBoundingVector = CGVectorMake(CGRectGetWidth(self.frame)/2.0 - FBScrollBoundingVelocityPadding,
                                                CGRectGetHeight(self.frame)/2.0 - FBScrollBoundingVelocityPadding
@@ -118,14 +174,14 @@ const CGFloat FBScrollBoundingVelocityPadding = 5.0;
     scrollVector.dy = fabs(vector.dy) > fabs(scrollBoundingVector.dy) ? scrollBoundingVector.dy : vector.dy;
     vector = CGVectorMake(vector.dx - scrollVector.dx, vector.dy - scrollVector.dy);
     shouldFinishScrolling = (vector.dx == 0.0 & vector.dy == 0.0 || --scrollLimit == 0);
-    if (![self scrollAncestorScrollViewByVectorWithinScrollViewFrame:scrollVector]){
+    if (![self scrollAncestorScrollViewByVectorWithinScrollViewFrame:scrollVector error:error]){
       return NO;
     }
   }
   return YES;
 }
 
-- (BOOL)scrollAncestorScrollViewByVectorWithinScrollViewFrame:(CGVector)vector
+- (BOOL)scrollAncestorScrollViewByVectorWithinScrollViewFrame:(CGVector)vector error:(NSError **)error
 {
   CGVector hitpointOffset = CGVectorMake(self.hitPointForScrolling.x, self.hitPointForScrolling.y);
   XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:self.application normalizedOffset:CGVectorMake(0.0, 0.0)];
@@ -138,11 +194,11 @@ const CGFloat FBScrollBoundingVelocityPadding = 5.0;
 
   __block volatile uint32_t didFinishScrolling = 0;
   __block BOOL didSucceed = NO;
-  CGFloat estimatedDuration = [[XCEventGenerator sharedGenerator] pressAtPoint:startCoordinate.screenPoint forDuration:0.0 liftAtPoint:endCoordinate.screenPoint velocity:FBScrollVelocity orientation:self.application.interfaceOrientation name:@"FBScroll" handler:^(NSError *error){
+  CGFloat estimatedDuration = [[XCEventGenerator sharedGenerator] pressAtPoint:startCoordinate.screenPoint forDuration:0.0 liftAtPoint:endCoordinate.screenPoint velocity:FBScrollVelocity orientation:self.application.interfaceOrientation name:@"FBScroll" handler:^(NSError *innerError){
+    didSucceed = (innerError == nil);
     if (error) {
-      [FBWDALogger logFmt:@"Failed to perform scroll: %@", error];
+      *error = innerError;
     }
-    didSucceed = (error == nil);
     OSAtomicOr32Barrier(1, &didFinishScrolling);
   }];
   while (!didFinishScrolling) {
@@ -152,3 +208,10 @@ const CGFloat FBScrollBoundingVelocityPadding = 5.0;
 }
 
 @end
+
+void FBHandleScrollingErrorWithDescription(NSError **error, NSString *description)
+{
+  if (error) {
+    *error = [NSError errorWithDomain:@"com.facebook.WebDriverAgent.ScrollToVisible" code:0 userInfo:@{NSLocalizedDescriptionKey : description}];
+  }
+}

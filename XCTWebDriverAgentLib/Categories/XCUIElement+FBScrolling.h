@@ -16,6 +16,6 @@
 - (void)scrollLeft;
 - (void)scrollRight;
 
-- (BOOL)scrollToVisible;
+- (BOOL)scrollToVisibleWithError:(NSError **)error;
 
 @end

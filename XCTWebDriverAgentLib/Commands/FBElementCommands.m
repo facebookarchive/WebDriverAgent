@@ -62,10 +62,11 @@
     [[FBRoute GET:@"/element/:id/location_in_view"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
         FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
         XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
-        if ([element scrollToVisible]) {
+        NSError *error;
+        if ([element scrollToVisibleWithError:&error]) {
           return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdLocation);
         } else {
-          return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, @{});
+          return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error);
         }
     }],
     [[FBRoute GET:@"/element/:id/attribute/:name"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
@@ -272,10 +273,11 @@
 
 + (id<FBResponsePayload>)handleScrollElementToVisible:(XCUIElement *)element withRequest:(FBRouteRequest *)request
 {
-  if ([element scrollToVisible]) {
+  NSError *error;
+  if ([element scrollToVisibleWithError:&error]) {
     return FBResponseDictionaryWithOK();
   } else {
-    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, @{});
+    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error);
   }
 }
 
