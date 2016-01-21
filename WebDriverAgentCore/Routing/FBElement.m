@@ -9,17 +9,7 @@
 
 #import "FBElement.h"
 
-#import "FBCoreExceptionHandler.h"
-
 NSString *wdAttributeNameForAttributeName(NSString *name)
 {
-  static dispatch_once_t onceToken;
-  static NSSet *allowedAttributes;
-  dispatch_once(&onceToken, ^{
-    allowedAttributes = [NSSet setWithArray:@[@"name", @"type", @"value", @"label", @"frame", @"rect", @"size", @"location"]];
-  });
-  if (![allowedAttributes containsObject:name.lowercaseString]) {
-    [[NSException exceptionWithName:FBElementAttributeUnknownException reason:[NSString stringWithFormat:@"Invalid locator requested: %@", name] userInfo:nil] raise];
-  }
   return [NSString stringWithFormat:@"wd%@", name.capitalizedString];
 }
