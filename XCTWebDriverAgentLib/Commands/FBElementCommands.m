@@ -66,7 +66,7 @@
         if ([element scrollToVisibleWithError:&error]) {
           return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdLocation);
         } else {
-          return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error);
+          return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
         }
     }],
     [[FBRoute GET:@"/element/:id/attribute/:name"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
@@ -172,7 +172,7 @@
       NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
       NSError *error = nil;
       if (![self.class typeText:textToType error:&error]) {
-        return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error);
+        return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
       }
       return FBResponseDictionaryWithElementID(elementID);
     }],
@@ -195,7 +195,7 @@
       }
       NSError *error;
       if (![self.class typeText:textToType error:&error]) {
-        return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error);
+        return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
       }
       return FBResponseDictionaryWithElementID(elementID);
     }],
@@ -231,7 +231,7 @@
       NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
       NSError *error;
       if (![self.class typeText:textToType error:&error]) {
-        return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error);
+        return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
       }
       return FBResponseDictionaryWithOK();
     }],
@@ -277,7 +277,7 @@
   if ([element scrollToVisibleWithError:&error]) {
     return FBResponseDictionaryWithOK();
   } else {
-    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error);
+    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
   }
 }
 
