@@ -72,7 +72,7 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFBVisible == YES"]];
 
   if (visibleCellSnapshots.count < 2) {
-    FBHandleScrollingErrorWithDescription(error, [NSString stringWithFormat:@"Failed to perform scroll with visible cell count %d", visibleCellSnapshots.count]);
+    FBHandleScrollingErrorWithDescription(error, [NSString stringWithFormat:@"Failed to perform scroll with visible cell count %lu", (unsigned long)visibleCellSnapshots.count]);
     return NO;
   }
 
