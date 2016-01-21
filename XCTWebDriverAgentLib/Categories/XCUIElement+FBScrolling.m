@@ -194,15 +194,17 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
 
   __block volatile uint32_t didFinishScrolling = 0;
   __block BOOL didSucceed = NO;
-  CGFloat estimatedDuration = [[XCEventGenerator sharedGenerator] pressAtPoint:startCoordinate.screenPoint forDuration:0.0 liftAtPoint:endCoordinate.screenPoint velocity:FBScrollVelocity orientation:self.application.interfaceOrientation name:@"FBScroll" handler:^(NSError *innerError){
-    didSucceed = (innerError == nil);
-    if (error) {
-      *error = innerError;
-    }
+  __block NSError *innerError;
+  CGFloat estimatedDuration = [[XCEventGenerator sharedGenerator] pressAtPoint:startCoordinate.screenPoint forDuration:0.0 liftAtPoint:endCoordinate.screenPoint velocity:FBScrollVelocity orientation:self.application.interfaceOrientation name:@"FBScroll" handler:^(NSError *scrollingError){
+    didSucceed = (scrollingError == nil);
+    innerError = scrollingError;
     OSAtomicOr32Barrier(1, &didFinishScrolling);
   }];
   while (!didFinishScrolling) {
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:estimatedDuration/4.0]];
+  }
+  if (error) {
+    *error = innerError;
   }
   return didSucceed;
 }

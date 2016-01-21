@@ -170,7 +170,7 @@
         [element tap];
       }
       NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
-      NSError *error;
+      NSError *error = nil;
       if (![self.class typeText:textToType error:&error]) {
         return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error);
       }
@@ -256,17 +256,17 @@
 {
   __block volatile uint32_t didFinishTyping = 0;
   __block BOOL didSucceed = NO;
-
-  [[XCTestDriver sharedTestDriver].managerProxy _XCT_sendString:text completion:^(NSError *innerError){
-    didSucceed = (innerError == nil);
-    if (error) {
-      *error = innerError;
-    }
+  __block NSError *innerError;
+  [[XCTestDriver sharedTestDriver].managerProxy _XCT_sendString:text completion:^(NSError *typingError){
+    didSucceed = (typingError == nil);
+    innerError = typingError;
     OSAtomicOr32Barrier(1, &didFinishTyping);
   }];
-
   while (!didFinishTyping) {
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+  }
+  if (error) {
+    *error = innerError;
   }
   return didSucceed;
 }
