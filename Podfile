@@ -31,13 +31,13 @@ end
 # XCT Testing
 
 target :XCTWebDriverAgentLib, :exclusive => true do
-  pod 'fishhook', :git => 'https://github.com/facebook/fishhook.git', :commit => '8dbd09b'
   pod 'KissXML'
+  pod 'PeerTalk', :git => 'https://github.com/rsms/peertalk.git', :commit => '5a0495a'
   pod 'RoutingHTTPServer'
 end
 
 target :XCTUITestRunner, :exclusive => true do
-  pod 'fishhook', :git => 'https://github.com/facebook/fishhook.git', :commit => '8dbd09b'
   pod 'KissXML'
+  pod 'PeerTalk', :git => 'https://github.com/rsms/peertalk.git', :commit => '5a0495a'
   pod 'RoutingHTTPServer'
 end

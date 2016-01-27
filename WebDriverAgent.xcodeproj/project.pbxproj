@@ -2172,19 +2172,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
-					"-l\"CocoaAsyncSocket\"",
-					"-l\"CocoaHTTPServer\"",
-					"-l\"CocoaLumberjack\"",
-					"-l\"KissXML\"",
-					"-l\"RoutingHTTPServer\"",
-					"-l\"fishhook\"",
-					"-l\"xml2\"",
-					"-framework",
-					"\"CFNetwork\"",
-					"-framework",
-					"\"Security\"",
-					"-lAccessibility",
+					"-l\"Accessibility\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cirkos.marek.XCTUITestRunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2202,19 +2190,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
-					"-l\"CocoaAsyncSocket\"",
-					"-l\"CocoaHTTPServer\"",
-					"-l\"CocoaLumberjack\"",
-					"-l\"KissXML\"",
-					"-l\"RoutingHTTPServer\"",
-					"-l\"fishhook\"",
-					"-l\"xml2\"",
-					"-framework",
-					"\"CFNetwork\"",
-					"-framework",
-					"\"Security\"",
-					"-lAccessibility",
+					"-l\"Accessibility\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cirkos.marek.XCTUITestRunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
