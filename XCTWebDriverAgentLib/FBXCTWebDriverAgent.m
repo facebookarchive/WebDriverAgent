@@ -10,14 +10,16 @@
 #import "FBXCTWebDriverAgent.h"
 
 #import "FBCoreExceptionHandler.h"
+#import "FBHTTPOverUSBServer.h"
+#import "FBSession-Private.h"
 #import "FBWDALogger.h"
 #import "FBWebServer.h"
 #import "FBXCTExceptionHandler.h"
-#import "FBSession-Private.h"
 #import "FBXCTSession.h"
 
 @interface FBXCTWebDriverAgent ()
-@property (atomic, strong, readwrite) FBWebServer *server;
+@property (atomic, strong, readwrite) FBWebServer *routingServer;
+@property (atomic, strong, readwrite) FBHTTPOverUSBServer *USBServer;
 @end
 
 @implementation FBXCTWebDriverAgent
@@ -25,9 +27,13 @@
 - (void)start
 {
   [FBWDALogger logFmt:@"Built at %s %s", __DATE__, __TIME__];
-  self.server = [[FBWebServer alloc] init];
-  self.server.exceptionHandlers = @[[FBCoreExceptionHandler new], [FBXCTExceptionHandler new]];
-  [self.server startServing];
+  self.routingServer = [[FBWebServer alloc] init];
+  self.routingServer.exceptionHandlers = @[[FBCoreExceptionHandler new], [FBXCTExceptionHandler new]];
+  [self.routingServer startServing];
+
+  self.USBServer = [[FBHTTPOverUSBServer alloc] initWithRoutingServer:self.routingServer.server];
+  [self.USBServer startServing];
+
   [[NSRunLoop mainRunLoop] run];
 }
 
@@ -39,7 +45,7 @@
     session.didRegisterAXTestFailure = YES;
   }
   else if (session.didRegisterAXTestFailure) {
-    [self.server handleAppDeadlockDetection];
+    [self.routingServer handleAppDeadlockDetection];
   }
 }
 

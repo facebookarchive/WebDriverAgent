@@ -46,6 +46,8 @@
 		B64FCE022A2DCE1C3F02F741 /* libPods-XCTUITestRunner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A34459487822F33D42FD222E /* libPods-XCTUITestRunner.a */; };
 		EE00CF631C49CC3300C8239A /* FBTouchIDCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE00CF611C49CBE100C8239A /* FBTouchIDCommands.m */; };
 		EE00CF641C49CC3400C8239A /* FBTouchIDCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE00CF611C49CBE100C8239A /* FBTouchIDCommands.m */; };
+		EE020F751C5656DD0051FC11 /* FBHTTPOverUSBServer.h in Headers */ = {isa = PBXBuildFile; fileRef = EE020F731C5656DD0051FC11 /* FBHTTPOverUSBServer.h */; };
+		EE020F761C5656DD0051FC11 /* FBHTTPOverUSBServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE020F741C5656DD0051FC11 /* FBHTTPOverUSBServer.m */; };
 		EE040DC51C1201BB00D0945C /* UIAutomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8571B99E45400F8BA6F /* UIAutomation.framework */; };
 		EE040DC61C12041500D0945C /* AccessibilityUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */; };
 		EE0CA1DF1BF0D0E3005C43CD /* FBSession.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */; };
@@ -435,6 +437,8 @@
 		DE2E79F594F94C8B6896C776 /* Pods-WebDriverAgent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgent.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgent/Pods-WebDriverAgent.release.xcconfig"; sourceTree = "<group>"; };
 		EE00CF601C49CBE100C8239A /* FBTouchIDCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTouchIDCommands.h; sourceTree = "<group>"; };
 		EE00CF611C49CBE100C8239A /* FBTouchIDCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTouchIDCommands.m; sourceTree = "<group>"; };
+		EE020F731C5656DD0051FC11 /* FBHTTPOverUSBServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBHTTPOverUSBServer.h; sourceTree = "<group>"; };
+		EE020F741C5656DD0051FC11 /* FBHTTPOverUSBServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBHTTPOverUSBServer.m; sourceTree = "<group>"; };
 		EE0CA1DD1BF0D0E3005C43CD /* FBSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSession.h; sourceTree = "<group>"; };
 		EE0CA1DE1BF0D0E3005C43CD /* FBSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSession.m; sourceTree = "<group>"; };
 		EE0CA1E51BF0D402005C43CD /* FBSession-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FBSession-Private.h"; sourceTree = "<group>"; };
@@ -932,11 +936,13 @@
 			children = (
 				EE3D738A1BECCA5A0034D1E9 /* FBCommandHandler.h */,
 				EE3D738B1BECCA5A0034D1E9 /* FBCommandStatus.h */,
+				ADA470301C0E7FD8002CDE9C /* FBCoreExceptionHandler.h */,
+				ADA470311C0E7FD8002CDE9C /* FBCoreExceptionHandler.m */,
 				EE3D73BE1BECCB6F0034D1E9 /* FBElement.h */,
 				EEC28B0E1BF215D800B4DC79 /* FBElement.m */,
 				EE3D73BD1BECCB240034D1E9 /* FBElementCache.h */,
-				ADA470301C0E7FD8002CDE9C /* FBCoreExceptionHandler.h */,
-				ADA470311C0E7FD8002CDE9C /* FBCoreExceptionHandler.m */,
+				EE020F731C5656DD0051FC11 /* FBHTTPOverUSBServer.h */,
+				EE020F741C5656DD0051FC11 /* FBHTTPOverUSBServer.m */,
 				EE3D738C1BECCA5A0034D1E9 /* FBResponseFilePayload.h */,
 				EE3D738D1BECCA5A0034D1E9 /* FBResponseFilePayload.m */,
 				EE3D738E1BECCA5A0034D1E9 /* FBResponseJSONPayload.h */,
@@ -1293,6 +1299,7 @@
 				EED031641BFA397A007EDC1D /* XCSynthesizedEventRecord.h in Headers */,
 				EED031481BFA397A007EDC1D /* UIPanGestureRecognizer-RecordingAdditions.h in Headers */,
 				EE75ACE71C4FF4E20061D29C /* FBXPathCreator.h in Headers */,
+				EE020F751C5656DD0051FC11 /* FBHTTPOverUSBServer.h in Headers */,
 				EED031811BFA397A007EDC1D /* XCTestSuiteRun.h in Headers */,
 				EED031531BFA397A007EDC1D /* XCAXManager_OSX.h in Headers */,
 				EEC289881BF0ED3000B4DC79 /* FBWDAConstants.h in Headers */,
@@ -1877,6 +1884,7 @@
 				EEC2895E1BF0ED3000B4DC79 /* FBWDAConstants.m in Sources */,
 				EE75ACF81C50353B0061D29C /* XCElementSnapshot+FBElementType.m in Sources */,
 				EEC4020A1C4010CC00053801 /* FBInspectorCommands.m in Sources */,
+				EE020F761C5656DD0051FC11 /* FBHTTPOverUSBServer.m in Sources */,
 				EEC289631BF0ED3000B4DC79 /* FBRouteRequest.m in Sources */,
 				EEC28B051BF2124700B4DC79 /* XCUIElement+WebDriverAttributes.m in Sources */,
 				EEC289B91BF0EE4000B4DC79 /* FBXCTExceptionHandler.m in Sources */,
