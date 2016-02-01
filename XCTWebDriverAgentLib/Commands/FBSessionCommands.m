@@ -32,7 +32,8 @@
       app.launchArguments = requirements[@"arguments"] ?: @[];
       app.launchEnvironment = requirements[@"environment"] ?: @{};
       [app launch];
-      [FBXCTSession sessionWithXCUIApplication:app];
+      FBXCTSession *session = [FBXCTSession sessionWithXCUIApplication:app];
+      session.isA11ySession = [requirements[@"enable_a11y"] boolValue];
       return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
     }],
     [[FBRoute GET:@""] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
