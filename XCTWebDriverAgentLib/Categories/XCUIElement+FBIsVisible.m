@@ -9,11 +9,7 @@
 
 #import "XCUIElement+FBIsVisible.h"
 
-#import "XCAXClient_iOS.h"
-#import "XCUIElement.h"
-
-extern const NSString *const XC_kAXXCAttributeIsVisible;
-NSArray *XCAXAccessibilityAttributesForStringAttributes(NSArray *list);
+#import "XCElementSnapshot+Helpers.h"
 
 @implementation XCUIElement (FBIsVisible)
 
@@ -26,17 +22,9 @@ NSArray *XCAXAccessibilityAttributesForStringAttributes(NSArray *list);
 
 @implementation XCElementSnapshot (FBIsVisible)
 
-static NSNumber *FB_XCAXAIsVisibileAttribute;
-
-+ (void)load
-{
-  FB_XCAXAIsVisibileAttribute = (NSNumber *)[XCAXAccessibilityAttributesForStringAttributes(@[XC_kAXXCAttributeIsVisible]) lastObject];
-}
-
 - (BOOL)isFBVisible
 {
-  NSDictionary *attributesResult = [[XCAXClient_iOS sharedClient] attributesForElementSnapshot:self attributeList:@[FB_XCAXAIsVisibileAttribute]];
-  return [attributesResult[FB_XCAXAIsVisibileAttribute] boolValue];
+  return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
 }
 
 @end

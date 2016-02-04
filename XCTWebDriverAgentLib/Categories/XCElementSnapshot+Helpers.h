@@ -9,6 +9,9 @@
 
 #import <XCTWebDriverAgentLib/XCElementSnapshot.h>
 
+extern NSNumber *FB_XCAXAIsVisibleAttribute;
+extern NSNumber *FB_XCAXAIsElementAttribute;
+
 @interface XCElementSnapshot (Helpers)
 
 + (XCElementSnapshot *)fb_snapshotForAccessibilityElement:(XCAccessibilityElement *)accessibilityElement;
@@ -16,5 +19,7 @@
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type;
 
 - (XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type;
+
+- (id)fb_attributeValue:(NSNumber *)attribute;
 
 @end

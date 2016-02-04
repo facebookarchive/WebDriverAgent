@@ -16,7 +16,21 @@
 #import "XCAXClient_iOS.h"
 #import "XCTestDriver.h"
 
+extern const NSString *const XC_kAXXCAttributeIsVisible;
+extern const NSString *const XC_kAXXCAttributeIsElement;
+NSArray *XCAXAccessibilityAttributesForStringAttributes(NSArray *list);
+
+NSNumber *FB_XCAXAIsVisibleAttribute;
+NSNumber *FB_XCAXAIsElementAttribute;
+
 @implementation XCElementSnapshot (Helpers)
+
++ (void)load
+{
+  NSArray<NSNumber *> *accessibilityAttributes = XCAXAccessibilityAttributesForStringAttributes(@[XC_kAXXCAttributeIsVisible, XC_kAXXCAttributeIsElement]);
+  FB_XCAXAIsVisibleAttribute = accessibilityAttributes[0];
+  FB_XCAXAIsElementAttribute = accessibilityAttributes[1];
+}
 
 + (XCElementSnapshot *)fb_snapshotForAccessibilityElement:(XCAccessibilityElement *)accessibilityElement
 {
@@ -50,6 +64,12 @@
     snapshot = snapshot.parent;
   }
   return snapshot;
+}
+
+- (id)fb_attributeValue:(NSNumber *)attribute
+{
+  NSDictionary *attributesResult = [[XCAXClient_iOS sharedClient] attributesForElementSnapshot:self attributeList:@[attribute]];
+  return attributesResult[attribute];
 }
 
 @end
