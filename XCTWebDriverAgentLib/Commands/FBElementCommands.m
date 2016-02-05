@@ -25,6 +25,7 @@
 #import "XCUIElement+WebDriverAttributes.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
+#import "XCTHelper.h"
 
 @interface FBElementCommands ()
 @end
@@ -171,7 +172,7 @@
       }
       NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
       NSError *error = nil;
-      if (![self.class typeText:textToType error:&error]) {
+      if (![FBXCTElementHelper typeText:textToType error:&error]) {
         return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
       }
       return FBResponseDictionaryWithElementID(elementID);
@@ -194,7 +195,7 @@
         [textToType appendString:@"\b"];
       }
       NSError *error;
-      if (![self.class typeText:textToType error:&error]) {
+      if (![FBXCTElementHelper typeText:textToType error:&error]) {
         return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
       }
       return FBResponseDictionaryWithElementID(elementID);
@@ -242,34 +243,7 @@
   ];
 }
 
-
 #pragma mark - Helpers
-
-/*!
- * Types a string into the element. The element or a descendant must have keyboard focus; otherwise an
- * error is raised.
- *
- * This API discards any modifiers set in the current context by +performWithKeyModifiers:block: so that
- * it strictly interprets the provided text. To input keys with modifier flags, use  -typeKey:modifierFlags:.
- */
-+ (BOOL)typeText:(NSString *)text error:(NSError **)error
-{
-  __block volatile uint32_t didFinishTyping = 0;
-  __block BOOL didSucceed = NO;
-  __block NSError *innerError;
-  [[XCTestDriver sharedTestDriver].managerProxy _XCT_sendString:text completion:^(NSError *typingError){
-    didSucceed = (typingError == nil);
-    innerError = typingError;
-    OSAtomicOr32Barrier(1, &didFinishTyping);
-  }];
-  while (!didFinishTyping) {
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-  }
-  if (error) {
-    *error = innerError;
-  }
-  return didSucceed;
-}
 
 + (id<FBResponsePayload>)handleScrollElementToVisible:(XCUIElement *)element withRequest:(FBRouteRequest *)request
 {
