@@ -23,7 +23,8 @@ NSString *wdAttributeNameForAttributeName(NSString *name);
 @property (readonly, copy) NSString *wdType;
 @property (readonly, strong) id wdValue;
 @property (readonly, getter = isWDEnabled) BOOL wdEnabled;
-@property (readonly, getter = isWDVisible) BOOL wdVisible;
+@property (atomic, readonly, getter = isWDVisible) BOOL wdVisible;
+@property (atomic, readonly, getter = isWDAccessible) BOOL wdAccessible;
 
 - (id)valueForWDAttributeName:(NSString *)name;
 

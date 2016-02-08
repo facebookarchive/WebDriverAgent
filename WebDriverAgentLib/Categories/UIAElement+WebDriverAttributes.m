@@ -74,7 +74,11 @@
 - (BOOL)isWDVisible
 {
   return self.isVisible.boolValue;
-  
+}
+
+- (BOOL)isWDAccessible
+{
+  return self.isAccessibilityElement;
 }
 
 - (id)valueForWDAttributeName:(NSString *)name

@@ -11,8 +11,9 @@
 
 #import <objc/runtime.h>
 
-#import "XCUIElement+UIAClassMapping.h"
+#import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
+#import "XCUIElement+UIAClassMapping.h"
 #import "XCUIElement.h"
 
 #define FBTransferEmptyStringToNil(value) ([value isEqual:@""] ? nil : value)
@@ -75,6 +76,21 @@
 - (BOOL)isWDVisible
 {
   return self.isFBVisible;
+}
+
+- (BOOL)isWDAccessible
+{
+  if (!self.isFbAccessibilityElement) {
+    return NO;
+  }
+  XCElementSnapshot *parentSnapshot = self.parent;
+  while (parentSnapshot) {
+    if (parentSnapshot.isFbAccessibilityElement) {
+      return NO;
+    }
+    parentSnapshot = parentSnapshot.parent;
+  }
+  return YES;
 }
 
 - (BOOL)isWDEnabled
