@@ -25,25 +25,17 @@ static NSUInteger const DefaultPortRange = 100;
 
 + (NSRange)bindingPortRange
 {
-  // Existence of PORT_OFFSET in the environment implies the port range is managed by the launching process.
-  if (NSProcessInfo.processInfo.environment[@"PORT_OFFSET"]) {
-    return NSMakeRange(self.startingPort + [NSProcessInfo.processInfo.environment[@"PORT_OFFSET"] integerValue] , 1);
+  // Existence of USE_PORT in the environment implies the port range is managed by the launching process.
+  if (NSProcessInfo.processInfo.environment[@"USE_PORT"]) {
+    return NSMakeRange([NSProcessInfo.processInfo.environment[@"USE_PORT"] integerValue] , 1);
   }
 
-  return NSMakeRange(self.startingPort, DefaultPortRange);
+  return NSMakeRange(DefaultStartingPort, DefaultPortRange);
 }
 
 + (BOOL)verboseLoggingEnabled
 {
   return [NSProcessInfo.processInfo.environment[@"VERBOSE_LOGGING"] boolValue];
-}
-
-#pragma mark Private
-
-+ (NSUInteger)startingPort
-{
-  NSUInteger port = (NSUInteger) [NSProcessInfo.processInfo.environment[@"STARTING_PORT"] integerValue];
-  return port ? port : DefaultStartingPort;
 }
 
 @end
