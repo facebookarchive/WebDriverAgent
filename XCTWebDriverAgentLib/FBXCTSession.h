@@ -16,7 +16,6 @@ extern NSString *const FBApplicationCrashedException;
 
 @interface FBXCTSession : FBSession
 @property (nonatomic, assign) BOOL didRegisterAXTestFailure;
-@property (nonatomic, assign) BOOL isA11ySession;
 @property (nonatomic, strong, readonly) XCUIApplication *application;
 
 /**
