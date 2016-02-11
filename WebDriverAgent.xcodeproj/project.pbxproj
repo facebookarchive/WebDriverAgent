@@ -2182,7 +2182,7 @@
 					"$(inherited)",
 					"-l\"Accessibility\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cirkos.marek.XCTUITestRunner;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.xctweb-driver-agent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USES_XCTRUNNER = YES;
@@ -2200,7 +2200,7 @@
 					"$(inherited)",
 					"-l\"Accessibility\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cirkos.marek.XCTUITestRunner;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.xctweb-driver-agent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USES_XCTRUNNER = YES;
