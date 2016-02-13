@@ -50,7 +50,7 @@ xcodebuild -workspace WebDriverAgent.xcworkspace -scheme XCTUITestRunner -destin
 
 When simlulator/device launches with blue screen it should be ready for receiving requests. To get ip address under with device is available you can check device logs for line "ServerURLHere->[DEVICE_URL]<-ServerURLHere"
 
-To start tasting app you can use curl to fire request:
+Use curl to start testing the app:
 ```
 curl -X POST -H "Content-Type: application/json" -d "{\"desiredCapabilities\":{\"bundleId\":\"$BUNDLE_ID\", \"app\":\"/path/to/app/on/local/machine/magicapp.app\"}}" http://[DEVICE_URL]/session/
 ```
