@@ -238,7 +238,16 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
   DDXMLElement *xmlElement = [[DDXMLElement alloc] initWithName:snapshot.wdType];
   [xmlElement addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:snapshot.wdType]];
   if (snapshot.wdValue) {
-    [xmlElement addAttribute:[DDXMLNode attributeWithName:@"value" stringValue:snapshot.wdValue]];
+    id value = snapshot.wdValue;
+    NSString *stringValue;
+    if ([value isKindOfClass:[NSValue class]]) {
+      stringValue = [value stringValue];
+    } else if ([value isKindOfClass:[NSString class]]) {
+      stringValue = value;
+    } else {
+      stringValue = [value description];
+    }
+    [xmlElement addAttribute:[DDXMLNode attributeWithName:@"value" stringValue:stringValue]];
   }
   if (snapshot.wdName) {
     [xmlElement addAttribute:[DDXMLNode attributeWithName:@"name" stringValue:snapshot.wdName]];

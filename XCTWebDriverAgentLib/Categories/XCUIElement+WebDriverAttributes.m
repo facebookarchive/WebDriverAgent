@@ -50,6 +50,12 @@
   if (self.elementType == XCUIElementTypeStaticText) {
     value = FBFirstNonEmptyValue(self.value, self.label);
   }
+  if (self.elementType == XCUIElementTypeButton) {
+    value = FBFirstNonEmptyValue(self.value, (self.isSelected ? @YES : nil));
+  }
+  if (self.elementType == XCUIElementTypeSwitch) {
+    value = @([self.value boolValue]);
+  }
   return FBTransferEmptyStringToNil(value);
 }
 
@@ -60,6 +66,9 @@
 
 - (NSString *)wdLabel
 {
+  if (self.elementType == XCUIElementTypeTextField) {
+    return self.label;
+  }
   return FBTransferEmptyStringToNil(self.label);
 }
 
