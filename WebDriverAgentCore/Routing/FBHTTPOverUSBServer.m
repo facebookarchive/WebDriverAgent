@@ -95,7 +95,7 @@ static const uint32_t FBUSBFrameType = 100;
 
   RouteResponse *response = [self.routingServer routeMethod:method withPath:path parameters:(parameters ? : @{}) request:request connection:nil];
 
-  NSData *JSONResponseData = [response.response readDataOfLength:response.response.contentLength];
+  NSData *JSONResponseData = [response.response readDataOfLength:(NSInteger)response.response.contentLength];
   NSDictionary *httpResponse = [NSJSONSerialization JSONObjectWithData:JSONResponseData options:NSJSONReadingMutableContainers error:&error];
   if (!httpResponse) {
     [self respondWithErrorMessage:[NSString stringWithFormat:@"Failed to decode JSON repsonse. %@", error]];
