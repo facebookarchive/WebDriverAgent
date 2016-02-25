@@ -148,7 +148,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
   NSMutableArray *result = [NSMutableArray array];
   XCUIElementType type = [XCUIElement elementTypeWithUIAClassName:className];
   if (element.elementType == type) {
-    [result addObject:result];
+    [result addObject:element];
   }
   [result addObjectsFromArray:[[element descendantsMatchingType:type] allElementsBoundByIndex]];
   return result.copy;
@@ -274,7 +274,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
 {
   NSMutableArray *result = [NSMutableArray array];
   if (element.identifier == accessibilityId) {
-    [result addObject:result];
+    [result addObject:element];
   }
   NSArray *children = [[[element descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:accessibilityId] allElementsBoundByIndex];
   [result addObjectsFromArray: children];
