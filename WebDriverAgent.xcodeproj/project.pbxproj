@@ -10,6 +10,7 @@
 		165C260210AEEB3A269ADF7D /* libPods-XCTWebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E1C646F36B5582132DA12 /* libPods-XCTWebDriverAgentLib.a */; };
 		17FAFB7CEBC0F6E3621FAA62 /* libPods-WebDriverAgentLibTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 126BB2958BC0D6129BB43082 /* libPods-WebDriverAgentLibTests.a */; };
 		3CC397CE664E295947463C5C /* libPods-WebDriverAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F204A7ED0F3E8EEFB1A1C300 /* libPods-WebDriverAgent.a */; };
+		3E5AFD6E9F998F592139B678 /* libPods-WebDriverAgentCoreTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B550B5F693A107F8F43728B /* libPods-WebDriverAgentCoreTests.a */; };
 		498495CB1BB2EB9B009CC848 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */; };
 		91607A951C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 91607A941C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h */; };
 		91E7D8581B99E45400F8BA6F /* UIAutomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8571B99E45400F8BA6F /* UIAutomation.framework */; };
@@ -323,15 +324,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0335DEF25970300DC0DC23C9 /* Pods-WebDriverAgentCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentCoreTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentCoreTests/Pods-WebDriverAgentCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
 		126BB2958BC0D6129BB43082 /* libPods-WebDriverAgentLibTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgentLibTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		154D92108667239A91439DD4 /* Pods-WebDriverAgentLibTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLibTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1A840E10D402D89F7FDA64D0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		25290BED4D47D70D6CAC81AA /* Pods-WebDriverAgent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgent/Pods-WebDriverAgent.debug.xcconfig"; sourceTree = "<group>"; };
 		3B16C2A60F36356996EE8EBB /* Pods-WebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLib/Pods-WebDriverAgentLib.release.xcconfig"; sourceTree = "<group>"; };
+		3B550B5F693A107F8F43728B /* libPods-WebDriverAgentCoreTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgentCoreTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		410A1F98CE4D889BDD2640C8 /* Pods-XCTUITestRunner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTUITestRunner.release.xcconfig"; path = "Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner.release.xcconfig"; sourceTree = "<group>"; };
 		498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WebDriverAgent.bundle; sourceTree = "<group>"; };
 		5D6EAD48D91D44DDAB21D256 /* libPods-WebDriverAgentLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgentLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7191916E53767F463FBE793C /* Pods-XCTWebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTWebDriverAgentLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-XCTWebDriverAgentLib/Pods-XCTWebDriverAgentLib.release.xcconfig"; sourceTree = "<group>"; };
+		80E68470204C2720246F4FD7 /* Pods-WebDriverAgentCoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentCoreTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentCoreTests/Pods-WebDriverAgentCoreTests.release.xcconfig"; sourceTree = "<group>"; };
 		8286A75C98FB0AA2448EF1E7 /* Pods-XCTWebDriverAgentLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTWebDriverAgentLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XCTWebDriverAgentLib/Pods-XCTWebDriverAgentLib.debug.xcconfig"; sourceTree = "<group>"; };
 		86762B93D2FADAABEE7E2B3D /* Pods-WebDriverAgentLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLib/Pods-WebDriverAgentLib.debug.xcconfig"; sourceTree = "<group>"; };
 		8C01E5F49840B2A26406048F /* Pods-XCTUITestRunner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTUITestRunner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner.debug.xcconfig"; sourceTree = "<group>"; };
@@ -674,6 +678,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE836C071C0F118600D87246 /* libXCTWebDriverAgentLib.a in Frameworks */,
+				3E5AFD6E9F998F592139B678 /* libPods-WebDriverAgentCoreTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,6 +725,8 @@
 				410A1F98CE4D889BDD2640C8 /* Pods-XCTUITestRunner.release.xcconfig */,
 				8286A75C98FB0AA2448EF1E7 /* Pods-XCTWebDriverAgentLib.debug.xcconfig */,
 				7191916E53767F463FBE793C /* Pods-XCTWebDriverAgentLib.release.xcconfig */,
+				0335DEF25970300DC0DC23C9 /* Pods-WebDriverAgentCoreTests.debug.xcconfig */,
+				80E68470204C2720246F4FD7 /* Pods-WebDriverAgentCoreTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -923,6 +930,7 @@
 				F204A7ED0F3E8EEFB1A1C300 /* libPods-WebDriverAgent.a */,
 				A34459487822F33D42FD222E /* libPods-XCTUITestRunner.a */,
 				BD7E1C646F36B5582132DA12 /* libPods-XCTWebDriverAgentLib.a */,
+				3B550B5F693A107F8F43728B /* libPods-WebDriverAgentCoreTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1470,9 +1478,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE836C0A1C0F118600D87246 /* Build configuration list for PBXNativeTarget "WebDriverAgentCoreTests" */;
 			buildPhases = (
+				7ACE1E90B460ECDBE2AEC82C /* Check Pods Manifest.lock */,
 				EE836BFE1C0F118600D87246 /* Sources */,
 				EE836BFF1C0F118600D87246 /* Frameworks */,
 				EE836C001C0F118600D87246 /* Resources */,
+				21A211EDE9B2D91595D076DF /* Embed Pods Frameworks */,
+				DA16A2147B8C7FD853494E15 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1638,6 +1649,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		21A211EDE9B2D91595D076DF /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgentCoreTests/Pods-WebDriverAgentCoreTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		498495C91BB2E731009CC848 /* Generate Resource Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1665,6 +1691,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgent/Pods-WebDriverAgent-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7ACE1E90B460ECDBE2AEC82C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7CBC9991DAC2009B25F7B4E7 /* Check Pods Manifest.lock */ = {
@@ -1755,6 +1796,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DA16A2147B8C7FD853494E15 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgentCoreTests/Pods-WebDriverAgentCoreTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EEC289551BF0ED3000B4DC79 /* Check Pods Manifest.lock */ = {
@@ -2141,6 +2197,7 @@
 		};
 		EE836C0B1C0F118600D87246 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0335DEF25970300DC0DC23C9 /* Pods-WebDriverAgentCoreTests.debug.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = WebDriverAgentCoreTests/Info.plist;
@@ -2153,6 +2210,7 @@
 		};
 		EE836C0C1C0F118600D87246 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80E68470204C2720246F4FD7 /* Pods-WebDriverAgentCoreTests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = WebDriverAgentCoreTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;

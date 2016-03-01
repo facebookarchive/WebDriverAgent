@@ -21,7 +21,7 @@
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute POST:@"/deactivateApp"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/deactivateApp"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       id duration = request.arguments[@"duration"];
       @try {
         // TODO(t8051359): This is terrible and we should file a Radar for this.
@@ -42,11 +42,11 @@
       }
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/timeouts/implicit_wait"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/timeouts/implicit_wait"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       // This method is intentionally not supported.
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/location"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/location"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       [[UIATarget localTarget] setLocation:@{ @"latitude": request.arguments[@"latitude"], @"longitude": request.arguments[@"longitude"] }];
       return FBResponseDictionaryWithOK();
     }],

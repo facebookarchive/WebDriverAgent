@@ -16,9 +16,8 @@
 #import "FBElementCache.h"
 #import "FBRouteRequest.h"
 #import "FBWDAMacros.h"
-#import "FBXCTSession.h"
 #import "FBXCTElementCache.h"
-
+#import "FBXCTSession.h"
 #import "XCElementSnapshot.h"
 #import "XCUIApplication.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -37,66 +36,84 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
 {
   return
   @[
-    [[FBRoute POST:@"/element"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBXCTSession *session = (FBXCTSession *)request.session;
-      XCUIElement *element = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application];
-      if (!element) {
-        return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
-      }
-      NSInteger elementID = [request.session.elementCache storeElement:element];
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:element elementID:elementID]);
-    }],
-    [[FBRoute POST:@"/elements"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBXCTSession *session = (FBXCTSession *)request.session;
-      NSArray *elements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application];
-      NSMutableArray *elementsResponse = [[NSMutableArray alloc] init];
-      for (XCUIElement *element in elements) {
-        NSInteger elementID = [request.session.elementCache storeElement:element];
-        [elementsResponse addObject:[self dictionaryResponseWithElement:element elementID:elementID]];
-      }
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
-    }],
-    [[FBRoute GET:@"/uiaElement/:elementID/getVisibleCells"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
-      NSInteger elementID = [request.parameters[@"elementID"] integerValue];
-      XCUIElement *collection = [elementCache elementForIndex:elementID];
-      
-      NSMutableArray *elementsResponse = [[NSMutableArray alloc] init];
-      NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isFBVisible == YES"];
-      NSArray *elements = [[collection childrenMatchingType:XCUIElementTypeCell] matchingPredicate:predicate].allElementsBoundByIndex;
-      for (XCUIElement *element in elements) {
-        NSInteger newID = [request.session.elementCache storeElement:element];
-        [elementsResponse addObject:[self dictionaryResponseWithElement:element elementID:newID]];
-      }
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
-    }],
-    [[FBRoute POST:@"/element/:id/element"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
-      XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
-      XCUIElement *foundElement = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
-      if (!foundElement) {
-        return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
-      }
-      NSInteger elementID = [request.session.elementCache storeElement:foundElement];
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:foundElement elementID:elementID]);
-    }],
-    [[FBRoute POST:@"/element/:id/elements"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
-      XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
-      NSArray *foundElements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
-      
-      if (foundElements.count == 0) {
-        return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
-      }
-      
-      NSMutableArray *elementsResponse = [NSMutableArray array];
-      for (XCUIElement *iElement in foundElements) {
-        NSInteger elementID = [request.session.elementCache storeElement:iElement];
-        [elementsResponse addObject:[self dictionaryResponseWithElement:iElement elementID:elementID]];
-      }
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
-    }],
-    ];
+    [[FBRoute POST:@"/element"] respondWithTarget:self action:@selector(handleFindElement:)],
+    [[FBRoute POST:@"/elements"] respondWithTarget:self action:@selector(handleFindElements:)],
+    [[FBRoute GET:@"/uiaElement/:elementID/getVisibleCells"] respondWithTarget:self action:@selector(handleFindVisibleCells:)],
+    [[FBRoute POST:@"/element/:id/element"] respondWithTarget:self action:@selector(handleFindSubElement:)],
+    [[FBRoute POST:@"/element/:id/elements"] respondWithTarget:self action:@selector(handleFindElements:)],
+  ];
+}
+
+
+#pragma mark - Commands
+
++ (id<FBResponsePayload>)handleFindElement:(FBRouteRequest *)request
+{
+  FBXCTSession *session = (FBXCTSession *)request.session;
+  XCUIElement *element = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application];
+  if (!element) {
+    return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
+  }
+  NSInteger elementID = [request.session.elementCache storeElement:element];
+  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:element elementID:elementID]);
+}
+
++ (id<FBResponsePayload>)handleFindElements:(FBRouteRequest *)request
+{
+  FBXCTSession *session = (FBXCTSession *)request.session;
+  NSArray *elements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application];
+  NSMutableArray *elementsResponse = [[NSMutableArray alloc] init];
+  for (XCUIElement *element in elements) {
+    NSInteger elementID = [request.session.elementCache storeElement:element];
+    [elementsResponse addObject:[self dictionaryResponseWithElement:element elementID:elementID]];
+  }
+  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
+}
+
++ (id<FBResponsePayload>)handleFindVisibleCells:(FBRouteRequest *)request
+{
+  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  NSInteger elementID = [request.parameters[@"elementID"] integerValue];
+  XCUIElement *collection = [elementCache elementForIndex:elementID];
+
+  NSMutableArray *elementsResponse = [[NSMutableArray alloc] init];
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isFBVisible == YES"];
+  NSArray *elements = [[collection childrenMatchingType:XCUIElementTypeCell] matchingPredicate:predicate].allElementsBoundByIndex;
+  for (XCUIElement *element in elements) {
+    NSInteger newID = [request.session.elementCache storeElement:element];
+    [elementsResponse addObject:[self dictionaryResponseWithElement:element elementID:newID]];
+  }
+  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
+}
+
++ (id<FBResponsePayload>)handleFindSubElement:(FBRouteRequest *)request
+{
+  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+  XCUIElement *foundElement = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
+  if (!foundElement) {
+    return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
+  }
+  NSInteger elementID = [request.session.elementCache storeElement:foundElement];
+  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:foundElement elementID:elementID]);
+}
+
++ (id<FBResponsePayload>)handleFindSubElements:(FBRouteRequest *)request
+{
+  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+  NSArray *foundElements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
+
+  if (foundElements.count == 0) {
+    return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
+  }
+
+  NSMutableArray *elementsResponse = [NSMutableArray array];
+  for (XCUIElement *iElement in foundElements) {
+    NSInteger elementID = [request.session.elementCache storeElement:iElement];
+    [elementsResponse addObject:[self dictionaryResponseWithElement:iElement elementID:elementID]];
+  }
+  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
 }
 
 

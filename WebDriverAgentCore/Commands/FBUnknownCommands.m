@@ -22,22 +22,22 @@
 
 + (NSArray *)routes
 {
-  return @[
-    [[FBRoute GET:@"/*"].withoutSession respond:self.unhandledHandler],
-    [[FBRoute POST:@"/*"].withoutSession respond:self.unhandledHandler],
-    [[FBRoute PUT:@"/*"].withoutSession respond:self.unhandledHandler],
-    [[FBRoute DELETE:@"/*"].withoutSession respond:self.unhandledHandler]
+  return
+  @[
+    [[FBRoute GET:@"/*"].withoutSession respondWithTarget:self action:@selector(unhandledHandler:)],
+    [[FBRoute POST:@"/*"].withoutSession respondWithTarget:self action:@selector(unhandledHandler:)],
+    [[FBRoute PUT:@"/*"].withoutSession respondWithTarget:self action:@selector(unhandledHandler:)],
+    [[FBRoute DELETE:@"/*"].withoutSession respondWithTarget:self action:@selector(unhandledHandler:)]
   ];
 }
 
-+ (FBRouteSyncHandler)unhandledHandler
++ (id<FBResponsePayload>)unhandledHandler:(FBRouteRequest *)request
 {
-  return ^ id<FBResponsePayload> (FBRouteRequest *request) {
-    return FBResponseDictionaryWithStatus(
-      FBCommandStatusUnsupported,
-      [NSString stringWithFormat:@"Unhandled endpoint: %@ with parameters %@", request.URL, request.parameters]
-    );
-  };
+  return
+  FBResponseDictionaryWithStatus(
+    FBCommandStatusUnsupported,
+    [NSString stringWithFormat:@"Unhandled endpoint: %@ with parameters %@", request.URL, request.parameters]
+  );
 }
 
 @end

@@ -24,7 +24,10 @@ typedef id<FBResponsePayload> (^FBRouteSyncHandler)(FBRouteRequest *request);
 + (instancetype)PUT:(NSString *)pathPattern;
 + (instancetype)DELETE:(NSString *)pathPattern;
 
-- (instancetype)respond:(FBRouteSyncHandler)handler;
+- (instancetype)respondWithBlock:(FBRouteSyncHandler)handler;
+
+- (instancetype)respondWithTarget:(id)target action:(SEL)selector;
+
 - (instancetype)withoutSession;
 
 - (void)mountRequest:(FBRouteRequest *)request intoResponse:(RouteResponse *)response;

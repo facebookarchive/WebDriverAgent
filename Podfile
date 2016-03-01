@@ -27,6 +27,14 @@ target :WebDriverAgentLibTests, :exclusive => true do
   pod 'OCMock'
 end
 
+target :WebDriverAgentCoreTests, :exclusive => true do
+  pod 'fishhook', :git => 'https://github.com/facebook/fishhook.git', :commit => '8dbd09b'
+  pod 'KissXML'
+  pod 'PeerTalk', :git => 'https://github.com/rsms/peertalk.git', :commit => '5a0495a'
+  pod 'RoutingHTTPServer'
+  pod 'OCMock'
+end
+
 
 # XCT Testing
 

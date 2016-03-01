@@ -11,7 +11,6 @@
 
 #import "FBRouteRequest.h"
 #import "FBXCTSession.h"
-
 #import "XCElementSnapshot+FBElementType.h"
 #import "XCUIApplication.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -32,20 +31,33 @@ static id ValueOrNull(id value) {
 {
   return
   @[
-    [[FBRoute GET:@"/tree"].withoutSession respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBXCTSession *session = (FBXCTSession *)[FBSession activeSession];
-      return [self handleTreeCommandWithParams:session.application];
-    }],
-    [[FBRoute GET:@"/tree"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBXCTSession *session = (FBXCTSession *)request.session;
-      return [self handleTreeCommandWithParams:session.application];
-    }],
-    [[FBRoute GET:@"/source"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBXCTSession *session = (FBXCTSession *)request.session;
-      return [self handleTreeCommandWithParams:session.application];
-    }],
+    [[FBRoute GET:@"/tree"].withoutSession respondWithTarget:self action:@selector(handleGetActiveTreeCommand:)],
+    [[FBRoute GET:@"/tree"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
+    [[FBRoute GET:@"/source"] respondWithTarget:self action:@selector(handleGetSourceCommand:)],
   ];
 }
+
+
+#pragma mark - Commands
+
++ (id<FBResponsePayload>)handleGetActiveTreeCommand:(FBRouteRequest *)request
+{
+  FBXCTSession *session = (FBXCTSession *)[FBSession activeSession];
+  return [self handleTreeCommandWithParams:session.application];
+}
+
++ (id<FBResponsePayload>)handleGetTreeCommand:(FBRouteRequest *)request
+{
+  FBXCTSession *session = (FBXCTSession *)request.session;
+  return [self handleTreeCommandWithParams:session.application];
+}
+
++ (id<FBResponsePayload>)handleGetSourceCommand:(FBRouteRequest *)request
+{
+  FBXCTSession *session = (FBXCTSession *)request.session;
+  return [self handleTreeCommandWithParams:session.application];
+}
+
 
 #pragma mark - Helpers
 

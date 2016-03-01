@@ -13,8 +13,8 @@
 
 #import "FBRouteRequest.h"
 #import "UIAApplication.h"
-#import "UIAElement.h"
 #import "UIAElement+WebDriverAttributes.h"
+#import "UIAElement.h"
 #import "UIATarget.h"
 #import "UIAXElement.h"
 
@@ -27,13 +27,13 @@ static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose);
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute GET:@"/tree"].withoutSession respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/tree"].withoutSession respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       return [self handleTreeCommandWithParams:request];
     }],
-    [[FBRoute GET:@"/tree"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/tree"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       return [self handleTreeCommandWithParams:request];
     }],
-    [[FBRoute GET:@"/source"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/source"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       return [self handleTreeCommandWithParams:request];
     }],
   ];

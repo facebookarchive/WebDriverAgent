@@ -9,7 +9,6 @@
 
 #import "FBScreenshotCommands.h"
 
-
 #import "XCAXClient_iOS.h"
 
 @implementation FBScreenshotCommands
@@ -20,15 +19,18 @@
 {
   return
   @[
-    [[FBRoute GET:@"/screenshot"].withoutSession respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      NSString *screenshot = [[[XCAXClient_iOS sharedClient] screenshotData] base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-      return [FBResponsePayload okWith:screenshot];
-    }],
-    [[FBRoute GET:@"/screenshot"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      NSString *screenshot = [[[XCAXClient_iOS sharedClient] screenshotData] base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-      return [FBResponsePayload okWith:screenshot];
-    }]
+    [[FBRoute GET:@"/screenshot"].withoutSession respondWithTarget:self action:@selector(handleGetScreenshot:)],
+    [[FBRoute GET:@"/screenshot"] respondWithTarget:self action:@selector(handleGetScreenshot:)],
   ];
+}
+
+
+#pragma mark - Commands
+
++ (id<FBResponsePayload>)handleGetScreenshot:(FBRouteRequest *)request
+{
+  NSString *screenshot = [[[XCAXClient_iOS sharedClient] screenshotData] base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+  return [FBResponsePayload okWith:screenshot];
 }
 
 @end

@@ -22,44 +22,66 @@
 {
   return
   @[
-    [[FBRoute POST:@"/session"].withoutSession respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      NSDictionary *requirements = request.arguments[@"desiredCapabilities"];
-      NSString *bundleID = requirements[@"bundleId"];
-      NSString *appPath = requirements[@"app"];
-      NSAssert(bundleID, @"'bundleId' desired capability not provided");
-
-      XCUIApplication *app = [[XCUIApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
-      app.launchArguments = (NSArray<NSString *> *)requirements[@"arguments"] ?: @[];
-      app.launchEnvironment = (NSDictionary <NSString *, NSString *> *)requirements[@"environment"] ?: @{};
-      [app launch];
-      [FBXCTSession sessionWithXCUIApplication:app];
-      return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
-    }],
-    [[FBRoute GET:@""] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
-    }],
-    [[FBRoute GET:@"/status"].withoutSession respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{
-          @"state" : @"success",
-          @"os" : @{
-            @"name" : [[UIDevice currentDevice] systemName],
-            @"version" : [[UIDevice currentDevice] systemVersion],
-          },
-          @"ios" : @{
-            @"simulatorVersion" : [[UIDevice currentDevice] systemVersion],
-          },
-          @"build" : @{
-            @"time" : [self.class buildTimestamp],
-          },
-        }
-      );
-    }],
-    [[FBRoute DELETE:@""] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      [request.session kill];
-      return FBResponseDictionaryWithOK();
-    }],
+    [[FBRoute POST:@"/session"].withoutSession respondWithTarget:self action:@selector(handleCreateSession:)],
+    [[FBRoute GET:@""] respondWithTarget:self action:@selector(handleGetActiveSession:)],
+    [[FBRoute DELETE:@""] respondWithTarget:self action:@selector(handleDeleteSession:)],
+    [[FBRoute GET:@"/status"].withoutSession respondWithTarget:self action:@selector(handleGetStatus:)],
   ];
 }
+
+
+#pragma mark - Commands
+
++ (id<FBResponsePayload>)handleCreateSession:(FBRouteRequest *)request
+{
+  NSDictionary *requirements = request.arguments[@"desiredCapabilities"];
+  NSString *bundleID = requirements[@"bundleId"];
+  NSString *appPath = requirements[@"app"];
+  NSAssert(bundleID, @"'bundleId' desired capability not provided");
+
+  XCUIApplication *app = [[XCUIApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
+  app.launchArguments = (NSArray<NSString *> *)requirements[@"arguments"] ?: @[];
+  app.launchEnvironment = (NSDictionary <NSString *, NSString *> *)requirements[@"environment"] ?: @{};
+  [app launch];
+  [FBXCTSession sessionWithXCUIApplication:app];
+  return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
+}
+
++ (id<FBResponsePayload>)handleGetActiveSession:(FBRouteRequest *)request
+{
+  return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
+}
+
++ (id<FBResponsePayload>)handleGetStatus:(FBRouteRequest *)request
+{
+  return
+  FBResponseDictionaryWithStatus(
+    FBCommandStatusNoError,
+    @{
+      @"state" : @"success",
+      @"os" :
+        @{
+          @"name" : [[UIDevice currentDevice] systemName],
+          @"version" : [[UIDevice currentDevice] systemVersion],
+        },
+      @"ios" :
+        @{
+          @"simulatorVersion" : [[UIDevice currentDevice] systemVersion],
+        },
+      @"build" :
+        @{
+          @"time" : [self.class buildTimestamp],
+        },
+    }
+  );
+}
+
++ (id<FBResponsePayload>)handleDeleteSession:(FBRouteRequest *)request
+{
+  [request.session kill];
+  return FBResponseDictionaryWithOK();
+}
+
 
 #pragma mark - Helpers
 

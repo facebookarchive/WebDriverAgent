@@ -23,23 +23,32 @@
 {
   return
   @[
-    [[FBRoute POST:@"/deactivateApp"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      NSString *applicationIdentifier = ((FBXCTSession *)request.session).application.label;
-
-      [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
-
-      NSNumber *requestedDuration = request.arguments[@"duration"];
-      CGFloat duration = (requestedDuration ? requestedDuration.floatValue : 3.f);
-      [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:duration]];
-
-      [[XCUIApplication fb_SpringBoard] fb_tapApplicationWithIdentifier:applicationIdentifier];
-      return FBResponseDictionaryWithOK();
-    }],
-    [[FBRoute POST:@"/timeouts/implicit_wait"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      // This method is intentionally not supported.
-      return FBResponseDictionaryWithOK();
-    }],
+    [[FBRoute GET:@"/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
+    [[FBRoute GET:@"/timeouts/implicit_wait"] respondWithTarget:self action:@selector(handleImplicitWaitCommand:)],
   ];
+}
+
+
+#pragma mark - Commands
+
++ (id<FBResponsePayload>)handleDeactivateAppCommand:(FBRouteRequest *)request
+{
+  NSString *applicationIdentifier = ((FBXCTSession *)request.session).application.label;
+
+  [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
+
+  NSNumber *requestedDuration = request.arguments[@"duration"];
+  CGFloat duration = (requestedDuration ? requestedDuration.floatValue : 3.f);
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:duration]];
+
+  [[XCUIApplication fb_SpringBoard] fb_tapApplicationWithIdentifier:applicationIdentifier];
+  return FBResponseDictionaryWithOK();
+}
+
++ (id<FBResponsePayload>)handleImplicitWaitCommand:(FBRouteRequest *)request
+{
+  // This method is intentionally not supported.
+  return FBResponseDictionaryWithOK();
 }
 
 @end

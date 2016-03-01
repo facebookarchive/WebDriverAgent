@@ -22,29 +22,29 @@ extern BOOL AXDeviceIsPad();
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute GET:@"/status"].withoutSession respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/status"].withoutSession respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       return [FBResponsePayload okWith:FBSessionCommands.statusDictionary];
     }],
-    [[FBRoute POST:@"/session"].withoutSession respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/session"].withoutSession respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       if ([FBSession activeSession]) {
         return [FBResponsePayload withStatus:FBCommandStatusNoSuchSession object:request.session.identifier];
       }
       [FBUIASession newSessionWithIdentifier:NSUUID.UUID.UUIDString];
       return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
     }],
-    [[FBRoute GET:@""] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@""] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       if (!request.session) {
         return [FBResponsePayload withStatus:FBCommandStatusNoSuchSession];
       }
       return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
     }],
-    [[FBRoute GET:@"/sessions"].withoutSession respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/sessions"].withoutSession respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       if (![FBSession activeSession]) {
         return [FBResponsePayload okWith:@[]];
       }
       return [FBResponsePayload okWith:@[FBSessionCommands.sessionInformation]];
     }],
-    [[FBRoute DELETE:@""] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute DELETE:@""] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       if (!request.session) {
         return [FBResponsePayload withStatus:FBCommandStatusNoSuchSession];
       }

@@ -12,7 +12,6 @@
 #import "FBRouteRequest.h"
 #import "FBWDAMacros.h"
 #import "FBXCTSession.h"
-
 #import "XCUIApplication.h"
 #import "XCUIDevice.h"
 
@@ -40,18 +39,27 @@ const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
 {
   return
   @[
-    [[FBRoute GET:@"/orientation"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBXCTSession *session = (FBXCTSession *)request.session;
-      return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self.class interfaceOrientationForApplication:session.application]);
-    }],
-    [[FBRoute POST:@"/orientation"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      FBXCTSession *session = (FBXCTSession *)request.session;
-      if ([self.class setDeviceOrientation:request.arguments[@"orientation"] forApplication:session.application]) {
-        return FBResponseDictionaryWithOK();
-      }
-      return FBResponseDictionaryWithStatus(FBCommandStatusRotationNotAllowed, @"The orientation specified is not supported by the application");
-    }],
+    [[FBRoute GET:@"/orientation"] respondWithTarget:self action:@selector(handleGetOrientation:)],
+    [[FBRoute POST:@"/orientation"] respondWithTarget:self action:@selector(handleSetOrientation:)],
   ];
+}
+
+
+#pragma mark - Commands
+
++ (id<FBResponsePayload>)handleGetOrientation:(FBRouteRequest *)request
+{
+  FBXCTSession *session = (FBXCTSession *)request.session;
+  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self.class interfaceOrientationForApplication:session.application]);
+}
+
++ (id<FBResponsePayload>)handleSetOrientation:(FBRouteRequest *)request
+{
+  FBXCTSession *session = (FBXCTSession *)request.session;
+  if ([self.class setDeviceOrientation:request.arguments[@"orientation"] forApplication:session.application]) {
+    return FBResponseDictionaryWithOK();
+  }
+  return FBResponseDictionaryWithStatus(FBCommandStatusRotationNotAllowed, @"The orientation specified is not supported by the application");
 }
 
 

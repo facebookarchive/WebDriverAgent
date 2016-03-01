@@ -10,6 +10,8 @@
 #import "FBRoute.h"
 #import "FBRouteRequest-Private.h"
 
+#import <objc/message.h>
+
 #import "FBCoreExceptionHandler.h"
 #import "FBResponsePayload.h"
 #import "FBSession.h"
@@ -24,6 +26,25 @@
 @end
 
 static NSString *const FBRouteSessionPrefix = @"/session/:sessionID";
+
+@interface FBRoute_TargetAction : FBRoute
+@property (nonatomic, strong, readwrite) id target;
+@property (nonatomic, assign, readwrite) SEL action;
+@end
+
+
+@implementation FBRoute_TargetAction
+
+- (void)mountRequest:(FBRouteRequest *)request intoResponse:(RouteResponse *)response
+{
+  [self decorateRequest:request];
+  id<FBResponsePayload> (*requestMsgSend)(id, SEL, FBRouteRequest *) = ((id<FBResponsePayload>(*)(id, SEL, FBRouteRequest *))objc_msgSend);
+  id<FBResponsePayload> payload = requestMsgSend(self.target, self.action, request);
+  [payload dispatchWithResponse:response];
+}
+
+@end
+
 
 @interface FBRoute_Sync : FBRoute
 @property (nonatomic, copy, readwrite) FBRouteSyncHandler handler;
@@ -97,10 +118,18 @@ static NSString *const FBRouteSessionPrefix = @"/session/:sessionID";
   return self;
 }
 
-- (instancetype)respond:(FBRouteSyncHandler)handler
+- (instancetype)respondWithBlock:(FBRouteSyncHandler)handler
 {
   FBRoute_Sync *route = [FBRoute_Sync withVerb:self.verb path:self.path requiresSession:self.requiresSession];
   route.handler = handler;
+  return route;
+}
+
+- (instancetype)respondWithTarget:(id)target action:(SEL)action
+{
+  FBRoute_TargetAction *route = [FBRoute_TargetAction withVerb:self.verb path:self.path requiresSession:self.requiresSession];
+  route.target = target;
+  route.action = action;
   return route;
 }
 

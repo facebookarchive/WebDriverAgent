@@ -35,7 +35,7 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute POST:@"/element"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       UIAElement *element = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"]];
       if (!element) {
         [FBWDALogger log:@"Did not find an element, returning an error."];
@@ -48,7 +48,7 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
         @"type": element.wdType,
       });
     }],
-    [[FBRoute POST:@"/elements"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/elements"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSArray *elements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"]];
 
       [FBWDALogger logFmt:@"Found elements: %@", elements];
@@ -64,7 +64,7 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
       }
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
     }],
-    [[FBRoute GET:@"/uiaElement/:elementID/getVisibleCells"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute GET:@"/uiaElement/:elementID/getVisibleCells"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       NSInteger elementID = [request.parameters[@"elementID"] integerValue];
       UIACollectionView *collection = (UIACollectionView *)[request.session.elementCache elementForIndex:elementID];
 
@@ -80,7 +80,7 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
       }
       return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
     }],
-    [[FBRoute POST:@"/element/:id/element"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element/:id/element"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       UIAElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       UIAElement *foundElement = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
@@ -94,7 +94,7 @@ NSArray *elementsFromXpath(UIAElement *element, NSString *xpathQuery);
         @"type": foundElement.wdType,
       });
     }],
-    [[FBRoute POST:@"/element/:id/elements"] respond: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/element/:id/elements"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBUIAElementCache *elementCache = (FBUIAElementCache *)request.session.elementCache;
       UIAElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
       NSArray *foundElements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
