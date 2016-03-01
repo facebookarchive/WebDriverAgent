@@ -30,9 +30,9 @@
     static dispatch_once_t onceToken;
     static NSBundle *inspectorResourcesBundle;
     dispatch_once(&onceToken, ^{
-        inspectorResourcesBundle = [NSBundle bundleWithURL:
-            [[NSBundle bundleForClass:[self class]]
-                URLForResource:@"WebDriverAgent" withExtension:@"bundle"]];
+      NSURL *url = [[NSBundle bundleForClass:[self class]]
+                    URLForResource:@"WebDriverAgent" withExtension:@"bundle"];
+      inspectorResourcesBundle = [NSBundle bundleWithURL:url];
     });
     return inspectorResourcesBundle;
 }

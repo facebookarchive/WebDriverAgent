@@ -85,7 +85,7 @@ static const uint32_t FBUSBFrameType = 100;
   HTTPMessage *request = [[HTTPMessage alloc] initEmptyRequest];
   NSData *body = [NSData data];
   if (parameters) {
-    body = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:&error];
+    body = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingPrettyPrinted error:&error];
     if (!body) {
       [self respondWithErrorMessage:[NSString stringWithFormat:@"Failed to encode request body. %@", error]];
       return;

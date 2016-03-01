@@ -21,11 +21,11 @@
   return
   @[
     [[FBRoute GET:@"/screenshot"].withoutSession respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      NSString *screenshot = [[[XCAXClient_iOS sharedClient] screenshotData] base64EncodedStringWithOptions:0];
+      NSString *screenshot = [[[XCAXClient_iOS sharedClient] screenshotData] base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
       return [FBResponsePayload okWith:screenshot];
     }],
     [[FBRoute GET:@"/screenshot"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
-      NSString *screenshot = [[[XCAXClient_iOS sharedClient] screenshotData] base64EncodedStringWithOptions:0];
+      NSString *screenshot = [[[XCAXClient_iOS sharedClient] screenshotData] base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
       return [FBResponsePayload okWith:screenshot];
     }]
   ];

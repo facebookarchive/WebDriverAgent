@@ -619,6 +619,11 @@
 		EED031371BFA3461007EDC1D /* XCUIRecorderTimingMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderTimingMessage.h; sourceTree = "<group>"; };
 		EED031381BFA3461007EDC1D /* XCUIRecorderUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderUtilities.h; sourceTree = "<group>"; };
 		EED031391BFA3461007EDC1D /* XCUIRemote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRemote.h; sourceTree = "<group>"; };
+		EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ProjectSettings.xcconfig; sourceTree = "<group>"; };
+		EEE5CAC21C80361500CBBDD9 /* XCTUITestRunner.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = XCTUITestRunner.debug.xcconfig; sourceTree = "<group>"; };
+		EEE5CAC31C80361500CBBDD9 /* XCTUITestRunner.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = XCTUITestRunner.release.xcconfig; sourceTree = "<group>"; };
+		EEE5CAC41C80361500CBBDD9 /* XCTWebDriverAgentLib.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = XCTWebDriverAgentLib.debug.xcconfig; sourceTree = "<group>"; };
+		EEE5CAC51C80361500CBBDD9 /* XCTWebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = XCTWebDriverAgentLib.release.xcconfig; sourceTree = "<group>"; };
 		EEE7785D1C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIApplication+SpringBoard.h"; sourceTree = "<group>"; };
 		EEE7785E1C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIApplication+SpringBoard.m"; sourceTree = "<group>"; };
 		EEF1F1891C1EC542008EABD2 /* UIDevice+Wifi_IP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Wifi_IP.h"; sourceTree = "<group>"; };
@@ -722,6 +727,7 @@
 		91F9DAE01B99DBC2001349B2 = {
 			isa = PBXGroup;
 			children = (
+				EEE5CABE1C80361500CBBDD9 /* Configurations */,
 				91F9DB731B99DDD8001349B2 /* PrivateHeaders */,
 				498495C81BB2E6FA009CC848 /* Resources */,
 				91F9DAEB1B99DBC2001349B2 /* WebDriverAgent */,
@@ -1183,6 +1189,18 @@
 				EED031391BFA3461007EDC1D /* XCUIRemote.h */,
 			);
 			path = XCTest;
+			sourceTree = "<group>";
+		};
+		EEE5CABE1C80361500CBBDD9 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */,
+				EEE5CAC21C80361500CBBDD9 /* XCTUITestRunner.debug.xcconfig */,
+				EEE5CAC31C80361500CBBDD9 /* XCTUITestRunner.release.xcconfig */,
+				EEE5CAC41C80361500CBBDD9 /* XCTWebDriverAgentLib.debug.xcconfig */,
+				EEE5CAC51C80361500CBBDD9 /* XCTWebDriverAgentLib.release.xcconfig */,
+			);
+			path = Configurations;
 			sourceTree = "<group>";
 		};
 		EEF988341C486655005CA669 /* XCTUITestRunner */ = {
@@ -2146,7 +2164,7 @@
 		};
 		EEC289981BF0ED3000B4DC79 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8286A75C98FB0AA2448EF1E7 /* Pods-XCTWebDriverAgentLib.debug.xcconfig */;
+			baseConfigurationReference = EEE5CAC41C80361500CBBDD9 /* XCTWebDriverAgentLib.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2161,7 +2179,7 @@
 		};
 		EEC289991BF0ED3000B4DC79 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7191916E53767F463FBE793C /* Pods-XCTWebDriverAgentLib.release.xcconfig */;
+			baseConfigurationReference = EEE5CAC51C80361500CBBDD9 /* XCTWebDriverAgentLib.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
@@ -2172,7 +2190,7 @@
 		};
 		EEF988321C486604005CA669 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C01E5F49840B2A26406048F /* Pods-XCTUITestRunner.debug.xcconfig */;
+			baseConfigurationReference = EEE5CAC21C80361500CBBDD9 /* XCTUITestRunner.debug.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = XCTUITestRunner/Info.plist;
@@ -2191,7 +2209,7 @@
 		};
 		EEF988331C486604005CA669 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 410A1F98CE4D889BDD2640C8 /* Pods-XCTUITestRunner.release.xcconfig */;
+			baseConfigurationReference = EEE5CAC31C80361500CBBDD9 /* XCTUITestRunner.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = XCTUITestRunner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;

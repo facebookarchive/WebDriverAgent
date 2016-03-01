@@ -29,8 +29,8 @@
       NSAssert(bundleID, @"'bundleId' desired capability not provided");
 
       XCUIApplication *app = [[XCUIApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
-      app.launchArguments = requirements[@"arguments"] ?: @[];
-      app.launchEnvironment = requirements[@"environment"] ?: @{};
+      app.launchArguments = (NSArray<NSString *> *)requirements[@"arguments"] ?: @[];
+      app.launchEnvironment = (NSDictionary <NSString *, NSString *> *)requirements[@"environment"] ?: @{};
       [app launch];
       [FBXCTSession sessionWithXCUIApplication:app];
       return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];

@@ -21,9 +21,9 @@
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
 
-const CGFloat FBNormalizedDragDistance = 0.95;
-const CGFloat FBScrollVelocity = 200;
-const CGFloat FBScrollBoundingVelocityPadding = 5.0;
+const CGFloat FBNormalizedDragDistance = 0.95f;
+const CGFloat FBScrollVelocity = 200.f;
+const CGFloat FBScrollBoundingVelocityPadding = 5.0f;
 
 void FBHandleScrollingErrorWithDescription(NSError **error, NSString *description);
 
@@ -75,9 +75,9 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
     FBHandleScrollingErrorWithDescription(error, [NSString stringWithFormat:@"Failed to perform scroll with visible cell count %lu", (unsigned long)visibleCellSnapshots.count]);
     return NO;
   }
-
+  XCElementSnapshot *lastSnapshot = visibleCellSnapshots.lastObject;
   NSUInteger targetCellIndex = [cellSnapshots indexOfObject:targetCellSnapshot];
-  NSUInteger visibleCellIndex = [cellSnapshots indexOfObject:visibleCellSnapshots.lastObject];
+  NSUInteger visibleCellIndex = [cellSnapshots indexOfObject:lastSnapshot];
 
   XCElementSnapshot *firsVisibleCell = visibleCellSnapshots.firstObject;
   XCElementSnapshot *lastVisibleCell = visibleCellSnapshots.lastObject;
@@ -160,11 +160,11 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
 
 - (BOOL)scrollByVector:(CGVector)vector error:(NSError **)error
 {
-  CGVector scrollBoundingVector = CGVectorMake(CGRectGetWidth(self.frame)/2.0 - FBScrollBoundingVelocityPadding,
-                                               CGRectGetHeight(self.frame)/2.0 - FBScrollBoundingVelocityPadding
+  CGVector scrollBoundingVector = CGVectorMake(CGRectGetWidth(self.frame)/2.0f - FBScrollBoundingVelocityPadding,
+                                               CGRectGetHeight(self.frame)/2.0f - FBScrollBoundingVelocityPadding
                                                );
-  scrollBoundingVector.dx = copysignf(scrollBoundingVector.dx, vector.dx);
-  scrollBoundingVector.dy = copysignf(scrollBoundingVector.dy, vector.dy);
+  scrollBoundingVector.dx = (CGFloat)copysign(scrollBoundingVector.dx, vector.dx);
+  scrollBoundingVector.dy = (CGFloat)copysign(scrollBoundingVector.dy, vector.dy);
 
   NSUInteger scrollLimit = 100;
   BOOL shouldFinishScrolling = NO;
@@ -195,7 +195,7 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   __block volatile uint32_t didFinishScrolling = 0;
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
-  CGFloat estimatedDuration = [[XCEventGenerator sharedGenerator] pressAtPoint:startCoordinate.screenPoint forDuration:0.0 liftAtPoint:endCoordinate.screenPoint velocity:FBScrollVelocity orientation:self.application.interfaceOrientation name:@"FBScroll" handler:^(NSError *scrollingError){
+  CGFloat estimatedDuration = [[XCEventGenerator sharedGenerator] pressAtPoint:startCoordinate.screenPoint forDuration:0.0f liftAtPoint:endCoordinate.screenPoint velocity:FBScrollVelocity orientation:self.application.interfaceOrientation name:@"FBScroll" handler:^(NSError *scrollingError){
     didSucceed = (scrollingError == nil);
     innerError = scrollingError;
     OSAtomicOr32Barrier(1, &didFinishScrolling);

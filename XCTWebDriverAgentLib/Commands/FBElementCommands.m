@@ -185,7 +185,11 @@
     [[FBRoute POST:@"/uiaElement/:id/value"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {
       FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
       XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
-      [element adjustToPickerWheelValue:request.arguments[@"value"]];
+      NSString *value = request.arguments[@"value"];
+      if (!value) {
+        return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, @"Missing value parameter");
+      }
+      [element adjustToPickerWheelValue:value];
       return FBResponseDictionaryWithOK();
     }],
     [[FBRoute POST:@"/element/:id/clear"] respond:^ id<FBResponsePayload> (FBRouteRequest *request) {

@@ -75,9 +75,9 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   NSError *error;
   BOOL serverStarted = NO;
 
-  for (NSInteger index = 0; index < serverPortRange.length; index++) {
+  for (NSUInteger index = 0; index < serverPortRange.length; index++) {
     NSInteger port = serverPortRange.location + index;
-    [self.server setPort:port];
+    [self.server setPort:(UInt16)port];
 
     serverStarted = [self attemptToStartServer:self.server onPort:port withError:&error];
     if (serverStarted) {
@@ -102,7 +102,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 - (BOOL)attemptToStartServer:(RoutingHTTPServer *)server onPort:(NSInteger)port withError:(NSError **)error
 {
-  server.port = port;
+  server.port = (UInt16)port;
   NSError *innerError = nil;
   BOOL started = [server start:&innerError];
   if (!started) {
@@ -130,7 +130,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
         FBRouteRequest *routeParams = [FBRouteRequest
           routeRequestWithURL:request.url
           parameters:request.params
-          arguments:[NSJSONSerialization JSONObjectWithData:request.body options:0 error:NULL]];
+          arguments:[NSJSONSerialization JSONObjectWithData:request.body options:NSJSONReadingMutableContainers error:NULL]];
 
         [FBWDALogger verboseLog:routeParams.description];
 

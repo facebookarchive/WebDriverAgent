@@ -213,7 +213,10 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
 
   NSMutableArray *matchingSnapshots = [NSMutableArray array];
   for (DDXMLElement *childXMLElement in xpathNodes) {
-    [matchingSnapshots addObject:[elementStore objectForKey:[[childXMLElement attributeForName:kXMLIndexPathKey] stringValue]]];
+    XCElementSnapshot *element = [elementStore objectForKey:[[childXMLElement attributeForName:kXMLIndexPathKey] stringValue]];
+    if (element) {
+      [matchingSnapshots addObject:element];
+    }
   }
   return matchingSnapshots;
 }

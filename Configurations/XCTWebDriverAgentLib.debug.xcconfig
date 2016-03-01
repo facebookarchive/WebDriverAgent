@@ -1,0 +1,2 @@
+#include "Pods/Target Support Files/Pods-XCTWebDriverAgentLib/Pods-XCTWebDriverAgentLib.debug.xcconfig"
+#include "ProjectSettings.xcconfig"

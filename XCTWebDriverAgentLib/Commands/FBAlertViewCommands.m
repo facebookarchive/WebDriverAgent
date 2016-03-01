@@ -113,7 +113,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   return elementBox.copy;
 }
 
-+ (void)throwRequestedItemObstructedByAlertException
++ (void)throwRequestedItemObstructedByAlertException __attribute__((noreturn))
 {
   @throw [NSException exceptionWithName:FBUAlertObstructingElementException reason:@"Requested element is obstructed by alert or action sheet" userInfo:@{}];
 }

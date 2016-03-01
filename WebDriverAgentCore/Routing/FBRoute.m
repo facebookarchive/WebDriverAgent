@@ -111,11 +111,13 @@ static NSString *const FBRouteSessionPrefix = @"/session/:sessionID";
   }
   NSString *sessionID = request.parameters[@"sessionID"];
   if (!sessionID) {
-    return [self raiseNoSessionException];
+    [self raiseNoSessionException];
+    return;
   }
   FBSession *session = [FBSession sessionWithIdentifier:sessionID];
   if (!session) {
-    return [self raiseNoSessionException];
+    [self raiseNoSessionException];
+    return;
   }
   request.session = session;
 }

@@ -1,0 +1,2 @@
+#include "Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner.release.xcconfig"
+#include "ProjectSettings.xcconfig"
