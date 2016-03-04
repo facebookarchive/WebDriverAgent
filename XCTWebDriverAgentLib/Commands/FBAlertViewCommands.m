@@ -39,8 +39,8 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   return
   @[
     [[FBRoute GET:@"/alert_text"] respondWithTarget:self action:@selector(handleAlertTextCommand:)],
-    [[FBRoute GET:@"/accept_alert"] respondWithTarget:self action:@selector(handleAlertAcceptCommand:)],
-    [[FBRoute GET:@"/dismiss_alert"] respondWithTarget:self action:@selector(handleAlertDismissCommand:)],
+    [[FBRoute POST:@"/accept_alert"] respondWithTarget:self action:@selector(handleAlertAcceptCommand:)],
+    [[FBRoute POST:@"/dismiss_alert"] respondWithTarget:self action:@selector(handleAlertDismissCommand:)],
   ];
 }
 

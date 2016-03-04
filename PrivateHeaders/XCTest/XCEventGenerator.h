@@ -24,29 +24,29 @@ typedef void (^XCEventGeneratorHandler)(NSError *error);
 //@property(readonly) NSObject<OS_dispatch_queue> *eventQueue; // @synthesize eventQueue=_eventQueue;
 
 #if TARGET_OS_IPHONE
-- (CGFloat)rotateInRect:(CGRect)arg1 withRotation:(CGFloat)arg2 velocity:(CGFloat)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
-- (CGFloat)pinchInRect:(CGRect)arg1 withScale:(CGFloat)arg2 velocity:(CGFloat)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
-- (CGFloat)pressAtPoint:(CGPoint)arg1 forDuration:(CGFloat)arg2 liftAtPoint:(CGPoint)arg3 velocity:(CGFloat)arg4 orientation:(UIInterfaceOrientation)arg5 name:(NSString *)arg6 handler:(XCEventGeneratorHandler)arg7;
-- (CGFloat)pressAtPoint:(CGPoint)arg1 forDuration:(CGFloat)arg2 orientation:(UIInterfaceOrientation)arg3 handler:(XCEventGeneratorHandler)arg4;
-- (CGFloat)tapWithNumberOfTaps:(unsigned long long)arg1 numberOfTouches:(unsigned long long)arg2 inRect:(CGRect)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
-- (CGFloat)twoFingerTapInRect:(CGRect)arg1 orientation:(UIInterfaceOrientation)arg2 handler:(XCEventGeneratorHandler)arg3;
-- (CGFloat)doubleTapAtPoint:(CGPoint)arg1 orientation:(UIInterfaceOrientation)arg2 handler:(XCEventGeneratorHandler)arg3;
-- (CGFloat)tapAtPoint:(CGPoint)arg1 orientation:(UIInterfaceOrientation)arg2 handler:(XCEventGeneratorHandler)arg3;
+- (double)rotateInRect:(CGRect)arg1 withRotation:(double)arg2 velocity:(double)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
+- (double)pinchInRect:(CGRect)arg1 withScale:(double)arg2 velocity:(double)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
+- (double)pressAtPoint:(CGPoint)arg1 forDuration:(double)arg2 liftAtPoint:(CGPoint)arg3 velocity:(double)arg4 orientation:(UIInterfaceOrientation)arg5 name:(NSString *)arg6 handler:(XCEventGeneratorHandler)arg7;
+- (double)pressAtPoint:(CGPoint)arg1 forDuration:(double)arg2 orientation:(UIInterfaceOrientation)arg3 handler:(XCEventGeneratorHandler)arg4;
+- (double)tapWithNumberOfTaps:(unsigned long long)arg1 numberOfTouches:(unsigned long long)arg2 inRect:(CGRect)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
+- (double)twoFingerTapInRect:(CGRect)arg1 orientation:(UIInterfaceOrientation)arg2 handler:(XCEventGeneratorHandler)arg3;
+- (double)doubleTapAtPoint:(CGPoint)arg1 orientation:(UIInterfaceOrientation)arg2 handler:(XCEventGeneratorHandler)arg3;
+- (double)tapAtPoint:(CGPoint)arg1 orientation:(UIInterfaceOrientation)arg2 handler:(XCEventGeneratorHandler)arg3;
 
 #elif TARGET_OS_MAC
-- (CGFloat)sendKeyboardInputs:(id)arg1 layout:(id)arg2 handler:(CDUnknownBlockType)arg3;
-- (CGFloat)sendKey:(id)arg1 modifierFlags:(unsigned long long)arg2 handler:(CDUnknownBlockType)arg3;
-- (CGFloat)sendString:(id)arg1 handler:(CDUnknownBlockType)arg2;
-- (CGFloat)setModifiers:(unsigned long long)arg1 merge:(BOOL)arg2 original:(unsigned long long *)arg3 handler:(CDUnknownBlockType)arg4;
-- (CGFloat)sendKey:(unsigned short)arg1 down:(BOOL)arg2 modifiers:(unsigned long long)arg3 string:(id)arg4 handler:(CDUnknownBlockType)arg5;
-- (CGFloat)hitKey:(unsigned short)arg1 handler:(CDUnknownBlockType)arg2;
-- (CGFloat)scrollByX:(CGFloat)arg1 y:(CGFloat)arg2 handler:(CDUnknownBlockType)arg3;
-- (CGFloat)clickAtPoint:(CGPoint)arg1 forDuration:(CGFloat)arg2 releaseAtPoint:(CGPoint)arg3 velocity:(CGFloat)arg4 handler:(CDUnknownBlockType)arg5;
-- (CGFloat)clickAndDragFromPoint:(CGPoint)arg1 toPoint:(CGPoint)arg2 handler:(CDUnknownBlockType)arg3;
-- (CGFloat)rightClickAtPoint:(CGPoint)arg1 handler:(CDUnknownBlockType)arg2;
-- (CGFloat)doubleClickAtPoint:(CGPoint)arg1 handler:(CDUnknownBlockType)arg2;
-- (CGFloat)clickAtPoint:(CGPoint)arg1 handler:(CDUnknownBlockType)arg2;
-- (CGFloat)hoverAtPoint:(CGPoint)arg1 handler:(CDUnknownBlockType)arg2;
+- (double)sendKeyboardInputs:(id)arg1 layout:(id)arg2 handler:(CDUnknownBlockType)arg3;
+- (double)sendKey:(id)arg1 modifierFlags:(unsigned long long)arg2 handler:(CDUnknownBlockType)arg3;
+- (double)sendString:(id)arg1 handler:(CDUnknownBlockType)arg2;
+- (double)setModifiers:(unsigned long long)arg1 merge:(BOOL)arg2 original:(unsigned long long *)arg3 handler:(CDUnknownBlockType)arg4;
+- (double)sendKey:(unsigned short)arg1 down:(BOOL)arg2 modifiers:(unsigned long long)arg3 string:(id)arg4 handler:(CDUnknownBlockType)arg5;
+- (double)hitKey:(unsigned short)arg1 handler:(CDUnknownBlockType)arg2;
+- (double)scrollByX:(double)arg1 y:(double)arg2 handler:(CDUnknownBlockType)arg3;
+- (double)clickAtPoint:(CGPoint)arg1 forDuration:(double)arg2 releaseAtPoint:(CGPoint)arg3 velocity:(double)arg4 handler:(CDUnknownBlockType)arg5;
+- (double)clickAndDragFromPoint:(CGPoint)arg1 toPoint:(CGPoint)arg2 handler:(CDUnknownBlockType)arg3;
+- (double)rightClickAtPoint:(CGPoint)arg1 handler:(CDUnknownBlockType)arg2;
+- (double)doubleClickAtPoint:(CGPoint)arg1 handler:(CDUnknownBlockType)arg2;
+- (double)clickAtPoint:(CGPoint)arg1 handler:(CDUnknownBlockType)arg2;
+- (double)hoverAtPoint:(CGPoint)arg1 handler:(CDUnknownBlockType)arg2;
 - (CGPoint)_currentMousePosition;
 - (void)_clickMouseButton:(unsigned int)arg1 withCount:(unsigned long long)arg2 atPoint:(CGPoint)arg3 handleCompletion:(CDUnknownBlockType)arg4;
 - (void)_moveMouseToPoint:(CGPoint)arg1 handleCompletion:(CDUnknownBlockType)arg2;
@@ -54,7 +54,7 @@ typedef void (^XCEventGeneratorHandler)(NSError *error);
 #endif
 
 - (void)_startEventSequenceWithSteppingCallback:(CDUnknownBlockType)arg1;
-- (void)_scheduleCallback:(CDUnknownBlockType)arg1 afterInterval:(CGFloat)arg2;
+- (void)_scheduleCallback:(CDUnknownBlockType)arg1 afterInterval:(double)arg2;
 - (id)init;
 
 @end

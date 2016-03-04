@@ -23,8 +23,8 @@
 {
   return
   @[
-    [[FBRoute GET:@"/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
-    [[FBRoute GET:@"/timeouts/implicit_wait"] respondWithTarget:self action:@selector(handleImplicitWaitCommand:)],
+    [[FBRoute POST:@"/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
+    [[FBRoute POST:@"/timeouts/implicit_wait"] respondWithTarget:self action:@selector(handleImplicitWaitCommand:)],
   ];
 }
 
