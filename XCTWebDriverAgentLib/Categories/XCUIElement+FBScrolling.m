@@ -69,6 +69,10 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
 
   XCElementSnapshot *targetCellSnapshot = self.parentCellSnapshot;
   NSArray<XCElementSnapshot *> *cellSnapshots = [scrollView fb_descendantsMatchingType:XCUIElementTypeCell];
+  if (cellSnapshots.count == 0) {
+    // In some cases XCTest will not report Cell Views. In that case grabbing descendants and trying to figure out scroll directon from them.
+    cellSnapshots = scrollView._allDescendants;
+  }
   NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFBVisible == YES"]];
 
   if (visibleCellSnapshots.count < 2) {
