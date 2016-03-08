@@ -40,7 +40,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
     [[FBRoute POST:@"/elements"] respondWithTarget:self action:@selector(handleFindElements:)],
     [[FBRoute GET:@"/uiaElement/:elementID/getVisibleCells"] respondWithTarget:self action:@selector(handleFindVisibleCells:)],
     [[FBRoute POST:@"/element/:id/element"] respondWithTarget:self action:@selector(handleFindSubElement:)],
-    [[FBRoute POST:@"/element/:id/elements"] respondWithTarget:self action:@selector(handleFindElements:)],
+    [[FBRoute POST:@"/element/:id/elements"] respondWithTarget:self action:@selector(handleFindSubElements:)],
   ];
 }
 
