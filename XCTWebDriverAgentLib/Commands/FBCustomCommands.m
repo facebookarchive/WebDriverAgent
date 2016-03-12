@@ -25,6 +25,7 @@
   @[
     [[FBRoute POST:@"/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/timeouts/implicit_wait"] respondWithTarget:self action:@selector(handleImplicitWaitCommand:)],
+    [[FBRoute POST:@"/hide_keyboard"] respondWithTarget:self action:@selector(handleHideKeyboard:)]
   ];
 }
 
@@ -49,6 +50,21 @@
 {
   // This method is intentionally not supported.
   return FBResponseDictionaryWithOK();
+}
+
++ (id<FBResponsePayload>)handleHideKeyboard:(FBRouteRequest *)request
+{
+    FBXCTSession *session = ((FBXCTSession *)request.session);
+    XCUIElement *element = [session.application.windows elementBoundByIndex:0];
+    XCUIElementQuery *allElements = [element descendantsMatchingType:XCUIElementTypeAny];
+    XCUIElement *activeElement = [allElements elementMatchingPredicate:[NSPredicate predicateWithFormat:@"hasKeyboardFocus == YES"]];
+    if ([activeElement exists]) {
+        [element tap];
+        return FBResponseDictionaryWithOK();
+    } else {
+        return FBResponseDictionaryWithStatus(FBCommandStatusInvalidElementState, nil);
+    }
+
 }
 
 @end
