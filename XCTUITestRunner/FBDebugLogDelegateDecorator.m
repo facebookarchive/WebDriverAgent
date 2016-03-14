@@ -34,7 +34,12 @@ id<XCDebugLogDelegate> XCDebugLogger();
 - (void)logDebugMessage:(NSString *)logEntry
 {
   NSString *debugLogEntry = logEntry;
-  if ([logEntry rangeOfString:@" XCTStubApps["].location != NSNotFound) {
+  static NSString *processName;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    processName = [NSProcessInfo processInfo].processName;
+  });
+  if ([logEntry rangeOfString:[NSString stringWithFormat:@" %@[", processName]].location != NSNotFound) {
     // Ignoring "13:37:07.638 XCTStubApps[56374:10997466] " from log entry
     NSUInteger ignoreCharCount = [logEntry rangeOfString:@"]"].location + 2;
     debugLogEntry = [logEntry substringWithRange:NSMakeRange(ignoreCharCount, logEntry.length - ignoreCharCount)];
