@@ -9,6 +9,7 @@
 
 #import "FBSessionCommands.h"
 
+#import "FBApplication.h"
 #import "FBRouteRequest.h"
 #import "FBXCTSession.h"
 #import "XCUIApplication.h"
@@ -38,8 +39,8 @@
   NSString *bundleID = requirements[@"bundleId"];
   NSString *appPath = requirements[@"app"];
   NSAssert(bundleID, @"'bundleId' desired capability not provided");
-
-  XCUIApplication *app = [[XCUIApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
+  FBApplication *app = [[FBApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
+  app.shouldWaitForQuiescence = [requirements[@"shouldWaitForQuiescence"] boolValue];
   app.launchArguments = (NSArray<NSString *> *)requirements[@"arguments"] ?: @[];
   app.launchEnvironment = (NSDictionary <NSString *, NSString *> *)requirements[@"environment"] ?: @{};
   [app launch];
