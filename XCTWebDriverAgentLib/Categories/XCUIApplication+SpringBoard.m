@@ -10,6 +10,7 @@
 #import "XCUIApplication+SpringBoard.h"
 
 #import "XCUIApplication.h"
+#import "XCUIElement+FBTap.h"
 #import "XCUIElement.h"
 
 @implementation XCUIApplication (SpringBoard)
@@ -26,7 +27,7 @@
   XCUIElement *appElement = [[self descendantsMatchingType:XCUIElementTypeAny]
                              elementMatchingPredicate:[NSPredicate predicateWithFormat:@"identifier = %@", identifier]
                              ];
-  [appElement tap];
+  [appElement fb_tapWithError:nil];
 }
 
 @end

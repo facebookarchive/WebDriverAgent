@@ -24,10 +24,10 @@
 #import "XCUIApplication+SpringBoard.h"
 #import "XCUIApplication.h"
 #import "XCUICoordinate.h"
+#import "XCUIElement+FBTap.h"
 #import "XCUIElement+WebDriverAttributes.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
-
 NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingElementException";
 
 @implementation FBAlertViewCommands
@@ -138,11 +138,11 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 
 + (id)currentAlertTextWithApplication:(XCUIApplication *)application
 {
-  XCElementSnapshot *alertSnapshot = [self alertSnapshotWithApplication:application];
+  XCUIElement *alertSnapshot = [self alertSnapshotWithApplication:application];
   if (!alertSnapshot) {
     return nil;
   }
-  NSArray<XCElementSnapshot *> *staticTexts = [alertSnapshot fb_descendantsMatchingType:XCUIElementTypeStaticText];
+  NSArray<XCElementSnapshot *> *staticTexts = [alertSnapshot.lastSnapshot fb_descendantsMatchingType:XCUIElementTypeStaticText];
   NSString *text = [staticTexts.lastObject wdLabel];
   if (!text) {
     return [NSNull null];
@@ -152,38 +152,38 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 
 + (BOOL)acceptAlertWithApplication:(XCUIApplication *)application
 {
-  XCElementSnapshot *alertSnapshot = [self alertSnapshotWithApplication:application];
-  NSArray<XCElementSnapshot *> *buttons = [alertSnapshot fb_descendantsMatchingType:XCUIElementTypeButton];
+  XCUIElement *alert = [self alertSnapshotWithApplication:application];
+  NSArray<XCUIElement *> *buttons = [alert descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
 
-  XCElementSnapshot *defaultButton;
-  if (alertSnapshot.elementType == XCUIElementTypeAlert) {
+  XCUIElement *defaultButton;
+  if (alert.elementType == XCUIElementTypeAlert) {
     defaultButton = buttons.lastObject;
   } else {
     defaultButton = buttons.firstObject;
   }
   if (!defaultButton) {
-    [FBWDALogger logFmt:@"Failed to find accept button for alert snapshot: %@", alertSnapshot];
+    [FBWDALogger logFmt:@"Failed to find accept button for alert: %@", alert];
     return NO;
   }
-  return [[XCEventGenerator sharedGenerator] fb_syncTapAtPoint:defaultButton.hitPoint orientation:application.interfaceOrientation error:nil];
+  return [defaultButton fb_tapWithError:nil];
 }
 
 + (BOOL)dismissAlertWithApplication:(XCUIApplication *)application
 {
-  XCElementSnapshot *cancelButton;
-  XCElementSnapshot *alertSnapshot = [self alertSnapshotWithApplication:application];
-  NSArray<XCElementSnapshot *> *buttons = [alertSnapshot fb_descendantsMatchingType:XCUIElementTypeButton];
+  XCUIElement *cancelButton;
+  XCUIElement *alert = [self alertSnapshotWithApplication:application];
+  NSArray<XCUIElement *> *buttons = [alert descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
 
-  if (alertSnapshot.elementType == XCUIElementTypeAlert) {
+  if (alert.elementType == XCUIElementTypeAlert) {
     cancelButton = buttons.firstObject;
   } else {
     cancelButton = buttons.lastObject;
   }
   if (!cancelButton) {
-    [FBWDALogger logFmt:@"Failed to find dismiss button for alert snapshot: %@", alertSnapshot];
+    [FBWDALogger logFmt:@"Failed to find dismiss button for alert: %@", alert];
     return NO;
   }
-  return [[XCEventGenerator sharedGenerator] fb_syncTapAtPoint:cancelButton.hitPoint orientation:application.interfaceOrientation error:nil];
+  return [cancelButton fb_tapWithError:nil];
 }
 
 + (XCUIElement *)applicationAlertWithApplication:(XCUIApplication *)application
@@ -195,18 +195,15 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   return alert;
 }
 
-+ (XCElementSnapshot *)alertSnapshotWithApplication:(XCUIApplication *)application
++ (XCUIElement *)alertSnapshotWithApplication:(XCUIApplication *)application
 {
   XCUIElement *alert = [self applicationAlertWithApplication:application];
-  if (alert.exists) {
-    [alert resolve];
-    return alert.lastSnapshot;
+  if (!alert.exists) {
+    alert = [self applicationAlertWithApplication:[XCUIApplication fb_SpringBoard]];
   }
-
-  alert = [self applicationAlertWithApplication:[XCUIApplication fb_SpringBoard]];
   if (alert.exists) {
     [alert resolve];
-    return alert.lastSnapshot;
+    return alert;
   }
   return nil;
 }

@@ -21,6 +21,7 @@
 #import "XCUIDevice.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBScrolling.h"
+#import "XCUIElement+FBTap.h"
 #import "XCUIElement+UIAClassMapping.h"
 #import "XCUIElement+WebDriverAttributes.h"
 #import "XCUIElement.h"
@@ -161,11 +162,11 @@
   FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
-  if (!element.hasKeyboardFocus) {
-    [element tap];
+  NSError *error = nil;
+  if (!element.hasKeyboardFocus && ![element fb_tapWithError:&error]) {
+    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
   }
   NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
-  NSError *error = nil;
   if (![self.class typeText:textToType error:&error]) {
     return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
   }
@@ -177,7 +178,10 @@
   FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
-  [element tap];
+  NSError *error = nil;
+  if (![element fb_tapWithError:&error]) {
+    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
+  }
   return FBResponseDictionaryWithElementID(elementID);
 }
 
@@ -186,14 +190,14 @@
   FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
-  if (!element.hasKeyboardFocus) {
-    [element tap];
+  NSError *error;
+  if (!element.hasKeyboardFocus && ![element fb_tapWithError:&error]) {
+    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
   }
   NSMutableString *textToType = @"".mutableCopy;
   for (NSUInteger i = 0 ; i < [element.value length] ; i++) {
     [textToType appendString:@"\b"];
   }
-  NSError *error;
   if (![self.class typeText:textToType error:&error]) {
     return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
   }
