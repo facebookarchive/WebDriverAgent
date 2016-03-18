@@ -63,6 +63,9 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
 - (BOOL)scrollToVisibleWithError:(NSError **)error
 {
   [self resolve];
+  if (self.isFBVisible) {
+    return YES;
+  }
   XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeScrollView];
   scrollView = scrollView ?: [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeTable];
   scrollView = scrollView ?: [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeCollectionView];
