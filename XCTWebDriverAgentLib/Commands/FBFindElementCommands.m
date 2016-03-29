@@ -28,6 +28,16 @@
 
 static NSString *const kXMLIndexPathKey = @"private_indexPath";
 
+static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteRequest *request)
+{
+  NSDictionary *errorDetails = @{
+    @"description": @"unable to find an element",
+    @"using": request.arguments[@"using"] ?: @"",
+    @"value": request.arguments[@"value"] ?: @"",
+  };
+  return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, errorDetails);
+}
+
 @implementation FBFindElementCommands
 
 #pragma mark - <FBCommandHandler>
@@ -52,7 +62,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
   FBXCTSession *session = (FBXCTSession *)request.session;
   XCUIElement *element = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application];
   if (!element) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
+    return FBNoSuchElementErrorResponseForRequest(request);
   }
   NSInteger elementID = [request.session.elementCache storeElement:element];
   return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:element elementID:elementID]);
@@ -92,7 +102,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   XCUIElement *foundElement = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
   if (!foundElement) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
+    return FBNoSuchElementErrorResponseForRequest(request);
   }
   NSInteger elementID = [request.session.elementCache storeElement:foundElement];
   return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:foundElement elementID:elementID]);
@@ -105,7 +115,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
   NSArray *foundElements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
 
   if (foundElements.count == 0) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an element");
+    return FBNoSuchElementErrorResponseForRequest(request);
   }
 
   NSMutableArray *elementsResponse = [NSMutableArray array];
