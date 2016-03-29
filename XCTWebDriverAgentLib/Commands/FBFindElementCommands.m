@@ -149,6 +149,8 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
     elements = [self descendantsOfElement:element withClassName:value];
   } else if ([usingText isEqualToString:@"xpath"]) {
     elements = [self descendantsOfElement:element withXPathQuery:value];
+  } else if ([usingText isEqualToString:@"predicate string"]) {
+      elements = [self descendantsOfElement:element withPredicateString:value];
   } else if (isSearchByIdentifier) {
     elements = [self descendantsOfElement:element withIdentifier:value];
   } else {
@@ -204,6 +206,13 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
   XCUIElementQuery *query = [[element descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate];
   NSArray *childElements = [query allElementsBoundByIndex];
   [results addObjectsFromArray:childElements];
+}
+
+#pragma mark - Search by Predicate String
++ (NSArray *)descendantsOfElement:(XCUIElement *)element withPredicateString:(NSString *)predicateString {
+    XCUIElementQuery *query = [[element descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:[NSPredicate predicateWithFormat:predicateString]];
+    NSArray *childElements = [query allElementsBoundByIndex];
+    return childElements;
 }
 
 
