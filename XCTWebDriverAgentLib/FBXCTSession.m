@@ -12,16 +12,16 @@
 
 #import "FBElementCache.h"
 #import "FBSession-Private.h"
-
+#import "FBXCTElementCache.h"
+#import "XCAXClient_iOS.h"
+#import "XCAccessibilityElement.h"
 #import "XCUIApplication.h"
 #import "XCUIElement.h"
-
-#import "FBXCTElementCache.h"
 
 NSString *const FBApplicationCrashedException = @"FBApplicationCrashedException";
 
 @interface FBXCTSession ()
-@property (nonatomic, strong, readwrite) XCUIApplication *application;
+@property (nonatomic, strong, readwrite) XCUIApplication *testedApplication;
 @end
 
 @implementation FBXCTSession
@@ -30,7 +30,7 @@ NSString *const FBApplicationCrashedException = @"FBApplicationCrashedException"
 {
   FBXCTSession *session = [FBXCTSession new];
   session.identifier = [[NSUUID UUID] UUIDString];
-  session.application = application;
+  session.testedApplication = application;
   session.elementCache = [FBXCTElementCache new];
   [FBSession markSessionActive:session];
   return session;
@@ -38,16 +38,23 @@ NSString *const FBApplicationCrashedException = @"FBApplicationCrashedException"
 
 - (XCUIApplication *)application
 {
-  if (!_application.running) {
+  XCUIApplication *application = self.testedApplication;
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"processIdentifier != %d", self.testedApplication.processID];
+  XCAccessibilityElement *anotherActiveApplication = [[[[XCAXClient_iOS sharedClient] activeApplications] filteredArrayUsingPredicate:predicate] firstObject];
+  if (anotherActiveApplication) {
+    // If different active app is detected, using it instead of tested one
+    application = [XCUIApplication appWithPID:anotherActiveApplication.processIdentifier];
+  }
+  else if (!application.running) {
     [[NSException exceptionWithName:FBApplicationCrashedException reason:@"Application is not running, possibly crashed" userInfo:nil] raise];
   }
-  [_application resolve];
-  return _application;
+  [application resolve];
+  return application;
 }
 
 - (void)kill
 {
-  [self.application terminate];
+  [self.testedApplication terminate];
   [super kill];
 }
 
