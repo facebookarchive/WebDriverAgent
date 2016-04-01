@@ -40,7 +40,7 @@ id<XCDebugLogDelegate> XCDebugLogger();
     processName = [NSProcessInfo processInfo].processName;
   });
   if ([logEntry rangeOfString:[NSString stringWithFormat:@" %@[", processName]].location != NSNotFound) {
-    // Ignoring "13:37:07.638 XCTStubApps[56374:10997466] " from log entry
+    // Ignoring "13:37:07.638 TestingApp[56374:10997466] " from log entry
     NSUInteger ignoreCharCount = [logEntry rangeOfString:@"]"].location + 2;
     debugLogEntry = [logEntry substringWithRange:NSMakeRange(ignoreCharCount, logEntry.length - ignoreCharCount)];
   }
