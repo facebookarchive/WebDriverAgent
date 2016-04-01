@@ -25,11 +25,11 @@
 {
   struct objc_method_description descr = protocol_getMethodDescription(@protocol(FBElement), aSelector, YES, YES);
   BOOL isWebDriverAttributesSelector = descr.name != nil;
-  if(isWebDriverAttributesSelector) {
+  if(!isWebDriverAttributesSelector) {
     return nil;
   }
   if (self.lastSnapshot) {
-    return self.lastSnapshot
+    return self.lastSnapshot;
   }
   // If lastSnapshot is missing, trying to resolve it.
   [self resolve];
