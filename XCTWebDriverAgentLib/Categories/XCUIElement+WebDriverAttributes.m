@@ -26,12 +26,17 @@
   struct objc_method_description descr = protocol_getMethodDescription(@protocol(FBElement), aSelector, YES, YES);
   BOOL isWebDriverAttributesSelector = descr.name != nil;
   if(isWebDriverAttributesSelector) {
-    if (!self.lastSnapshot) {
-      [self resolve];
-    }
-    return self.lastSnapshot;
+    return nil;
   }
-  return nil;
+  if (self.lastSnapshot) {
+    return self.lastSnapshot
+  }
+  // If lastSnapshot is missing, trying to resolve it.
+  [self resolve];
+
+  // If lastSnapshot is still missing aplication is probably not active. Returning empty element instead of crashing.
+  // This will work well, if element search is requested (will not match anything) and reqesting properties values (will return nils).
+  return self.lastSnapshot ?: [XCElementSnapshot new];
 }
 
 @end
