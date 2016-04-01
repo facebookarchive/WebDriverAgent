@@ -22,7 +22,6 @@
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBScrolling.h"
 #import "XCUIElement+FBTap.h"
-#import "XCUIElement+UIAClassMapping.h"
 #import "XCUIElement+WebDriverAttributes.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"

@@ -14,6 +14,7 @@
 #import "FBAlertViewCommands.h"
 #import "FBCoreExceptionHandler.h"
 #import "FBElementCache.h"
+#import "FBElementTypeTransformer.h"
 #import "FBRouteRequest.h"
 #import "FBWDAMacros.h"
 #import "FBXCTElementCache.h"
@@ -21,7 +22,6 @@
 #import "XCElementSnapshot.h"
 #import "XCUIApplication.h"
 #import "XCUIElement+FBIsVisible.h"
-#import "XCUIElement+UIAClassMapping.h"
 #import "XCUIElement+WebDriverAttributes.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
@@ -175,7 +175,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 + (NSArray *)descendantsOfElement:(XCUIElement *)element withClassName:(NSString *)className
 {
   NSMutableArray *result = [NSMutableArray array];
-  XCUIElementType type = [XCUIElement elementTypeWithUIAClassName:className];
+  XCUIElementType type = [FBElementTypeTransformer elementTypeWithTypeName:className];
   if (element.elementType == type) {
     [result addObject:element];
   }
@@ -241,7 +241,6 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
   DDXMLElement *xmlElement = [self XMLElementFromElement:elementSnapshot indexPath:@"top" elementStore:elementStore];
   NSError *error;
-  xpathQuery = [XCUIElement patchXPathQueryUIAClassNames:xpathQuery];
   NSArray *xpathNodes = [xmlElement nodesForXPath:xpathQuery error:&error];
   if (![xpathNodes count]) {
     return nil;

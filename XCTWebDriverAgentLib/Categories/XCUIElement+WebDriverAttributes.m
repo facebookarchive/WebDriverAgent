@@ -11,9 +11,9 @@
 
 #import <objc/runtime.h>
 
+#import "FBElementTypeTransformer.h"
 #import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
-#import "XCUIElement+UIAClassMapping.h"
 #import "XCUIElement.h"
 
 #define FBTransferEmptyStringToNil(value) ([value isEqual:@""] ? nil : value)
@@ -74,7 +74,7 @@
 
 - (NSString *)wdType
 {
-  return [XCUIElement UIAClassNameWithElementType:self.elementType];
+  return [FBElementTypeTransformer stringWithElementType:self.elementType];
 }
 
 - (CGRect)wdFrame

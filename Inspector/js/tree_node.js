@@ -40,7 +40,6 @@ class TreeNode {
     this.rect = node.rect;
     this.attributes = {
       type: node.type,
-      xctType: node.xctType,
       rawIdentifier: node.rawIdentifier,
       name: node.name,
       value: node.value,

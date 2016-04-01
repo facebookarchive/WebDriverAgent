@@ -7,10 +7,15 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <XCTWebDriverAgentLib/XCElementSnapshot.h>
+#import <Foundation/Foundation.h>
+#import <XCTest/XCUIElementTypes.h>
 
-@interface XCElementSnapshot (FBElementType)
+@interface FBElementTypeTransformer : NSObject
 
-- (NSString *)fb_elementTypeString;
++ (XCUIElementType)elementTypeWithTypeName:(NSString *)typeName;
+
++ (NSString *)stringWithElementType:(XCUIElementType)type;
+
++ (NSString *)shortStringWithElementType:(XCUIElementType)type;
 
 @end

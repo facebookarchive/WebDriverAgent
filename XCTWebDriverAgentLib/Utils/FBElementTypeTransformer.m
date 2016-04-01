@@ -7,16 +7,18 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "XCElementSnapshot+FBElementType.h"
+#import "FBElementTypeTransformer.h"
 
-@implementation XCElementSnapshot (FBElementType)
+@implementation FBElementTypeTransformer
 
-- (NSString *)fb_elementTypeString
+static NSDictionary *ElementTypeToStringMapping;
+static NSDictionary *StringToElementTypeMapping;
+
++ (void)createMapping
 {
   static dispatch_once_t onceToken;
-  static NSDictionary *_mapping;
   dispatch_once(&onceToken, ^{
-    _mapping =
+    ElementTypeToStringMapping =
     @{
       @0 : @"XCUIElementTypeAny",
       @1 : @"XCUIElementTypeOther",
@@ -99,9 +101,31 @@
       @78 : @"XCUIElementTypeHandle",
       @79 : @"XCUIElementTypeStepper",
       @80 : @"XCUIElementTypeTab",
-    };
+      };
+    NSMutableDictionary *swappedMapping = [NSMutableDictionary dictionary];
+    [ElementTypeToStringMapping enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+      swappedMapping[obj] = key;
+    }];
+    StringToElementTypeMapping = swappedMapping.copy;
   });
-  return _mapping[@(self.elementType)];
+}
+
++ (XCUIElementType)elementTypeWithTypeName:(NSString *)typeName
+{
+  [self createMapping];
+  NSNumber *type = StringToElementTypeMapping[typeName];
+  return (XCUIElementType) ( type ? type.unsignedIntegerValue : XCUIElementTypeAny);
+}
+
++ (NSString *)stringWithElementType:(XCUIElementType)type
+{
+  [self createMapping];
+  return ElementTypeToStringMapping[@(type)];
+}
+
++ (NSString *)shortStringWithElementType:(XCUIElementType)type
+{
+  return [[self stringWithElementType:type] stringByReplacingOccurrencesOfString:@"XCUIElementType" withString:@""];
 }
 
 @end

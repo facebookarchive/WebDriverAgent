@@ -9,13 +9,13 @@
 
 #import "FBXPathCreator.h"
 
-#import "XCUIElement+UIAClassMapping.h"
+#import "FBElementTypeTransformer.h"
 
 @implementation FBXPathCreator
 
 + (NSString *)xpathWithSubelementsOfType:(XCUIElementType)elementType
 {
-  return [NSString stringWithFormat:@"//%@", [XCUIElement UIAClassNameWithElementType:elementType]];
+  return [NSString stringWithFormat:@"//%@", [FBElementTypeTransformer stringWithElementType:elementType]];
 }
 
 @end

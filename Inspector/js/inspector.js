@@ -40,7 +40,6 @@ class Inspector extends React.Component {
     return (
       <div>
         {this.renderField('Class', attributes.type)}
-        {this.renderField('xctType', attributes.xctType)}
         {this.renderField('Raw identifier', attributes.rawIdentifier)}
         {this.renderField('Name', attributes.name)}
         {this.renderField('Value', attributes.value)}
