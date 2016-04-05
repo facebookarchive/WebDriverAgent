@@ -10,6 +10,6 @@ branches:
     - master
 
 env:
-- TARGET=WebDriverAgent SDK=iphonesimulator ACTION=build
-- TARGET=XCTUITestRunner SDK=iphonesimulator ACTION=build-tests
-- TARGET=XCTUITestRunner SDK=iphoneos ACTION=build-tests
+- PROJECT=WebDriverAgent.xcodeproj TARGET=WebDriverAgentRunner SDK=iphonesimulator ACTION=build-tests
+- PROJECT=WebDriverAgent.xcodeproj TARGET=WebDriverAgentRunner SDK=iphoneos ACTION=build-tests
+- PROJECT=UIAWebDriverAgent/WebDriverAgent.xcodeproj TARGET=WebDriverAgent SDK=iphonesimulator ACTION=build
