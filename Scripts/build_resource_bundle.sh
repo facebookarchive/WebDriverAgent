@@ -13,7 +13,7 @@
 # installed in `/usr/local/bin/` we decided to alter $PATH here.
 export PATH=$PATH:/usr/local/bin
 
-if [[ ! -f build_resource_bundle.sh ]]; then
+if [[ ! -f Scripts/build_resource_bundle.sh ]]; then
   echo "Run this script from the root of repository"
   exit 1
 fi
@@ -30,7 +30,7 @@ INSPECTOR_DIR="$CURRENT_DIR/Inspector"
 
 echo "Creating bundle directory..."
 if [[ -e "$RESOURCE_BUNDLE_DIR" ]]; then
-  rm -R "$RESOURCE_BUNDLE_DIR";  
+  rm -R "$RESOURCE_BUNDLE_DIR";
 fi
 mkdir -p "$RESOURCE_BUNDLE_DIR"
 
