@@ -14,6 +14,9 @@ function assert_has_carthage() {
 function build_cli_deps() {
   assert_has_carthage
   carthage bootstrap --platform iOS
+  pushd ./UIAWebDriverAgent
+  carthage bootstrap --platform iOS
+  popd
 }
 
 function build() {
