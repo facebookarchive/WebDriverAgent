@@ -176,7 +176,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 {
   NSMutableArray *result = [NSMutableArray array];
   XCUIElementType type = [FBElementTypeTransformer elementTypeWithTypeName:className];
-  if (element.elementType == type) {
+  if (element.elementType == type || type == XCUIElementTypeAny) {
     [result addObject:element];
   }
   [result addObjectsFromArray:[[element descendantsMatchingType:type] allElementsBoundByIndex]];
@@ -230,6 +230,8 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 
 + (NSArray<XCUIElement *> *)descendantsOfElement:(XCUIElement *)element withXPathQuery:(NSString *)xpathQuery
 {
+  // XPath will try to match elements only class name, so requesting elements by XCUIElementTypeAny will not work. We should use '*' instead.
+  xpathQuery = [xpathQuery stringByReplacingOccurrencesOfString:@"XCUIElementTypeAny" withString:@"*"];
   NSArray *matchingSnapshots = [self descendantsOfElementSnapshot:element.lastSnapshot withXPathQuery:xpathQuery];
   NSArray *allElements = [[element descendantsMatchingType:XCUIElementTypeAny] allElementsBoundByIndex];
   NSArray *matchingElements = [self filterElements:allElements matchingSnapshots:matchingSnapshots];
