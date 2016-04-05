@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		165C260210AEEB3A269ADF7D /* libPods-XCTWebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD7E1C646F36B5582132DA12 /* libPods-XCTWebDriverAgentLib.a */; };
-		17FAFB7CEBC0F6E3621FAA62 /* libPods-WebDriverAgentLibTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 126BB2958BC0D6129BB43082 /* libPods-WebDriverAgentLibTests.a */; };
-		3CC397CE664E295947463C5C /* libPods-WebDriverAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F204A7ED0F3E8EEFB1A1C300 /* libPods-WebDriverAgent.a */; };
-		3E5AFD6E9F998F592139B678 /* libPods-WebDriverAgentCoreTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B550B5F693A107F8F43728B /* libPods-WebDriverAgentCoreTests.a */; };
 		498495CB1BB2EB9B009CC848 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */; };
 		91607A951C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 91607A941C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h */; };
 		91E7D8581B99E45400F8BA6F /* UIAutomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E7D8571B99E45400F8BA6F /* UIAutomation.framework */; };
@@ -23,7 +19,6 @@
 		91F9DB711B99DDCA001349B2 /* FBWebDriverFindMultipleElementsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DB6C1B99DDCA001349B2 /* FBWebDriverFindMultipleElementsTests.m */; };
 		91F9DB721B99DDCA001349B2 /* FBWebDriverViewHierarchyMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9DB6E1B99DDCA001349B2 /* FBWebDriverViewHierarchyMock.m */; };
 		91F9DBAF1B99DE0B001349B2 /* libWebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91F9DB161B99DC2F001349B2 /* libWebDriverAgentLib.a */; };
-		9BF1A5CFBE7FECEC3F8BD83A /* libPods-WebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D6EAD48D91D44DDAB21D256 /* libPods-WebDriverAgentLib.a */; };
 		AAA282CA1BCF8FB70027DE10 /* FBAlertViewCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = AAA282B21BCF8FB70027DE10 /* FBAlertViewCommands.h */; };
 		AAA282CB1BCF8FB70027DE10 /* FBAlertViewCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA282B31BCF8FB70027DE10 /* FBAlertViewCommands.m */; };
 		AAA282CC1BCF8FB70027DE10 /* FBCustomCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = AAA282B41BCF8FB70027DE10 /* FBCustomCommands.h */; };
@@ -44,7 +39,6 @@
 		ADA470351C0E814B002CDE9C /* FBCoreExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = ADA470301C0E7FD8002CDE9C /* FBCoreExceptionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ADA470361C0E814E002CDE9C /* FBCoreExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA470311C0E7FD8002CDE9C /* FBCoreExceptionHandler.m */; };
 		ADA470371C0E814F002CDE9C /* FBCoreExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA470311C0E7FD8002CDE9C /* FBCoreExceptionHandler.m */; };
-		B64FCE022A2DCE1C3F02F741 /* libPods-XCTUITestRunner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A34459487822F33D42FD222E /* libPods-XCTUITestRunner.a */; };
 		EE00CF631C49CC3300C8239A /* FBTouchIDCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE00CF611C49CBE100C8239A /* FBTouchIDCommands.m */; };
 		EE00CF641C49CC3400C8239A /* FBTouchIDCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE00CF611C49CBE100C8239A /* FBTouchIDCommands.m */; };
 		EE020F751C5656DD0051FC11 /* FBHTTPOverUSBServer.h in Headers */ = {isa = PBXBuildFile; fileRef = EE020F731C5656DD0051FC11 /* FBHTTPOverUSBServer.h */; };
@@ -105,8 +99,134 @@
 		EE78FCBE1C985D61007946B1 /* XCUIElement+FBTap.m in Sources */ = {isa = PBXBuildFile; fileRef = EE78FCBC1C985D61007946B1 /* XCUIElement+FBTap.m */; };
 		EE8300E71C08CF7200217020 /* XCEventGenerator+SyncEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = EE8300E51C08CF7200217020 /* XCEventGenerator+SyncEvents.h */; };
 		EE8300E81C08CF7200217020 /* XCEventGenerator+SyncEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8300E61C08CF7200217020 /* XCEventGenerator+SyncEvents.m */; };
-		EE836C071C0F118600D87246 /* libXCTWebDriverAgentLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC2899A1BF0ED3000B4DC79 /* libXCTWebDriverAgentLib.a */; };
 		EE836C0E1C0F11B000D87246 /* FBRouteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE836C0D1C0F11B000D87246 /* FBRouteTests.m */; };
+		EE9AB5551CAEC4DB008C271F /* fishhook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB54E1CAEC4DB008C271F /* fishhook.framework */; };
+		EE9AB5561CAEC4DB008C271F /* fishhook.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB54E1CAEC4DB008C271F /* fishhook.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EE9AB5671CAEC4E9008C271F /* KissXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5601CAEC4E9008C271F /* KissXML.framework */; };
+		EE9AB5681CAEC4E9008C271F /* KissXML.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5601CAEC4E9008C271F /* KissXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EE9AB5891CAEC4FA008C271F /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */; };
+		EE9AB58A1CAEC4FA008C271F /* RoutingHTTPServer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EE9AB58F1CAEC5A5008C271F /* fishhook.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2E11CAEBD40008C271F /* fishhook.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB5901CAEC5A5008C271F /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB2E01CAEBD40008C271F /* fishhook.c */; };
+		EE9AB5911CAEC5CC008C271F /* DDXMLElementAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2E51CAEBD67008C271F /* DDXMLElementAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB5921CAEC5CC008C271F /* DDXMLElementAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB2E61CAEBD67008C271F /* DDXMLElementAdditions.m */; };
+		EE9AB5931CAEC5CC008C271F /* NSString+DDXML.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2E81CAEBD67008C271F /* NSString+DDXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB5941CAEC5CC008C271F /* NSString+DDXML.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB2E91CAEBD67008C271F /* NSString+DDXML.m */; };
+		EE9AB5951CAEC5CC008C271F /* DDXML.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2EA1CAEBD67008C271F /* DDXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB5961CAEC5CC008C271F /* DDXMLDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2EC1CAEBD67008C271F /* DDXMLDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB5971CAEC5CC008C271F /* DDXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB2ED1CAEBD67008C271F /* DDXMLDocument.m */; };
+		EE9AB5981CAEC5CC008C271F /* DDXMLElement.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2EE1CAEBD67008C271F /* DDXMLElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB5991CAEC5CC008C271F /* DDXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB2EF1CAEBD67008C271F /* DDXMLElement.m */; };
+		EE9AB59A1CAEC5CC008C271F /* DDXMLNode.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2F01CAEBD67008C271F /* DDXMLNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB59B1CAEC5CC008C271F /* DDXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB2F11CAEBD67008C271F /* DDXMLNode.m */; };
+		EE9AB59C1CAEC5D5008C271F /* DDXMLPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2F31CAEBD67008C271F /* DDXMLPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB59D1CAEC5D9008C271F /* PTChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3011CAEBDA5008C271F /* PTChannel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB59E1CAEC5D9008C271F /* PTChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3021CAEBDA5008C271F /* PTChannel.m */; };
+		EE9AB59F1CAEC5D9008C271F /* PTPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3031CAEBDA5008C271F /* PTPrivate.h */; };
+		EE9AB5A01CAEC5D9008C271F /* PTProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3041CAEBDA5008C271F /* PTProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB5A11CAEC5D9008C271F /* PTProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3051CAEBDA5008C271F /* PTProtocol.m */; };
+		EE9AB5A21CAEC5D9008C271F /* PTUSBHub.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3061CAEBDA5008C271F /* PTUSBHub.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB5A31CAEC5D9008C271F /* PTUSBHub.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3071CAEBDA5008C271F /* PTUSBHub.m */; };
+		EE9AB5A41CAEC5EE008C271F /* DDData.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3381CAEBFA4008C271F /* DDData.h */; };
+		EE9AB5A51CAEC5EE008C271F /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3391CAEBFA4008C271F /* DDData.m */; };
+		EE9AB5A61CAEC5EE008C271F /* DDNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB33A1CAEBFA4008C271F /* DDNumber.h */; };
+		EE9AB5A71CAEC5EE008C271F /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB33B1CAEBFA4008C271F /* DDNumber.m */; };
+		EE9AB5A81CAEC5EE008C271F /* DDRange.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB33C1CAEBFA4008C271F /* DDRange.h */; };
+		EE9AB5A91CAEC5EE008C271F /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB33D1CAEBFA4008C271F /* DDRange.m */; };
+		EE9AB5AA1CAEC5EE008C271F /* HTTPAuthenticationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB33E1CAEBFA4008C271F /* HTTPAuthenticationRequest.h */; };
+		EE9AB5AB1CAEC5EE008C271F /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB33F1CAEBFA4008C271F /* HTTPAuthenticationRequest.m */; };
+		EE9AB5AC1CAEC5EE008C271F /* HTTPConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3401CAEBFA4008C271F /* HTTPConnection.h */; };
+		EE9AB5AD1CAEC5EE008C271F /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3411CAEBFA4008C271F /* HTTPConnection.m */; };
+		EE9AB5AE1CAEC5EE008C271F /* HTTPLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3421CAEBFA4008C271F /* HTTPLogging.h */; };
+		EE9AB5AF1CAEC5EE008C271F /* HTTPMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3431CAEBFA4008C271F /* HTTPMessage.h */; };
+		EE9AB5B01CAEC5EE008C271F /* HTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3441CAEBFA4008C271F /* HTTPMessage.m */; };
+		EE9AB5B11CAEC5EE008C271F /* HTTPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3451CAEBFA4008C271F /* HTTPResponse.h */; };
+		EE9AB5B21CAEC5EE008C271F /* HTTPServer.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3461CAEBFA4008C271F /* HTTPServer.h */; };
+		EE9AB5B31CAEC5EE008C271F /* HTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3471CAEBFA4008C271F /* HTTPServer.m */; };
+		EE9AB5B41CAEC5EE008C271F /* MultipartFormDataParser.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3491CAEBFA4008C271F /* MultipartFormDataParser.h */; };
+		EE9AB5B51CAEC5EE008C271F /* MultipartFormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB34A1CAEBFA4008C271F /* MultipartFormDataParser.m */; };
+		EE9AB5B61CAEC5EE008C271F /* MultipartMessageHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB34B1CAEBFA4008C271F /* MultipartMessageHeader.h */; };
+		EE9AB5B71CAEC5EE008C271F /* MultipartMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB34C1CAEBFA4008C271F /* MultipartMessageHeader.m */; };
+		EE9AB5B81CAEC5EE008C271F /* MultipartMessageHeaderField.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB34D1CAEBFA4008C271F /* MultipartMessageHeaderField.h */; };
+		EE9AB5B91CAEC5EE008C271F /* MultipartMessageHeaderField.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB34E1CAEBFA4008C271F /* MultipartMessageHeaderField.m */; };
+		EE9AB5BA1CAEC5EE008C271F /* HTTPAsyncFileResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3501CAEBFA4008C271F /* HTTPAsyncFileResponse.h */; };
+		EE9AB5BB1CAEC5EE008C271F /* HTTPAsyncFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3511CAEBFA4008C271F /* HTTPAsyncFileResponse.m */; };
+		EE9AB5BC1CAEC5EE008C271F /* HTTPDataResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3521CAEBFA4008C271F /* HTTPDataResponse.h */; };
+		EE9AB5BD1CAEC5EE008C271F /* HTTPDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3531CAEBFA4008C271F /* HTTPDataResponse.m */; };
+		EE9AB5BE1CAEC5EE008C271F /* HTTPDynamicFileResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3541CAEBFA4008C271F /* HTTPDynamicFileResponse.h */; };
+		EE9AB5BF1CAEC5EE008C271F /* HTTPDynamicFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3551CAEBFA4008C271F /* HTTPDynamicFileResponse.m */; };
+		EE9AB5C01CAEC5EE008C271F /* HTTPFileResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3561CAEBFA4008C271F /* HTTPFileResponse.h */; };
+		EE9AB5C11CAEC5EE008C271F /* HTTPFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3571CAEBFA4008C271F /* HTTPFileResponse.m */; };
+		EE9AB5C21CAEC5EE008C271F /* HTTPRedirectResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3581CAEBFA4008C271F /* HTTPRedirectResponse.h */; };
+		EE9AB5C31CAEC5EE008C271F /* HTTPRedirectResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3591CAEBFA4008C271F /* HTTPRedirectResponse.m */; };
+		EE9AB5C41CAEC5EE008C271F /* WebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB35A1CAEBFA4008C271F /* WebSocket.h */; };
+		EE9AB5C51CAEC5EE008C271F /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB35B1CAEBFA4008C271F /* WebSocket.m */; };
+		EE9AB5C61CAEC5EE008C271F /* DAVConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB35E1CAEBFA4008C271F /* DAVConnection.h */; };
+		EE9AB5C71CAEC5EE008C271F /* DAVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB35F1CAEBFA4008C271F /* DAVConnection.m */; };
+		EE9AB5C81CAEC5EE008C271F /* DAVResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3601CAEBFA4008C271F /* DAVResponse.h */; };
+		EE9AB5C91CAEC5EE008C271F /* DAVResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3611CAEBFA4008C271F /* DAVResponse.m */; };
+		EE9AB5CA1CAEC5EE008C271F /* DELETEResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3621CAEBFA4008C271F /* DELETEResponse.h */; };
+		EE9AB5CB1CAEC5EE008C271F /* DELETEResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3631CAEBFA4008C271F /* DELETEResponse.m */; };
+		EE9AB5CC1CAEC5EE008C271F /* PUTResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3641CAEBFA4008C271F /* PUTResponse.h */; };
+		EE9AB5CD1CAEC5EE008C271F /* PUTResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3651CAEBFA4008C271F /* PUTResponse.m */; };
+		EE9AB5CE1CAEC5EE008C271F /* GCDAsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB51D1CAEBFFB008C271F /* GCDAsyncSocket.h */; };
+		EE9AB5CF1CAEC5EE008C271F /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB51E1CAEBFFB008C271F /* GCDAsyncSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EE9AB5D01CAEC5EE008C271F /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB5211CAEBFFB008C271F /* DDAbstractDatabaseLogger.h */; };
+		EE9AB5D11CAEC5EE008C271F /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB5221CAEBFFB008C271F /* DDAbstractDatabaseLogger.m */; };
+		EE9AB5D21CAEC5EE008C271F /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB5231CAEBFFB008C271F /* DDASLLogger.h */; };
+		EE9AB5D31CAEC5EE008C271F /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB5241CAEBFFB008C271F /* DDASLLogger.m */; };
+		EE9AB5D41CAEC5EE008C271F /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB5251CAEBFFB008C271F /* DDFileLogger.h */; };
+		EE9AB5D51CAEC5EE008C271F /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB5261CAEBFFB008C271F /* DDFileLogger.m */; };
+		EE9AB5D61CAEC5EE008C271F /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB5271CAEBFFB008C271F /* DDLog.h */; };
+		EE9AB5D71CAEC5EE008C271F /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB5281CAEBFFB008C271F /* DDLog.m */; };
+		EE9AB5D81CAEC5EE008C271F /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB5291CAEBFFB008C271F /* DDTTYLogger.h */; };
+		EE9AB5D91CAEC5EE008C271F /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB52A1CAEBFFB008C271F /* DDTTYLogger.m */; };
+		EE9AB5DA1CAEC5EE008C271F /* ContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB52C1CAEBFFB008C271F /* ContextFilterLogFormatter.h */; };
+		EE9AB5DB1CAEC5EE008C271F /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB52D1CAEBFFB008C271F /* ContextFilterLogFormatter.m */; };
+		EE9AB5DC1CAEC5EE008C271F /* DispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB52E1CAEBFFB008C271F /* DispatchQueueLogFormatter.h */; };
+		EE9AB5DD1CAEC5EE008C271F /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB52F1CAEBFFB008C271F /* DispatchQueueLogFormatter.m */; };
+		EE9AB5DE1CAEC5F5008C271F /* HTTPResponseProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB30F1CAEBDC1008C271F /* HTTPResponseProxy.h */; };
+		EE9AB5DF1CAEC5F5008C271F /* HTTPResponseProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3101CAEBDC1008C271F /* HTTPResponseProxy.m */; };
+		EE9AB5E01CAEC5F5008C271F /* Route.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3111CAEBDC1008C271F /* Route.h */; };
+		EE9AB5E11CAEC5F5008C271F /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3121CAEBDC1008C271F /* Route.m */; };
+		EE9AB5E21CAEC5F5008C271F /* RouteRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3131CAEBDC1008C271F /* RouteRequest.h */; };
+		EE9AB5E31CAEC5F5008C271F /* RouteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3141CAEBDC1008C271F /* RouteRequest.m */; };
+		EE9AB5E41CAEC5F5008C271F /* RouteResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3151CAEBDC1008C271F /* RouteResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB5E51CAEC5F5008C271F /* RouteResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3161CAEBDC1008C271F /* RouteResponse.m */; };
+		EE9AB5E61CAEC5F5008C271F /* RoutingConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3171CAEBDC1008C271F /* RoutingConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB5E71CAEC5F5008C271F /* RoutingConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB3181CAEBDC1008C271F /* RoutingConnection.m */; };
+		EE9AB5E81CAEC5F5008C271F /* RoutingHTTPServer.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB3191CAEBDC1008C271F /* RoutingHTTPServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9AB5E91CAEC5F5008C271F /* RoutingHTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB31A1CAEBDC1008C271F /* RoutingHTTPServer.m */; };
+		EE9AB5ED1CAEC6C8008C271F /* fishhook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB54E1CAEC4DB008C271F /* fishhook.framework */; };
+		EE9AB5EE1CAEC6C8008C271F /* KissXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5601CAEC4E9008C271F /* KissXML.framework */; };
+		EE9AB5EF1CAEC6C8008C271F /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */; };
+		EE9AB5F71CAEC6F7008C271F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5F61CAEC6F7008C271F /* libxml2.tbd */; };
+		EE9AB5F81CAEC6FC008C271F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5F61CAEC6F7008C271F /* libxml2.tbd */; };
+		EE9AB5FE1CAECB52008C271F /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5FD1CAECB52008C271F /* OCMock.framework */; };
+		EE9AB5FF1CAECB58008C271F /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5FD1CAECB52008C271F /* OCMock.framework */; };
+		EE9AB6001CAECB8B008C271F /* FBInspectorCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC402041C40104E00053801 /* FBInspectorCommands.m */; };
+		EE9AB6011CAECB8B008C271F /* FBTouchIDCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE00CF611C49CBE100C8239A /* FBTouchIDCommands.m */; };
+		EE9AB6021CAECB8B008C271F /* FBUnknownCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D73CC1BECDBE80034D1E9 /* FBUnknownCommands.m */; };
+		EE9AB6031CAECB8B008C271F /* FBCoreExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA470311C0E7FD8002CDE9C /* FBCoreExceptionHandler.m */; };
+		EE9AB6041CAECB8B008C271F /* FBElement.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC28B0E1BF215D800B4DC79 /* FBElement.m */; };
+		EE9AB6061CAECB8B008C271F /* FBResponseFilePayload.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D738D1BECCA5A0034D1E9 /* FBResponseFilePayload.m */; };
+		EE9AB6071CAECB8B008C271F /* FBResponseJSONPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D738F1BECCA5A0034D1E9 /* FBResponseJSONPayload.m */; };
+		EE9AB6081CAECB8B008C271F /* FBResponsePayload.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D73911BECCA5A0034D1E9 /* FBResponsePayload.m */; };
+		EE9AB6091CAECB8B008C271F /* FBRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D73931BECCA5A0034D1E9 /* FBRoute.m */; };
+		EE9AB60A1CAECB8B008C271F /* FBRouteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D73951BECCA5A0034D1E9 /* FBRouteRequest.m */; };
+		EE9AB60B1CAECB8B008C271F /* FBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0CA1DE1BF0D0E3005C43CD /* FBSession.m */; };
+		EE9AB60C1CAECB8B008C271F /* FBWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D73991BECCA5A0034D1E9 /* FBWebServer.m */; };
+		EE9AB60D1CAECB8B008C271F /* FBRuntimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF1F18F1C1EC623008EABD2 /* FBRuntimeUtils.m */; };
+		EE9AB60E1CAECB8B008C271F /* FBWDAConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D739E1BECCA5A0034D1E9 /* FBWDAConstants.m */; };
+		EE9AB60F1CAECB8B008C271F /* FBWDALogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D73A01BECCA5A0034D1E9 /* FBWDALogger.m */; };
+		EE9AB6101CAECB8B008C271F /* UIDevice+Wifi_IP.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF1F18A1C1EC542008EABD2 /* UIDevice+Wifi_IP.m */; };
+		EE9AB6111CAECC49008C271F /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */; };
+		EE9AB6141CAECCBE008C271F /* KissXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5601CAEC4E9008C271F /* KissXML.framework */; };
+		EE9AB6151CAECCBE008C271F /* peertalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5711CAEC4F1008C271F /* peertalk.framework */; };
+		EE9AB6161CAECCBE008C271F /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */; };
+		EE9AB6201CAECE29008C271F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB61F1CAECE29008C271F /* Foundation.framework */; };
+		EE9AB6221CAECF9B008C271F /* peertalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5711CAEC4F1008C271F /* peertalk.framework */; };
+		EE9AB6231CAECFD3008C271F /* UIDevice+Wifi_IP.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF1F18A1C1EC542008EABD2 /* UIDevice+Wifi_IP.m */; };
 		EEC289591BF0ED3000B4DC79 /* FBWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D73991BECCA5A0034D1E9 /* FBWebServer.m */; };
 		EEC2895E1BF0ED3000B4DC79 /* FBWDAConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D739E1BECCA5A0034D1E9 /* FBWDAConstants.m */; };
 		EEC289631BF0ED3000B4DC79 /* FBRouteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3D73951BECCA5A0034D1E9 /* FBRouteRequest.m */; };
@@ -290,12 +410,75 @@
 			remoteGlobalIDString = 91F9DB151B99DC2F001349B2;
 			remoteInfo = WebDriverAgentLib;
 		};
-		EE836C081C0F118600D87246 /* PBXContainerItemProxy */ = {
+		EE9AB5531CAEC4DB008C271F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = EEC289541BF0ED3000B4DC79;
-			remoteInfo = XCTWebDriverAgentLib;
+			remoteGlobalIDString = EE9AB54D1CAEC4DB008C271F;
+			remoteInfo = fishhook;
+		};
+		EE9AB5651CAEC4E9008C271F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE9AB55F1CAEC4E9008C271F;
+			remoteInfo = KissXML;
+		};
+		EE9AB5871CAEC4FA008C271F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE9AB5811CAEC4FA008C271F;
+			remoteInfo = RoutingHTTPServer;
+		};
+		EE9AB5F01CAEC6D5008C271F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE9AB54D1CAEC4DB008C271F;
+			remoteInfo = fishhook;
+		};
+		EE9AB5F21CAEC6D5008C271F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE9AB55F1CAEC4E9008C271F;
+			remoteInfo = KissXML;
+		};
+		EE9AB5F41CAEC6D5008C271F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE9AB5811CAEC4FA008C271F;
+			remoteInfo = RoutingHTTPServer;
+		};
+		EE9AB6121CAECC4C008C271F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE9AB5811CAEC4FA008C271F;
+			remoteInfo = RoutingHTTPServer;
+		};
+		EE9AB6171CAECCC3008C271F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE9AB55F1CAEC4E9008C271F;
+			remoteInfo = KissXML;
+		};
+		EE9AB6191CAECCC3008C271F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE9AB5701CAEC4F1008C271F;
+			remoteInfo = peertalk;
+		};
+		EE9AB61B1CAECCC3008C271F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE9AB5811CAEC4FA008C271F;
+			remoteInfo = RoutingHTTPServer;
 		};
 		EEF988401C4867C3005CA669 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -316,6 +499,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE9AB55A1CAEC4DB008C271F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EE9AB5681CAEC4E9008C271F /* KissXML.framework in Embed Frameworks */,
+				EE9AB5561CAEC4DB008C271F /* fishhook.framework in Embed Frameworks */,
+				EE9AB58A1CAEC4FA008C271F /* RoutingHTTPServer.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EEC289741BF0ED3000B4DC79 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -328,25 +524,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0335DEF25970300DC0DC23C9 /* Pods-WebDriverAgentCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentCoreTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentCoreTests/Pods-WebDriverAgentCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
-		126BB2958BC0D6129BB43082 /* libPods-WebDriverAgentLibTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgentLibTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		154D92108667239A91439DD4 /* Pods-WebDriverAgentLibTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLibTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests.debug.xcconfig"; sourceTree = "<group>"; };
-		1A840E10D402D89F7FDA64D0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		25290BED4D47D70D6CAC81AA /* Pods-WebDriverAgent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgent/Pods-WebDriverAgent.debug.xcconfig"; sourceTree = "<group>"; };
-		3B16C2A60F36356996EE8EBB /* Pods-WebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLib/Pods-WebDriverAgentLib.release.xcconfig"; sourceTree = "<group>"; };
-		3B550B5F693A107F8F43728B /* libPods-WebDriverAgentCoreTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgentCoreTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		410A1F98CE4D889BDD2640C8 /* Pods-XCTUITestRunner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTUITestRunner.release.xcconfig"; path = "Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner.release.xcconfig"; sourceTree = "<group>"; };
 		498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WebDriverAgent.bundle; sourceTree = "<group>"; };
-		5D6EAD48D91D44DDAB21D256 /* libPods-WebDriverAgentLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgentLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7191916E53767F463FBE793C /* Pods-XCTWebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTWebDriverAgentLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-XCTWebDriverAgentLib/Pods-XCTWebDriverAgentLib.release.xcconfig"; sourceTree = "<group>"; };
-		80E68470204C2720246F4FD7 /* Pods-WebDriverAgentCoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentCoreTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentCoreTests/Pods-WebDriverAgentCoreTests.release.xcconfig"; sourceTree = "<group>"; };
-		8286A75C98FB0AA2448EF1E7 /* Pods-XCTWebDriverAgentLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTWebDriverAgentLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XCTWebDriverAgentLib/Pods-XCTWebDriverAgentLib.debug.xcconfig"; sourceTree = "<group>"; };
-		86762B93D2FADAABEE7E2B3D /* Pods-WebDriverAgentLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLib/Pods-WebDriverAgentLib.debug.xcconfig"; sourceTree = "<group>"; };
-		8C01E5F49840B2A26406048F /* Pods-XCTUITestRunner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTUITestRunner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner.debug.xcconfig"; sourceTree = "<group>"; };
 		91607A941C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAHardwareKeyboard.h; sourceTree = "<group>"; };
 		91E7D8571B99E45400F8BA6F /* UIAutomation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIAutomation.framework; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks/UIAutomation.framework; sourceTree = DEVELOPER_DIR; };
 		91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AccessibilityUtilities.framework; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks/AccessibilityUtilities.framework; sourceTree = DEVELOPER_DIR; };
-		91E7D85B1B99E90400F8BA6F /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		91F9DAE91B99DBC2001349B2 /* WebDriverAgent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebDriverAgent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F9DAED1B99DBC2001349B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91F9DAEE1B99DBC2001349B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -418,8 +599,6 @@
 		91F9DBAC1B99DDF0001349B2 /* UIAWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAWindow.h; sourceTree = "<group>"; };
 		91F9DBAD1B99DDF0001349B2 /* UIAXElement-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAXElement-Protocol.h"; sourceTree = "<group>"; };
 		91F9DBAE1B99DDF0001349B2 /* UIAXElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAXElement.h; sourceTree = "<group>"; };
-		A34459487822F33D42FD222E /* libPods-XCTUITestRunner.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-XCTUITestRunner.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A67EDF71224F1433B2D77736 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AAA282B21BCF8FB70027DE10 /* FBAlertViewCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAlertViewCommands.h; sourceTree = "<group>"; };
 		AAA282B31BCF8FB70027DE10 /* FBAlertViewCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBAlertViewCommands.m; sourceTree = "<group>"; };
 		AAA282B41BCF8FB70027DE10 /* FBCustomCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCustomCommands.h; sourceTree = "<group>"; };
@@ -439,10 +618,6 @@
 		ADA470301C0E7FD8002CDE9C /* FBCoreExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCoreExceptionHandler.h; sourceTree = "<group>"; };
 		ADA470311C0E7FD8002CDE9C /* FBCoreExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBCoreExceptionHandler.m; sourceTree = "<group>"; };
 		ADA470321C0E7FD8002CDE9C /* FBRouteRequest-Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBRouteRequest-Private.h"; sourceTree = "<group>"; };
-		BD7E1C646F36B5582132DA12 /* libPods-XCTWebDriverAgentLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-XCTWebDriverAgentLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D17FD3E4AF3ECD6BC73CACFA /* Pods-WebDriverAgentLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgentLibTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests.release.xcconfig"; sourceTree = "<group>"; };
-		DA846E1E751106917FCF1B26 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE2E79F594F94C8B6896C776 /* Pods-WebDriverAgent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebDriverAgent.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebDriverAgent/Pods-WebDriverAgent.release.xcconfig"; sourceTree = "<group>"; };
 		EE00CF601C49CBE100C8239A /* FBTouchIDCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTouchIDCommands.h; sourceTree = "<group>"; };
 		EE00CF611C49CBE100C8239A /* FBTouchIDCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTouchIDCommands.m; sourceTree = "<group>"; };
 		EE020F731C5656DD0051FC11 /* FBHTTPOverUSBServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBHTTPOverUSBServer.h; sourceTree = "<group>"; };
@@ -506,6 +681,107 @@
 		EE836C021C0F118600D87246 /* WebDriverAgentCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE836C061C0F118600D87246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE836C0D1C0F11B000D87246 /* FBRouteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRouteTests.m; sourceTree = "<group>"; };
+		EE9AB2E01CAEBD40008C271F /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = fishhook.c; path = Carthage/Checkouts/fishhook/fishhook.c; sourceTree = SOURCE_ROOT; };
+		EE9AB2E11CAEBD40008C271F /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fishhook.h; path = Carthage/Checkouts/fishhook/fishhook.h; sourceTree = SOURCE_ROOT; };
+		EE9AB2E51CAEBD67008C271F /* DDXMLElementAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLElementAdditions.h; sourceTree = "<group>"; };
+		EE9AB2E61CAEBD67008C271F /* DDXMLElementAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDXMLElementAdditions.m; sourceTree = "<group>"; };
+		EE9AB2E81CAEBD67008C271F /* NSString+DDXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DDXML.h"; sourceTree = "<group>"; };
+		EE9AB2E91CAEBD67008C271F /* NSString+DDXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DDXML.m"; sourceTree = "<group>"; };
+		EE9AB2EA1CAEBD67008C271F /* DDXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDXML.h; path = Carthage/Checkouts/KissXML/KissXML/DDXML.h; sourceTree = SOURCE_ROOT; };
+		EE9AB2EC1CAEBD67008C271F /* DDXMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDXMLDocument.h; path = Carthage/Checkouts/KissXML/KissXML/DDXMLDocument.h; sourceTree = SOURCE_ROOT; };
+		EE9AB2ED1CAEBD67008C271F /* DDXMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDXMLDocument.m; path = Carthage/Checkouts/KissXML/KissXML/DDXMLDocument.m; sourceTree = SOURCE_ROOT; };
+		EE9AB2EE1CAEBD67008C271F /* DDXMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDXMLElement.h; path = Carthage/Checkouts/KissXML/KissXML/DDXMLElement.h; sourceTree = SOURCE_ROOT; };
+		EE9AB2EF1CAEBD67008C271F /* DDXMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDXMLElement.m; path = Carthage/Checkouts/KissXML/KissXML/DDXMLElement.m; sourceTree = SOURCE_ROOT; };
+		EE9AB2F01CAEBD67008C271F /* DDXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDXMLNode.h; path = Carthage/Checkouts/KissXML/KissXML/DDXMLNode.h; sourceTree = SOURCE_ROOT; };
+		EE9AB2F11CAEBD67008C271F /* DDXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDXMLNode.m; path = Carthage/Checkouts/KissXML/KissXML/DDXMLNode.m; sourceTree = SOURCE_ROOT; };
+		EE9AB2F31CAEBD67008C271F /* DDXMLPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLPrivate.h; sourceTree = "<group>"; };
+		EE9AB3011CAEBDA5008C271F /* PTChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PTChannel.h; path = Carthage/Checkouts/peertalk/peertalk/PTChannel.h; sourceTree = SOURCE_ROOT; };
+		EE9AB3021CAEBDA5008C271F /* PTChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PTChannel.m; path = Carthage/Checkouts/peertalk/peertalk/PTChannel.m; sourceTree = SOURCE_ROOT; };
+		EE9AB3031CAEBDA5008C271F /* PTPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PTPrivate.h; path = Carthage/Checkouts/peertalk/peertalk/PTPrivate.h; sourceTree = SOURCE_ROOT; };
+		EE9AB3041CAEBDA5008C271F /* PTProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PTProtocol.h; path = Carthage/Checkouts/peertalk/peertalk/PTProtocol.h; sourceTree = SOURCE_ROOT; };
+		EE9AB3051CAEBDA5008C271F /* PTProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PTProtocol.m; path = Carthage/Checkouts/peertalk/peertalk/PTProtocol.m; sourceTree = SOURCE_ROOT; };
+		EE9AB3061CAEBDA5008C271F /* PTUSBHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PTUSBHub.h; path = Carthage/Checkouts/peertalk/peertalk/PTUSBHub.h; sourceTree = SOURCE_ROOT; };
+		EE9AB3071CAEBDA5008C271F /* PTUSBHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PTUSBHub.m; path = Carthage/Checkouts/peertalk/peertalk/PTUSBHub.m; sourceTree = SOURCE_ROOT; };
+		EE9AB30F1CAEBDC1008C271F /* HTTPResponseProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPResponseProxy.h; path = Carthage/Checkouts/RoutingHTTPServer/Source/HTTPResponseProxy.h; sourceTree = SOURCE_ROOT; };
+		EE9AB3101CAEBDC1008C271F /* HTTPResponseProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPResponseProxy.m; path = Carthage/Checkouts/RoutingHTTPServer/Source/HTTPResponseProxy.m; sourceTree = SOURCE_ROOT; };
+		EE9AB3111CAEBDC1008C271F /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Route.h; path = Carthage/Checkouts/RoutingHTTPServer/Source/Route.h; sourceTree = SOURCE_ROOT; };
+		EE9AB3121CAEBDC1008C271F /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Route.m; path = Carthage/Checkouts/RoutingHTTPServer/Source/Route.m; sourceTree = SOURCE_ROOT; };
+		EE9AB3131CAEBDC1008C271F /* RouteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RouteRequest.h; path = Carthage/Checkouts/RoutingHTTPServer/Source/RouteRequest.h; sourceTree = SOURCE_ROOT; };
+		EE9AB3141CAEBDC1008C271F /* RouteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RouteRequest.m; path = Carthage/Checkouts/RoutingHTTPServer/Source/RouteRequest.m; sourceTree = SOURCE_ROOT; };
+		EE9AB3151CAEBDC1008C271F /* RouteResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RouteResponse.h; path = Carthage/Checkouts/RoutingHTTPServer/Source/RouteResponse.h; sourceTree = SOURCE_ROOT; };
+		EE9AB3161CAEBDC1008C271F /* RouteResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RouteResponse.m; path = Carthage/Checkouts/RoutingHTTPServer/Source/RouteResponse.m; sourceTree = SOURCE_ROOT; };
+		EE9AB3171CAEBDC1008C271F /* RoutingConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoutingConnection.h; path = Carthage/Checkouts/RoutingHTTPServer/Source/RoutingConnection.h; sourceTree = SOURCE_ROOT; };
+		EE9AB3181CAEBDC1008C271F /* RoutingConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoutingConnection.m; path = Carthage/Checkouts/RoutingHTTPServer/Source/RoutingConnection.m; sourceTree = SOURCE_ROOT; };
+		EE9AB3191CAEBDC1008C271F /* RoutingHTTPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoutingHTTPServer.h; path = Carthage/Checkouts/RoutingHTTPServer/Source/RoutingHTTPServer.h; sourceTree = SOURCE_ROOT; };
+		EE9AB31A1CAEBDC1008C271F /* RoutingHTTPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoutingHTTPServer.m; path = Carthage/Checkouts/RoutingHTTPServer/Source/RoutingHTTPServer.m; sourceTree = SOURCE_ROOT; };
+		EE9AB3301CAEBEC3008C271F /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/lib/libxml2.tbd; sourceTree = DEVELOPER_DIR; };
+		EE9AB3381CAEBFA4008C271F /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
+		EE9AB3391CAEBFA4008C271F /* DDData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDData.m; sourceTree = "<group>"; };
+		EE9AB33A1CAEBFA4008C271F /* DDNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNumber.h; sourceTree = "<group>"; };
+		EE9AB33B1CAEBFA4008C271F /* DDNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNumber.m; sourceTree = "<group>"; };
+		EE9AB33C1CAEBFA4008C271F /* DDRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDRange.h; sourceTree = "<group>"; };
+		EE9AB33D1CAEBFA4008C271F /* DDRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDRange.m; sourceTree = "<group>"; };
+		EE9AB33E1CAEBFA4008C271F /* HTTPAuthenticationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPAuthenticationRequest.h; sourceTree = "<group>"; };
+		EE9AB33F1CAEBFA4008C271F /* HTTPAuthenticationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPAuthenticationRequest.m; sourceTree = "<group>"; };
+		EE9AB3401CAEBFA4008C271F /* HTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPConnection.h; sourceTree = "<group>"; };
+		EE9AB3411CAEBFA4008C271F /* HTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPConnection.m; sourceTree = "<group>"; };
+		EE9AB3421CAEBFA4008C271F /* HTTPLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLogging.h; sourceTree = "<group>"; };
+		EE9AB3431CAEBFA4008C271F /* HTTPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPMessage.h; sourceTree = "<group>"; };
+		EE9AB3441CAEBFA4008C271F /* HTTPMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPMessage.m; sourceTree = "<group>"; };
+		EE9AB3451CAEBFA4008C271F /* HTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPResponse.h; sourceTree = "<group>"; };
+		EE9AB3461CAEBFA4008C271F /* HTTPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPServer.h; sourceTree = "<group>"; };
+		EE9AB3471CAEBFA4008C271F /* HTTPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPServer.m; sourceTree = "<group>"; };
+		EE9AB3491CAEBFA4008C271F /* MultipartFormDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipartFormDataParser.h; sourceTree = "<group>"; };
+		EE9AB34A1CAEBFA4008C271F /* MultipartFormDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipartFormDataParser.m; sourceTree = "<group>"; };
+		EE9AB34B1CAEBFA4008C271F /* MultipartMessageHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipartMessageHeader.h; sourceTree = "<group>"; };
+		EE9AB34C1CAEBFA4008C271F /* MultipartMessageHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipartMessageHeader.m; sourceTree = "<group>"; };
+		EE9AB34D1CAEBFA4008C271F /* MultipartMessageHeaderField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipartMessageHeaderField.h; sourceTree = "<group>"; };
+		EE9AB34E1CAEBFA4008C271F /* MultipartMessageHeaderField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipartMessageHeaderField.m; sourceTree = "<group>"; };
+		EE9AB3501CAEBFA4008C271F /* HTTPAsyncFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPAsyncFileResponse.h; sourceTree = "<group>"; };
+		EE9AB3511CAEBFA4008C271F /* HTTPAsyncFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPAsyncFileResponse.m; sourceTree = "<group>"; };
+		EE9AB3521CAEBFA4008C271F /* HTTPDataResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPDataResponse.h; sourceTree = "<group>"; };
+		EE9AB3531CAEBFA4008C271F /* HTTPDataResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPDataResponse.m; sourceTree = "<group>"; };
+		EE9AB3541CAEBFA4008C271F /* HTTPDynamicFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPDynamicFileResponse.h; sourceTree = "<group>"; };
+		EE9AB3551CAEBFA4008C271F /* HTTPDynamicFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPDynamicFileResponse.m; sourceTree = "<group>"; };
+		EE9AB3561CAEBFA4008C271F /* HTTPFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPFileResponse.h; sourceTree = "<group>"; };
+		EE9AB3571CAEBFA4008C271F /* HTTPFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPFileResponse.m; sourceTree = "<group>"; };
+		EE9AB3581CAEBFA4008C271F /* HTTPRedirectResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRedirectResponse.h; sourceTree = "<group>"; };
+		EE9AB3591CAEBFA4008C271F /* HTTPRedirectResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRedirectResponse.m; sourceTree = "<group>"; };
+		EE9AB35A1CAEBFA4008C271F /* WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocket.h; sourceTree = "<group>"; };
+		EE9AB35B1CAEBFA4008C271F /* WebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocket.m; sourceTree = "<group>"; };
+		EE9AB35E1CAEBFA4008C271F /* DAVConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAVConnection.h; sourceTree = "<group>"; };
+		EE9AB35F1CAEBFA4008C271F /* DAVConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAVConnection.m; sourceTree = "<group>"; };
+		EE9AB3601CAEBFA4008C271F /* DAVResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAVResponse.h; sourceTree = "<group>"; };
+		EE9AB3611CAEBFA4008C271F /* DAVResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAVResponse.m; sourceTree = "<group>"; };
+		EE9AB3621CAEBFA4008C271F /* DELETEResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DELETEResponse.h; sourceTree = "<group>"; };
+		EE9AB3631CAEBFA4008C271F /* DELETEResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DELETEResponse.m; sourceTree = "<group>"; };
+		EE9AB3641CAEBFA4008C271F /* PUTResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PUTResponse.h; sourceTree = "<group>"; };
+		EE9AB3651CAEBFA4008C271F /* PUTResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PUTResponse.m; sourceTree = "<group>"; };
+		EE9AB51D1CAEBFFB008C271F /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		EE9AB51E1CAEBFFB008C271F /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		EE9AB5211CAEBFFB008C271F /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		EE9AB5221CAEBFFB008C271F /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		EE9AB5231CAEBFFB008C271F /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		EE9AB5241CAEBFFB008C271F /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		EE9AB5251CAEBFFB008C271F /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		EE9AB5261CAEBFFB008C271F /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		EE9AB5271CAEBFFB008C271F /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		EE9AB5281CAEBFFB008C271F /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		EE9AB5291CAEBFFB008C271F /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
+		EE9AB52A1CAEBFFB008C271F /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		EE9AB52C1CAEBFFB008C271F /* ContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextFilterLogFormatter.h; sourceTree = "<group>"; };
+		EE9AB52D1CAEBFFB008C271F /* ContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextFilterLogFormatter.m; sourceTree = "<group>"; };
+		EE9AB52E1CAEBFFB008C271F /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
+		EE9AB52F1CAEBFFB008C271F /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
+		EE9AB54E1CAEC4DB008C271F /* fishhook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = fishhook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE9AB5601CAEC4E9008C271F /* KissXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KissXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE9AB5711CAEC4F1008C271F /* peertalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = peertalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutingHTTPServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE9AB58E1CAEC581008C271F /* SharedVendor-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SharedVendor-Info.plist"; path = "VendorLibs/SharedVendor-Info.plist"; sourceTree = SOURCE_ROOT; };
+		EE9AB5F61CAEC6F7008C271F /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		EE9AB5FD1CAECB52008C271F /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = Carthage/Build/iOS/OCMock.framework; sourceTree = "<group>"; };
+		EE9AB61F1CAECE29008C271F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EE9AB6211CAECE93008C271F /* SharedVendor.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SharedVendor.pch; path = VendorLibs/SharedVendor.pch; sourceTree = SOURCE_ROOT; };
 		EEC288FA1BF0ED2500B4DC79 /* FBAlertViewCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAlertViewCommands.h; sourceTree = "<group>"; };
 		EEC288FB1BF0ED2500B4DC79 /* FBAlertViewCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBAlertViewCommands.m; sourceTree = "<group>"; };
 		EEC288FC1BF0ED2500B4DC79 /* FBSessionCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSessionCommands.h; sourceTree = "<group>"; };
@@ -634,10 +910,6 @@
 		EED031381BFA3461007EDC1D /* XCUIRecorderUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderUtilities.h; sourceTree = "<group>"; };
 		EED031391BFA3461007EDC1D /* XCUIRemote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRemote.h; sourceTree = "<group>"; };
 		EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ProjectSettings.xcconfig; sourceTree = "<group>"; };
-		EEE5CAC21C80361500CBBDD9 /* XCTUITestRunner.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = XCTUITestRunner.debug.xcconfig; sourceTree = "<group>"; };
-		EEE5CAC31C80361500CBBDD9 /* XCTUITestRunner.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = XCTUITestRunner.release.xcconfig; sourceTree = "<group>"; };
-		EEE5CAC41C80361500CBBDD9 /* XCTWebDriverAgentLib.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = XCTWebDriverAgentLib.debug.xcconfig; sourceTree = "<group>"; };
-		EEE5CAC51C80361500CBBDD9 /* XCTWebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = XCTWebDriverAgentLib.release.xcconfig; sourceTree = "<group>"; };
 		EEE7785D1C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIApplication+SpringBoard.h"; sourceTree = "<group>"; };
 		EEE7785E1C3EA4B200BD86C9 /* XCUIApplication+SpringBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIApplication+SpringBoard.m"; sourceTree = "<group>"; };
 		EEF1F1891C1EC542008EABD2 /* UIDevice+Wifi_IP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Wifi_IP.h"; sourceTree = "<group>"; };
@@ -649,7 +921,6 @@
 		EEF988361C486655005CA669 /* FBDebugLogDelegateDecorator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBDebugLogDelegateDecorator.m; sourceTree = "<group>"; };
 		EEF988371C486655005CA669 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEF988381C486655005CA669 /* UITestingUITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITestingUITests.m; sourceTree = "<group>"; };
-		F204A7ED0F3E8EEFB1A1C300 /* libPods-WebDriverAgent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebDriverAgent.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -658,9 +929,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				91E7D85A1B99E46D00F8BA6F /* AccessibilityUtilities.framework in Frameworks */,
+				EE9AB5671CAEC4E9008C271F /* KissXML.framework in Frameworks */,
+				EE9AB5891CAEC4FA008C271F /* RoutingHTTPServer.framework in Frameworks */,
+				EE9AB5551CAEC4DB008C271F /* fishhook.framework in Frameworks */,
 				91E7D8581B99E45400F8BA6F /* UIAutomation.framework in Frameworks */,
 				91F9DBAF1B99DE0B001349B2 /* libWebDriverAgentLib.a in Frameworks */,
-				3CC397CE664E295947463C5C /* libPods-WebDriverAgent.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,7 +941,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BF1A5CFBE7FECEC3F8BD83A /* libPods-WebDriverAgentLib.a in Frameworks */,
+				EE9AB5ED1CAEC6C8008C271F /* fishhook.framework in Frameworks */,
+				EE9AB5EE1CAEC6C8008C271F /* KissXML.framework in Frameworks */,
+				EE9AB5EF1CAEC6C8008C271F /* RoutingHTTPServer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -677,9 +952,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				91F9DB211B99DC2F001349B2 /* libWebDriverAgentLib.a in Frameworks */,
-				17FAFB7CEBC0F6E3621FAA62 /* libPods-WebDriverAgentLibTests.a in Frameworks */,
 				EE040DC61C12041500D0945C /* AccessibilityUtilities.framework in Frameworks */,
 				EE040DC51C1201BB00D0945C /* UIAutomation.framework in Frameworks */,
+				EE9AB5FE1CAECB52008C271F /* OCMock.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,8 +962,39 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE836C071C0F118600D87246 /* libXCTWebDriverAgentLib.a in Frameworks */,
-				3E5AFD6E9F998F592139B678 /* libPods-WebDriverAgentCoreTests.a in Frameworks */,
+				EE9AB6111CAECC49008C271F /* RoutingHTTPServer.framework in Frameworks */,
+				EE9AB5FF1CAECB58008C271F /* OCMock.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB54A1CAEC4DB008C271F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB55C1CAEC4E9008C271F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE9AB5F71CAEC6F7008C271F /* libxml2.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB56D1CAEC4F1008C271F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE9AB6201CAECE29008C271F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB57E1CAEC4FA008C271F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE9AB5F81CAEC6FC008C271F /* libxml2.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,7 +1002,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				165C260210AEEB3A269ADF7D /* libPods-XCTWebDriverAgentLib.a in Frameworks */,
+				EE9AB6141CAECCBE008C271F /* KissXML.framework in Frameworks */,
+				EE9AB6151CAECCBE008C271F /* peertalk.framework in Frameworks */,
+				EE9AB6161CAECCBE008C271F /* RoutingHTTPServer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,8 +1012,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE9AB6221CAECF9B008C271F /* peertalk.framework in Frameworks */,
 				EEF988421C4867C8005CA669 /* libXCTWebDriverAgentLib.a in Frameworks */,
-				B64FCE022A2DCE1C3F02F741 /* libPods-XCTUITestRunner.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,27 +1026,6 @@
 				498495CA1BB2EB9B009CC848 /* WebDriverAgent.bundle */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		8BFA51FAC80E4114EBFF8577 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1A840E10D402D89F7FDA64D0 /* Pods.debug.xcconfig */,
-				A67EDF71224F1433B2D77736 /* Pods.release.xcconfig */,
-				86762B93D2FADAABEE7E2B3D /* Pods-WebDriverAgentLib.debug.xcconfig */,
-				3B16C2A60F36356996EE8EBB /* Pods-WebDriverAgentLib.release.xcconfig */,
-				154D92108667239A91439DD4 /* Pods-WebDriverAgentLibTests.debug.xcconfig */,
-				D17FD3E4AF3ECD6BC73CACFA /* Pods-WebDriverAgentLibTests.release.xcconfig */,
-				25290BED4D47D70D6CAC81AA /* Pods-WebDriverAgent.debug.xcconfig */,
-				DE2E79F594F94C8B6896C776 /* Pods-WebDriverAgent.release.xcconfig */,
-				8C01E5F49840B2A26406048F /* Pods-XCTUITestRunner.debug.xcconfig */,
-				410A1F98CE4D889BDD2640C8 /* Pods-XCTUITestRunner.release.xcconfig */,
-				8286A75C98FB0AA2448EF1E7 /* Pods-XCTWebDriverAgentLib.debug.xcconfig */,
-				7191916E53767F463FBE793C /* Pods-XCTWebDriverAgentLib.release.xcconfig */,
-				0335DEF25970300DC0DC23C9 /* Pods-WebDriverAgentCoreTests.debug.xcconfig */,
-				80E68470204C2720246F4FD7 /* Pods-WebDriverAgentCoreTests.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		91F9DAE01B99DBC2001349B2 = {
@@ -754,8 +1041,8 @@
 				91F9DB241B99DC2F001349B2 /* WebDriverAgentLibTests */,
 				EEF988341C486655005CA669 /* XCTUITestRunner */,
 				EEC288F81BF0ED2500B4DC79 /* XCTWebDriverAgentLib */,
+				EE9AB2A61CAEBB88008C271F /* VendorLibs */,
 				91F9DAEA1B99DBC2001349B2 /* Products */,
-				8BFA51FAC80E4114EBFF8577 /* Pods */,
 				B6E83A410C45944B036B6B0F /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -769,6 +1056,10 @@
 				EEC2899A1BF0ED3000B4DC79 /* libXCTWebDriverAgentLib.a */,
 				EE836C021C0F118600D87246 /* WebDriverAgentCoreTests.xctest */,
 				EEF9882A1C486603005CA669 /* XCTUITestRunner.xctest */,
+				EE9AB54E1CAEC4DB008C271F /* fishhook.framework */,
+				EE9AB5601CAEC4E9008C271F /* KissXML.framework */,
+				EE9AB5711CAEC4F1008C271F /* peertalk.framework */,
+				EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -931,16 +1222,12 @@
 		B6E83A410C45944B036B6B0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				91E7D85B1B99E90400F8BA6F /* libxml2.dylib */,
+				EE9AB61F1CAECE29008C271F /* Foundation.framework */,
+				EE9AB5FD1CAECB52008C271F /* OCMock.framework */,
+				EE9AB5F61CAEC6F7008C271F /* libxml2.tbd */,
+				EE9AB3301CAEBEC3008C271F /* libxml2.tbd */,
 				91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */,
 				91E7D8571B99E45400F8BA6F /* UIAutomation.framework */,
-				DA846E1E751106917FCF1B26 /* libPods.a */,
-				5D6EAD48D91D44DDAB21D256 /* libPods-WebDriverAgentLib.a */,
-				126BB2958BC0D6129BB43082 /* libPods-WebDriverAgentLibTests.a */,
-				F204A7ED0F3E8EEFB1A1C300 /* libPods-WebDriverAgent.a */,
-				A34459487822F33D42FD222E /* libPods-XCTUITestRunner.a */,
-				BD7E1C646F36B5582132DA12 /* libPods-XCTWebDriverAgentLib.a */,
-				3B550B5F693A107F8F43728B /* libPods-WebDriverAgentCoreTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1048,6 +1335,267 @@
 			);
 			path = WebDriverAgentCoreTests;
 			sourceTree = SOURCE_ROOT;
+		};
+		EE9AB2A61CAEBB88008C271F /* VendorLibs */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB58E1CAEC581008C271F /* SharedVendor-Info.plist */,
+				EE9AB2AD1CAEBBBC008C271F /* fishhook */,
+				EE9AB2BA1CAEBBEF008C271F /* KissXML */,
+				EE9AB2C71CAEBBF8008C271F /* peertalk */,
+				EE9AB2D41CAEBBFE008C271F /* RoutingHTTPServer */,
+				EE9AB6211CAECE93008C271F /* SharedVendor.pch */,
+			);
+			name = VendorLibs;
+			path = VendorLib;
+			sourceTree = "<group>";
+		};
+		EE9AB2AD1CAEBBBC008C271F /* fishhook */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB2E11CAEBD40008C271F /* fishhook.h */,
+				EE9AB2E01CAEBD40008C271F /* fishhook.c */,
+			);
+			name = fishhook;
+			path = ../fishhook;
+			sourceTree = "<group>";
+		};
+		EE9AB2BA1CAEBBEF008C271F /* KissXML */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB2E41CAEBD67008C271F /* Additions */,
+				EE9AB2E71CAEBD67008C271F /* Categories */,
+				EE9AB2EA1CAEBD67008C271F /* DDXML.h */,
+				EE9AB2EC1CAEBD67008C271F /* DDXMLDocument.h */,
+				EE9AB2ED1CAEBD67008C271F /* DDXMLDocument.m */,
+				EE9AB2EE1CAEBD67008C271F /* DDXMLElement.h */,
+				EE9AB2EF1CAEBD67008C271F /* DDXMLElement.m */,
+				EE9AB2F01CAEBD67008C271F /* DDXMLNode.h */,
+				EE9AB2F11CAEBD67008C271F /* DDXMLNode.m */,
+				EE9AB2F21CAEBD67008C271F /* Private */,
+			);
+			name = KissXML;
+			path = ../KissXML;
+			sourceTree = "<group>";
+		};
+		EE9AB2C71CAEBBF8008C271F /* peertalk */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB3011CAEBDA5008C271F /* PTChannel.h */,
+				EE9AB3021CAEBDA5008C271F /* PTChannel.m */,
+				EE9AB3031CAEBDA5008C271F /* PTPrivate.h */,
+				EE9AB3041CAEBDA5008C271F /* PTProtocol.h */,
+				EE9AB3051CAEBDA5008C271F /* PTProtocol.m */,
+				EE9AB3061CAEBDA5008C271F /* PTUSBHub.h */,
+				EE9AB3071CAEBDA5008C271F /* PTUSBHub.m */,
+			);
+			name = peertalk;
+			path = ../peertalk;
+			sourceTree = "<group>";
+		};
+		EE9AB2D41CAEBBFE008C271F /* RoutingHTTPServer */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB3321CAEBFA4008C271F /* External */,
+				EE9AB30F1CAEBDC1008C271F /* HTTPResponseProxy.h */,
+				EE9AB3101CAEBDC1008C271F /* HTTPResponseProxy.m */,
+				EE9AB3111CAEBDC1008C271F /* Route.h */,
+				EE9AB3121CAEBDC1008C271F /* Route.m */,
+				EE9AB3131CAEBDC1008C271F /* RouteRequest.h */,
+				EE9AB3141CAEBDC1008C271F /* RouteRequest.m */,
+				EE9AB3151CAEBDC1008C271F /* RouteResponse.h */,
+				EE9AB3161CAEBDC1008C271F /* RouteResponse.m */,
+				EE9AB3171CAEBDC1008C271F /* RoutingConnection.h */,
+				EE9AB3181CAEBDC1008C271F /* RoutingConnection.m */,
+				EE9AB3191CAEBDC1008C271F /* RoutingHTTPServer.h */,
+				EE9AB31A1CAEBDC1008C271F /* RoutingHTTPServer.m */,
+			);
+			name = RoutingHTTPServer;
+			path = ../RoutingHTTPServer;
+			sourceTree = "<group>";
+		};
+		EE9AB2E41CAEBD67008C271F /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB2E51CAEBD67008C271F /* DDXMLElementAdditions.h */,
+				EE9AB2E61CAEBD67008C271F /* DDXMLElementAdditions.m */,
+			);
+			name = Additions;
+			path = Carthage/Checkouts/KissXML/KissXML/Additions;
+			sourceTree = SOURCE_ROOT;
+		};
+		EE9AB2E71CAEBD67008C271F /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB2E81CAEBD67008C271F /* NSString+DDXML.h */,
+				EE9AB2E91CAEBD67008C271F /* NSString+DDXML.m */,
+			);
+			name = Categories;
+			path = Carthage/Checkouts/KissXML/KissXML/Categories;
+			sourceTree = SOURCE_ROOT;
+		};
+		EE9AB2F21CAEBD67008C271F /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB2F31CAEBD67008C271F /* DDXMLPrivate.h */,
+			);
+			name = Private;
+			path = Carthage/Checkouts/KissXML/KissXML/Private;
+			sourceTree = SOURCE_ROOT;
+		};
+		EE9AB3321CAEBFA4008C271F /* External */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB3331CAEBFA4008C271F /* CocoaHTTPServer */,
+			);
+			name = External;
+			path = Carthage/Checkouts/RoutingHTTPServer/External;
+			sourceTree = SOURCE_ROOT;
+		};
+		EE9AB3331CAEBFA4008C271F /* CocoaHTTPServer */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB3361CAEBFA4008C271F /* Core */,
+				EE9AB35C1CAEBFA4008C271F /* Extensions */,
+				EE9AB51A1CAEBFFB008C271F /* Vendor */,
+			);
+			path = CocoaHTTPServer;
+			sourceTree = "<group>";
+		};
+		EE9AB3361CAEBFA4008C271F /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB3371CAEBFA4008C271F /* Categories */,
+				EE9AB33E1CAEBFA4008C271F /* HTTPAuthenticationRequest.h */,
+				EE9AB33F1CAEBFA4008C271F /* HTTPAuthenticationRequest.m */,
+				EE9AB3401CAEBFA4008C271F /* HTTPConnection.h */,
+				EE9AB3411CAEBFA4008C271F /* HTTPConnection.m */,
+				EE9AB3421CAEBFA4008C271F /* HTTPLogging.h */,
+				EE9AB3431CAEBFA4008C271F /* HTTPMessage.h */,
+				EE9AB3441CAEBFA4008C271F /* HTTPMessage.m */,
+				EE9AB3451CAEBFA4008C271F /* HTTPResponse.h */,
+				EE9AB3461CAEBFA4008C271F /* HTTPServer.h */,
+				EE9AB3471CAEBFA4008C271F /* HTTPServer.m */,
+				EE9AB3481CAEBFA4008C271F /* Mime */,
+				EE9AB34F1CAEBFA4008C271F /* Responses */,
+				EE9AB35A1CAEBFA4008C271F /* WebSocket.h */,
+				EE9AB35B1CAEBFA4008C271F /* WebSocket.m */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		EE9AB3371CAEBFA4008C271F /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB3381CAEBFA4008C271F /* DDData.h */,
+				EE9AB3391CAEBFA4008C271F /* DDData.m */,
+				EE9AB33A1CAEBFA4008C271F /* DDNumber.h */,
+				EE9AB33B1CAEBFA4008C271F /* DDNumber.m */,
+				EE9AB33C1CAEBFA4008C271F /* DDRange.h */,
+				EE9AB33D1CAEBFA4008C271F /* DDRange.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		EE9AB3481CAEBFA4008C271F /* Mime */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB3491CAEBFA4008C271F /* MultipartFormDataParser.h */,
+				EE9AB34A1CAEBFA4008C271F /* MultipartFormDataParser.m */,
+				EE9AB34B1CAEBFA4008C271F /* MultipartMessageHeader.h */,
+				EE9AB34C1CAEBFA4008C271F /* MultipartMessageHeader.m */,
+				EE9AB34D1CAEBFA4008C271F /* MultipartMessageHeaderField.h */,
+				EE9AB34E1CAEBFA4008C271F /* MultipartMessageHeaderField.m */,
+			);
+			path = Mime;
+			sourceTree = "<group>";
+		};
+		EE9AB34F1CAEBFA4008C271F /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB3501CAEBFA4008C271F /* HTTPAsyncFileResponse.h */,
+				EE9AB3511CAEBFA4008C271F /* HTTPAsyncFileResponse.m */,
+				EE9AB3521CAEBFA4008C271F /* HTTPDataResponse.h */,
+				EE9AB3531CAEBFA4008C271F /* HTTPDataResponse.m */,
+				EE9AB3541CAEBFA4008C271F /* HTTPDynamicFileResponse.h */,
+				EE9AB3551CAEBFA4008C271F /* HTTPDynamicFileResponse.m */,
+				EE9AB3561CAEBFA4008C271F /* HTTPFileResponse.h */,
+				EE9AB3571CAEBFA4008C271F /* HTTPFileResponse.m */,
+				EE9AB3581CAEBFA4008C271F /* HTTPRedirectResponse.h */,
+				EE9AB3591CAEBFA4008C271F /* HTTPRedirectResponse.m */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		EE9AB35C1CAEBFA4008C271F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB35D1CAEBFA4008C271F /* WebDAV */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EE9AB35D1CAEBFA4008C271F /* WebDAV */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB35E1CAEBFA4008C271F /* DAVConnection.h */,
+				EE9AB35F1CAEBFA4008C271F /* DAVConnection.m */,
+				EE9AB3601CAEBFA4008C271F /* DAVResponse.h */,
+				EE9AB3611CAEBFA4008C271F /* DAVResponse.m */,
+				EE9AB3621CAEBFA4008C271F /* DELETEResponse.h */,
+				EE9AB3631CAEBFA4008C271F /* DELETEResponse.m */,
+				EE9AB3641CAEBFA4008C271F /* PUTResponse.h */,
+				EE9AB3651CAEBFA4008C271F /* PUTResponse.m */,
+			);
+			path = WebDAV;
+			sourceTree = "<group>";
+		};
+		EE9AB51A1CAEBFFB008C271F /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB51B1CAEBFFB008C271F /* CocoaAsyncSocket */,
+				EE9AB51F1CAEBFFB008C271F /* CocoaLumberjack */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		EE9AB51B1CAEBFFB008C271F /* CocoaAsyncSocket */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB51D1CAEBFFB008C271F /* GCDAsyncSocket.h */,
+				EE9AB51E1CAEBFFB008C271F /* GCDAsyncSocket.m */,
+			);
+			path = CocoaAsyncSocket;
+			sourceTree = "<group>";
+		};
+		EE9AB51F1CAEBFFB008C271F /* CocoaLumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB5211CAEBFFB008C271F /* DDAbstractDatabaseLogger.h */,
+				EE9AB5221CAEBFFB008C271F /* DDAbstractDatabaseLogger.m */,
+				EE9AB5231CAEBFFB008C271F /* DDASLLogger.h */,
+				EE9AB5241CAEBFFB008C271F /* DDASLLogger.m */,
+				EE9AB5251CAEBFFB008C271F /* DDFileLogger.h */,
+				EE9AB5261CAEBFFB008C271F /* DDFileLogger.m */,
+				EE9AB5271CAEBFFB008C271F /* DDLog.h */,
+				EE9AB5281CAEBFFB008C271F /* DDLog.m */,
+				EE9AB5291CAEBFFB008C271F /* DDTTYLogger.h */,
+				EE9AB52A1CAEBFFB008C271F /* DDTTYLogger.m */,
+				EE9AB52B1CAEBFFB008C271F /* Extensions */,
+			);
+			path = CocoaLumberjack;
+			sourceTree = "<group>";
+		};
+		EE9AB52B1CAEBFFB008C271F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EE9AB52C1CAEBFFB008C271F /* ContextFilterLogFormatter.h */,
+				EE9AB52D1CAEBFFB008C271F /* ContextFilterLogFormatter.m */,
+				EE9AB52E1CAEBFFB008C271F /* DispatchQueueLogFormatter.h */,
+				EE9AB52F1CAEBFFB008C271F /* DispatchQueueLogFormatter.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
 		};
 		EEC288F81BF0ED2500B4DC79 /* XCTWebDriverAgentLib */ = {
 			isa = PBXGroup;
@@ -1219,10 +1767,6 @@
 			isa = PBXGroup;
 			children = (
 				EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */,
-				EEE5CAC21C80361500CBBDD9 /* XCTUITestRunner.debug.xcconfig */,
-				EEE5CAC31C80361500CBBDD9 /* XCTUITestRunner.release.xcconfig */,
-				EEE5CAC41C80361500CBBDD9 /* XCTWebDriverAgentLib.debug.xcconfig */,
-				EEE5CAC51C80361500CBBDD9 /* XCTWebDriverAgentLib.release.xcconfig */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -1282,6 +1826,82 @@
 				91607A951C3AF3AB00ECFFBA /* UIAHardwareKeyboard.h in Headers */,
 				EE5503551BF218A800CD04B3 /* UIAElement+WebDriverXML.h in Headers */,
 				AAA282DA1BCF8FB70027DE10 /* FBSessionCommands.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB54B1CAEC4DB008C271F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE9AB58F1CAEC5A5008C271F /* fishhook.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB55D1CAEC4E9008C271F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE9AB59A1CAEC5CC008C271F /* DDXMLNode.h in Headers */,
+				EE9AB5951CAEC5CC008C271F /* DDXML.h in Headers */,
+				EE9AB5961CAEC5CC008C271F /* DDXMLDocument.h in Headers */,
+				EE9AB5931CAEC5CC008C271F /* NSString+DDXML.h in Headers */,
+				EE9AB59C1CAEC5D5008C271F /* DDXMLPrivate.h in Headers */,
+				EE9AB5981CAEC5CC008C271F /* DDXMLElement.h in Headers */,
+				EE9AB5911CAEC5CC008C271F /* DDXMLElementAdditions.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB56E1CAEC4F1008C271F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE9AB5A21CAEC5D9008C271F /* PTUSBHub.h in Headers */,
+				EE9AB5A01CAEC5D9008C271F /* PTProtocol.h in Headers */,
+				EE9AB59D1CAEC5D9008C271F /* PTChannel.h in Headers */,
+				EE9AB59F1CAEC5D9008C271F /* PTPrivate.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB57F1CAEC4FA008C271F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE9AB5E61CAEC5F5008C271F /* RoutingConnection.h in Headers */,
+				EE9AB5E81CAEC5F5008C271F /* RoutingHTTPServer.h in Headers */,
+				EE9AB5E41CAEC5F5008C271F /* RouteResponse.h in Headers */,
+				EE9AB5AA1CAEC5EE008C271F /* HTTPAuthenticationRequest.h in Headers */,
+				EE9AB5AC1CAEC5EE008C271F /* HTTPConnection.h in Headers */,
+				EE9AB5D01CAEC5EE008C271F /* DDAbstractDatabaseLogger.h in Headers */,
+				EE9AB5B61CAEC5EE008C271F /* MultipartMessageHeader.h in Headers */,
+				EE9AB5BE1CAEC5EE008C271F /* HTTPDynamicFileResponse.h in Headers */,
+				EE9AB5C21CAEC5EE008C271F /* HTTPRedirectResponse.h in Headers */,
+				EE9AB5E01CAEC5F5008C271F /* Route.h in Headers */,
+				EE9AB5B11CAEC5EE008C271F /* HTTPResponse.h in Headers */,
+				EE9AB5B41CAEC5EE008C271F /* MultipartFormDataParser.h in Headers */,
+				EE9AB5C01CAEC5EE008C271F /* HTTPFileResponse.h in Headers */,
+				EE9AB5B81CAEC5EE008C271F /* MultipartMessageHeaderField.h in Headers */,
+				EE9AB5DE1CAEC5F5008C271F /* HTTPResponseProxy.h in Headers */,
+				EE9AB5AE1CAEC5EE008C271F /* HTTPLogging.h in Headers */,
+				EE9AB5BC1CAEC5EE008C271F /* HTTPDataResponse.h in Headers */,
+				EE9AB5AF1CAEC5EE008C271F /* HTTPMessage.h in Headers */,
+				EE9AB5C41CAEC5EE008C271F /* WebSocket.h in Headers */,
+				EE9AB5E21CAEC5F5008C271F /* RouteRequest.h in Headers */,
+				EE9AB5B21CAEC5EE008C271F /* HTTPServer.h in Headers */,
+				EE9AB5BA1CAEC5EE008C271F /* HTTPAsyncFileResponse.h in Headers */,
+				EE9AB5CC1CAEC5EE008C271F /* PUTResponse.h in Headers */,
+				EE9AB5CE1CAEC5EE008C271F /* GCDAsyncSocket.h in Headers */,
+				EE9AB5D41CAEC5EE008C271F /* DDFileLogger.h in Headers */,
+				EE9AB5D61CAEC5EE008C271F /* DDLog.h in Headers */,
+				EE9AB5A41CAEC5EE008C271F /* DDData.h in Headers */,
+				EE9AB5A61CAEC5EE008C271F /* DDNumber.h in Headers */,
+				EE9AB5DA1CAEC5EE008C271F /* ContextFilterLogFormatter.h in Headers */,
+				EE9AB5DC1CAEC5EE008C271F /* DispatchQueueLogFormatter.h in Headers */,
+				EE9AB5D21CAEC5EE008C271F /* DDASLLogger.h in Headers */,
+				EE9AB5CA1CAEC5EE008C271F /* DELETEResponse.h in Headers */,
+				EE9AB5C61CAEC5EE008C271F /* DAVConnection.h in Headers */,
+				EE9AB5C81CAEC5EE008C271F /* DAVResponse.h in Headers */,
+				EE9AB5A81CAEC5EE008C271F /* DDRange.h in Headers */,
+				EE9AB5D81CAEC5EE008C271F /* DDTTYLogger.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1433,18 +2053,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91F9DB0C1B99DBC2001349B2 /* Build configuration list for PBXNativeTarget "WebDriverAgent" */;
 			buildPhases = (
-				EEE27CBD9703CA34A43EB1D5 /* Check Pods Manifest.lock */,
 				91F9DAE51B99DBC2001349B2 /* Sources */,
 				91F9DAE61B99DBC2001349B2 /* Frameworks */,
 				498495C91BB2E731009CC848 /* Generate Resource Bundle */,
 				91F9DAE71B99DBC2001349B2 /* Resources */,
-				02F1E1648526B43D8B953193 /* Copy Pods Resources */,
-				79E19D398BB169B96A9A0801 /* Embed Pods Frameworks */,
+				EE9AB55A1CAEC4DB008C271F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				EE5503581BF21A8E00CD04B3 /* PBXTargetDependency */,
+				EE9AB5541CAEC4DB008C271F /* PBXTargetDependency */,
+				EE9AB5661CAEC4E9008C271F /* PBXTargetDependency */,
+				EE9AB5881CAEC4FA008C271F /* PBXTargetDependency */,
 			);
 			name = WebDriverAgent;
 			productName = WebDriverAgent;
@@ -1455,16 +2076,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91F9DB271B99DC2F001349B2 /* Build configuration list for PBXNativeTarget "WebDriverAgentLib" */;
 			buildPhases = (
-				C8A76F16E40CFE6E22193659 /* Check Pods Manifest.lock */,
 				91F9DB121B99DC2F001349B2 /* Sources */,
 				91F9DB131B99DC2F001349B2 /* Frameworks */,
 				91F9DB141B99DC2F001349B2 /* CopyFiles */,
-				B8BA988662BFD5886A891D3C /* Copy Pods Resources */,
 				91DD17781B99E33200A57C66 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				EE9AB5F11CAEC6D5008C271F /* PBXTargetDependency */,
+				EE9AB5F31CAEC6D5008C271F /* PBXTargetDependency */,
+				EE9AB5F51CAEC6D5008C271F /* PBXTargetDependency */,
 			);
 			name = WebDriverAgentLib;
 			productName = WebDriverAgentLib;
@@ -1475,12 +2097,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91F9DB2A1B99DC2F001349B2 /* Build configuration list for PBXNativeTarget "WebDriverAgentLibTests" */;
 			buildPhases = (
-				9A5B9836CD263C618FFBAB2A /* Check Pods Manifest.lock */,
 				91F9DB1C1B99DC2F001349B2 /* Sources */,
 				91F9DB1D1B99DC2F001349B2 /* Frameworks */,
 				91F9DB1E1B99DC2F001349B2 /* Resources */,
-				0AA31EAF0CDB9729BA61E947 /* Copy Pods Resources */,
-				CD8FCC9ABC06991D66D89A87 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1496,37 +2115,107 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE836C0A1C0F118600D87246 /* Build configuration list for PBXNativeTarget "WebDriverAgentCoreTests" */;
 			buildPhases = (
-				7ACE1E90B460ECDBE2AEC82C /* Check Pods Manifest.lock */,
 				EE836BFE1C0F118600D87246 /* Sources */,
 				EE836BFF1C0F118600D87246 /* Frameworks */,
 				EE836C001C0F118600D87246 /* Resources */,
-				21A211EDE9B2D91595D076DF /* Embed Pods Frameworks */,
-				DA16A2147B8C7FD853494E15 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				EE836C091C0F118600D87246 /* PBXTargetDependency */,
+				EE9AB6131CAECC4C008C271F /* PBXTargetDependency */,
 			);
 			name = WebDriverAgentCoreTests;
 			productName = WebDriverAgentCoreTests;
 			productReference = EE836C021C0F118600D87246 /* WebDriverAgentCoreTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		EE9AB54D1CAEC4DB008C271F /* fishhook */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE9AB5571CAEC4DB008C271F /* Build configuration list for PBXNativeTarget "fishhook" */;
+			buildPhases = (
+				EE9AB5491CAEC4DB008C271F /* Sources */,
+				EE9AB54A1CAEC4DB008C271F /* Frameworks */,
+				EE9AB54B1CAEC4DB008C271F /* Headers */,
+				EE9AB54C1CAEC4DB008C271F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = fishhook;
+			productName = fishhook;
+			productReference = EE9AB54E1CAEC4DB008C271F /* fishhook.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		EE9AB55F1CAEC4E9008C271F /* KissXML */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE9AB5691CAEC4E9008C271F /* Build configuration list for PBXNativeTarget "KissXML" */;
+			buildPhases = (
+				EE9AB55B1CAEC4E9008C271F /* Sources */,
+				EE9AB55C1CAEC4E9008C271F /* Frameworks */,
+				EE9AB55D1CAEC4E9008C271F /* Headers */,
+				EE9AB55E1CAEC4E9008C271F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KissXML;
+			productName = KissXML;
+			productReference = EE9AB5601CAEC4E9008C271F /* KissXML.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		EE9AB5701CAEC4F1008C271F /* peertalk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE9AB57A1CAEC4F1008C271F /* Build configuration list for PBXNativeTarget "peertalk" */;
+			buildPhases = (
+				EE9AB56C1CAEC4F1008C271F /* Sources */,
+				EE9AB56D1CAEC4F1008C271F /* Frameworks */,
+				EE9AB56E1CAEC4F1008C271F /* Headers */,
+				EE9AB56F1CAEC4F1008C271F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = peertalk;
+			productName = peertalk;
+			productReference = EE9AB5711CAEC4F1008C271F /* peertalk.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		EE9AB5811CAEC4FA008C271F /* RoutingHTTPServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE9AB58B1CAEC4FA008C271F /* Build configuration list for PBXNativeTarget "RoutingHTTPServer" */;
+			buildPhases = (
+				EE9AB57D1CAEC4FA008C271F /* Sources */,
+				EE9AB57E1CAEC4FA008C271F /* Frameworks */,
+				EE9AB57F1CAEC4FA008C271F /* Headers */,
+				EE9AB5801CAEC4FA008C271F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RoutingHTTPServer;
+			productName = RoutingHTTPServer;
+			productReference = EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		EEC289541BF0ED3000B4DC79 /* XCTWebDriverAgentLib */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EEC289971BF0ED3000B4DC79 /* Build configuration list for PBXNativeTarget "XCTWebDriverAgentLib" */;
 			buildPhases = (
-				EEC289551BF0ED3000B4DC79 /* Check Pods Manifest.lock */,
 				EEC289561BF0ED3000B4DC79 /* Sources */,
 				EEC289721BF0ED3000B4DC79 /* Frameworks */,
 				EEC289741BF0ED3000B4DC79 /* CopyFiles */,
-				EEC289751BF0ED3000B4DC79 /* Copy Pods Resources */,
 				EEC289761BF0ED3000B4DC79 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				EE9AB6181CAECCC3008C271F /* PBXTargetDependency */,
+				EE9AB61A1CAECCC3008C271F /* PBXTargetDependency */,
+				EE9AB61C1CAECCC3008C271F /* PBXTargetDependency */,
 			);
 			name = XCTWebDriverAgentLib;
 			productName = WebDriverAgentLib;
@@ -1537,12 +2226,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EEF988311C486604005CA669 /* Build configuration list for PBXNativeTarget "XCTUITestRunner" */;
 			buildPhases = (
-				7CBC9991DAC2009B25F7B4E7 /* Check Pods Manifest.lock */,
 				EEF988261C486603005CA669 /* Sources */,
 				EEF988271C486603005CA669 /* Frameworks */,
 				EEF9883C1C486768005CA669 /* Generate Resource Bundle */,
 				EEF988281C486603005CA669 /* Resources */,
-				84E99BA5A11D6EF368DAFB3C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1560,6 +2247,7 @@
 		91F9DAE11B99DBC2001349B2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
@@ -1575,6 +2263,18 @@
 					EE836C011C0F118600D87246 = {
 						CreatedOnToolsVersion = 7.1.1;
 					};
+					EE9AB54D1CAEC4DB008C271F = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					EE9AB55F1CAEC4E9008C271F = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					EE9AB5701CAEC4F1008C271F = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					EE9AB5811CAEC4FA008C271F = {
+						CreatedOnToolsVersion = 7.3;
+					};
 					EEF988291C486603005CA669 = {
 						CreatedOnToolsVersion = 7.2;
 					};
@@ -1587,18 +2287,23 @@
 			knownRegions = (
 				en,
 				Base,
+				English,
 			);
 			mainGroup = 91F9DAE01B99DBC2001349B2;
 			productRefGroup = 91F9DAEA1B99DBC2001349B2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EE836C011C0F118600D87246 /* WebDriverAgentCoreTests */,
 				91F9DAE81B99DBC2001349B2 /* WebDriverAgent */,
 				91F9DB151B99DC2F001349B2 /* WebDriverAgentLib */,
-				91F9DB1F1B99DC2F001349B2 /* WebDriverAgentLibTests */,
 				EEC289541BF0ED3000B4DC79 /* XCTWebDriverAgentLib */,
+				91F9DB1F1B99DC2F001349B2 /* WebDriverAgentLibTests */,
+				EE836C011C0F118600D87246 /* WebDriverAgentCoreTests */,
 				EEF988291C486603005CA669 /* XCTUITestRunner */,
+				EE9AB54D1CAEC4DB008C271F /* fishhook */,
+				EE9AB55F1CAEC4E9008C271F /* KissXML */,
+				EE9AB5701CAEC4F1008C271F /* peertalk */,
+				EE9AB5811CAEC4FA008C271F /* RoutingHTTPServer */,
 			);
 		};
 /* End PBXProject section */
@@ -1626,6 +2331,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE9AB54C1CAEC4DB008C271F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB55E1CAEC4E9008C271F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB56F1CAEC4F1008C271F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB5801CAEC4FA008C271F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EEF988281C486603005CA669 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1637,51 +2370,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		02F1E1648526B43D8B953193 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgent/Pods-WebDriverAgent-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		0AA31EAF0CDB9729BA61E947 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		21A211EDE9B2D91595D076DF /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgentCoreTests/Pods-WebDriverAgentCoreTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		498495C91BB2E731009CC848 /* Generate Resource Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1695,186 +2383,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cd ${SRCROOT} && bash ./build_resource_bundle.sh";
-		};
-		79E19D398BB169B96A9A0801 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgent/Pods-WebDriverAgent-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7ACE1E90B460ECDBE2AEC82C /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		7CBC9991DAC2009B25F7B4E7 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		84E99BA5A11D6EF368DAFB3C /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XCTUITestRunner/Pods-XCTUITestRunner-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9A5B9836CD263C618FFBAB2A /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B8BA988662BFD5886A891D3C /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgentLib/Pods-WebDriverAgentLib-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C8A76F16E40CFE6E22193659 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		CD8FCC9ABC06991D66D89A87 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgentLibTests/Pods-WebDriverAgentLibTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DA16A2147B8C7FD853494E15 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebDriverAgentCoreTests/Pods-WebDriverAgentCoreTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EEC289551BF0ED3000B4DC79 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		EEC289751BF0ED3000B4DC79 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XCTWebDriverAgentLib/Pods-XCTWebDriverAgentLib-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EEE27CBD9703CA34A43EB1D5 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
 		};
 		EEF9883C1C486768005CA669 /* Generate Resource Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1955,7 +2463,94 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE9AB60F1CAECB8B008C271F /* FBWDALogger.m in Sources */,
+				EE9AB6031CAECB8B008C271F /* FBCoreExceptionHandler.m in Sources */,
+				EE9AB6021CAECB8B008C271F /* FBUnknownCommands.m in Sources */,
 				EE836C0E1C0F11B000D87246 /* FBRouteTests.m in Sources */,
+				EE9AB60B1CAECB8B008C271F /* FBSession.m in Sources */,
+				EE9AB6081CAECB8B008C271F /* FBResponsePayload.m in Sources */,
+				EE9AB6061CAECB8B008C271F /* FBResponseFilePayload.m in Sources */,
+				EE9AB6011CAECB8B008C271F /* FBTouchIDCommands.m in Sources */,
+				EE9AB6041CAECB8B008C271F /* FBElement.m in Sources */,
+				EE9AB60A1CAECB8B008C271F /* FBRouteRequest.m in Sources */,
+				EE9AB60C1CAECB8B008C271F /* FBWebServer.m in Sources */,
+				EE9AB60D1CAECB8B008C271F /* FBRuntimeUtils.m in Sources */,
+				EE9AB60E1CAECB8B008C271F /* FBWDAConstants.m in Sources */,
+				EE9AB6001CAECB8B008C271F /* FBInspectorCommands.m in Sources */,
+				EE9AB6101CAECB8B008C271F /* UIDevice+Wifi_IP.m in Sources */,
+				EE9AB6091CAECB8B008C271F /* FBRoute.m in Sources */,
+				EE9AB6071CAECB8B008C271F /* FBResponseJSONPayload.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB5491CAEC4DB008C271F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE9AB5901CAEC5A5008C271F /* fishhook.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB55B1CAEC4E9008C271F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE9AB5991CAEC5CC008C271F /* DDXMLElement.m in Sources */,
+				EE9AB59B1CAEC5CC008C271F /* DDXMLNode.m in Sources */,
+				EE9AB5921CAEC5CC008C271F /* DDXMLElementAdditions.m in Sources */,
+				EE9AB5971CAEC5CC008C271F /* DDXMLDocument.m in Sources */,
+				EE9AB5941CAEC5CC008C271F /* NSString+DDXML.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB56C1CAEC4F1008C271F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE9AB59E1CAEC5D9008C271F /* PTChannel.m in Sources */,
+				EE9AB5A31CAEC5D9008C271F /* PTUSBHub.m in Sources */,
+				EE9AB5A11CAEC5D9008C271F /* PTProtocol.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9AB57D1CAEC4FA008C271F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE9AB5DF1CAEC5F5008C271F /* HTTPResponseProxy.m in Sources */,
+				EE9AB5CD1CAEC5EE008C271F /* PUTResponse.m in Sources */,
+				EE9AB5D51CAEC5EE008C271F /* DDFileLogger.m in Sources */,
+				EE9AB5A91CAEC5EE008C271F /* DDRange.m in Sources */,
+				EE9AB5B51CAEC5EE008C271F /* MultipartFormDataParser.m in Sources */,
+				EE9AB5E91CAEC5F5008C271F /* RoutingHTTPServer.m in Sources */,
+				EE9AB5BD1CAEC5EE008C271F /* HTTPDataResponse.m in Sources */,
+				EE9AB5B01CAEC5EE008C271F /* HTTPMessage.m in Sources */,
+				EE9AB5BF1CAEC5EE008C271F /* HTTPDynamicFileResponse.m in Sources */,
+				EE9AB5E51CAEC5F5008C271F /* RouteResponse.m in Sources */,
+				EE9AB5D31CAEC5EE008C271F /* DDASLLogger.m in Sources */,
+				EE9AB5A71CAEC5EE008C271F /* DDNumber.m in Sources */,
+				EE9AB5E31CAEC5F5008C271F /* RouteRequest.m in Sources */,
+				EE9AB5A51CAEC5EE008C271F /* DDData.m in Sources */,
+				EE9AB5D71CAEC5EE008C271F /* DDLog.m in Sources */,
+				EE9AB5C71CAEC5EE008C271F /* DAVConnection.m in Sources */,
+				EE9AB5AB1CAEC5EE008C271F /* HTTPAuthenticationRequest.m in Sources */,
+				EE9AB5C31CAEC5EE008C271F /* HTTPRedirectResponse.m in Sources */,
+				EE9AB5E11CAEC5F5008C271F /* Route.m in Sources */,
+				EE9AB5BB1CAEC5EE008C271F /* HTTPAsyncFileResponse.m in Sources */,
+				EE9AB5CF1CAEC5EE008C271F /* GCDAsyncSocket.m in Sources */,
+				EE9AB5B71CAEC5EE008C271F /* MultipartMessageHeader.m in Sources */,
+				EE9AB5D11CAEC5EE008C271F /* DDAbstractDatabaseLogger.m in Sources */,
+				EE9AB5C11CAEC5EE008C271F /* HTTPFileResponse.m in Sources */,
+				EE9AB5E71CAEC5F5008C271F /* RoutingConnection.m in Sources */,
+				EE9AB5D91CAEC5EE008C271F /* DDTTYLogger.m in Sources */,
+				EE9AB5B31CAEC5EE008C271F /* HTTPServer.m in Sources */,
+				EE9AB5C91CAEC5EE008C271F /* DAVResponse.m in Sources */,
+				EE9AB5C51CAEC5EE008C271F /* WebSocket.m in Sources */,
+				EE9AB5B91CAEC5EE008C271F /* MultipartMessageHeaderField.m in Sources */,
+				EE9AB5CB1CAEC5EE008C271F /* DELETEResponse.m in Sources */,
+				EE9AB5DD1CAEC5EE008C271F /* DispatchQueueLogFormatter.m in Sources */,
+				EE9AB5AD1CAEC5EE008C271F /* HTTPConnection.m in Sources */,
+				EE9AB5DB1CAEC5EE008C271F /* ContextFilterLogFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2011,6 +2606,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE3646951C4EB47200A876A1 /* FBXCTestCaseImplementationFailureHoldingProxy.m in Sources */,
+				EE9AB6231CAECFD3008C271F /* UIDevice+Wifi_IP.m in Sources */,
 				EEF9883E1C486795005CA669 /* UITestingUITests.m in Sources */,
 				EEF9883D1C486795005CA669 /* FBDebugLogDelegateDecorator.m in Sources */,
 			);
@@ -2029,10 +2625,55 @@
 			target = 91F9DB151B99DC2F001349B2 /* WebDriverAgentLib */;
 			targetProxy = EE5503571BF21A8E00CD04B3 /* PBXContainerItemProxy */;
 		};
-		EE836C091C0F118600D87246 /* PBXTargetDependency */ = {
+		EE9AB5541CAEC4DB008C271F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EEC289541BF0ED3000B4DC79 /* XCTWebDriverAgentLib */;
-			targetProxy = EE836C081C0F118600D87246 /* PBXContainerItemProxy */;
+			target = EE9AB54D1CAEC4DB008C271F /* fishhook */;
+			targetProxy = EE9AB5531CAEC4DB008C271F /* PBXContainerItemProxy */;
+		};
+		EE9AB5661CAEC4E9008C271F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE9AB55F1CAEC4E9008C271F /* KissXML */;
+			targetProxy = EE9AB5651CAEC4E9008C271F /* PBXContainerItemProxy */;
+		};
+		EE9AB5881CAEC4FA008C271F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE9AB5811CAEC4FA008C271F /* RoutingHTTPServer */;
+			targetProxy = EE9AB5871CAEC4FA008C271F /* PBXContainerItemProxy */;
+		};
+		EE9AB5F11CAEC6D5008C271F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE9AB54D1CAEC4DB008C271F /* fishhook */;
+			targetProxy = EE9AB5F01CAEC6D5008C271F /* PBXContainerItemProxy */;
+		};
+		EE9AB5F31CAEC6D5008C271F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE9AB55F1CAEC4E9008C271F /* KissXML */;
+			targetProxy = EE9AB5F21CAEC6D5008C271F /* PBXContainerItemProxy */;
+		};
+		EE9AB5F51CAEC6D5008C271F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE9AB5811CAEC4FA008C271F /* RoutingHTTPServer */;
+			targetProxy = EE9AB5F41CAEC6D5008C271F /* PBXContainerItemProxy */;
+		};
+		EE9AB6131CAECC4C008C271F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE9AB5811CAEC4FA008C271F /* RoutingHTTPServer */;
+			targetProxy = EE9AB6121CAECC4C008C271F /* PBXContainerItemProxy */;
+		};
+		EE9AB6181CAECCC3008C271F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE9AB55F1CAEC4E9008C271F /* KissXML */;
+			targetProxy = EE9AB6171CAECCC3008C271F /* PBXContainerItemProxy */;
+		};
+		EE9AB61A1CAECCC3008C271F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE9AB5701CAEC4F1008C271F /* peertalk */;
+			targetProxy = EE9AB6191CAECCC3008C271F /* PBXContainerItemProxy */;
+		};
+		EE9AB61C1CAECCC3008C271F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE9AB5811CAEC4FA008C271F /* RoutingHTTPServer */;
+			targetProxy = EE9AB61B1CAECCC3008C271F /* PBXContainerItemProxy */;
 		};
 		EEF988411C4867C3005CA669 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2046,6 +2687,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -2079,6 +2721,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2091,6 +2734,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -2117,6 +2761,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -2127,7 +2772,7 @@
 		};
 		91F9DB0D1B99DBC2001349B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 25290BED4D47D70D6CAC81AA /* Pods-WebDriverAgent.debug.xcconfig */;
+			baseConfigurationReference = EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2143,7 +2788,7 @@
 		};
 		91F9DB0E1B99DBC2001349B2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE2E79F594F94C8B6896C776 /* Pods-WebDriverAgent.release.xcconfig */;
+			baseConfigurationReference = EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2159,11 +2804,15 @@
 		};
 		91F9DB281B99DC2F001349B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 86762B93D2FADAABEE7E2B3D /* Pods-WebDriverAgentLib.debug.xcconfig */;
+			baseConfigurationReference = EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/include/libxml2",
+					"Carthage/Checkouts/**",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2172,8 +2821,12 @@
 		};
 		91F9DB291B99DC2F001349B2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B16C2A60F36356996EE8EBB /* Pods-WebDriverAgentLib.release.xcconfig */;
+			baseConfigurationReference = EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/include/libxml2",
+					"Carthage/Checkouts/**",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -2181,12 +2834,12 @@
 		};
 		91F9DB2B1B99DC2F001349B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 154D92108667239A91439DD4 /* Pods-WebDriverAgentLibTests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/Developer/Library/PrivateFrameworks",
 					"$(SDKROOT)/System/Library/PrivateFrameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2201,12 +2854,12 @@
 		};
 		91F9DB2C1B99DC2F001349B2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D17FD3E4AF3ECD6BC73CACFA /* Pods-WebDriverAgentLibTests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/Developer/Library/PrivateFrameworks",
 					"$(SDKROOT)/System/Library/PrivateFrameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = WebDriverAgentLibTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks \"$(SDKROOT)/Developer/Library/PrivateFrameworks\" \"$(SDKROOT)/System/Library/PrivateFrameworks\"";
@@ -2217,9 +2870,12 @@
 		};
 		EE836C0B1C0F118600D87246 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0335DEF25970300DC0DC23C9 /* Pods-WebDriverAgentCoreTests.debug.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = WebDriverAgentCoreTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -2230,8 +2886,11 @@
 		};
 		EE836C0C1C0F118600D87246 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 80E68470204C2720246F4FD7 /* Pods-WebDriverAgentCoreTests.release.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = WebDriverAgentCoreTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -2240,9 +2899,188 @@
 			};
 			name = Release;
 		};
+		EE9AB5581CAEC4DB008C271F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				INFOPLIST_FILE = "VendorLibs/SharedVendor-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.fishhook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		EE9AB5591CAEC4DB008C271F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				INFOPLIST_FILE = "VendorLibs/SharedVendor-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.fishhook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		EE9AB56A1CAEC4E9008C271F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				INFOPLIST_FILE = "VendorLibs/SharedVendor-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.KissXML;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		EE9AB56B1CAEC4E9008C271F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				INFOPLIST_FILE = "VendorLibs/SharedVendor-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.KissXML;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		EE9AB57B1CAEC4F1008C271F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = VendorLibs/SharedVendor.pch;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				INFOPLIST_FILE = "VendorLibs/SharedVendor-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.peertalk;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		EE9AB57C1CAEC4F1008C271F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = VendorLibs/SharedVendor.pch;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				INFOPLIST_FILE = "VendorLibs/SharedVendor-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.peertalk;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		EE9AB58C1CAEC4FA008C271F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				INFOPLIST_FILE = "VendorLibs/SharedVendor-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.RoutingHTTPServer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		EE9AB58D1CAEC4FA008C271F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				INFOPLIST_FILE = "VendorLibs/SharedVendor-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.RoutingHTTPServer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		EEC289981BF0ED3000B4DC79 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EEE5CAC41C80361500CBBDD9 /* XCTWebDriverAgentLib.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2257,7 +3095,6 @@
 		};
 		EEC289991BF0ED3000B4DC79 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EEE5CAC51C80361500CBBDD9 /* XCTWebDriverAgentLib.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
@@ -2268,7 +3105,6 @@
 		};
 		EEF988321C486604005CA669 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EEE5CAC21C80361500CBBDD9 /* XCTUITestRunner.debug.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = XCTUITestRunner/Info.plist;
@@ -2287,7 +3123,6 @@
 		};
 		EEF988331C486604005CA669 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EEE5CAC31C80361500CBBDD9 /* XCTUITestRunner.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = XCTUITestRunner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
@@ -2347,6 +3182,42 @@
 			buildConfigurations = (
 				EE836C0B1C0F118600D87246 /* Debug */,
 				EE836C0C1C0F118600D87246 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE9AB5571CAEC4DB008C271F /* Build configuration list for PBXNativeTarget "fishhook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE9AB5581CAEC4DB008C271F /* Debug */,
+				EE9AB5591CAEC4DB008C271F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE9AB5691CAEC4E9008C271F /* Build configuration list for PBXNativeTarget "KissXML" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE9AB56A1CAEC4E9008C271F /* Debug */,
+				EE9AB56B1CAEC4E9008C271F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE9AB57A1CAEC4F1008C271F /* Build configuration list for PBXNativeTarget "peertalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE9AB57B1CAEC4F1008C271F /* Debug */,
+				EE9AB57C1CAEC4F1008C271F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE9AB58B1CAEC4FA008C271F /* Build configuration list for PBXNativeTarget "RoutingHTTPServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE9AB58C1CAEC4FA008C271F /* Debug */,
+				EE9AB58D1CAEC4FA008C271F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

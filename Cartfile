@@ -1,0 +1,12 @@
+
+# Used for HTTP routing
+github "mattstevens/RoutingHTTPServer"
+
+# Used for USBOverHTTP
+github "rsms/peertalk" "5a0495a"
+
+# Used for XPath
+github "robbiehanson/KissXML"
+
+# Used by UIAWDA
+github "facebook/fishhook" "8dbd09b"

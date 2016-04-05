@@ -1,30 +1,30 @@
 #!/bin/sh
 #
 
-if [ -z $1 ]; then
-  echo "usage: build.sh <subcommand>"
-  echo "available subcommands:"
-  echo "  ci"
-  exit
-fi
-
 set -eu
 
-MODE=$1
+function assert_has_carthage() {
+  if ! command -v carthage; then
+      echo "cli build needs 'carthage' to bootstrap dependencies"
+      echo "You can install it using brew. E.g. $ brew install carthage"
+      exit 1;
+  fi
+}
 
-function ci() {
+function build_cli_deps() {
+  assert_has_carthage
+  carthage bootstrap --platform iOS
+}
+
+function build() {
   xctool \
       -workspace WebDriverAgent.xcworkspace \
-      -scheme $1 \
-      -sdk $2 \
-      $3 \
+      -scheme $TARGET \
+      -sdk $SDK \
+      $ACTION \
       CODE_SIGN_IDENTITY="" \
       CODE_SIGNING_REQUIRED=NO
 }
 
-if [ "$MODE" = "ci" ]; then
-  ci WebDriverAgent iphonesimulator build
-  ci XCTUITestRunner iphonesimulator build-tests
-  ci XCTUITestRunner iphoneos build-tests
-fi
-
+build_cli_deps
+build

@@ -4,6 +4,7 @@
 
 ## Build generated
 build/
+Carthage/
 DerivedData
 
 ## Various settings

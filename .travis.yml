@@ -1,11 +1,15 @@
 language: objective-c
 osx_image: xcode7.1
-
 before_install:
-  - gem install cocoapods -v '0.39.0'
+  brew install carthage
 
-script: ./build.sh ci
+script: ./build.sh
 
 branches:
   only:
     - master
+
+env:
+- TARGET=WebDriverAgent SDK=iphonesimulator ACTION=build
+- TARGET=XCTUITestRunner SDK=iphonesimulator ACTION=build-tests
+- TARGET=XCTUITestRunner SDK=iphoneos ACTION=build-tests
