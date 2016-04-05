@@ -10,16 +10,27 @@ If you are looking for WebDriverAgent that uses `UIAutomation.framework` check [
 Our dependencies are tracked with Carthage. First run
 
 ``
-carthage bootstrap
+carthage bootstrap --platform ios
 ``
 
 and then open `WebDriverAgent.xcodeproj`.
 
 ## Running
 
+Enable developer mode:
+
+```
+$ DevToolsSecurity --enable
+Developer mode is now enabled.
+```
+
+If developer mode isn't enabled then you'll see this message:
+> DTServiceHub: Instruments wants permission to analyze other processes. Please enter an administrator username and password to allow this.
+> Failed to authorize rights (0x1) with status: -60007.
+
 To play around with WebDriverAgent you can simply start WebDriverAgentRunner tests via Xcode or xcodebuild:
 ```
-xcodebuild -workspace WebDriverAgent.xcworkspace -scheme WebDriverAgentRunner -destination id='<DEVICE_UDID>' test
+xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination 'platform=iOS Simulator,name=iPhone 6' test
 ```
 
 When simulator/device launches it should be ready for receiving requests. To get ip address under with device is available you can check device logs for line "ServerURLHere->[DEVICE_URL]<-ServerURLHere"
