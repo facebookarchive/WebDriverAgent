@@ -7,6 +7,3 @@ github "rsms/peertalk" "5a0495a"
 
 # Used for XPath
 github "robbiehanson/KissXML"
-
-# Used by UIAWDA
-github "facebook/fishhook" "8dbd09b"

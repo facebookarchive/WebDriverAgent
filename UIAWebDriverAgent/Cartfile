@@ -1,0 +1,8 @@
+
+# Used for HTTP routing
+github "mattstevens/RoutingHTTPServer"
+
+# Used for XPath
+github "robbiehanson/KissXML"
+
+github "facebook/fishhook" "8dbd09b"

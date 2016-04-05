@@ -18,7 +18,17 @@ function build_cli_deps() {
 
 function build() {
   xctool \
-      -workspace WebDriverAgent.xcworkspace \
+      -workspace $WORKSPACE \
+      -scheme $TARGET \
+      -sdk $SDK \
+      $ACTION \
+      CODE_SIGN_IDENTITY="" \
+      CODE_SIGNING_REQUIRED=NO
+}
+
+function build() {
+  xctool \
+      -workspace $WORKSPACE \
       -scheme $TARGET \
       -sdk $SDK \
       $ACTION \
