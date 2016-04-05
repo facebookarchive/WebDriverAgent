@@ -1,58 +1,38 @@
 # WebDriverAgent
 
-WebDriverAgent is a WebDriver server for iOS that runs inside the Simulator and is written entirely in Objective-C. 
+WebDriverAgent is a WebDriver server for iOS that runs inside the Simulator and is written entirely in Objective-C. It works by linking `XCTest.framework` and calling Apple's API to execute commands directly on device / simulator.
+If you are looking for WebDriverAgent that uses `UIAutomation.framework` check [here](https://github.com/facebook/WebDriverAgent/tree/master/UIAWebDriverAgent)).
 
 [![Build Status](https://travis-ci.org/facebook/WebDriverAgent.svg?branch=master)](https://travis-ci.org/facebook/WebDriverAgent)
 
 ## Building
 
-Our dependencies are tracked with CocoaPods. First run
+Our dependencies are tracked with Carthage. First run
 
 ``
-pod install
+carthage bootstrap
 ``
 
-and then open `WebDriverAgent.xcworkspace`.
+and then open `WebDriverAgent.xcodeproj`.
 
-WebDriverAgent workspace contains two kind of WebDriverAgents:
- - `UIAWebDriverAgent` (that links to `UIAutomation.framework`)
- - `XCTWebDriverAgent` (that links to `XCTest.framework`), also works with devices
+## Running
 
-## UIAWebDriverAgent
-
-UIAWebDriverAgent works under-the-hood by linking to `UIAutomation.framework` and calling the same APIs that are exposed through Apple's UIAutomation.js framework.
-
-Because it is not tied to an Instruments run, it is able to run across applications or even on the home screen. Furthermore, it's much faster than any JavaScript UIAutomation.js driver as it runs a native HTTP server and does not need to ferry commands and results through a makeshift run loop.
-
-### Running UIAWebDriverAgent 
-
-To add new commands or just fool around with UIAWebDriverAgent, you can run it from within Xcode. Because UIAWebDriverAgent is a daemon, you will not notice any UI when it runs. Hit [the /tree endpoint](http://localhost:8100/tree) to confirm it's running.
-
-In practice, you would want to start it up alongside your application. You can use Apple's `simctl` tool for this or [FBSimulatorControl](https://github.com/facebook/FBSimulatorControl). This is how you might do it with `simctl`:
-
+To play around with WebDriverAgent you can simply start WebDriverAgentRunner tests via Xcode or xcodebuild:
 ```
-# 1. Open the Simulator and application you wish to test.
-
-# 2. Start WebDriverAgent.
-xcrun simctl spawn booted <WebDriverAgent_path>
-# e.g. xcrun simctl spawn booted /Users/mehdi/src/WebDriverAgent/Build/Products/Debug-iphonesimulator/WebDriverAgent.app/WebDriverAgent
+xcodebuild -workspace WebDriverAgent.xcworkspace -scheme WebDriverAgentRunner -destination id='<DEVICE_UDID>' test
 ```
 
-## XCTWebDriverAgent
-
-XCTWebDriverAgent works by linking to `XCTest.framework` and calling the same APIs that are exposed through Apple's XCUITest framework. This approach allows to run tests on devices!
-
-### Running XCTWebDriverAgent
-To play around with XCTWebDriverAgent you can simply start XCTUITestRunner tests in Xcode or use xcodebuild:
-```
-xcodebuild -workspace WebDriverAgent.xcworkspace -scheme XCTUITestRunner -destination id='<DEVICE_UDID>' test
-```
-
-When simlulator/device launches with blue screen it should be ready for receiving requests. To get ip address under with device is available you can check device logs for line "ServerURLHere->[DEVICE_URL]<-ServerURLHere"
+When simulator/device launches it should be ready for receiving requests. To get ip address under with device is available you can check device logs for line "ServerURLHere->[DEVICE_URL]<-ServerURLHere"
 
 Use curl to start testing the app:
 ```
 curl -X POST -H "Content-Type: application/json" -d "{\"desiredCapabilities\":{\"bundleId\":\"$BUNDLE_ID\", \"app\":\"/path/to/app/on/local/machine/magicapp.app\"}}" http://[DEVICE_URL]/session/
+```
+
+After application launches you can inspect it by opening web browser on [/inspector](https://localhost:8100/inspector) endpoint
+or query elements with curl request:
+```
+curl -X POST -H "Content-Type: application/json" -d "{"using":"xpath","value":"//XCUIElementTypeButton"}" http://[DEVICE_URL]/session/[SESSION_ID]/elements
 ```
 
 Have fun!
