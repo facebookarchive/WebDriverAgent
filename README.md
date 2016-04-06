@@ -1,9 +1,7 @@
-# WebDriverAgent
+# WebDriverAgent [![GitHub license](https://img.shields.io/badge/license-BSD-lightgrey.svg)](LICENSE) [![Build Status](https://travis-ci.org/facebook/WebDriverAgent.svg?branch=master)](https://travis-ci.org/facebook/WebDriverAgent)
 
 WebDriverAgent is a WebDriver server for iOS that runs inside the Simulator and is written entirely in Objective-C. It works by linking `XCTest.framework` and calling Apple's API to execute commands directly on device / simulator.
 If you are looking for WebDriverAgent that uses `UIAutomation.framework` check [here](https://github.com/facebook/WebDriverAgent/tree/master/UIAWebDriverAgent)).
-
-[![Build Status](https://travis-ci.org/facebook/WebDriverAgent.svg?branch=master)](https://travis-ci.org/facebook/WebDriverAgent)
 
 ## Building
 
@@ -48,10 +46,10 @@ curl -X POST -H "Content-Type: application/json" -d "{"using":"xpath","value":"/
 
 Have fun!
 
-## Contributing
+## For Contributors
 
-See the CONTRIBUTING file for how to help out.
+Please make sure you’ve followed the guidelines in [CONTRIBUTING](CONTRIBUTING), if you want to help out.
 
 ## License
 
-WebDriverAgent is BSD-licensed. We also provide an additional patent grant.
+[`WebDriverAgent` is BSD-licensed](LICENSE). We also provide an additional [patent grant](PATENTS).
