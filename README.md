@@ -48,7 +48,7 @@ Have fun!
 
 ## For Contributors
 
-Please make sure you’ve followed the guidelines in [CONTRIBUTING](CONTRIBUTING), if you want to help out.
+Please make sure you’ve followed the guidelines in [CONTRIBUTING](CONTRIBUTING.md), if you want to help out.
 
 ## License
 
