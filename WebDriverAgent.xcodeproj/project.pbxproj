@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ADB0AAB31CB7127300DBC756 /* FBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7671CAEDF0C008C271F /* FBApplication.m */; };
+		ADB0AAB51CB712A900DBC756 /* FBExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC088E71CB56DA400B65968 /* FBExceptionHandler.m */; };
+		ADB0AAB61CB712D700DBC756 /* FBElementCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC088E41CB56AC000B65968 /* FBElementCache.m */; };
+		ADB0AAB71CB712E000DBC756 /* FBElement.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB77A1CAEDF0C008C271F /* FBElement.m */; };
+		ADB0AAB81CB712FB00DBC756 /* FBAlertViewCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7511CAEDF0C008C271F /* FBAlertViewCommands.m */; };
+		ADB0AAB91CB7130C00DBC756 /* FBSpringboardApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC088EB1CB5706D00B65968 /* FBSpringboardApplication.m */; };
+		ADB0AABA1CB7131700DBC756 /* FBApplicationProcessProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7691CAEDF0C008C271F /* FBApplicationProcessProxy.m */; };
+		ADB0AABB1CB7132800DBC756 /* FBWDALogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7961CAEDF0C008C271F /* FBWDALogger.m */; };
+		ADB0AABC1CB7133900DBC756 /* FBElementTypeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7901CAEDF0C008C271F /* FBElementTypeTransformer.m */; };
+		ADB0AABD1CB7133900DBC756 /* FBRuntimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7921CAEDF0C008C271F /* FBRuntimeUtils.m */; };
+		ADB0AABE1CB7133900DBC756 /* FBWDAConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7941CAEDF0C008C271F /* FBWDAConstants.m */; };
+		ADB0AABF1CB7133900DBC756 /* FBXPathCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7991CAEDF0C008C271F /* FBXPathCreator.m */; };
+		ADB0AAC01CB7133900DBC756 /* UIDevice+Wifi_IP.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB79B1CAEDF0C008C271F /* UIDevice+Wifi_IP.m */; };
 		EE9AB5911CAEC5CC008C271F /* DDXMLElementAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2E51CAEBD67008C271F /* DDXMLElementAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE9AB5921CAEC5CC008C271F /* DDXMLElementAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB2E61CAEBD67008C271F /* DDXMLElementAdditions.m */; };
 		EE9AB5931CAEC5CC008C271F /* NSString+DDXML.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2E81CAEBD67008C271F /* NSString+DDXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1743,10 +1756,23 @@
 			files = (
 				EEDBE9141CB2641900A790A2 /* FBResponseJSONPayload.m in Sources */,
 				EE9AB7F61CAEDF25008C271F /* FBRouteTests.m in Sources */,
+				ADB0AABB1CB7132800DBC756 /* FBWDALogger.m in Sources */,
 				EEDBE9111CB2640100A790A2 /* FBRoute.m in Sources */,
+				ADB0AABF1CB7133900DBC756 /* FBXPathCreator.m in Sources */,
+				ADB0AAB61CB712D700DBC756 /* FBElementCache.m in Sources */,
+				ADB0AAB91CB7130C00DBC756 /* FBSpringboardApplication.m in Sources */,
+				ADB0AAB71CB712E000DBC756 /* FBElement.m in Sources */,
+				ADB0AAB31CB7127300DBC756 /* FBApplication.m in Sources */,
+				ADB0AABD1CB7133900DBC756 /* FBRuntimeUtils.m in Sources */,
+				ADB0AAB51CB712A900DBC756 /* FBExceptionHandler.m in Sources */,
+				ADB0AAB81CB712FB00DBC756 /* FBAlertViewCommands.m in Sources */,
 				EEDBE9121CB2640C00A790A2 /* FBSession.m in Sources */,
+				ADB0AABE1CB7133900DBC756 /* FBWDAConstants.m in Sources */,
 				EEDBE9131CB2641900A790A2 /* FBResponseFilePayload.m in Sources */,
 				EEDBE9151CB2641900A790A2 /* FBResponsePayload.m in Sources */,
+				ADB0AABC1CB7133900DBC756 /* FBElementTypeTransformer.m in Sources */,
+				ADB0AABA1CB7131700DBC756 /* FBApplicationProcessProxy.m in Sources */,
+				ADB0AAC01CB7133900DBC756 /* UIDevice+Wifi_IP.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
