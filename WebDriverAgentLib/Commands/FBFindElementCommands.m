@@ -18,7 +18,7 @@
 #import "FBRouteRequest.h"
 #import "FBWDAMacros.h"
 #import "FBXCTElementCache.h"
-#import "FBXCTSession.h"
+#import "FBSession.h"
 #import "XCElementSnapshot.h"
 #import "XCUIApplication.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -59,7 +59,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 
 + (id<FBResponsePayload>)handleFindElement:(FBRouteRequest *)request
 {
-  FBXCTSession *session = (FBXCTSession *)request.session;
+  FBSession *session = request.session;
   XCUIElement *element = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application];
   if (!element) {
     return FBNoSuchElementErrorResponseForRequest(request);
@@ -70,7 +70,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 
 + (id<FBResponsePayload>)handleFindElements:(FBRouteRequest *)request
 {
-  FBXCTSession *session = (FBXCTSession *)request.session;
+  FBSession *session = request.session;
   NSArray *elements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application];
   NSMutableArray *elementsResponse = [[NSMutableArray alloc] init];
   for (XCUIElement *element in elements) {

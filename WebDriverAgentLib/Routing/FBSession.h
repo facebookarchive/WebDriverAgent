@@ -9,9 +9,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class XCUIApplication;
 @protocol FBElementCache;
 
+extern NSString *const FBApplicationCrashedException;
+
 @interface FBSession : NSObject
+@property (nonatomic, assign) BOOL didRegisterAXTestFailure;
+@property (nonatomic, strong, readonly) XCUIApplication *application;
 @property (nonatomic, copy, readonly) NSString *identifier;
 @property (nonatomic, strong, readonly) id <FBElementCache> elementCache;
 
@@ -25,6 +30,14 @@
  @return session. Can return nil if session does not exists
  */
 + (instancetype)sessionWithIdentifier:(NSString *)identifier;
+
+/**
+ Creates and saves new session for application
+
+ @param application The application that we want to create session for
+ @return new session
+ */
++ (instancetype)sessionWithXCUIApplication:(XCUIApplication *)application;
 
 /**
  Kills application associated with that session and removes session

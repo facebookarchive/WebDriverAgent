@@ -13,8 +13,8 @@
 
 #import "FBFindElementCommands.h"
 #import "FBRouteRequest.h"
+#import "FBSession.h"
 #import "FBWDALogger.h"
-#import "FBXCTSession.h"
 #import "XCAXClient_iOS.h"
 #import "XCElementSnapshot+Helpers.h"
 #import "XCElementSnapshot-Hitpoint.h"
@@ -49,7 +49,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 
 + (id<FBResponsePayload>)handleAlertTextCommand:(FBRouteRequest *)request
 {
-  FBXCTSession *session = (FBXCTSession *)request.session;
+  FBSession *session = request.session;
   NSString *alertText = [self.class currentAlertTextWithApplication:session.application];
   if (!alertText) {
     return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
@@ -59,7 +59,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 
 + (id<FBResponsePayload>)handleAlertAcceptCommand:(FBRouteRequest *)request
 {
-  FBXCTSession *session = (FBXCTSession *)request.session;
+  FBSession *session = request.session;
   if (![self.class acceptAlertWithApplication:session.application]) {
     return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
   }
@@ -68,7 +68,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 
 + (id<FBResponsePayload>)handleAlertDismissCommand:(FBRouteRequest *)request
 {
-  FBXCTSession *session = (FBXCTSession *)request.session;
+  FBSession *session = request.session;
   if (![self.class dismissAlertWithApplication:session.application]) {
     return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
   }

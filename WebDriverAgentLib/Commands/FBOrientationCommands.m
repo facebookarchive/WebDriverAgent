@@ -11,7 +11,7 @@
 
 #import "FBRouteRequest.h"
 #import "FBWDAMacros.h"
-#import "FBXCTSession.h"
+#import "FBSession.h"
 #import "XCUIApplication.h"
 #import "XCUIDevice.h"
 
@@ -49,13 +49,13 @@ const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
 
 + (id<FBResponsePayload>)handleGetOrientation:(FBRouteRequest *)request
 {
-  FBXCTSession *session = (FBXCTSession *)request.session;
+  FBSession *session = request.session;
   return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self.class interfaceOrientationForApplication:session.application]);
 }
 
 + (id<FBResponsePayload>)handleSetOrientation:(FBRouteRequest *)request
 {
-  FBXCTSession *session = (FBXCTSession *)request.session;
+  FBSession *session = request.session;
   if ([self.class setDeviceOrientation:request.arguments[@"orientation"] forApplication:session.application]) {
     return FBResponseDictionaryWithOK();
   }

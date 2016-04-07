@@ -13,7 +13,7 @@
 
 #import "FBAlertViewCommands.h"
 #import "FBResponsePayload.h"
-#import "FBXCTSession.h"
+#import "FBSession.h"
 
 @implementation FBXCTExceptionHandler
 

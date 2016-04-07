@@ -11,10 +11,11 @@
 
 #import <libkern/OSAtomic.h>
 
+#import "FBApplication.h"
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
 #import "FBXCTElementCache.h"
-#import "FBXCTSession.h"
+#import "FBSession.h"
 #import "XCTestDriver.h"
 #import "XCUIApplication.h"
 #import "XCUICoordinate.h"
@@ -274,7 +275,7 @@
 
 + (id<FBResponsePayload>)handleDrag:(FBRouteRequest *)request
 {
-  FBXCTSession *session = (FBXCTSession *)request.session;
+  FBSession *session = request.session;
   CGVector startPoint = CGVectorMake([request.arguments[@"fromX"] floatValue], [request.arguments[@"fromY"] floatValue]);
   CGVector endPoint = CGVectorMake([request.arguments[@"toX"] floatValue], [request.arguments[@"toY"] floatValue]);
   CGFloat duration = [request.arguments[@"duration"] floatValue];
@@ -288,7 +289,7 @@
 + (id<FBResponsePayload>)handleTap:(FBRouteRequest *)request
 {
   FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
-  FBXCTSession *session = (FBXCTSession *)request.session;
+  FBSession *session = request.session;
   CGFloat x = [request.arguments[@"x"] floatValue];
   CGFloat y = [request.arguments[@"y"] floatValue];
   NSInteger elementID = [request.parameters[@"id"] integerValue];
@@ -316,7 +317,7 @@
 
 + (id<FBResponsePayload>)handleGetWindowSize:(FBRouteRequest *)request
 {
-  FBXCTSession *session = (FBXCTSession *)request.session;
+  FBSession *session = request.session;
   return FBResponseDictionaryWithStatus(FBCommandStatusNoError, session.application.wdRect[@"size"]);
 }
 

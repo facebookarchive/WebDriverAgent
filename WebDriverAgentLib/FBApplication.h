@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <XCTest/XCTest.h>
+#import <WebDriverAgentLib/XCUIApplication.h>
 
 @interface FBApplication : XCUIApplication
 
@@ -15,5 +15,6 @@
  It allows to turn on/off waiting for application quiescence, while performing queries. Defaults to NO.
  */
 @property (nonatomic, assign) BOOL shouldWaitForQuiescence;
+
 
 @end

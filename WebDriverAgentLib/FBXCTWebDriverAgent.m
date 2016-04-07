@@ -15,7 +15,7 @@
 #import "FBWDALogger.h"
 #import "FBWebServer.h"
 #import "FBXCTExceptionHandler.h"
-#import "FBXCTSession.h"
+#import "FBSession.h"
 
 @interface FBXCTWebDriverAgent ()
 @property (atomic, strong, readwrite) FBWebServer *routingServer;
@@ -39,7 +39,7 @@
 
 - (void)handleTestFailureWithDescription:(NSString *)failureDescription
 {
-  FBXCTSession *session = [FBXCTSession activeSession];
+  FBSession *session = [FBSession activeSession];
   const BOOL isPossibleDeadlock = ([failureDescription rangeOfString:@"Failed to get refreshed snapshot"].location != NSNotFound);
   if (!isPossibleDeadlock) {
     session.didRegisterAXTestFailure = YES;

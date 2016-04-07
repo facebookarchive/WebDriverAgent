@@ -150,8 +150,6 @@
 		EE9AB7C71CAEDF0C008C271F /* FBXCTElementCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB76B1CAEDF0C008C271F /* FBXCTElementCache.m */; };
 		EE9AB7C81CAEDF0C008C271F /* FBXCTExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB76C1CAEDF0C008C271F /* FBXCTExceptionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE9AB7C91CAEDF0C008C271F /* FBXCTExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB76D1CAEDF0C008C271F /* FBXCTExceptionHandler.m */; };
-		EE9AB7CA1CAEDF0C008C271F /* FBXCTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB76E1CAEDF0C008C271F /* FBXCTSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE9AB7CB1CAEDF0C008C271F /* FBXCTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB76F1CAEDF0C008C271F /* FBXCTSession.m */; };
 		EE9AB7CC1CAEDF0C008C271F /* FBXCTWebDriverAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7701CAEDF0C008C271F /* FBXCTWebDriverAgent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE9AB7CD1CAEDF0C008C271F /* FBXCTWebDriverAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7711CAEDF0C008C271F /* FBXCTWebDriverAgent.m */; };
 		EE9AB7CE1CAEDF0C008C271F /* FBCommandHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7751CAEDF0C008C271F /* FBCommandHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -500,8 +498,6 @@
 		EE9AB76B1CAEDF0C008C271F /* FBXCTElementCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBXCTElementCache.m; path = WebDriverAgentLib/FBXCTElementCache.m; sourceTree = SOURCE_ROOT; };
 		EE9AB76C1CAEDF0C008C271F /* FBXCTExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBXCTExceptionHandler.h; path = WebDriverAgentLib/FBXCTExceptionHandler.h; sourceTree = SOURCE_ROOT; };
 		EE9AB76D1CAEDF0C008C271F /* FBXCTExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBXCTExceptionHandler.m; path = WebDriverAgentLib/FBXCTExceptionHandler.m; sourceTree = SOURCE_ROOT; };
-		EE9AB76E1CAEDF0C008C271F /* FBXCTSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBXCTSession.h; path = WebDriverAgentLib/FBXCTSession.h; sourceTree = SOURCE_ROOT; };
-		EE9AB76F1CAEDF0C008C271F /* FBXCTSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBXCTSession.m; path = WebDriverAgentLib/FBXCTSession.m; sourceTree = SOURCE_ROOT; };
 		EE9AB7701CAEDF0C008C271F /* FBXCTWebDriverAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBXCTWebDriverAgent.h; path = WebDriverAgentLib/FBXCTWebDriverAgent.h; sourceTree = SOURCE_ROOT; };
 		EE9AB7711CAEDF0C008C271F /* FBXCTWebDriverAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBXCTWebDriverAgent.m; path = WebDriverAgentLib/FBXCTWebDriverAgent.m; sourceTree = SOURCE_ROOT; };
 		EE9AB7731CAEDF0C008C271F /* WebDriverAgent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WebDriverAgent.bundle; sourceTree = "<group>"; };
@@ -1169,8 +1165,6 @@
 				EE9AB76B1CAEDF0C008C271F /* FBXCTElementCache.m */,
 				EE9AB76C1CAEDF0C008C271F /* FBXCTExceptionHandler.h */,
 				EE9AB76D1CAEDF0C008C271F /* FBXCTExceptionHandler.m */,
-				EE9AB76E1CAEDF0C008C271F /* FBXCTSession.h */,
-				EE9AB76F1CAEDF0C008C271F /* FBXCTSession.m */,
 				EE9AB7701CAEDF0C008C271F /* FBXCTWebDriverAgent.h */,
 				EE9AB7711CAEDF0C008C271F /* FBXCTWebDriverAgent.m */,
 			);
@@ -1477,7 +1471,6 @@
 				EE9AB7E71CAEDF0C008C271F /* FBElementTypeTransformer.h in Headers */,
 				EE9AB7B61CAEDF0C008C271F /* FBInspectorCommands.h in Headers */,
 				EED0314F1BFA397A007EDC1D /* XCApplicationMonitor_iOS.h in Headers */,
-				EE9AB7CA1CAEDF0C008C271F /* FBXCTSession.h in Headers */,
 				EED031631BFA397A007EDC1D /* XCSymbolicatorHolder.h in Headers */,
 				EE9AB7B01CAEDF0C008C271F /* FBDebugCommands.h in Headers */,
 				EE9AB7EF1CAEDF0C008C271F /* FBWDAMacros.h in Headers */,
@@ -1847,7 +1840,6 @@
 				EE9AB7D61CAEDF0C008C271F /* FBHTTPOverUSBServer.m in Sources */,
 				EE9AB7E11CAEDF0C008C271F /* FBRouteRequest.m in Sources */,
 				EE9AB7EE1CAEDF0C008C271F /* FBWDALogger.m in Sources */,
-				EE9AB7CB1CAEDF0C008C271F /* FBXCTSession.m in Sources */,
 				EE9AB7B11CAEDF0C008C271F /* FBDebugCommands.m in Sources */,
 				EE9AB7B51CAEDF0C008C271F /* FBFindElementCommands.m in Sources */,
 				EE9AB7CD1CAEDF0C008C271F /* FBXCTWebDriverAgent.m in Sources */,

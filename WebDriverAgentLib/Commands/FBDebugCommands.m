@@ -11,7 +11,7 @@
 
 #import "FBElementTypeTransformer.h"
 #import "FBRouteRequest.h"
-#import "FBXCTSession.h"
+#import "FBSession.h"
 #import "XCUIApplication.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+WebDriverAttributes.h"
@@ -41,19 +41,19 @@ static id ValueOrNull(id value) {
 
 + (id<FBResponsePayload>)handleGetActiveTreeCommand:(FBRouteRequest *)request
 {
-  FBXCTSession *session = (FBXCTSession *)[FBSession activeSession];
+  FBSession *session = [FBSession activeSession];
   return [self handleTreeCommandWithParams:session.application];
 }
 
 + (id<FBResponsePayload>)handleGetTreeCommand:(FBRouteRequest *)request
 {
-  FBXCTSession *session = (FBXCTSession *)request.session;
+  FBSession *session = request.session;
   return [self handleTreeCommandWithParams:session.application];
 }
 
 + (id<FBResponsePayload>)handleGetSourceCommand:(FBRouteRequest *)request
 {
-  FBXCTSession *session = (FBXCTSession *)request.session;
+  FBSession *session = request.session;
   return [self handleTreeCommandWithParams:session.application];
 }
 

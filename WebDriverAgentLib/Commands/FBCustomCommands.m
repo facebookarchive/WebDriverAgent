@@ -11,10 +11,11 @@
 
 #import <XCTest/XCUIDevice.h>
 
+#import "FBApplication.h"
 #import "FBResponsePayload.h"
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
-#import "FBXCTSession.h"
+#import "FBSession.h"
 #import "XCUIApplication+SpringBoard.h"
 
 @implementation FBCustomCommands
@@ -34,7 +35,7 @@
 
 + (id<FBResponsePayload>)handleDeactivateAppCommand:(FBRouteRequest *)request
 {
-  NSString *applicationIdentifier = ((FBXCTSession *)request.session).application.label;
+  NSString *applicationIdentifier = request.session.application.label;
 
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
 
@@ -54,7 +55,7 @@
 
 + (id<FBResponsePayload>)handleHideKeyboard:(FBRouteRequest *)request
 {
-    FBXCTSession *session = ((FBXCTSession *)request.session);
+    FBSession *session = request.session;
     XCUIElement *element = [session.application.windows elementBoundByIndex:0];
     XCUIElementQuery *allElements = [element descendantsMatchingType:XCUIElementTypeAny];
     XCUIElement *activeElement = [allElements elementMatchingPredicate:[NSPredicate predicateWithFormat:@"hasKeyboardFocus == YES"]];
