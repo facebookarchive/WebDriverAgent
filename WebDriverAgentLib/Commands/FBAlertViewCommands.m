@@ -143,12 +143,18 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   if (!alertSnapshot) {
     return nil;
   }
-  NSArray<XCElementSnapshot *> *staticTexts = [alertSnapshot.lastSnapshot fb_descendantsMatchingType:XCUIElementTypeStaticText];
-  NSString *text = [staticTexts.lastObject wdLabel];
-  if (!text) {
-    return [NSNull null];
+  NSArray<XCElementSnapshot *> *staticTextList = [alertSnapshot.lastSnapshot fb_descendantsMatchingType:XCUIElementTypeStaticText];
+  NSMutableString *mText = [NSMutableString string];
+  for (XCElementSnapshot *staticText in staticTextList) {
+    if (staticText.wdLabel && staticText.isWDVisible) {
+      [mText appendFormat:@"%@\n", staticText.wdLabel];
+    }
   }
-  return text;
+  // Removing last '\n'
+  if (mText.length > 0) {
+    [mText replaceCharactersInRange:NSMakeRange(mText.length - @"\n".length, @"\n".length) withString:@""];
+  }
+  return mText.length > 0 ? mText.copy : [NSNull null];
 }
 
 + (BOOL)acceptAlertWithApplication:(FBApplication *)application
