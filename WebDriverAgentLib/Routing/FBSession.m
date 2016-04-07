@@ -11,7 +11,7 @@
 #import "FBSession-Private.h"
 
 #import "FBApplication.h"
-#import "FBXCTElementCache.h"
+#import "FBElementCache.h"
 #import "XCAccessibilityElement.h"
 #import "XCAXClient_iOS.h"
 #import "XCUIElement.h"
@@ -51,7 +51,7 @@ static FBSession *_activeSession;
   FBSession *session = [FBSession new];
   session.identifier = [[NSUUID UUID] UUIDString];
   session.testedApplication = application;
-  session.elementCache = [FBXCTElementCache new];
+  session.elementCache = [FBElementCache new];
   [FBSession markSessionActive:session];
   return session;
 }

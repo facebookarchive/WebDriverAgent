@@ -9,8 +9,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class FBElementCache;
 @class XCUIApplication;
-@protocol FBElementCache;
 
 extern NSString *const FBApplicationCrashedException;
 
@@ -18,7 +18,7 @@ extern NSString *const FBApplicationCrashedException;
 @property (nonatomic, assign) BOOL didRegisterAXTestFailure;
 @property (nonatomic, strong, readonly) XCUIApplication *application;
 @property (nonatomic, copy, readonly) NSString *identifier;
-@property (nonatomic, strong, readonly) id <FBElementCache> elementCache;
+@property (nonatomic, strong, readonly) FBElementCache *elementCache;
 
 + (instancetype)activeSession;
 

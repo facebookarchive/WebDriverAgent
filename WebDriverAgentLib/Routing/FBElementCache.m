@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBXCTElementCache.h"
+#import "FBElementCache.h"
 
 #import <WebDriverAgentLib/FBAlertViewCommands.h>
 
@@ -15,12 +15,12 @@
 
 @class UIAElement;
 
-@interface FBXCTElementCache ()
+@interface FBElementCache ()
 @property (atomic, assign) NSUInteger currentElementIndex;
 @property (atomic, strong) NSMutableDictionary *elementCache;
 @end
 
-@implementation FBXCTElementCache
+@implementation FBElementCache
 
 - (instancetype)init
 {

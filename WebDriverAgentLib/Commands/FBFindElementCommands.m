@@ -17,7 +17,7 @@
 #import "FBElementTypeTransformer.h"
 #import "FBRouteRequest.h"
 #import "FBWDAMacros.h"
-#import "FBXCTElementCache.h"
+#import "FBElementCache.h"
 #import "FBSession.h"
 #import "XCElementSnapshot.h"
 #import "XCUIApplication.h"
@@ -82,7 +82,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 
 + (id<FBResponsePayload>)handleFindVisibleCells:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   NSInteger elementID = [request.parameters[@"elementID"] integerValue];
   XCUIElement *collection = [elementCache elementForIndex:elementID];
 
@@ -98,7 +98,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 
 + (id<FBResponsePayload>)handleFindSubElement:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   XCUIElement *foundElement = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
   if (!foundElement) {
@@ -110,7 +110,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 
 + (id<FBResponsePayload>)handleFindSubElements:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   NSArray *foundElements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
 

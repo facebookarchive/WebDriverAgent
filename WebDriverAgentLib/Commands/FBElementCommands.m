@@ -14,7 +14,7 @@
 #import "FBApplication.h"
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
-#import "FBXCTElementCache.h"
+#import "FBElementCache.h"
 #import "FBSession.h"
 #import "XCTestDriver.h"
 #import "XCUIApplication.h"
@@ -67,7 +67,7 @@
 
 + (id<FBResponsePayload>)handleGetEnabled:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
   BOOL isEnabled = element.isWDEnabled;
@@ -76,28 +76,28 @@
 
 + (id<FBResponsePayload>)handleGetRect:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdRect);
 }
 
 + (id<FBResponsePayload>)handleGetSize:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdSize);
 }
 
 + (id<FBResponsePayload>)handleGetLocation:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdLocation);
 }
 
 + (id<FBResponsePayload>)handleGetLocationInView:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   NSError *error;
   if ([element scrollToVisibleWithError:&error]) {
@@ -108,7 +108,7 @@
 
 + (id<FBResponsePayload>)handleGetAttribute:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
   id attributeValue = [element valueForWDAttributeName:request.parameters[@"name"]];
@@ -118,7 +118,7 @@
 
 + (id<FBResponsePayload>)handleGetText:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
   id text;
@@ -133,7 +133,7 @@
 
 + (id<FBResponsePayload>)handleGetDisplayed:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
   BOOL isVisible = element.isWDVisible;
@@ -142,7 +142,7 @@
 
 + (id<FBResponsePayload>)handleGetAccessible:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
   return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @(element.isWDAccessible));
@@ -150,7 +150,7 @@
 
 + (id<FBResponsePayload>)handleGetName:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
   id type = [element wdType];
@@ -159,7 +159,7 @@
 
 + (id<FBResponsePayload>)handleGetValue:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
   NSError *error = nil;
@@ -175,7 +175,7 @@
 
 + (id<FBResponsePayload>)handleClick:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
   NSError *error = nil;
@@ -187,7 +187,7 @@
 
 + (id<FBResponsePayload>)handleClear:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
   NSError *error;
@@ -206,7 +206,7 @@
 
 + (id<FBResponsePayload>)handleDoubleTap:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   [element doubleTap];
   return FBResponseDictionaryWithOK();
@@ -214,7 +214,7 @@
 
 + (id<FBResponsePayload>)handleTouchAndHold:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   [element pressForDuration:[request.arguments[@"duration"] floatValue]];
   return FBResponseDictionaryWithOK();
@@ -222,7 +222,7 @@
 
 + (id<FBResponsePayload>)handleScroll:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
 
   // Using presence of arguments as a way to convey control flow seems like a pretty bad idea but it's
@@ -263,7 +263,7 @@
 
 + (id<FBResponsePayload>)handleGetUIAElementValue:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   NSString *value = request.arguments[@"value"];
   if (!value) {
@@ -288,7 +288,7 @@
 
 + (id<FBResponsePayload>)handleTap:(FBRouteRequest *)request
 {
-  FBXCTElementCache *elementCache = (FBXCTElementCache *)request.session.elementCache;
+  FBElementCache *elementCache = request.session.elementCache;
   FBSession *session = request.session;
   CGFloat x = [request.arguments[@"x"] floatValue];
   CGFloat y = [request.arguments[@"y"] floatValue];
