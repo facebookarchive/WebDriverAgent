@@ -108,8 +108,6 @@
 		EE9AB79D1CAEDF0C008C271F /* XCElementSnapshot+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7401CAEDF0C008C271F /* XCElementSnapshot+Helpers.m */; };
 		EE9AB79E1CAEDF0C008C271F /* XCEventGenerator+SyncEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7411CAEDF0C008C271F /* XCEventGenerator+SyncEvents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE9AB79F1CAEDF0C008C271F /* XCEventGenerator+SyncEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7421CAEDF0C008C271F /* XCEventGenerator+SyncEvents.m */; };
-		EE9AB7A01CAEDF0C008C271F /* XCUIApplication+SpringBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7431CAEDF0C008C271F /* XCUIApplication+SpringBoard.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE9AB7A11CAEDF0C008C271F /* XCUIApplication+SpringBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7441CAEDF0C008C271F /* XCUIApplication+SpringBoard.m */; };
 		EE9AB7A21CAEDF0C008C271F /* XCUIElement+FBAccessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7451CAEDF0C008C271F /* XCUIElement+FBAccessibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE9AB7A31CAEDF0C008C271F /* XCUIElement+FBAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7461CAEDF0C008C271F /* XCUIElement+FBAccessibility.m */; };
 		EE9AB7A41CAEDF0C008C271F /* XCUIElement+FBIsVisible.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7471CAEDF0C008C271F /* XCUIElement+FBIsVisible.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -192,6 +190,8 @@
 		EEC088E51CB56AC000B65968 /* FBElementCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC088E41CB56AC000B65968 /* FBElementCache.m */; };
 		EEC088E81CB56DA400B65968 /* FBExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC088E61CB56DA400B65968 /* FBExceptionHandler.h */; };
 		EEC088E91CB56DA400B65968 /* FBExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC088E71CB56DA400B65968 /* FBExceptionHandler.m */; };
+		EEC088EC1CB5706D00B65968 /* FBSpringboardApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC088EA1CB5706D00B65968 /* FBSpringboardApplication.h */; };
+		EEC088ED1CB5706D00B65968 /* FBSpringboardApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC088EB1CB5706D00B65968 /* FBSpringboardApplication.m */; };
 		EED0313A1BFA3720007EDC1D /* CDStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030E71BFA3461007EDC1D /* CDStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EED0313B1BFA397A007EDC1D /* _XCDarwinNotificationExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030DC1BFA3461007EDC1D /* _XCDarwinNotificationExpectation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EED0313C1BFA397A007EDC1D /* _XCInternalTestRun.h in Headers */ = {isa = PBXBuildFile; fileRef = EED030DD1BFA3461007EDC1D /* _XCInternalTestRun.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -452,8 +452,6 @@
 		EE9AB7401CAEDF0C008C271F /* XCElementSnapshot+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCElementSnapshot+Helpers.m"; sourceTree = "<group>"; };
 		EE9AB7411CAEDF0C008C271F /* XCEventGenerator+SyncEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCEventGenerator+SyncEvents.h"; sourceTree = "<group>"; };
 		EE9AB7421CAEDF0C008C271F /* XCEventGenerator+SyncEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCEventGenerator+SyncEvents.m"; sourceTree = "<group>"; };
-		EE9AB7431CAEDF0C008C271F /* XCUIApplication+SpringBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIApplication+SpringBoard.h"; sourceTree = "<group>"; };
-		EE9AB7441CAEDF0C008C271F /* XCUIApplication+SpringBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIApplication+SpringBoard.m"; sourceTree = "<group>"; };
 		EE9AB7451CAEDF0C008C271F /* XCUIElement+FBAccessibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBAccessibility.h"; sourceTree = "<group>"; };
 		EE9AB7461CAEDF0C008C271F /* XCUIElement+FBAccessibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+FBAccessibility.m"; sourceTree = "<group>"; };
 		EE9AB7471CAEDF0C008C271F /* XCUIElement+FBIsVisible.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBIsVisible.h"; sourceTree = "<group>"; };
@@ -542,6 +540,8 @@
 		EEC088E41CB56AC000B65968 /* FBElementCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementCache.m; sourceTree = "<group>"; };
 		EEC088E61CB56DA400B65968 /* FBExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBExceptionHandler.h; sourceTree = "<group>"; };
 		EEC088E71CB56DA400B65968 /* FBExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBExceptionHandler.m; sourceTree = "<group>"; };
+		EEC088EA1CB5706D00B65968 /* FBSpringboardApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBSpringboardApplication.h; path = WebDriverAgentLib/FBSpringboardApplication.h; sourceTree = SOURCE_ROOT; };
+		EEC088EB1CB5706D00B65968 /* FBSpringboardApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBSpringboardApplication.m; path = WebDriverAgentLib/FBSpringboardApplication.m; sourceTree = SOURCE_ROOT; };
 		EEC2899A1BF0ED3000B4DC79 /* libWebDriverAgentLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWebDriverAgentLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EED030DC1BFA3461007EDC1D /* _XCDarwinNotificationExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _XCDarwinNotificationExpectation.h; sourceTree = "<group>"; };
 		EED030DD1BFA3461007EDC1D /* _XCInternalTestRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _XCInternalTestRun.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1023,8 +1023,6 @@
 				EE9AB7401CAEDF0C008C271F /* XCElementSnapshot+Helpers.m */,
 				EE9AB7411CAEDF0C008C271F /* XCEventGenerator+SyncEvents.h */,
 				EE9AB7421CAEDF0C008C271F /* XCEventGenerator+SyncEvents.m */,
-				EE9AB7431CAEDF0C008C271F /* XCUIApplication+SpringBoard.h */,
-				EE9AB7441CAEDF0C008C271F /* XCUIApplication+SpringBoard.m */,
 				EE9AB7451CAEDF0C008C271F /* XCUIElement+FBAccessibility.h */,
 				EE9AB7461CAEDF0C008C271F /* XCUIElement+FBAccessibility.m */,
 				EE9AB7471CAEDF0C008C271F /* XCUIElement+FBIsVisible.h */,
@@ -1153,6 +1151,8 @@
 				EE9AB78E1CAEDF0C008C271F /* Utilities */,
 				EE9AB7661CAEDF0C008C271F /* FBApplication.h */,
 				EE9AB7671CAEDF0C008C271F /* FBApplication.m */,
+				EEC088EA1CB5706D00B65968 /* FBSpringboardApplication.h */,
+				EEC088EB1CB5706D00B65968 /* FBSpringboardApplication.m */,
 				EE9AB7681CAEDF0C008C271F /* FBApplicationProcessProxy.h */,
 				EE9AB7691CAEDF0C008C271F /* FBApplicationProcessProxy.m */,
 				EE9AB7701CAEDF0C008C271F /* FBWebDriverAgent.h */,
@@ -1414,6 +1414,7 @@
 				EED031771BFA397A007EDC1D /* XCTestManager_IDEInterface-Protocol.h in Headers */,
 				EE9AB7C41CAEDF0C008C271F /* FBApplicationProcessProxy.h in Headers */,
 				EE9AB7AE1CAEDF0C008C271F /* FBCustomCommands.h in Headers */,
+				EEC088EC1CB5706D00B65968 /* FBSpringboardApplication.h in Headers */,
 				EED031551BFA397A007EDC1D /* XCDeviceEvent.h in Headers */,
 				EE9AB7DF1CAEDF0C008C271F /* FBRouteRequest-Private.h in Headers */,
 				EED0318D1BFA397A007EDC1D /* XCUIElementAsynchronousHandlerWrapper.h in Headers */,
@@ -1441,7 +1442,6 @@
 				EED0313C1BFA397A007EDC1D /* _XCInternalTestRun.h in Headers */,
 				EED031701BFA397A007EDC1D /* XCTestConfiguration.h in Headers */,
 				EED0313D1BFA397A007EDC1D /* _XCKVOExpectation.h in Headers */,
-				EE9AB7A01CAEDF0C008C271F /* XCUIApplication+SpringBoard.h in Headers */,
 				EED031891BFA397A007EDC1D /* XCUIElement-XCUIElementEventSynthesis.h in Headers */,
 				EED031711BFA397A007EDC1D /* XCTestContext.h in Headers */,
 				EE9AB7BE1CAEDF0C008C271F /* FBTouchIDCommands.h in Headers */,
@@ -1821,6 +1821,7 @@
 				EE9AB7A51CAEDF0C008C271F /* XCUIElement+FBIsVisible.m in Sources */,
 				EE9AB7AB1CAEDF0C008C271F /* XCUIElement+WebDriverAttributes.m in Sources */,
 				EE9AB7B91CAEDF0C008C271F /* FBOrientationCommands.m in Sources */,
+				EEC088ED1CB5706D00B65968 /* FBSpringboardApplication.m in Sources */,
 				EE9AB7E81CAEDF0C008C271F /* FBElementTypeTransformer.m in Sources */,
 				EE9AB7D31CAEDF0C008C271F /* FBElement.m in Sources */,
 				EE9AB7DA1CAEDF0C008C271F /* FBResponseJSONPayload.m in Sources */,
@@ -1830,7 +1831,6 @@
 				EE9AB7B11CAEDF0C008C271F /* FBDebugCommands.m in Sources */,
 				EE9AB7B51CAEDF0C008C271F /* FBFindElementCommands.m in Sources */,
 				EE9AB7CD1CAEDF0C008C271F /* FBWebDriverAgent.m in Sources */,
-				EE9AB7A11CAEDF0C008C271F /* XCUIApplication+SpringBoard.m in Sources */,
 				EE9AB7EA1CAEDF0C008C271F /* FBRuntimeUtils.m in Sources */,
 				EE9AB7F11CAEDF0C008C271F /* FBXPathCreator.m in Sources */,
 				EE9AB7C11CAEDF0C008C271F /* FBUnknownCommands.m in Sources */,

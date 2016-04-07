@@ -16,5 +16,4 @@
  */
 @property (nonatomic, assign) BOOL shouldWaitForQuiescence;
 
-
 @end

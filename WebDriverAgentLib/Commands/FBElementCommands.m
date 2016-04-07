@@ -17,7 +17,7 @@
 #import "FBElementCache.h"
 #import "FBSession.h"
 #import "XCTestDriver.h"
-#import "XCUIApplication.h"
+#import "FBApplication.h"
 #import "XCUICoordinate.h"
 #import "XCUIDevice.h"
 #import "XCUIElement+FBIsVisible.h"

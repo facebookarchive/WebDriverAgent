@@ -10,6 +10,8 @@
 #import "FBSession.h"
 #import "FBSession-Private.h"
 
+#import <objc/runtime.h>
+
 #import "FBApplication.h"
 #import "FBElementCache.h"
 #import "XCAccessibilityElement.h"
@@ -19,7 +21,7 @@
 NSString *const FBApplicationCrashedException = @"FBApplicationCrashedException";
 
 @interface FBSession ()
-@property (nonatomic, strong, readwrite) XCUIApplication *testedApplication;
+@property (nonatomic, strong, readwrite) FBApplication *testedApplication;
 @end
 
 @implementation FBSession
@@ -46,7 +48,7 @@ static FBSession *_activeSession;
   return _activeSession;
 }
 
-+ (instancetype)sessionWithXCUIApplication:(XCUIApplication *)application
++ (instancetype)sessionWithApplication:(FBApplication *)application
 {
   FBSession *session = [FBSession new];
   session.identifier = [[NSUUID UUID] UUIDString];
@@ -62,14 +64,14 @@ static FBSession *_activeSession;
   _activeSession = nil;
 }
 
-- (XCUIApplication *)application
+- (FBApplication *)application
 {
-  XCUIApplication *application = self.testedApplication;
+  FBApplication *application = self.testedApplication;
   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"processIdentifier != %d", self.testedApplication.processID];
   XCAccessibilityElement *anotherActiveApplication = [[[[XCAXClient_iOS sharedClient] activeApplications] filteredArrayUsingPredicate:predicate] firstObject];
   if (anotherActiveApplication) {
     // If different active app is detected, using it instead of tested one
-    application = [XCUIApplication appWithPID:anotherActiveApplication.processIdentifier];
+    application = [FBApplication appWithPID:anotherActiveApplication.processIdentifier];
   }
   else if (!application.running) {
     [[NSException exceptionWithName:FBApplicationCrashedException reason:@"Application is not running, possibly crashed" userInfo:nil] raise];

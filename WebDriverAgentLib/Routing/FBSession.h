@@ -9,14 +9,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class FBApplication;
 @class FBElementCache;
-@class XCUIApplication;
 
 extern NSString *const FBApplicationCrashedException;
 
 @interface FBSession : NSObject
 @property (nonatomic, assign) BOOL didRegisterAXTestFailure;
-@property (nonatomic, strong, readonly) XCUIApplication *application;
+@property (nonatomic, strong, readonly) FBApplication *application;
 @property (nonatomic, copy, readonly) NSString *identifier;
 @property (nonatomic, strong, readonly) FBElementCache *elementCache;
 
@@ -37,7 +37,7 @@ extern NSString *const FBApplicationCrashedException;
  @param application The application that we want to create session for
  @return new session
  */
-+ (instancetype)sessionWithXCUIApplication:(XCUIApplication *)application;
++ (instancetype)sessionWithApplication:(FBApplication *)application;
 
 /**
  Kills application associated with that session and removes session

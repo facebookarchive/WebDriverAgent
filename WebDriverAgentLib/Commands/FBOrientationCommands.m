@@ -12,7 +12,7 @@
 #import "FBRouteRequest.h"
 #import "FBWDAMacros.h"
 #import "FBSession.h"
-#import "XCUIApplication.h"
+#import "FBApplication.h"
 #import "XCUIDevice.h"
 
 extern const struct FBWDOrientationValues {
@@ -65,7 +65,7 @@ const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
 
 #pragma mark - Helpers
 
-+ (NSString *)interfaceOrientationForApplication:(XCUIApplication *)application
++ (NSString *)interfaceOrientationForApplication:(FBApplication *)application
 {
   NSNumber *orientation = @(application.interfaceOrientation);
   NSSet *keys = [[self _orientationsMapping] keysOfEntriesPassingTest:^BOOL(id key, NSNumber *obj, BOOL *stop) {
@@ -77,7 +77,7 @@ const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
   return keys.anyObject;
 }
 
-+ (BOOL)setDeviceOrientation:(NSString *)orientation forApplication:(XCUIApplication *)application
++ (BOOL)setDeviceOrientation:(NSString *)orientation forApplication:(FBApplication *)application
 {
   NSNumber *orientationValue = [[self _orientationsMapping] objectForKey:orientation];
   if (orientationValue == nil) {

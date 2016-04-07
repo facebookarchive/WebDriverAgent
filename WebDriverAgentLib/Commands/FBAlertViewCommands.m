@@ -11,9 +11,11 @@
 
 #import <XCTest/XCUICoordinate.h>
 
+#import "FBApplication.h"
 #import "FBFindElementCommands.h"
 #import "FBRouteRequest.h"
 #import "FBSession.h"
+#import "FBSpringboardApplication.h"
 #import "FBWDALogger.h"
 #import "XCAXClient_iOS.h"
 #import "XCElementSnapshot+Helpers.h"
@@ -21,13 +23,12 @@
 #import "XCElementSnapshot.h"
 #import "XCEventGenerator+SyncEvents.h"
 #import "XCTestManager_ManagerInterface-Protocol.h"
-#import "XCUIApplication+SpringBoard.h"
-#import "XCUIApplication.h"
 #import "XCUICoordinate.h"
 #import "XCUIElement+FBTap.h"
 #import "XCUIElement+WebDriverAttributes.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
+
 NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingElementException";
 
 @implementation FBAlertViewCommands
@@ -80,7 +81,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 
 + (void)ensureElementIsNotObstructedByAlertView:(XCUIElement *)element
 {
-  [self ensureElementIsNotObstructedByAlertView:element alert:[self applicationAlertWithApplication:element.application]];
+  [self ensureElementIsNotObstructedByAlertView:element alert:[self applicationAlertWithApplication:(FBApplication *)element.application]];
 }
 
 + (void)ensureElementIsNotObstructedByAlertView:(XCUIElement *)element alert:(XCUIElement *)alert
@@ -113,7 +114,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   if (!element) {
     return elements;
   }
-  XCUIElement *alert = [self applicationAlertWithApplication:element.application];
+  XCUIElement *alert = [self applicationAlertWithApplication:(FBApplication *)element.application];
 
   NSMutableArray *elementBox = [NSMutableArray array];
   for (XCUIElement *iElement in elements) {
@@ -136,7 +137,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 
 #pragma mark - Helpers
 
-+ (id)currentAlertTextWithApplication:(XCUIApplication *)application
++ (id)currentAlertTextWithApplication:(FBApplication *)application
 {
   XCUIElement *alertSnapshot = [self alertSnapshotWithApplication:application];
   if (!alertSnapshot) {
@@ -150,7 +151,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   return text;
 }
 
-+ (BOOL)acceptAlertWithApplication:(XCUIApplication *)application
++ (BOOL)acceptAlertWithApplication:(FBApplication *)application
 {
   XCUIElement *alert = [self alertSnapshotWithApplication:application];
   NSArray<XCUIElement *> *buttons = [alert descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
@@ -168,7 +169,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   return [defaultButton fb_tapWithError:nil];
 }
 
-+ (BOOL)dismissAlertWithApplication:(XCUIApplication *)application
++ (BOOL)dismissAlertWithApplication:(FBApplication *)application
 {
   XCUIElement *cancelButton;
   XCUIElement *alert = [self alertSnapshotWithApplication:application];
@@ -186,7 +187,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   return [cancelButton fb_tapWithError:nil];
 }
 
-+ (XCUIElement *)applicationAlertWithApplication:(XCUIApplication *)application
++ (XCUIElement *)applicationAlertWithApplication:(FBApplication *)application
 {
   XCUIElement *alert = application.alerts.element;
   if (!alert.exists) {
@@ -195,11 +196,11 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   return alert;
 }
 
-+ (XCUIElement *)alertSnapshotWithApplication:(XCUIApplication *)application
++ (XCUIElement *)alertSnapshotWithApplication:(FBApplication *)application
 {
   XCUIElement *alert = [self applicationAlertWithApplication:application];
   if (!alert.exists) {
-    alert = [self applicationAlertWithApplication:[XCUIApplication fb_SpringBoard]];
+    alert = [self applicationAlertWithApplication:[FBSpringboardApplication springboard]];
   }
   if (alert.exists) {
     [alert resolve];

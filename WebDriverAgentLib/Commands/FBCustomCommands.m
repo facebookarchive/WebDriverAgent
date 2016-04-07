@@ -16,7 +16,9 @@
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
 #import "FBSession.h"
-#import "XCUIApplication+SpringBoard.h"
+#import "FBSpringboardApplication.h"
+#import "XCUIElement.h"
+#import "XCUIElementQuery.h"
 
 @implementation FBCustomCommands
 
@@ -43,7 +45,7 @@
   CGFloat duration = (requestedDuration ? requestedDuration.floatValue : 3.f);
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:duration]];
 
-  [[XCUIApplication fb_SpringBoard] fb_tapApplicationWithIdentifier:applicationIdentifier];
+  [[FBSpringboardApplication springboard] fb_tapApplicationWithIdentifier:applicationIdentifier];
   return FBResponseDictionaryWithOK();
 }
 

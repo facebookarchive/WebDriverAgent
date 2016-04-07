@@ -20,7 +20,7 @@
 #import "FBElementCache.h"
 #import "FBSession.h"
 #import "XCElementSnapshot.h"
-#import "XCUIApplication.h"
+#import "FBApplication.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+WebDriverAttributes.h"
 #import "XCUIElement.h"

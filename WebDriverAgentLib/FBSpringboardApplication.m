@@ -7,17 +7,18 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "XCUIApplication+SpringBoard.h"
+#import "FBSpringboardApplication.h"
 
-#import "XCUIApplication.h"
 #import "XCUIElement+FBTap.h"
 #import "XCUIElement.h"
+#import "XCUIElementQuery.h"
 
-@implementation XCUIApplication (SpringBoard)
+@implementation FBSpringboardApplication
 
-+ (instancetype)fb_SpringBoard
++ (instancetype)springboard
 {
-  XCUIApplication *springboard = [[XCUIApplication alloc] initPrivateWithPath:nil bundleID:@"com.apple.springboard"];
+  FBSpringboardApplication *springboard = [[FBSpringboardApplication alloc] initPrivateWithPath:nil bundleID:@"com.apple.springboard"];
+  [springboard query];
   [springboard resolve];
   return springboard;
 }

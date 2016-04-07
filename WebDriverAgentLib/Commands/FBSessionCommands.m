@@ -12,7 +12,7 @@
 #import "FBApplication.h"
 #import "FBRouteRequest.h"
 #import "FBSession.h"
-#import "XCUIApplication.h"
+#import "FBApplication.h"
 #import "XCUIDevice.h"
 
 @implementation FBSessionCommands
@@ -46,7 +46,7 @@
   app.launchArguments = (NSArray<NSString *> *)requirements[@"arguments"] ?: @[];
   app.launchEnvironment = (NSDictionary <NSString *, NSString *> *)requirements[@"environment"] ?: @{};
   [app launch];
-  [FBSession sessionWithXCUIApplication:app];
+  [FBSession sessionWithApplication:app];
   return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
 }
 
@@ -107,7 +107,7 @@
 
 + (NSDictionary *)currentCapabilities
 {
-  XCUIApplication *application = [FBSession activeSession].application;
+  FBApplication *application = [FBSession activeSession].application;
   return
   @{
     @"device": ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ? @"ipad" : @"iphone",

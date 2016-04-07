@@ -7,14 +7,14 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <XCTest/XCTest.h>
+#import <WebDriverAgentLib/FBApplication.h>
 
-@interface XCUIApplication (SpringBoard)
+@interface FBSpringboardApplication : FBApplication
 
 /**
- * @return SpringBoard application
+ * @return FBApplication that is attached to SpringBoard
  */
-+ (instancetype)fb_SpringBoard;
++ (instancetype)springboard;
 
 /**
  * Taps application on SpringBoard app with given identifer

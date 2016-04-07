@@ -9,10 +9,10 @@
 
 #import "FBDebugCommands.h"
 
+#import "FBApplication.h"
 #import "FBElementTypeTransformer.h"
 #import "FBRouteRequest.h"
 #import "FBSession.h"
-#import "XCUIApplication.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+WebDriverAttributes.h"
 #import "XCUIElement.h"
@@ -60,13 +60,13 @@ static id ValueOrNull(id value) {
 
 #pragma mark - Helpers
 
-+ (id<FBResponsePayload>)handleTreeCommandWithParams:(XCUIApplication *)application
++ (id<FBResponsePayload>)handleTreeCommandWithParams:(FBApplication *)application
 {
   NSDictionary *info = [self.class JSONTreeForTargetForApplication:application];
   return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{ @"tree": info });
 }
 
-+ (NSDictionary *)JSONTreeForTargetForApplication:(XCUIApplication *)app
++ (NSDictionary *)JSONTreeForTargetForApplication:(FBApplication *)app
 {
   NSDictionary *info = [self infoForElement:app.lastSnapshot];
   return info;
