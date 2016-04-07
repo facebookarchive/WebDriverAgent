@@ -13,7 +13,7 @@
 #import <RoutingHTTPServer/RoutingHTTPServer.h>
 
 #import "FBCommandHandler.h"
-#import "FBCoreExceptionHandler.h"
+#import "FBExceptionHandler.h"
 #import "FBRouteRequest.h"
 #import "FBRuntimeUtils.h"
 #import "FBSession.h"
@@ -41,7 +41,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 
 @interface FBWebServer ()
-@property (atomic, strong, readwrite) RoutingHTTPServer *server;
+@property (nonatomic, strong, readwrite) RoutingHTTPServer *server;
 @end
 
 @implementation FBWebServer
@@ -152,10 +152,8 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 - (void)handleException:(NSException *)exception forResponse:(RouteResponse *)response
 {
-  for (id<FBWebServerExceptionHandler> exceptionHandler in self.exceptionHandlers) {
-    if ([exceptionHandler webServer:self handleException:exception forResponse:response]) {
-      return;
-    }
+  if ([self.exceptionHandler webServer:self handleException:exception forResponse:response]) {
+    return;
   }
   id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, [NSString stringWithFormat:@"%@\n\n%@", exception.description, exception.callStackSymbols]);
   [payload dispatchWithResponse:response];

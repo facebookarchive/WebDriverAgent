@@ -7,17 +7,19 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBCoreExceptionHandler.h"
+#import "FBExceptionHandler.h"
 
 #import <RoutingHTTPServer/RouteResponse.h>
 
+#import "FBAlertViewCommands.h"
 #import "FBResponsePayload.h"
+#import "FBSession.h"
 
 NSString *const FBSessionDoesNotExistException = @"FBSessionDoesNotExistException";
 NSString *const FBApplicationDeadlockDetectedException = @"FBApplicationDeadlockDetectedException";
 NSString *const FBElementAttributeUnknownException = @"FBElementAttributeUnknownException";
 
-@implementation FBCoreExceptionHandler
+@implementation FBExceptionHandler
 
 - (BOOL)webServer:(FBWebServer *)webServer handleException:(NSException *)exception forResponse:(RouteResponse *)response
 {
@@ -35,6 +37,16 @@ NSString *const FBElementAttributeUnknownException = @"FBElementAttributeUnknown
 
   if ([exception.name isEqualToString:FBElementAttributeUnknownException]) {
     id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusInvalidSelector, [exception description]);
+    [payload dispatchWithResponse:response];
+    return YES;
+  }
+  if ([exception.name isEqualToString:FBUAlertObstructingElementException]) {
+    id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusUnexpectedAlertPresent, @"Alert is obstructing view");
+    [payload dispatchWithResponse:response];
+    return YES;
+  }
+  if ([exception.name isEqualToString:FBApplicationCrashedException]) {
+    id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusStaleElementReference, [exception description]);
     [payload dispatchWithResponse:response];
     return YES;
   }

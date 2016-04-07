@@ -12,7 +12,7 @@
 #import <KissXML/DDXML.h>
 
 #import "FBAlertViewCommands.h"
-#import "FBCoreExceptionHandler.h"
+#import "FBExceptionHandler.h"
 #import "FBElementCache.h"
 #import "FBElementTypeTransformer.h"
 #import "FBRouteRequest.h"

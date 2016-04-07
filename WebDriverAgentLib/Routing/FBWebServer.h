@@ -11,23 +11,15 @@
 
 extern NSString *const FBWebServerErrorDomain;
 
-@class RouteResponse, RoutingHTTPServer;
-@protocol FBWebServerExceptionHandler, FBElementCache;
+@class RouteResponse, RoutingHTTPServer, FBExceptionHandler;
+@protocol FBElementCache;
 
 @interface FBWebServer : NSObject
-@property (atomic, strong, readonly) RoutingHTTPServer *server;
-@property (nonatomic, copy) NSArray<id<FBWebServerExceptionHandler>> *exceptionHandlers;
+@property (nonatomic, strong, readonly) RoutingHTTPServer *server;
+@property (nonatomic, strong) FBExceptionHandler *exceptionHandler;
 
 - (void)startServing;
 
 - (void)handleAppDeadlockDetection;
 
 @end
-
-
-@protocol FBWebServerExceptionHandler <NSObject>
-
-- (BOOL)webServer:(FBWebServer *)webServer handleException:(NSException *)exception forResponse:(RouteResponse *)response;
-
-@end
-

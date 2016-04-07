@@ -10,6 +10,13 @@
 #import <Foundation/Foundation.h>
 #import <WebDriverAgentLib/FBWebServer.h>
 
-@interface FBXCTExceptionHandler : NSObject <FBWebServerExceptionHandler>
+extern NSString *const FBSessionDoesNotExistException;
+extern NSString *const FBApplicationDeadlockDetectedException;
+extern NSString *const FBElementAttributeUnknownException;
+
+@interface FBExceptionHandler : NSObject
+
+- (BOOL)webServer:(FBWebServer *)webServer handleException:(NSException *)exception forResponse:(RouteResponse *)response;
 
 @end
+

@@ -9,12 +9,11 @@
 
 #import "FBWebDriverAgent.h"
 
-#import "FBCoreExceptionHandler.h"
 #import "FBHTTPOverUSBServer.h"
 #import "FBSession-Private.h"
 #import "FBWDALogger.h"
 #import "FBWebServer.h"
-#import "FBXCTExceptionHandler.h"
+#import "FBExceptionHandler.h"
 #import "FBSession.h"
 
 @interface FBWebDriverAgent ()
@@ -28,7 +27,7 @@
 {
   [FBWDALogger logFmt:@"Built at %s %s", __DATE__, __TIME__];
   self.routingServer = [[FBWebServer alloc] init];
-  self.routingServer.exceptionHandlers = @[[FBCoreExceptionHandler new], [FBXCTExceptionHandler new]];
+  self.routingServer.exceptionHandler = [FBExceptionHandler new];
   [self.routingServer startServing];
 
   self.USBServer = [[FBHTTPOverUSBServer alloc] initWithRoutingServer:self.routingServer.server];

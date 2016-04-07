@@ -9,7 +9,6 @@
 
 #import <XCTest/XCTest.h>
 
-#import <WebDriverAgentLib/FBCoreExceptionHandler.h>
 #import <WebDriverAgentLib/FBWDALogger.h>
 #import <WebDriverAgentLib/FBWebDriverAgent.h>
 #import <WebDriverAgentLib/XCTestCase.h>
