@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBXCTWebDriverAgent.h"
+#import "FBWebDriverAgent.h"
 
 #import "FBCoreExceptionHandler.h"
 #import "FBHTTPOverUSBServer.h"
@@ -17,12 +17,12 @@
 #import "FBXCTExceptionHandler.h"
 #import "FBSession.h"
 
-@interface FBXCTWebDriverAgent ()
+@interface FBWebDriverAgent ()
 @property (atomic, strong, readwrite) FBWebServer *routingServer;
 @property (atomic, strong, readwrite) FBHTTPOverUSBServer *USBServer;
 @end
 
-@implementation FBXCTWebDriverAgent
+@implementation FBWebDriverAgent
 
 - (void)start
 {

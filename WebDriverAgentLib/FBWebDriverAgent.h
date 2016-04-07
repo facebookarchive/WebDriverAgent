@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FBXCTWebDriverAgent : NSObject
+@interface FBWebDriverAgent : NSObject
 
 - (void)start;
 

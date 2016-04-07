@@ -11,7 +11,7 @@
 
 #import <WebDriverAgentLib/FBCoreExceptionHandler.h>
 #import <WebDriverAgentLib/FBWDALogger.h>
-#import <WebDriverAgentLib/FBXCTWebDriverAgent.h>
+#import <WebDriverAgentLib/FBWebDriverAgent.h>
 #import <WebDriverAgentLib/XCTestCase.h>
 
 #import "FBDebugLogDelegateDecorator.h"
@@ -21,7 +21,7 @@
 BOOL _AXSAutomationSetFauxCollectionViewCellsEnabled(BOOL);
 
 @interface UITestingUITests : XCTestCase
-@property (nonatomic, strong) FBXCTWebDriverAgent *agent;
+@property (nonatomic, strong) FBWebDriverAgent *agent;
 @end
 
 @implementation UITestingUITests
@@ -37,7 +37,7 @@ BOOL _AXSAutomationSetFauxCollectionViewCellsEnabled(BOOL);
   [super setUp];
   self.continueAfterFailure = YES;
   _AXSAutomationSetFauxCollectionViewCellsEnabled(YES);
-  self.agent = [FBXCTWebDriverAgent new];
+  self.agent = [FBWebDriverAgent new];
 }
 
 - (void)testRunner
