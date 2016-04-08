@@ -4,7 +4,6 @@
 
 ## Build generated
 build/
-Carthage/
 DerivedData
 
 ## Various settings
@@ -39,9 +38,12 @@ Pods/
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
 
 Carthage/Build
+Carthage/Checkouts
+UIWebDriverAgent/Carthage/Build
+UIWebDriverAgent/Carthage/Checkouts
 
 # Resource bundle recreated on each build
 Resources/WebDriverAgent.bundle
+UIWebDriverAgent/Resources/WebDriverAgent.bundle
