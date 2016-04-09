@@ -361,6 +361,7 @@
 /* Begin PBXFileReference section */
 		91E7D8571B99E45400F8BA6F /* UIAutomation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIAutomation.framework; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks/UIAutomation.framework; sourceTree = DEVELOPER_DIR; };
 		91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AccessibilityUtilities.framework; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks/AccessibilityUtilities.framework; sourceTree = DEVELOPER_DIR; };
+		AD09B93D1CB90E22005D6D88 /* VendorSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = VendorSettings.xcconfig; sourceTree = "<group>"; };
 		EE606A721C93021100C0FC53 /* XCUIApplicationImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIApplicationImpl.h; sourceTree = "<group>"; };
 		EE606A731C93021100C0FC53 /* XCUIApplicationProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIApplicationProcess.h; sourceTree = "<group>"; };
 		EE836C021C0F118600D87246 /* WebDriverAgentLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1279,6 +1280,7 @@
 			isa = PBXGroup;
 			children = (
 				EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */,
+				AD09B93D1CB90E22005D6D88 /* VendorSettings.xcconfig */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -2047,11 +2049,10 @@
 		};
 		EE9AB56A1CAEC4E9008C271F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD09B93D1CB90E22005D6D88 /* VendorSettings.xcconfig */;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2070,10 +2071,9 @@
 		};
 		EE9AB56B1CAEC4E9008C271F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD09B93D1CB90E22005D6D88 /* VendorSettings.xcconfig */;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2092,16 +2092,14 @@
 		};
 		EE9AB57B1CAEC4F1008C271F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD09B93D1CB90E22005D6D88 /* VendorSettings.xcconfig */;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREFIX_HEADER = VendorLibs/SharedVendor.pch;
-				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = "VendorLibs/SharedVendor-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -2115,15 +2113,13 @@
 		};
 		EE9AB57C1CAEC4F1008C271F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD09B93D1CB90E22005D6D88 /* VendorSettings.xcconfig */;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREFIX_HEADER = VendorLibs/SharedVendor.pch;
-				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = "VendorLibs/SharedVendor-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -2137,15 +2133,13 @@
 		};
 		EE9AB58C1CAEC4FA008C271F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD09B93D1CB90E22005D6D88 /* VendorSettings.xcconfig */;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = "VendorLibs/SharedVendor-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -2160,14 +2154,12 @@
 		};
 		EE9AB58D1CAEC4FA008C271F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD09B93D1CB90E22005D6D88 /* VendorSettings.xcconfig */;
 			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = "VendorLibs/SharedVendor-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
