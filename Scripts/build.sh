@@ -20,6 +20,15 @@ function build_cli_deps() {
 }
 
 function build() {
+  if [ $ACTION="run-tests" ]; then
+    xctool \
+        -project $PROJECT \
+        -scheme $TARGET \
+        -sdk $SDK \
+        build-tests \
+        CODE_SIGN_IDENTITY="" \
+        CODE_SIGNING_REQUIRED=NO
+  fi
   xctool \
       -project $PROJECT \
       -scheme $TARGET \
