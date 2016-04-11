@@ -41,9 +41,9 @@ Pods/
 
 Carthage/Build
 Carthage/Checkouts
-UIWebDriverAgent/Carthage/Build
-UIWebDriverAgent/Carthage/Checkouts
+UIAWebDriverAgent/Carthage/Build
+UIAWebDriverAgent/Carthage/Checkouts
 
 # Resource bundle recreated on each build
 Resources/WebDriverAgent.bundle
-UIWebDriverAgent/Resources/WebDriverAgent.bundle
+UIAWebDriverAgent/Resources/WebDriverAgent.bundle
