@@ -109,13 +109,18 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   if (!alert) {
     return nil;
   }
-  NSArray *texts = [[self _currentAlert] childrenOfClassName:UIAClassString(UIAStaticText)];
-  id text = [[texts lastObject] name];
-
-  if (!text) {
-    return [NSNull null];
+  NSArray *staticTextList = [[self _currentAlert] childrenOfClassName:UIAClassString(UIAStaticText)];
+  NSMutableString *mText = [NSMutableString string];
+  for (UIAElement *staticText in staticTextList) {
+    if (staticText.name) {
+      [mText appendFormat:@"%@\n", staticText.name];
+    }
   }
-  return text;
+  // Removing last '\n'
+  if (mText.length > 0) {
+    [mText replaceCharactersInRange:NSMakeRange(mText.length - @"\n".length, @"\n".length) withString:@""];
+  }
+  return mText.length > 0 ? mText.copy : [NSNull null];
 }
 
 + (BOOL)acceptAlert
