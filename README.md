@@ -1,4 +1,4 @@
-# WebDriverAgent [![GitHub license](https://img.shields.io/badge/license-BSD-lightgrey.svg)](LICENSE) [![Build Status](https://travis-ci.org/facebook/WebDriverAgent.svg?branch=master)](https://travis-ci.org/facebook/WebDriverAgent)
+# WebDriverAgent [![GitHub license](https://img.shields.io/badge/license-BSD-lightgrey.svg)](LICENSE) [![Build Status](https://travis-ci.org/facebook/WebDriverAgent.svg?branch=master)](https://travis-ci.org/facebook/WebDriverAgent) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 WebDriverAgent is a WebDriver server for iOS that runs inside the Simulator and is written entirely in Objective-C. It works by linking `XCTest.framework` and calling Apple's API to execute commands directly on device / simulator.
 If you are looking for WebDriverAgent that uses `UIAutomation.framework` check [here](https://github.com/facebook/WebDriverAgent/tree/master/UIAWebDriverAgent)).
