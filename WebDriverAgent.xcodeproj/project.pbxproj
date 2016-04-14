@@ -2032,7 +2032,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
+				DEFINES_MODULE = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2054,7 +2054,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
+				DEFINES_MODULE = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2291,6 +2291,7 @@
 				EE158A9F1CBD452B00A3E3F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EE836C0A1C0F118600D87246 /* Build configuration list for PBXNativeTarget "WebDriverAgentLibTests" */ = {
 			isa = XCConfigurationList;
