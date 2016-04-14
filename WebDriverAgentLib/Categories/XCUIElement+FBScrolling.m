@@ -16,14 +16,17 @@
 #import "XCElementSnapshot-Hitpoint.h"
 #import "XCElementSnapshot.h"
 #import "XCEventGenerator.h"
+#import "XCTestDriver.h"
+#import "XCTouchGesture.h"
+#import "XCTouchPath.h"
 #import "XCUIApplication.h"
 #import "XCUICoordinate.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
 
-const CGFloat FBNormalizedDragDistance = 0.95f;
+const CGFloat FBNormalizedDragDistance = 1.0f;
 const CGFloat FBScrollVelocity = 200.f;
-const CGFloat FBScrollBoundingVelocityPadding = 5.0f;
+const CGFloat FBScrollBoundingVelocityPadding = 0.0f;
 
 void FBHandleScrollingErrorWithDescription(NSError **error, NSString *description);
 
@@ -98,7 +101,7 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   NSUInteger scrollCount = 0;
 
   // Scrolling till cell is visible and got corrent value of frames
-  while (!self.isFBVisible && scrollCount < maxScrollCount) {
+  while (!self.isEquivalentElementVisible && scrollCount < maxScrollCount) {
     if (targetCellIndex < visibleCellIndex) {
       isVerticalScroll ? [scrollView scrollUp] : [scrollView scrollLeft];
     }
@@ -120,6 +123,20 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
                                        targetCellSnapshot.visibleFrame.size.height - targetCellSnapshot.frame.size.height
                                        );
   return [scrollView scrollByVector:scrollVector error:error];
+}
+
+- (BOOL)isEquivalentElementVisible
+{
+  if (self.isFBVisible) {
+    return YES;
+  }
+  [self.application resolve];
+  for (XCElementSnapshot *elementSnapshot in self.application.lastSnapshot._allDescendants.copy) {
+    if ([self.lastSnapshot _fuzzyMatchesElement:elementSnapshot] && elementSnapshot.isFBVisible) {
+      return YES;
+    }
+  }
+  return NO;
 }
 
 - (XCElementSnapshot *)parentCellSnapshot
@@ -199,14 +216,24 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
     return YES;
   }
 
+  double offset = 0.3; // Waiting before scrolling helps to make it more stable
+  double scrollingTime = MAX(fabs(vector.dx), fabs(vector.dy))/FBScrollVelocity;
+  XCTouchPath *touchPath = [[XCTouchPath alloc] initWithTouchDown:startCoordinate.screenPoint orientation:self.application.interfaceOrientation offset:offset];
+  offset += MAX(scrollingTime, 0.1); // Setting Minimum scrolling time to avoid testmanager complaining about timing
+  [touchPath liftUpAtPoint:endCoordinate.screenPoint offset:offset];
+
+  XCTouchGesture *gesture = [[XCTouchGesture alloc] initWithName:@"FBScroll"];
+  [gesture addTouchPath:touchPath];
+
   __block volatile uint32_t didFinishScrolling = 0;
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
-  double estimatedDuration = [[XCEventGenerator sharedGenerator] pressAtPoint:startCoordinate.screenPoint forDuration:0.0 liftAtPoint:endCoordinate.screenPoint velocity:FBScrollVelocity orientation:self.application.interfaceOrientation name:@"FBScroll" handler:^(NSError *scrollingError){
+  [[XCTestDriver sharedTestDriver].managerProxy _XCT_performTouchGesture:gesture completion:^(NSError *scrollingError) {
     didSucceed = (scrollingError == nil);
     innerError = scrollingError;
     OSAtomicOr32Barrier(1, &didFinishScrolling);
   }];
+  double estimatedDuration = gesture.maximumOffset;
   while (!didFinishScrolling) {
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:estimatedDuration/4.0]];
   }

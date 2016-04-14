@@ -71,7 +71,7 @@
 - (BOOL)_frameFuzzyMatchesElement:(id)arg1;
 - (BOOL)_fuzzyMatchesElement:(id)arg1;
 - (BOOL)_matchesElement:(id)arg1;
-- (id)_allDescendants;
+- (NSArray<XCElementSnapshot *> *)_allDescendants;
 - (BOOL)hasDescendantMatchingFilter:(CDUnknownBlockType)arg1;
 - (id)descendantsByFilteringWithBlock:(BOOL(^)(XCElementSnapshot *snapshot))block;
 - (id)elementSnapshotMatchingAccessibilityElement:(id)arg1;
