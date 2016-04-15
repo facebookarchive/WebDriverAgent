@@ -123,7 +123,11 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   CGVector scrollVector = CGVectorMake(targetCellSnapshot.visibleFrame.size.width - targetCellSnapshot.frame.size.width,
                                        targetCellSnapshot.visibleFrame.size.height - targetCellSnapshot.frame.size.height
                                        );
-  return [scrollView scrollByVector:scrollVector error:error];
+  if (![scrollView scrollByVector:scrollVector error:error]) {
+    return NO;
+  }
+  [self waitUntilFrameIsStable];
+  return YES;
 }
 
 - (BOOL)isEquivalentElementVisible
@@ -138,6 +142,16 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
     }
   }
   return NO;
+}
+
+- (void)waitUntilFrameIsStable
+{
+  CGRect frame = CGRectZero;
+  while (!CGRectEqualToRect(self.frame, frame)) {
+    frame = self.frame;
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    [self resolve];
+  }
 }
 
 - (XCElementSnapshot *)parentCellSnapshot
