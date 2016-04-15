@@ -27,6 +27,7 @@
 const CGFloat FBNormalizedDragDistance = 1.0f;
 const CGFloat FBScrollVelocity = 200.f;
 const CGFloat FBScrollBoundingVelocityPadding = 0.0f;
+const CGFloat FBScrollTouchProportion = 0.75f;
 
 void FBHandleScrollingErrorWithDescription(NSError **error, NSString *description);
 
@@ -184,8 +185,8 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
 
 - (BOOL)scrollByVector:(CGVector)vector error:(NSError **)error
 {
-  CGVector scrollBoundingVector = CGVectorMake(CGRectGetWidth(self.frame)/2.0f - FBScrollBoundingVelocityPadding,
-                                               CGRectGetHeight(self.frame)/2.0f - FBScrollBoundingVelocityPadding
+  CGVector scrollBoundingVector = CGVectorMake(CGRectGetWidth(self.frame) * FBScrollTouchProportion - FBScrollBoundingVelocityPadding,
+                                               CGRectGetHeight(self.frame)* FBScrollTouchProportion - FBScrollBoundingVelocityPadding
                                                );
   scrollBoundingVector.dx = (CGFloat)copysign(scrollBoundingVector.dx, vector.dx);
   scrollBoundingVector.dy = (CGFloat)copysign(scrollBoundingVector.dy, vector.dy);
@@ -205,9 +206,19 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   return YES;
 }
 
+- (CGVector)hitPointOffsetForScrollingVector:(CGVector)scrollingVector
+{
+  return
+    CGVectorMake(
+      CGRectGetMinX(self.frame) + CGRectGetWidth(self.frame) * (scrollingVector.dx < 0.0f ? FBScrollTouchProportion : (1 - FBScrollTouchProportion)),
+      CGRectGetMinY(self.frame) + CGRectGetHeight(self.frame) * (scrollingVector.dy < 0.0f ? FBScrollTouchProportion : (1 - FBScrollTouchProportion))
+    );
+}
+
 - (BOOL)scrollAncestorScrollViewByVectorWithinScrollViewFrame:(CGVector)vector error:(NSError **)error
 {
-  CGVector hitpointOffset = CGVectorMake(self.hitPointForScrolling.x, self.hitPointForScrolling.y);
+  CGVector hitpointOffset = [self hitPointOffsetForScrollingVector:vector];
+
   XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:self.application normalizedOffset:CGVectorMake(0.0, 0.0)];
   XCUICoordinate *startCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:hitpointOffset];
   XCUICoordinate *endCoordinate = [[XCUICoordinate alloc] initWithCoordinate:startCoordinate pointsOffset:vector];
