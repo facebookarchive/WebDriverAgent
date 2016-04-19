@@ -201,6 +201,7 @@
 		EE158B591CBD459C00A3E3F0 /* XCUIRemote.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031391BFA3461007EDC1D /* XCUIRemote.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158B5A1CBD462100A3E3F0 /* WebDriverAgentLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE158A991CBD452B00A3E3F0 /* WebDriverAgentLib.framework */; };
 		EE158B5F1CBD47A000A3E3F0 /* WebDriverAgentLib.h in Headers */ = {isa = PBXBuildFile; fileRef = EE158B5E1CBD47A000A3E3F0 /* WebDriverAgentLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE2EAAA21CC6693900A3AB19 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EEDBEBBA1CB2681900A790A2 /* WebDriverAgent.bundle */; };
 		EE9AB5911CAEC5CC008C271F /* DDXMLElementAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2E51CAEBD67008C271F /* DDXMLElementAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE9AB5921CAEC5CC008C271F /* DDXMLElementAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB2E61CAEBD67008C271F /* DDXMLElementAdditions.m */; };
 		EE9AB5931CAEC5CC008C271F /* NSString+DDXML.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2E81CAEBD67008C271F /* NSString+DDXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -306,7 +307,6 @@
 		EEDBE9141CB2641900A790A2 /* FBResponseJSONPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7811CAEDF0C008C271F /* FBResponseJSONPayload.m */; };
 		EEDBE9151CB2641900A790A2 /* FBResponsePayload.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7831CAEDF0C008C271F /* FBResponsePayload.m */; };
 		EEDBE9191CB264B200A790A2 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDBE9171CB2647900A790A2 /* OCMock.framework */; };
-		EEDBEBBB1CB2681900A790A2 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EEDBEBBA1CB2681900A790A2 /* WebDriverAgent.bundle */; };
 		EEDBEBBC1CB26ED800A790A2 /* KissXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5601CAEC4E9008C271F /* KissXML.framework */; };
 		EEDBEBBD1CB26ED800A790A2 /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */; };
 /* End PBXBuildFile section */
@@ -1520,6 +1520,7 @@
 				EE158A941CBD452B00A3E3F0 /* Sources */,
 				EE158A951CBD452B00A3E3F0 /* Frameworks */,
 				EE158A961CBD452B00A3E3F0 /* Headers */,
+				EE2EAAA31CC6694900A3AB19 /* Generate Resource Bundle */,
 				EE158A971CBD452B00A3E3F0 /* Resources */,
 			);
 			buildRules = (
@@ -1613,7 +1614,6 @@
 			buildPhases = (
 				EEF988261C486603005CA669 /* Sources */,
 				EEF988271C486603005CA669 /* Frameworks */,
-				EEF9883C1C486768005CA669 /* Generate Resource Bundle */,
 				EEF988281C486603005CA669 /* Resources */,
 			);
 			buildRules = (
@@ -1685,6 +1685,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE2EAAA21CC6693900A3AB19 /* WebDriverAgent.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1720,13 +1721,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEDBEBBB1CB2681900A790A2 /* WebDriverAgent.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		EE2EAAA31CC6694900A3AB19 /* Generate Resource Bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Resource Bundle";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${SRCROOT} && bash ./Scripts/build_resource_bundle.sh";
+			showEnvVarsInLog = 0;
+		};
 		EEDBE91A1CB264F600A790A2 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1742,20 +1757,6 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 			showEnvVarsInLog = 0;
-		};
-		EEF9883C1C486768005CA669 /* Generate Resource Bundle */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Generate Resource Bundle";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd ${SRCROOT} && bash ./Scripts/build_resource_bundle.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 
