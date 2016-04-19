@@ -35,8 +35,6 @@
 
 + (id<FBResponsePayload>)handleCreateSession:(FBRouteRequest *)request
 {
-  [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome]; //Launching new app from Homescreen
-
   NSDictionary *requirements = request.arguments[@"desiredCapabilities"];
   NSString *bundleID = requirements[@"bundleId"];
   NSString *appPath = requirements[@"app"];

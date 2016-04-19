@@ -26,6 +26,7 @@
 {
   return
   @[
+    [[FBRoute POST:@"/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/timeouts/implicit_wait"] respondWithTarget:self action:@selector(handleImplicitWaitCommand:)],
     [[FBRoute POST:@"/hide_keyboard"] respondWithTarget:self action:@selector(handleHideKeyboard:)]
@@ -34,6 +35,12 @@
 
 
 #pragma mark - Commands
+
++ (id<FBResponsePayload>)handleHomescreenCommand:(FBRouteRequest *)request
+{
+  [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
+  return FBResponseDictionaryWithOK();
+}
 
 + (id<FBResponsePayload>)handleDeactivateAppCommand:(FBRouteRequest *)request
 {

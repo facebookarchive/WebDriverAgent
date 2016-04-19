@@ -21,6 +21,10 @@
 + (NSArray *)routes
 {
   return @[
+    [[FBRoute POST:@"/homescreen"].withoutSession respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+      [UIATarget.localTarget deactivateApp];
+      return FBResponseDictionaryWithOK();
+    }],
     [[FBRoute POST:@"/deactivateApp"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       id duration = request.arguments[@"duration"];
       @try {
