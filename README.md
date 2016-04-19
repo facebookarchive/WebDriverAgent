@@ -41,7 +41,7 @@ curl -X POST -H "Content-Type: application/json" -d "{\"desiredCapabilities\":{\
 After application launches you can inspect it by opening web browser on [/inspector](https://localhost:8100/inspector) endpoint
 or query elements with curl request:
 ```
-curl -X POST -H "Content-Type: application/json" -d "{"using":"xpath","value":"//XCUIElementTypeButton"}" http://[DEVICE_URL]/session/[SESSION_ID]/elements
+curl -X POST -H "Content-Type: application/json" -d "{\"using\":\"xpath\",\"value\":\"//XCUIElementTypeButton\"}" http://[DEVICE_URL]/session/[SESSION_ID]/elements
 ```
 
 Have fun!
