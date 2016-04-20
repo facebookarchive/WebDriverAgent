@@ -10,6 +10,7 @@
 #import "FBSpringboardApplication.h"
 
 #import "XCUIElement+FBTap.h"
+#import "XCUIElement+FBScrolling.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 
@@ -23,12 +24,18 @@
   return springboard;
 }
 
-- (void)fb_tapApplicationWithIdentifier:(NSString *)identifier
+- (BOOL)fb_tapApplicationWithIdentifier:(NSString *)identifier error:(NSError **)error
 {
   XCUIElement *appElement = [[self descendantsMatchingType:XCUIElementTypeAny]
                              elementMatchingPredicate:[NSPredicate predicateWithFormat:@"identifier = %@", identifier]
                              ];
-  [appElement fb_tapWithError:nil];
+  if (![appElement scrollToVisibleWithError:error]) {
+    return NO;
+  }
+  if (![appElement fb_tapWithError:error]) {
+    return NO;
+  }
+  return YES;
 }
 
 @end

@@ -12,14 +12,17 @@
 @interface FBSpringboardApplication : FBApplication
 
 /**
- * @return FBApplication that is attached to SpringBoard
+ @return FBApplication that is attached to SpringBoard
  */
 + (instancetype)springboard;
 
 /**
- * Taps application on SpringBoard app with given identifer
- * @param identifier identifier of the application to tap
+ Taps application on SpringBoard app with given identifer
+
+ @param identifier identifier of the application to tap
+ @param error If there is an error, upon return contains an NSError object that describes the problem.
+ @return YES if the operation succeeds, otherwise NO.
  */
-- (void)fb_tapApplicationWithIdentifier:(NSString *)identifier;
+- (BOOL)fb_tapApplicationWithIdentifier:(NSString *)identifier error:(NSError **)error;
 
 @end

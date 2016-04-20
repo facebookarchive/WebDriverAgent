@@ -52,7 +52,10 @@
   CGFloat duration = (requestedDuration ? requestedDuration.floatValue : 3.f);
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:duration]];
 
-  [[FBSpringboardApplication springboard] fb_tapApplicationWithIdentifier:applicationIdentifier];
+  NSError *error;
+  if (![[FBSpringboardApplication springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:&error]) {
+    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
+  }
   return FBResponseDictionaryWithOK();
 }
 
