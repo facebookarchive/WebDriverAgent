@@ -126,7 +126,6 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   if (![scrollView scrollByVector:scrollVector error:error]) {
     return NO;
   }
-  [self waitUntilFrameIsStable];
   return YES;
 }
 
@@ -142,16 +141,6 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
     }
   }
   return NO;
-}
-
-- (void)waitUntilFrameIsStable
-{
-  CGRect frame = CGRectZero;
-  while (!CGRectEqualToRect(self.frame, frame)) {
-    frame = self.frame;
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-    [self resolve];
-  }
 }
 
 - (XCElementSnapshot *)parentCellSnapshot
