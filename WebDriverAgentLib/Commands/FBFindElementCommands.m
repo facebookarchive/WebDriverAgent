@@ -180,7 +180,6 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
         if (indexIntoResult) {
             NSRange r = indexIntoResult.range;
             selStr = [sel substringToIndex:r.location];
-            //this wont account for multiple digits.
             NSArray *charactersToRemove = @[@"[", @"]", @"\""];
             extractedStr = [sel substringFromIndex:r.location].mutableCopy;
             for (NSString *remove in charactersToRemove) {
