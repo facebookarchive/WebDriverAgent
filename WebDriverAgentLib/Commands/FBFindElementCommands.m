@@ -91,7 +91,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     if (!elements) {
         return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @{
                                                                               @"description": @"unable to find an elements",
-                                                                              @"sel": request.arguments[@"sel"] ?: @"",
+                                                                              @"property": request.arguments[@"prop"] ?: @"",
                                                                               });
     }
     NSMutableArray *elementsResponse = [[NSMutableArray alloc] init];
