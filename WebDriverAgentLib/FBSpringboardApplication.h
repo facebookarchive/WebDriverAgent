@@ -25,4 +25,12 @@
  */
 - (BOOL)fb_tapApplicationWithIdentifier:(NSString *)identifier error:(NSError **)error;
 
+/**
+ Waits until application board is visible with timeout
+
+ @param error If there is an error, upon return contains an NSError object that describes the problem.
+ @return YES if the operation succeeds, otherwise NO.
+ */
+- (BOOL)waitUntilApplicationBoardIsVisible:(NSError **)error;
+
 @end

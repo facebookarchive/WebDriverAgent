@@ -39,6 +39,10 @@
 + (id<FBResponsePayload>)handleHomescreenCommand:(FBRouteRequest *)request
 {
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
+  NSError *error;
+  if (![[FBSpringboardApplication springboard] waitUntilApplicationBoardIsVisible:&error]) {
+    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
+  }
   return FBResponseDictionaryWithOK();
 }
 

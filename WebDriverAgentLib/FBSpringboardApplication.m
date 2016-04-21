@@ -9,6 +9,9 @@
 
 #import "FBSpringboardApplication.h"
 
+#import "XCElementSnapshot+Helpers.h"
+#import "XCElementSnapshot.h"
+#import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBTap.h"
 #import "XCUIElement+FBScrolling.h"
 #import "XCUIElement.h"
@@ -36,6 +39,33 @@
     return NO;
   }
   return YES;
+}
+
+- (BOOL)waitUntilApplicationBoardIsVisible:(NSError **)error
+{
+  NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:10.];
+  while (!self.isApplicationBoardVisible) {
+    const BOOL didTimeout = [timeoutDate timeIntervalSinceDate:[NSDate date]] < 0;
+    if (didTimeout) {
+      if (error) {
+        *error = [NSError errorWithDomain:@"com.facebook.WebDriverAgent.waitUntilVisible"
+                                     code:0
+                                 userInfo:@{NSLocalizedDescriptionKey : @"Timeout waiting until element is visible"}
+                  ];
+      }
+      return NO;
+    }
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+  }
+  return YES;
+}
+
+- (BOOL)isApplicationBoardVisible
+{
+  [self resolve];
+  XCElementSnapshot *mainWindow = self.lastSnapshot.mainWindow;
+  // During application switch 'SBSwitcherWindow' becomes a main window, so we should wait till it is gone
+  return mainWindow.isFBVisible && ![mainWindow.identifier isEqualToString:@"SBSwitcherWindow"];
 }
 
 @end

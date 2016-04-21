@@ -72,4 +72,12 @@ NSNumber *FB_XCAXAIsElementAttribute;
   return attributesResult[attribute];
 }
 
+- (XCElementSnapshot *)mainWindow
+{
+  NSArray<XCElementSnapshot *> *mainWindows = [self descendantsByFilteringWithBlock:^BOOL(XCElementSnapshot *snapshot) {
+    return snapshot.isMainWindow;
+  }];
+  return mainWindows.lastObject;
+}
+
 @end
