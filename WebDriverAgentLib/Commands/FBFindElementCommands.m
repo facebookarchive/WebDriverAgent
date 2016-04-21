@@ -48,6 +48,8 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   @[
     [[FBRoute POST:@"/element"] respondWithTarget:self action:@selector(handleFindElement:)],
     [[FBRoute POST:@"/elements"] respondWithTarget:self action:@selector(handleFindElements:)],
+    [[FBRoute POST:@"/element/:id/elementsFromProperty"] respondWithTarget:self action:@selector(elementsFromProperty:)],
+    [[FBRoute POST:@"/element/:id/elementFromProperty"] respondWithTarget:self action:@selector(elementFromProperty:)],
     [[FBRoute GET:@"/uiaElement/:elementID/getVisibleCells"] respondWithTarget:self action:@selector(handleFindVisibleCells:)],
     [[FBRoute POST:@"/element/:id/element"] respondWithTarget:self action:@selector(handleFindSubElement:)],
     [[FBRoute POST:@"/element/:id/elements"] respondWithTarget:self action:@selector(handleFindSubElements:)],
@@ -78,6 +80,39 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     [elementsResponse addObject:[self dictionaryResponseWithElement:element elementID:elementID]];
   }
   return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
+}
+
++ (id<FBResponsePayload>)elementsFromProperty:(FBRouteRequest *)request
+{
+    FBElementCache *elementCache = request.session.elementCache;
+    XCUIElement *topElement = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+
+    NSArray *elements = [self.class elementsFromElement:topElement forSelectorString:request.arguments[@"prop"]];
+    if (!elements) {
+        return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @{
+                                                                              @"description": @"unable to find an elements",
+                                                                              @"sel": request.arguments[@"sel"] ?: @"",
+                                                                              });
+    }
+    NSMutableArray *elementsResponse = [[NSMutableArray alloc] init];
+    for (XCUIElement *element in elements) {
+        NSInteger elementID = [request.session.elementCache storeElement:element];
+        [elementsResponse addObject:[self dictionaryResponseWithElement:element elementID:elementID]];
+    }
+    return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
+}
+
++ (id<FBResponsePayload>)elementFromProperty:(FBRouteRequest *)request
+{
+    FBElementCache *elementCache = request.session.elementCache;
+    XCUIElement *topElement = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+    
+    XCUIElement *element = [self.class elementsFromElement:topElement forSelectorString:request.arguments[@"prop"]].firstObject;
+    if (!element) {
+        return FBNoSuchElementErrorResponseForRequest(request);
+    }
+    NSInteger elementID = [request.session.elementCache storeElement:element];
+    return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:element elementID:elementID]);
 }
 
 + (id<FBResponsePayload>)handleFindVisibleCells:(FBRouteRequest *)request
@@ -127,7 +162,52 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 }
 
 
-#pragma mark - Helpers
+#pragma mark - Helpers.
+
++ (NSArray *)elementsFromElement:(XCUIElement *)topElement forSelectorString:(NSString *)selectorString
+{
+    XCUIElementQuery *query;
+    NSTextCheckingResult *indexIntoResult;
+    NSArray *sels = [selectorString componentsSeparatedByString:@"."];
+    for (NSString *sel in sels) {
+        
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[.+\\]" options:0 error:NULL];
+        indexIntoResult = [regex firstMatchInString:sel options:0 range:NSMakeRange(0, [sel length])];
+        NSString *selStr;
+        NSMutableString *extractedStr;
+        NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+
+        if (indexIntoResult) {
+            NSRange r = indexIntoResult.range;
+            selStr = [sel substringToIndex:r.location];
+            //this wont account for multiple digits.
+            NSArray *charactersToRemove = @[@"[", @"]", @"\""];
+            extractedStr = [sel substringFromIndex:r.location].mutableCopy;
+            for (NSString *remove in charactersToRemove) {
+                [extractedStr replaceOccurrencesOfString:remove withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, extractedStr.length)];
+            }
+        } else {
+            selStr = sel;
+        }
+        
+        SEL customSelector = NSSelectorFromString(selStr);
+        if ([topElement respondsToSelector:customSelector]) {
+            IMP imp = [topElement methodForSelector:customSelector];
+            XCUIElementQuery *(*func)(id, SEL) = (void *)imp;
+            query = topElement ?
+            func(topElement, customSelector) : nil;
+            if (indexIntoResult && [extractedStr rangeOfCharacterFromSet:notDigits].location == NSNotFound) {
+                NSUInteger idx = [[NSNumberFormatter new] numberFromString:extractedStr].unsignedIntegerValue;
+                topElement = [query elementBoundByIndex:idx];
+            } else if (indexIntoResult && [extractedStr rangeOfCharacterFromSet:notDigits].location != NSNotFound) {
+                topElement = query[extractedStr];
+            }
+        } else {
+            return nil;
+        }
+    }
+    return indexIntoResult ? @[topElement] : [query allElementsBoundByIndex];
+}
 
 + (NSDictionary *)dictionaryResponseWithElement:(XCUIElement *)element elementID:(NSInteger)elementID
 {
