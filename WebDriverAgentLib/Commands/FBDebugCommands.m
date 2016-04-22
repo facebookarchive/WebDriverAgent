@@ -32,7 +32,7 @@ static id ValueOrNull(id value) {
   @[
     [[FBRoute GET:@"/tree"].withoutSession respondWithTarget:self action:@selector(handleGetActiveTreeCommand:)],
     [[FBRoute GET:@"/tree"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
-    [[FBRoute GET:@"/source"] respondWithTarget:self action:@selector(handleGetSourceCommand:)],
+    [[FBRoute GET:@"/source"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
   ];
 }
 
@@ -46,12 +46,6 @@ static id ValueOrNull(id value) {
 }
 
 + (id<FBResponsePayload>)handleGetTreeCommand:(FBRouteRequest *)request
-{
-  FBSession *session = request.session;
-  return [self handleTreeCommandWithParams:session.application];
-}
-
-+ (id<FBResponsePayload>)handleGetSourceCommand:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
   return [self handleTreeCommandWithParams:session.application];
