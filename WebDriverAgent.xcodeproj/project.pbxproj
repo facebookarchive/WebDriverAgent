@@ -202,6 +202,10 @@
 		EE158B5A1CBD462100A3E3F0 /* WebDriverAgentLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE158A991CBD452B00A3E3F0 /* WebDriverAgentLib.framework */; };
 		EE158B5F1CBD47A000A3E3F0 /* WebDriverAgentLib.h in Headers */ = {isa = PBXBuildFile; fileRef = EE158B5E1CBD47A000A3E3F0 /* WebDriverAgentLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE2EAAA21CC6693900A3AB19 /* WebDriverAgent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EEDBEBBA1CB2681900A790A2 /* WebDriverAgent.bundle */; };
+		EE93CFF51CCA501F00708122 /* WebDriverAgentLib.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = EE158A991CBD452B00A3E3F0 /* WebDriverAgentLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EE93CFF61CCA50B500708122 /* KissXML.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5601CAEC4E9008C271F /* KissXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EE93CFF71CCA50B500708122 /* peertalk.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5711CAEC4F1008C271F /* peertalk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EE93CFF81CCA50B500708122 /* RoutingHTTPServer.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EE9AB5911CAEC5CC008C271F /* DDXMLElementAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2E51CAEBD67008C271F /* DDXMLElementAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE9AB5921CAEC5CC008C271F /* DDXMLElementAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB2E61CAEBD67008C271F /* DDXMLElementAdditions.m */; };
 		EE9AB5931CAEC5CC008C271F /* NSString+DDXML.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB2E81CAEBD67008C271F /* NSString+DDXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -348,6 +352,23 @@
 			remoteInfo = RoutingHTTPServer;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EE93CFF41CCA501300708122 /* Copy frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EE93CFF61CCA50B500708122 /* KissXML.framework in Copy frameworks */,
+				EE93CFF71CCA50B500708122 /* peertalk.framework in Copy frameworks */,
+				EE93CFF81CCA50B500708122 /* RoutingHTTPServer.framework in Copy frameworks */,
+				EE93CFF51CCA501F00708122 /* WebDriverAgentLib.framework in Copy frameworks */,
+			);
+			name = "Copy frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		91E7D8571B99E45400F8BA6F /* UIAutomation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIAutomation.framework; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks/UIAutomation.framework; sourceTree = DEVELOPER_DIR; };
@@ -1615,6 +1636,7 @@
 				EEF988261C486603005CA669 /* Sources */,
 				EEF988271C486603005CA669 /* Frameworks */,
 				EEF988281C486603005CA669 /* Resources */,
+				EE93CFF41CCA501300708122 /* Copy frameworks */,
 			);
 			buildRules = (
 			);
