@@ -11,15 +11,13 @@
 
 #import "FBWDALogger.h"
 
-static const CGFloat FBTapDuration = 0.5;
-
 @implementation XCEventGenerator (SyncEvents)
 
 - (BOOL)fb_syncTapAtPoint:(CGPoint)point orientation:(UIInterfaceOrientation)orientation error:(NSError **)error
 {
   __block BOOL didSuccess;
   __block BOOL isWaiting = YES;
-  [[XCEventGenerator sharedGenerator] pressAtPoint:point forDuration:FBTapDuration orientation:orientation handler:^(NSError *commandError) {
+  [[XCEventGenerator sharedGenerator] tapAtPoint:point orientation:orientation handler:^(NSError *commandError) {
     if (commandError) {
       [FBWDALogger logFmt:@"Failed to perform tap: %@", commandError];
     }
