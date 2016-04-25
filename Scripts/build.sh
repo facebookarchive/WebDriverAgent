@@ -1,28 +1,14 @@
-#!/bin/sh
+#!/bin/bash
+#
+# Copyright (c) 2015-present, Facebook, Inc.
+# All rights reserved.
+#
+# This source code is licensed under the BSD-style license found in the
+# LICENSE file in the root directory of this source tree. An additional grant
+# of patent rights can be found in the PATENTS file in the same directory.
 #
 
 set -eu
-
-function assert_has_carthage() {
-  if ! command -v carthage; then
-      echo "cli build needs 'carthage' to bootstrap dependencies"
-      echo "You can install it using brew. E.g. $ brew install carthage"
-      exit 1;
-  fi
-}
-
-function build_cli_deps() {
-  assert_has_carthage
-  if [[ $PROJECT =~ .*UIAWebDriverAgent/.* ]]
-  then
-    pushd ./UIAWebDriverAgent
-    carthage checkout
-    popd
-  else
-    carthage checkout
-    carthage build ocmock --platform iOS
-  fi
-}
 
 function build() {
   if [ $ACTION="run-tests" ]; then
@@ -43,5 +29,5 @@ function build() {
       CODE_SIGNING_REQUIRED=NO
 }
 
-build_cli_deps
+./Script/bootstrap.sh
 build
