@@ -13,6 +13,8 @@
 #import "FBElementTypeTransformer.h"
 #import "FBRouteRequest.h"
 #import "FBSession.h"
+#import "XCAccessibilityElement.h"
+#import "XCAXClient_iOS.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+WebDriverAttributes.h"
 #import "XCUIElement.h"
@@ -42,8 +44,23 @@ static id ValueOrNull(id value) {
 
 + (id<FBResponsePayload>)handleGetActiveTreeCommand:(FBRouteRequest *)request
 {
-  FBSession *session = [FBSession activeSession];
-  return [self handleTreeCommandWithParams:session.application];
+  FBApplication *application = [self activeApplication];
+  if (!application) {
+    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, @"There is no active application");
+  }
+  return [self handleTreeCommandWithParams:application];
+}
+
++ (FBApplication *)activeApplication
+{
+  XCAccessibilityElement *activeApplicationElement = [[[XCAXClient_iOS sharedClient] activeApplications] firstObject];
+  if (!activeApplicationElement) {
+      return nil;
+  }
+  FBApplication *application = [FBApplication appWithPID:activeApplicationElement.processIdentifier];
+  [application query];
+  [application resolve];
+  return application;
 }
 
 + (id<FBResponsePayload>)handleGetTreeCommand:(FBRouteRequest *)request
