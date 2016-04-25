@@ -5,7 +5,7 @@ WebDriverAgent is a [WebDriver server](https://w3c.github.io/webdriver/webdriver
 ## Features
  * Works with device & simulator
  * Implements most of [WebDriver spec](https://w3c.github.io/webdriver/webdriver-spec.html)
- * [USB support](https://github.com/marekcirkos/WebDriverAgent/wiki/USB-support) for devices
+ * [USB support](https://github.com/facebook/WebDriverAgent/wiki/USB-support) for devices
  * Inspector [endpoint](http://localhost:8100/inspector) with friendly user interface to inspect current device state
  * Easy development cycle as it can be launched & debugged directly via Xcode
  * Unsupported yet, but works with tvOS & OSX
@@ -22,12 +22,12 @@ It will:
 * build Inspector bundle using [npm](https://www.npmjs.com)
 
 After it is finished you can simply open `WebDriverAgent.xcodeproj` and start `WebDriverAgentRunner` test
-and start sending [requests](https://github.com/marekcirkos/WebDriverAgent/wiki/Queries).
+and start sending [requests](https://github.com/facebook/WebDriverAgent/wiki/Queries).
 
-More about how to start WebDriverAgent [here](https://github.com/marekcirkos/WebDriverAgent/wiki/Starting-WebDriverAgent).
+More about how to start WebDriverAgent [here](https://github.com/facebook/WebDriverAgent/wiki/Starting-WebDriverAgent).
 
 ## Known Issues
-If you are having some issues please checkout [wiki](https://github.com/marekcirkos/WebDriverAgent/wiki/Common-Issues) first.
+If you are having some issues please checkout [wiki](https://github.com/facebook/WebDriverAgent/wiki/Common-Issues) first.
 
 ## For Contributors
 If you want to help us out, you are more than welcome to. However please make sure you have followed the guidelines in [CONTRIBUTING](CONTRIBUTING.md).
