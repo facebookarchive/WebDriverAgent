@@ -36,6 +36,9 @@ static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose);
     [[FBRoute GET:@"/source"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       return [self handleTreeCommandWithParams:request];
     }],
+    [[FBRoute GET:@"/source"].withoutSession respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+      return [self handleTreeCommandWithParams:request];
+    }],
   ];
 }
 
