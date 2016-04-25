@@ -91,12 +91,6 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     [FBWDALogger logFmt:@"Last attempt to start web server failed with error %@", [error description]];
     abort();
   }
-
-  NSDictionary *startInfo = @{
-    @"port": @([self.server port]),
-  };
-  [FBWDALogger logFmt:@"WebDriverAgent started on port %hu", [self.server port]];
-  [[NSNotificationCenter defaultCenter] postNotificationName:@"WebDriverAgentDidStart" object:nil userInfo:startInfo];
   [FBWDALogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [UIDevice currentDevice].wifiIPAddress, [self.server port], FBServerURLEndMarker];
 }
 
