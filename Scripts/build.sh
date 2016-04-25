@@ -29,5 +29,5 @@ function build() {
       CODE_SIGNING_REQUIRED=NO
 }
 
-./Script/bootstrap.sh
+./Scripts/bootstrap.sh
 build
