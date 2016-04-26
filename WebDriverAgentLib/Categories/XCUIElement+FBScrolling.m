@@ -28,7 +28,7 @@ const CGFloat FBNormalizedDragDistance = 1.0f;
 const CGFloat FBScrollVelocity = 200.f;
 const CGFloat FBScrollBoundingVelocityPadding = 0.0f;
 const CGFloat FBScrollTouchProportion = 0.75f;
-const CGFloat FBScrollCoolOffTime = 3.f;
+const CGFloat FBScrollCoolOffTime = 1.f;
 
 void FBHandleScrollingErrorWithDescription(NSError **error, NSString *description);
 
@@ -127,9 +127,6 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   if (![scrollView scrollByVector:scrollVector error:error]) {
     return NO;
   }
-  // Tapping cells immediately after scrolling may fail due to way UIKit is handling touches.
-  // We should wait till scroll view cools off, before continuing
-  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBScrollCoolOffTime]];
   return YES;
 }
 
@@ -258,6 +255,9 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   if (error) {
     *error = innerError;
   }
+  // Tapping cells immediately after scrolling may fail due to way UIKit is handling touches.
+  // We should wait till scroll view cools off, before continuing
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBScrollCoolOffTime]];
   return didSucceed;
 }
 
