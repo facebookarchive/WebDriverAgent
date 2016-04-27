@@ -32,8 +32,6 @@ static id ValueOrNull(id value) {
 {
   return
   @[
-    [[FBRoute GET:@"/tree"].withoutSession respondWithTarget:self action:@selector(handleGetActiveTreeCommand:)],
-    [[FBRoute GET:@"/tree"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
     [[FBRoute GET:@"/source"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
     [[FBRoute GET:@"/source"].withoutSession respondWithTarget:self action:@selector(handleGetActiveTreeCommand:)],
   ];

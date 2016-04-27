@@ -27,12 +27,6 @@ static NSDictionary *InfoForElement(UIAElement *element, BOOL verbose);
 + (NSArray *)routes
 {
   return @[
-    [[FBRoute GET:@"/tree"].withoutSession respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return [self handleTreeCommandWithParams:request];
-    }],
-    [[FBRoute GET:@"/tree"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      return [self handleTreeCommandWithParams:request];
-    }],
     [[FBRoute GET:@"/source"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       return [self handleTreeCommandWithParams:request];
     }],
