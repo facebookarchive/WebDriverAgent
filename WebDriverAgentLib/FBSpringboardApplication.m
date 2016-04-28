@@ -9,6 +9,7 @@
 
 #import "FBSpringboardApplication.h"
 
+#import "FBRunLoopSpinner.h"
 #import "XCElementSnapshot+Helpers.h"
 #import "XCElementSnapshot.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -43,21 +44,13 @@
 
 - (BOOL)waitUntilApplicationBoardIsVisible:(NSError **)error
 {
-  NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:10.];
-  while (!self.isApplicationBoardVisible) {
-    const BOOL didTimeout = [timeoutDate timeIntervalSinceDate:[NSDate date]] < 0;
-    if (didTimeout) {
-      if (error) {
-        *error = [NSError errorWithDomain:@"com.facebook.WebDriverAgent.waitUntilVisible"
-                                     code:0
-                                 userInfo:@{NSLocalizedDescriptionKey : @"Timeout waiting until element is visible"}
-                  ];
-      }
-      return NO;
-    }
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-  }
-  return YES;
+  return
+  [[[[FBRunLoopSpinner new]
+     timeout:10.]
+    timeoutErrorMessage:@"Timeout waiting until SpringBoard is visible"]
+   spinUntilTrue:^BOOL{
+     return self.isApplicationBoardVisible;
+   } error:error];
 }
 
 - (BOOL)isApplicationBoardVisible

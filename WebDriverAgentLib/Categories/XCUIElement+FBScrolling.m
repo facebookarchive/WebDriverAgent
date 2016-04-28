@@ -9,8 +9,7 @@
 
 #import "XCUIElement+FBScrolling.h"
 
-#import <libkern/OSAtomic.h>
-
+#import "FBRunLoopSpinner.h"
 #import "FBWDALogger.h"
 #import "XCElementSnapshot+Helpers.h"
 #import "XCElementSnapshot-Hitpoint.h"
@@ -240,18 +239,15 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   XCTouchGesture *gesture = [[XCTouchGesture alloc] initWithName:@"FBScroll"];
   [gesture addTouchPath:touchPath];
 
-  __block volatile uint32_t didFinishScrolling = 0;
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
-  [[XCTestDriver sharedTestDriver].managerProxy _XCT_performTouchGesture:gesture completion:^(NSError *scrollingError) {
-    didSucceed = (scrollingError == nil);
-    innerError = scrollingError;
-    OSAtomicOr32Barrier(1, &didFinishScrolling);
+  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
+    [[XCTestDriver sharedTestDriver].managerProxy _XCT_performTouchGesture:gesture completion:^(NSError *scrollingError) {
+      innerError = scrollingError;
+      didSucceed = (scrollingError == nil);
+      completion();
+    }];
   }];
-  double estimatedDuration = gesture.maximumOffset;
-  while (!didFinishScrolling) {
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:estimatedDuration/4.0]];
-  }
   if (error) {
     *error = innerError;
   }

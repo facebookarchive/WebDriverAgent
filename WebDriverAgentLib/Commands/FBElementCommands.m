@@ -9,11 +9,10 @@
 
 #import "FBElementCommands.h"
 
-#import <libkern/OSAtomic.h>
-
 #import "FBApplication.h"
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
+#import "FBRunLoopSpinner.h"
 #import "FBElementCache.h"
 #import "FBSession.h"
 #import "XCTestDriver.h"
@@ -333,17 +332,15 @@
  */
 + (BOOL)typeText:(NSString *)text error:(NSError **)error
 {
-  __block volatile uint32_t didFinishTyping = 0;
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
-  [[XCTestDriver sharedTestDriver].managerProxy _XCT_sendString:text completion:^(NSError *typingError){
-    didSucceed = (typingError == nil);
-    innerError = typingError;
-    OSAtomicOr32Barrier(1, &didFinishTyping);
+  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
+    [[XCTestDriver sharedTestDriver].managerProxy _XCT_sendString:text completion:^(NSError *typingError){
+      didSucceed = (typingError == nil);
+      innerError = typingError;
+      completion();
+    }];
   }];
-  while (!didFinishTyping) {
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-  }
   if (error) {
     *error = innerError;
   }

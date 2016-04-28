@@ -9,6 +9,7 @@
 
 #import "XCEventGenerator+SyncEvents.h"
 
+#import "FBRunLoopSpinner.h"
 #import "FBWDALogger.h"
 
 @implementation XCEventGenerator (SyncEvents)
@@ -16,20 +17,18 @@
 - (BOOL)fb_syncTapAtPoint:(CGPoint)point orientation:(UIInterfaceOrientation)orientation error:(NSError **)error
 {
   __block BOOL didSuccess;
-  __block BOOL isWaiting = YES;
-  [[XCEventGenerator sharedGenerator] tapAtPoint:point orientation:orientation handler:^(NSError *commandError) {
-    if (commandError) {
-      [FBWDALogger logFmt:@"Failed to perform tap: %@", commandError];
-    }
-    if (error) {
-      *error = commandError;
-    }
-    didSuccess = (commandError == nil);
-    isWaiting = NO;
+  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
+    [[XCEventGenerator sharedGenerator] tapAtPoint:point orientation:orientation handler:^(NSError *commandError) {
+      if (commandError) {
+        [FBWDALogger logFmt:@"Failed to perform tap: %@", commandError];
+      }
+      if (error) {
+        *error = commandError;
+      }
+      didSuccess = (commandError == nil);
+      completion();
+    }];
   }];
-  while (isWaiting) {
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-  }
   return didSuccess;
 }
 @end

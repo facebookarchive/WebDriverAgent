@@ -11,6 +11,7 @@
 
 #import "WebDriverAgentLib/FBFindElementCommands.h"
 
+#import "FBRunLoopSpinner.h"
 #import "FBWDALogger.h"
 #import "FBXPathCreator.h"
 #import "XCAXClient_iOS.h"
@@ -34,21 +35,19 @@ NSNumber *FB_XCAXAIsElementAttribute;
 
 + (XCElementSnapshot *)fb_snapshotForAccessibilityElement:(XCAccessibilityElement *)accessibilityElement
 {
-  __block BOOL loading = YES;
   __block XCElementSnapshot *snapshot;
-  [[XCTestDriver sharedTestDriver].managerProxy _XCT_snapshotForElement:accessibilityElement
-                                                             attributes:[[XCAXClient_iOS sharedClient] defaultAttributes]
-                                                             parameters: [[XCAXClient_iOS sharedClient] defaultParameters]
-                                                                  reply:^(XCElementSnapshot *iSnapshot, NSError *error) {
-                                                                    if (error) {
-                                                                      [FBWDALogger logFmt:@"Error: %@", error];
-                                                                    }
-                                                                    snapshot = iSnapshot;
-                                                                    loading = NO;
-                                                                  }];
-  while (loading) {
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-  }
+  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
+    [[XCTestDriver sharedTestDriver].managerProxy _XCT_snapshotForElement:accessibilityElement
+                                                               attributes:[[XCAXClient_iOS sharedClient] defaultAttributes]
+                                                               parameters: [[XCAXClient_iOS sharedClient] defaultParameters]
+                                                                    reply:^(XCElementSnapshot *iSnapshot, NSError *error) {
+                                                                      if (error) {
+                                                                        [FBWDALogger logFmt:@"Error: %@", error];
+                                                                      }
+                                                                      snapshot = iSnapshot;
+                                                                      completion();
+                                                                    }];
+  }];
   return snapshot;
 }
 

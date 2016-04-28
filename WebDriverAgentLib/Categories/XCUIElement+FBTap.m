@@ -9,11 +9,10 @@
 
 #import "XCUIElement+FBTap.h"
 
+#import "FBRunLoopSpinner.h"
 #import "XCElementSnapshot-Hitpoint.h"
 #import "XCEventGenerator+SyncEvents.h"
 #import "XCUIElement+WebDriverAttributes.h"
-
-static const NSUInteger FBMaxQuiescenceTries = 50; // Translates to 5 sec
 
 @implementation XCUIElement (FBTap)
 
@@ -25,17 +24,17 @@ static const NSUInteger FBMaxQuiescenceTries = 50; // Translates to 5 sec
 
 - (void)waitForElementQuiescence
 {
-  CGRect frame;
-  NSUInteger count = 0;
-  do {
-    if (count > FBMaxQuiescenceTries) {
-      return;
-    }
-    frame = self.wdFrame;
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-    [self resolve];
-    count++;
-  } while (!CGRectEqualToRect(frame, self.wdFrame));
+  __block CGRect frame;
+  // Initial wait
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+  [[[FBRunLoopSpinner new]
+    timeout:5.]
+   spinUntilTrue:^BOOL{
+     [self resolve];
+     const BOOL isSameFrame = CGRectEqualToRect(frame, self.wdFrame);
+     frame = self.wdFrame;
+     return isSameFrame;
+   }];
 }
 
 @end

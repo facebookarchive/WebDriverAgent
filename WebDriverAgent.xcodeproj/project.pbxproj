@@ -313,6 +313,8 @@
 		EEDBE9191CB264B200A790A2 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDBE9171CB2647900A790A2 /* OCMock.framework */; };
 		EEDBEBBC1CB26ED800A790A2 /* KissXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5601CAEC4E9008C271F /* KissXML.framework */; };
 		EEDBEBBD1CB26ED800A790A2 /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */; };
+		EEE9B4721CD02B88009D2030 /* FBRunLoopSpinner.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE9B4701CD02B88009D2030 /* FBRunLoopSpinner.h */; };
+		EEE9B4731CD02B88009D2030 /* FBRunLoopSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -665,6 +667,8 @@
 		EEDBE9171CB2647900A790A2 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = Carthage/Build/iOS/OCMock.framework; sourceTree = "<group>"; };
 		EEDBEBBA1CB2681900A790A2 /* WebDriverAgent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WebDriverAgent.bundle; sourceTree = "<group>"; };
 		EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ProjectSettings.xcconfig; sourceTree = "<group>"; };
+		EEE9B4701CD02B88009D2030 /* FBRunLoopSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRunLoopSpinner.h; sourceTree = "<group>"; };
+		EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRunLoopSpinner.m; sourceTree = "<group>"; };
 		EEF9882A1C486603005CA669 /* WebDriverAgentRunner.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentRunner.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1144,6 +1148,8 @@
 			children = (
 				EE9AB78F1CAEDF0C008C271F /* FBElementTypeTransformer.h */,
 				EE9AB7901CAEDF0C008C271F /* FBElementTypeTransformer.m */,
+				EEE9B4701CD02B88009D2030 /* FBRunLoopSpinner.h */,
+				EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */,
 				EE9AB7911CAEDF0C008C271F /* FBRuntimeUtils.h */,
 				EE9AB7921CAEDF0C008C271F /* FBRuntimeUtils.m */,
 				EE9AB7931CAEDF0C008C271F /* FBWDAConstants.h */,
@@ -1343,6 +1349,7 @@
 				EE158B331CBD459C00A3E3F0 /* XCTestConfiguration.h in Headers */,
 				EE158B0E1CBD459C00A3E3F0 /* UITapGestureRecognizer-RecordingAdditions.h in Headers */,
 				EE158B311CBD459C00A3E3F0 /* XCTestCaseRun.h in Headers */,
+				EEE9B4721CD02B88009D2030 /* FBRunLoopSpinner.h in Headers */,
 				EE158B371CBD459C00A3E3F0 /* XCTestDriverInterface-Protocol.h in Headers */,
 				EE158B081CBD459C00A3E3F0 /* CDStructures.h in Headers */,
 				EE158B031CBD459C00A3E3F0 /* _XCTestCaseInterruptionException.h in Headers */,
@@ -1782,6 +1789,7 @@
 				EE158AAB1CBD456F00A3E3F0 /* XCElementSnapshot+Helpers.m in Sources */,
 				EE158ADF1CBD456F00A3E3F0 /* FBRoute.m in Sources */,
 				EE158AAD1CBD456F00A3E3F0 /* XCEventGenerator+SyncEvents.m in Sources */,
+				EEE9B4731CD02B88009D2030 /* FBRunLoopSpinner.m in Sources */,
 				EE158AE21CBD456F00A3E3F0 /* FBRouteRequest.m in Sources */,
 				EE158AFC1CBD456F00A3E3F0 /* FBWebDriverAgent.m in Sources */,
 				EE158ADB1CBD456F00A3E3F0 /* FBResponseJSONPayload.m in Sources */,
