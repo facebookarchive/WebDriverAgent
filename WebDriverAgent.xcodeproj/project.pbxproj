@@ -315,6 +315,7 @@
 		EEDBEBBD1CB26ED800A790A2 /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */; };
 		EEE9B4721CD02B88009D2030 /* FBRunLoopSpinner.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE9B4701CD02B88009D2030 /* FBRunLoopSpinner.h */; };
 		EEE9B4731CD02B88009D2030 /* FBRunLoopSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */; };
+		EEF6DF7E1CD295C900AB5921 /* FBRunLoopSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1836,6 +1837,7 @@
 				ADB0AAB31CB7127300DBC756 /* FBApplication.m in Sources */,
 				ADB0AABD1CB7133900DBC756 /* FBRuntimeUtils.m in Sources */,
 				ADB0AAB51CB712A900DBC756 /* FBExceptionHandler.m in Sources */,
+				EEF6DF7E1CD295C900AB5921 /* FBRunLoopSpinner.m in Sources */,
 				ADB0AAB81CB712FB00DBC756 /* FBAlertViewCommands.m in Sources */,
 				EEDBE9121CB2640C00A790A2 /* FBSession.m in Sources */,
 				ADB0AABE1CB7133900DBC756 /* FBWDAConstants.m in Sources */,
