@@ -49,7 +49,7 @@ static const CGFloat FBHomeButtonCoolOffTime = 1.;
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBHomeButtonCoolOffTime]];
   NSError *error;
   if (![[FBSpringboardApplication springboard] waitUntilApplicationBoardIsVisible:&error]) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
+    return FBResponseDictionaryWithError(error);
   }
   return FBResponseDictionaryWithOK();
 }
@@ -66,7 +66,7 @@ static const CGFloat FBHomeButtonCoolOffTime = 1.;
 
   NSError *error;
   if (![[FBSpringboardApplication springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:&error]) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
+    return FBResponseDictionaryWithError(error);
   }
   return FBResponseDictionaryWithOK();
 }

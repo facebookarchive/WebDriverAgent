@@ -103,7 +103,7 @@
   if ([element scrollToVisibleWithError:&error]) {
     return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdLocation);
   }
-  return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
+  return FBResponseDictionaryWithError(error);
 }
 
 + (id<FBResponsePayload>)handleGetAttribute:(FBRouteRequest *)request
@@ -164,11 +164,11 @@
   XCUIElement *element = [elementCache elementForIndex:elementID];
   NSError *error = nil;
   if (!element.hasKeyboardFocus && ![element fb_tapWithError:&error]) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
+    return FBResponseDictionaryWithError(error);
   }
   NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
   if (![self.class typeText:textToType error:&error]) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
+    return FBResponseDictionaryWithError(error);
   }
   return FBResponseDictionaryWithElementID(elementID);
 }
@@ -180,7 +180,7 @@
   XCUIElement *element = [elementCache elementForIndex:elementID];
   NSError *error = nil;
   if (![element fb_tapWithError:&error]) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
+    return FBResponseDictionaryWithError(error);
   }
   return FBResponseDictionaryWithElementID(elementID);
 }
@@ -192,14 +192,14 @@
   XCUIElement *element = [elementCache elementForIndex:elementID];
   NSError *error;
   if (!element.hasKeyboardFocus && ![element fb_tapWithError:&error]) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
+    return FBResponseDictionaryWithError(error);
   }
   NSMutableString *textToType = @"".mutableCopy;
   for (NSUInteger i = 0 ; i < [element.value length] ; i++) {
     [textToType appendString:@"\b"];
   }
   if (![self.class typeText:textToType error:&error]) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
+    return FBResponseDictionaryWithError(error);
   }
   return FBResponseDictionaryWithElementID(elementID);
 }
@@ -258,7 +258,7 @@
   if (request.arguments[@"toVisible"]) {
     return [self.class handleScrollElementToVisible:element withRequest:request];
   }
-  return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, @{});
+  return FBResponseDictionaryWithErrorMessage(@"Unsupported scroll type");
 }
 
 + (id<FBResponsePayload>)handleGetUIAElementValue:(FBRouteRequest *)request
@@ -267,7 +267,7 @@
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   NSString *value = request.arguments[@"value"];
   if (!value) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, @"Missing value parameter");
+    return FBResponseDictionaryWithErrorMessage(@"Missing value parameter");
   }
   [element adjustToPickerWheelValue:value];
   return FBResponseDictionaryWithOK();
@@ -310,7 +310,7 @@
   NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
   NSError *error;
   if (![self.class typeText:textToType error:&error]) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
+    return FBResponseDictionaryWithError(error);
   }
   return FBResponseDictionaryWithOK();
 }
@@ -356,7 +356,7 @@
   if ([element scrollToVisibleWithError:&error]) {
     return FBResponseDictionaryWithOK();
   } else {
-    return FBResponseDictionaryWithStatus(FBCommandStatusUnhandled, error.description);
+    return FBResponseDictionaryWithError(error);
   }
 }
 

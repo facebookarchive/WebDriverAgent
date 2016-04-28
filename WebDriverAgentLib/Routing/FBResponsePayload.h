@@ -21,6 +21,8 @@
 
 id<FBResponsePayload> FBResponseDictionaryWithOK(void);
 id<FBResponsePayload> FBResponseDictionaryWithElementID(NSUInteger elementID);
+id<FBResponsePayload> FBResponseDictionaryWithError(NSError *error);
+id<FBResponsePayload> FBResponseDictionaryWithErrorMessage(NSString *errorMessage);
 id<FBResponsePayload> FBResponseDictionaryWithStatus(FBCommandStatus status, id object);
 id<FBResponsePayload> FBResponseFileWithPath(NSString *path);
 
@@ -32,6 +34,8 @@ id<FBResponsePayload> FBResponseFileWithPath(NSString *path);
 + (id<FBResponsePayload>)ok;
 + (id<FBResponsePayload>)okWith:(id)object;
 + (id<FBResponsePayload>)withElementID:(NSUInteger)elementID;
++ (id<FBResponsePayload>)withError:(NSError *)error;
++ (id<FBResponsePayload>)withErrorMessage:(NSString *)errorMessage;
 + (id<FBResponsePayload>)withStatus:(FBCommandStatus)status;
 + (id<FBResponsePayload>)withStatus:(FBCommandStatus)status object:(id)object;
 + (id<FBResponsePayload>)withFileAtPath:(NSString *)path;

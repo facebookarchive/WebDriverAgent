@@ -19,6 +19,16 @@ id<FBResponsePayload> FBResponseDictionaryWithElementID(NSUInteger elementID)
   return [FBResponsePayload withElementID:elementID];
 }
 
+id<FBResponsePayload> FBResponseDictionaryWithError(NSError *error)
+{
+  return [FBResponsePayload withError:error];
+}
+
+id<FBResponsePayload> FBResponseDictionaryWithErrorMessage(NSString *errorMessage)
+{
+  return [FBResponsePayload withErrorMessage:errorMessage];
+}
+
 id<FBResponsePayload> FBResponseDictionaryWithStatus(FBCommandStatus status, id object)
 {
   return [FBResponsePayload withStatus:status object:object];
@@ -54,6 +64,16 @@ id<FBResponsePayload> FBResponseFileWithPath(NSString *path)
     @"value" : @"",
     @"status" : @0,
   }];
+}
+
++ (id<FBResponsePayload>)withError:(NSError *)error
+{
+  return [self withStatus:FBCommandStatusUnhandled object:error.description];
+}
+
++ (id<FBResponsePayload>)withErrorMessage:(NSString *)errorMessage
+{
+  return [self withStatus:FBCommandStatusUnhandled object:errorMessage];
 }
 
 + (id<FBResponsePayload>)withStatus:(FBCommandStatus)status
