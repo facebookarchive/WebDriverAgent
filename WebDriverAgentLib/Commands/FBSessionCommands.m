@@ -56,7 +56,7 @@
 + (id<FBResponsePayload>)handleGetStatus:(FBRouteRequest *)request
 {
   return
-  FBResponseDictionaryWithStatus(
+  FBResponseWithStatus(
     FBCommandStatusNoError,
     @{
       @"state" : @"success",
@@ -80,7 +80,7 @@
 + (id<FBResponsePayload>)handleDeleteSession:(FBRouteRequest *)request
 {
   [request.session kill];
-  return FBResponseDictionaryWithOK();
+  return FBResponseWithOK();
 }
 
 

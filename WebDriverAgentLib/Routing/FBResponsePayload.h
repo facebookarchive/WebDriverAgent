@@ -19,11 +19,11 @@
 
 @end
 
-id<FBResponsePayload> FBResponseDictionaryWithOK(void);
-id<FBResponsePayload> FBResponseDictionaryWithElementID(NSUInteger elementID);
-id<FBResponsePayload> FBResponseDictionaryWithError(NSError *error);
-id<FBResponsePayload> FBResponseDictionaryWithErrorMessage(NSString *errorMessage);
-id<FBResponsePayload> FBResponseDictionaryWithStatus(FBCommandStatus status, id object);
+id<FBResponsePayload> FBResponseWithOK(void);
+id<FBResponsePayload> FBResponseWithElementID(NSUInteger elementID);
+id<FBResponsePayload> FBResponseWithError(NSError *error);
+id<FBResponsePayload> FBResponseWithErrorMessage(NSString *errorMessage);
+id<FBResponsePayload> FBResponseWithStatus(FBCommandStatus status, id object);
 id<FBResponsePayload> FBResponseFileWithPath(NSString *path);
 
 /**

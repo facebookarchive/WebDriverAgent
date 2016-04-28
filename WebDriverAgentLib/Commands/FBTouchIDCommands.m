@@ -28,9 +28,9 @@
         name = "com.apple.BiometricKit_Sim.fingerTouch.nomatch";
       }
       if (notify_post(name) == NOTIFY_STATUS_OK) {
-        return FBResponseDictionaryWithOK();
+        return FBResponseWithOK();
       } else {
-        return FBResponseDictionaryWithStatus(FBCommandStatusUnsupported, nil);
+        return FBResponseWithStatus(FBCommandStatusUnsupported, nil);
       }
     }]
   ];

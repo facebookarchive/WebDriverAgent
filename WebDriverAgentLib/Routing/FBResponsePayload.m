@@ -14,27 +14,27 @@
 #import "FBResponseFilePayload.h"
 #import "FBResponseJSONPayload.h"
 
-id<FBResponsePayload> FBResponseDictionaryWithElementID(NSUInteger elementID)
+id<FBResponsePayload> FBResponseWithElementID(NSUInteger elementID)
 {
   return [FBResponsePayload withElementID:elementID];
 }
 
-id<FBResponsePayload> FBResponseDictionaryWithError(NSError *error)
+id<FBResponsePayload> FBResponseWithError(NSError *error)
 {
   return [FBResponsePayload withError:error];
 }
 
-id<FBResponsePayload> FBResponseDictionaryWithErrorMessage(NSString *errorMessage)
+id<FBResponsePayload> FBResponseWithErrorMessage(NSString *errorMessage)
 {
   return [FBResponsePayload withErrorMessage:errorMessage];
 }
 
-id<FBResponsePayload> FBResponseDictionaryWithStatus(FBCommandStatus status, id object)
+id<FBResponsePayload> FBResponseWithStatus(FBCommandStatus status, id object)
 {
   return [FBResponsePayload withStatus:status object:object];
 }
 
-id<FBResponsePayload> FBResponseDictionaryWithOK(void)
+id<FBResponsePayload> FBResponseWithOK(void)
 {
   return FBResponsePayload.ok;
 }

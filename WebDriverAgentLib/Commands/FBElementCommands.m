@@ -71,28 +71,28 @@
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
   BOOL isEnabled = element.isWDEnabled;
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, isEnabled ? @YES : @NO);
+  return FBResponseWithStatus(FBCommandStatusNoError, isEnabled ? @YES : @NO);
 }
 
 + (id<FBResponsePayload>)handleGetRect:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdRect);
+  return FBResponseWithStatus(FBCommandStatusNoError, element.wdRect);
 }
 
 + (id<FBResponsePayload>)handleGetSize:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdSize);
+  return FBResponseWithStatus(FBCommandStatusNoError, element.wdSize);
 }
 
 + (id<FBResponsePayload>)handleGetLocation:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdLocation);
+  return FBResponseWithStatus(FBCommandStatusNoError, element.wdLocation);
 }
 
 + (id<FBResponsePayload>)handleGetLocationInView:(FBRouteRequest *)request
@@ -101,9 +101,9 @@
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   NSError *error;
   if ([element scrollToVisibleWithError:&error]) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusNoError, element.wdLocation);
+    return FBResponseWithStatus(FBCommandStatusNoError, element.wdLocation);
   }
-  return FBResponseDictionaryWithError(error);
+  return FBResponseWithError(error);
 }
 
 + (id<FBResponsePayload>)handleGetAttribute:(FBRouteRequest *)request
@@ -113,7 +113,7 @@
   XCUIElement *element = [elementCache elementForIndex:elementID];
   id attributeValue = [element valueForWDAttributeName:request.parameters[@"name"]];
   attributeValue = attributeValue ?: [NSNull null];
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, attributeValue);
+  return FBResponseWithStatus(FBCommandStatusNoError, attributeValue);
 }
 
 + (id<FBResponsePayload>)handleGetText:(FBRouteRequest *)request
@@ -128,7 +128,7 @@
     text = [element wdValue];
   }
   text = text ?: [NSNull null];
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, text);
+  return FBResponseWithStatus(FBCommandStatusNoError, text);
 }
 
 + (id<FBResponsePayload>)handleGetDisplayed:(FBRouteRequest *)request
@@ -137,7 +137,7 @@
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
   BOOL isVisible = element.isWDVisible;
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, isVisible ? @YES : @NO);
+  return FBResponseWithStatus(FBCommandStatusNoError, isVisible ? @YES : @NO);
 }
 
 + (id<FBResponsePayload>)handleGetAccessible:(FBRouteRequest *)request
@@ -145,7 +145,7 @@
   FBElementCache *elementCache = request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @(element.isWDAccessible));
+  return FBResponseWithStatus(FBCommandStatusNoError, @(element.isWDAccessible));
 }
 
 + (id<FBResponsePayload>)handleGetName:(FBRouteRequest *)request
@@ -154,7 +154,7 @@
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
   id type = [element wdType];
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, type);
+  return FBResponseWithStatus(FBCommandStatusNoError, type);
 }
 
 + (id<FBResponsePayload>)handleGetValue:(FBRouteRequest *)request
@@ -164,13 +164,13 @@
   XCUIElement *element = [elementCache elementForIndex:elementID];
   NSError *error = nil;
   if (!element.hasKeyboardFocus && ![element fb_tapWithError:&error]) {
-    return FBResponseDictionaryWithError(error);
+    return FBResponseWithError(error);
   }
   NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
   if (![self.class typeText:textToType error:&error]) {
-    return FBResponseDictionaryWithError(error);
+    return FBResponseWithError(error);
   }
-  return FBResponseDictionaryWithElementID(elementID);
+  return FBResponseWithElementID(elementID);
 }
 
 + (id<FBResponsePayload>)handleClick:(FBRouteRequest *)request
@@ -180,9 +180,9 @@
   XCUIElement *element = [elementCache elementForIndex:elementID];
   NSError *error = nil;
   if (![element fb_tapWithError:&error]) {
-    return FBResponseDictionaryWithError(error);
+    return FBResponseWithError(error);
   }
-  return FBResponseDictionaryWithElementID(elementID);
+  return FBResponseWithElementID(elementID);
 }
 
 + (id<FBResponsePayload>)handleClear:(FBRouteRequest *)request
@@ -192,16 +192,16 @@
   XCUIElement *element = [elementCache elementForIndex:elementID];
   NSError *error;
   if (!element.hasKeyboardFocus && ![element fb_tapWithError:&error]) {
-    return FBResponseDictionaryWithError(error);
+    return FBResponseWithError(error);
   }
   NSMutableString *textToType = @"".mutableCopy;
   for (NSUInteger i = 0 ; i < [element.value length] ; i++) {
     [textToType appendString:@"\b"];
   }
   if (![self.class typeText:textToType error:&error]) {
-    return FBResponseDictionaryWithError(error);
+    return FBResponseWithError(error);
   }
-  return FBResponseDictionaryWithElementID(elementID);
+  return FBResponseWithElementID(elementID);
 }
 
 + (id<FBResponsePayload>)handleDoubleTap:(FBRouteRequest *)request
@@ -209,7 +209,7 @@
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   [element doubleTap];
-  return FBResponseDictionaryWithOK();
+  return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleTouchAndHold:(FBRouteRequest *)request
@@ -217,7 +217,7 @@
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   [element pressForDuration:[request.arguments[@"duration"] floatValue]];
-  return FBResponseDictionaryWithOK();
+  return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleScroll:(FBRouteRequest *)request
@@ -245,7 +245,7 @@
     } else if ([direction isEqualToString:@"right"]) {
       [element scrollRight];
     }
-    return FBResponseDictionaryWithOK();
+    return FBResponseWithOK();
   }
 
   NSString *const predicateString = request.arguments[@"predicateString"];
@@ -258,7 +258,7 @@
   if (request.arguments[@"toVisible"]) {
     return [self.class handleScrollElementToVisible:element withRequest:request];
   }
-  return FBResponseDictionaryWithErrorMessage(@"Unsupported scroll type");
+  return FBResponseWithErrorMessage(@"Unsupported scroll type");
 }
 
 + (id<FBResponsePayload>)handleGetUIAElementValue:(FBRouteRequest *)request
@@ -267,10 +267,10 @@
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   NSString *value = request.arguments[@"value"];
   if (!value) {
-    return FBResponseDictionaryWithErrorMessage(@"Missing value parameter");
+    return FBResponseWithErrorMessage(@"Missing value parameter");
   }
   [element adjustToPickerWheelValue:value];
-  return FBResponseDictionaryWithOK();
+  return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleDrag:(FBRouteRequest *)request
@@ -283,7 +283,7 @@
   XCUICoordinate *endCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:endPoint];
   XCUICoordinate *startCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:startPoint];
   [startCoordinate pressForDuration:duration thenDragToCoordinate:endCoordinate];
-  return FBResponseDictionaryWithOK();
+  return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleTap:(FBRouteRequest *)request
@@ -302,7 +302,7 @@
   XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:session.application normalizedOffset:CGVectorMake(0, 0)];
   XCUICoordinate *tapCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(x, y)];
   [tapCoordinate tap];
-  return FBResponseDictionaryWithOK();
+  return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleKeys:(FBRouteRequest *)request
@@ -310,15 +310,15 @@
   NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
   NSError *error;
   if (![self.class typeText:textToType error:&error]) {
-    return FBResponseDictionaryWithError(error);
+    return FBResponseWithError(error);
   }
-  return FBResponseDictionaryWithOK();
+  return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleGetWindowSize:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, session.application.wdRect[@"size"]);
+  return FBResponseWithStatus(FBCommandStatusNoError, session.application.wdRect[@"size"]);
 }
 
 
@@ -354,9 +354,9 @@
 {
   NSError *error;
   if ([element scrollToVisibleWithError:&error]) {
-    return FBResponseDictionaryWithOK();
+    return FBResponseWithOK();
   } else {
-    return FBResponseDictionaryWithError(error);
+    return FBResponseWithError(error);
   }
 }
 

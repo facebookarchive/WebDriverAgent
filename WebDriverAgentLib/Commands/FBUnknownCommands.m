@@ -34,7 +34,7 @@
 + (id<FBResponsePayload>)unhandledHandler:(FBRouteRequest *)request
 {
   return
-  FBResponseDictionaryWithStatus(
+  FBResponseWithStatus(
     FBCommandStatusUnsupported,
     [NSString stringWithFormat:@"Unhandled endpoint: %@ with parameters %@", request.URL, request.parameters]
   );

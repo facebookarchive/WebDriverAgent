@@ -50,16 +50,16 @@ const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
 + (id<FBResponsePayload>)handleGetOrientation:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self.class interfaceOrientationForApplication:session.application]);
+  return FBResponseWithStatus(FBCommandStatusNoError, [self.class interfaceOrientationForApplication:session.application]);
 }
 
 + (id<FBResponsePayload>)handleSetOrientation:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
   if ([self.class setDeviceOrientation:request.arguments[@"orientation"] forApplication:session.application]) {
-    return FBResponseDictionaryWithOK();
+    return FBResponseWithOK();
   }
-  return FBResponseDictionaryWithStatus(FBCommandStatusRotationNotAllowed, @"The orientation specified is not supported by the application");
+  return FBResponseWithStatus(FBCommandStatusRotationNotAllowed, @"The orientation specified is not supported by the application");
 }
 
 

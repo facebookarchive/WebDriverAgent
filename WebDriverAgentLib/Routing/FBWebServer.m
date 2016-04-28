@@ -150,7 +150,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     return;
   }
   NSString *exceptionMessage = [NSString stringWithFormat:@"%@\n\n%@", exception.description, exception.callStackSymbols];
-  id<FBResponsePayload> payload = FBResponseDictionaryWithErrorMessage(exceptionMessage);
+  id<FBResponsePayload> payload = FBResponseWithErrorMessage(exceptionMessage);
   [payload dispatchWithResponse:response];
 }
 

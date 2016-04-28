@@ -44,7 +44,7 @@ static id ValueOrNull(id value) {
 {
   FBApplication *application = [self activeApplication];
   if (!application) {
-    return FBResponseDictionaryWithErrorMessage(@"There is no active application");
+    return FBResponseWithErrorMessage(@"There is no active application");
   }
   return [self handleTreeCommandWithParams:application];
 }
@@ -73,7 +73,7 @@ static id ValueOrNull(id value) {
 + (id<FBResponsePayload>)handleTreeCommandWithParams:(FBApplication *)application
 {
   NSDictionary *info = [self.class JSONTreeForTargetForApplication:application];
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, @{ @"tree": info });
+  return FBResponseWithStatus(FBCommandStatusNoError, @{ @"tree": info });
 }
 
 + (NSDictionary *)JSONTreeForTargetForApplication:(FBApplication *)app

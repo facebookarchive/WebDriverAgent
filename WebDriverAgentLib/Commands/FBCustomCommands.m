@@ -49,9 +49,9 @@ static const CGFloat FBHomeButtonCoolOffTime = 1.;
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBHomeButtonCoolOffTime]];
   NSError *error;
   if (![[FBSpringboardApplication springboard] waitUntilApplicationBoardIsVisible:&error]) {
-    return FBResponseDictionaryWithError(error);
+    return FBResponseWithError(error);
   }
-  return FBResponseDictionaryWithOK();
+  return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleDeactivateAppCommand:(FBRouteRequest *)request
@@ -66,15 +66,15 @@ static const CGFloat FBHomeButtonCoolOffTime = 1.;
 
   NSError *error;
   if (![[FBSpringboardApplication springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:&error]) {
-    return FBResponseDictionaryWithError(error);
+    return FBResponseWithError(error);
   }
-  return FBResponseDictionaryWithOK();
+  return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleImplicitWaitCommand:(FBRouteRequest *)request
 {
   // This method is intentionally not supported.
-  return FBResponseDictionaryWithOK();
+  return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleHideKeyboard:(FBRouteRequest *)request
@@ -85,9 +85,9 @@ static const CGFloat FBHomeButtonCoolOffTime = 1.;
     XCUIElement *activeElement = [allElements elementMatchingPredicate:[NSPredicate predicateWithFormat:@"hasKeyboardFocus == YES"]];
     if ([activeElement exists]) {
         [element tap];
-        return FBResponseDictionaryWithOK();
+        return FBResponseWithOK();
     } else {
-        return FBResponseDictionaryWithStatus(FBCommandStatusInvalidElementState, nil);
+        return FBResponseWithStatus(FBCommandStatusInvalidElementState, nil);
     }
 
 }

@@ -35,7 +35,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     @"using": request.arguments[@"using"] ?: @"",
     @"value": request.arguments[@"value"] ?: @"",
   };
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, errorDetails);
+  return FBResponseWithStatus(FBCommandStatusNoSuchElement, errorDetails);
 }
 
 @implementation FBFindElementCommands
@@ -65,7 +65,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     return FBNoSuchElementErrorResponseForRequest(request);
   }
   NSInteger elementID = [request.session.elementCache storeElement:element];
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:element elementID:elementID]);
+  return FBResponseWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:element elementID:elementID]);
 }
 
 + (id<FBResponsePayload>)handleFindElements:(FBRouteRequest *)request
@@ -77,7 +77,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     NSInteger elementID = [request.session.elementCache storeElement:element];
     [elementsResponse addObject:[self dictionaryResponseWithElement:element elementID:elementID]];
   }
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
+  return FBResponseWithStatus(FBCommandStatusNoError, elementsResponse);
 }
 
 + (id<FBResponsePayload>)handleFindVisibleCells:(FBRouteRequest *)request
@@ -93,7 +93,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     NSInteger newID = [request.session.elementCache storeElement:element];
     [elementsResponse addObject:[self dictionaryResponseWithElement:element elementID:newID]];
   }
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
+  return FBResponseWithStatus(FBCommandStatusNoError, elementsResponse);
 }
 
 + (id<FBResponsePayload>)handleFindSubElement:(FBRouteRequest *)request
@@ -105,7 +105,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     return FBNoSuchElementErrorResponseForRequest(request);
   }
   NSInteger elementID = [request.session.elementCache storeElement:foundElement];
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:foundElement elementID:elementID]);
+  return FBResponseWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:foundElement elementID:elementID]);
 }
 
 + (id<FBResponsePayload>)handleFindSubElements:(FBRouteRequest *)request
@@ -123,7 +123,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     NSInteger elementID = [request.session.elementCache storeElement:iElement];
     [elementsResponse addObject:[self dictionaryResponseWithElement:iElement elementID:elementID]];
   }
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, elementsResponse);
+  return FBResponseWithStatus(FBCommandStatusNoError, elementsResponse);
 }
 
 

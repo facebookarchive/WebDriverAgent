@@ -24,29 +24,29 @@ NSString *const FBElementAttributeUnknownException = @"FBElementAttributeUnknown
 - (BOOL)webServer:(FBWebServer *)webServer handleException:(NSException *)exception forResponse:(RouteResponse *)response
 {
   if ([exception.name isEqualToString:FBApplicationDeadlockDetectedException]) {
-    id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusApplicationDeadlockDetected, [exception description]);
+    id<FBResponsePayload> payload = FBResponseWithStatus(FBCommandStatusApplicationDeadlockDetected, [exception description]);
     [payload dispatchWithResponse:response];
     return YES;
   }
 
   if ([exception.name isEqualToString:FBSessionDoesNotExistException]) {
-    id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusNoSuchSession, [exception description]);
+    id<FBResponsePayload> payload = FBResponseWithStatus(FBCommandStatusNoSuchSession, [exception description]);
     [payload dispatchWithResponse:response];
     return YES;
   }
 
   if ([exception.name isEqualToString:FBElementAttributeUnknownException]) {
-    id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusInvalidSelector, [exception description]);
+    id<FBResponsePayload> payload = FBResponseWithStatus(FBCommandStatusInvalidSelector, [exception description]);
     [payload dispatchWithResponse:response];
     return YES;
   }
   if ([exception.name isEqualToString:FBUAlertObstructingElementException]) {
-    id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusUnexpectedAlertPresent, @"Alert is obstructing view");
+    id<FBResponsePayload> payload = FBResponseWithStatus(FBCommandStatusUnexpectedAlertPresent, @"Alert is obstructing view");
     [payload dispatchWithResponse:response];
     return YES;
   }
   if ([exception.name isEqualToString:FBApplicationCrashedException]) {
-    id<FBResponsePayload> payload = FBResponseDictionaryWithStatus(FBCommandStatusStaleElementReference, [exception description]);
+    id<FBResponsePayload> payload = FBResponseWithStatus(FBCommandStatusStaleElementReference, [exception description]);
     [payload dispatchWithResponse:response];
     return YES;
   }

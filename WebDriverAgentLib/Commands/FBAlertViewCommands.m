@@ -53,27 +53,27 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
   FBSession *session = request.session;
   NSString *alertText = [self.class currentAlertTextWithApplication:session.application];
   if (!alertText) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
+    return FBResponseWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
   }
-  return FBResponseDictionaryWithStatus(FBCommandStatusNoError, alertText);
+  return FBResponseWithStatus(FBCommandStatusNoError, alertText);
 }
 
 + (id<FBResponsePayload>)handleAlertAcceptCommand:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
   if (![self.class acceptAlertWithApplication:session.application]) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
+    return FBResponseWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
   }
-  return FBResponseDictionaryWithOK();
+  return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleAlertDismissCommand:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
   if (![self.class dismissAlertWithApplication:session.application]) {
-    return FBResponseDictionaryWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
+    return FBResponseWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
   }
-  return FBResponseDictionaryWithOK();
+  return FBResponseWithOK();
 }
 
 
