@@ -11,7 +11,7 @@
 
 #import <libkern/OSAtomic.h>
 
-static const NSTimeInterval FBWaitInterval = 0.1f;
+static const NSTimeInterval FBWaitInterval = 0.1;
 
 @interface FBRunLoopSpinner ()
 @property (nonatomic, copy) NSString *timeoutErrorMessage;
@@ -20,7 +20,7 @@ static const NSTimeInterval FBWaitInterval = 0.1f;
 
 @implementation FBRunLoopSpinner
 
-+ (void)spinUntilCompletion:(void (^)(void(^completion)()))block;
++ (void)spinUntilCompletion:(void (^)(void(^completion)()))block
 {
   __block volatile uint32_t didFinish = 0;
   block(^{

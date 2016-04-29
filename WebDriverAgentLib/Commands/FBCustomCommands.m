@@ -20,7 +20,7 @@
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 
-static const CGFloat FBHomeButtonCoolOffTime = 1.;
+static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
 
 @implementation FBCustomCommands
 
@@ -61,7 +61,7 @@ static const CGFloat FBHomeButtonCoolOffTime = 1.;
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
 
   NSNumber *requestedDuration = request.arguments[@"duration"];
-  CGFloat duration = (requestedDuration ? requestedDuration.floatValue : 3.f);
+  NSTimeInterval duration = (requestedDuration ? requestedDuration.doubleValue : 3.);
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:duration]];
 
   NSError *error;
