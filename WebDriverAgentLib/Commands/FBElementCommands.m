@@ -23,6 +23,7 @@
 #import "XCUIElement+FBScrolling.h"
 #import "XCUIElement+FBTap.h"
 #import "XCUIElement+WebDriverAttributes.h"
+#import "FBElementTypeTransformer.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 
@@ -215,7 +216,7 @@
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
-  [element pressForDuration:[request.arguments[@"duration"] floatValue]];
+  [element pressForDuration:[request.arguments[@"duration"] doubleValue]];
   return FBResponseWithOK();
 }
 
@@ -262,22 +263,28 @@
 
 + (id<FBResponsePayload>)handleGetUIAElementValue:(FBRouteRequest *)request
 {
-  FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
-  NSString *value = request.arguments[@"value"];
-  if (!value) {
-    return FBResponseWithErrorMessage(@"Missing value parameter");
-  }
-  [element adjustToPickerWheelValue:value];
-  return FBResponseWithOK();
+    FBElementCache *elementCache = request.session.elementCache;
+    XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+    if (element.elementType != XCUIElementTypePickerWheel) {
+        return FBResponseWithErrorMessage([NSString stringWithFormat:@"Element is not of type %@", [FBElementTypeTransformer shortStringWithElementType:XCUIElementTypePickerWheel]]);
+    }
+    NSString *wheelPickerValue = request.arguments[@"value"];
+    
+    if (!wheelPickerValue) {
+        return FBResponseWithErrorMessage(@"Missing value parameter");
+    }
+    
+    [element adjustToPickerWheelValue:wheelPickerValue];
+    return FBResponseWithOK();
+    
 }
 
 + (id<FBResponsePayload>)handleDrag:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  CGVector startPoint = CGVectorMake([request.arguments[@"fromX"] floatValue], [request.arguments[@"fromY"] floatValue]);
-  CGVector endPoint = CGVectorMake([request.arguments[@"toX"] floatValue], [request.arguments[@"toY"] floatValue]);
-  CGFloat duration = [request.arguments[@"duration"] floatValue];
+  CGVector startPoint = CGVectorMake((CGFloat)[request.arguments[@"fromX"] doubleValue], (CGFloat)[request.arguments[@"fromY"] doubleValue]);
+  CGVector endPoint = CGVectorMake((CGFloat)[request.arguments[@"toX"] doubleValue], (CGFloat)[request.arguments[@"toY"] doubleValue]);
+  NSTimeInterval duration = [request.arguments[@"duration"] doubleValue];
   XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:session.application normalizedOffset:CGVectorMake(0, 0)];
   XCUICoordinate *endCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:endPoint];
   XCUICoordinate *startCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:startPoint];
@@ -289,8 +296,8 @@
 {
   FBElementCache *elementCache = request.session.elementCache;
   FBSession *session = request.session;
-  CGFloat x = [request.arguments[@"x"] floatValue];
-  CGFloat y = [request.arguments[@"y"] floatValue];
+  CGFloat x = (CGFloat)[request.arguments[@"x"] doubleValue];
+  CGFloat y = (CGFloat)[request.arguments[@"y"] doubleValue];
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
   if (element != nil) {
