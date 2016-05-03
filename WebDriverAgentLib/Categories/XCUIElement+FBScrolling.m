@@ -23,7 +23,11 @@
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
 
-const CGFloat FBNormalizedDragDistance = 1.0f;
+#define FBPointFuzzyEqualToPoint(point1, point2, threshold) ((fabs(point1.x - point2.x) < threshold) && (fabs(point1.y - point2.y) < threshold))
+
+const CGFloat FBFuzzyPointThreshold = 20.f; //Smallest determined value that is not interpreted as touch
+const CGFloat FBFullscreenNormalizedDistance = 1.0f;
+const CGFloat FBScrollToVisibleNormalizedDistance = .5f;
 const CGFloat FBScrollVelocity = 200.f;
 const CGFloat FBScrollBoundingVelocityPadding = 0.0f;
 const CGFloat FBScrollTouchProportion = 0.75f;
@@ -33,10 +37,10 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
 
 @interface XCElementSnapshot (FBScrolling)
 
-- (void)scrollUp;
-- (void)scrollDown;
-- (void)scrollLeft;
-- (void)scrollRight;
+- (void)scrollUpByNormalizedDistance:(CGFloat)distance;
+- (void)scrollDownByNormalizedDistance:(CGFloat)distance;
+- (void)scrollLeftByNormalizedDistance:(CGFloat)distance;
+- (void)scrollRightByNormalizedDistance:(CGFloat)distance;
 - (BOOL)scrollByNormalizedVector:(CGVector)normalizedScrollVector;
 - (BOOL)scrollByVector:(CGVector)vector error:(NSError **)error;
 
@@ -46,25 +50,30 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
 
 - (void)scrollUp
 {
-  [self.lastSnapshot scrollUp];
+  [self.lastSnapshot scrollUpByNormalizedDistance:FBFullscreenNormalizedDistance];
 }
 
 - (void)scrollDown
 {
-  [self.lastSnapshot scrollDown];
+  [self.lastSnapshot scrollDownByNormalizedDistance:FBFullscreenNormalizedDistance];
 }
 
 - (void)scrollLeft
 {
-  [self.lastSnapshot scrollLeft];
+  [self.lastSnapshot scrollLeftByNormalizedDistance:FBFullscreenNormalizedDistance];
 }
 
 - (void)scrollRight
 {
-  [self.lastSnapshot scrollRight];
+  [self.lastSnapshot scrollRightByNormalizedDistance:FBFullscreenNormalizedDistance];
 }
 
 - (BOOL)scrollToVisibleWithError:(NSError **)error
+{
+  return [self scrollToVisibleWithNormalizedScrollDistance:FBScrollToVisibleNormalizedDistance error:error];
+}
+
+- (BOOL)scrollToVisibleWithNormalizedScrollDistance:(CGFloat)normalizedScrollDistance error:(NSError **)error
 {
   [self resolve];
   if (self.isFBVisible) {
@@ -101,13 +110,14 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   const NSUInteger maxScrollCount = 25;
   NSUInteger scrollCount = 0;
 
+  XCElementSnapshot *prescrollSnapshot = self.lastSnapshot;
   // Scrolling till cell is visible and got corrent value of frames
-  while (!self.isEquivalentElementVisible && scrollCount < maxScrollCount) {
+  while (![self isEquivalentElementSnapshotVisible:prescrollSnapshot] && scrollCount < maxScrollCount) {
     if (targetCellIndex < visibleCellIndex) {
-      isVerticalScroll ? [scrollView scrollUp] : [scrollView scrollLeft];
+      isVerticalScroll ? [scrollView scrollUpByNormalizedDistance:normalizedScrollDistance] : [scrollView scrollLeftByNormalizedDistance:normalizedScrollDistance];
     }
     else {
-      isVerticalScroll ? [scrollView scrollDown] : [scrollView scrollRight];
+      isVerticalScroll ? [scrollView scrollDownByNormalizedDistance:normalizedScrollDistance] : [scrollView scrollRightByNormalizedDistance:normalizedScrollDistance];
     }
     [self resolve]; // Resolve is needed for correct visibility
     scrollCount++;
@@ -129,14 +139,15 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   return YES;
 }
 
-- (BOOL)isEquivalentElementVisible
+- (BOOL)isEquivalentElementSnapshotVisible:(XCElementSnapshot *)snapshot
 {
   if (self.isFBVisible) {
     return YES;
   }
   [self.application resolve];
   for (XCElementSnapshot *elementSnapshot in self.application.lastSnapshot._allDescendants.copy) {
-    if ([self.lastSnapshot _fuzzyMatchesElement:elementSnapshot] && elementSnapshot.isFBVisible) {
+    // We are comparing pre-scroll snapshot so frames are irrelevant.
+    if ([snapshot _framelessFuzzyMatchesElement:elementSnapshot] && elementSnapshot.isFBVisible) {
       return YES;
     }
   }
@@ -157,24 +168,24 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
 
 @implementation XCElementSnapshot (FBScrolling)
 
-- (void)scrollUp
+- (void)scrollUpByNormalizedDistance:(CGFloat)distance
 {
-  [self scrollByNormalizedVector:CGVectorMake(0.0, FBNormalizedDragDistance)];
+  [self scrollByNormalizedVector:CGVectorMake(0.0, distance)];
 }
 
-- (void)scrollDown
+- (void)scrollDownByNormalizedDistance:(CGFloat)distance
 {
-  [self scrollByNormalizedVector:CGVectorMake(0.0, -FBNormalizedDragDistance)];
+  [self scrollByNormalizedVector:CGVectorMake(0.0, -distance)];
 }
 
-- (void)scrollLeft
+- (void)scrollLeftByNormalizedDistance:(CGFloat)distance
 {
-  [self scrollByNormalizedVector:CGVectorMake(FBNormalizedDragDistance, 0.0)];
+  [self scrollByNormalizedVector:CGVectorMake(distance, 0.0)];
 }
 
-- (void)scrollRight
+- (void)scrollRightByNormalizedDistance:(CGFloat)distance
 {
-  [self scrollByNormalizedVector:CGVectorMake(-FBNormalizedDragDistance, 0.0)];
+  [self scrollByNormalizedVector:CGVectorMake(-distance, 0.0)];
 }
 
 
@@ -226,7 +237,7 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   XCUICoordinate *startCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:hitpointOffset];
   XCUICoordinate *endCoordinate = [[XCUICoordinate alloc] initWithCoordinate:startCoordinate pointsOffset:vector];
 
-  if (CGPointEqualToPoint(startCoordinate.screenPoint, endCoordinate.screenPoint)) {
+  if (FBPointFuzzyEqualToPoint(startCoordinate.screenPoint, endCoordinate.screenPoint, FBFuzzyPointThreshold)) {
     return YES;
   }
 

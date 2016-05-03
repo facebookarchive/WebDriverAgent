@@ -17,6 +17,8 @@
 #import "XCAXClient_iOS.h"
 #import "XCTestDriver.h"
 
+inline static BOOL valuesAreEqual(id value1, id value2);
+
 extern const NSString *const XC_kAXXCAttributeIsVisible;
 extern const NSString *const XC_kAXXCAttributeIsElement;
 NSArray *XCAXAccessibilityAttributesForStringAttributes(NSArray *list);
@@ -79,4 +81,19 @@ NSNumber *FB_XCAXAIsElementAttribute;
   return mainWindows.lastObject;
 }
 
+- (BOOL)_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot
+{
+  return self.elementType == snapshot.elementType &&
+    valuesAreEqual(self.identifier, snapshot.identifier) &&
+    valuesAreEqual(self.title, snapshot.title) &&
+    valuesAreEqual(self.label, snapshot.label) &&
+    valuesAreEqual(self.value, snapshot.value) &&
+    valuesAreEqual(self.placeholderValue, snapshot.placeholderValue);
+}
+
 @end
+
+inline static BOOL valuesAreEqual(id value1, id value2)
+{
+  return value1 == value2 || [value1 isEqual:value2];
+}

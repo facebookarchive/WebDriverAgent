@@ -20,7 +20,7 @@
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 
-static const CGFloat FBHomeButtonCoolOffTime = 1.;
+static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
 
 @implementation FBCustomCommands
 
@@ -30,7 +30,7 @@ static const CGFloat FBHomeButtonCoolOffTime = 1.;
   @[
     [[FBRoute POST:@"/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
-    [[FBRoute POST:@"/timeouts/implicit_wait"] respondWithTarget:self action:@selector(handleImplicitWaitCommand:)],
+    [[FBRoute POST:@"/timeouts"] respondWithTarget:self action:@selector(handleTimeouts:)],
     [[FBRoute POST:@"/hide_keyboard"] respondWithTarget:self action:@selector(handleHideKeyboard:)]
   ];
 }
@@ -61,7 +61,7 @@ static const CGFloat FBHomeButtonCoolOffTime = 1.;
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
 
   NSNumber *requestedDuration = request.arguments[@"duration"];
-  CGFloat duration = (requestedDuration ? requestedDuration.floatValue : 3.f);
+  NSTimeInterval duration = (requestedDuration ? requestedDuration.doubleValue : 3.);
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:duration]];
 
   NSError *error;
@@ -71,7 +71,7 @@ static const CGFloat FBHomeButtonCoolOffTime = 1.;
   return FBResponseWithOK();
 }
 
-+ (id<FBResponsePayload>)handleImplicitWaitCommand:(FBRouteRequest *)request
++ (id<FBResponsePayload>)handleTimeouts:(FBRouteRequest *)request
 {
   // This method is intentionally not supported.
   return FBResponseWithOK();

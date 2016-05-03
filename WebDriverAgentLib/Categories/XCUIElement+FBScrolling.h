@@ -18,4 +18,6 @@
 
 - (BOOL)scrollToVisibleWithError:(NSError **)error;
 
+- (BOOL)scrollToVisibleWithNormalizedScrollDistance:(CGFloat)normalizedScrollDistance error:(NSError **)error;
+
 @end
