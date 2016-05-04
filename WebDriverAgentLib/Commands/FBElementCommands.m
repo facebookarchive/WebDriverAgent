@@ -23,6 +23,7 @@
 #import "XCUIElement+FBScrolling.h"
 #import "XCUIElement+FBTap.h"
 #import "XCUIElement+WebDriverAttributes.h"
+#import "FBElementTypeTransformer.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 
@@ -262,14 +263,20 @@
 
 + (id<FBResponsePayload>)handleGetUIAElementValue:(FBRouteRequest *)request
 {
-  FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
-  NSString *value = request.arguments[@"value"];
-  if (!value) {
-    return FBResponseWithErrorMessage(@"Missing value parameter");
-  }
-  [element adjustToPickerWheelValue:value];
-  return FBResponseWithOK();
+    FBElementCache *elementCache = request.session.elementCache;
+    XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+    if (element.elementType != XCUIElementTypePickerWheel) {
+        return FBResponseWithErrorMessage([NSString stringWithFormat:@"Element is not of type %@", [FBElementTypeTransformer shortStringWithElementType:XCUIElementTypePickerWheel]]);
+    }
+    NSString *wheelPickerValue = request.arguments[@"value"];
+    
+    if (!wheelPickerValue) {
+        return FBResponseWithErrorMessage(@"Missing value parameter");
+    }
+    
+    [element adjustToPickerWheelValue:wheelPickerValue];
+    return FBResponseWithOK();
+    
 }
 
 + (id<FBResponsePayload>)handleDrag:(FBRouteRequest *)request
