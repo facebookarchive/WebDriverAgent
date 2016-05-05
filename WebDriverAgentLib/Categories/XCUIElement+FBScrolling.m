@@ -67,6 +67,11 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
 
 - (BOOL)scrollToVisibleWithError:(NSError **)error
 {
+  return [self scrollToVisibleWithNormalizedScrollDistance:FBScrollToVisibleNormalizedDistance error:error];
+}
+
+- (BOOL)scrollToVisibleWithNormalizedScrollDistance:(CGFloat)normalizedScrollDistance error:(NSError **)error
+{
   [self resolve];
   if (self.isFBVisible) {
     return YES;
@@ -105,10 +110,10 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   // Scrolling till cell is visible and got corrent value of frames
   while (!self.isEquivalentElementVisible && scrollCount < maxScrollCount) {
     if (targetCellIndex < visibleCellIndex) {
-      isVerticalScroll ? [scrollView scrollUpByNormalizedDistance:FBScrollToVisibleNormalizedDistance] : [scrollView scrollLeftByNormalizedDistance:FBScrollToVisibleNormalizedDistance];
+      isVerticalScroll ? [scrollView scrollUpByNormalizedDistance:normalizedScrollDistance] : [scrollView scrollLeftByNormalizedDistance:normalizedScrollDistance];
     }
     else {
-      isVerticalScroll ? [scrollView scrollDownByNormalizedDistance:FBScrollToVisibleNormalizedDistance] : [scrollView scrollRightByNormalizedDistance:FBScrollToVisibleNormalizedDistance];
+      isVerticalScroll ? [scrollView scrollDownByNormalizedDistance:normalizedScrollDistance] : [scrollView scrollRightByNormalizedDistance:normalizedScrollDistance];
     }
     [self resolve]; // Resolve is needed for correct visibility
     scrollCount++;
