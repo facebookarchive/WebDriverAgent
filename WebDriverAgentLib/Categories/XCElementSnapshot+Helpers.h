@@ -24,4 +24,6 @@ extern NSNumber *FB_XCAXAIsElementAttribute;
 
 - (XCElementSnapshot *)mainWindow;
 
+- (BOOL)_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot;
+
 @end

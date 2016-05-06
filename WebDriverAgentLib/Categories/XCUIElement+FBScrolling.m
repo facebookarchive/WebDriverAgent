@@ -107,8 +107,9 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   const NSUInteger maxScrollCount = 25;
   NSUInteger scrollCount = 0;
 
+  XCElementSnapshot *prescrollSnapshot = self.lastSnapshot;
   // Scrolling till cell is visible and got corrent value of frames
-  while (!self.isEquivalentElementVisible && scrollCount < maxScrollCount) {
+  while (![self isEquivalentElementSnapshotVisible:prescrollSnapshot] && scrollCount < maxScrollCount) {
     if (targetCellIndex < visibleCellIndex) {
       isVerticalScroll ? [scrollView scrollUpByNormalizedDistance:normalizedScrollDistance] : [scrollView scrollLeftByNormalizedDistance:normalizedScrollDistance];
     }
@@ -135,14 +136,15 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   return YES;
 }
 
-- (BOOL)isEquivalentElementVisible
+- (BOOL)isEquivalentElementSnapshotVisible:(XCElementSnapshot *)snapshot
 {
   if (self.isFBVisible) {
     return YES;
   }
   [self.application resolve];
   for (XCElementSnapshot *elementSnapshot in self.application.lastSnapshot._allDescendants.copy) {
-    if ([self.lastSnapshot _fuzzyMatchesElement:elementSnapshot] && elementSnapshot.isFBVisible) {
+    // We are comparing pre-scroll snapshot so frames are irrelevant.
+    if ([snapshot _framelessFuzzyMatchesElement:elementSnapshot] && elementSnapshot.isFBVisible) {
       return YES;
     }
   }
