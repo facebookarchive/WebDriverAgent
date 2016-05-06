@@ -23,6 +23,9 @@
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
 
+#define FBPointFuzzyEqualToPoint(point1, point2, threshold) ((fabs(point1.x - point2.x) < threshold) && (fabs(point1.y - point2.y) < threshold))
+
+const CGFloat FBFuzzyPointThreshold = 20.f; //Smallest determined value that is not interpreted as touch
 const CGFloat FBFullscreenNormalizedDistance = 1.0f;
 const CGFloat FBScrollToVisibleNormalizedDistance = .5f;
 const CGFloat FBScrollVelocity = 200.f;
@@ -234,7 +237,7 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   XCUICoordinate *startCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:hitpointOffset];
   XCUICoordinate *endCoordinate = [[XCUICoordinate alloc] initWithCoordinate:startCoordinate pointsOffset:vector];
 
-  if (CGPointEqualToPoint(startCoordinate.screenPoint, endCoordinate.screenPoint)) {
+  if (FBPointFuzzyEqualToPoint(startCoordinate.screenPoint, endCoordinate.screenPoint, FBFuzzyPointThreshold)) {
     return YES;
   }
 
