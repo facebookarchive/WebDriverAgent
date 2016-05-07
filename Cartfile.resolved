@@ -1,0 +1,4 @@
+github "robbiehanson/KissXML" "5.0.3"
+github "mattstevens/RoutingHTTPServer" "v1.0.0"
+github "erikdoe/ocmock" "v3.2.2"
+github "rsms/peertalk" "5a0495a7b7d81b68e25ea1933c755b677cb040da"

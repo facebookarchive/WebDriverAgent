@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import <XCTWebDriverAgentLib/CDStructures.h>
+#import <WebDriverAgentLib/CDStructures.h>
 
 typedef void (^XCEventGeneratorHandler)(NSError *error);
 

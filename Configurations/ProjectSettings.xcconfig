@@ -1,0 +1,26 @@
+
+GCC_TREAT_WARNINGS_AS_ERRORS = YES
+GCC_WARN_PEDANTIC = YES
+GCC_WARN_SHADOW = YES
+GCC_WARN_64_TO_32_BIT_CONVERSION = YES
+GCC_WARN_MISSING_PARENTHESES = YES
+GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES
+GCC_WARN_SIGN_COMPARE = YES
+GCC_WARN_ABOUT_POINTER_SIGNEDNESS = YES
+GCC_WARN_UNUSED_PARAMETER = YES
+GCC_WARN_UNUSED_VALUE = YES
+GCC_WARN_UNUSED_VARIABLE = YES
+GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES
+
+CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES
+CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES
+CLANG_WARN_ENUM_CONVERSION = YES
+CLANG_WARN_INT_CONVERSION = YES
+CLANG_WARN_ASSIGN_ENUM = YES
+CLANG_WARN_BOOL_CONVERSION = YES
+CLANG_WARN_CONSTANT_CONVERSION = YES
+CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES
+
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) DDXML_LIBXML_MODULE_ENABLED=0
+
+WARNING_CFLAGS = $(inherited) -Weverything -Wno-objc-missing-property-synthesis -Wno-unused-macros -Wno-disabled-macro-expansion -Wno-gnu-statement-expression -Wno-language-extension-token -Wno-overriding-method-mismatch -Wno-missing-variable-declarations -Rno-module-build -Wno-auto-import -Wno-objc-interface-ivars -Wno-documentation-unknown-command -Wno-reserved-id-macro -Wno-unused-parameter -Wno-gnu-conditional-omitted-operand -Wno-explicit-ownership-type -Wno-date-time -Wno-cast-align -Wno-cstring-format-directive -Wno-double-promotion

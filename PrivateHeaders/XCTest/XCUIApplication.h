@@ -6,7 +6,7 @@
 
 #import <XCTest/XCUIApplication.h>
 
-@class NSArray, NSDictionary, NSString, XCAccessibilityElement, XCApplicationQuery;
+@class NSArray, NSDictionary, NSString, XCAccessibilityElement, XCApplicationQuery, XCUIApplicationImpl;
 
 @interface XCUIApplication ()
 {
@@ -18,14 +18,14 @@
     XCUIElement *_keyboard;
     NSArray *_launchArguments;
     NSDictionary *_launchEnvironment;
-    NSString *_path;
-    NSString *_bundleID;
+    XCUIApplicationImpl *_applicationImpl;
     XCApplicationQuery *_applicationQuery;
     unsigned long long _generation;
 }
 @property unsigned long long generation; // @synthesize generation=_generation;
 @property BOOL eventLoopIsIdle; // @synthesize eventLoopIsIdle=_eventLoopIsIdle;
 @property(retain) XCApplicationQuery *applicationQuery; // @synthesize applicationQuery=_applicationQuery;
+@property(retain) XCUIApplicationImpl *applicationImpl; // @synthesize applicationQuery=_applicationQuery;
 @property(readonly, copy) NSString *bundleID; // @synthesize bundleID=_bundleID;
 @property(readonly, copy) NSString *path; // @synthesize path=_path;
 @property BOOL ancillary; // @synthesize ancillary=_ancillary;
@@ -46,8 +46,6 @@
 - (void)terminate;
 - (void)_launchUsingXcode:(BOOL)arg1;
 - (void)launch;
-- (void)_waitForLaunchProgressViaProxy:(id)arg1;
-- (void)_waitForLaunchTokenViaProxy:(id)arg1;
 - (id)application;
 - (id)description;
 - (id)lastSnapshot;
