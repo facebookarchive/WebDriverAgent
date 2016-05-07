@@ -1,1 +1,0 @@
-../../../CocoaHTTPServer/Core/HTTPAuthenticationRequest.h

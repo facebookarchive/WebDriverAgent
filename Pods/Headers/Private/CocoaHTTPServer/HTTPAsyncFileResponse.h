@@ -1,1 +1,0 @@
-../../../CocoaHTTPServer/Core/Responses/HTTPAsyncFileResponse.h

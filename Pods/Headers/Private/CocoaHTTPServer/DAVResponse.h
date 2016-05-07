@@ -1,1 +1,0 @@
-../../../CocoaHTTPServer/Extensions/WebDAV/DAVResponse.h
