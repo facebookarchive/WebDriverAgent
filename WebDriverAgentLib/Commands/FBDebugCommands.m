@@ -13,16 +13,9 @@
 #import "FBElementTypeTransformer.h"
 #import "FBRouteRequest.h"
 #import "FBSession.h"
-#import "XCAccessibilityElement.h"
-#import "XCAXClient_iOS.h"
+#import "FBWDAMacros.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+WebDriverAttributes.h"
-#import "XCUIElement.h"
-#import "XCUIElementQuery.h"
-
-static id ValueOrNull(id value) {
-  return value ?: [NSNull null];
-}
 
 @implementation FBDebugCommands
 
@@ -42,23 +35,11 @@ static id ValueOrNull(id value) {
 
 + (id<FBResponsePayload>)handleGetActiveTreeCommand:(FBRouteRequest *)request
 {
-  FBApplication *application = [self activeApplication];
+  FBApplication *application = [FBApplication fb_activeApplication];
   if (!application) {
-    return FBResponseWithErrorMessage(@"There is no active application");
+    return FBResponseWithErrorFormat(@"There is no active application");
   }
   return [self handleTreeCommandWithParams:application];
-}
-
-+ (FBApplication *)activeApplication
-{
-  XCAccessibilityElement *activeApplicationElement = [[[XCAXClient_iOS sharedClient] activeApplications] firstObject];
-  if (!activeApplicationElement) {
-      return nil;
-  }
-  FBApplication *application = [FBApplication appWithPID:activeApplicationElement.processIdentifier];
-  [application query];
-  [application resolve];
-  return application;
 }
 
 + (id<FBResponsePayload>)handleGetTreeCommand:(FBRouteRequest *)request
@@ -86,10 +67,10 @@ static id ValueOrNull(id value) {
 {
   NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
   info[@"type"] = [FBElementTypeTransformer shortStringWithElementType:snapshot.elementType];
-  info[@"rawIdentifier"] = ValueOrNull([snapshot.identifier isEqual:@""] ? nil : snapshot.identifier);
-  info[@"name"] = ValueOrNull(snapshot.wdName);
-  info[@"value"] = ValueOrNull(snapshot.wdValue);
-  info[@"label"] = ValueOrNull(snapshot.wdLabel);
+  info[@"rawIdentifier"] = FBValueOrNull([snapshot.identifier isEqual:@""] ? nil : snapshot.identifier);
+  info[@"name"] = FBValueOrNull(snapshot.wdName);
+  info[@"value"] = FBValueOrNull(snapshot.wdValue);
+  info[@"label"] = FBValueOrNull(snapshot.wdLabel);
   info[@"rect"] = snapshot.wdRect;
   info[@"frame"] = NSStringFromCGRect(snapshot.wdFrame);
   info[@"isEnabled"] = [@([snapshot isWDEnabled]) stringValue];

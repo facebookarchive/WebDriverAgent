@@ -206,7 +206,7 @@ NSString *const FBUAlertObstructingElementException = @"FBUAlertObstructingEleme
 {
   XCUIElement *alert = [self applicationAlertWithApplication:application];
   if (!alert.exists) {
-    alert = [self applicationAlertWithApplication:[FBSpringboardApplication springboard]];
+    alert = [self applicationAlertWithApplication:[FBSpringboardApplication fb_springboard]];
   }
   if (alert.exists) {
     [alert resolve];

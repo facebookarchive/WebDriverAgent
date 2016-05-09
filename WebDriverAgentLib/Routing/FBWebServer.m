@@ -13,6 +13,7 @@
 #import <RoutingHTTPServer/RoutingHTTPServer.h>
 
 #import "FBCommandHandler.h"
+#import "FBErrorBuilder.h"
 #import "FBExceptionHandler.h"
 #import "FBRouteRequest.h"
 #import "FBRuntimeUtils.h"
@@ -22,7 +23,6 @@
 #import "FBWDALogger.h"
 #import "UIDevice+Wifi_IP.h"
 
-NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent.WebServer";
 static NSString *const FBServerURLBeginMarker = @"ServerURLHere->";
 static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
@@ -91,7 +91,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     [FBWDALogger logFmt:@"Last attempt to start web server failed with error %@", [error description]];
     abort();
   }
-  [FBWDALogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [UIDevice currentDevice].wifiIPAddress, [self.server port], FBServerURLEndMarker];
+  [FBWDALogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [UIDevice currentDevice].fb_wifiIPAddress, [self.server port], FBServerURLEndMarker];
 }
 
 - (BOOL)attemptToStartServer:(RoutingHTTPServer *)server onPort:(NSInteger)port withError:(NSError **)error
@@ -108,8 +108,10 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     if ([innerError.domain isEqualToString:NSPOSIXErrorDomain] && innerError.code == EADDRINUSE) {
       description = [NSString stringWithFormat:@"Unable to start web server on port %ld", (long)port];
     }
-
-    *error = [NSError errorWithDomain:FBWebServerErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : description, NSUnderlyingErrorKey : innerError}];
+    [[[[FBErrorBuilder builder]
+       withDescription:description]
+      withInnerError:innerError]
+     buildError:error];
     return NO;
   }
   return YES;
@@ -149,8 +151,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   if ([self.exceptionHandler webServer:self handleException:exception forResponse:response]) {
     return;
   }
-  NSString *exceptionMessage = [NSString stringWithFormat:@"%@\n\n%@", exception.description, exception.callStackSymbols];
-  id<FBResponsePayload> payload = FBResponseWithErrorMessage(exceptionMessage);
+  id<FBResponsePayload> payload = FBResponseWithErrorFormat(@"%@\n\n%@", exception.description, exception.callStackSymbols);
   [payload dispatchWithResponse:response];
 }
 

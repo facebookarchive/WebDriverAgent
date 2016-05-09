@@ -11,6 +11,8 @@
 
 #import <libkern/OSAtomic.h>
 
+#import "FBErrorBuilder.h"
+
 static const NSTimeInterval FBWaitInterval = 0.1;
 
 @interface FBRunLoopSpinner ()
@@ -63,14 +65,23 @@ static const NSTimeInterval FBWaitInterval = 0.1;
   while (!untilTrue()) {
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBWaitInterval]];
     if (timeoutDate.timeIntervalSinceNow < 0) {
-      NSString *message = (self.timeoutErrorMessage ?: @"FBRunLoopSpinner timeout");
-      if (error) {
-        *error = [NSError errorWithDomain:@"com.facebook.WebDriverAgent" code:1 userInfo:@{NSLocalizedDescriptionKey : message}];
-      }
+      [[[FBErrorBuilder builder]
+        withDescription:(self.timeoutErrorMessage ?: @"FBRunLoopSpinner timeout")]
+       buildError:error];
       return NO;
     }
   }
   return YES;
+}
+
+- (id)spinUntilNotNil:(FBRunLoopSpinnerObjectBlock)untilNotNil error:(NSError **)error
+{
+  __block id object;
+  [self spinUntilTrue:^BOOL{
+    object = untilNotNil();
+    return object != nil;
+  } error:error];
+  return object;
 }
 
 @end

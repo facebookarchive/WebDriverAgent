@@ -7,30 +7,29 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <WebDriverAgentLib/FBApplication.h>
+#import <Foundation/Foundation.h>
 
-@interface FBSpringboardApplication : FBApplication
-
-/**
- @return FBApplication that is attached to SpringBoard
- */
-+ (instancetype)fb_springboard;
+@interface FBKeyboard : NSObject
 
 /**
- Taps application on SpringBoard app with given identifer
+ Types a string into active element. There must be element with keyboard focus; otherwise an
+ error is raised.
 
- @param identifier identifier of the application to tap
+ This API discards any modifiers set in the current context by +performWithKeyModifiers:block: so that
+ it strictly interprets the provided text. To input keys with modifier flags, use  -typeKey:modifierFlags:.
+
+ @param text that should be typed
+ @param error If there is an error, upon return contains an NSError object that describes the problem.
+ @return YES if the operation succeeds, otherwise NO.
+*/
++ (BOOL)typeText:(NSString *)text error:(NSError **)error;
+
+/**
+ Hides keyboard if present otherwise an error is raised.
+
  @param error If there is an error, upon return contains an NSError object that describes the problem.
  @return YES if the operation succeeds, otherwise NO.
  */
-- (BOOL)fb_tapApplicationWithIdentifier:(NSString *)identifier error:(NSError **)error;
-
-/**
- Waits until application board is visible with timeout
-
- @param error If there is an error, upon return contains an NSError object that describes the problem.
- @return YES if the operation succeeds, otherwise NO.
- */
-- (BOOL)fb_waitUntilApplicationBoardIsVisible:(NSError **)error;
++ (BOOL)hideWithError:(NSError **)error;
 
 @end

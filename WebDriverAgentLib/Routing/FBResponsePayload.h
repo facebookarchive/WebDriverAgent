@@ -11,7 +11,9 @@
 
 #import "FBCommandStatus.h"
 
+@class FBElementCache;
 @class RouteResponse;
+@class XCUIElement;
 
 @protocol FBResponsePayload <NSObject>
 
@@ -20,9 +22,11 @@
 @end
 
 id<FBResponsePayload> FBResponseWithOK(void);
+id<FBResponsePayload> FBResponseWithCachedElement(XCUIElement *element, FBElementCache *elementCache);
+id<FBResponsePayload> FBResponseWithCachedElements(NSArray<XCUIElement *> *elements, FBElementCache *elementCache);
 id<FBResponsePayload> FBResponseWithElementID(NSUInteger elementID);
 id<FBResponsePayload> FBResponseWithError(NSError *error);
-id<FBResponsePayload> FBResponseWithErrorMessage(NSString *errorMessage);
+id<FBResponsePayload> FBResponseWithErrorFormat(NSString *errorFormat, ...) NS_FORMAT_FUNCTION(1,2);
 id<FBResponsePayload> FBResponseWithStatus(FBCommandStatus status, id object);
 id<FBResponsePayload> FBResponseFileWithPath(NSString *path);
 
@@ -35,7 +39,8 @@ id<FBResponsePayload> FBResponseFileWithPath(NSString *path);
 + (id<FBResponsePayload>)okWith:(id)object;
 + (id<FBResponsePayload>)withElementID:(NSUInteger)elementID;
 + (id<FBResponsePayload>)withError:(NSError *)error;
-+ (id<FBResponsePayload>)withErrorMessage:(NSString *)errorMessage;
++ (id<FBResponsePayload>)withErrorFormat:(NSString *)errorFormat, ... NS_FORMAT_FUNCTION(1,2);
++ (id<FBResponsePayload>)withErrorFormat:(NSString *)format arguments:(va_list)argList NS_FORMAT_FUNCTION(1,0);
 + (id<FBResponsePayload>)withStatus:(FBCommandStatus)status;
 + (id<FBResponsePayload>)withStatus:(FBCommandStatus)status object:(id)object;
 + (id<FBResponsePayload>)withFileAtPath:(NSString *)path;

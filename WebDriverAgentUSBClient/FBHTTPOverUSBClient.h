@@ -7,21 +7,15 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+
 #import <Foundation/Foundation.h>
 
-/**
- Accessors for Global Constants.
- */
-@interface FBWDAConstants : NSObject
+typedef void (^WDHTTPOverUSBResponse)(NSDictionary *response, NSError *requestError);
 
-/**
- The range of ports that the HTTP Server should attempt to bind on launch
- */
-+ (NSRange)bindingPortRange;
+@interface FBHTTPOverUSBClient : NSObject
 
-/**
- YES if verbose logging is enabled. NO otherwise.
- */
-+ (BOOL)verboseLoggingEnabled;
+- (instancetype)initWithDeviceUDID:(NSString *)deviceUDID;
+
+- (void)dispatchMethod:(NSString *)method endpoint:(NSString *)endpoint parameters:(NSDictionary *)parameters completion:(WDHTTPOverUSBResponse)completion;
 
 @end

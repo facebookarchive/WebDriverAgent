@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 
 typedef BOOL (^FBRunLoopSpinnerBlock)();
+typedef id (^FBRunLoopSpinnerObjectBlock)();
 
 @interface FBRunLoopSpinner : NSObject
 
@@ -49,5 +50,13 @@ typedef BOOL (^FBRunLoopSpinnerBlock)();
  @return YES if the condition was met, NO if the timeout was reached first.
  */
 - (BOOL)spinUntilTrue:(FBRunLoopSpinnerBlock)untilTrue error:(NSError **)error;
+
+/**
+ Spins the Run Loop until `untilNotNil` returns non nil value or a timeout is reached.
+ @param untilNotNil the condition to meet.
+ @param error to fill in case of timeout.
+ @return YES if the condition was met, NO if the timeout was reached first.
+ */
+- (id)spinUntilNotNil:(FBRunLoopSpinnerObjectBlock)untilNotNil error:(NSError **)error;
 
 @end

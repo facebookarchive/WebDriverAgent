@@ -9,8 +9,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const FBWebServerErrorDomain;
-
 @class RouteResponse, RoutingHTTPServer, FBExceptionHandler;
 @protocol FBElementCache;
 

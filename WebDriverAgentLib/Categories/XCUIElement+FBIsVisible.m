@@ -13,16 +13,16 @@
 
 @implementation XCUIElement (FBIsVisible)
 
-- (BOOL)isFBVisible
+- (BOOL)fb_isVisible
 {
-  return self.lastSnapshot.isFBVisible;
+  return self.lastSnapshot.fb_isVisible;
 }
 
 @end
 
 @implementation XCElementSnapshot (FBIsVisible)
 
-- (BOOL)isFBVisible
+- (BOOL)fb_isVisible
 {
   return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
 }

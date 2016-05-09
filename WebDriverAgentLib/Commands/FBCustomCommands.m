@@ -12,6 +12,7 @@
 #import <XCTest/XCUIDevice.h>
 
 #import "FBApplication.h"
+#import "FBKeyboard.h"
 #import "FBResponsePayload.h"
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
@@ -50,7 +51,7 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   // Causing waitUntilApplicationBoardIsVisible not to work properly in some edge cases e.g. like starting session right after this call, while being on home screen
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBHomeButtonCoolOffTime]];
   NSError *error;
-  if (![[FBSpringboardApplication springboard] waitUntilApplicationBoardIsVisible:&error]) {
+  if (![[FBSpringboardApplication fb_springboard] fb_waitUntilApplicationBoardIsVisible:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
@@ -67,7 +68,7 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:duration]];
 
   NSError *error;
-  if (![[FBSpringboardApplication springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:&error]) {
+  if (![[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
@@ -81,17 +82,11 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
 
 + (id<FBResponsePayload>)handleHideKeyboard:(FBRouteRequest *)request
 {
-    FBSession *session = request.session;
-    XCUIElement *element = [session.application.windows elementBoundByIndex:0];
-    XCUIElementQuery *allElements = [element descendantsMatchingType:XCUIElementTypeAny];
-    XCUIElement *activeElement = [allElements elementMatchingPredicate:[NSPredicate predicateWithFormat:@"hasKeyboardFocus == YES"]];
-    if ([activeElement exists]) {
-        [element tap];
-        return FBResponseWithOK();
-    } else {
-        return FBResponseWithStatus(FBCommandStatusInvalidElementState, nil);
-    }
-
+  NSError *error;
+  if (![FBKeyboard hideWithError:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithOK();
 }
 
 @end

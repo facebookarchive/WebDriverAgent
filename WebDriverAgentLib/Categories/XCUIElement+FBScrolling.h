@@ -11,13 +11,13 @@
 
 @interface XCUIElement (FBScrolling)
 
-- (void)scrollUp;
-- (void)scrollDown;
-- (void)scrollLeft;
-- (void)scrollRight;
+- (void)fb_scrollUp;
+- (void)fb_scrollDown;
+- (void)fb_scrollLeft;
+- (void)fb_scrollRight;
 
-- (BOOL)scrollToVisibleWithError:(NSError **)error;
+- (BOOL)fb_scrollToVisibleWithError:(NSError **)error;
 
-- (BOOL)scrollToVisibleWithNormalizedScrollDistance:(CGFloat)normalizedScrollDistance error:(NSError **)error;
+- (BOOL)fb_scrollToVisibleWithNormalizedScrollDistance:(CGFloat)normalizedScrollDistance error:(NSError **)error;
 
 @end

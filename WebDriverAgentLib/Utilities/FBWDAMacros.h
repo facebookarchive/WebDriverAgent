@@ -16,3 +16,7 @@
 #else
     typedef NSString* FBWDALiteralString;
 #endif
+
+#define FBTransferEmptyStringToNil(value) ([value isEqual:@""] ? nil : value)
+#define FBFirstNonEmptyValue(value1, value2) ([value1 isEqual:@""] ? value2 : value1)
+#define FBValueOrNull(value) ((value) ?: [NSNull null])

@@ -16,7 +16,7 @@
 
 @implementation UIDevice (Wifi_IP)
 
-- (NSString *)wifiIPAddress
+- (NSString *)fb_wifiIPAddress
 {
   struct ifaddrs *interfaces = NULL;
   struct ifaddrs *temp_addr = NULL;

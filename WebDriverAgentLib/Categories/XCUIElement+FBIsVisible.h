@@ -13,7 +13,7 @@
 @interface XCUIElement (FBIsVisible)
 
 /*! Whether or not the element is visible */
-@property (atomic, readonly, getter = isFBVisible) BOOL fbVisible;
+@property (atomic, readonly) BOOL fb_isVisible;
 
 @end
 
@@ -21,6 +21,6 @@
 @interface XCElementSnapshot (FBIsVisible)
 
 /*! Whether or not the element is visible */
-@property (atomic, readonly, getter = isFBVisible) BOOL fbVisible;
+@property (atomic, readonly) BOOL fb_isVisible;
 
 @end

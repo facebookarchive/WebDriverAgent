@@ -7,21 +7,13 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
+
+@interface XCUIElement (Utilities)
 
 /**
- Accessors for Global Constants.
+ Waits for element's frame to become stable with timeout
  */
-@interface FBWDAConstants : NSObject
-
-/**
- The range of ports that the HTTP Server should attempt to bind on launch
- */
-+ (NSRange)bindingPortRange;
-
-/**
- YES if verbose logging is enabled. NO otherwise.
- */
-+ (BOOL)verboseLoggingEnabled;
+- (BOOL)fb_waitUntilFrameIsStable;
 
 @end

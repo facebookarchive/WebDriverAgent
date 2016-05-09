@@ -20,7 +20,7 @@
 
 @implementation FBSpringboardApplication
 
-+ (instancetype)springboard
++ (instancetype)fb_springboard
 {
   FBSpringboardApplication *springboard = [[FBSpringboardApplication alloc] initPrivateWithPath:nil bundleID:@"com.apple.springboard"];
   [springboard query];
@@ -33,7 +33,7 @@
   XCUIElement *appElement = [[self descendantsMatchingType:XCUIElementTypeAny]
                              elementMatchingPredicate:[NSPredicate predicateWithFormat:@"identifier = %@", identifier]
                              ];
-  if (![appElement scrollToVisibleWithNormalizedScrollDistance:1.0 error:error]) {
+  if (![appElement fb_scrollToVisibleWithNormalizedScrollDistance:1.0 error:error]) {
     return NO;
   }
   if (![appElement fb_tapWithError:error]) {
@@ -42,23 +42,23 @@
   return YES;
 }
 
-- (BOOL)waitUntilApplicationBoardIsVisible:(NSError **)error
+- (BOOL)fb_waitUntilApplicationBoardIsVisible:(NSError **)error
 {
   return
   [[[[FBRunLoopSpinner new]
      timeout:10.]
     timeoutErrorMessage:@"Timeout waiting until SpringBoard is visible"]
    spinUntilTrue:^BOOL{
-     return self.isApplicationBoardVisible;
+     return self.fb_isApplicationBoardVisible;
    } error:error];
 }
 
-- (BOOL)isApplicationBoardVisible
+- (BOOL)fb_isApplicationBoardVisible
 {
   [self resolve];
-  XCElementSnapshot *mainWindow = self.lastSnapshot.mainWindow;
+  XCElementSnapshot *mainWindow = self.lastSnapshot.fb_mainWindow;
   // During application switch 'SBSwitcherWindow' becomes a main window, so we should wait till it is gone
-  return mainWindow.isFBVisible && ![mainWindow.identifier isEqualToString:@"SBSwitcherWindow"];
+  return mainWindow.fb_isVisible && ![mainWindow.identifier isEqualToString:@"SBSwitcherWindow"];
 }
 
 @end

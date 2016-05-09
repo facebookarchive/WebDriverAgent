@@ -8,6 +8,8 @@
 # of patent rights can be found in the PATENTS file in the same directory.
 #
 
+set -e
+
 export PATH=$PATH:/usr/local/bin
 BOLD="\033[1m"
 
