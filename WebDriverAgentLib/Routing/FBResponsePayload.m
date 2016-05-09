@@ -9,10 +9,30 @@
 
 #import "FBResponsePayload.h"
 
-#import "FBSession.h"
-
+#import "FBElementCache.h"
 #import "FBResponseFilePayload.h"
 #import "FBResponseJSONPayload.h"
+#import "FBSession.h"
+
+#import "XCUIElement+WebDriverAttributes.h"
+
+inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSInteger elementID);
+
+id<FBResponsePayload> FBResponseWithCachedElement(XCUIElement *element, FBElementCache *elementCache)
+{
+  NSInteger elementID = [elementCache storeElement:element];
+  return FBResponseWithStatus(FBCommandStatusNoError, FBDictionaryResponseWithElement(element, elementID));
+}
+
+id<FBResponsePayload> FBResponseWithCachedElements(NSArray<XCUIElement *> *elements, FBElementCache *elementCache)
+{
+  NSMutableArray *elementsResponse = [NSMutableArray array];
+  for (XCUIElement *element in elements) {
+    NSInteger elementID = [elementCache storeElement:element];
+    [elementsResponse addObject:FBDictionaryResponseWithElement(element, elementID)];
+  }
+  return FBResponseWithStatus(FBCommandStatusNoError, elementsResponse);
+}
 
 id<FBResponsePayload> FBResponseWithElementID(NSUInteger elementID)
 {
@@ -111,3 +131,13 @@ id<FBResponsePayload> FBResponseFileWithPath(NSString *path)
 }
 
 @end
+
+inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSInteger elementID)
+{
+  return
+  @{
+    @"ELEMENT": @(elementID),
+    @"type": element.wdType,
+    @"label" : element.wdLabel ?: [NSNull null],
+    };
+}

@@ -64,20 +64,14 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   if (!element) {
     return FBNoSuchElementErrorResponseForRequest(request);
   }
-  NSInteger elementID = [request.session.elementCache storeElement:element];
-  return FBResponseWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:element elementID:elementID]);
+  return FBResponseWithCachedElement(element, request.session.elementCache);
 }
 
 + (id<FBResponsePayload>)handleFindElements:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
   NSArray *elements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application];
-  NSMutableArray *elementsResponse = [[NSMutableArray alloc] init];
-  for (XCUIElement *element in elements) {
-    NSInteger elementID = [request.session.elementCache storeElement:element];
-    [elementsResponse addObject:[self dictionaryResponseWithElement:element elementID:elementID]];
-  }
-  return FBResponseWithStatus(FBCommandStatusNoError, elementsResponse);
+  return FBResponseWithCachedElements(elements, request.session.elementCache);
 }
 
 + (id<FBResponsePayload>)handleFindVisibleCells:(FBRouteRequest *)request
@@ -86,14 +80,9 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   NSInteger elementID = [request.parameters[@"elementID"] integerValue];
   XCUIElement *collection = [elementCache elementForIndex:elementID];
 
-  NSMutableArray *elementsResponse = [[NSMutableArray alloc] init];
   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isFBVisible == YES"];
   NSArray *elements = [[collection childrenMatchingType:XCUIElementTypeCell] matchingPredicate:predicate].allElementsBoundByIndex;
-  for (XCUIElement *element in elements) {
-    NSInteger newID = [request.session.elementCache storeElement:element];
-    [elementsResponse addObject:[self dictionaryResponseWithElement:element elementID:newID]];
-  }
-  return FBResponseWithStatus(FBCommandStatusNoError, elementsResponse);
+  return FBResponseWithCachedElements(elements, request.session.elementCache);
 }
 
 + (id<FBResponsePayload>)handleFindSubElement:(FBRouteRequest *)request
@@ -104,8 +93,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   if (!foundElement) {
     return FBNoSuchElementErrorResponseForRequest(request);
   }
-  NSInteger elementID = [request.session.elementCache storeElement:foundElement];
-  return FBResponseWithStatus(FBCommandStatusNoError, [self dictionaryResponseWithElement:foundElement elementID:elementID]);
+  return FBResponseWithCachedElement(foundElement, request.session.elementCache);
 }
 
 + (id<FBResponsePayload>)handleFindSubElements:(FBRouteRequest *)request
@@ -117,27 +105,11 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   if (foundElements.count == 0) {
     return FBNoSuchElementErrorResponseForRequest(request);
   }
-
-  NSMutableArray *elementsResponse = [NSMutableArray array];
-  for (XCUIElement *iElement in foundElements) {
-    NSInteger elementID = [request.session.elementCache storeElement:iElement];
-    [elementsResponse addObject:[self dictionaryResponseWithElement:iElement elementID:elementID]];
-  }
-  return FBResponseWithStatus(FBCommandStatusNoError, elementsResponse);
+  return FBResponseWithCachedElements(foundElements, request.session.elementCache);
 }
 
 
 #pragma mark - Helpers
-
-+ (NSDictionary *)dictionaryResponseWithElement:(XCUIElement *)element elementID:(NSInteger)elementID
-{
-  return
-  @{
-    @"ELEMENT": @(elementID),
-    @"type": element.wdType,
-    @"label" : element.wdLabel ?: [NSNull null],
-    };
-}
 
 + (XCUIElement *)elementUsing:(NSString *)usingText withValue:(NSString *)value under:(XCUIElement *)element
 {
