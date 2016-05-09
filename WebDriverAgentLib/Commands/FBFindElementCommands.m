@@ -80,7 +80,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   NSInteger elementID = [request.parameters[@"elementID"] integerValue];
   XCUIElement *collection = [elementCache elementForIndex:elementID];
 
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isFBVisible == YES"];
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"fb_isVisible == YES"];
   NSArray *elements = [[collection childrenMatchingType:XCUIElementTypeCell] matchingPredicate:predicate].allElementsBoundByIndex;
   return FBResponseWithCachedElements(elements, request.session.elementCache);
 }

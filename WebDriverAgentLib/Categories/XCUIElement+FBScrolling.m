@@ -88,7 +88,7 @@ const CGFloat FBScrollCoolOffTime = 1.f;
     // In some cases XCTest will not report Cell Views. In that case grabbing descendants and trying to figure out scroll directon from them.
     cellSnapshots = scrollView._allDescendants;
   }
-  NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFBVisible == YES"]];
+  NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"fb_isVisible == YES"]];
 
   if (visibleCellSnapshots.count < 2) {
     [[[FBErrorBuilder builder]
