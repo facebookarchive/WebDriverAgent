@@ -9,6 +9,7 @@
 
 #import "XCUIElement+FBScrolling.h"
 
+#import "FBErrorBuilder.h"
 #import "FBRunLoopSpinner.h"
 #import "FBWDALogger.h"
 #import "XCElementSnapshot+Helpers.h"
@@ -32,8 +33,6 @@ const CGFloat FBScrollVelocity = 200.f;
 const CGFloat FBScrollBoundingVelocityPadding = 0.0f;
 const CGFloat FBScrollTouchProportion = 0.75f;
 const CGFloat FBScrollCoolOffTime = 1.f;
-
-void FBHandleScrollingErrorWithDescription(NSError **error, NSString *description);
 
 @interface XCElementSnapshot (FBScrolling)
 
@@ -92,7 +91,9 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFBVisible == YES"]];
 
   if (visibleCellSnapshots.count < 2) {
-    FBHandleScrollingErrorWithDescription(error, [NSString stringWithFormat:@"Failed to perform scroll with visible cell count %lu", (unsigned long)visibleCellSnapshots.count]);
+    [[[FBErrorBuilder builder]
+      withDescriptionFormat:@"Failed to perform scroll with visible cell count %lu", (unsigned long)visibleCellSnapshots.count]
+     buildError:error];
     return NO;
   }
   XCElementSnapshot *lastSnapshot = visibleCellSnapshots.lastObject;
@@ -124,7 +125,9 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
   }
 
   if (scrollCount >= maxScrollCount) {
-    FBHandleScrollingErrorWithDescription(error, @"Failed to perform scroll with visible cell due to max scroll count reached");
+    [[[FBErrorBuilder builder]
+      withDescriptionFormat:@"Failed to perform scroll with visible cell due to max scroll count reached"]
+     buildError:error];
     return NO;
   }
 
@@ -269,10 +272,3 @@ void FBHandleScrollingErrorWithDescription(NSError **error, NSString *descriptio
 }
 
 @end
-
-void FBHandleScrollingErrorWithDescription(NSError **error, NSString *description)
-{
-  if (error) {
-    *error = [NSError errorWithDomain:@"com.facebook.WebDriverAgent.ScrollToVisible" code:0 userInfo:@{NSLocalizedDescriptionKey : description}];
-  }
-}
