@@ -60,4 +60,19 @@
   return YES;
 }
 
++ (BOOL)hideWithError:(NSError **)error
+{
+  XCUIElement *element = [[FBApplication activeApplication].windows elementBoundByIndex:0];
+  XCUIElementQuery *allElements = [element descendantsMatchingType:XCUIElementTypeAny];
+  XCUIElement *activeElement = [allElements elementMatchingPredicate:[NSPredicate predicateWithFormat:@"hasKeyboardFocus == YES"]];
+  if (!activeElement.exists) {
+    [[[FBErrorBuilder builder]
+      withDescription:@"There is no element with keyboard focus"]
+     buildError:error];
+    return NO;
+  }
+  [element tap];
+  return YES;
+}
+
 @end

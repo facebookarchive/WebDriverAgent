@@ -24,4 +24,12 @@
 */
 + (BOOL)typeText:(NSString *)text error:(NSError **)error;
 
+/**
+ Hides keyboard if present otherwise an error is raised.
+
+ @param error If there is an error, upon return contains an NSError object that describes the problem.
+ @return YES if the operation succeeds, otherwise NO.
+ */
++ (BOOL)hideWithError:(NSError **)error;
+
 @end

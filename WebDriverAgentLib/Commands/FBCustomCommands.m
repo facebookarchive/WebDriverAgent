@@ -12,6 +12,7 @@
 #import <XCTest/XCUIDevice.h>
 
 #import "FBApplication.h"
+#import "FBKeyboard.h"
 #import "FBResponsePayload.h"
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
@@ -79,17 +80,11 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
 
 + (id<FBResponsePayload>)handleHideKeyboard:(FBRouteRequest *)request
 {
-    FBSession *session = request.session;
-    XCUIElement *element = [session.application.windows elementBoundByIndex:0];
-    XCUIElementQuery *allElements = [element descendantsMatchingType:XCUIElementTypeAny];
-    XCUIElement *activeElement = [allElements elementMatchingPredicate:[NSPredicate predicateWithFormat:@"hasKeyboardFocus == YES"]];
-    if ([activeElement exists]) {
-        [element tap];
-        return FBResponseWithOK();
-    } else {
-        return FBResponseWithStatus(FBCommandStatusInvalidElementState, nil);
-    }
-
+  NSError *error;
+  if (![FBKeyboard hideWithError:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithOK();
 }
 
 @end
