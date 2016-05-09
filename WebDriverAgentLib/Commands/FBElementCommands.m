@@ -102,7 +102,7 @@
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
   NSError *error;
-  if ([element scrollToVisibleWithError:&error]) {
+  if ([element fb_scrollToVisibleWithError:&error]) {
     return FBResponseWithStatus(FBCommandStatusNoError, element.wdLocation);
   }
   return FBResponseWithError(error);
@@ -113,7 +113,7 @@
   FBElementCache *elementCache = request.session.elementCache;
   NSInteger elementID = [request.parameters[@"id"] integerValue];
   XCUIElement *element = [elementCache elementForIndex:elementID];
-  id attributeValue = [element valueForWDAttributeName:request.parameters[@"name"]];
+  id attributeValue = [element fb_valueForWDAttributeName:request.parameters[@"name"]];
   attributeValue = attributeValue ?: [NSNull null];
   return FBResponseWithStatus(FBCommandStatusNoError, attributeValue);
 }
@@ -239,13 +239,13 @@
   NSString *const direction = request.arguments[@"direction"];
   if (direction) {
     if ([direction isEqualToString:@"up"]) {
-      [element scrollUp];
+      [element fb_scrollUp];
     } else if ([direction isEqualToString:@"down"]) {
-      [element scrollDown];
+      [element fb_scrollDown];
     } else if ([direction isEqualToString:@"left"]) {
-      [element scrollLeft];
+      [element fb_scrollLeft];
     } else if ([direction isEqualToString:@"right"]) {
-      [element scrollRight];
+      [element fb_scrollRight];
     }
     return FBResponseWithOK();
   }
@@ -338,7 +338,7 @@
   if (!element.exists) {
     return FBResponseWithErrorFormat(@"Can't scroll to element that does not exist");
   }
-  if (![element scrollToVisibleWithError:&error]) {
+  if (![element fb_scrollToVisibleWithError:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();

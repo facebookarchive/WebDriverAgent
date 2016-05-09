@@ -21,7 +21,7 @@
 
 @implementation FBApplication
 
-+ (instancetype)activeApplication
++ (instancetype)fb_activeApplication
 {
   XCAccessibilityElement *activeApplicationElement = [[[XCAXClient_iOS sharedClient] activeApplications] firstObject];
   if (!activeApplicationElement) {
@@ -35,21 +35,21 @@
 
 - (void)launch
 {
-  if (!self.shouldWaitForQuiescence) {
-    [self placeApplicationProxy];
+  if (!self.fb_shouldWaitForQuiescence) {
+    [self fb_placeApplicationProxy];
   }
   [super launch];
 }
 
 - (void)_waitForQuiescence
 {
-  if (!self.shouldWaitForQuiescence) {
+  if (!self.fb_shouldWaitForQuiescence) {
     return;
   }
   [super _waitForQuiescence];
 }
 
-- (void)placeApplicationProxy
+- (void)fb_placeApplicationProxy
 {
   if (![self respondsToSelector:@selector(applicationImpl)]) {
     return;

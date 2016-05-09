@@ -14,7 +14,7 @@
 
 @implementation XCUIElement (Utilities)
 
-- (BOOL)waitUntilFrameIsStable
+- (BOOL)fb_waitUntilFrameIsStable
 {
   __block CGRect frame;
   // Initial wait

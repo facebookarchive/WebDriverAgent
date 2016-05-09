@@ -14,7 +14,7 @@
 /**
  @return FBApplication that is attached to SpringBoard
  */
-+ (instancetype)springboard;
++ (instancetype)fb_springboard;
 
 /**
  Taps application on SpringBoard app with given identifer
@@ -31,6 +31,6 @@
  @param error If there is an error, upon return contains an NSError object that describes the problem.
  @return YES if the operation succeeds, otherwise NO.
  */
-- (BOOL)waitUntilApplicationBoardIsVisible:(NSError **)error;
+- (BOOL)fb_waitUntilApplicationBoardIsVisible:(NSError **)error;
 
 @end

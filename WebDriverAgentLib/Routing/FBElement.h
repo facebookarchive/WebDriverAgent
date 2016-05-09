@@ -26,6 +26,6 @@ NSString *wdAttributeNameForAttributeName(NSString *name);
 @property (atomic, readonly, getter = isWDVisible) BOOL wdVisible;
 @property (atomic, readonly, getter = isWDAccessible) BOOL wdAccessible;
 
-- (id)valueForWDAttributeName:(NSString *)name;
+- (id)fb_valueForWDAttributeName:(NSString *)name;
 
 @end

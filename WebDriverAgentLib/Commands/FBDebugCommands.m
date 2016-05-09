@@ -35,7 +35,7 @@
 
 + (id<FBResponsePayload>)handleGetActiveTreeCommand:(FBRouteRequest *)request
 {
-  FBApplication *application = [FBApplication activeApplication];
+  FBApplication *application = [FBApplication fb_activeApplication];
   if (!application) {
     return FBResponseWithErrorFormat(@"There is no active application");
   }

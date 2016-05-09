@@ -15,7 +15,7 @@
 @interface XCUIElement (FBAccessibility)
 
 /*! Whether or not the element is accessible */
-@property (atomic, readonly, getter = isFbAccessibilityElement) BOOL fbAccessibilityElement;
+@property (atomic, readonly) BOOL fb_isAccessibilityElement;
 
 @end
 
@@ -23,6 +23,6 @@
 @interface XCElementSnapshot (FBAccessibility)
 
 /*! Whether or not the element in snapshot is accessible */
-@property (atomic, readonly, getter = isFbAccessibilityElement) BOOL fbAccessibilityElement;
+@property (atomic, readonly) BOOL fb_isAccessibilityElement;
 
 @end

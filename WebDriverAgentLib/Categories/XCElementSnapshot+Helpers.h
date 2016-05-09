@@ -22,8 +22,8 @@ extern NSNumber *FB_XCAXAIsElementAttribute;
 
 - (id)fb_attributeValue:(NSNumber *)attribute;
 
-- (XCElementSnapshot *)mainWindow;
+- (XCElementSnapshot *)fb_mainWindow;
 
-- (BOOL)_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot;
+- (BOOL)fb_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot;
 
 @end

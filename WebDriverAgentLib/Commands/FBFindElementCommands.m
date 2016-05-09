@@ -168,13 +168,13 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 + (void)descendantsOfElement:(XCUIElement *)element withProperty:(NSString *)property value:(NSString *)value partial:(BOOL)partialSearch results:(NSMutableArray *)results
 {
   if (partialSearch) {
-    NSString *text = [element valueForWDAttributeName:property];
+    NSString *text = [element fb_valueForWDAttributeName:property];
     BOOL isString = [text isKindOfClass:[NSString class]];
     if (isString && [text rangeOfString:value].location != NSNotFound) {
       [results addObject:element];
     }
   } else {
-    if ([[element valueForWDAttributeName:property] isEqual:value]) {
+    if ([[element fb_valueForWDAttributeName:property] isEqual:value]) {
       [results addObject:element];
     }
   }

@@ -17,7 +17,7 @@
 
 - (BOOL)fb_tapWithError:(NSError **)error
 {
-  [self waitUntilFrameIsStable];
+  [self fb_waitUntilFrameIsStable];
   return [[XCEventGenerator sharedGenerator] fb_syncTapAtPoint:self.lastSnapshot.hitPoint orientation:self.interfaceOrientation error:error];
 }
 

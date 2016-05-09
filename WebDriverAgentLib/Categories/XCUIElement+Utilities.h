@@ -14,6 +14,6 @@
 /**
  Waits for element's frame to become stable with timeout
  */
-- (BOOL)waitUntilFrameIsStable;
+- (BOOL)fb_waitUntilFrameIsStable;
 
 @end

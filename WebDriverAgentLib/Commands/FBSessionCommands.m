@@ -40,7 +40,7 @@
   NSString *appPath = requirements[@"app"];
   NSAssert(bundleID, @"'bundleId' desired capability not provided");
   FBApplication *app = [[FBApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
-  app.shouldWaitForQuiescence = [requirements[@"shouldWaitForQuiescence"] boolValue];
+  app.fb_shouldWaitForQuiescence = [requirements[@"shouldWaitForQuiescence"] boolValue];
   app.launchArguments = (NSArray<NSString *> *)requirements[@"arguments"] ?: @[];
   app.launchEnvironment = (NSDictionary <NSString *, NSString *> *)requirements[@"environment"] ?: @{};
   [app launch];

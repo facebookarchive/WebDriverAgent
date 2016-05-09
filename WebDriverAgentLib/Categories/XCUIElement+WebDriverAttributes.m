@@ -42,7 +42,7 @@
 
 @implementation XCElementSnapshot (WebDriverAttributes)
 
-- (id)valueForWDAttributeName:(NSString *)name
+- (id)fb_valueForWDAttributeName:(NSString *)name
 {
   return [self valueForKey:wdAttributeNameForAttributeName(name)];
 }
@@ -87,17 +87,17 @@
 
 - (BOOL)isWDVisible
 {
-  return self.isFBVisible;
+  return self.fb_isVisible;
 }
 
 - (BOOL)isWDAccessible
 {
-  if (!self.isFbAccessibilityElement) {
+  if (!self.fb_isAccessibilityElement) {
     return NO;
   }
   XCElementSnapshot *parentSnapshot = self.parent;
   while (parentSnapshot) {
-    if (parentSnapshot.isFbAccessibilityElement) {
+    if (parentSnapshot.fb_isAccessibilityElement) {
       return NO;
     }
     parentSnapshot = parentSnapshot.parent;

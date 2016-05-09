@@ -46,12 +46,12 @@
      timeout:5]
     timeoutErrorMessage:@"Keyboard is not present"]
    spinUntilNotNil:^id{
-     XCUIElement *foundKeyboard = [[FBApplication activeApplication].query descendantsMatchingType:XCUIElementTypeKeyboard].element;
+     XCUIElement *foundKeyboard = [[FBApplication fb_activeApplication].query descendantsMatchingType:XCUIElementTypeKeyboard].element;
      return (foundKeyboard.exists ? foundKeyboard : nil);
    }
    error:error];
 
-  if (![keyboard waitUntilFrameIsStable]) {
+  if (![keyboard fb_waitUntilFrameIsStable]) {
     [[[FBErrorBuilder builder]
       withDescription:@"Timeout waiting for keybord to stop animating"]
      buildError:error];
@@ -62,7 +62,7 @@
 
 + (BOOL)hideWithError:(NSError **)error
 {
-  XCUIElement *element = [[FBApplication activeApplication].windows elementBoundByIndex:0];
+  XCUIElement *element = [[FBApplication fb_activeApplication].windows elementBoundByIndex:0];
   XCUIElementQuery *allElements = [element descendantsMatchingType:XCUIElementTypeAny];
   XCUIElement *activeElement = [allElements elementMatchingPredicate:[NSPredicate predicateWithFormat:@"hasKeyboardFocus == YES"]];
   if (!activeElement.exists) {

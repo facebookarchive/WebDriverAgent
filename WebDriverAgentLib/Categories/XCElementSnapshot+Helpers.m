@@ -73,7 +73,7 @@ NSNumber *FB_XCAXAIsElementAttribute;
   return attributesResult[attribute];
 }
 
-- (XCElementSnapshot *)mainWindow
+- (XCElementSnapshot *)fb_mainWindow
 {
   NSArray<XCElementSnapshot *> *mainWindows = [self descendantsByFilteringWithBlock:^BOOL(XCElementSnapshot *snapshot) {
     return snapshot.isMainWindow;
@@ -81,7 +81,7 @@ NSNumber *FB_XCAXAIsElementAttribute;
   return mainWindows.lastObject;
 }
 
-- (BOOL)_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot
+- (BOOL)fb_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot
 {
   return self.elementType == snapshot.elementType &&
     valuesAreEqual(self.identifier, snapshot.identifier) &&

@@ -11,6 +11,9 @@
 
 @interface UIDevice (Wifi_IP)
 
-- (NSString *)wifiIPAddress;
+/**
+ Returs device current wifi ip4 address
+ */
+- (NSString *)fb_wifiIPAddress;
 
 @end

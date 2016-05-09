@@ -15,16 +15,16 @@
 
 @implementation XCUIElement (FBAccessibility)
 
-- (BOOL)isFbAccessibilityElement
+- (BOOL)fb_isAccessibilityElement
 {
-  return self.lastSnapshot.isFbAccessibilityElement;
+  return self.lastSnapshot.fb_isAccessibilityElement;
 }
 
 @end
 
 @implementation XCElementSnapshot (FBAccessibility)
 
-- (BOOL)isFbAccessibilityElement
+- (BOOL)fb_isAccessibilityElement
 {
   return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsElementAttribute] boolValue];
 }

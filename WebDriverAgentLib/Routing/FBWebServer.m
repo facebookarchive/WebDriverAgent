@@ -91,7 +91,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     [FBWDALogger logFmt:@"Last attempt to start web server failed with error %@", [error description]];
     abort();
   }
-  [FBWDALogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [UIDevice currentDevice].wifiIPAddress, [self.server port], FBServerURLEndMarker];
+  [FBWDALogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [UIDevice currentDevice].fb_wifiIPAddress, [self.server port], FBServerURLEndMarker];
 }
 
 - (BOOL)attemptToStartServer:(RoutingHTTPServer *)server onPort:(NSInteger)port withError:(NSError **)error
