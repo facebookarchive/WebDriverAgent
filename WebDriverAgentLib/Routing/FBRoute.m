@@ -158,7 +158,7 @@ static NSString *const FBRouteSessionPrefix = @"/session/:sessionID";
 
 - (void)mountRequest:(FBRouteRequest *)request intoResponse:(RouteResponse *)response
 {
-  [FBResponseWithErrorMessage(@"Unhandled route") dispatchWithResponse:response];
+  [FBResponseWithErrorFormat(@"Unhandled route") dispatchWithResponse:response];
 }
 
 @end

@@ -258,7 +258,7 @@
   if (request.arguments[@"toVisible"]) {
     return [self.class handleScrollElementToVisible:element withRequest:request];
   }
-  return FBResponseWithErrorMessage(@"Unsupported scroll type");
+  return FBResponseWithErrorFormat(@"Unsupported scroll type");
 }
 
 + (id<FBResponsePayload>)handleGetUIAElementValue:(FBRouteRequest *)request
@@ -266,12 +266,12 @@
     FBElementCache *elementCache = request.session.elementCache;
     XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
     if (element.elementType != XCUIElementTypePickerWheel) {
-        return FBResponseWithErrorMessage([NSString stringWithFormat:@"Element is not of type %@", [FBElementTypeTransformer shortStringWithElementType:XCUIElementTypePickerWheel]]);
+        return FBResponseWithErrorFormat(@"Element is not of type %@", [FBElementTypeTransformer shortStringWithElementType:XCUIElementTypePickerWheel]);
     }
     NSString *wheelPickerValue = request.arguments[@"value"];
     
     if (!wheelPickerValue) {
-        return FBResponseWithErrorMessage(@"Missing value parameter");
+        return FBResponseWithErrorFormat(@"Missing value parameter");
     }
     
     [element adjustToPickerWheelValue:wheelPickerValue];
@@ -358,7 +358,7 @@
 {
   NSError *error;
   if (!element.exists) {
-    return FBResponseWithErrorMessage(@"Can't scroll to element that does not exist");
+    return FBResponseWithErrorFormat(@"Can't scroll to element that does not exist");
   }
   if (![element scrollToVisibleWithError:&error]) {
     return FBResponseWithError(error);

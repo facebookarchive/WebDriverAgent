@@ -44,7 +44,7 @@ static id ValueOrNull(id value) {
 {
   FBApplication *application = [self activeApplication];
   if (!application) {
-    return FBResponseWithErrorMessage(@"There is no active application");
+    return FBResponseWithErrorFormat(@"There is no active application");
   }
   return [self handleTreeCommandWithParams:application];
 }

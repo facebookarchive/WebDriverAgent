@@ -24,9 +24,13 @@ id<FBResponsePayload> FBResponseWithError(NSError *error)
   return [FBResponsePayload withError:error];
 }
 
-id<FBResponsePayload> FBResponseWithErrorMessage(NSString *errorMessage)
+id<FBResponsePayload> FBResponseWithErrorFormat(NSString *format, ...)
 {
-  return [FBResponsePayload withErrorMessage:errorMessage];
+  va_list argList;
+  va_start(argList, format);
+  id<FBResponsePayload> payload = [FBResponsePayload withErrorFormat:format arguments:argList];
+  va_end(argList);
+  return payload;
 }
 
 id<FBResponsePayload> FBResponseWithStatus(FBCommandStatus status, id object)
@@ -71,8 +75,19 @@ id<FBResponsePayload> FBResponseFileWithPath(NSString *path)
   return [self withStatus:FBCommandStatusUnhandled object:error.description];
 }
 
-+ (id<FBResponsePayload>)withErrorMessage:(NSString *)errorMessage
++ (id<FBResponsePayload>)withErrorFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2)
 {
+  va_list argList;
+  va_start(argList, format);
+  id<FBResponsePayload> payload = [self withErrorFormat:format arguments:argList];
+  NSLogv(format, argList);
+  va_end(argList);
+  return payload;
+}
+
++ (id<FBResponsePayload>)withErrorFormat:(NSString *)format arguments:(va_list)argList NS_FORMAT_FUNCTION(1,0)
+{
+  NSString *errorMessage = [[NSString alloc] initWithFormat:format arguments:argList];
   return [self withStatus:FBCommandStatusUnhandled object:errorMessage];
 }
 
