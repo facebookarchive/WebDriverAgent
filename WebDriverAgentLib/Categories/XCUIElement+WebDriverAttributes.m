@@ -12,12 +12,10 @@
 #import <objc/runtime.h>
 
 #import "FBElementTypeTransformer.h"
+#import "FBWDAMacros.h"
 #import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
-
-#define FBTransferEmptyStringToNil(value) ([value isEqual:@""] ? nil : value)
-#define FBFirstNonEmptyValue(value1, value2) ([value1 isEqual:@""] ? value2 : value1)
 
 @implementation XCUIElement (WebDriverAttributesForwarding)
 

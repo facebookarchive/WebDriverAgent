@@ -13,12 +13,9 @@
 #import "FBElementTypeTransformer.h"
 #import "FBRouteRequest.h"
 #import "FBSession.h"
+#import "FBWDAMacros.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+WebDriverAttributes.h"
-
-static id ValueOrNull(id value) {
-  return value ?: [NSNull null];
-}
 
 @implementation FBDebugCommands
 
@@ -70,10 +67,10 @@ static id ValueOrNull(id value) {
 {
   NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
   info[@"type"] = [FBElementTypeTransformer shortStringWithElementType:snapshot.elementType];
-  info[@"rawIdentifier"] = ValueOrNull([snapshot.identifier isEqual:@""] ? nil : snapshot.identifier);
-  info[@"name"] = ValueOrNull(snapshot.wdName);
-  info[@"value"] = ValueOrNull(snapshot.wdValue);
-  info[@"label"] = ValueOrNull(snapshot.wdLabel);
+  info[@"rawIdentifier"] = FBValueOrNull([snapshot.identifier isEqual:@""] ? nil : snapshot.identifier);
+  info[@"name"] = FBValueOrNull(snapshot.wdName);
+  info[@"value"] = FBValueOrNull(snapshot.wdValue);
+  info[@"label"] = FBValueOrNull(snapshot.wdLabel);
   info[@"rect"] = snapshot.wdRect;
   info[@"frame"] = NSStringFromCGRect(snapshot.wdFrame);
   info[@"isEnabled"] = [@([snapshot isWDEnabled]) stringValue];
