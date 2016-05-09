@@ -74,4 +74,14 @@ static const NSTimeInterval FBWaitInterval = 0.1;
   return YES;
 }
 
+- (id)spinUntilNotNil:(FBRunLoopSpinnerObjectBlock)untilNotNil error:(NSError **)error
+{
+  __block id object;
+  [self spinUntilTrue:^BOOL{
+    object = untilNotNil();
+    return object != nil;
+  } error:error];
+  return object;
+}
+
 @end

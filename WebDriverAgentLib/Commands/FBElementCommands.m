@@ -10,18 +10,20 @@
 #import "FBElementCommands.h"
 
 #import "FBApplication.h"
+#import "FBKeyboard.h"
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
 #import "FBRunLoopSpinner.h"
 #import "FBElementCache.h"
+#import "FBErrorBuilder.h"
 #import "FBSession.h"
-#import "XCTestDriver.h"
 #import "FBApplication.h"
 #import "XCUICoordinate.h"
 #import "XCUIDevice.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBScrolling.h"
 #import "XCUIElement+FBTap.h"
+#import "XCUIElement+Utilities.h"
 #import "XCUIElement+WebDriverAttributes.h"
 #import "FBElementTypeTransformer.h"
 #import "XCUIElement.h"
@@ -167,7 +169,7 @@
     return FBResponseWithError(error);
   }
   NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
-  if (![self.class typeText:textToType error:&error]) {
+  if (![FBKeyboard typeText:textToType error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithElementID(elementID);
@@ -198,7 +200,7 @@
   for (NSUInteger i = 0 ; i < [element.value length] ; i++) {
     [textToType appendString:@"\b"];
   }
-  if (![self.class typeText:textToType error:&error]) {
+  if (![FBKeyboard typeText:textToType error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithElementID(elementID);
@@ -315,7 +317,7 @@
 {
   NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
   NSError *error;
-  if (![self.class typeText:textToType error:&error]) {
+  if (![FBKeyboard typeText:textToType error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
@@ -329,30 +331,6 @@
 
 
 #pragma mark - Helpers
-
-/*!
- * Types a string into the element. The element or a descendant must have keyboard focus; otherwise an
- * error is raised.
- *
- * This API discards any modifiers set in the current context by +performWithKeyModifiers:block: so that
- * it strictly interprets the provided text. To input keys with modifier flags, use  -typeKey:modifierFlags:.
- */
-+ (BOOL)typeText:(NSString *)text error:(NSError **)error
-{
-  __block BOOL didSucceed = NO;
-  __block NSError *innerError;
-  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    [[XCTestDriver sharedTestDriver].managerProxy _XCT_sendString:text completion:^(NSError *typingError){
-      didSucceed = (typingError == nil);
-      innerError = typingError;
-      completion();
-    }];
-  }];
-  if (error) {
-    *error = innerError;
-  }
-  return didSucceed;
-}
 
 + (id<FBResponsePayload>)handleScrollElementToVisible:(XCUIElement *)element withRequest:(FBRouteRequest *)request
 {

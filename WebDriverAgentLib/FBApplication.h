@@ -12,6 +12,11 @@
 @interface FBApplication : XCUIApplication
 
 /**
+ Constructor used to get current active application
+ */
++ (instancetype)activeApplication;
+
+/**
  It allows to turn on/off waiting for application quiescence, while performing queries. Defaults to NO.
  */
 @property (nonatomic, assign) BOOL shouldWaitForQuiescence;

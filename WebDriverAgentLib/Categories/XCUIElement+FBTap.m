@@ -9,32 +9,16 @@
 
 #import "XCUIElement+FBTap.h"
 
-#import "FBRunLoopSpinner.h"
+#import "XCUIElement+Utilities.h"
 #import "XCElementSnapshot-Hitpoint.h"
 #import "XCEventGenerator+SyncEvents.h"
-#import "XCUIElement+WebDriverAttributes.h"
 
 @implementation XCUIElement (FBTap)
 
 - (BOOL)fb_tapWithError:(NSError **)error
 {
-  [self waitForElementQuiescence];
+  [self waitUntilFrameIsStable];
   return [[XCEventGenerator sharedGenerator] fb_syncTapAtPoint:self.lastSnapshot.hitPoint orientation:self.interfaceOrientation error:error];
-}
-
-- (void)waitForElementQuiescence
-{
-  __block CGRect frame;
-  // Initial wait
-  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-  [[[FBRunLoopSpinner new]
-    timeout:5.]
-   spinUntilTrue:^BOOL{
-     [self resolve];
-     const BOOL isSameFrame = CGRectEqualToRect(frame, self.wdFrame);
-     frame = self.wdFrame;
-     return isSameFrame;
-   }];
 }
 
 @end
