@@ -18,13 +18,6 @@ static NSUInteger const DefaultPortRange = 100;
 
 #pragma mark Public
 
-+ (BOOL)isIOS9OrGreater
-{
-  NSDecimalNumber *versionNumber = [NSDecimalNumber decimalNumberWithString:[UIDevice currentDevice].systemVersion];
-  NSComparisonResult comparisonResult = [versionNumber compare:[NSDecimalNumber decimalNumberWithString:@"9.0"]];
-  return comparisonResult != NSOrderedAscending;
-}
-
 + (NSRange)bindingPortRange
 {
   // 'WebDriverAgent --port 8080' can be passed via the arguments to the process

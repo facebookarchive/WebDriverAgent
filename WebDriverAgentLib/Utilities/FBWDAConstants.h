@@ -15,11 +15,6 @@
 @interface FBWDAConstants : NSObject
 
 /**
- YES if running on an iOS 9-or-greater Host, NO otherwise
- */
-+ (BOOL)isIOS9OrGreater;
-
-/**
  The range of ports that the HTTP Server should attempt to bind on launch
  */
 + (NSRange)bindingPortRange;
