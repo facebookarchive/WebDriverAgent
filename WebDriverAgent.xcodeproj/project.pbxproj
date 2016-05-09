@@ -19,7 +19,6 @@
 		ADB0AABD1CB7133900DBC756 /* FBRuntimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7921CAEDF0C008C271F /* FBRuntimeUtils.m */; };
 		ADB0AABE1CB7133900DBC756 /* FBWDAConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7941CAEDF0C008C271F /* FBWDAConstants.m */; };
 		ADB0AABF1CB7133900DBC756 /* FBXPathCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7991CAEDF0C008C271F /* FBXPathCreator.m */; };
-		ADB0AAC01CB7133900DBC756 /* UIDevice+Wifi_IP.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB79B1CAEDF0C008C271F /* UIDevice+Wifi_IP.m */; };
 		EE158AA71CBD454900A3E3F0 /* KissXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5601CAEC4E9008C271F /* KissXML.framework */; };
 		EE158AA81CBD454900A3E3F0 /* peertalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5711CAEC4F1008C271F /* peertalk.framework */; };
 		EE158AA91CBD454900A3E3F0 /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */; };
@@ -96,8 +95,6 @@
 		EE158AF01CBD456F00A3E3F0 /* FBWDAMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7971CAEDF0C008C271F /* FBWDAMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158AF11CBD456F00A3E3F0 /* FBXPathCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7981CAEDF0C008C271F /* FBXPathCreator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158AF21CBD456F00A3E3F0 /* FBXPathCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7991CAEDF0C008C271F /* FBXPathCreator.m */; };
-		EE158AF31CBD456F00A3E3F0 /* UIDevice+Wifi_IP.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB79A1CAEDF0C008C271F /* UIDevice+Wifi_IP.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE158AF41CBD456F00A3E3F0 /* UIDevice+Wifi_IP.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB79B1CAEDF0C008C271F /* UIDevice+Wifi_IP.m */; };
 		EE158AF51CBD456F00A3E3F0 /* FBApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7661CAEDF0C008C271F /* FBApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158AF61CBD456F00A3E3F0 /* FBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7671CAEDF0C008C271F /* FBApplication.m */; };
 		EE158AF71CBD456F00A3E3F0 /* FBSpringboardApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC088EA1CB5706D00B65968 /* FBSpringboardApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -313,7 +310,6 @@
 		EE9AB7FE1CAEE048008C271F /* FBDebugLogDelegateDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7F91CAEE048008C271F /* FBDebugLogDelegateDecorator.m */; };
 		EE9AB7FF1CAEE048008C271F /* FBXCTestCaseImplementationFailureHoldingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7FB1CAEE048008C271F /* FBXCTestCaseImplementationFailureHoldingProxy.m */; };
 		EE9AB8011CAEE048008C271F /* UITestingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7FD1CAEE048008C271F /* UITestingUITests.m */; };
-		EE9AB8061CAEE221008C271F /* UIDevice+Wifi_IP.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB79B1CAEDF0C008C271F /* UIDevice+Wifi_IP.m */; };
 		EEDBE9111CB2640100A790A2 /* FBRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7851CAEDF0C008C271F /* FBRoute.m */; };
 		EEDBE9121CB2640C00A790A2 /* FBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB78B1CAEDF0C008C271F /* FBSession.m */; };
 		EEDBE9131CB2641900A790A2 /* FBResponseFilePayload.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB77F1CAEDF0C008C271F /* FBResponseFilePayload.m */; };
@@ -322,6 +318,8 @@
 		EEDBE9191CB264B200A790A2 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDBE9171CB2647900A790A2 /* OCMock.framework */; };
 		EEDBEBBC1CB26ED800A790A2 /* KissXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5601CAEC4E9008C271F /* KissXML.framework */; };
 		EEDBEBBD1CB26ED800A790A2 /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5821CAEC4FA008C271F /* RoutingHTTPServer.framework */; };
+		EEE4C68C1CDFB62800A386A2 /* UIDevice+Wifi_IP.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE4C68A1CDFB62800A386A2 /* UIDevice+Wifi_IP.h */; };
+		EEE4C68D1CDFB62800A386A2 /* UIDevice+Wifi_IP.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4C68B1CDFB62800A386A2 /* UIDevice+Wifi_IP.m */; };
 		EEE9B4721CD02B88009D2030 /* FBRunLoopSpinner.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE9B4701CD02B88009D2030 /* FBRunLoopSpinner.h */; };
 		EEE9B4731CD02B88009D2030 /* FBRunLoopSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */; };
 		EEF6DF7E1CD295C900AB5921 /* FBRunLoopSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */; };
@@ -575,8 +573,6 @@
 		EE9AB7971CAEDF0C008C271F /* FBWDAMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBWDAMacros.h; sourceTree = "<group>"; };
 		EE9AB7981CAEDF0C008C271F /* FBXPathCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXPathCreator.h; sourceTree = "<group>"; };
 		EE9AB7991CAEDF0C008C271F /* FBXPathCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathCreator.m; sourceTree = "<group>"; };
-		EE9AB79A1CAEDF0C008C271F /* UIDevice+Wifi_IP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Wifi_IP.h"; sourceTree = "<group>"; };
-		EE9AB79B1CAEDF0C008C271F /* UIDevice+Wifi_IP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Wifi_IP.m"; sourceTree = "<group>"; };
 		EE9AB7F41CAEDF25008C271F /* FBRouteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBRouteTests.m; path = WebDriverAgentLibTests/FBRouteTests.m; sourceTree = SOURCE_ROOT; };
 		EE9AB7F51CAEDF25008C271F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = WebDriverAgentLibTests/Info.plist; sourceTree = SOURCE_ROOT; };
 		EE9AB7F81CAEE048008C271F /* FBDebugLogDelegateDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBDebugLogDelegateDecorator.h; path = WebDriverAgentRunner/FBDebugLogDelegateDecorator.h; sourceTree = SOURCE_ROOT; };
@@ -685,6 +681,8 @@
 		EEDBE9171CB2647900A790A2 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = Carthage/Build/iOS/OCMock.framework; sourceTree = "<group>"; };
 		EEDBEBBA1CB2681900A790A2 /* WebDriverAgent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WebDriverAgent.bundle; sourceTree = "<group>"; };
 		EEE4C66A1CDFA21F00A386A2 /* bootstrap.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = bootstrap.sh; sourceTree = "<group>"; };
+		EEE4C68A1CDFB62800A386A2 /* UIDevice+Wifi_IP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Wifi_IP.h"; sourceTree = "<group>"; };
+		EEE4C68B1CDFB62800A386A2 /* UIDevice+Wifi_IP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Wifi_IP.m"; sourceTree = "<group>"; };
 		EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ProjectSettings.xcconfig; sourceTree = "<group>"; };
 		EEE9B4701CD02B88009D2030 /* FBRunLoopSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRunLoopSpinner.h; sourceTree = "<group>"; };
 		EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRunLoopSpinner.m; sourceTree = "<group>"; };
@@ -1088,6 +1086,8 @@
 		EE9AB73E1CAEDF0C008C271F /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				EEE4C68A1CDFB62800A386A2 /* UIDevice+Wifi_IP.h */,
+				EEE4C68B1CDFB62800A386A2 /* UIDevice+Wifi_IP.m */,
 				EE9AB73F1CAEDF0C008C271F /* XCElementSnapshot+Helpers.h */,
 				EE9AB7401CAEDF0C008C271F /* XCElementSnapshot+Helpers.m */,
 				EE9AB7411CAEDF0C008C271F /* XCEventGenerator+SyncEvents.h */,
@@ -1200,8 +1200,6 @@
 				EE9AB7971CAEDF0C008C271F /* FBWDAMacros.h */,
 				EE9AB7981CAEDF0C008C271F /* FBXPathCreator.h */,
 				EE9AB7991CAEDF0C008C271F /* FBXPathCreator.m */,
-				EE9AB79A1CAEDF0C008C271F /* UIDevice+Wifi_IP.h */,
-				EE9AB79B1CAEDF0C008C271F /* UIDevice+Wifi_IP.m */,
 			);
 			name = Utilities;
 			path = WebDriverAgentLib/Utilities;
@@ -1419,6 +1417,7 @@
 				EE158B021CBD459C00A3E3F0 /* _XCTestCaseImplementation.h in Headers */,
 				EE158B511CBD459C00A3E3F0 /* XCUIElement.h in Headers */,
 				EE158B571CBD459C00A3E3F0 /* XCUIRecorderTimingMessage.h in Headers */,
+				EEE4C68C1CDFB62800A386A2 /* UIDevice+Wifi_IP.h in Headers */,
 				EE158B181CBD459C00A3E3F0 /* XCDeviceEvent.h in Headers */,
 				EE158B051CBD459C00A3E3F0 /* _XCTestExpectationImplementation.h in Headers */,
 				EE158B2B1CBD459C00A3E3F0 /* XCTestCase-AsynchronousTesting_Internal.h in Headers */,
@@ -1475,7 +1474,6 @@
 				EE158AD81CBD456F00A3E3F0 /* FBResponseFilePayload.h in Headers */,
 				EE158AEC1CBD456F00A3E3F0 /* FBWDAConstants.h in Headers */,
 				EE158AF71CBD456F00A3E3F0 /* FBSpringboardApplication.h in Headers */,
-				EE158AF31CBD456F00A3E3F0 /* UIDevice+Wifi_IP.h in Headers */,
 				EE158ACE1CBD456F00A3E3F0 /* FBCommandHandler.h in Headers */,
 				EE158AC81CBD456F00A3E3F0 /* FBSessionCommands.h in Headers */,
 				EE158AE31CBD456F00A3E3F0 /* FBSession-Private.h in Headers */,
@@ -1874,7 +1872,6 @@
 				EE158AF81CBD456F00A3E3F0 /* FBSpringboardApplication.m in Sources */,
 				EE158AD91CBD456F00A3E3F0 /* FBResponseFilePayload.m in Sources */,
 				EE158ACB1CBD456F00A3E3F0 /* FBTouchIDCommands.m in Sources */,
-				EE158AF41CBD456F00A3E3F0 /* UIDevice+Wifi_IP.m in Sources */,
 				EE158AED1CBD456F00A3E3F0 /* FBWDAConstants.m in Sources */,
 				EE158AD11CBD456F00A3E3F0 /* FBElement.m in Sources */,
 				EE158ABD1CBD456F00A3E3F0 /* FBDebugCommands.m in Sources */,
@@ -1894,6 +1891,7 @@
 				EE3A185F1CDE536E00DE4205 /* XCUIElement+Utilities.m in Sources */,
 				EE158ABF1CBD456F00A3E3F0 /* FBElementCommands.m in Sources */,
 				EE158AD51CBD456F00A3E3F0 /* FBExceptionHandler.m in Sources */,
+				EEE4C68D1CDFB62800A386A2 /* UIDevice+Wifi_IP.m in Sources */,
 				EE158AE91CBD456F00A3E3F0 /* FBElementTypeTransformer.m in Sources */,
 				EE158AF61CBD456F00A3E3F0 /* FBApplication.m in Sources */,
 				EE158AB51CBD456F00A3E3F0 /* XCUIElement+FBTap.m in Sources */,
@@ -1932,7 +1930,6 @@
 				EEDBE9151CB2641900A790A2 /* FBResponsePayload.m in Sources */,
 				ADB0AABC1CB7133900DBC756 /* FBElementTypeTransformer.m in Sources */,
 				ADB0AABA1CB7131700DBC756 /* FBApplicationProcessProxy.m in Sources */,
-				ADB0AAC01CB7133900DBC756 /* UIDevice+Wifi_IP.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2004,7 +2001,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE9AB8011CAEE048008C271F /* UITestingUITests.m in Sources */,
-				EE9AB8061CAEE221008C271F /* UIDevice+Wifi_IP.m in Sources */,
 				EE9AB7FF1CAEE048008C271F /* FBXCTestCaseImplementationFailureHoldingProxy.m in Sources */,
 				EE9AB7FE1CAEE048008C271F /* FBDebugLogDelegateDecorator.m in Sources */,
 			);
