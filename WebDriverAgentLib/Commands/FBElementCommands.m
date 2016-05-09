@@ -357,11 +357,13 @@
 + (id<FBResponsePayload>)handleScrollElementToVisible:(XCUIElement *)element withRequest:(FBRouteRequest *)request
 {
   NSError *error;
-  if ([element scrollToVisibleWithError:&error]) {
-    return FBResponseWithOK();
-  } else {
+  if (!element.exists) {
+    return FBResponseWithErrorMessage(@"Can't scroll to element that does not exist");
+  }
+  if (![element scrollToVisibleWithError:&error]) {
     return FBResponseWithError(error);
   }
+  return FBResponseWithOK();
 }
 
 @end
