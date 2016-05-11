@@ -92,8 +92,12 @@
 
 - (BOOL)isWDAccessible
 {
-  if (!self.fb_isAccessibilityElement) {
-    return NO;
+  // We skip isAccessible check for text field, as they aren't working correctly.
+  // The reason they aren't working correctly is that actual accessible element isn't text field itself, but nested element
+  if (self.elementType != XCUIElementTypeTextField && self.elementType != XCUIElementTypeSecureTextField) {
+    if (!self.fb_isAccessibilityElement) {
+      return NO;
+    }
   }
   XCElementSnapshot *parentSnapshot = self.parent;
   while (parentSnapshot) {
