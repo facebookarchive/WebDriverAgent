@@ -56,8 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
  Builder used create error raised by WebDriverAgent
 
  @param error pointer used to return builded error
+ @return fixed NO to apply to Apple's coding conventions
  */
-- (void)buildError:(NSError **)error;
+- (BOOL)buildError:(NSError **)error;
 
 @end
 

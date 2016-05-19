@@ -44,11 +44,12 @@ static NSString *const FBWebServerErrorDomain = @"com.facebook.WebDriverAgent";
   return self;
 }
 
-- (void)buildError:(NSError **)errorOut
+- (BOOL)buildError:(NSError **)errorOut
 {
   if (errorOut) {
     *errorOut = [self build];
   }
+  return NO;
 }
 
 - (NSError *)build

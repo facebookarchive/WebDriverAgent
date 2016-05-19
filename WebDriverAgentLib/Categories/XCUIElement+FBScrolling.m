@@ -91,10 +91,10 @@ const CGFloat FBScrollCoolOffTime = 1.f;
   NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"fb_isVisible == YES"]];
 
   if (visibleCellSnapshots.count < 2) {
+    return
     [[[FBErrorBuilder builder]
       withDescriptionFormat:@"Failed to perform scroll with visible cell count %lu", (unsigned long)visibleCellSnapshots.count]
      buildError:error];
-    return NO;
   }
   XCElementSnapshot *lastSnapshot = visibleCellSnapshots.lastObject;
   NSUInteger targetCellIndex = [cellSnapshots indexOfObject:targetCellSnapshot];
@@ -125,10 +125,10 @@ const CGFloat FBScrollCoolOffTime = 1.f;
   }
 
   if (scrollCount >= maxScrollCount) {
+    return
     [[[FBErrorBuilder builder]
       withDescriptionFormat:@"Failed to perform scroll with visible cell due to max scroll count reached"]
      buildError:error];
-    return NO;
   }
 
   // Cell is now visible, but it might be only partialy visible, scrolling till whole frame is visible

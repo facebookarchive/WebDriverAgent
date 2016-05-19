@@ -65,10 +65,10 @@ static const NSTimeInterval FBWaitInterval = 0.1;
   while (!untilTrue()) {
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBWaitInterval]];
     if (timeoutDate.timeIntervalSinceNow < 0) {
+      return
       [[[FBErrorBuilder builder]
         withDescription:(self.timeoutErrorMessage ?: @"FBRunLoopSpinner timeout")]
        buildError:error];
-      return NO;
     }
   }
   return YES;

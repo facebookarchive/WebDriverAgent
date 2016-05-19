@@ -108,11 +108,11 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     if ([innerError.domain isEqualToString:NSPOSIXErrorDomain] && innerError.code == EADDRINUSE) {
       description = [NSString stringWithFormat:@"Unable to start web server on port %ld", (long)port];
     }
+    return
     [[[[FBErrorBuilder builder]
        withDescription:description]
       withInnerError:innerError]
      buildError:error];
-    return NO;
   }
   return YES;
 }

@@ -52,10 +52,10 @@
    error:error];
 
   if (![keyboard fb_waitUntilFrameIsStable]) {
+    return
     [[[FBErrorBuilder builder]
       withDescription:@"Timeout waiting for keybord to stop animating"]
      buildError:error];
-    return NO;
   }
   return YES;
 }
@@ -66,10 +66,10 @@
   XCUIElementQuery *allElements = [element descendantsMatchingType:XCUIElementTypeAny];
   XCUIElement *activeElement = [allElements elementMatchingPredicate:[NSPredicate predicateWithFormat:@"hasKeyboardFocus == YES"]];
   if (!activeElement.exists) {
+    return
     [[[FBErrorBuilder builder]
       withDescription:@"There is no element with keyboard focus"]
      buildError:error];
-    return NO;
   }
   [element tap];
   return YES;
