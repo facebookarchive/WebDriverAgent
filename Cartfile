@@ -1,9 +1,8 @@
-
 # Used for HTTP routing
-github "mattstevens/RoutingHTTPServer"
+github "marekcirkos/RoutingHTTPServer"
 
 # Used for USBOverHTTP
-github "rsms/peertalk" "5a0495a"
+github "marekcirkos/peertalk"
 
 # Used for XPath
-github "robbiehanson/KissXML"
+github "marekcirkos/KissXML"

@@ -47,3 +47,7 @@ UIAWebDriverAgent/Carthage/Checkouts
 # Resource bundle recreated on each build
 Resources/WebDriverAgent.bundle
 UIAWebDriverAgent/Resources/WebDriverAgent.bundle
+
+# Modules map recreated on each build
+Modules/module.modulemap
+
