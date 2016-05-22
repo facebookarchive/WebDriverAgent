@@ -9,17 +9,21 @@
 
 #import <XCTest/XCTest.h>
 
-#import <OCMock/OCMock.h>
-
 #import "FBRoute.h"
 
 @class RouteResponse;
 
 @interface FBHandlerMock : NSObject
+@property (nonatomic, assign) BOOL didCallSomeSelector;
 @end
 
 @implementation FBHandlerMock
-- (id)someSelector:(id)arg{return nil;};
+- (id)someSelector:(id)arg
+{
+  self.didCallSomeSelector = YES;
+  return nil;
+};
+
 @end
 
 @interface FBRouteTests : XCTestCase
@@ -29,11 +33,10 @@
 
 - (void)testTargetAction
 {
-  OCMockObject *mock = [OCMockObject mockForClass:FBHandlerMock.class];
-  [[mock expect] someSelector:[OCMArg any]];
+  FBHandlerMock *mock = [FBHandlerMock new];
   FBRoute *route = [[FBRoute new] respondWithTarget:mock action:@selector(someSelector:)];
   [route mountRequest:(id)NSObject.new intoResponse:(id)NSObject.new];
-  [mock verify];
+  XCTAssertTrue(mock.didCallSomeSelector);
 }
 
 - (void)testRespond
