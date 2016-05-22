@@ -13,9 +13,11 @@
 #import "FBApplication.h"
 #import "FBErrorBuilder.h"
 #import "FBRunLoopSpinner.h"
-
+#import "FBWDAMacros.h"
+#import "XCElementSnapshot.h"
 #import "XCUIElement+Utilities.h"
 #import "XCTestDriver.h"
+
 
 @implementation FBKeyboard
 
@@ -64,7 +66,7 @@
 {
   XCUIElement *element = [[FBApplication fb_activeApplication].windows elementBoundByIndex:0];
   XCUIElementQuery *allElements = [element descendantsMatchingType:XCUIElementTypeAny];
-  XCUIElement *activeElement = [allElements elementMatchingPredicate:[NSPredicate predicateWithFormat:@"hasKeyboardFocus == YES"]];
+  XCUIElement *activeElement = [allElements elementMatchingPredicate:[NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCElementSnapshot, hasKeyboardFocus)]];
   if (!activeElement.exists) {
     return
     [[[FBErrorBuilder builder]

@@ -14,6 +14,7 @@
 
 #import "FBApplication.h"
 #import "FBElementCache.h"
+#import "FBWDAMacros.h"
 #import "XCAccessibilityElement.h"
 #import "XCAXClient_iOS.h"
 #import "XCUIElement.h"
@@ -67,7 +68,7 @@ static FBSession *_activeSession;
 - (FBApplication *)application
 {
   FBApplication *application = self.testedApplication;
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"processIdentifier != %d", self.testedApplication.processID];
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K != %d", FBStringify(XCAccessibilityElement, processIdentifier), self.testedApplication.processID];
   XCAccessibilityElement *anotherActiveApplication = [[[[XCAXClient_iOS sharedClient] activeApplications] filteredArrayUsingPredicate:predicate] firstObject];
   if (anotherActiveApplication) {
     // If different active app is detected, using it instead of tested one
