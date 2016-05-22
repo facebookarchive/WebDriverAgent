@@ -44,8 +44,7 @@ function print_usage() {
 function fetch_and_build_dependencies() {
   echo -e "${BOLD}Fetching dependencies"
   assert_has_carthage
-  carthage checkout
-  carthage build ocmock --platform iOS
+  carthage bootstrap
 }
 
 function build_inspector() {
