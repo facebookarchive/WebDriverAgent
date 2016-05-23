@@ -46,7 +46,7 @@
       }
       return FBResponseDictionaryWithOK();
     }],
-    [[FBRoute POST:@"/timeouts/implicit_wait"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
+    [[FBRoute POST:@"/timeouts"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
       // This method is intentionally not supported.
       return FBResponseDictionaryWithOK();
     }],
