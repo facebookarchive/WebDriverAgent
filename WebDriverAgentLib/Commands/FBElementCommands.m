@@ -18,6 +18,7 @@
 #import "FBErrorBuilder.h"
 #import "FBSession.h"
 #import "FBApplication.h"
+#import "FBWDAMacros.h"
 #import "XCUICoordinate.h"
 #import "XCUIDevice.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -231,7 +232,7 @@
   // what ios-driver did and sadly, we must copy them.
   NSString *const name = request.arguments[@"name"];
   if (name) {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"wdName == %@", name];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", FBStringify(XCUIElement, wdName), name];
     XCUIElement *childElement = [[[[element descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate] allElementsBoundByIndex] lastObject];
     return [self.class handleScrollElementToVisible:childElement withRequest:request];
   }

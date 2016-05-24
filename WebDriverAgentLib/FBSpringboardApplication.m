@@ -10,6 +10,7 @@
 #import "FBSpringboardApplication.h"
 
 #import "FBRunLoopSpinner.h"
+#import "FBWDAMacros.h"
 #import "XCElementSnapshot+Helpers.h"
 #import "XCElementSnapshot.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -31,7 +32,7 @@
 - (BOOL)fb_tapApplicationWithIdentifier:(NSString *)identifier error:(NSError **)error
 {
   XCUIElement *appElement = [[self descendantsMatchingType:XCUIElementTypeAny]
-                             elementMatchingPredicate:[NSPredicate predicateWithFormat:@"identifier = %@", identifier]
+                             elementMatchingPredicate:[NSPredicate predicateWithFormat:@"%K = %@", FBStringify(XCUIElement, identifier), identifier]
                              ];
   if (![appElement fb_scrollToVisibleWithNormalizedScrollDistance:1.0 error:error]) {
     return NO;
