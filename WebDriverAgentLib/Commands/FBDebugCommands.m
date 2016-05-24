@@ -26,41 +26,36 @@
   return
   @[
     [[FBRoute GET:@"/source"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
-    [[FBRoute GET:@"/source"].withoutSession respondWithTarget:self action:@selector(handleGetActiveTreeCommand:)],
+    [[FBRoute GET:@"/source"].withoutSession respondWithTarget:self action:@selector(handleGetTreeCommand:)],
+    [[FBRoute GET:@"/accessibilitySource"] respondWithTarget:self action:@selector(handleGetAccessibilityTreeCommand:)],
+    [[FBRoute GET:@"/accessibilitySource"].withoutSession respondWithTarget:self action:@selector(handleGetAccessibilityTreeCommand:)],
   ];
 }
 
 
 #pragma mark - Commands
 
-+ (id<FBResponsePayload>)handleGetActiveTreeCommand:(FBRouteRequest *)request
-{
-  FBApplication *application = [FBApplication fb_activeApplication];
-  if (!application) {
-    return FBResponseWithErrorFormat(@"There is no active application");
-  }
-  return [self handleTreeCommandWithParams:application];
-}
-
 + (id<FBResponsePayload>)handleGetTreeCommand:(FBRouteRequest *)request
 {
-  FBSession *session = request.session;
-  return [self handleTreeCommandWithParams:session.application];
+  return [self handleGetTree:request accessible:NO];
 }
 
++ (id<FBResponsePayload>)handleGetAccessibilityTreeCommand:(FBRouteRequest *)request
+{
+  return [self handleGetTree:request accessible:YES];
+}
 
 #pragma mark - Helpers
 
-+ (id<FBResponsePayload>)handleTreeCommandWithParams:(FBApplication *)application
++ (id<FBResponsePayload>)handleGetTree:(FBRouteRequest *)request accessible:(BOOL)accessible
 {
-  NSDictionary *info = [self.class JSONTreeForTargetForApplication:application];
-  return FBResponseWithStatus(FBCommandStatusNoError, @{ @"tree": info });
-}
+  FBApplication *application = request.session.application ?: [FBApplication fb_activeApplication];
+  if (!application) {
+    return FBResponseWithErrorFormat(@"There is no active application");
+  }
 
-+ (NSDictionary *)JSONTreeForTargetForApplication:(FBApplication *)app
-{
-  NSDictionary *info = [self infoForElement:app.lastSnapshot];
-  return info;
+  NSDictionary *info = accessible ? [self accessibilityInfoForElement:application.lastSnapshot] : [self infoForElement:application.lastSnapshot];
+  return FBResponseWithStatus(FBCommandStatusNoError, @{ @"tree": info });
 }
 
 + (NSDictionary *)infoForElement:(XCElementSnapshot *)snapshot
@@ -82,6 +77,35 @@
     for (XCElementSnapshot *childSnapshot in childElements) {
       [info[@"children"] addObject:[self infoForElement:childSnapshot]];
     }
+  }
+  return info;
+}
+
++ (NSDictionary *)accessibilityInfoForElement:(XCElementSnapshot *)snapshot
+{
+  BOOL isAccessible = [snapshot isWDAccessible];
+
+  NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+
+  if (isAccessible) {
+    info[@"value"] = FBValueOrNull(snapshot.wdValue);
+    info[@"label"] = FBValueOrNull(snapshot.wdLabel);
+  } else {
+    NSArray *childElements = snapshot.children;
+    if ([childElements count]) {
+      info[@"children"] = [[NSMutableArray alloc] init];
+      for (XCElementSnapshot *childSnapshot in childElements) {
+        NSDictionary *childInfo = [self infoForElement:childSnapshot];
+        if ([childInfo count]) {
+          [info[@"children"] addObject: childInfo];
+        }
+      }
+    }
+  }
+  if ([info count]) {
+    info[@"type"] = [FBElementTypeTransformer shortStringWithElementType:snapshot.elementType];
+    info[@"rawIdentifier"] = FBValueOrNull([snapshot.identifier isEqual:@""] ? nil : snapshot.identifier);
+    info[@"name"] = FBValueOrNull(snapshot.wdName);
   }
   return info;
 }
