@@ -27,8 +27,6 @@
   @[
     [[FBRoute GET:@"/source"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
     [[FBRoute GET:@"/source"].withoutSession respondWithTarget:self action:@selector(handleGetTreeCommand:)],
-    [[FBRoute GET:@"/accessibilitySource"] respondWithTarget:self action:@selector(handleGetAccessibilityTreeCommand:)],
-    [[FBRoute GET:@"/accessibilitySource"].withoutSession respondWithTarget:self action:@selector(handleGetAccessibilityTreeCommand:)],
   ];
 }
 
@@ -37,12 +35,7 @@
 
 + (id<FBResponsePayload>)handleGetTreeCommand:(FBRouteRequest *)request
 {
-  return [self handleGetTree:request accessible:NO];
-}
-
-+ (id<FBResponsePayload>)handleGetAccessibilityTreeCommand:(FBRouteRequest *)request
-{
-  return [self handleGetTree:request accessible:YES];
+  return [self handleGetTree:request accessible:[request.arguments[@"accessible"] boolValue]];
 }
 
 #pragma mark - Helpers
