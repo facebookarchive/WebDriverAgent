@@ -17,7 +17,8 @@ function build() {
       -sdk $SDK \
       $ACTION \
       CODE_SIGN_IDENTITY="" \
-      CODE_SIGNING_REQUIRED=NO
+      CODE_SIGNING_REQUIRED=NO \
+  | xcpretty
 }
 
 ./Scripts/bootstrap.sh
