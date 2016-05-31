@@ -16,7 +16,7 @@
 }
 
 + (id)sharedClient;
-- (id)screenshotData;
+- (NSData *)screenshotData;
 - (BOOL)performAction:(int)arg1 onElement:(id)arg2 value:(id)arg3 error:(id *)arg4;
 - (id)parameterizedAttributeForElement:(id)arg1 attribute:(id)arg2 parameter:(id)arg3;
 - (id)attributesForElement:(id)arg1 attributes:(id)arg2;

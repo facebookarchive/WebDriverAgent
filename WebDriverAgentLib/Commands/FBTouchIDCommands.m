@@ -9,9 +9,9 @@
 
 #import "FBTouchIDCommands.h"
 
-#include <notify.h>
-
 #import "FBRouteRequest.h"
+
+#import "XCUIDevice+FBHelpers.h"
 
 @implementation FBTouchIDCommands
 
@@ -19,19 +19,10 @@
 {
   return @[
     [[FBRoute POST:@"/simulator/touch_id"] respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-      //Expects argument match=true or match=false (any type whose boolValue evaluates properly)
-      BOOL match = [request.arguments[@"match"] boolValue];
-      const char *name;
-      if (match) {
-        name = "com.apple.BiometricKit_Sim.fingerTouch.match";
-      } else {
-        name = "com.apple.BiometricKit_Sim.fingerTouch.nomatch";
-      }
-      if (notify_post(name) == NOTIFY_STATUS_OK) {
-        return FBResponseWithOK();
-      } else {
+      if (![[XCUIDevice sharedDevice] fb_fingerTouchShouldMatch:[request.arguments[@"match"] boolValue]]) {
         return FBResponseWithStatus(FBCommandStatusUnsupported, nil);
       }
+      return FBResponseWithOK();
     }]
   ];
 }

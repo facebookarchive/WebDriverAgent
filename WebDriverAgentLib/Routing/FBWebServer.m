@@ -21,7 +21,8 @@
 #import "FBUnknownCommands.h"
 #import "FBWDAConstants.h"
 #import "FBWDALogger.h"
-#import "UIDevice+Wifi_IP.h"
+
+#import "XCUIDevice+FBHelpers.h"
 
 static NSString *const FBServerURLBeginMarker = @"ServerURLHere->";
 static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
@@ -91,7 +92,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     [FBWDALogger logFmt:@"Last attempt to start web server failed with error %@", [error description]];
     abort();
   }
-  [FBWDALogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [UIDevice currentDevice].fb_wifiIPAddress, [self.server port], FBServerURLEndMarker];
+  [FBWDALogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [XCUIDevice sharedDevice].fb_wifiIPAddress, [self.server port], FBServerURLEndMarker];
 }
 
 - (BOOL)attemptToStartServer:(RoutingHTTPServer *)server onPort:(NSInteger)port withError:(NSError **)error

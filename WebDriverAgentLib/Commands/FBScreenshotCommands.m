@@ -9,7 +9,7 @@
 
 #import "FBScreenshotCommands.h"
 
-#import "XCAXClient_iOS.h"
+#import "XCUIDevice+FBHelpers.h"
 
 @implementation FBScreenshotCommands
 
@@ -29,7 +29,7 @@
 
 + (id<FBResponsePayload>)handleGetScreenshot:(FBRouteRequest *)request
 {
-  NSString *screenshot = [[[XCAXClient_iOS sharedClient] screenshotData] base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+  NSString *screenshot = [[XCUIDevice sharedDevice].fb_screenshot base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
   return [FBResponsePayload okWith:screenshot];
 }
 
