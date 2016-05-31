@@ -11,7 +11,7 @@
 
 #import <RoutingHTTPServer/RouteResponse.h>
 
-#import "FBAlertViewCommands.h"
+#import "FBAlert.h"
 #import "FBResponsePayload.h"
 #import "FBSession.h"
 
@@ -40,7 +40,7 @@ NSString *const FBElementAttributeUnknownException = @"FBElementAttributeUnknown
     [payload dispatchWithResponse:response];
     return YES;
   }
-  if ([exception.name isEqualToString:FBUAlertObstructingElementException]) {
+  if ([exception.name isEqualToString:FBAlertObstructingElementException]) {
     id<FBResponsePayload> payload = FBResponseWithStatus(FBCommandStatusUnexpectedAlertPresent, @"Alert is obstructing view");
     [payload dispatchWithResponse:response];
     return YES;

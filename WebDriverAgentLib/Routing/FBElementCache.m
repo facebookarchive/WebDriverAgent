@@ -9,8 +9,7 @@
 
 #import "FBElementCache.h"
 
-#import <WebDriverAgentLib/FBAlertViewCommands.h>
-
+#import "FBAlert.h"
 #import "XCUIElement.h"
 
 @class UIAElement;
@@ -43,11 +42,9 @@
 - (XCUIElement *)elementForIndex:(NSUInteger)index
 {
   XCUIElement *element = self.elementCache[@(index)];
-  [FBAlertViewCommands ensureElementIsNotObstructedByAlertView:element];
+  [[FBAlert alertWithApplication:element.application] checkIfObstructsElement:element];
   [element resolve];
   return element;
 }
-
-
 
 @end

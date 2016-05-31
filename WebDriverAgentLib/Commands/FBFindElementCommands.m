@@ -11,7 +11,7 @@
 
 #import <KissXML/DDXML.h>
 
-#import "FBAlertViewCommands.h"
+#import "FBAlert.h"
 #import "FBExceptionHandler.h"
 #import "FBElementCache.h"
 #import "FBElementTypeTransformer.h"
@@ -138,7 +138,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   } else {
     [[NSException exceptionWithName:FBElementAttributeUnknownException reason:[NSString stringWithFormat:@"Invalid locator requested: %@", usingText] userInfo:nil] raise];
   }
-  return [FBAlertViewCommands filterElementsObstructedByAlertView:elements];
+  return [[FBAlert alertWithApplication:element.application] filterObstructedElements:elements];
 }
 
 

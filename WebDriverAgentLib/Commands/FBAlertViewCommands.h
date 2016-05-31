@@ -11,14 +11,6 @@
 
 #import <WebDriverAgentLib/FBCommandHandler.h>
 
-@class XCUIElement;
-
-extern NSString *const FBUAlertObstructingElementException;
-
 @interface FBAlertViewCommands : NSObject <FBCommandHandler>
-
-+ (void)ensureElementIsNotObstructedByAlertView:(XCUIElement *)element;
-
-+ (NSArray *)filterElementsObstructedByAlertView:(NSArray *)elements;
 
 @end
