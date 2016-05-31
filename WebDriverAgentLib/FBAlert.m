@@ -20,7 +20,6 @@
 #import "XCElementSnapshot+Helpers.h"
 #import "XCElementSnapshot-Hitpoint.h"
 #import "XCElementSnapshot.h"
-#import "XCEventGenerator+SyncEvents.h"
 #import "XCTestManager_ManagerInterface-Protocol.h"
 #import "XCUICoordinate.h"
 #import "XCUIElement+FBTap.h"
