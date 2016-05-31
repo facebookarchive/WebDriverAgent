@@ -7,12 +7,10 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
-//! Project version number for WebDriverAgentLib_.
-FOUNDATION_EXPORT double WebDriverAgentLib_VersionNumber;
+@interface AppDelegate ()
+@end
 
-//! Project version string for WebDriverAgentLib_.
-FOUNDATION_EXPORT const unsigned char WebDriverAgentLib_VersionString[];
-
-#import <WebDriverAgentLib/FBAlert.h>
+@implementation AppDelegate
+@end

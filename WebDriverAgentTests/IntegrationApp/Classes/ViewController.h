@@ -9,10 +9,5 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for WebDriverAgentLib_.
-FOUNDATION_EXPORT double WebDriverAgentLib_VersionNumber;
-
-//! Project version string for WebDriverAgentLib_.
-FOUNDATION_EXPORT const unsigned char WebDriverAgentLib_VersionString[];
-
-#import <WebDriverAgentLib/FBAlert.h>
+@interface ViewController : UIViewController
+@end

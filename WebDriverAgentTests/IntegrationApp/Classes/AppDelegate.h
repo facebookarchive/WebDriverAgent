@@ -9,10 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for WebDriverAgentLib_.
-FOUNDATION_EXPORT double WebDriverAgentLib_VersionNumber;
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@property (strong, nonatomic) UIWindow *window;
 
-//! Project version string for WebDriverAgentLib_.
-FOUNDATION_EXPORT const unsigned char WebDriverAgentLib_VersionString[];
-
-#import <WebDriverAgentLib/FBAlert.h>
+@end
