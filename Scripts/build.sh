@@ -11,22 +11,14 @@
 set -eu
 
 function build() {
-  if [ $ACTION="run-tests" ]; then
-    xctool \
-        -project $PROJECT \
-        -scheme $TARGET \
-        -sdk $SDK \
-        build-tests \
-        CODE_SIGN_IDENTITY="" \
-        CODE_SIGNING_REQUIRED=NO
-  fi
-  xctool \
+  xcodebuild \
       -project $PROJECT \
       -scheme $TARGET \
       -sdk $SDK \
       $ACTION \
       CODE_SIGN_IDENTITY="" \
-      CODE_SIGNING_REQUIRED=NO
+      CODE_SIGNING_REQUIRED=NO \
+  | xcpretty
 }
 
 ./Scripts/bootstrap.sh
