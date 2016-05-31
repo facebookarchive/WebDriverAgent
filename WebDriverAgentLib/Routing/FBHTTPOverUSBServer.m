@@ -14,7 +14,7 @@
 
 #import <peertalk/PTChannel.h>
 
-#import "FBWDALogger.h"
+#import "FBLogger.h"
 
 #define FBValidateObjectWithClass(object, aClass) \
     if (object && ![object isKindOfClass:aClass]) { \
@@ -55,10 +55,10 @@ static const uint32_t FBUSBFrameType = 100;
   __weak __typeof__(self) weakSelf = self;
   [channel listenOnPort:FBUSBPort IPv4Address:INADDR_LOOPBACK callback:^(NSError *error) {
     if (error) {
-      [FBWDALogger logFmt:@"Failed to listen on USB. %@", error];
+      [FBLogger logFmt:@"Failed to listen on USB. %@", error];
       return;
     }
-    [FBWDALogger logFmt:@"Listening on USB"];
+    [FBLogger logFmt:@"Listening on USB"];
     weakSelf.serverChannel = channel;
   }];
 }
@@ -129,7 +129,7 @@ static const uint32_t FBUSBFrameType = 100;
 {
   void (^completionBlock)(NSError *) = ^(NSError *innerError){
     if (innerError) {
-      [FBWDALogger logFmt:@"Failed to send USB message. %@", innerError];
+      [FBLogger logFmt:@"Failed to send USB message. %@", innerError];
     }
   };
   [self.peerChannel sendFrameOfType:FBUSBFrameType
@@ -157,7 +157,7 @@ static const uint32_t FBUSBFrameType = 100;
 
 - (void)ioFrameChannel:(PTChannel *)channel didEndWithError:(NSError *)error
 {
-  [FBWDALogger logFmt:@"USB connection finished. %@", error ?: @""];
+  [FBLogger logFmt:@"USB connection finished. %@", error ?: @""];
   self.peerChannel = nil;
 }
 
@@ -167,7 +167,7 @@ static const uint32_t FBUSBFrameType = 100;
     [self.peerChannel cancel];
   }
   self.peerChannel = otherChannel;
-  [FBWDALogger logFmt:@"USB connection established"];
+  [FBLogger logFmt:@"USB connection established"];
 }
 
 @end

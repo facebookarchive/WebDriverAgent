@@ -9,7 +9,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import <WebDriverAgentLib/FBWDALogger.h>
+#import <WebDriverAgentLib/FBLogger.h>
 #import <WebDriverAgentLib/FBWebDriverAgent.h>
 #import <WebDriverAgentLib/XCTestCase.h>
 
@@ -47,7 +47,7 @@ BOOL _AXSAutomationSetFauxCollectionViewCellsEnabled(BOOL);
 
 - (void)_enqueueFailureWithDescription:(NSString *)description inFile:(NSString *)filePath atLine:(NSUInteger)lineNumber expected:(BOOL)expected
 {
-  [FBWDALogger logFmt:@"Enqueue Failure: %@ %@ %lu %d", description, filePath, (unsigned long)lineNumber, expected];
+  [FBLogger logFmt:@"Enqueue Failure: %@ %@ %lu %d", description, filePath, (unsigned long)lineNumber, expected];
   [self.agent handleTestFailureWithDescription:description];
 }
 

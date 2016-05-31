@@ -14,7 +14,7 @@
 
 #import "FBApplication.h"
 #import "FBElementCache.h"
-#import "FBWDAMacros.h"
+#import "FBMacros.h"
 #import "XCAccessibilityElement.h"
 #import "XCAXClient_iOS.h"
 #import "XCUIElement.h"

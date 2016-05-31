@@ -12,7 +12,7 @@
 #import <objc/runtime.h>
 
 #import "FBElementTypeTransformer.h"
-#import "FBWDAMacros.h"
+#import "FBMacros.h"
 #import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"

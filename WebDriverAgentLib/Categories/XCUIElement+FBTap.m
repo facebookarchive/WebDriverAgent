@@ -10,7 +10,7 @@
 #import "XCUIElement+FBTap.h"
 
 #import "FBRunLoopSpinner.h"
-#import "FBWDALogger.h"
+#import "FBLogger.h"
 #import "XCUIElement+Utilities.h"
 #import "XCElementSnapshot-Hitpoint.h"
 #import "XCEventGenerator.h"
@@ -24,7 +24,7 @@
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
     [[XCEventGenerator sharedGenerator] tapAtPoint:self.lastSnapshot.hitPoint orientation:self.interfaceOrientation handler:^(NSError *commandError) {
       if (commandError) {
-        [FBWDALogger logFmt:@"Failed to perform tap: %@", commandError];
+        [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
       }
       if (error) {
         *error = commandError;

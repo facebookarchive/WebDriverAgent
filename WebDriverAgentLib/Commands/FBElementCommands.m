@@ -18,7 +18,7 @@
 #import "FBErrorBuilder.h"
 #import "FBSession.h"
 #import "FBApplication.h"
-#import "FBWDAMacros.h"
+#import "FBMacros.h"
 #import "XCUICoordinate.h"
 #import "XCUIDevice.h"
 #import "XCUIElement+FBIsVisible.h"

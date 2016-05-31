@@ -10,7 +10,7 @@
 #import "FBSpringboardApplication.h"
 
 #import "FBRunLoopSpinner.h"
-#import "FBWDAMacros.h"
+#import "FBMacros.h"
 #import "XCElementSnapshot+Helpers.h"
 #import "XCElementSnapshot.h"
 #import "XCUIElement+FBIsVisible.h"

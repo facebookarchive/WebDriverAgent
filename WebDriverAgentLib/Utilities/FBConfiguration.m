@@ -7,14 +7,14 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBWDAConstants.h"
+#import "FBConfiguration.h"
 
 #import <UIKit/UIKit.h>
 
 static NSUInteger const DefaultStartingPort = 8100;
 static NSUInteger const DefaultPortRange = 100;
 
-@implementation FBWDAConstants
+@implementation FBConfiguration
 
 #pragma mark Public
 

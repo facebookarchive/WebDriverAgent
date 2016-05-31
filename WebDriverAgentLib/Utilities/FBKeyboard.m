@@ -13,7 +13,7 @@
 #import "FBApplication.h"
 #import "FBErrorBuilder.h"
 #import "FBRunLoopSpinner.h"
-#import "FBWDAMacros.h"
+#import "FBMacros.h"
 #import "XCElementSnapshot.h"
 #import "XCUIElement+Utilities.h"
 #import "XCTestDriver.h"

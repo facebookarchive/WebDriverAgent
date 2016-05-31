@@ -12,7 +12,7 @@
 #import "WebDriverAgentLib/FBFindElementCommands.h"
 
 #import "FBRunLoopSpinner.h"
-#import "FBWDALogger.h"
+#import "FBLogger.h"
 #import "FBXPathCreator.h"
 #import "XCAXClient_iOS.h"
 #import "XCTestDriver.h"
@@ -44,7 +44,7 @@ NSNumber *FB_XCAXAIsElementAttribute;
                                                                parameters: [[XCAXClient_iOS sharedClient] defaultParameters]
                                                                     reply:^(XCElementSnapshot *iSnapshot, NSError *error) {
                                                                       if (error) {
-                                                                        [FBWDALogger logFmt:@"Error: %@", error];
+                                                                        [FBLogger logFmt:@"Error: %@", error];
                                                                       }
                                                                       snapshot = iSnapshot;
                                                                       completion();

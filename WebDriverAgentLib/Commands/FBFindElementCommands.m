@@ -16,7 +16,7 @@
 #import "FBElementCache.h"
 #import "FBElementTypeTransformer.h"
 #import "FBRouteRequest.h"
-#import "FBWDAMacros.h"
+#import "FBMacros.h"
 #import "FBElementCache.h"
 #import "FBSession.h"
 #import "XCElementSnapshot.h"
@@ -113,13 +113,13 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 
 + (XCUIElement *)elementUsing:(NSString *)usingText withValue:(NSString *)value under:(XCUIElement *)element
 {
-  FBWDAAssertMainThread();
+  FBAssertMainThread();
   return [[self elementsUsing:usingText withValue:value under:element] firstObject];
 }
 
 + (NSArray *)elementsUsing:(NSString *)usingText withValue:(NSString *)value under:(XCUIElement *)element
 {
-  FBWDAAssertMainThread();
+  FBAssertMainThread();
 
   NSArray *elements;
   const BOOL partialSearch = [usingText isEqualToString:@"partial link text"];

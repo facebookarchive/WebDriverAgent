@@ -11,8 +11,8 @@
 
 #import "FBErrorBuilder.h"
 #import "FBRunLoopSpinner.h"
-#import "FBWDALogger.h"
-#import "FBWDAMacros.h"
+#import "FBLogger.h"
+#import "FBMacros.h"
 #import "XCElementSnapshot+Helpers.h"
 #import "XCElementSnapshot-Hitpoint.h"
 #import "XCElementSnapshot.h"

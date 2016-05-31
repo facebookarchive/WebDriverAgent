@@ -7,11 +7,11 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBWDALogger.h"
+#import "FBLogger.h"
 
-#import "FBWDAConstants.h"
+#import "FBConfiguration.h"
 
-@implementation FBWDALogger
+@implementation FBLogger
 
 + (void)log:(NSString *)message
 {
@@ -28,7 +28,7 @@
 
 + (void)verboseLog:(NSString *)message
 {
-  if (!FBWDAConstants.verboseLoggingEnabled) {
+  if (!FBConfiguration.verboseLoggingEnabled) {
     return;
   }
   [self log:message];
@@ -36,7 +36,7 @@
 
 + (void)verboseLogFmt:(NSString *)format, ...
 {
-  if (!FBWDAConstants.verboseLoggingEnabled) {
+  if (!FBConfiguration.verboseLoggingEnabled) {
     return;
   }
   va_list args;

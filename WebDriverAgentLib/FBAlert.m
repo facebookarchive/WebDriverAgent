@@ -15,7 +15,7 @@
 #import "FBErrorBuilder.h"
 #import "FBFindElementCommands.h"
 #import "FBSpringboardApplication.h"
-#import "FBWDALogger.h"
+#import "FBLogger.h"
 #import "XCAXClient_iOS.h"
 #import "XCElementSnapshot+Helpers.h"
 #import "XCElementSnapshot-Hitpoint.h"

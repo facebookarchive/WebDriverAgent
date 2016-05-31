@@ -10,20 +10,18 @@
 #import <Foundation/Foundation.h>
 
 /**
- A Global Logger object that understands log levels
+ Accessors for Global Constants.
  */
-@interface FBWDALogger : NSObject
+@interface FBConfiguration : NSObject
 
 /**
- Log to stdout.
+ The range of ports that the HTTP Server should attempt to bind on launch
  */
-+ (void)log:(NSString *)message;
-+ (void)logFmt:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
++ (NSRange)bindingPortRange;
 
 /**
- Log to stdout, only if WDA is Verbose
+ YES if verbose logging is enabled. NO otherwise.
  */
-+ (void)verboseLog:(NSString *)message;
-+ (void)verboseLogFmt:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
++ (BOOL)verboseLoggingEnabled;
 
 @end
