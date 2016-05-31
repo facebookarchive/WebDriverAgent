@@ -18,6 +18,7 @@
 #import "FBRouteRequest.h"
 #import "FBSession.h"
 #import "FBSpringboardApplication.h"
+#import "XCUIApplication+FBHelpers.h"
 #import "XCUIDevice+FBHelpers.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
@@ -49,16 +50,10 @@
 
 + (id<FBResponsePayload>)handleDeactivateAppCommand:(FBRouteRequest *)request
 {
-  NSString *applicationIdentifier = request.session.application.label;
-
-  [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
-
   NSNumber *requestedDuration = request.arguments[@"duration"];
   NSTimeInterval duration = (requestedDuration ? requestedDuration.doubleValue : 3.);
-  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:duration]];
-
   NSError *error;
-  if (![[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:&error]) {
+  if (![request.session.application fb_deactivateWithDuration:duration error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
