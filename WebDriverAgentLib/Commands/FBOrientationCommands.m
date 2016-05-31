@@ -103,11 +103,11 @@ const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
   dispatch_once(&onceToken, ^{
     orientationMap =
     @{
-      FBWDOrientationValues.portrait : @1,
-      FBWDOrientationValues.portraitUpsideDown : @2,
-      FBWDOrientationValues.landscapeLeft : @3,
-      FBWDOrientationValues.landscapeRight : @4,
-      };
+      FBWDOrientationValues.portrait : @(UIDeviceOrientationPortrait),
+      FBWDOrientationValues.portraitUpsideDown : @(UIDeviceOrientationPortraitUpsideDown),
+      FBWDOrientationValues.landscapeLeft : @(UIDeviceOrientationLandscapeLeft),
+      FBWDOrientationValues.landscapeRight : @(UIDeviceOrientationLandscapeRight),
+    };
   });
   return orientationMap;
 }
