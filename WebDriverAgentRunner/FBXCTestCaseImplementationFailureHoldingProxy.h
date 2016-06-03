@@ -11,9 +11,15 @@
 
 @class _XCTestCaseImplementation;
 
+/**
+ Class that can be used to proxy existing _XCTestCaseImplementation and
+ prevent currently running test from being terminated on any XCTest failure
+ */
 @interface FBXCTestCaseImplementationFailureHoldingProxy : NSProxy
-@property (nonatomic, strong) _XCTestCaseImplementation *internalImplementation;
 
+/**
+ Constructor for given existing _XCTestCaseImplementation instance
+ */
 + (instancetype)proxyWithXCTestCaseImplementation:(_XCTestCaseImplementation *)internalImplementation;
 
 @end

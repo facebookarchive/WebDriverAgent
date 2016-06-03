@@ -10,8 +10,14 @@
 #import <Foundation/Foundation.h>
 #import <WebDriverAgentLib/XCDebugLogDelegate-Protocol.h>
 
+/**
+ XCTestLogger decorator that will print all debug information to console
+ */
 @interface FBDebugLogDelegateDecorator : NSObject <XCDebugLogDelegate>
 
+/**
+ Decorates XCTestLogger by also printing debug message to console
+ */
 + (void)decorateXCTestLogger;
 
 @end

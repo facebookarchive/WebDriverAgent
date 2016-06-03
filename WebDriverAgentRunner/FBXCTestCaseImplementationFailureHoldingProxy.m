@@ -11,6 +11,10 @@
 
 #import <WebDriverAgentLib/_XCTestCaseImplementation.h>
 
+@interface FBXCTestCaseImplementationFailureHoldingProxy ()
+@property (nonatomic, strong) _XCTestCaseImplementation *internalImplementation;
+@end
+
 @implementation FBXCTestCaseImplementationFailureHoldingProxy
 
 + (instancetype)proxyWithXCTestCaseImplementation:(_XCTestCaseImplementation *)internalImplementation
@@ -25,7 +29,7 @@
   return self.internalImplementation;
 }
 
-// This will prevert test from quiting on app crash or any other test failure
+// This will prevent test from quiting on app crash or any other test failure
 - (BOOL)shouldHaltWhenReceivesControl
 {
   return NO;
