@@ -11,8 +11,14 @@
 
 #import "FBResponsePayload.h"
 
+/**
+ Class that represents WebDriverAgent file respond
+ */
 @interface FBResponseFilePayload : NSObject <FBResponsePayload>
 
+/**
+ Initializer for respond that returns content of file at given 'path'
+ */
 - (instancetype)initWithFilePath:(NSString *)path;
 
 @end

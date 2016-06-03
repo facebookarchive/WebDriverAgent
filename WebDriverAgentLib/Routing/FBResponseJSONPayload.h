@@ -9,10 +9,16 @@
 
 #import <Foundation/Foundation.h>
 
-#import "FBResponsePayload.h"
+#import <WebDriverAgentLib/FBResponsePayload.h>
 
+/**
+ Class that represents WebDriverAgent JSON repsonse
+ */
 @interface FBResponseJSONPayload : NSObject <FBResponsePayload>
 
+/**
+ Initializer for JSON respond that converts given 'dictionary' to JSON
+ */
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

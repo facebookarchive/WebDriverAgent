@@ -10,12 +10,28 @@
 #import <Foundation/Foundation.h>
 #import <WebDriverAgentLib/FBWebServer.h>
 
+/*! Exception used to notify about missing session */
 extern NSString *const FBSessionDoesNotExistException;
+
+/*! Exception used to notify about application deadlock */
 extern NSString *const FBApplicationDeadlockDetectedException;
+
+/*! Exception used to notify about unknown attribute */
 extern NSString *const FBElementAttributeUnknownException;
 
+/**
+ Class used to handle exceptions raised by command handlers
+ */
 @interface FBExceptionHandler : NSObject
 
+/**
+ Handles 'exception' for 'webServer' raised while handling 'response'
+
+ @param webServer server for which exception is handled
+ @param exception exception that needs handling
+ @param response response related to that exception
+ @return YES, if exception was handled, otherwise NO
+ */
 - (BOOL)webServer:(FBWebServer *)webServer handleException:(NSException *)exception forResponse:(RouteResponse *)response;
 
 @end

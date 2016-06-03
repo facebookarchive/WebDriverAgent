@@ -11,12 +11,26 @@
 
 @class FBSession;
 
+/**
+ Class that represents WebDriverAgent command request
+ */
 @interface FBRouteRequest : NSObject
+
+/*! Request's URL */
 @property (nonatomic, strong, readonly) NSURL *URL;
+
+/*! Parameters sent with that request */
 @property (nonatomic, copy, readonly) NSDictionary *parameters;
+
+/*! Arguments sent with that request */
 @property (nonatomic, copy, readonly) NSDictionary *arguments;
+
+/*! Session associated with that request */
 @property (nonatomic, strong, readonly) FBSession *session;
 
+/**
+ Convenience constructor for request
+ */
 + (instancetype)routeRequestWithURL:(NSURL *)URL parameters:(NSDictionary *)parameters arguments:(NSDictionary *)arguments;
 
 @end

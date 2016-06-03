@@ -12,12 +12,24 @@
 @class FBApplication;
 @class FBElementCache;
 
+/*! Exception used to notify about application crash */
 extern NSString *const FBApplicationCrashedException;
 
+/**
+ Class that represents testing session
+ */
 @interface FBSession : NSObject
+
+/*! BOOL for following whether AX failure was raised for that session */
 @property (nonatomic, assign) BOOL didRegisterAXTestFailure;
+
+/*! Application tested during that session */
 @property (nonatomic, strong, readonly) FBApplication *application;
+
+/*! Session's identifier */
 @property (nonatomic, copy, readonly) NSString *identifier;
+
+/*! Element cache related to that session */
 @property (nonatomic, strong, readonly) FBElementCache *elementCache;
 
 + (instancetype)activeSession;

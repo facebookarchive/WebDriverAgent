@@ -12,10 +12,19 @@
 
 @class RoutingHTTPServer;
 
+/**
+ USB service that unwraps HTTP requests sent via USB and dispatches them to HTTP server
+ */
 @interface FBHTTPOverUSBServer : NSObject
 
+/**
+ Service initializer for given 'routingServer' used to dispatch unwrapped requests
+ */
 - (instancetype)initWithRoutingServer:(RoutingHTTPServer *)routingServer;
 
+/**
+ Starts USB service
+ */
 - (void)startServing;
 
 @end

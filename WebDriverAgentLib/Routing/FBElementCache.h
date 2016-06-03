@@ -14,18 +14,18 @@
 @interface FBElementCache : NSObject
 
 /**
- * Stores element in cache
- *
- * @param element element to store
- * @return element's index
+ Stores element in cache
+
+ @param element element to store
+ @return element's index
  */
 - (NSUInteger)storeElement:(XCUIElement *)element;
 
 /**
- * Returns cached element
- *
- * @param index index of element to fetch
- * @return element
+ Returns cached element
+
+ @param index index of element to fetch
+ @return element
  */
 - (XCUIElement *)elementForIndex:(NSUInteger)index;
 
