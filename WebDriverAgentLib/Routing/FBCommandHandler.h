@@ -14,9 +14,6 @@
 #import "FBRoute.h"
 #import "FBResponsePayload.h"
 
-#define UIAClassString(class_) \
-@(((void)(NO && ([class_ class], NO)), # class_))
-
 /**
  Protocol for Classes to declare intent to implement responses to commands
  */
