@@ -21,3 +21,10 @@
 #define FBFirstNonEmptyValue(value1, value2) ([value1 isEqual:@""] ? value2 : value1)
 #define FBValueOrNull(value) ((value) ?: [NSNull null])
 #define FBStringify(class, property) ({if(NO){[class.new property];} @#property;})
+
+#define FBWeakify(arg) typeof(arg) __weak wda_weak_##arg = arg
+#define FBStrongify(arg) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Wshadow\"") \
+  typeof(arg) arg = wda_weak_##arg \
+  _Pragma("clang diagnostic pop")

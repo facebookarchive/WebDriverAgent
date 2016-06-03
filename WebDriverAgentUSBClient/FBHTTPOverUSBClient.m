@@ -12,6 +12,8 @@
 #import <peertalk/PTChannel.h>
 #import <peertalk/PTUSBHub.h>
 
+#import "FBMacros.h"
+
 #define FBValidateObjectWithClass(object, aClass) \
   if (object && ![object isKindOfClass:aClass]) { \
     [self handleError:FBCreateWebDriverAgentError(@"Invalid object class %@ for %@", [object class], @#object)]; \
@@ -52,9 +54,10 @@ static const uint32_t FBUSBFrameType = 100;
   PTUSBHub *hub = [PTUSBHub new];
   [hub listenOnQueue:dispatch_get_main_queue() onStart:nil onEnd:nil];
 
+  FBWeakify(self);
   NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-  [nc addObserverForName:PTUSBDeviceDidAttachNotification object:hub queue:nil usingBlock:^(NSNotification *note)
-   {
+  [nc addObserverForName:PTUSBDeviceDidAttachNotification object:hub queue:nil usingBlock:^(NSNotification *note) {
+     FBStrongify(self);
      NSString *remoteDeviceUDID = [note userInfo][@"Properties"][@"SerialNumber"];
      if (![remoteDeviceUDID isEqualToString:self.deviceUDID]) {
        return;
@@ -62,6 +65,7 @@ static const uint32_t FBUSBFrameType = 100;
      [self connectToUSBDeviceWithID:[note userInfo][@"DeviceID"]];
    }];
   [nc addObserverForName:PTUSBDeviceDidDetachNotification object:hub queue:nil usingBlock:^(NSNotification *note) {
+    FBStrongify(self);
     NSString *remoteDeviceUDID = [note userInfo][@"Properties"][@"SerialNumber"];
     if (![remoteDeviceUDID isEqualToString:self.deviceUDID]) {
       return;
@@ -75,7 +79,9 @@ static const uint32_t FBUSBFrameType = 100;
 {
   PTChannel *channel = [PTChannel channelWithDelegate:self];
   channel.delegate = self;
+  FBWeakify(self);
   [channel connectToPort:FBUSBPort overUSBHub:PTUSBHub.sharedHub deviceID:deviceID callback:^(NSError *error) {
+    FBStrongify(self);
     if (error) {
       [self handleError:error];
       return;
