@@ -11,7 +11,7 @@
 
 #import <objc/runtime.h>
 
-NSArray *FBClassesThatConformsToProtocol(Protocol *protocol)
+NSArray<Class> *FBClassesThatConformsToProtocol(Protocol *protocol)
 {
   Class *classes = NULL;
   NSMutableArray *collection = [NSMutableArray array];

@@ -9,4 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-NSArray *FBClassesThatConformsToProtocol(Protocol *protocol);
+/**
+ Returns array of classes that conforms to given protocol
+ */
+NSArray<Class> *FBClassesThatConformsToProtocol(Protocol *protocol);

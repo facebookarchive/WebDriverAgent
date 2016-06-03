@@ -17,12 +17,22 @@
     typedef NSString* FBLiteralString;
 #endif
 
+/*! Returns 'value' or nil if 'value' is an empty string */
 #define FBTransferEmptyStringToNil(value) ([value isEqual:@""] ? nil : value)
+
+/*! Returns 'value1' or 'value2' if 'value1' is an empty string */
 #define FBFirstNonEmptyValue(value1, value2) ([value1 isEqual:@""] ? value2 : value1)
+
+/*! Returns 'value' or NSNull if 'value' is nil */
 #define FBValueOrNull(value) ((value) ?: [NSNull null])
+
+/*! Returns name of class property as a string */
 #define FBStringify(class, property) ({if(NO){[class.new property];} @#property;})
 
+/*! Creates weak type for given 'arg' */
 #define FBWeakify(arg) typeof(arg) __weak wda_weak_##arg = arg
+
+/*! Creates strong type for FBWeakify-ed 'arg' */
 #define FBStrongify(arg) \
   _Pragma("clang diagnostic push") \
   _Pragma("clang diagnostic ignored \"-Wshadow\"") \

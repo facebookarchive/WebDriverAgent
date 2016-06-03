@@ -10,8 +10,17 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCUIElementTypes.h>
 
+/**
+ Helper class used to create xpath string
+ */
 @interface FBXPathCreator : NSObject
 
+/**
+ Creates xpath string for elements containing elements of type elementType
+
+ @param elementType requested XCUIElementType of sub-elements
+ @return A string representing the xpath element
+ */
 + (NSString *)xpathWithSubelementsOfType:(XCUIElementType)elementType;
 
 @end

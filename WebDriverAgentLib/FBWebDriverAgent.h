@@ -11,8 +11,16 @@
 
 @interface FBWebDriverAgent : NSObject
 
+/**
+ Starts WebDriverAgent service by booting HTTP and USB server
+ */
 - (void)start;
 
+/**
+ Method that should be used to notify WebDriverAgent about XCTest framework failure
+
+ @param failureDescription description of the failure
+ */
 - (void)handleTestFailureWithDescription:(NSString *)failureDescription;
 
 @end
