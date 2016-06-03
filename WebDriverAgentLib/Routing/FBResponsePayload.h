@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "FBCommandStatus.h"
+#import <WebDriverAgentLib/FBCommandStatus.h>
 
 @class FBElementCache;
 @class RouteResponse;
@@ -22,6 +22,7 @@
 @end
 
 id<FBResponsePayload> FBResponseWithOK(void);
+id<FBResponsePayload> FBResponseWithObject(id object);
 id<FBResponsePayload> FBResponseWithCachedElement(XCUIElement *element, FBElementCache *elementCache);
 id<FBResponsePayload> FBResponseWithCachedElements(NSArray<XCUIElement *> *elements, FBElementCache *elementCache);
 id<FBResponsePayload> FBResponseWithElementID(NSUInteger elementID);
@@ -29,21 +30,3 @@ id<FBResponsePayload> FBResponseWithError(NSError *error);
 id<FBResponsePayload> FBResponseWithErrorFormat(NSString *errorFormat, ...) NS_FORMAT_FUNCTION(1,2);
 id<FBResponsePayload> FBResponseWithStatus(FBCommandStatus status, id object);
 id<FBResponsePayload> FBResponseFileWithPath(NSString *path);
-
-/**
- Factory for constructing payloads
- */
-@interface FBResponsePayload : NSObject
-
-+ (id<FBResponsePayload>)ok;
-+ (id<FBResponsePayload>)okWith:(id)object;
-+ (id<FBResponsePayload>)withElementID:(NSUInteger)elementID;
-+ (id<FBResponsePayload>)withError:(NSError *)error;
-+ (id<FBResponsePayload>)withErrorFormat:(NSString *)errorFormat, ... NS_FORMAT_FUNCTION(1,2);
-+ (id<FBResponsePayload>)withErrorFormat:(NSString *)format arguments:(va_list)argList NS_FORMAT_FUNCTION(1,0);
-+ (id<FBResponsePayload>)withStatus:(FBCommandStatus)status;
-+ (id<FBResponsePayload>)withStatus:(FBCommandStatus)status object:(id)object;
-+ (id<FBResponsePayload>)withFileAtPath:(NSString *)path;
-
-@end
-

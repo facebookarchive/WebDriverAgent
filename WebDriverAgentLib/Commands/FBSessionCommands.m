@@ -47,12 +47,12 @@
   app.launchEnvironment = (NSDictionary <NSString *, NSString *> *)requirements[@"environment"] ?: @{};
   [app launch];
   [FBSession sessionWithApplication:app];
-  return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
+  return FBResponseWithObject(FBSessionCommands.sessionInformation);
 }
 
 + (id<FBResponsePayload>)handleGetActiveSession:(FBRouteRequest *)request
 {
-  return [FBResponsePayload okWith:FBSessionCommands.sessionInformation];
+  return FBResponseWithObject(FBSessionCommands.sessionInformation);
 }
 
 + (id<FBResponsePayload>)handleGetStatus:(FBRouteRequest *)request

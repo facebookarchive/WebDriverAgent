@@ -30,7 +30,7 @@
 + (id<FBResponsePayload>)handleGetScreenshot:(FBRouteRequest *)request
 {
   NSString *screenshot = [[XCUIDevice sharedDevice].fb_screenshot base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-  return [FBResponsePayload okWith:screenshot];
+  return FBResponseWithObject(screenshot);
 }
 
 @end
