@@ -12,15 +12,18 @@
 #import <peertalk/PTChannel.h>
 #import <peertalk/PTUSBHub.h>
 
+#import "FBErrorBuilder.h"
 #import "FBMacros.h"
 
 #define FBValidateObjectWithClass(object, aClass) \
   if (object && ![object isKindOfClass:aClass]) { \
-    [self handleError:FBCreateWebDriverAgentError(@"Invalid object class %@ for %@", [object class], @#object)]; \
+    [self handleError: \
+      [[[FBErrorBuilder builder] \
+        withDescriptionFormat:@"Invalid object class %@ for %@", [object class], @#object] \
+      build] \
+     ]; \
     return; \
   }
-
-static NSError *FBCreateWebDriverAgentError(NSString *message, ...) NS_FORMAT_FUNCTION(1,2);
 
 static const in_port_t FBUSBPort = 5000;
 static const uint32_t FBUSBFrameType = 100;
@@ -127,7 +130,11 @@ static const uint32_t FBUSBFrameType = 100;
     return;
   }
   if (![self waitForChannel]) {
-    [self handleError:FBCreateWebDriverAgentError(@"Waiting for USB Device %@ timedout!", self.deviceUDID)];
+    [self handleError:
+     [[[FBErrorBuilder builder]
+       withDescriptionFormat:@"Waiting for USB Device %@ timedout!", self.deviceUDID]
+      build]
+     ];
     return;
   }
   [self.channel sendFrameOfType:FBUSBFrameType
@@ -151,7 +158,11 @@ static const uint32_t FBUSBFrameType = 100;
   }
 
   if (response && ![response isKindOfClass:NSDictionary.class]) {
-    [self handleError:FBCreateWebDriverAgentError(@"Invalid parameter %@", response)];
+    [self handleError:
+     [[[FBErrorBuilder builder]
+       withDescriptionFormat:@"Invalid parameter %@", response]
+      build]
+     ];
     return;
   }
   FBValidateObjectWithClass(response, NSDictionary.class);
@@ -160,7 +171,11 @@ static const uint32_t FBUSBFrameType = 100;
   FBValidateObjectWithClass(response[@"statusCode"], NSNumber.class);
   FBValidateObjectWithClass(response[@"httpResponse"], NSDictionary.class);
   if (!requestUUID) {
-    [self handleError:FBCreateWebDriverAgentError(@"%@", response[@"error"]?: @"Received respond without requestUUID")];
+    [self handleError:
+     [[[FBErrorBuilder builder]
+       withDescription:response[@"error"]?: @"Received respond without requestUUID"]
+      build]
+     ];
     return;
   }
   [self dispatchHandlerBlockForRequestWithUDID:requestUUID response:response error:nil];
@@ -202,24 +217,13 @@ static const uint32_t FBUSBFrameType = 100;
   if (self.channel == channel) {
     self.channel = nil;
     if (!error) {
-      error = FBCreateWebDriverAgentError(@"Connection finished too early!");
+      error =
+      [[[FBErrorBuilder builder]
+        withDescription:@"Connection finished too early!"]
+       build];
     }
     [self handleError:error];
   }
 }
 
 @end
-
-NSError *FBCreateWebDriverAgentError(NSString *format, ...)
-{
-  va_list argList;
-  va_start(argList, format);
-  NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
-  va_end(argList);
-  return [NSError errorWithDomain:@"com.facebook.FBWebDriverAgent"
-                             code:1
-                         userInfo:@{
-                                    NSLocalizedDescriptionKey : message
-                                    }
-          ];
-}
