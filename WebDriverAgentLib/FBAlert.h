@@ -27,12 +27,12 @@ extern NSString *const FBAlertObstructingElementException;
 + (instancetype)alertWithApplication:(XCUIApplication *)application;
 
 /**
- Determins whether alert is present
+ Determines whether alert is present
  */
 - (BOOL)isPresent;
 
 /**
- Returns alert's title and description sparated by new lines
+ Returns alert's title and description separated by new lines
  */
 - (nullable NSString *)text;
 

@@ -17,7 +17,7 @@
 + (instancetype)fb_springboard;
 
 /**
- Taps application on SpringBoard app with given identifer
+ Taps application on SpringBoard app with given identifier
 
  @param identifier identifier of the application to tap
  @param error If there is an error, upon return contains an NSError object that describes the problem.

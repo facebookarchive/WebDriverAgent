@@ -26,7 +26,7 @@ extern NSString *const FBApplicationCrashedException;
  Fetches session for given identifier.
  If identifier doesn't match activeSession identifier, will return nil.
  
- @param identifier Identifer for searched session
+ @param identifier Identifier for searched session
  @return session. Can return nil if session does not exists
  */
 + (instancetype)sessionWithIdentifier:(NSString *)identifier;

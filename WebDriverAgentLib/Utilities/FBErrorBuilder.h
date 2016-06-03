@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)withDescription:(NSString *)description;
 
 /**
- Configures description set as NSLocalizedDescriptionKey with convinient format
+ Configures description set as NSLocalizedDescriptionKey with convenient format
 
  @param format of description set as NSLocalizedDescriptionKey
  @return builder instance
@@ -48,14 +48,14 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Builder used create error raised by WebDriverAgent
 
- @return builded error
+ @return built error
  */
 - (NSError *)build;
 
 /**
  Builder used create error raised by WebDriverAgent
 
- @param error pointer used to return builded error
+ @param error pointer used to return built error
  @return fixed NO to apply to Apple's coding conventions
  */
 - (BOOL)buildError:(NSError **)error;

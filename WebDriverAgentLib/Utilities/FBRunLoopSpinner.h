@@ -24,15 +24,15 @@ typedef id (^FBRunLoopSpinnerObjectBlock)();
  Updates the error message to print in the event of a timeout.
 
  @param timeoutErrorMessage the Error Message to print.
- @return the reciever, for chaining.
+ @return the receiver, for chaining.
  */
 - (instancetype)timeoutErrorMessage:(NSString *)timeoutErrorMessage;
 
 /**
- Updates the timeout of the reciever.
+ Updates the timeout of the receiver.
 
  @param timeout the amount of time to wait before timing out.
- @return the reciever, for chaining.
+ @return the receiver, for chaining.
  */
 - (instancetype)timeout:(NSTimeInterval)timeout;
 

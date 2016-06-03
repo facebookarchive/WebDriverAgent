@@ -19,7 +19,7 @@
 @interface FBApplicationProcessProxy : NSObject
 
 /**
- Convenience initialazer
+ Convenience initializer
  */
 + (instancetype)proxyWithApplicationProcess:(XCUIApplicationProcess *)applicationProcess;
 
