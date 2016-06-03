@@ -24,9 +24,9 @@ static const in_port_t FBUSBPort = 5000;
 static const uint32_t FBUSBFrameType = 100;
 
 @interface FBHTTPOverUSBClient () <PTChannelDelegate>
-@property (nonatomic, copy) NSString *deviceUDID;
+@property (nonatomic, copy, readonly) NSString *deviceUDID;
+@property (nonatomic, copy, readonly) NSMutableDictionary<NSString *, WDHTTPOverUSBResponse> *uuidToCallbackMap;
 @property (nonatomic, strong) PTChannel *channel;
-@property (nonatomic, copy) NSMutableDictionary<NSString *, WDHTTPOverUSBResponse> *uuidToCallbackMap;
 @end
 
 @implementation FBHTTPOverUSBClient
