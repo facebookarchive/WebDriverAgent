@@ -1,9 +1,9 @@
 {
   "name": "web-driver-inspector",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "author": "",
+  "description": "React based web inspector to inspect current device state",
+  "main": "index.html",
+  "author": "Facebook, Inc.",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^5.8.23",
