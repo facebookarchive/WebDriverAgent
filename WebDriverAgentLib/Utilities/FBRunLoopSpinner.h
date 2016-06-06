@@ -16,6 +16,7 @@ typedef id (^FBRunLoopSpinnerObjectBlock)();
 
 /**
  Dispatches block and spins the run loop until `completion` block is called.
+
  @param block the block to wait for to finish.
  */
 + (void)spinUntilCompletion:(void (^)(void(^completion)()))block;
@@ -38,6 +39,7 @@ typedef id (^FBRunLoopSpinnerObjectBlock)();
 
 /**
  Spins the Run Loop until `untilTrue` returns YES or a timeout is reached.
+
  @param untilTrue the condition to meet.
  @return YES if the condition was met, NO if the timeout was reached first.
  */
@@ -45,6 +47,7 @@ typedef id (^FBRunLoopSpinnerObjectBlock)();
 
 /**
  Spins the Run Loop until `untilTrue` returns YES or a timeout is reached.
+
  @param untilTrue the condition to meet.
  @param error to fill in case of timeout.
  @return YES if the condition was met, NO if the timeout was reached first.
@@ -53,6 +56,7 @@ typedef id (^FBRunLoopSpinnerObjectBlock)();
 
 /**
  Spins the Run Loop until `untilNotNil` returns non nil value or a timeout is reached.
+
  @param untilNotNil the condition to meet.
  @param error to fill in case of timeout.
  @return YES if the condition was met, NO if the timeout was reached first.

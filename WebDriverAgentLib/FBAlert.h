@@ -14,6 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/*! Notification used to notify about requested element being obstructed by alert */
 extern NSString *const FBAlertObstructingElementException;
 
 /**
