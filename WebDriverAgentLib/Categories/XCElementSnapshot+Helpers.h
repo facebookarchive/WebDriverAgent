@@ -14,7 +14,6 @@ extern NSNumber *FB_XCAXAIsElementAttribute;
 
 @interface XCElementSnapshot (Helpers)
 
-+ (XCElementSnapshot *)fb_snapshotForAccessibilityElement:(XCAccessibilityElement *)accessibilityElement;
 
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type;
 

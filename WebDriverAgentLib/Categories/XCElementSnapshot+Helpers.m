@@ -35,24 +35,6 @@ NSNumber *FB_XCAXAIsElementAttribute;
   FB_XCAXAIsElementAttribute = accessibilityAttributes[1];
 }
 
-+ (XCElementSnapshot *)fb_snapshotForAccessibilityElement:(XCAccessibilityElement *)accessibilityElement
-{
-  __block XCElementSnapshot *snapshot;
-  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    [[XCTestDriver sharedTestDriver].managerProxy _XCT_snapshotForElement:accessibilityElement
-                                                               attributes:[[XCAXClient_iOS sharedClient] defaultAttributes]
-                                                               parameters: [[XCAXClient_iOS sharedClient] defaultParameters]
-                                                                    reply:^(XCElementSnapshot *iSnapshot, NSError *error) {
-                                                                      if (error) {
-                                                                        [FBLogger logFmt:@"Error: %@", error];
-                                                                      }
-                                                                      snapshot = iSnapshot;
-                                                                      completion();
-                                                                    }];
-  }];
-  return snapshot;
-}
-
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type
 {
   return [FBFindElementCommands descendantsOfElementSnapshot:self withXPathQuery:[FBXPathCreator xpathWithSubelementsOfType:type]];
