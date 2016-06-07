@@ -27,7 +27,7 @@
   if (!self) {
     return nil;
   }
-  _currentElementIndex = 3;
+  _currentElementIndex = 0;
   _elementCache = [[NSMutableDictionary alloc] init];
   return self;
 }
