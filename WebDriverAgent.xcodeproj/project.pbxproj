@@ -212,8 +212,11 @@
 		EE3A18671CDE734B00DE4205 /* FBKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A18651CDE734B00DE4205 /* FBKeyboard.m */; };
 		EE3A18771CDE886F00DE4205 /* FBHTTPOverUSBClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3A18751CDE886F00DE4205 /* FBHTTPOverUSBClient.h */; };
 		EE3A18781CDE886F00DE4205 /* FBHTTPOverUSBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A18761CDE886F00DE4205 /* FBHTTPOverUSBClient.m */; };
-		EE9AB7FE1CAEE048008C271F /* FBDebugLogDelegateDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7F91CAEE048008C271F /* FBDebugLogDelegateDecorator.m */; };
-		EE9AB7FF1CAEE048008C271F /* FBXCTestCaseImplementationFailureHoldingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7FB1CAEE048008C271F /* FBXCTestCaseImplementationFailureHoldingProxy.m */; };
+		EE7E271C1D06C69F001BEC7B /* FBDebugLogDelegateDecorator.h in Headers */ = {isa = PBXBuildFile; fileRef = EE7E27181D06C69F001BEC7B /* FBDebugLogDelegateDecorator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE7E271D1D06C69F001BEC7B /* FBDebugLogDelegateDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7E27191D06C69F001BEC7B /* FBDebugLogDelegateDecorator.m */; };
+		EE7E271E1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = EE7E271A1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE7E271F1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7E271B1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.m */; };
+		EE7E27221D06CA91001BEC7B /* libAccessibility.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7E27211D06CA91001BEC7B /* libAccessibility.tbd */; };
 		EE9AB8011CAEE048008C271F /* UITestingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7FD1CAEE048008C271F /* UITestingUITests.m */; };
 		EE9B75CF1CF77CFA00275851 /* FBAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6C26931CF2379700F8B5FF /* FBAlert.m */; };
 		EE9B76591CF7987800275851 /* FBRouteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9B76571CF7987300275851 /* FBRouteTests.m */; };
@@ -290,7 +293,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AccessibilityUtilities.framework; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/PrivateFrameworks/AccessibilityUtilities.framework; sourceTree = DEVELOPER_DIR; };
 		AD35D0291CF1B39E00870A75 /* generate_modules.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate_modules.sh; sourceTree = "<group>"; };
 		AD35D0651CF1C2CE00870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/iOS/Peertalk.framework; sourceTree = "<group>"; };
 		AD35D0691CF1C30700870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/Mac/Peertalk.framework; sourceTree = "<group>"; };
@@ -320,6 +322,11 @@
 		EE3A18761CDE886F00DE4205 /* FBHTTPOverUSBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBHTTPOverUSBClient.m; sourceTree = "<group>"; };
 		EE606A721C93021100C0FC53 /* XCUIApplicationImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIApplicationImpl.h; sourceTree = "<group>"; };
 		EE606A731C93021100C0FC53 /* XCUIApplicationProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIApplicationProcess.h; sourceTree = "<group>"; };
+		EE7E27181D06C69F001BEC7B /* FBDebugLogDelegateDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDebugLogDelegateDecorator.h; sourceTree = "<group>"; };
+		EE7E27191D06C69F001BEC7B /* FBDebugLogDelegateDecorator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBDebugLogDelegateDecorator.m; sourceTree = "<group>"; };
+		EE7E271A1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXCTestCaseImplementationFailureHoldingProxy.h; sourceTree = "<group>"; };
+		EE7E271B1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXCTestCaseImplementationFailureHoldingProxy.m; sourceTree = "<group>"; };
+		EE7E27211D06CA91001BEC7B /* libAccessibility.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libAccessibility.tbd; path = usr/lib/libAccessibility.tbd; sourceTree = SDKROOT; };
 		EE836C021C0F118600D87246 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE9AB73F1CAEDF0C008C271F /* XCElementSnapshot+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCElementSnapshot+Helpers.h"; sourceTree = "<group>"; };
 		EE9AB7401CAEDF0C008C271F /* XCElementSnapshot+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCElementSnapshot+Helpers.m"; sourceTree = "<group>"; };
@@ -391,10 +398,6 @@
 		EE9AB7921CAEDF0C008C271F /* FBRuntimeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRuntimeUtils.m; sourceTree = "<group>"; };
 		EE9AB7981CAEDF0C008C271F /* FBXPathCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXPathCreator.h; sourceTree = "<group>"; };
 		EE9AB7991CAEDF0C008C271F /* FBXPathCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathCreator.m; sourceTree = "<group>"; };
-		EE9AB7F81CAEE048008C271F /* FBDebugLogDelegateDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBDebugLogDelegateDecorator.h; path = WebDriverAgentRunner/FBDebugLogDelegateDecorator.h; sourceTree = SOURCE_ROOT; };
-		EE9AB7F91CAEE048008C271F /* FBDebugLogDelegateDecorator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBDebugLogDelegateDecorator.m; path = WebDriverAgentRunner/FBDebugLogDelegateDecorator.m; sourceTree = SOURCE_ROOT; };
-		EE9AB7FA1CAEE048008C271F /* FBXCTestCaseImplementationFailureHoldingProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBXCTestCaseImplementationFailureHoldingProxy.h; path = WebDriverAgentRunner/FBXCTestCaseImplementationFailureHoldingProxy.h; sourceTree = SOURCE_ROOT; };
-		EE9AB7FB1CAEE048008C271F /* FBXCTestCaseImplementationFailureHoldingProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBXCTestCaseImplementationFailureHoldingProxy.m; path = WebDriverAgentRunner/FBXCTestCaseImplementationFailureHoldingProxy.m; sourceTree = SOURCE_ROOT; };
 		EE9AB7FC1CAEE048008C271F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = WebDriverAgentRunner/Info.plist; sourceTree = SOURCE_ROOT; };
 		EE9AB7FD1CAEE048008C271F /* UITestingUITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UITestingUITests.m; path = WebDriverAgentRunner/UITestingUITests.m; sourceTree = SOURCE_ROOT; };
 		EE9AB8031CAEE182008C271F /* build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = "<group>"; };
@@ -525,6 +528,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE7E27221D06CA91001BEC7B /* libAccessibility.tbd in Frameworks */,
 				AD35D0631CF1C2C200870A75 /* KissXML.framework in Frameworks */,
 				AD35D0661CF1C2CE00870A75 /* Peertalk.framework in Frameworks */,
 				AD35D0641CF1C2C300870A75 /* RoutingHTTPServer.framework in Frameworks */,
@@ -621,10 +625,10 @@
 		AD35D0671CF1C2DA00870A75 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				91E7D8591B99E46D00F8BA6F /* AccessibilityUtilities.framework */,
 				AD42DD271CF120B000806E5D /* KissXML.framework */,
 				AD35D0651CF1C2CE00870A75 /* Peertalk.framework */,
 				AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */,
+				EE7E27211D06CA91001BEC7B /* libAccessibility.tbd */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -776,6 +780,8 @@
 			children = (
 				EE9B76A11CF7A43900275851 /* FBConfiguration.h */,
 				EE9B76A21CF7A43900275851 /* FBConfiguration.m */,
+				EE7E27181D06C69F001BEC7B /* FBDebugLogDelegateDecorator.h */,
+				EE7E27191D06C69F001BEC7B /* FBDebugLogDelegateDecorator.m */,
 				EE9AB78F1CAEDF0C008C271F /* FBElementTypeTransformer.h */,
 				EE9AB7901CAEDF0C008C271F /* FBElementTypeTransformer.m */,
 				EE3A18601CDE618F00DE4205 /* FBErrorBuilder.h */,
@@ -787,6 +793,8 @@
 				EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */,
 				EE9AB7911CAEDF0C008C271F /* FBRuntimeUtils.h */,
 				EE9AB7921CAEDF0C008C271F /* FBRuntimeUtils.m */,
+				EE7E271A1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.h */,
+				EE7E271B1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.m */,
 				EE9AB7981CAEDF0C008C271F /* FBXPathCreator.h */,
 				EE9AB7991CAEDF0C008C271F /* FBXPathCreator.m */,
 			);
@@ -1002,10 +1010,6 @@
 		EEF988341C486655005CA669 /* WebDriverAgentRunner */ = {
 			isa = PBXGroup;
 			children = (
-				EE9AB7F81CAEE048008C271F /* FBDebugLogDelegateDecorator.h */,
-				EE9AB7F91CAEE048008C271F /* FBDebugLogDelegateDecorator.m */,
-				EE9AB7FA1CAEE048008C271F /* FBXCTestCaseImplementationFailureHoldingProxy.h */,
-				EE9AB7FB1CAEE048008C271F /* FBXCTestCaseImplementationFailureHoldingProxy.m */,
 				EE9AB7FC1CAEE048008C271F /* Info.plist */,
 				EE9AB7FD1CAEE048008C271F /* UITestingUITests.m */,
 			);
@@ -1160,6 +1164,8 @@
 				EE9B76AA1CF7A43900275851 /* FBMacros.h in Headers */,
 				EE9B76A61CF7A43900275851 /* FBConfiguration.h in Headers */,
 				EE9B76A81CF7A43900275851 /* FBLogger.h in Headers */,
+				EE7E271E1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.h in Headers */,
+				EE7E271C1D06C69F001BEC7B /* FBDebugLogDelegateDecorator.h in Headers */,
 				EE158B171CBD459C00A3E3F0 /* XCDebugLogDelegate-Protocol.h in Headers */,
 				EE158B001CBD459C00A3E3F0 /* _XCNotificationExpectation.h in Headers */,
 				EE158B0D1CBD459C00A3E3F0 /* UISwipeGestureRecognizer-RecordingAdditions.h in Headers */,
@@ -1419,6 +1425,7 @@
 				EE158AE21CBD456F00A3E3F0 /* FBRouteRequest.m in Sources */,
 				EE158AFC1CBD456F00A3E3F0 /* FBWebDriverAgent.m in Sources */,
 				EE158ADB1CBD456F00A3E3F0 /* FBResponseJSONPayload.m in Sources */,
+				EE7E271F1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.m in Sources */,
 				EE158AF81CBD456F00A3E3F0 /* FBSpringboardApplication.m in Sources */,
 				EE158AD91CBD456F00A3E3F0 /* FBResponseFilePayload.m in Sources */,
 				EE158ACB1CBD456F00A3E3F0 /* FBTouchIDCommands.m in Sources */,
@@ -1434,6 +1441,7 @@
 				EE158AAF1CBD456F00A3E3F0 /* XCUIElement+FBAccessibility.m in Sources */,
 				EE158AE51CBD456F00A3E3F0 /* FBSession.m in Sources */,
 				EE158AC11CBD456F00A3E3F0 /* FBFindElementCommands.m in Sources */,
+				EE7E271D1D06C69F001BEC7B /* FBDebugLogDelegateDecorator.m in Sources */,
 				EE158AB91CBD456F00A3E3F0 /* FBAlertViewCommands.m in Sources */,
 				EE158AB31CBD456F00A3E3F0 /* XCUIElement+FBScrolling.m in Sources */,
 				EE158AC91CBD456F00A3E3F0 /* FBSessionCommands.m in Sources */,
@@ -1509,8 +1517,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE9AB8011CAEE048008C271F /* UITestingUITests.m in Sources */,
-				EE9AB7FF1CAEE048008C271F /* FBXCTestCaseImplementationFailureHoldingProxy.m in Sources */,
-				EE9AB7FE1CAEE048008C271F /* FBDebugLogDelegateDecorator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1829,7 +1835,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-l\"Accessibility\"",
 					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.xctweb-driver-agent";
@@ -1854,7 +1859,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-l\"Accessibility\"",
 					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.xctweb-driver-agent";

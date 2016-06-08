@@ -9,15 +9,12 @@
 
 #import <XCTest/XCTest.h>
 
+#import <WebDriverAgentLib/FBDebugLogDelegateDecorator.h>
+#import <WebDriverAgentLib/FBConfiguration.h>
 #import <WebDriverAgentLib/FBLogger.h>
 #import <WebDriverAgentLib/FBWebDriverAgent.h>
+#import <WebDriverAgentLib/FBXCTestCaseImplementationFailureHoldingProxy.h>
 #import <WebDriverAgentLib/XCTestCase.h>
-
-#import "FBDebugLogDelegateDecorator.h"
-#import "FBXCTestCaseImplementationFailureHoldingProxy.h"
-
-// This magic method removes duplicated hidden cell views. (Possibly used for cell reuse)
-BOOL _AXSAutomationSetFauxCollectionViewCellsEnabled(BOOL);
 
 @interface UITestingUITests : XCTestCase
 @property (nonatomic, strong) FBWebDriverAgent *agent;
@@ -35,7 +32,7 @@ BOOL _AXSAutomationSetFauxCollectionViewCellsEnabled(BOOL);
 {
   [super setUp];
   self.continueAfterFailure = YES;
-  _AXSAutomationSetFauxCollectionViewCellsEnabled(YES);
+  [FBConfiguration shouldShowFakeCollectionViewCells:YES];
   self.agent = [FBWebDriverAgent new];
 }
 

@@ -11,12 +11,19 @@
 
 #import <UIKit/UIKit.h>
 
+BOOL _AXSAutomationSetFauxCollectionViewCellsEnabled(BOOL);
+
 static NSUInteger const DefaultStartingPort = 8100;
 static NSUInteger const DefaultPortRange = 100;
 
 @implementation FBConfiguration
 
 #pragma mark Public
+
++ (void)shouldShowFakeCollectionViewCells:(BOOL)showFakeCells
+{
+  _AXSAutomationSetFauxCollectionViewCellsEnabled(showFakeCells);
+}
 
 + (NSRange)bindingPortRange
 {
