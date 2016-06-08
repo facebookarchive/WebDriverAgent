@@ -12,7 +12,7 @@ set -eu
 
 function build() {
   xcodebuild \
-      -project $PROJECT \
+      -project WebDriverAgent.xcodeproj \
       -scheme $TARGET \
       -sdk $SDK \
       $ACTION \
