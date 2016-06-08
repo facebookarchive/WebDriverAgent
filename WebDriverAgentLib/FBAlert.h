@@ -23,6 +23,11 @@ extern NSString *const FBAlertObstructingElementException;
 @interface FBAlert : NSObject
 
 /**
+ Throws FBAlertObstructingElementException
+ */
++ (void)throwRequestedItemObstructedByAlertException __attribute__((noreturn));
+
+/**
  Creates alert helper for given application
  */
 + (instancetype)alertWithApplication:(XCUIApplication *)application;
@@ -54,19 +59,17 @@ extern NSString *const FBAlertObstructingElementException;
 - (BOOL)dismissWithError:(NSError **)error;
 
 /**
- Checks if given element is obstructed by alert, if so throws FBAlertObstructingElementException
-
- @param element checked element
- */
-- (void)checkIfObstructsElement:(XCUIElement *)element;
-
-/**
  Filters out elements obstructed by alert
 
  @param elements array of elements we want to filter
  @return elements not obstructed by alert
  */
 - (NSArray<XCUIElement *> *)filterObstructedElements:(NSArray<XCUIElement *> *)elements;
+
+/**
+ XCUElement that represents alert
+ */
+- (nullable XCUIElement *)alertElement;
 
 @end
 

@@ -9,6 +9,7 @@
 
 #import "XCUIElement+Utilities.h"
 
+#import "FBAlert.h"
 #import "FBRunLoopSpinner.h"
 #import "XCUIElement+WebDriverAttributes.h"
 
@@ -29,5 +30,27 @@
      return isSameFrame;
    }];
 }
+
+- (BOOL)fb_isObstructedByAlert
+{
+  return [[FBAlert alertWithApplication:self.application].alertElement fb_obstructsElement:self];
+}
+
+- (BOOL)fb_obstructsElement:(XCUIElement *)element
+{
+  if (!self.exists) {
+    return NO;
+  }
+  [self resolve];
+  [element resolve];
+  if ([self.lastSnapshot _isAncestorOfElement:element.lastSnapshot]) {
+    return NO;
+  }
+  if ([self.lastSnapshot _matchesElement:element.lastSnapshot]) {
+    return NO;
+  }
+  return YES;
+}
+
 
 @end
