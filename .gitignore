@@ -27,6 +27,9 @@ xcuserdata
 *.hmap
 *.ipa
 
+# AppCode
+.idea/
+
 # Carthage
 Carthage/Build
 Carthage/Checkouts
