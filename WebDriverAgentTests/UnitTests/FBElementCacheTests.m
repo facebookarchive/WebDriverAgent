@@ -52,4 +52,12 @@
   XCTAssertTrue(element.didResolve);
 }
 
+- (void)testAlertObstructionCheckWhenFetchingElement
+{
+  XCUIElementDouble *elementDouble = XCUIElementDouble.new;
+  elementDouble.fb_isObstructedByAlert = YES;
+  NSUInteger index = [self.cache storeElement:(XCUIElement *)elementDouble];
+  XCTAssertThrows([self.cache elementForIndex:index]);
+}
+
 @end

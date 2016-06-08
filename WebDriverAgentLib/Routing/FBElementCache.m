@@ -11,6 +11,8 @@
 
 #import "FBAlert.h"
 #import "XCUIElement.h"
+#import "XCUIElement+Utilities.h"
+
 
 @class UIAElement;
 
@@ -42,8 +44,10 @@
 - (XCUIElement *)elementForIndex:(NSUInteger)index
 {
   XCUIElement *element = self.elementCache[@(index)];
-  [[FBAlert alertWithApplication:element.application] checkIfObstructsElement:element];
   [element resolve];
+  if (element.fb_isObstructedByAlert) {
+    [FBAlert throwRequestedItemObstructedByAlertException];
+  }
   return element;
 }
 

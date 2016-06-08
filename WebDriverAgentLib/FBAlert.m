@@ -23,6 +23,7 @@
 #import "XCTestManager_ManagerInterface-Protocol.h"
 #import "XCUICoordinate.h"
 #import "XCUIElement+FBTap.h"
+#import "XCUIElement+Utilities.h"
 #import "XCUIElement+WebDriverAttributes.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
@@ -57,6 +58,11 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
 @end
 
 @implementation FBAlert
+
++ (void)throwRequestedItemObstructedByAlertException __attribute__((noreturn))
+{
+  @throw [NSException exceptionWithName:FBAlertObstructingElementException reason:@"Requested element is obstructed by alert or action sheet" userInfo:@{}];
+}
 
 + (instancetype)alertWithApplication:(XCUIApplication *)application
 {
@@ -127,15 +133,6 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   return [cancelButton fb_tapWithError:nil];
 }
 
-- (void)checkIfObstructsElement:(XCUIElement *)element
-{
-  XCUIElement *alert = self.alertElement;
-  if (![self.class isElementObstructedByAlertView:element alert:alert]) {
-    return;
-  }
-  [self throwRequestedItemObstructedByAlertException];
-}
-
 + (BOOL)isElementObstructedByAlertView:(XCUIElement *)element alert:(XCUIElement *)alert
 {
   if (!alert.exists) {
@@ -154,19 +151,20 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
 
 - (NSArray<XCUIElement *> *)filterObstructedElements:(NSArray<XCUIElement *> *)elements
 {
+  XCUIElement *alertElement = self.alertElement;
   XCUIElement *element = elements.lastObject;
   if (!element) {
     return elements;
   }
   NSMutableArray *elementBox = [NSMutableArray array];
   for (XCUIElement *iElement in elements) {
-    if ([FBAlert isElementObstructedByAlertView:iElement alert:self.alertElement]) {
+    if ([FBAlert isElementObstructedByAlertView:iElement alert:alertElement]) {
       continue;
     }
     [elementBox addObject:iElement];
   }
   if (elementBox.count == 0 && elements.count != 0) {
-    [self throwRequestedItemObstructedByAlertException];
+    [FBAlert throwRequestedItemObstructedByAlertException];
   }
   return elementBox.copy;
 }
@@ -179,11 +177,6 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   }
   [alert resolve];
   return alert;
-}
-
-- (void)throwRequestedItemObstructedByAlertException __attribute__((noreturn))
-{
-  @throw [NSException exceptionWithName:FBAlertObstructingElementException reason:@"Requested element is obstructed by alert or action sheet" userInfo:@{}];
 }
 
 @end

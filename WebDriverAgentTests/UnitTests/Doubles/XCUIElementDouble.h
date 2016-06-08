@@ -13,6 +13,7 @@
 
 @interface XCUIElementDouble : NSObject
 @property (nonatomic, strong) XCUIApplication *application;
+@property (nonatomic, assign) BOOL fb_isObstructedByAlert;
 
 - (void)resolve;
 

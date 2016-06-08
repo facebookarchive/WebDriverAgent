@@ -12,8 +12,21 @@
 @interface XCUIElement (Utilities)
 
 /**
- Waits for element's frame to become stable with timeout
+ Waits for receiver's frame to become stable with timeout
  */
 - (BOOL)fb_waitUntilFrameIsStable;
+
+/**
+ Checks if receiver is obstructed by alert
+ */
+- (BOOL)fb_isObstructedByAlert;
+
+/**
+ Checks if receiver obstructs given element
+
+ @param element tested element
+ @return YES if receiver obstructs 'element', otherwise NO
+ */
+- (BOOL)fb_obstructsElement:(XCUIElement *)element;
 
 @end
