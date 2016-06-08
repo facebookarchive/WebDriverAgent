@@ -21,37 +21,37 @@ NSString *wdAttributeNameForAttributeName(NSString *name);
 @protocol FBElement <NSObject>
 
 /*! Element's frame in CGRect format */
-@property (readonly, assign) CGRect wdFrame;
+@property (nonatomic, readonly, assign) CGRect wdFrame;
 
 /*! Element's frame in NSDictionary format */
-@property (readonly, copy) NSDictionary *wdRect;
+@property (nonatomic, readonly, copy) NSDictionary *wdRect;
 
 /*! Element's size */
-@property (readonly, copy) NSDictionary *wdSize;
+@property (nonatomic, readonly, copy) NSDictionary *wdSize;
 
 /*! Element's origin */
-@property (readonly, copy) NSDictionary *wdLocation;
+@property (nonatomic, readonly, copy) NSDictionary *wdLocation;
 
 /*! Element's name */
-@property (readonly, copy) NSString *wdName;
+@property (nonatomic, readonly, copy) NSString *wdName;
 
 /*! Element's label */
-@property (readonly, copy) NSString *wdLabel;
+@property (nonatomic, readonly, copy) NSString *wdLabel;
 
 /*! Element's type */
-@property (readonly, copy) NSString *wdType;
+@property (nonatomic, readonly, copy) NSString *wdType;
 
 /*! Element's value */
-@property (readonly, strong) id wdValue;
+@property (nonatomic, readonly, strong) id wdValue;
 
 /*! Whether element is enabled */
-@property (readonly, getter = isWDEnabled) BOOL wdEnabled;
+@property (nonatomic, readonly, getter = isWDEnabled) BOOL wdEnabled;
 
 /*! Whether element is visible */
-@property (atomic, readonly, getter = isWDVisible) BOOL wdVisible;
+@property (nonatomic, readonly, getter = isWDVisible) BOOL wdVisible;
 
 /*! Whether element is accessible */
-@property (atomic, readonly, getter = isWDAccessible) BOOL wdAccessible;
+@property (nonatomic, readonly, getter = isWDAccessible) BOOL wdAccessible;
 
 /**
  Returns value of given property specified in WebDriver Spec
