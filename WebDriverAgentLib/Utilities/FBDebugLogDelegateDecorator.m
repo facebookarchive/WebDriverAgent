@@ -9,6 +9,8 @@
 
 #import "FBDebugLogDelegateDecorator.h"
 
+#import "FBLogger.h"
+
 void XCSetDebugLogger(id <XCDebugLogDelegate>);
 id<XCDebugLogDelegate> XCDebugLogger();
 
@@ -44,7 +46,7 @@ id<XCDebugLogDelegate> XCDebugLogger();
     NSUInteger ignoreCharCount = [logEntry rangeOfString:@"]"].location + 2;
     debugLogEntry = [logEntry substringWithRange:NSMakeRange(ignoreCharCount, logEntry.length - ignoreCharCount)];
   }
-  NSLog(@"%@", debugLogEntry);
+  [FBLogger verboseLog:debugLogEntry];
   [self.debugLogger logDebugMessage:logEntry];
 }
 
