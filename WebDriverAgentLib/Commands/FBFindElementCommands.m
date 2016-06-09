@@ -113,14 +113,11 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 
 + (XCUIElement *)elementUsing:(NSString *)usingText withValue:(NSString *)value under:(XCUIElement *)element
 {
-  FBAssertMainThread();
   return [[self elementsUsing:usingText withValue:value under:element] firstObject];
 }
 
 + (NSArray *)elementsUsing:(NSString *)usingText withValue:(NSString *)value under:(XCUIElement *)element
 {
-  FBAssertMainThread();
-
   NSArray *elements;
   const BOOL partialSearch = [usingText isEqualToString:@"partial link text"];
   const BOOL isSearchByIdentifier = ([usingText isEqualToString:@"name"] || [usingText isEqualToString:@"id"] || [usingText isEqualToString:@"accessibility id"]);
