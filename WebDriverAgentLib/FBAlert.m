@@ -78,7 +78,11 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
 
 - (NSString *)text
 {
-  NSArray<XCElementSnapshot *> *staticTextList = [self.alertElement.lastSnapshot fb_descendantsMatchingType:XCUIElementTypeStaticText];
+  XCUIElement *alert = self.alertElement;
+  if (!alert) {
+    return nil;
+  }
+  NSArray<XCElementSnapshot *> *staticTextList = [alert.lastSnapshot fb_descendantsMatchingType:XCUIElementTypeStaticText];
   NSMutableString *mText = [NSMutableString string];
   for (XCElementSnapshot *staticText in staticTextList) {
     if (staticText.wdLabel && staticText.isWDVisible) {
