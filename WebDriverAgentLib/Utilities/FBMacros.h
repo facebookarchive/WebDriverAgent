@@ -7,9 +7,6 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-// Convenience macro to make sure that we're running on the main thread.
-#define FBAssertMainThread() NSAssert([NSThread isMainThread], @"This method must be called on the main thread")
-
 // Typedef to help with storing constant strings for enums.
 #if __has_feature(objc_arc)
     typedef __unsafe_unretained NSString* FBLiteralString;
