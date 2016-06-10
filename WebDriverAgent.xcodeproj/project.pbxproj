@@ -212,6 +212,8 @@
 		EE3A18671CDE734B00DE4205 /* FBKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A18651CDE734B00DE4205 /* FBKeyboard.m */; };
 		EE3A18771CDE886F00DE4205 /* FBHTTPOverUSBClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3A18751CDE886F00DE4205 /* FBHTTPOverUSBClient.h */; };
 		EE3A18781CDE886F00DE4205 /* FBHTTPOverUSBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A18761CDE886F00DE4205 /* FBHTTPOverUSBClient.m */; };
+		EE3F8CFE1D08AA17006F02CE /* FBRunLoopSpinnerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3F8CFD1D08AA17006F02CE /* FBRunLoopSpinnerTests.m */; };
+		EE3F8D001D08B05F006F02CE /* FBElementTypeTransformerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3F8CFF1D08B05F006F02CE /* FBElementTypeTransformerTests.m */; };
 		EE7E271C1D06C69F001BEC7B /* FBDebugLogDelegateDecorator.h in Headers */ = {isa = PBXBuildFile; fileRef = EE7E27181D06C69F001BEC7B /* FBDebugLogDelegateDecorator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE7E271D1D06C69F001BEC7B /* FBDebugLogDelegateDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7E27191D06C69F001BEC7B /* FBDebugLogDelegateDecorator.m */; };
 		EE7E271E1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = EE7E271A1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -320,6 +322,8 @@
 		EE3A186C1CDE884800DE4205 /* libWebDriverAgentUSBClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWebDriverAgentUSBClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE3A18751CDE886F00DE4205 /* FBHTTPOverUSBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBHTTPOverUSBClient.h; sourceTree = "<group>"; };
 		EE3A18761CDE886F00DE4205 /* FBHTTPOverUSBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBHTTPOverUSBClient.m; sourceTree = "<group>"; };
+		EE3F8CFD1D08AA17006F02CE /* FBRunLoopSpinnerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRunLoopSpinnerTests.m; sourceTree = "<group>"; };
+		EE3F8CFF1D08B05F006F02CE /* FBElementTypeTransformerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementTypeTransformerTests.m; sourceTree = "<group>"; };
 		EE606A721C93021100C0FC53 /* XCUIApplicationImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIApplicationImpl.h; sourceTree = "<group>"; };
 		EE606A731C93021100C0FC53 /* XCUIApplicationProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIApplicationProcess.h; sourceTree = "<group>"; };
 		EE7E27181D06C69F001BEC7B /* FBDebugLogDelegateDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDebugLogDelegateDecorator.h; sourceTree = "<group>"; };
@@ -836,7 +840,9 @@
 			children = (
 				ADBC39951D07840300327304 /* Doubles */,
 				ADBC39931D0782CD00327304 /* FBElementCacheTests.m */,
+				EE3F8CFF1D08B05F006F02CE /* FBElementTypeTransformerTests.m */,
 				EE9B76571CF7987300275851 /* FBRouteTests.m */,
+				EE3F8CFD1D08AA17006F02CE /* FBRunLoopSpinnerTests.m */,
 				EE9B76581CF7987300275851 /* Info.plist */,
 			);
 			path = UnitTests;
@@ -1471,6 +1477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE20B2EA1CE0861B00879257 /* FBErrorBuilder.m in Sources */,
+				EE3F8CFE1D08AA17006F02CE /* FBRunLoopSpinnerTests.m in Sources */,
 				EEDBE9141CB2641900A790A2 /* FBResponseJSONPayload.m in Sources */,
 				EEDBE9111CB2640100A790A2 /* FBRoute.m in Sources */,
 				ADB0AABF1CB7133900DBC756 /* FBXPathCreator.m in Sources */,
@@ -1478,6 +1485,7 @@
 				ADB0AAB91CB7130C00DBC756 /* FBSpringboardApplication.m in Sources */,
 				ADB0AAB71CB712E000DBC756 /* FBElement.m in Sources */,
 				ADB0AAB31CB7127300DBC756 /* FBApplication.m in Sources */,
+				EE3F8D001D08B05F006F02CE /* FBElementTypeTransformerTests.m in Sources */,
 				ADB0AABD1CB7133900DBC756 /* FBRuntimeUtils.m in Sources */,
 				ADBC39941D0782CD00327304 /* FBElementCacheTests.m in Sources */,
 				EE9B76591CF7987800275851 /* FBRouteTests.m in Sources */,
