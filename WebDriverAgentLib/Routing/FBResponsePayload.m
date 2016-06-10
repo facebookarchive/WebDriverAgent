@@ -16,7 +16,7 @@
 
 #import "XCUIElement+WebDriverAttributes.h"
 
-inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSInteger elementID);
+inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSString *elementUUID);
 
 id<FBResponsePayload> FBResponseWithOK()
 {
@@ -30,24 +30,24 @@ id<FBResponsePayload> FBResponseWithObject(id object)
 
 id<FBResponsePayload> FBResponseWithCachedElement(XCUIElement *element, FBElementCache *elementCache)
 {
-  NSInteger elementID = [elementCache storeElement:element];
-  return FBResponseWithStatus(FBCommandStatusNoError, FBDictionaryResponseWithElement(element, elementID));
+  NSString *elementUUID = [elementCache storeElement:element];
+  return FBResponseWithStatus(FBCommandStatusNoError, FBDictionaryResponseWithElement(element, elementUUID));
 }
 
 id<FBResponsePayload> FBResponseWithCachedElements(NSArray<XCUIElement *> *elements, FBElementCache *elementCache)
 {
   NSMutableArray *elementsResponse = [NSMutableArray array];
   for (XCUIElement *element in elements) {
-    NSInteger elementID = [elementCache storeElement:element];
-    [elementsResponse addObject:FBDictionaryResponseWithElement(element, elementID)];
+    NSString *elementUUID = [elementCache storeElement:element];
+    [elementsResponse addObject:FBDictionaryResponseWithElement(element, elementUUID)];
   }
   return FBResponseWithStatus(FBCommandStatusNoError, elementsResponse);
 }
 
-id<FBResponsePayload> FBResponseWithElementID(NSUInteger elementID)
+id<FBResponsePayload> FBResponseWithElementUUID(NSString *elementUUID)
 {
   return [[FBResponseJSONPayload alloc] initWithDictionary:@{
-    @"id" : @(elementID),
+    @"id" : elementUUID,
     @"sessionId" : [FBSession activeSession].identifier ?: NSNull.null,
     @"value" : @"",
     @"status" : @0,
@@ -83,11 +83,11 @@ id<FBResponsePayload> FBResponseFileWithPath(NSString *path)
   return [[FBResponseFilePayload alloc] initWithFilePath:path];
 }
 
-inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSInteger elementID)
+inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSString *elementUUID)
 {
   return
   @{
-    @"ELEMENT": @(elementID),
+    @"ELEMENT": elementUUID,
     @"type": element.wdType,
     @"label" : element.wdLabel ?: [NSNull null],
     };

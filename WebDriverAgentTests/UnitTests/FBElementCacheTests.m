@@ -26,30 +26,30 @@
 
 - (void)testStoringElement
 {
-  NSUInteger firstIndex = [self.cache storeElement:(XCUIElement *)XCUIElementDouble.new];
-  NSUInteger secondIndex = [self.cache storeElement:(XCUIElement *)XCUIElementDouble.new];
-  XCTAssert(firstIndex > 0, @"Stored index should be higher than 0");
-  XCTAssert(secondIndex > 0, @"Stored index should be higher than 0");
-  XCTAssert(firstIndex != secondIndex, @"Stored indexes should be different");
+  NSString *firstUUID = [self.cache storeElement:(XCUIElement *)XCUIElementDouble.new];
+  NSString *secondUUID = [self.cache storeElement:(XCUIElement *)XCUIElementDouble.new];
+  XCTAssertNotNil(firstUUID, @"Stored index should be higher than 0");
+  XCTAssertNotNil(secondUUID, @"Stored index should be higher than 0");
+  XCTAssertNotEqualObjects(firstUUID, secondUUID, @"Stored indexes should be different");
 }
 
 - (void)testFetchingElement
 {
   XCUIElement *element = (XCUIElement *)XCUIElementDouble.new;
-  NSUInteger index = [self.cache storeElement:element];
-  XCTAssert(index > 0, @"Stored index should be higher than 0");
-  XCTAssertEqual(element, [self.cache elementForIndex:index]);
+  NSString *uuid = [self.cache storeElement:element];
+  XCTAssertNotNil(uuid, @"Stored index should be higher than 0");
+  XCTAssertEqual(element, [self.cache elementForUUID:uuid]);
 }
 
 - (void)testFetchingBadIndex
 {
-  XCTAssertNil([self.cache elementForIndex:100]);
+  XCTAssertNil([self.cache elementForUUID:@"random"]);
 }
 
 - (void)testResolvingFetchedElement
 {
-  NSUInteger index = [self.cache storeElement:(XCUIElement *)XCUIElementDouble.new];
-  XCUIElementDouble *element = (XCUIElementDouble *)[self.cache elementForIndex:index];
+  NSString *uuid = [self.cache storeElement:(XCUIElement *)XCUIElementDouble.new];
+  XCUIElementDouble *element = (XCUIElementDouble *)[self.cache elementForUUID:uuid];
   XCTAssertTrue(element.didResolve);
 }
 
@@ -57,8 +57,8 @@
 {
   XCUIElementDouble *elementDouble = XCUIElementDouble.new;
   elementDouble.fb_isObstructedByAlert = YES;
-  NSUInteger index = [self.cache storeElement:(XCUIElement *)elementDouble];
-  XCTAssertThrows([self.cache elementForIndex:index]);
+  NSString *uuid = [self.cache storeElement:(XCUIElement *)elementDouble];
+  XCTAssertThrows([self.cache elementForUUID:uuid]);
 }
 
 @end

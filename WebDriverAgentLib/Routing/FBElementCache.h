@@ -17,16 +17,16 @@
  Stores element in cache
 
  @param element element to store
- @return element's index
+ @return element's uuid
  */
-- (NSUInteger)storeElement:(XCUIElement *)element;
+- (NSString *)storeElement:(XCUIElement *)element;
 
 /**
  Returns cached element
 
- @param index index of element to fetch
+ @param uuid uuid of element to fetch
  @return element
  */
-- (XCUIElement *)elementForIndex:(NSUInteger)index;
+- (XCUIElement *)elementForUUID:(NSString *)uuid;
 
 @end

@@ -41,27 +41,27 @@
 {
   return
   @[
-    [[FBRoute GET:@"/element/:id/enabled"] respondWithTarget:self action:@selector(handleGetEnabled:)],
-    [[FBRoute GET:@"/element/:id/rect"] respondWithTarget:self action:@selector(handleGetRect:)],
-    [[FBRoute GET:@"/element/:id/size"] respondWithTarget:self action:@selector(handleGetSize:)],
-    [[FBRoute GET:@"/element/:id/location"] respondWithTarget:self action:@selector(handleGetLocation:)],
-    [[FBRoute GET:@"/element/:id/location_in_view"] respondWithTarget:self action:@selector(handleGetLocationInView:)],
-    [[FBRoute GET:@"/element/:id/attribute/:name"] respondWithTarget:self action:@selector(handleGetAttribute:)],
-    [[FBRoute GET:@"/element/:id/text"] respondWithTarget:self action:@selector(handleGetText:)],
-    [[FBRoute GET:@"/element/:id/displayed"] respondWithTarget:self action:@selector(handleGetDisplayed:)],
-    [[FBRoute GET:@"/element/:id/accessible"] respondWithTarget:self action:@selector(handleGetAccessible:)],
-    [[FBRoute GET:@"/element/:id/name"] respondWithTarget:self action:@selector(handleGetName:)],
-    [[FBRoute POST:@"/element/:id/value"] respondWithTarget:self action:@selector(handleGetValue:)],
-    [[FBRoute POST:@"/element/:id/click"] respondWithTarget:self action:@selector(handleClick:)],
-    [[FBRoute POST:@"/element/:id/clear"] respondWithTarget:self action:@selector(handleClear:)],
-    [[FBRoute POST:@"/uiaElement/:id/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTap:)],
-    [[FBRoute POST:@"/uiaElement/:id/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHold:)],
-    [[FBRoute POST:@"/uiaElement/:id/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
-    [[FBRoute POST:@"/uiaElement/:id/value"] respondWithTarget:self action:@selector(handleGetUIAElementValue:)],
-    [[FBRoute POST:@"/uiaTarget/:id/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
-    [[FBRoute POST:@"/tap/:id"] respondWithTarget:self action:@selector(handleTap:)],
+    [[FBRoute GET:@"/element/:uuid/enabled"] respondWithTarget:self action:@selector(handleGetEnabled:)],
+    [[FBRoute GET:@"/element/:uuid/rect"] respondWithTarget:self action:@selector(handleGetRect:)],
+    [[FBRoute GET:@"/element/:uuid/size"] respondWithTarget:self action:@selector(handleGetSize:)],
+    [[FBRoute GET:@"/element/:uuid/location"] respondWithTarget:self action:@selector(handleGetLocation:)],
+    [[FBRoute GET:@"/element/:uuid/location_in_view"] respondWithTarget:self action:@selector(handleGetLocationInView:)],
+    [[FBRoute GET:@"/element/:uuid/attribute/:name"] respondWithTarget:self action:@selector(handleGetAttribute:)],
+    [[FBRoute GET:@"/element/:uuid/text"] respondWithTarget:self action:@selector(handleGetText:)],
+    [[FBRoute GET:@"/element/:uuid/displayed"] respondWithTarget:self action:@selector(handleGetDisplayed:)],
+    [[FBRoute GET:@"/element/:uuid/accessible"] respondWithTarget:self action:@selector(handleGetAccessible:)],
+    [[FBRoute GET:@"/element/:uuid/name"] respondWithTarget:self action:@selector(handleGetName:)],
+    [[FBRoute POST:@"/element/:uuid/value"] respondWithTarget:self action:@selector(handleGetValue:)],
+    [[FBRoute POST:@"/element/:uuid/click"] respondWithTarget:self action:@selector(handleClick:)],
+    [[FBRoute POST:@"/element/:uuid/clear"] respondWithTarget:self action:@selector(handleClear:)],
+    [[FBRoute POST:@"/uiaElement/:uuid/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTap:)],
+    [[FBRoute POST:@"/uiaElement/:uuid/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHold:)],
+    [[FBRoute POST:@"/uiaElement/:uuid/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
+    [[FBRoute POST:@"/uiaElement/:uuid/value"] respondWithTarget:self action:@selector(handleGetUIAElementValue:)],
+    [[FBRoute POST:@"/uiaTarget/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
+    [[FBRoute POST:@"/tap/:uuid"] respondWithTarget:self action:@selector(handleTap:)],
     [[FBRoute POST:@"/keys"] respondWithTarget:self action:@selector(handleKeys:)],
-    [[FBRoute GET:@"/window/:id/size"] respondWithTarget:self action:@selector(handleGetWindowSize:)],
+    [[FBRoute GET:@"/window/:uuid/size"] respondWithTarget:self action:@selector(handleGetWindowSize:)],
   ];
 }
 
@@ -71,8 +71,7 @@
 + (id<FBResponsePayload>)handleGetEnabled:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  NSInteger elementID = [request.parameters[@"id"] integerValue];
-  XCUIElement *element = [elementCache elementForIndex:elementID];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   BOOL isEnabled = element.isWDEnabled;
   return FBResponseWithStatus(FBCommandStatusNoError, isEnabled ? @YES : @NO);
 }
@@ -80,28 +79,28 @@
 + (id<FBResponsePayload>)handleGetRect:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   return FBResponseWithStatus(FBCommandStatusNoError, element.wdRect);
 }
 
 + (id<FBResponsePayload>)handleGetSize:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   return FBResponseWithStatus(FBCommandStatusNoError, element.wdSize);
 }
 
 + (id<FBResponsePayload>)handleGetLocation:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   return FBResponseWithStatus(FBCommandStatusNoError, element.wdLocation);
 }
 
 + (id<FBResponsePayload>)handleGetLocationInView:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   NSError *error;
   if ([element fb_scrollToVisibleWithError:&error]) {
     return FBResponseWithStatus(FBCommandStatusNoError, element.wdLocation);
@@ -112,8 +111,7 @@
 + (id<FBResponsePayload>)handleGetAttribute:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  NSInteger elementID = [request.parameters[@"id"] integerValue];
-  XCUIElement *element = [elementCache elementForIndex:elementID];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   id attributeValue = [element fb_valueForWDAttributeName:request.parameters[@"name"]];
   attributeValue = attributeValue ?: [NSNull null];
   return FBResponseWithStatus(FBCommandStatusNoError, attributeValue);
@@ -122,8 +120,7 @@
 + (id<FBResponsePayload>)handleGetText:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  NSInteger elementID = [request.parameters[@"id"] integerValue];
-  XCUIElement *element = [elementCache elementForIndex:elementID];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   id text;
   if ([element elementType] == XCUIElementTypeStaticText || [element elementType] == XCUIElementTypeButton) {
     text = [element wdLabel];
@@ -137,8 +134,7 @@
 + (id<FBResponsePayload>)handleGetDisplayed:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  NSInteger elementID = [request.parameters[@"id"] integerValue];
-  XCUIElement *element = [elementCache elementForIndex:elementID];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   BOOL isVisible = element.isWDVisible;
   return FBResponseWithStatus(FBCommandStatusNoError, isVisible ? @YES : @NO);
 }
@@ -146,16 +142,14 @@
 + (id<FBResponsePayload>)handleGetAccessible:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  NSInteger elementID = [request.parameters[@"id"] integerValue];
-  XCUIElement *element = [elementCache elementForIndex:elementID];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   return FBResponseWithStatus(FBCommandStatusNoError, @(element.isWDAccessible));
 }
 
 + (id<FBResponsePayload>)handleGetName:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  NSInteger elementID = [request.parameters[@"id"] integerValue];
-  XCUIElement *element = [elementCache elementForIndex:elementID];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   id type = [element wdType];
   return FBResponseWithStatus(FBCommandStatusNoError, type);
 }
@@ -163,8 +157,8 @@
 + (id<FBResponsePayload>)handleGetValue:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  NSInteger elementID = [request.parameters[@"id"] integerValue];
-  XCUIElement *element = [elementCache elementForIndex:elementID];
+  NSString *elementUUID = request.parameters[@"uuid"];
+  XCUIElement *element = [elementCache elementForUUID:elementUUID];
   NSError *error = nil;
   if (!element.hasKeyboardFocus && ![element fb_tapWithError:&error]) {
     return FBResponseWithError(error);
@@ -173,26 +167,26 @@
   if (![FBKeyboard typeText:textToType error:&error]) {
     return FBResponseWithError(error);
   }
-  return FBResponseWithElementID(elementID);
+  return FBResponseWithElementUUID(elementUUID);
 }
 
 + (id<FBResponsePayload>)handleClick:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  NSInteger elementID = [request.parameters[@"id"] integerValue];
-  XCUIElement *element = [elementCache elementForIndex:elementID];
+  NSString *elementUUID = request.parameters[@"uuid"];
+  XCUIElement *element = [elementCache elementForUUID:elementUUID];
   NSError *error = nil;
   if (![element fb_tapWithError:&error]) {
     return FBResponseWithError(error);
   }
-  return FBResponseWithElementID(elementID);
+  return FBResponseWithElementUUID(elementUUID);
 }
 
 + (id<FBResponsePayload>)handleClear:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  NSInteger elementID = [request.parameters[@"id"] integerValue];
-  XCUIElement *element = [elementCache elementForIndex:elementID];
+  NSString *elementUUID = request.parameters[@"uuid"];
+  XCUIElement *element = [elementCache elementForUUID:elementUUID];
   NSError *error;
   if (!element.hasKeyboardFocus && ![element fb_tapWithError:&error]) {
     return FBResponseWithError(error);
@@ -204,13 +198,13 @@
   if (![FBKeyboard typeText:textToType error:&error]) {
     return FBResponseWithError(error);
   }
-  return FBResponseWithElementID(elementID);
+  return FBResponseWithElementUUID(elementUUID);
 }
 
 + (id<FBResponsePayload>)handleDoubleTap:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   [element doubleTap];
   return FBResponseWithOK();
 }
@@ -218,7 +212,7 @@
 + (id<FBResponsePayload>)handleTouchAndHold:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   [element pressForDuration:[request.arguments[@"duration"] doubleValue]];
   return FBResponseWithOK();
 }
@@ -226,7 +220,7 @@
 + (id<FBResponsePayload>)handleScroll:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
 
   // Using presence of arguments as a way to convey control flow seems like a pretty bad idea but it's
   // what ios-driver did and sadly, we must copy them.
@@ -267,19 +261,16 @@
 + (id<FBResponsePayload>)handleGetUIAElementValue:(FBRouteRequest *)request
 {
     FBElementCache *elementCache = request.session.elementCache;
-    XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+    XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
     if (element.elementType != XCUIElementTypePickerWheel) {
         return FBResponseWithErrorFormat(@"Element is not of type %@", [FBElementTypeTransformer shortStringWithElementType:XCUIElementTypePickerWheel]);
     }
     NSString *wheelPickerValue = request.arguments[@"value"];
-    
     if (!wheelPickerValue) {
         return FBResponseWithErrorFormat(@"Missing value parameter");
     }
-    
     [element adjustToPickerWheelValue:wheelPickerValue];
     return FBResponseWithOK();
-    
 }
 
 + (id<FBResponsePayload>)handleDrag:(FBRouteRequest *)request
@@ -301,8 +292,7 @@
   FBSession *session = request.session;
   CGFloat x = (CGFloat)[request.arguments[@"x"] doubleValue];
   CGFloat y = (CGFloat)[request.arguments[@"y"] doubleValue];
-  NSInteger elementID = [request.parameters[@"id"] integerValue];
-  XCUIElement *element = [elementCache elementForIndex:elementID];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   if (element != nil) {
     CGRect rect = element.frame;
     x += rect.origin.x;

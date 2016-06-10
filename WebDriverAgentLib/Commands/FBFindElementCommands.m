@@ -48,9 +48,9 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   @[
     [[FBRoute POST:@"/element"] respondWithTarget:self action:@selector(handleFindElement:)],
     [[FBRoute POST:@"/elements"] respondWithTarget:self action:@selector(handleFindElements:)],
-    [[FBRoute GET:@"/uiaElement/:elementID/getVisibleCells"] respondWithTarget:self action:@selector(handleFindVisibleCells:)],
-    [[FBRoute POST:@"/element/:id/element"] respondWithTarget:self action:@selector(handleFindSubElement:)],
-    [[FBRoute POST:@"/element/:id/elements"] respondWithTarget:self action:@selector(handleFindSubElements:)],
+    [[FBRoute GET:@"/uiaElement/:uuid/getVisibleCells"] respondWithTarget:self action:@selector(handleFindVisibleCells:)],
+    [[FBRoute POST:@"/element/:uuid/element"] respondWithTarget:self action:@selector(handleFindSubElement:)],
+    [[FBRoute POST:@"/element/:uuid/elements"] respondWithTarget:self action:@selector(handleFindSubElements:)],
   ];
 }
 
@@ -77,8 +77,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 + (id<FBResponsePayload>)handleFindVisibleCells:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  NSInteger elementID = [request.parameters[@"elementID"] integerValue];
-  XCUIElement *collection = [elementCache elementForIndex:elementID];
+  XCUIElement *collection = [elementCache elementForUUID:request.parameters[@"uuid"]];
 
   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)];
   NSArray *elements = [[collection childrenMatchingType:XCUIElementTypeCell] matchingPredicate:predicate].allElementsBoundByIndex;
@@ -88,7 +87,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 + (id<FBResponsePayload>)handleFindSubElement:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   XCUIElement *foundElement = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
   if (!foundElement) {
     return FBNoSuchElementErrorResponseForRequest(request);
@@ -99,7 +98,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 + (id<FBResponsePayload>)handleFindSubElements:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForIndex:[request.parameters[@"id"] integerValue]];
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   NSArray *foundElements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
 
   if (foundElements.count == 0) {
