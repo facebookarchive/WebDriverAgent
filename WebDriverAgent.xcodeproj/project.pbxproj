@@ -33,6 +33,8 @@
 		ADB0AABF1CB7133900DBC756 /* FBXPathCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7991CAEDF0C008C271F /* FBXPathCreator.m */; };
 		ADBC39941D0782CD00327304 /* FBElementCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADBC39931D0782CD00327304 /* FBElementCacheTests.m */; };
 		ADBC39981D07842800327304 /* XCUIElementDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = ADBC39971D07842800327304 /* XCUIElementDouble.m */; };
+		ADEF63AD1D09DCCF0070A7E3 /* FBXPathCreatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */; };
+		ADEF63AF1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEF63AE1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m */; };
 		EE158AAA1CBD456F00A3E3F0 /* XCElementSnapshot+Helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB73F1CAEDF0C008C271F /* XCElementSnapshot+Helpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158AAB1CBD456F00A3E3F0 /* XCElementSnapshot+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7401CAEDF0C008C271F /* XCElementSnapshot+Helpers.m */; };
 		EE158AAE1CBD456F00A3E3F0 /* XCUIElement+FBAccessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7451CAEDF0C008C271F /* XCUIElement+FBAccessibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -308,6 +310,8 @@
 		ADBC39931D0782CD00327304 /* FBElementCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementCacheTests.m; sourceTree = "<group>"; };
 		ADBC39961D07842800327304 /* XCUIElementDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIElementDouble.h; sourceTree = "<group>"; };
 		ADBC39971D07842800327304 /* XCUIElementDouble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIElementDouble.m; sourceTree = "<group>"; };
+		ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathCreatorTests.m; sourceTree = "<group>"; };
+		ADEF63AE1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRuntimeUtilsTests.m; sourceTree = "<group>"; };
 		EE158A991CBD452B00A3E3F0 /* WebDriverAgentLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WebDriverAgentLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE158B5D1CBD479000A3E3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = WebDriverAgentLib/Info.plist; sourceTree = SOURCE_ROOT; };
 		EE158B5E1CBD47A000A3E3F0 /* WebDriverAgentLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebDriverAgentLib.h; path = WebDriverAgentLib/WebDriverAgentLib.h; sourceTree = SOURCE_ROOT; };
@@ -837,6 +841,8 @@
 				ADBC39951D07840300327304 /* Doubles */,
 				ADBC39931D0782CD00327304 /* FBElementCacheTests.m */,
 				EE9B76571CF7987300275851 /* FBRouteTests.m */,
+				ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */,
+				ADEF63AE1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m */,
 				EE9B76581CF7987300275851 /* Info.plist */,
 			);
 			path = UnitTests;
@@ -1480,6 +1486,8 @@
 				ADB0AAB31CB7127300DBC756 /* FBApplication.m in Sources */,
 				ADB0AABD1CB7133900DBC756 /* FBRuntimeUtils.m in Sources */,
 				ADBC39941D0782CD00327304 /* FBElementCacheTests.m in Sources */,
+				ADEF63AD1D09DCCF0070A7E3 /* FBXPathCreatorTests.m in Sources */,
+				ADEF63AF1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m in Sources */,
 				EE9B76591CF7987800275851 /* FBRouteTests.m in Sources */,
 				EE9B75CF1CF77CFA00275851 /* FBAlert.m in Sources */,
 				ADB0AAB51CB712A900DBC756 /* FBExceptionHandler.m in Sources */,
