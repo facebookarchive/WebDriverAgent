@@ -31,6 +31,30 @@
 
 @implementation FBRouteTests
 
+- (void)testGetRoute
+{
+  FBRoute *route = [FBRoute GET:@"/"];
+  XCTAssertEqualObjects(route.verb, @"GET");
+}
+
+- (void)testPostRoute
+{
+  FBRoute *route = [FBRoute POST:@"/"];
+  XCTAssertEqualObjects(route.verb, @"POST");
+}
+
+- (void)testPutRoute
+{
+  FBRoute *route = [FBRoute PUT:@"/"];
+  XCTAssertEqualObjects(route.verb, @"PUT");
+}
+
+- (void)testDeleteRoute
+{
+  FBRoute *route = [FBRoute DELETE:@"/"];
+  XCTAssertEqualObjects(route.verb, @"DELETE");
+}
+
 - (void)testTargetAction
 {
   FBHandlerMock *mock = [FBHandlerMock new];
