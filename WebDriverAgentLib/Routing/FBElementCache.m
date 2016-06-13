@@ -14,8 +14,6 @@
 #import "XCUIElement+Utilities.h"
 
 
-@class UIAElement;
-
 @interface FBElementCache ()
 @property (atomic, strong) NSMutableDictionary *elementCache;
 @end
