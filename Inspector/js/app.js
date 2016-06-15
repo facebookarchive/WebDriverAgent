@@ -47,7 +47,7 @@ class App extends React.Component {
   }
 
   fetchTree() {
-    HTTP.get(TREE_ENDPOINT, (treeInfo) => {
+    HTTP.post(TREE_ENDPOINT, (treeInfo) => {
       this.setState({
         rootNode: TreeNode.buildNode(treeInfo.tree, new TreeContext()),
       });

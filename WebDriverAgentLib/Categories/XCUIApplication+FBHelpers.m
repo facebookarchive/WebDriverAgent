@@ -15,6 +15,7 @@
 #import "FBMacros.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+WebDriverAttributes.h"
+#import "XCElementSnapshot+Helpers.h"
 
 @implementation XCUIApplication (FBHelpers)
 
@@ -36,7 +37,9 @@
 
 - (NSDictionary *)fb_accessibilityTree
 {
-  return [self.class accessibilityInfoForElement:self.lastSnapshot];
+  // We ignore all elements except for the main window for accessibility tree
+  XCElementSnapshot *mainWindowSnapshot = [self.lastSnapshot fb_mainWindow];
+  return [self.class accessibilityInfoForElement:mainWindowSnapshot];
 }
 
 + (NSDictionary *)dictionaryForElement:(XCElementSnapshot *)snapshot
@@ -65,6 +68,10 @@
 + (NSDictionary *)accessibilityInfoForElement:(XCElementSnapshot *)snapshot
 {
   BOOL isAccessible = [snapshot isWDAccessible];
+  BOOL isVisible = [snapshot isWDVisible];
+  if (!isVisible) {
+    return nil;
+  }
 
   NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 
@@ -76,7 +83,7 @@
     if ([childElements count]) {
       info[@"children"] = [[NSMutableArray alloc] init];
       for (XCElementSnapshot *childSnapshot in childElements) {
-        NSDictionary *childInfo = [self dictionaryForElement:childSnapshot];
+        NSDictionary *childInfo = [self accessibilityInfoForElement:childSnapshot];
         if ([childInfo count]) {
           [info[@"children"] addObject: childInfo];
         }
