@@ -10,9 +10,12 @@
 #import <XCTest/XCTest.h>
 
 #import "FBRuntimeUtils.h"
+#import "XCTestPrivateSymbols.h"
 
 @protocol FBMagicProtocol <NSObject>
 @end
+
+const NSString *FBRuntimeUtilsTestsConstString = @"FBRuntimeUtilsTestsConstString";
 
 @interface FBRuntimeUtilsTests : XCTestCase <FBMagicProtocol>
 @end
@@ -22,6 +25,22 @@
 - (void)testClassesThatConformsToProtocol
 {
   XCTAssertEqualObjects(@[self.class], FBClassesThatConformsToProtocol(@protocol(FBMagicProtocol)));
+}
+
+- (void)testRetrievingFrameworkSymbols
+{
+  NSString *binaryPath = [NSBundle bundleForClass:self.class].executablePath;
+  NSString *symbolPointer = *(NSString*__autoreleasing*)FBRetrieveSymbolFromBinary(binaryPath.UTF8String, "FBRuntimeUtilsTestsConstString");
+  XCTAssertNotNil(symbolPointer);
+  XCTAssertEqualObjects(symbolPointer, FBRuntimeUtilsTestsConstString);
+}
+
+- (void)testXCTestSymbols
+{
+  XCTAssertTrue(XCDebugLogger != NULL);
+  XCTAssertTrue(XCSetDebugLogger != NULL);
+  XCTAssertNotNil(FB_XCAXAIsVisibleAttribute);
+  XCTAssertNotNil(FB_XCAXAIsElementAttribute);
 }
 
 @end

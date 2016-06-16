@@ -10,10 +10,7 @@
 #import "FBDebugLogDelegateDecorator.h"
 
 #import "FBLogger.h"
-
-void XCSetDebugLogger(id <XCDebugLogDelegate>);
-id<XCDebugLogDelegate> XCDebugLogger();
-
+#import "XCTestPrivateSymbols.h"
 
 @interface FBDebugLogDelegateDecorator ()
 @property (nonatomic, strong) id<XCDebugLogDelegate> debugLogger;

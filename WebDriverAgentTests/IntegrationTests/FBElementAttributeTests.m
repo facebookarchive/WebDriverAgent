@@ -9,6 +9,7 @@
 
 #import <XCTest/XCTest.h>
 
+#import "FBFindElementCommands.h"
 #import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
 

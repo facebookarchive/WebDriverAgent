@@ -9,31 +9,17 @@
 
 #import "XCElementSnapshot+Helpers.h"
 
-#import "WebDriverAgentLib/FBFindElementCommands.h"
-
+#import "FBFindElementCommands.h"
 #import "FBRunLoopSpinner.h"
 #import "FBLogger.h"
 #import "FBXPathCreator.h"
 #import "XCAXClient_iOS.h"
 #import "XCTestDriver.h"
+#import "XCTestPrivateSymbols.h"
 
 inline static BOOL valuesAreEqual(id value1, id value2);
 
-extern const NSString *const XC_kAXXCAttributeIsVisible;
-extern const NSString *const XC_kAXXCAttributeIsElement;
-NSArray *XCAXAccessibilityAttributesForStringAttributes(NSArray *list);
-
-NSNumber *FB_XCAXAIsVisibleAttribute;
-NSNumber *FB_XCAXAIsElementAttribute;
-
 @implementation XCElementSnapshot (Helpers)
-
-+ (void)load
-{
-  NSArray<NSNumber *> *accessibilityAttributes = XCAXAccessibilityAttributesForStringAttributes(@[XC_kAXXCAttributeIsVisible, XC_kAXXCAttributeIsElement]);
-  FB_XCAXAIsVisibleAttribute = accessibilityAttributes[0];
-  FB_XCAXAIsElementAttribute = accessibilityAttributes[1];
-}
 
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type
 {

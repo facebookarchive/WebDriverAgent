@@ -10,6 +10,7 @@
 #import "XCUIElement+FBIsVisible.h"
 
 #import "XCElementSnapshot+Helpers.h"
+#import "XCTestPrivateSymbols.h"
 
 @implementation XCUIElement (FBIsVisible)
 

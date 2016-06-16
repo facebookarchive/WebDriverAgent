@@ -9,9 +9,6 @@
 
 #import <WebDriverAgentLib/XCElementSnapshot.h>
 
-extern NSNumber *FB_XCAXAIsVisibleAttribute;
-extern NSNumber *FB_XCAXAIsElementAttribute;
-
 @interface XCElementSnapshot (Helpers)
 
 /**

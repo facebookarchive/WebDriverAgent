@@ -10,6 +10,7 @@
 #import "XCUIElement+FBAccessibility.h"
 
 #import "XCElementSnapshot+Helpers.h"
+#import "XCTestPrivateSymbols.h"
 
 @implementation XCUIElement (FBAccessibility)
 

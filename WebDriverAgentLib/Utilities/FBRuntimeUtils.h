@@ -13,3 +13,12 @@
  Returns array of classes that conforms to given protocol
  */
 NSArray<Class> *FBClassesThatConformsToProtocol(Protocol *protocol);
+
+/**
+ Method used to retrieve pointer for given symbol 'name' from given 'binary'
+
+ @param binary path to binary we want to retrieve symbols pointer from
+ @param name name of the symbol
+ @return pointer to symbol
+ */
+void *FBRetrieveSymbolFromBinary(const char *binary, const char *name);
