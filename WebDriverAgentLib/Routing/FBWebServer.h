@@ -23,9 +23,4 @@
  */
 - (void)startServing;
 
-/**
- Method used to notify service about app deadlock
- */
-- (void)handleAppDeadlockDetection;
-
 @end

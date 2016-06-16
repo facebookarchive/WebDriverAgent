@@ -24,5 +24,11 @@
   [self presentViewController:alerController animated:YES completion:nil];
 }
 
+- (IBAction)deadlockApp:(id)sender
+{
+  dispatch_sync(dispatch_get_main_queue(), ^{
+    // This will never execute
+  });
+}
 
 @end

@@ -41,7 +41,6 @@
 {
   XCTAssertNotNil(self.session.identifier);
   XCTAssertNotNil(self.session.elementCache);
-  XCTAssertFalse(self.session.didRegisterAXTestFailure);
 }
 
 - (void)testActiveSession

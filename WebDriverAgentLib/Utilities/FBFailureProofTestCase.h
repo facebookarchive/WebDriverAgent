@@ -7,13 +7,10 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <Foundation/Foundation.h>
-
-@interface FBWebDriverAgent : NSObject
+#import <WebDriverAgentLib/XCTestCase.h>
 
 /**
- Starts WebDriverAgent service by booting HTTP and USB server
+ Test Case that will never fail or stop from running in case of failure
  */
-- (void)start;
-
+@interface FBFailureProofTestCase : XCTestCase
 @end

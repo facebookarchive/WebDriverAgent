@@ -142,11 +142,6 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   }
 }
 
-- (void)handleAppDeadlockDetection
-{
-  [[NSException exceptionWithName:FBApplicationDeadlockDetectedException reason:@"Can't communicate with deadlocked application" userInfo:nil] raise];
-}
-
 - (void)handleException:(NSException *)exception forResponse:(RouteResponse *)response
 {
   if ([self.exceptionHandler webServer:self handleException:exception forResponse:response]) {

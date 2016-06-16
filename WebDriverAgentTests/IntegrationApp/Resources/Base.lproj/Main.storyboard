@@ -28,10 +28,24 @@
                                     <action selector="showAlert:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5xD-oz-XfG"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YgP-SF-TkS">
+                                <rect key="frame" x="250" y="71" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="flq-DI-QkA"/>
+                                    <constraint firstAttribute="height" constant="30" id="wTu-YB-p22"/>
+                                </constraints>
+                                <state key="normal" title="Deadlock app"/>
+                                <connections>
+                                    <action selector="deadlockApp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="53X-DJ-KNY"/>
+                                    <action selector="showAlert:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FEN-VX-MMc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="YgP-SF-TkS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="41Q-cm-l5K"/>
                             <constraint firstItem="nbp-zX-Om1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ahr-dg-qwa"/>
+                            <constraint firstItem="YgP-SF-TkS" firstAttribute="top" secondItem="nbp-zX-Om1" secondAttribute="bottom" constant="8" id="b56-i5-Lxo"/>
                             <constraint firstItem="nbp-zX-Om1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="13" id="khd-ZL-rlZ"/>
                         </constraints>
                     </view>

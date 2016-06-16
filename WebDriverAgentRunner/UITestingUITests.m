@@ -11,12 +11,11 @@
 
 #import <WebDriverAgentLib/FBDebugLogDelegateDecorator.h>
 #import <WebDriverAgentLib/FBConfiguration.h>
-#import <WebDriverAgentLib/FBLogger.h>
+#import <WebDriverAgentLib/FBFailureProofTestCase.h>
 #import <WebDriverAgentLib/FBWebDriverAgent.h>
-#import <WebDriverAgentLib/FBXCTestCaseImplementationFailureHoldingProxy.h>
 #import <WebDriverAgentLib/XCTestCase.h>
 
-@interface UITestingUITests : XCTestCase
+@interface UITestingUITests : FBFailureProofTestCase
 @property (nonatomic, strong) FBWebDriverAgent *agent;
 @end
 
@@ -28,30 +27,13 @@
   [super setUp];
 }
 
-- (void)setUp
-{
-  [super setUp];
-  self.continueAfterFailure = YES;
-  [FBConfiguration shouldShowFakeCollectionViewCells:YES];
-  self.agent = [FBWebDriverAgent new];
-}
-
 /**
  Never ending test used to start WebDriverAgent
  */
 - (void)testRunner
 {
-  self.internalImplementation = (_XCTestCaseImplementation *)[FBXCTestCaseImplementationFailureHoldingProxy proxyWithXCTestCaseImplementation:self.internalImplementation];
-  [self.agent start];
-}
-
-/**
- Private XCTestCase method used to block and tunnel failure messages
- */
-- (void)_enqueueFailureWithDescription:(NSString *)description inFile:(NSString *)filePath atLine:(NSUInteger)lineNumber expected:(BOOL)expected
-{
-  [FBLogger logFmt:@"Enqueue Failure: %@ %@ %lu %d", description, filePath, (unsigned long)lineNumber, expected];
-  [self.agent handleTestFailureWithDescription:description];
+  [FBConfiguration shouldShowFakeCollectionViewCells:YES];
+  [[FBWebDriverAgent new] start];
 }
 
 @end
