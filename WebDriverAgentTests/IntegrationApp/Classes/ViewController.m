@@ -31,4 +31,9 @@
   });
 }
 
+- (IBAction)didTapButton:(UIButton *)button
+{
+  button.selected = !button.selected;
+}
+
 @end

@@ -70,7 +70,7 @@
         <!--View Controller-->
         <scene sceneID="0V0-cO-CI5">
             <objects>
-                <viewController id="65L-2T-0zt" sceneMemberID="viewController">
+                <viewController id="65L-2T-0zt" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dDG-qA-kaN"/>
                         <viewControllerLayoutGuide type="bottom" id="i3S-l1-3Mf"/>
