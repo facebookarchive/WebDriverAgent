@@ -15,6 +15,9 @@
 
 - (BOOL)fb_isAccessibilityElement
 {
+  if (!self.lastSnapshot) {
+    [self resolve];
+  }
   return self.lastSnapshot.fb_isAccessibilityElement;
 }
 

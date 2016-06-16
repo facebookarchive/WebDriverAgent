@@ -15,6 +15,9 @@
 
 - (BOOL)fb_isVisible
 {
+  if (!self.lastSnapshot) {
+    [self resolve];
+  }
   return self.lastSnapshot.fb_isVisible;
 }
 
