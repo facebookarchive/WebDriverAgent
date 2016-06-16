@@ -246,6 +246,7 @@
 		EE9B76A81CF7A43900275851 /* FBLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9B76A31CF7A43900275851 /* FBLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE9B76A91CF7A43900275851 /* FBLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9B76A41CF7A43900275851 /* FBLogger.m */; };
 		EE9B76AA1CF7A43900275851 /* FBMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9B76A51CF7A43900275851 /* FBMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEBBDB9B1D1032F0000738CD /* XCElementSnapshotHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBBDB9A1D1032F0000738CD /* XCElementSnapshotHelperTests.m */; };
 		EEDBE9111CB2640100A790A2 /* FBRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7851CAEDF0C008C271F /* FBRoute.m */; };
 		EEDBE9121CB2640C00A790A2 /* FBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB78B1CAEDF0C008C271F /* FBSession.m */; };
 		EEDBE9131CB2641900A790A2 /* FBResponseFilePayload.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB77F1CAEDF0C008C271F /* FBResponseFilePayload.m */; };
@@ -449,6 +450,7 @@
 		EE9B76A31CF7A43900275851 /* FBLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLogger.h; sourceTree = "<group>"; };
 		EE9B76A41CF7A43900275851 /* FBLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBLogger.m; sourceTree = "<group>"; };
 		EE9B76A51CF7A43900275851 /* FBMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBMacros.h; sourceTree = "<group>"; };
+		EEBBDB9A1D1032F0000738CD /* XCElementSnapshotHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCElementSnapshotHelperTests.m; sourceTree = "<group>"; };
 		EEC088E41CB56AC000B65968 /* FBElementCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementCache.m; sourceTree = "<group>"; };
 		EEC088E61CB56DA400B65968 /* FBExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBExceptionHandler.h; sourceTree = "<group>"; };
 		EEC088E71CB56DA400B65968 /* FBExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBExceptionHandler.m; sourceTree = "<group>"; };
@@ -865,6 +867,7 @@
 				EE26409C1D0EBA25009BE6B0 /* FBElementAttributeTests.m */,
 				EE6A89361D0B35920083E92B /* FBFailureProofTestCaseTests.m */,
 				EE26409A1D0EB5E8009BE6B0 /* FBTapTest.m */,
+				EEBBDB9A1D1032F0000738CD /* XCElementSnapshotHelperTests.m */,
 				EE9B76551CF7987300275851 /* Info.plist */,
 			);
 			path = IntegrationTests;
@@ -1568,6 +1571,7 @@
 				EE26409B1D0EB5E8009BE6B0 /* FBTapTest.m in Sources */,
 				EE26409D1D0EBA25009BE6B0 /* FBElementAttributeTests.m in Sources */,
 				EE6A89371D0B35920083E92B /* FBFailureProofTestCaseTests.m in Sources */,
+				EEBBDB9B1D1032F0000738CD /* XCElementSnapshotHelperTests.m in Sources */,
 				EE9B769A1CF799F400275851 /* FBAlertTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
