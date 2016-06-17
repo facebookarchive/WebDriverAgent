@@ -32,7 +32,6 @@
     [[FBRoute POST:@"/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/timeouts"] respondWithTarget:self action:@selector(handleTimeouts:)],
-    [[FBRoute POST:@"/hide_keyboard"] respondWithTarget:self action:@selector(handleHideKeyboard:)]
   ];
 }
 
@@ -62,15 +61,6 @@
 + (id<FBResponsePayload>)handleTimeouts:(FBRouteRequest *)request
 {
   // This method is intentionally not supported.
-  return FBResponseWithOK();
-}
-
-+ (id<FBResponsePayload>)handleHideKeyboard:(FBRouteRequest *)request
-{
-  NSError *error;
-  if (![FBKeyboard hideWithError:&error]) {
-    return FBResponseWithError(error);
-  }
   return FBResponseWithOK();
 }
 
