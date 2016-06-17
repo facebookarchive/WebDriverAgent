@@ -135,7 +135,7 @@
                                     <!--2015-10-15 16:22:48 +0000-->
                                 </date>
                             </datePicker>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Value2" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rab-I8-2aU">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Value2" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rab-I8-2aU">
                                 <rect key="frame" x="162" y="77" width="97" height="30"/>
                                 <accessibility key="accessibilityConfiguration" identifier="aIdentifier" label="aLabel"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
