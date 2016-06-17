@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 
 #import "FBFindElementCommands.h"
+#import "FBRunLoopSpinner.h"
 #import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+WebDriverAttributes.h"
@@ -26,6 +27,9 @@
   self.testedApplication = [XCUIApplication new];
   [self.testedApplication launch];
   [self.testedApplication.buttons[@"Attributes"] tap];
+  [[FBRunLoopSpinner new] spinUntilTrue:^BOOL{
+    return self.testedApplication.buttons[@"Button"].exists;
+  }];
 }
 
 - (void)testIsVisible

@@ -10,8 +10,10 @@
 #import <XCTest/XCTest.h>
 
 #import "FBKeyboard.h"
+#import "FBRunLoopSpinner.h"
 
 @interface FBKeyboardTests : XCTestCase
+@property (nonatomic, strong) XCUIApplication *testedApplication;
 @end
 
 @implementation FBKeyboardTests
@@ -19,14 +21,18 @@
 - (void)setUp
 {
   [super setUp];
-  [[XCUIApplication new] launch];
-  [[XCUIApplication new].buttons[@"Attributes"] tap];
+  self.testedApplication = [XCUIApplication new];
+  [self.testedApplication launch];
+  [self.testedApplication.buttons[@"Attributes"] tap];
+  [[FBRunLoopSpinner new] spinUntilTrue:^BOOL{
+    return self.testedApplication.buttons[@"Button"].exists;
+  }];
 }
 
 - (void)testTextTyping
 {
   NSString *text = @"Happy typing";
-  XCUIElement *textField = [XCUIApplication new].textFields[@"aIdentifier"];
+  XCUIElement *textField = self.testedApplication.textFields[@"aIdentifier"];
   [textField tap];
   NSError *error;
   XCTAssertTrue([FBKeyboard typeText:text error:&error]);
