@@ -15,4 +15,9 @@
 @interface FBIntegrationTestCase : XCTestCase
 @property (nonatomic, strong, readonly) XCUIApplication *testedApplication;
 
+/**
+ Navigates integration app to attributes page
+ */
+- (void)goToAttributesPage;
+
 @end

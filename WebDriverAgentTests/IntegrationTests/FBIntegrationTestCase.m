@@ -12,6 +12,7 @@
 #import "FBIntegrationTestCase.h"
 #import "FBRunLoopSpinner.h"
 #import "XCUIElement.h"
+#import "XCUIElement+FBIsVisible.h"
 
 @interface FBIntegrationTestCase ()
 @property (nonatomic, strong) XCUIApplication *testedApplication;
@@ -28,6 +29,14 @@
   // Force resolving XCUIApplication
   [self.testedApplication query];
   [self.testedApplication resolve];
+}
+
+- (void)goToAttributesPage
+{
+  [self.testedApplication.buttons[@"Attributes"] tap];
+  [[FBRunLoopSpinner new] spinUntilTrue:^BOOL{
+    return self.testedApplication.buttons[@"Button"].fb_isVisible;
+  }];
 }
 
 @end

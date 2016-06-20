@@ -21,10 +21,7 @@
 - (void)setUp
 {
   [super setUp];
-  [self.testedApplication.buttons[@"Attributes"] tap];
-  [[FBRunLoopSpinner new] spinUntilTrue:^BOOL{
-    return self.testedApplication.buttons[@"Button"].exists;
-  }];
+  [self goToAttributesPage];
 }
 
 - (void)testTextTyping
