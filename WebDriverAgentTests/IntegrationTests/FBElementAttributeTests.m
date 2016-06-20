@@ -11,7 +11,6 @@
 
 #import "FBIntegrationTestCase.h"
 #import "FBFindElementCommands.h"
-#import "FBRunLoopSpinner.h"
 #import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+WebDriverAttributes.h"

@@ -9,6 +9,7 @@
 
 #import <XCTest/XCTest.h>
 
+#import "FBTestMacros.h"
 #import "FBIntegrationTestCase.h"
 #import "FBRunLoopSpinner.h"
 #import "XCUIElement.h"
@@ -34,11 +35,7 @@
 - (void)goToAttributesPage
 {
   [self.testedApplication.buttons[@"Attributes"] tap];
-  [[[FBRunLoopSpinner new]
-    interval:1.0]
-   spinUntilTrue:^BOOL{
-     return self.testedApplication.buttons[@"Button"].fb_isVisible;
-   }];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Button"].fb_isVisible);
 }
 
 @end
