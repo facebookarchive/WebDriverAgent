@@ -9,6 +9,7 @@
 
 #import <XCTest/XCTest.h>
 
+#import "FBSpringboardApplication.h"
 #import "FBTestMacros.h"
 #import "FBIntegrationTestCase.h"
 #import "FBRunLoopSpinner.h"
@@ -36,6 +37,12 @@
 {
   [self.testedApplication.buttons[@"Attributes"] tap];
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Button"].fb_isVisible);
+}
+
+- (void)goToSpringBoard
+{
+  [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
+  FBAssertWaitTillBecomesTrue([FBSpringboardApplication fb_springboard].icons[@"Safari"].fb_isVisible);
 }
 
 @end

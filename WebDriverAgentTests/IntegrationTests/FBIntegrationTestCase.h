@@ -20,4 +20,9 @@
  */
 - (void)goToAttributesPage;
 
+/**
+ Navigates to SpringBoard
+ */
+- (void)goToSpringBoard;
+
 @end
