@@ -209,6 +209,7 @@
 		EE1E06E01D181BB4007CF043 /* XCUIDeviceHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E06DF1D181BB4007CF043 /* XCUIDeviceHelperTests.m */; };
 		EE1E06E21D181CC9007CF043 /* XCUIElementHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E06E11D181CC9007CF043 /* XCUIElementHelperTests.m */; };
 		EE1E06E41D18213F007CF043 /* XCUIApplicationHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E06E31D18213F007CF043 /* XCUIApplicationHelperTests.m */; };
+		EE1E06E71D182E95007CF043 /* FBAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E06E61D182E95007CF043 /* FBAlertViewController.m */; };
 		EE20B2EA1CE0861B00879257 /* FBErrorBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A18611CDE618F00DE4205 /* FBErrorBuilder.m */; };
 		EE26409B1D0EB5E8009BE6B0 /* FBTapTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EE26409A1D0EB5E8009BE6B0 /* FBTapTest.m */; };
 		EE26409D1D0EBA25009BE6B0 /* FBElementAttributeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE26409C1D0EBA25009BE6B0 /* FBElementAttributeTests.m */; };
@@ -341,6 +342,8 @@
 		EE1E06DF1D181BB4007CF043 /* XCUIDeviceHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceHelperTests.m; sourceTree = "<group>"; };
 		EE1E06E11D181CC9007CF043 /* XCUIElementHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIElementHelperTests.m; sourceTree = "<group>"; };
 		EE1E06E31D18213F007CF043 /* XCUIApplicationHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIApplicationHelperTests.m; sourceTree = "<group>"; };
+		EE1E06E51D182E95007CF043 /* FBAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAlertViewController.h; sourceTree = "<group>"; };
+		EE1E06E61D182E95007CF043 /* FBAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBAlertViewController.m; sourceTree = "<group>"; };
 		EE26409A1D0EB5E8009BE6B0 /* FBTapTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTapTest.m; sourceTree = "<group>"; };
 		EE26409C1D0EBA25009BE6B0 /* FBElementAttributeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementAttributeTests.m; sourceTree = "<group>"; };
 		EE3A185C1CDE536E00DE4205 /* XCUIElement+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+Utilities.h"; sourceTree = "<group>"; };
@@ -925,6 +928,8 @@
 			children = (
 				EE9B76821CF7997600275851 /* AppDelegate.h */,
 				EE9B76831CF7997600275851 /* AppDelegate.m */,
+				EE1E06E51D182E95007CF043 /* FBAlertViewController.h */,
+				EE1E06E61D182E95007CF043 /* FBAlertViewController.m */,
 				EE9B76841CF7997600275851 /* ViewController.h */,
 				EE9B76851CF7997600275851 /* ViewController.m */,
 			);
@@ -1578,6 +1583,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE9B768E1CF7997600275851 /* AppDelegate.m in Sources */,
+				EE1E06E71D182E95007CF043 /* FBAlertViewController.m in Sources */,
 				EE9B76911CF7997600275851 /* main.m in Sources */,
 				EE9B768F1CF7997600275851 /* ViewController.m in Sources */,
 			);

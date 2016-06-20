@@ -61,12 +61,12 @@
   NSError *error;
   XCTAssertTrue([self.testedApplication fb_deactivateWithDuration:1 error:&error]);
   XCTAssertNil(error);
-  XCTAssertTrue(self.testedApplication.buttons[@"Show alert"].fb_isVisible);
+  XCTAssertTrue(self.testedApplication.buttons[@"Alerts"].fb_isVisible);
 }
 
 - (void)testActiveApplication
 {
-  XCTAssertTrue([FBApplication fb_activeApplication].buttons[@"Show alert"].fb_isVisible);
+  XCTAssertTrue([FBApplication fb_activeApplication].buttons[@"Alerts"].fb_isVisible);
   [self goToSpringBoard];
   XCTAssertTrue([FBApplication fb_activeApplication].icons[@"Safari"].fb_isVisible);
 }

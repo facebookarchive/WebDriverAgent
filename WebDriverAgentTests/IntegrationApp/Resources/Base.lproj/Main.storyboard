@@ -23,9 +23,9 @@
                                     <constraint firstAttribute="width" constant="100" id="DQp-b6-JhP"/>
                                     <constraint firstAttribute="height" constant="30" id="GzF-4f-MaH"/>
                                 </constraints>
-                                <state key="normal" title="Show alert"/>
+                                <state key="normal" title="Alerts"/>
                                 <connections>
-                                    <action selector="showAlert:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5xD-oz-XfG"/>
+                                    <segue destination="gK5-IX-eJx" kind="presentation" id="8RT-ON-yXm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YgP-SF-TkS">
@@ -167,7 +167,74 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0f2-qL-RU6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1102" y="399"/>
+            <point key="canvasLocation" x="1208" y="733"/>
+        </scene>
+        <!--Alert View Controller-->
+        <scene sceneID="sNK-H9-0Zl">
+            <objects>
+                <viewController id="gK5-IX-eJx" customClass="FBAlertViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ew1-ik-0G1"/>
+                        <viewControllerLayoutGuide type="bottom" id="LIO-6E-0HO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JWE-cA-TW0">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y1x-J5-Nkw">
+                                <rect key="frame" x="55" y="33" width="211" height="30"/>
+                                <accessibility key="accessibilityConfiguration" identifier="textField"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4VK-4B-FEF">
+                                <rect key="frame" x="88" y="89" width="144" height="30"/>
+                                <state key="normal" title="Create App Alert"/>
+                                <connections>
+                                    <action selector="createAppAlert:" destination="gK5-IX-eJx" eventType="touchUpInside" id="t44-BA-HSi"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQt-5y-Tft">
+                                <rect key="frame" x="77" y="127" width="167" height="30"/>
+                                <state key="normal" title="Create Notification Alert"/>
+                                <connections>
+                                    <action selector="createNotificationAlert:" destination="gK5-IX-eJx" eventType="touchUpInside" id="haL-pV-hTV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rG5-3k-LFe">
+                                <rect key="frame" x="62" y="165" width="196" height="30"/>
+                                <state key="normal" title="Create Camera Roll Alert"/>
+                                <connections>
+                                    <action selector="createCameraRollAccessAlert:" destination="gK5-IX-eJx" eventType="touchUpInside" id="T8R-HK-sEe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntr-45-Ycd">
+                                <rect key="frame" x="55" y="203" width="211" height="30"/>
+                                <state key="normal" title="Create GPS access Alert"/>
+                                <connections>
+                                    <action selector="createGPSAccessAlert:" destination="gK5-IX-eJx" eventType="touchUpInside" id="gcM-Ip-10b"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZ1-7J-OGl">
+                                <rect key="frame" x="20" y="71" width="46" height="30"/>
+                                <accessibility key="accessibilityConfiguration" identifier="button"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plO-2e-XmX">
+                                <rect key="frame" x="258" y="75" width="42" height="21"/>
+                                <accessibility key="accessibilityConfiguration" identifier="label"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="nfx-Tv-5Z0"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B30-xl-1JX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1208" y="39"/>
         </scene>
     </scenes>
 </document>

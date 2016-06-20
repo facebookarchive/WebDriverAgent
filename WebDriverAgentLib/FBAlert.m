@@ -134,7 +134,7 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
      buildError:error];
     return NO;
   }
-  return [cancelButton fb_tapWithError:nil];
+  return [cancelButton fb_tapWithError:error];
 }
 
 + (BOOL)isElementObstructedByAlertView:(XCUIElement *)element alert:(XCUIElement *)alert

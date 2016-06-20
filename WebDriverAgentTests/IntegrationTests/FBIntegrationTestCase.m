@@ -16,6 +16,8 @@
 #import "XCUIElement.h"
 #import "XCUIElement+FBIsVisible.h"
 
+NSString *const FBShowAlertButtonName = @"Create App Alert";
+
 @interface FBIntegrationTestCase ()
 @property (nonatomic, strong) XCUIApplication *testedApplication;
 @end
@@ -37,6 +39,12 @@
 {
   [self.testedApplication.buttons[@"Attributes"] tap];
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Button"].fb_isVisible);
+}
+
+- (void)goToAlertsPage
+{
+  [self.testedApplication.buttons[@"Alerts"] tap];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[FBShowAlertButtonName].fb_isVisible);
 }
 
 - (void)goToSpringBoard

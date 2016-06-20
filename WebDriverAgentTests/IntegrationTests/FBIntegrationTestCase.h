@@ -9,6 +9,8 @@
 
 #import <XCTest/XCTest.h>
 
+extern NSString *const FBShowAlertButtonName;
+
 /**
  XCTestCase helper class used for integration tests
  */
@@ -19,6 +21,11 @@
  Navigates integration app to attributes page
  */
 - (void)goToAttributesPage;
+
+/**
+ Navigates integration app to alerts page
+ */
+- (void)goToAlertsPage;
 
 /**
  Navigates to SpringBoard

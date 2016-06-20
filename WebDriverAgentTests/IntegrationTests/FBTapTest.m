@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 
 #import "FBIntegrationTestCase.h"
+#import "FBTestMacros.h"
 #import "XCUIElement+FBTap.h"
 
 @interface FBTapTest : FBIntegrationTestCase
@@ -19,10 +20,11 @@
 
 - (void)testTap
 {
+  [self goToAlertsPage];
   NSError *error;
   XCTAssertTrue(self.testedApplication.alerts.count == 0);
-  [self.testedApplication.buttons[@"Show alert"] fb_tapWithError:&error];
-  XCTAssertTrue(self.testedApplication.alerts.count > 0);
+  [self.testedApplication.buttons[FBShowAlertButtonName] fb_tapWithError:&error];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.alerts.count > 0);
 }
 
 @end

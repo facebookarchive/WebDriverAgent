@@ -18,9 +18,15 @@
 
 @implementation XCUIElementHelperTests
 
+- (void)setUp
+{
+  [super setUp];
+  [self goToAlertsPage];
+}
+
 - (void)testObstructionByAlert
 {
-  XCUIElement *showAlertButton = self.testedApplication.buttons[@"Show alert"];
+  XCUIElement *showAlertButton = self.testedApplication.buttons[FBShowAlertButtonName];
   XCTAssertTrue(showAlertButton.exists);
   XCTAssertFalse(showAlertButton.fb_isObstructedByAlert);
   [showAlertButton tap];
@@ -30,7 +36,7 @@
 
 - (void)testElementObstruction
 {
-  XCUIElement *showAlertButton = self.testedApplication.buttons[@"Show alert"];
+  XCUIElement *showAlertButton = self.testedApplication.buttons[FBShowAlertButtonName];
   XCTAssertTrue(showAlertButton.exists);
   [showAlertButton tap];
   FBAssertWaitTillBecomesTrue(self.testedApplication.alerts.count > 0);

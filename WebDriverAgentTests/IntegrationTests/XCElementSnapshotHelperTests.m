@@ -13,8 +13,6 @@
 #import "XCElementSnapshot+Helpers.h"
 #import "XCUIElement.h"
 
-static NSString *const FBShowAlertButtonName = @"Show alert";
-
 @interface XCElementSnapshotHelperTests : FBIntegrationTestCase
 @end
 
@@ -27,14 +25,14 @@ static NSString *const FBShowAlertButtonName = @"Show alert";
   [mainView resolve];
   NSArray<XCElementSnapshot *> *matchingSnapshots = [mainView.lastSnapshot fb_descendantsMatchingType:XCUIElementTypeButton];
   XCTAssertTrue(matchingSnapshots.count >= 3);
-  XCElementSnapshot *buttonSnapshot = [[matchingSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"label = %@", FBShowAlertButtonName]] lastObject];
-  XCTAssertEqualObjects(buttonSnapshot.label, FBShowAlertButtonName);
+  XCElementSnapshot *buttonSnapshot = [[matchingSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"label = %@", @"Alerts"]] lastObject];
+  XCTAssertEqualObjects(buttonSnapshot.label, @"Alerts");
   XCTAssertEqual(buttonSnapshot.elementType, XCUIElementTypeButton);
 }
 
 - (void)testParentMatchingType
 {
-  XCUIElement *button = self.testedApplication.buttons[FBShowAlertButtonName];
+  XCUIElement *button = self.testedApplication.buttons[@"Alerts"];
   XCTAssertTrue(button.exists);
   [button resolve];
   XCElementSnapshot *windowSnapshot = [button.lastSnapshot fb_parentMatchingType:XCUIElementTypeWindow];
