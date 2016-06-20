@@ -34,9 +34,11 @@
 - (void)goToAttributesPage
 {
   [self.testedApplication.buttons[@"Attributes"] tap];
-  [[FBRunLoopSpinner new] spinUntilTrue:^BOOL{
-    return self.testedApplication.buttons[@"Button"].fb_isVisible;
-  }];
+  [[[FBRunLoopSpinner new]
+    interval:1.0]
+   spinUntilTrue:^BOOL{
+     return self.testedApplication.buttons[@"Button"].fb_isVisible;
+   }];
 }
 
 @end

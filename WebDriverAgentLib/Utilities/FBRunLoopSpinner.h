@@ -38,6 +38,14 @@ typedef id (^FBRunLoopSpinnerObjectBlock)();
 - (instancetype)timeout:(NSTimeInterval)timeout;
 
 /**
+ Updates the interval of the receiver.
+
+ @param interval the amount of time to wait before checking condition again.
+ @return the receiver, for chaining.
+ */
+- (instancetype)interval:(NSTimeInterval)interval;
+
+/**
  Spins the Run Loop until `untilTrue` returns YES or a timeout is reached.
 
  @param untilTrue the condition to meet.

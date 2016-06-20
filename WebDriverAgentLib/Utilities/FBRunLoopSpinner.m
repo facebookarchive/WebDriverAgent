@@ -18,6 +18,7 @@ static const NSTimeInterval FBWaitInterval = 0.1;
 @interface FBRunLoopSpinner ()
 @property (nonatomic, copy) NSString *timeoutErrorMessage;
 @property (nonatomic, assign) NSTimeInterval timeout;
+@property (nonatomic, assign) NSTimeInterval interval;
 @end
 
 @implementation FBRunLoopSpinner
@@ -37,6 +38,7 @@ static const NSTimeInterval FBWaitInterval = 0.1;
 {
   self = [super init];
   if (self) {
+    _interval = FBWaitInterval;
     _timeout = 60;
   }
   return self;
@@ -54,6 +56,12 @@ static const NSTimeInterval FBWaitInterval = 0.1;
   return self;
 }
 
+- (instancetype)interval:(NSTimeInterval)interval
+{
+  self.interval = interval;
+  return self;
+}
+
 - (BOOL)spinUntilTrue:(FBRunLoopSpinnerBlock)untilTrue
 {
   return [self spinUntilTrue:untilTrue error:nil];
@@ -63,7 +71,7 @@ static const NSTimeInterval FBWaitInterval = 0.1;
 {
   NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:self.timeout];
   while (!untilTrue()) {
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBWaitInterval]];
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:self.interval]];
     if (timeoutDate.timeIntervalSinceNow < 0) {
       return
       [[[FBErrorBuilder builder]
