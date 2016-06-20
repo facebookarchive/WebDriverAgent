@@ -207,6 +207,7 @@
 		EE158B5F1CBD47A000A3E3F0 /* WebDriverAgentLib.h in Headers */ = {isa = PBXBuildFile; fileRef = EE158B5E1CBD47A000A3E3F0 /* WebDriverAgentLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE1E06DA1D1808C2007CF043 /* FBIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E06D91D1808C2007CF043 /* FBIntegrationTestCase.m */; };
 		EE1E06E01D181BB4007CF043 /* XCUIDeviceHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E06DF1D181BB4007CF043 /* XCUIDeviceHelperTests.m */; };
+		EE1E06E21D181CC9007CF043 /* XCUIElementHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E06E11D181CC9007CF043 /* XCUIElementHelperTests.m */; };
 		EE20B2EA1CE0861B00879257 /* FBErrorBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A18611CDE618F00DE4205 /* FBErrorBuilder.m */; };
 		EE26409B1D0EB5E8009BE6B0 /* FBTapTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EE26409A1D0EB5E8009BE6B0 /* FBTapTest.m */; };
 		EE26409D1D0EBA25009BE6B0 /* FBElementAttributeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE26409C1D0EBA25009BE6B0 /* FBElementAttributeTests.m */; };
@@ -337,6 +338,7 @@
 		EE1E06DB1D18090F007CF043 /* FBIntegrationTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBIntegrationTestCase.h; sourceTree = "<group>"; };
 		EE1E06DC1D1811C4007CF043 /* FBTestMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTestMacros.h; sourceTree = "<group>"; };
 		EE1E06DF1D181BB4007CF043 /* XCUIDeviceHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceHelperTests.m; sourceTree = "<group>"; };
+		EE1E06E11D181CC9007CF043 /* XCUIElementHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIElementHelperTests.m; sourceTree = "<group>"; };
 		EE26409A1D0EB5E8009BE6B0 /* FBTapTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTapTest.m; sourceTree = "<group>"; };
 		EE26409C1D0EBA25009BE6B0 /* FBElementAttributeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementAttributeTests.m; sourceTree = "<group>"; };
 		EE3A185C1CDE536E00DE4205 /* XCUIElement+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+Utilities.h"; sourceTree = "<group>"; };
@@ -881,6 +883,7 @@
 				EE1E06DC1D1811C4007CF043 /* FBTestMacros.h */,
 				EEBBDB9A1D1032F0000738CD /* XCElementSnapshotHelperTests.m */,
 				EE1E06DF1D181BB4007CF043 /* XCUIDeviceHelperTests.m */,
+				EE1E06E11D181CC9007CF043 /* XCUIElementHelperTests.m */,
 				EE9B76551CF7987300275851 /* Info.plist */,
 			);
 			path = IntegrationTests;
@@ -1587,6 +1590,7 @@
 				EE05BAFA1D13003C00A3EB00 /* FBKeyboardTests.m in Sources */,
 				EE6A89371D0B35920083E92B /* FBFailureProofTestCaseTests.m in Sources */,
 				EEBBDB9B1D1032F0000738CD /* XCElementSnapshotHelperTests.m in Sources */,
+				EE1E06E21D181CC9007CF043 /* XCUIElementHelperTests.m in Sources */,
 				EE1E06E01D181BB4007CF043 /* XCUIDeviceHelperTests.m in Sources */,
 				EE9B769A1CF799F400275851 /* FBAlertTests.m in Sources */,
 			);
