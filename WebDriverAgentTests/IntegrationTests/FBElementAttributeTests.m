@@ -9,14 +9,14 @@
 
 #import <XCTest/XCTest.h>
 
+#import "FBIntegrationTestCase.h"
 #import "FBFindElementCommands.h"
 #import "FBRunLoopSpinner.h"
 #import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+WebDriverAttributes.h"
 
-@interface FBElementAttributeTests : XCTestCase
-@property (nonatomic, strong) XCUIApplication *testedApplication;
+@interface FBElementAttributeTests : FBIntegrationTestCase
 @end
 
 @implementation FBElementAttributeTests
@@ -24,8 +24,6 @@
 - (void)setUp
 {
   [super setUp];
-  self.testedApplication = [XCUIApplication new];
-  [self.testedApplication launch];
   [self.testedApplication.buttons[@"Attributes"] tap];
   [[FBRunLoopSpinner new] spinUntilTrue:^BOOL{
     return self.testedApplication.buttons[@"Button"].exists;

@@ -9,11 +9,11 @@
 
 #import <XCTest/XCTest.h>
 
+#import "FBIntegrationTestCase.h"
 #import "FBKeyboard.h"
 #import "FBRunLoopSpinner.h"
 
-@interface FBKeyboardTests : XCTestCase
-@property (nonatomic, strong) XCUIApplication *testedApplication;
+@interface FBKeyboardTests : FBIntegrationTestCase
 @end
 
 @implementation FBKeyboardTests
@@ -21,8 +21,6 @@
 - (void)setUp
 {
   [super setUp];
-  self.testedApplication = [XCUIApplication new];
-  [self.testedApplication launch];
   [self.testedApplication.buttons[@"Attributes"] tap];
   [[FBRunLoopSpinner new] spinUntilTrue:^BOOL{
     return self.testedApplication.buttons[@"Button"].exists;

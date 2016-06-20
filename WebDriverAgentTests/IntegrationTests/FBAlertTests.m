@@ -11,25 +11,19 @@
 
 #import <WebDriverAgentLib/FBAlert.h>
 
-@interface FBAlertTests : XCTestCase
+#import "FBIntegrationTestCase.h"
 
+@interface FBAlertTests : FBIntegrationTestCase
 @end
 
 @implementation FBAlertTests
 
-- (void)setUp
-{
-  [super setUp];
-  [[XCUIApplication new] launch];
-}
-
 - (void)testAcceptingAlert
 {
-  XCUIApplication *app = [XCUIApplication new];
-  [app.buttons[@"Show alert"] tap];
-  [[FBAlert alertWithApplication:app] acceptWithError:nil];
+  [self.testedApplication.buttons[@"Show alert"] tap];
+  [[FBAlert alertWithApplication:self.testedApplication] acceptWithError:nil];
   sleep(1);
-  XCTAssertTrue(app.alerts.count == 0, @"Alert should be dismissed");
+  XCTAssertTrue(self.testedApplication.alerts.count == 0, @"Alert should be dismissed");
 }
 
 @end

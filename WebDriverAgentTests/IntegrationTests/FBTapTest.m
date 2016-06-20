@@ -9,21 +9,20 @@
 
 #import <XCTest/XCTest.h>
 
+#import "FBIntegrationTestCase.h"
 #import "XCUIElement+FBTap.h"
 
-@interface FBTapTest : XCTestCase
+@interface FBTapTest : FBIntegrationTestCase
 @end
 
 @implementation FBTapTest
 
 - (void)testTap
 {
-  XCUIApplication *app = [XCUIApplication new];
-  [app launch];
   NSError *error;
-  XCTAssertTrue(app.alerts.count == 0);
-  [app.buttons[@"Show alert"] fb_tapWithError:&error];
-  XCTAssertTrue(app.alerts.count > 0);
+  XCTAssertTrue(self.testedApplication.alerts.count == 0);
+  [self.testedApplication.buttons[@"Show alert"] fb_tapWithError:&error];
+  XCTAssertTrue(self.testedApplication.alerts.count > 0);
 }
 
 @end

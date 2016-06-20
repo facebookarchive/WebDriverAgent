@@ -9,23 +9,16 @@
 
 #import <XCTest/XCTest.h>
 
+#import "FBIntegrationTestCase.h"
 #import "XCElementSnapshot+Helpers.h"
 #import "XCUIElement.h"
 
 static NSString *const FBShowAlertButtonName = @"Show alert";
 
-@interface XCElementSnapshotHelperTests : XCTestCase
-@property (nonatomic, strong) XCUIApplication *testedApplication;
+@interface XCElementSnapshotHelperTests : FBIntegrationTestCase
 @end
 
 @implementation XCElementSnapshotHelperTests
-
-- (void)setUp
-{
-  [super setUp];
-  self.testedApplication = [XCUIApplication new];
-  [self.testedApplication launch];
-}
 
 - (void)testDescendantsMatchingType
 {
