@@ -79,21 +79,23 @@
     info[@"value"] = FBValueOrNull(snapshot.wdValue);
     info[@"label"] = FBValueOrNull(snapshot.wdLabel);
   } else {
-    NSArray *childElements = snapshot.children;
-    if ([childElements count]) {
-      info[@"children"] = [[NSMutableArray alloc] init];
-      for (XCElementSnapshot *childSnapshot in childElements) {
-        NSDictionary *childInfo = [self accessibilityInfoForElement:childSnapshot];
-        if ([childInfo count]) {
-          [info[@"children"] addObject: childInfo];
-        }
+    NSMutableArray *children = [[NSMutableArray alloc] init];
+    for (XCElementSnapshot *childSnapshot in snapshot.children) {
+      NSDictionary *childInfo = [self accessibilityInfoForElement:childSnapshot];
+      if ([childInfo count]) {
+        [children addObject: childInfo];
       }
+    }
+    if ([children count]) {
+      info[@"children"] = [children copy];
     }
   }
   if ([info count]) {
     info[@"type"] = [FBElementTypeTransformer shortStringWithElementType:snapshot.elementType];
     info[@"rawIdentifier"] = FBValueOrNull([snapshot.identifier isEqual:@""] ? nil : snapshot.identifier);
     info[@"name"] = FBValueOrNull(snapshot.wdName);
+  } else {
+    return nil;
   }
   return info;
 }
