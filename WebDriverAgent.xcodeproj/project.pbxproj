@@ -1933,7 +1933,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.xctweb-driver-agent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				USES_XCTRUNNER = YES;
 			};
 			name = Debug;
@@ -1957,7 +1956,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.xctweb-driver-agent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				USES_XCTRUNNER = YES;
 			};
 			name = Release;
