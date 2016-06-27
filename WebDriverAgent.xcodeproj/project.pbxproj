@@ -224,6 +224,9 @@
 		EE3A18781CDE886F00DE4205 /* FBHTTPOverUSBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A18761CDE886F00DE4205 /* FBHTTPOverUSBClient.m */; };
 		EE3F8CFE1D08AA17006F02CE /* FBRunLoopSpinnerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3F8CFD1D08AA17006F02CE /* FBRunLoopSpinnerTests.m */; };
 		EE3F8D001D08B05F006F02CE /* FBElementTypeTransformerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3F8CFF1D08B05F006F02CE /* FBElementTypeTransformerTests.m */; };
+		EE55B3241D1D5388003AAAEC /* FBStrippedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55B3211D1D5388003AAAEC /* FBStrippedTableView.m */; };
+		EE55B3251D1D5388003AAAEC /* FBTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55B3231D1D5388003AAAEC /* FBTableDataSource.m */; };
+		EE55B3271D1D54CF003AAAEC /* FBScrollingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55B3261D1D54CF003AAAEC /* FBScrollingTests.m */; };
 		EE6A89261D0B19E60083E92B /* FBSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6A89251D0B19E60083E92B /* FBSessionTests.m */; };
 		EE6A892B1D0B25820083E92B /* FBApplicationDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6A89281D0B257B0083E92B /* FBApplicationDouble.m */; };
 		EE6A892D1D0B2AF40083E92B /* FBErrorBuilderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6A892C1D0B2AF40083E92B /* FBErrorBuilderTests.m */; };
@@ -357,6 +360,11 @@
 		EE3A18761CDE886F00DE4205 /* FBHTTPOverUSBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBHTTPOverUSBClient.m; sourceTree = "<group>"; };
 		EE3F8CFD1D08AA17006F02CE /* FBRunLoopSpinnerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRunLoopSpinnerTests.m; sourceTree = "<group>"; };
 		EE3F8CFF1D08B05F006F02CE /* FBElementTypeTransformerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementTypeTransformerTests.m; sourceTree = "<group>"; };
+		EE55B3201D1D5388003AAAEC /* FBStrippedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBStrippedTableView.h; sourceTree = "<group>"; };
+		EE55B3211D1D5388003AAAEC /* FBStrippedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBStrippedTableView.m; sourceTree = "<group>"; };
+		EE55B3221D1D5388003AAAEC /* FBTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTableDataSource.h; sourceTree = "<group>"; };
+		EE55B3231D1D5388003AAAEC /* FBTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTableDataSource.m; sourceTree = "<group>"; };
+		EE55B3261D1D54CF003AAAEC /* FBScrollingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBScrollingTests.m; sourceTree = "<group>"; };
 		EE606A721C93021100C0FC53 /* XCUIApplicationImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIApplicationImpl.h; sourceTree = "<group>"; };
 		EE606A731C93021100C0FC53 /* XCUIApplicationProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIApplicationProcess.h; sourceTree = "<group>"; };
 		EE6A89251D0B19E60083E92B /* FBSessionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSessionTests.m; sourceTree = "<group>"; };
@@ -884,10 +892,11 @@
 				EE1E06DB1D18090F007CF043 /* FBIntegrationTestCase.h */,
 				EE1E06D91D1808C2007CF043 /* FBIntegrationTestCase.m */,
 				EE05BAF91D13003C00A3EB00 /* FBKeyboardTests.m */,
+				EE55B3261D1D54CF003AAAEC /* FBScrollingTests.m */,
 				EE26409A1D0EB5E8009BE6B0 /* FBTapTest.m */,
 				EE1E06DC1D1811C4007CF043 /* FBTestMacros.h */,
-				EE1E06E31D18213F007CF043 /* XCUIApplicationHelperTests.m */,
 				EEBBDB9A1D1032F0000738CD /* XCElementSnapshotHelperTests.m */,
+				EE1E06E31D18213F007CF043 /* XCUIApplicationHelperTests.m */,
 				EE1E06DF1D181BB4007CF043 /* XCUIDeviceHelperTests.m */,
 				EE1E06E11D181CC9007CF043 /* XCUIElementHelperTests.m */,
 				EE9B76551CF7987300275851 /* Info.plist */,
@@ -930,6 +939,10 @@
 				EE9B76831CF7997600275851 /* AppDelegate.m */,
 				EE1E06E51D182E95007CF043 /* FBAlertViewController.h */,
 				EE1E06E61D182E95007CF043 /* FBAlertViewController.m */,
+				EE55B3201D1D5388003AAAEC /* FBStrippedTableView.h */,
+				EE55B3211D1D5388003AAAEC /* FBStrippedTableView.m */,
+				EE55B3221D1D5388003AAAEC /* FBTableDataSource.h */,
+				EE55B3231D1D5388003AAAEC /* FBTableDataSource.m */,
 				EE9B76841CF7997600275851 /* ViewController.h */,
 				EE9B76851CF7997600275851 /* ViewController.m */,
 			);
@@ -1585,7 +1598,9 @@
 				EE9B768E1CF7997600275851 /* AppDelegate.m in Sources */,
 				EE1E06E71D182E95007CF043 /* FBAlertViewController.m in Sources */,
 				EE9B76911CF7997600275851 /* main.m in Sources */,
+				EE55B3241D1D5388003AAAEC /* FBStrippedTableView.m in Sources */,
 				EE9B768F1CF7997600275851 /* ViewController.m in Sources */,
+				EE55B3251D1D5388003AAAEC /* FBTableDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1597,6 +1612,7 @@
 				EE26409D1D0EBA25009BE6B0 /* FBElementAttributeTests.m in Sources */,
 				EE1E06DA1D1808C2007CF043 /* FBIntegrationTestCase.m in Sources */,
 				EE05BAFA1D13003C00A3EB00 /* FBKeyboardTests.m in Sources */,
+				EE55B3271D1D54CF003AAAEC /* FBScrollingTests.m in Sources */,
 				EE6A89371D0B35920083E92B /* FBFailureProofTestCaseTests.m in Sources */,
 				EE1E06E41D18213F007CF043 /* XCUIApplicationHelperTests.m in Sources */,
 				EEBBDB9B1D1032F0000738CD /* XCElementSnapshotHelperTests.m in Sources */,

@@ -56,4 +56,12 @@ NSString *const FBShowAlertButtonName = @"Create App Alert";
   FBAssertWaitTillBecomesTrue([FBSpringboardApplication fb_springboard].icons[@"Safari"].fb_isVisible);
 }
 
+- (void)gotToScrollsWithAccessibilityStrippedCells:(BOOL)accessibilityStrippedCells
+{
+  [self.testedApplication.buttons[@"Scrolling"] tap];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Plain"].fb_isVisible);
+  [self.testedApplication.buttons[accessibilityStrippedCells ? @"Accessibility stripped": @"Plain"] tap];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.tables.element.fb_isVisible);
+}
+
 @end

@@ -32,4 +32,10 @@ extern NSString *const FBShowAlertButtonName;
  */
 - (void)goToSpringBoard;
 
+/**
+ Navigates integration app to scrolling page
+ @param accessibilityStrippedCells whether should navigate to tableview with accessibility stripped cell
+ */
+- (void)gotToScrollsWithAccessibilityStrippedCells:(BOOL)accessibilityStrippedCells;
+
 @end
