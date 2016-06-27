@@ -27,8 +27,11 @@ NSString *const FBShowAlertButtonName = @"Create App Alert";
 - (void)setUp
 {
   [super setUp];
+  self.continueAfterFailure = NO;
   self.testedApplication = [XCUIApplication new];
   [self.testedApplication launch];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Alerts"].fb_isVisible);
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
 
   // Force resolving XCUIApplication
   [self.testedApplication query];
