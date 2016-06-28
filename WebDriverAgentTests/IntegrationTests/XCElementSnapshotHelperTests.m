@@ -40,12 +40,4 @@
   XCTAssertEqual(windowSnapshot.elementType, XCUIElementTypeWindow);
 }
 
-- (void)testMainWindow
-{
-  [self.testedApplication query];
-  [self.testedApplication resolve];
-  XCTAssertNotNil(self.testedApplication.lastSnapshot.fb_mainWindow);
-  XCTAssertTrue(self.testedApplication.lastSnapshot.fb_mainWindow.isMainWindow);
-}
-
 @end

@@ -41,14 +41,6 @@ inline static BOOL valuesAreEqual(id value1, id value2);
   return attributesResult[attribute];
 }
 
-- (XCElementSnapshot *)fb_mainWindow
-{
-  NSArray<XCElementSnapshot *> *mainWindows = [self descendantsByFilteringWithBlock:^BOOL(XCElementSnapshot *snapshot) {
-    return snapshot.isMainWindow;
-  }];
-  return mainWindows.lastObject;
-}
-
 - (BOOL)fb_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot
 {
   return self.elementType == snapshot.elementType &&

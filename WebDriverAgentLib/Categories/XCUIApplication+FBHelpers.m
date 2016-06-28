@@ -30,6 +30,14 @@
   return YES;
 }
 
+- (XCElementSnapshot *)fb_mainWindowSnapshot
+{
+  NSArray<XCElementSnapshot *> *mainWindows = [self.lastSnapshot descendantsByFilteringWithBlock:^BOOL(XCElementSnapshot *snapshot) {
+    return snapshot.isMainWindow;
+  }];
+  return mainWindows.lastObject;
+}
+
 - (NSDictionary *)fb_tree
 {
   return [self.class dictionaryForElement:self.lastSnapshot];
@@ -38,8 +46,7 @@
 - (NSDictionary *)fb_accessibilityTree
 {
   // We ignore all elements except for the main window for accessibility tree
-  XCElementSnapshot *mainWindowSnapshot = [self.lastSnapshot fb_mainWindow];
-  return [self.class accessibilityInfoForElement:mainWindowSnapshot];
+  return [self.class accessibilityInfoForElement:self.fb_mainWindowSnapshot];
 }
 
 + (NSDictionary *)dictionaryForElement:(XCElementSnapshot *)snapshot

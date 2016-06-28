@@ -13,6 +13,7 @@
 #import "FBMacros.h"
 #import "XCElementSnapshot+Helpers.h"
 #import "XCElementSnapshot.h"
+#import "XCUIApplication+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBTap.h"
 #import "XCUIElement+FBScrolling.h"
@@ -57,7 +58,7 @@
 - (BOOL)fb_isApplicationBoardVisible
 {
   [self resolve];
-  XCElementSnapshot *mainWindow = self.lastSnapshot.fb_mainWindow;
+  XCElementSnapshot *mainWindow = self.fb_mainWindowSnapshot;
   // During application switch 'SBSwitcherWindow' becomes a main window, so we should wait till it is gone
   return mainWindow.fb_isVisible && ![mainWindow.identifier isEqualToString:@"SBSwitcherWindow"];
 }

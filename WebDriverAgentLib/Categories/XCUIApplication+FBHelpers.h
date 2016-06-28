@@ -9,6 +9,8 @@
 
 #import <XCTest/XCTest.h>
 
+@class XCElementSnapshot;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface XCUIApplication (FBHelpers)
@@ -21,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
  @return YES if the operation succeeds, otherwise NO.
  */
 - (BOOL)fb_deactivateWithDuration:(NSTimeInterval)duration error:(NSError **)error;
+
+/**
+ Returns snapshot element of main window
+ */
+- (nullable XCElementSnapshot *)fb_mainWindowSnapshot;
 
 /**
  Return application elements tree in form of nested dictionaries

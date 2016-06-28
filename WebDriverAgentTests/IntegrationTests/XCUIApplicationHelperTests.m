@@ -71,4 +71,12 @@
   XCTAssertTrue([FBApplication fb_activeApplication].icons[@"Safari"].fb_isVisible);
 }
 
+- (void)testMainWindow
+{
+  [self.testedApplication query];
+  [self.testedApplication resolve];
+  XCTAssertNotNil(self.testedApplication.fb_mainWindowSnapshot);
+  XCTAssertTrue(self.testedApplication.fb_mainWindowSnapshot.isMainWindow);
+}
+
 @end

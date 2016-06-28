@@ -36,11 +36,6 @@
 - (id)fb_attributeValue:(NSNumber *)attribute;
 
 /**
- Returns snapshot element of main window
- */
-- (XCElementSnapshot *)fb_mainWindow;
-
-/**
  Method used to determine whether given element matches receiver by comparing it's parameters except frame.
 
  @param snapshot element's snapshot to compare against
