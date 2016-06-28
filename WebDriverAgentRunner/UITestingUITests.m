@@ -12,11 +12,10 @@
 #import <WebDriverAgentLib/FBDebugLogDelegateDecorator.h>
 #import <WebDriverAgentLib/FBConfiguration.h>
 #import <WebDriverAgentLib/FBFailureProofTestCase.h>
-#import <WebDriverAgentLib/FBWebDriverAgent.h>
+#import <WebDriverAgentLib/FBWebServer.h>
 #import <WebDriverAgentLib/XCTestCase.h>
 
 @interface UITestingUITests : FBFailureProofTestCase
-@property (nonatomic, strong) FBWebDriverAgent *agent;
 @end
 
 @implementation UITestingUITests
@@ -33,7 +32,7 @@
 - (void)testRunner
 {
   [FBConfiguration shouldShowFakeCollectionViewCells:YES];
-  [[FBWebDriverAgent new] start];
+  [[FBWebServer new] startServing];
 }
 
 @end

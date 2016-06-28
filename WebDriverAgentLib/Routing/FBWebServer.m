@@ -15,6 +15,7 @@
 #import "FBCommandHandler.h"
 #import "FBErrorBuilder.h"
 #import "FBExceptionHandler.h"
+#import "FBHTTPOverUSBServer.h"
 #import "FBRouteRequest.h"
 #import "FBRuntimeUtils.h"
 #import "FBSession.h"
@@ -42,7 +43,9 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 
 @interface FBWebServer ()
-@property (nonatomic, strong, readwrite) RoutingHTTPServer *server;
+@property (nonatomic, strong) FBExceptionHandler *exceptionHandler;
+@property (nonatomic, strong) RoutingHTTPServer *server;
+@property (nonatomic, strong) FBHTTPOverUSBServer *USBServer;
 @end
 
 @implementation FBWebServer
@@ -63,6 +66,15 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 }
 
 - (void)startServing
+{
+  [FBLogger logFmt:@"Built at %s %s", __DATE__, __TIME__];
+  self.exceptionHandler = [FBExceptionHandler new];
+  [self startHTTPServer];
+  [self startUSBServer];
+  [[NSRunLoop mainRunLoop] run];
+}
+
+- (void)startHTTPServer
 {
   self.server = [[RoutingHTTPServer alloc] init];
   [self.server setRouteQueue:dispatch_get_main_queue()];
@@ -93,6 +105,12 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     abort();
   }
   [FBLogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [XCUIDevice sharedDevice].fb_wifiIPAddress, [self.server port], FBServerURLEndMarker];
+}
+
+- (void)startUSBServer
+{
+  self.USBServer = [[FBHTTPOverUSBServer alloc] initWithRoutingServer:self.server];
+  [self.USBServer startServing];
 }
 
 - (BOOL)attemptToStartServer:(RoutingHTTPServer *)server onPort:(NSInteger)port withError:(NSError **)error
