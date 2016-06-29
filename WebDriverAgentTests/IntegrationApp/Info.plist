@@ -22,14 +22,16 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Yo Yo</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Yo Yo</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Yo Yo</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Yo Yo</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Yo Yo</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
