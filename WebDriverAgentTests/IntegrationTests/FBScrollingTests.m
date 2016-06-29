@@ -45,20 +45,6 @@
   FBAssertVisibleCell(@"0");
 }
 
-- (void)testTriplePageScroll
-{
-  FBAssertVisibleCell(@"0");
-  [self.tableView fb_scrollDown];
-  [self.tableView fb_scrollDown];
-  [self.tableView fb_scrollDown];
-  FBAssertInvisibleCell(@"0");
-  FBAssertVisibleCell(@"44");
-  [self.tableView fb_scrollUp];
-  [self.tableView fb_scrollUp];
-  [self.tableView fb_scrollUp];
-  FBAssertVisibleCell(@"0");
-}
-
 - (void)testScrollToVisible
 {
   NSString *cellName = @"20";
