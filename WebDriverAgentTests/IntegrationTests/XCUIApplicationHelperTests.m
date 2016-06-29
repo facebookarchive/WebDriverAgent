@@ -25,7 +25,7 @@
 {
   [self goToSpringBoard];
   XCTAssertTrue([FBSpringboardApplication fb_springboard].icons[@"Safari"].exists);
-  XCTAssertTrue([FBSpringboardApplication fb_springboard].icons[@"Game Center"].exists);
+  XCTAssertTrue([FBSpringboardApplication fb_springboard].icons[@"Extras"].exists);
 }
 
 - (void)testTappingAppOnSpringboard
