@@ -10,7 +10,9 @@
 
 #import <WebDriverAgentLib/CDStructures.h>
 
-typedef void (^XCEventGeneratorHandler)(NSError *error);
+@class XCSynthesizedEventRecord;
+
+typedef void (^XCEventGeneratorHandler)(XCSynthesizedEventRecord *record, NSError *error);
 
 @interface XCEventGenerator : NSObject
 {

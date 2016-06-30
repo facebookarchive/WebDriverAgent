@@ -14,6 +14,7 @@
 #import "XCUIElement+Utilities.h"
 #import "XCElementSnapshot-Hitpoint.h"
 #import "XCEventGenerator.h"
+#import "XCSynthesizedEventRecord.h"
 
 @implementation XCUIElement (FBTap)
 
@@ -22,7 +23,7 @@
   [self fb_waitUntilFrameIsStable];
   __block BOOL didSucceed;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    [[XCEventGenerator sharedGenerator] tapAtPoint:self.lastSnapshot.hitPoint orientation:self.interfaceOrientation handler:^(NSError *commandError) {
+    [[XCEventGenerator sharedGenerator] tapAtPoint:self.lastSnapshot.hitPoint orientation:self.interfaceOrientation handler:^(XCSynthesizedEventRecord *record, NSError *commandError) {
       if (commandError) {
         [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
       }
