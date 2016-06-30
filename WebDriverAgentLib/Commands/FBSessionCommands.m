@@ -114,8 +114,6 @@
     @"sdkVersion": [[UIDevice currentDevice] systemVersion],
     @"browserName": application.label ?: [NSNull null],
     @"CFBundleIdentifier": application.bundleID ?: [NSNull null],
-    @"applicationProcessID": @(application.processID),
-    @"webdriverProcessID": @([NSProcessInfo processInfo].processIdentifier),
   };
 }
 
