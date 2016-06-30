@@ -2,7 +2,7 @@
 
 #import "FBAlertViewController.h"
 
-#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
 #import <CoreLocation/CoreLocation.h>
 
 @interface FBAlertViewController ()
@@ -28,7 +28,8 @@
 
 - (IBAction)createCameraRollAccessAlert:(UIButton *)sender
 {
-  [[ALAssetsLibrary new] enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:nil failureBlock:nil];
+  [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+  }];
 }
 
 - (IBAction)createGPSAccessAlert:(UIButton *)sender
