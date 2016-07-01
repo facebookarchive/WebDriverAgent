@@ -17,6 +17,7 @@
 #import "XCUIElement+FBIsVisible.h"
 
 NSString *const FBShowAlertButtonName = @"Create App Alert";
+NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
 
 @interface FBIntegrationTestCase ()
 @property (nonatomic, strong) XCUIApplication *testedApplication;

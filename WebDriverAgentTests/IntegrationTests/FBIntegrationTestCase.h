@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 
 extern NSString *const FBShowAlertButtonName;
+extern NSString *const FBShowSheetAlertButtonName;
 
 /**
  XCTestCase helper class used for integration tests

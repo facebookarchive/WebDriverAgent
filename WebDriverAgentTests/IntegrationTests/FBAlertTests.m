@@ -31,6 +31,12 @@
   FBAssertWaitTillBecomesTrue(self.testedApplication.alerts.count != 0);
 }
 
+- (void)showApplicationSheet
+{
+    [self.testedApplication.buttons[FBShowSheetAlertButtonName] tap];
+    FBAssertWaitTillBecomesTrue(self.testedApplication.sheets.count != 0);
+}
+
 - (void)testAlertException
 {
   XCTAssertThrowsSpecificNamed([FBAlert throwRequestedItemObstructedByAlertException], NSException, FBAlertObstructingElementException);
@@ -122,6 +128,21 @@
 
   XCTAssertTrue([alert.text containsString:@"to access your location"]);
   XCTAssertTrue([alert.text containsString:@"Yo Yo"]);
+}
+
+- (void)testSheetAlert
+{
+  FBAlert *alert = [FBAlert alertWithApplication:self.testedApplication];
+  BOOL isIpad = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
+  [self showApplicationSheet];
+  XCUIElement *showSheetButton = self.testedApplication.buttons[FBShowSheetAlertButtonName];
+  //On iphone this filterObstructedElements will throw an exception.
+  if (isIpad) {
+    NSArray *filteredElements = [alert filterObstructedElements:@[showSheetButton]];
+    XCTAssertEqualObjects(filteredElements, @[showSheetButton]);
+  } else {
+    XCTAssertThrowsSpecificNamed([alert filterObstructedElements:@[showSheetButton]], NSException, FBAlertObstructingElementException, @"should throw FBAlertObstructingElementException");
+  }
 }
 
 @end

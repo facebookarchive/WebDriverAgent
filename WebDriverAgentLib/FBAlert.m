@@ -44,8 +44,16 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   if (alert.exists) {
     return alert;
   }
+    
+  //Only return sheet if it does not have a dismiss popover region.
+  BOOL isIpad = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
+  //check for Apple's popover region in a UIPopoverController.
+  NSPredicate *predicateString = [NSPredicate predicateWithFormat:@"identifier == 'PopoverDismissRegion'"];
+  XCUIElementQuery *query = [[self.application descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicateString];
+  NSArray *childElements = [query allElementsBoundByIndex];
+    
   alert = self.sheets.element;
-  if (alert.exists) {
+  if (alert.exists && (childElements.count == 0 || !isIpad)) {
     return alert;
   }
   return nil;

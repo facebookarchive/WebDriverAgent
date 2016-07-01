@@ -21,6 +21,18 @@
   [self presentViewController:alerController animated:YES completion:nil];
 }
 
+- (IBAction)createAppSheet:(UIButton *)sender
+{
+    UIAlertController *alerController =
+    [UIAlertController alertControllerWithTitle:@"Magic Sheet"
+                                        message:@"Should read"
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    UIPopoverPresentationController *popPresenter = [alerController popoverPresentationController];
+    popPresenter.sourceView = sender;
+    [self presentViewController:alerController animated:YES completion:nil];
+    
+}
+
 - (IBAction)createNotificationAlert:(UIButton *)sender
 {
   [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert categories:nil]];
