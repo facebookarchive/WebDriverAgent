@@ -11,10 +11,11 @@
 set -eu
 
 function build() {
-  xcodebuild \
+ xcodebuild \
       -project WebDriverAgent.xcodeproj \
       -scheme $TARGET \
       -sdk $SDK \
+      -destination "platform=iOS Simulator,name=${DESTINATION-'iPhone 6'}" \
       $ACTION \
       CODE_SIGN_IDENTITY="" \
       CODE_SIGNING_REQUIRED=NO \
