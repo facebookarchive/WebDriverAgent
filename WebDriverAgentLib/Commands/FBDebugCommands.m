@@ -23,6 +23,7 @@
   return
   @[
     [[FBRoute POST:@"/source"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
+    [[FBRoute GET:@"/source"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
     [[FBRoute POST:@"/source"].withoutSession respondWithTarget:self action:@selector(handleGetTreeCommand:)],
   ];
 }
