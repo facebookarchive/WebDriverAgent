@@ -59,6 +59,11 @@
   if (self.elementType == XCUIElementTypeSwitch) {
     value = @([self.value boolValue]);
   }
+  if (self.elementType == XCUIElementTypeTextView ||
+      self.elementType == XCUIElementTypeTextField ||
+      self.elementType == XCUIElementTypeSecureTextField) {
+    value = FBFirstNonEmptyValue(self.value, self.placeholderValue);
+  }
   return FBTransferEmptyStringToNil(value);
 }
 
