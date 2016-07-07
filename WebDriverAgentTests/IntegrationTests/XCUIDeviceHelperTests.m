@@ -20,7 +20,7 @@
 
 - (void)testScreenshot
 {
-  XCTAssertNotNil([XCUIDevice sharedDevice].fb_screenshot);
+  XCTAssertNotNil([UIImage imageWithData:[XCUIDevice sharedDevice].fb_screenshot]);
 }
 
 - (void)testWifiAddress
