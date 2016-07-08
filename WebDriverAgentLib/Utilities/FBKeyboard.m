@@ -18,6 +18,7 @@
 #import "XCUIElement+Utilities.h"
 #import "XCTestDriver.h"
 
+static const NSUInteger FBTypingFrequency = 60;
 
 @implementation FBKeyboard
 
@@ -29,7 +30,7 @@
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    [[XCTestDriver sharedTestDriver].managerProxy _XCT_sendString:text completion:^(NSError *typingError){
+    [[XCTestDriver sharedTestDriver].managerProxy _XCT_sendString:text maximumFrequency:FBTypingFrequency completion:^(NSError *typingError){
       didSucceed = (typingError == nil);
       innerError = typingError;
       completion();
