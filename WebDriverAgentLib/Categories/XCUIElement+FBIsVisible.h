@@ -10,6 +10,8 @@
 #import <WebDriverAgentLib/XCElementSnapshot.h>
 #import <WebDriverAgentLib/XCUIElement.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface XCUIElement (FBIsVisible)
 
 /*! Whether or not the element is visible */
@@ -24,3 +26,5 @@
 @property (atomic, readonly) BOOL fb_isVisible;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -76,50 +76,55 @@
 
 - (void)testRouteWithSessionWithSlash
 {
-  FBRoute *route = [[FBRoute POST:@"/deactivateApp"] respondWithBlock:nil];
+  FBRoute *route = [[FBRoute POST:@"/deactivateApp"] respondWithTarget:self action:@selector(dummyHandler:)];
   XCTAssertEqualObjects(route.path, @"/session/:sessionID/deactivateApp");
 }
 
 - (void)testRouteWithSession
 {
-  FBRoute *route = [[FBRoute POST:@"deactivateApp"] respondWithBlock:nil];
+  FBRoute *route = [[FBRoute POST:@"deactivateApp"] respondWithTarget:self action:@selector(dummyHandler:)];
   XCTAssertEqualObjects(route.path, @"/session/:sessionID/deactivateApp");
 }
 
 - (void)testRouteWithoutSessionWithSlash
 {
-  FBRoute *route = [[FBRoute POST:@"/deactivateApp"].withoutSession respondWithBlock:nil];
+  FBRoute *route = [[FBRoute POST:@"/deactivateApp"].withoutSession respondWithTarget:self action:@selector(dummyHandler:)];
   XCTAssertEqualObjects(route.path, @"/deactivateApp");
 }
 
 - (void)testRouteWithoutSession
 {
-  FBRoute *route = [[FBRoute POST:@"deactivateApp"].withoutSession respondWithBlock:nil];
+  FBRoute *route = [[FBRoute POST:@"deactivateApp"].withoutSession respondWithTarget:self action:@selector(dummyHandler:)];
   XCTAssertEqualObjects(route.path, @"/deactivateApp");
 }
 
 - (void)testEmptyRouteWithSession
 {
-  FBRoute *route = [[FBRoute POST:@""] respondWithBlock:nil];
+  FBRoute *route = [[FBRoute POST:@""] respondWithTarget:self action:@selector(dummyHandler:)];
   XCTAssertEqualObjects(route.path, @"/session/:sessionID");
 }
 
 - (void)testEmptyRouteWithoutSession
 {
-  FBRoute *route = [[FBRoute POST:@""].withoutSession respondWithBlock:nil];
+  FBRoute *route = [[FBRoute POST:@""].withoutSession respondWithTarget:self action:@selector(dummyHandler:)];
   XCTAssertEqualObjects(route.path, @"/");
 }
 
 - (void)testEmptyRouteWithSessionWithSlash
 {
-  FBRoute *route = [[FBRoute POST:@"/"] respondWithBlock:nil];
+  FBRoute *route = [[FBRoute POST:@"/"] respondWithTarget:self action:@selector(dummyHandler:)];
   XCTAssertEqualObjects(route.path, @"/session/:sessionID");
 }
 
 - (void)testEmptyRouteWithoutSessionWithSlash
 {
-  FBRoute *route = [[FBRoute POST:@"/"].withoutSession respondWithBlock:nil];
+  FBRoute *route = [[FBRoute POST:@"/"].withoutSession respondWithTarget:self action:@selector(dummyHandler:)];
   XCTAssertEqualObjects(route.path, @"/");
+}
+
++ (id<FBResponsePayload>)dummyHandler:(FBRouteRequest *)request
+{
+  return nil;
 }
 
 @end

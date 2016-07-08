@@ -38,7 +38,7 @@ inline static BOOL valuesAreEqual(id value1, id value2);
 - (id)fb_attributeValue:(NSNumber *)attribute
 {
   NSDictionary *attributesResult = [[XCAXClient_iOS sharedClient] attributesForElementSnapshot:self attributeList:@[attribute]];
-  return attributesResult[attribute];
+  return (id __nonnull)attributesResult[attribute];
 }
 
 - (BOOL)fb_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot

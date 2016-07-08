@@ -11,6 +11,10 @@
 
 #import <WebDriverAgentLib/FBCommandHandler.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface FBDebugCommands : NSObject <FBCommandHandler>
 
 @end
+
+NS_ASSUME_NONNULL_END

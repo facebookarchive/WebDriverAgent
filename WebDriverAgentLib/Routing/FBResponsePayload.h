@@ -16,6 +16,8 @@
 @class XCUIElement;
 @protocol FBResponsePayload;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Returns 'FBCommandStatusNoError' response payload
  */
@@ -54,7 +56,7 @@ id<FBResponsePayload> FBResponseWithErrorFormat(NSString *errorFormat, ...) NS_F
 /**
  Returns 'status' response payload with given object
  */
-id<FBResponsePayload> FBResponseWithStatus(FBCommandStatus status, id object);
+id<FBResponsePayload> FBResponseWithStatus(FBCommandStatus status, __nullable id object);
 
 /**
  Returns 'FBCommandStatusNoError' response payload with content of a file at given 'path'
@@ -73,3 +75,5 @@ id<FBResponsePayload> FBResponseFileWithPath(NSString *path);
 - (void)dispatchWithResponse:(RouteResponse *)response;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -11,6 +11,8 @@
 
 @class RouteResponse, RoutingHTTPServer, FBExceptionHandler;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  HTTP and USB service wrapper, that handel's requests and responses
  */
@@ -22,3 +24,5 @@
 - (void)startServing;
 
 @end
+
+NS_ASSUME_NONNULL_END

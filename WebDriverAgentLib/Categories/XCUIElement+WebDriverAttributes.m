@@ -138,12 +138,12 @@
 
 - (NSDictionary *)wdSize
 {
-    return self.wdRect[@"size"];
+    return (NSDictionary *_Nonnull)self.wdRect[@"size"];
 }
 
 - (NSDictionary *)wdLocation
 {
-    return self.wdRect[@"origin"];
+    return (NSDictionary *_Nonnull)self.wdRect[@"origin"];
 }
 
 @end

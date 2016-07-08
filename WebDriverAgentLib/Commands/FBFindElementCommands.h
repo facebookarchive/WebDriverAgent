@@ -11,6 +11,8 @@
 
 #import <WebDriverAgentLib/FBCommandHandler.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class XCUIElement, XCElementSnapshot;
 
 @interface FBFindElementCommands : NSObject <FBCommandHandler>
@@ -20,3 +22,5 @@
 + (NSArray<XCElementSnapshot *> *)descendantsOfElementSnapshot:(XCElementSnapshot *)elementSnapshot withXPathQuery:(NSString *)xpathQuery;
 
 @end
+
+NS_ASSUME_NONNULL_END

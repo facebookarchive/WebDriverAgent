@@ -9,9 +9,13 @@
 
 #import "FBRouteRequest.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface FBRouteRequest ()
 @property (nonatomic, strong, readwrite) NSURL *URL;
 @property (nonatomic, copy, readwrite) NSDictionary *parameters;
 @property (nonatomic, copy, readwrite) NSDictionary *arguments;
 @property (nonatomic, strong, readwrite) FBSession *session;
 @end
+
+NS_ASSUME_NONNULL_END

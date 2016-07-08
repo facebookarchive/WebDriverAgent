@@ -11,6 +11,8 @@
 #import <WebDriverAgentLib/XCElementSnapshot.h>
 #import <WebDriverAgentLib/XCUIElement.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface XCUIElement (WebDriverAttributes) <FBElement>
 
 @end
@@ -19,3 +21,5 @@
 @interface XCElementSnapshot (WebDriverAttributes) <FBElement>
 
 @end
+
+NS_ASSUME_NONNULL_END

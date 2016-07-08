@@ -11,6 +11,8 @@
 
 #import <WebDriverAgentLib/FBResponsePayload.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Class that represents WebDriverAgent JSON repsonse
  */
@@ -22,3 +24,5 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 @end
+
+NS_ASSUME_NONNULL_END

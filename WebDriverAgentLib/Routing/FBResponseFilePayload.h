@@ -11,6 +11,8 @@
 
 #import "FBResponsePayload.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Class that represents WebDriverAgent file respond
  */
@@ -22,3 +24,5 @@
 - (instancetype)initWithFilePath:(NSString *)path;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -41,5 +41,7 @@ void *FBRetrieveXCTestSymbol(const char *name)
   Class XCTestClass = NSClassFromString(@"XCTestCase");
   NSCAssert(XCTestClass != nil, @"XCTest should be already linked");
   NSString *XCTestBinary = [NSBundle bundleForClass:XCTestClass].executablePath;
-  return FBRetrieveSymbolFromBinary(XCTestBinary.UTF8String, name);
+  const char *binaryPath = XCTestBinary.UTF8String;
+  NSCAssert(binaryPath != nil, @"XCTest binary path should not be nil");
+  return FBRetrieveSymbolFromBinary(binaryPath, name);
 }

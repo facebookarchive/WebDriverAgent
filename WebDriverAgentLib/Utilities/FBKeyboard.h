@@ -9,6 +9,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface FBKeyboard : NSObject
 
 /**
@@ -25,3 +27,5 @@
 + (BOOL)typeText:(NSString *)text error:(NSError **)error;
 
 @end
+
+NS_ASSUME_NONNULL_END

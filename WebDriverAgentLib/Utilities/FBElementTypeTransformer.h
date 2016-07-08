@@ -10,6 +10,8 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCUIElementTypes.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Class used to translate between XCUIElementType and string name
  */
@@ -21,7 +23,7 @@
  @param typeName converted string to XCUIElementType
  @return Proper XCUIElementType or XCUIElementTypeAny if typeName is nil or unrecognised
  */
-+ (XCUIElementType)elementTypeWithTypeName:(NSString *)typeName;
++ (XCUIElementType)elementTypeWithTypeName:(NSString *__nullable)typeName;
 
 /**
  Converts XCUIElementType to string
@@ -40,3 +42,5 @@
 + (NSString *)shortStringWithElementType:(XCUIElementType)type;
 
 @end
+
+NS_ASSUME_NONNULL_END

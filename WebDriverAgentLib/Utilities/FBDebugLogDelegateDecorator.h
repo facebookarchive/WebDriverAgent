@@ -10,6 +10,8 @@
 #import <Foundation/Foundation.h>
 #import <WebDriverAgentLib/XCDebugLogDelegate-Protocol.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  XCTestLogger decorator that will print all debug information to console
  */
@@ -21,3 +23,5 @@
 + (void)decorateXCTestLogger;
 
 @end
+
+NS_ASSUME_NONNULL_END

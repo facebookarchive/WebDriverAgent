@@ -11,6 +11,8 @@
 
 @class XCUIApplicationProcess;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Proxy that would forward all calls to it's applicationProcess.
  However it will block call to waitForQuiescence if shouldWaitForQuiescence is set to NO
@@ -28,3 +30,5 @@
 @property (nonatomic, assign) BOOL shouldWaitForQuiescence;
 
 @end
+
+NS_ASSUME_NONNULL_END

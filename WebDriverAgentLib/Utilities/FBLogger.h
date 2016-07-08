@@ -9,6 +9,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  A Global Logger object that understands log levels
  */
@@ -27,3 +29,5 @@
 + (void)verboseLogFmt:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -11,6 +11,8 @@
 
 @class XCUIElement;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface FBElementCache : NSObject
 
 /**
@@ -27,6 +29,8 @@
  @param uuid uuid of element to fetch
  @return element
  */
-- (XCUIElement *)elementForUUID:(NSString *)uuid;
+- (nullable XCUIElement *)elementForUUID:(NSString *__nullable)uuid;
 
 @end
+
+NS_ASSUME_NONNULL_END

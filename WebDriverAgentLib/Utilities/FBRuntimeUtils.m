@@ -18,7 +18,7 @@ NSArray<Class> *FBClassesThatConformsToProtocol(Protocol *protocol)
   NSMutableArray *collection = [NSMutableArray array];
   int numClasses = objc_getClassList(NULL, 0);
   if (numClasses == 0 ) {
-    return nil;
+    return @[];
   }
 
   classes = (__unsafe_unretained Class*)malloc(sizeof(Class) * numClasses);

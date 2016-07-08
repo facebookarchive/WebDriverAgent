@@ -13,7 +13,9 @@
 @class FBRouteRequest;
 @class RouteResponse;
 
-typedef id<FBResponsePayload> (^FBRouteSyncHandler)(FBRouteRequest *request);
+NS_ASSUME_NONNULL_BEGIN
+
+typedef __nonnull id<FBResponsePayload> (^FBRouteSyncHandler)(FBRouteRequest *request);
 
 /**
  Class that represents route
@@ -67,3 +69,5 @@ typedef id<FBResponsePayload> (^FBRouteSyncHandler)(FBRouteRequest *request);
 - (void)mountRequest:(FBRouteRequest *)request intoResponse:(RouteResponse *)response;
 
 @end
+
+NS_ASSUME_NONNULL_END

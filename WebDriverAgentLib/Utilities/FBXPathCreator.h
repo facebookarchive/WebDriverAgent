@@ -10,6 +10,8 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCUIElementTypes.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Helper class used to create xpath string
  */
@@ -24,3 +26,5 @@
 + (NSString *)xpathWithSubelementsOfType:(XCUIElementType)elementType;
 
 @end
+
+NS_ASSUME_NONNULL_END

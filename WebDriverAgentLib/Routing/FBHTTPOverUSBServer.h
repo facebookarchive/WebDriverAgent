@@ -12,6 +12,8 @@
 
 @class RoutingHTTPServer;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  USB service that unwraps HTTP requests sent via USB and dispatches them to HTTP server
  */
@@ -28,3 +30,5 @@
 - (void)startServing;
 
 @end
+
+NS_ASSUME_NONNULL_END

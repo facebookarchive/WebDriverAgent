@@ -11,6 +11,8 @@
 
 @interface FBSpringboardApplication : FBApplication
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  @return FBApplication that is attached to SpringBoard
  */
@@ -34,3 +36,5 @@
 - (BOOL)fb_waitUntilApplicationBoardIsVisible:(NSError **)error;
 
 @end
+
+NS_ASSUME_NONNULL_END

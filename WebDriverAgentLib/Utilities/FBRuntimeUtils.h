@@ -9,6 +9,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Returns array of classes that conforms to given protocol
  */
@@ -22,3 +24,5 @@ NSArray<Class> *FBClassesThatConformsToProtocol(Protocol *protocol);
  @return pointer to symbol
  */
 void *FBRetrieveSymbolFromBinary(const char *binary, const char *name);
+
+NS_ASSUME_NONNULL_END

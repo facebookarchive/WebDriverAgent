@@ -9,6 +9,8 @@
 
 #import <WebDriverAgentLib/XCUIElement.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface XCUIElement (FBScrolling)
 
 /**
@@ -50,3 +52,5 @@
 - (BOOL)fb_scrollToVisibleWithNormalizedScrollDistance:(CGFloat)normalizedScrollDistance error:(NSError **)error;
 
 @end
+
+NS_ASSUME_NONNULL_END

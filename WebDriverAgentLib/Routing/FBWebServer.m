@@ -142,10 +142,12 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     NSArray *routes = [commandHandler routes];
     for (FBRoute *route in routes) {
       [self.server handleMethod:route.verb withPath:route.path block:^(RouteRequest *request, RouteResponse *response) {
+        NSDictionary *arguments = [NSJSONSerialization JSONObjectWithData:request.body options:NSJSONReadingMutableContainers error:NULL];
         FBRouteRequest *routeParams = [FBRouteRequest
           routeRequestWithURL:request.url
           parameters:request.params
-          arguments:[NSJSONSerialization JSONObjectWithData:request.body options:NSJSONReadingMutableContainers error:NULL]];
+          arguments:arguments ?: @{}
+        ];
 
         [FBLogger verboseLog:routeParams.description];
 

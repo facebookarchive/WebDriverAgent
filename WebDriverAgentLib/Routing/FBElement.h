@@ -10,6 +10,8 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Function that returns property name defined by this protocol for given WebDriver Spec property name
  */
@@ -42,7 +44,7 @@ NSString *wdAttributeNameForAttributeName(NSString *name);
 @property (nonatomic, readonly, copy) NSString *wdType;
 
 /*! Element's value */
-@property (nonatomic, readonly, strong) id wdValue;
+@property (nonatomic, readonly, strong, nullable) id wdValue;
 
 /*! Whether element is enabled */
 @property (nonatomic, readonly, getter = isWDEnabled) BOOL wdEnabled;
@@ -58,6 +60,8 @@ NSString *wdAttributeNameForAttributeName(NSString *name);
 
  @param name name of property defined in WebDriver Spec
  */
-- (id)fb_valueForWDAttributeName:(NSString *)name;
+- (nullable id)fb_valueForWDAttributeName:(NSString *__nullable)name;
 
 @end
+
+NS_ASSUME_NONNULL_END

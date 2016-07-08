@@ -11,6 +11,8 @@
 
 @class _XCTestCaseImplementation;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Class that can be used to proxy existing _XCTestCaseImplementation and
  prevent currently running test from being terminated on any XCTest failure
@@ -23,3 +25,5 @@
 + (instancetype)proxyWithXCTestCaseImplementation:(_XCTestCaseImplementation *)internalImplementation;
 
 @end
+
+NS_ASSUME_NONNULL_END

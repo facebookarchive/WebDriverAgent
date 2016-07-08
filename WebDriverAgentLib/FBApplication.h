@@ -9,12 +9,14 @@
 
 #import <WebDriverAgentLib/XCUIApplication.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface FBApplication : XCUIApplication
 
 /**
  Constructor used to get current active application
  */
-+ (instancetype)fb_activeApplication;
++ (nullable instancetype)fb_activeApplication;
 
 /**
  It allows to turn on/off waiting for application quiescence, while performing queries. Defaults to NO.
@@ -22,3 +24,5 @@
 @property (nonatomic, assign) BOOL fb_shouldWaitForQuiescence;
 
 @end
+
+NS_ASSUME_NONNULL_END

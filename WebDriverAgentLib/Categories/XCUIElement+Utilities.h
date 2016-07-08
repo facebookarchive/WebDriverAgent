@@ -9,6 +9,8 @@
 
 #import <XCTest/XCTest.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface XCUIElement (Utilities)
 
 /**
@@ -30,3 +32,5 @@
 - (BOOL)fb_obstructsElement:(XCUIElement *)element;
 
 @end
+
+NS_ASSUME_NONNULL_END

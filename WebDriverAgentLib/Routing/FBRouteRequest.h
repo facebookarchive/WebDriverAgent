@@ -11,6 +11,8 @@
 
 @class FBSession;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Class that represents WebDriverAgent command request
  */
@@ -34,3 +36,5 @@
 + (instancetype)routeRequestWithURL:(NSURL *)URL parameters:(NSDictionary *)parameters arguments:(NSDictionary *)arguments;
 
 @end
+
+NS_ASSUME_NONNULL_END

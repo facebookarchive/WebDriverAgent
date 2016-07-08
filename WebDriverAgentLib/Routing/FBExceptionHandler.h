@@ -10,6 +10,8 @@
 #import <Foundation/Foundation.h>
 #import <WebDriverAgentLib/FBWebServer.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*! Exception used to notify about missing session */
 extern NSString *const FBSessionDoesNotExistException;
 
@@ -36,3 +38,4 @@ extern NSString *const FBElementAttributeUnknownException;
 
 @end
 
+NS_ASSUME_NONNULL_END

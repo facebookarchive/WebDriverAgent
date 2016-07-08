@@ -9,8 +9,10 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef BOOL (^FBRunLoopSpinnerBlock)();
-typedef id (^FBRunLoopSpinnerObjectBlock)();
+typedef __nullable id (^FBRunLoopSpinnerObjectBlock)();
 
 @interface FBRunLoopSpinner : NSObject
 
@@ -69,6 +71,8 @@ typedef id (^FBRunLoopSpinnerObjectBlock)();
  @param error to fill in case of timeout.
  @return YES if the condition was met, NO if the timeout was reached first.
  */
-- (id)spinUntilNotNil:(FBRunLoopSpinnerObjectBlock)untilNotNil error:(NSError **)error;
+- (nullable id)spinUntilNotNil:(FBRunLoopSpinnerObjectBlock)untilNotNil error:(NSError **)error;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -120,7 +120,11 @@ static NSDictionary *StringToElementTypeMapping;
 + (NSString *)stringWithElementType:(XCUIElementType)type
 {
   [self createMapping];
-  return ElementTypeToStringMapping[@(type)];
+  NSString *typeName = ElementTypeToStringMapping[@(type)];
+  if (!typeName) {
+    return [NSString stringWithFormat:@"Unknown(%lu)", (unsigned long)type];
+  }
+  return typeName;
 }
 
 + (NSString *)shortStringWithElementType:(XCUIElementType)type

@@ -9,6 +9,8 @@
 
 #import <WebDriverAgentLib/XCElementSnapshot.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface XCElementSnapshot (Helpers)
 
 /**
@@ -25,7 +27,7 @@
  @param type requested parent type
  @return parent element matching given type
  */
-- (XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type;
+- (nullable XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type;
 
 /**
  Returns value for given accessibility property identifier.
@@ -44,3 +46,5 @@
 - (BOOL)fb_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot;
 
 @end
+
+NS_ASSUME_NONNULL_END

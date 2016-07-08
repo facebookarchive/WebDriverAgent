@@ -11,6 +11,10 @@
 
 #import "FBCommandHandler.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface FBTouchIDCommands : NSObject <FBCommandHandler>
 
 @end
+
+NS_ASSUME_NONNULL_END

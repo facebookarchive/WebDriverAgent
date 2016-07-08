@@ -9,6 +9,7 @@
 
 #import <WebDriverAgentLib/XCUIElement.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface XCUIElement (FBTap)
 
@@ -21,3 +22,5 @@
 - (BOOL)fb_tapWithError:(NSError **)error;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -14,6 +14,8 @@
 #import "FBRoute.h"
 #import "FBResponsePayload.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Protocol for Classes to declare intent to implement responses to commands
  */
@@ -33,3 +35,5 @@
 + (BOOL)shouldRegisterAutomatically;
 
 @end
+
+NS_ASSUME_NONNULL_END

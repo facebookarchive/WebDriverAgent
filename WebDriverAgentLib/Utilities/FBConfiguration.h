@@ -9,6 +9,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Accessors for Global Constants.
  */
@@ -31,3 +33,5 @@
 + (BOOL)verboseLoggingEnabled;
 
 @end
+
+NS_ASSUME_NONNULL_END
