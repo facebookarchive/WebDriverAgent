@@ -259,6 +259,9 @@
 		EEDBE9131CB2641900A790A2 /* FBResponseFilePayload.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB77F1CAEDF0C008C271F /* FBResponseFilePayload.m */; };
 		EEDBE9141CB2641900A790A2 /* FBResponseJSONPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7811CAEDF0C008C271F /* FBResponseJSONPayload.m */; };
 		EEDBE9151CB2641900A790A2 /* FBResponsePayload.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7831CAEDF0C008C271F /* FBResponsePayload.m */; };
+		EEE16E971D33A25500172525 /* FBConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE16E961D33A25500172525 /* FBConfigurationTests.m */; };
+		EEE16E981D33A55B00172525 /* FBConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9B76A21CF7A43900275851 /* FBConfiguration.m */; };
+		EEE16E991D33A59900172525 /* libAccessibility.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7E27211D06CA91001BEC7B /* libAccessibility.tbd */; };
 		EEE9B4721CD02B88009D2030 /* FBRunLoopSpinner.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE9B4701CD02B88009D2030 /* FBRunLoopSpinner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEE9B4731CD02B88009D2030 /* FBRunLoopSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */; };
 		EEF6DF7E1CD295C900AB5921 /* FBRunLoopSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */; };
@@ -567,6 +570,7 @@
 		EED031381BFA3461007EDC1D /* XCUIRecorderUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderUtilities.h; sourceTree = "<group>"; };
 		EED031391BFA3461007EDC1D /* XCUIRemote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRemote.h; sourceTree = "<group>"; };
 		EEDBEBBA1CB2681900A790A2 /* WebDriverAgent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WebDriverAgent.bundle; sourceTree = "<group>"; };
+		EEE16E961D33A25500172525 /* FBConfigurationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBConfigurationTests.m; sourceTree = "<group>"; };
 		EEE4C66A1CDFA21F00A386A2 /* bootstrap.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = bootstrap.sh; sourceTree = "<group>"; };
 		EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ProjectSettings.xcconfig; sourceTree = "<group>"; };
 		EEE9B4701CD02B88009D2030 /* FBRunLoopSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRunLoopSpinner.h; sourceTree = "<group>"; };
@@ -598,6 +602,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEE16E991D33A59900172525 /* libAccessibility.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -904,6 +909,7 @@
 			isa = PBXGroup;
 			children = (
 				ADBC39951D07840300327304 /* Doubles */,
+				EEE16E961D33A25500172525 /* FBConfigurationTests.m */,
 				ADBC39931D0782CD00327304 /* FBElementCacheTests.m */,
 				EE3F8CFF1D08B05F006F02CE /* FBElementTypeTransformerTests.m */,
 				EE6A892C1D0B2AF40083E92B /* FBErrorBuilderTests.m */,
@@ -1563,6 +1569,7 @@
 				ADB0AAB31CB7127300DBC756 /* FBApplication.m in Sources */,
 				EE3F8D001D08B05F006F02CE /* FBElementTypeTransformerTests.m in Sources */,
 				ADB0AABD1CB7133900DBC756 /* FBRuntimeUtils.m in Sources */,
+				EEE16E971D33A25500172525 /* FBConfigurationTests.m in Sources */,
 				ADBC39941D0782CD00327304 /* FBElementCacheTests.m in Sources */,
 				ADEF63AD1D09DCCF0070A7E3 /* FBXPathCreatorTests.m in Sources */,
 				ADEF63AF1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m in Sources */,
@@ -1578,6 +1585,7 @@
 				ADBC39981D07842800327304 /* XCUIElementDouble.m in Sources */,
 				EE6A89261D0B19E60083E92B /* FBSessionTests.m in Sources */,
 				EEDBE9151CB2641900A790A2 /* FBResponsePayload.m in Sources */,
+				EEE16E981D33A55B00172525 /* FBConfiguration.m in Sources */,
 				ADB0AABC1CB7133900DBC756 /* FBElementTypeTransformer.m in Sources */,
 				ADB0AABA1CB7131700DBC756 /* FBApplicationProcessProxy.m in Sources */,
 			);
