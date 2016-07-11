@@ -10,10 +10,10 @@
 #import "FBApplication.h"
 
 #import "FBApplicationProcessProxy.h"
+#import "FBMacros.h"
 #import "XCUIApplication.h"
 #import "XCUIApplicationImpl.h"
 #import "XCUIApplicationProcess.h"
-
 #import "XCAXClient_iOS.h"
 #import "XCAccessibilityElement.h"
 #import "XCUIElement.h"
@@ -58,7 +58,22 @@
   if (![appImpl respondsToSelector:@selector(currentProcess)]) {
     return;
   }
-  appImpl.currentProcess = (XCUIApplicationProcess *)[FBApplicationProcessProxy proxyWithApplicationProcess:appImpl.currentProcess];
+  [appImpl addObserver:self forKeyPath:FBStringify(XCUIApplicationImpl, currentProcess) options:(NSKeyValueObservingOptions)(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *, id> *)change context:(void *)context
+{
+  if (![keyPath isEqualToString:FBStringify(XCUIApplicationImpl, currentProcess)]) {
+    return;
+  }
+  if ([change[NSKeyValueChangeKindKey] unsignedIntegerValue] != NSKeyValueChangeSetting) {
+    return;
+  }
+  XCUIApplicationProcess *applicationProcess = change[NSKeyValueChangeNewKey];
+  if (!applicationProcess || ![applicationProcess isMemberOfClass:XCUIApplicationProcess.class]) {
+    return;
+  }
+  ((XCUIApplicationImpl *)object).currentProcess = (XCUIApplicationProcess *)[FBApplicationProcessProxy proxyWithApplicationProcess:applicationProcess];
 }
 
 @end

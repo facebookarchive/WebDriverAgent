@@ -19,6 +19,7 @@
 
 + (instancetype)proxyWithApplicationProcess:(XCUIApplicationProcess *)applicationProcess
 {
+  NSParameterAssert(applicationProcess);
   FBApplicationProcessProxy *proxy = [self.class new];
   proxy.applicationProcess = applicationProcess;
   return proxy;
@@ -36,6 +37,5 @@
 {
   return self.applicationProcess;
 }
-
 
 @end
