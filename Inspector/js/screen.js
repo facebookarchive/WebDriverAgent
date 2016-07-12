@@ -34,7 +34,7 @@ class Screen extends React.Component {
     return {
       width: screenshot.width * screenshot.scale,
       height: screenshot.height * screenshot.scale,
-    }
+    };
   }
 
   screenshot() {
@@ -72,10 +72,10 @@ class Screen extends React.Component {
 
     var scale = screenshot.scale;
     return {
-      left: rect.x * scale * 2,
-      top: rect.y * scale * 2 - topOffset * scale - elementsMargins,
-      width: rect.width * scale * 2,
-      height: rect.height * scale * 2,
+      left: rect.origin.x * scale * 2,
+      top: rect.origin.y * scale * 2 - topOffset * scale - elementsMargins,
+      width: rect.size.width * scale * 2,
+      height: rect.size.height * scale * 2,
     };
   }
 }
