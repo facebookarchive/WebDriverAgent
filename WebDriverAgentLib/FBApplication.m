@@ -19,6 +19,10 @@
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 
+@interface FBApplication ()
+@property (nonatomic, assign) BOOL fb_isObservingAppImplCurrentProcess;
+@end
+
 @implementation FBApplication
 
 + (instancetype)fb_activeApplication
@@ -36,9 +40,18 @@
 - (void)launch
 {
   if (!self.fb_shouldWaitForQuiescence) {
-    [self fb_placeApplicationProxy];
+    [self.fb_appImpl addObserver:self forKeyPath:FBStringify(XCUIApplicationImpl, currentProcess) options:(NSKeyValueObservingOptions)(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:nil];
+    self.fb_isObservingAppImplCurrentProcess = YES;
   }
   [super launch];
+}
+
+- (void)terminate
+{
+  if (self.fb_isObservingAppImplCurrentProcess) {
+    [self.fb_appImpl removeObserver:self forKeyPath:FBStringify(XCUIApplicationImpl, currentProcess)];
+  }
+  [super terminate];
 }
 
 - (void)_waitForQuiescence
@@ -49,16 +62,16 @@
   [super _waitForQuiescence];
 }
 
-- (void)fb_placeApplicationProxy
+- (XCUIApplicationImpl *)fb_appImpl
 {
   if (![self respondsToSelector:@selector(applicationImpl)]) {
-    return;
+    return nil;
   }
   XCUIApplicationImpl *appImpl = [self applicationImpl];
   if (![appImpl respondsToSelector:@selector(currentProcess)]) {
-    return;
+    return nil;
   }
-  [appImpl addObserver:self forKeyPath:FBStringify(XCUIApplicationImpl, currentProcess) options:(NSKeyValueObservingOptions)(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:nil];
+  return appImpl;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *, id> *)change context:(void *)context
@@ -73,7 +86,7 @@
   if (!applicationProcess || ![applicationProcess isMemberOfClass:XCUIApplicationProcess.class]) {
     return;
   }
-  ((XCUIApplicationImpl *)object).currentProcess = (XCUIApplicationProcess *)[FBApplicationProcessProxy proxyWithApplicationProcess:applicationProcess];
+  [object setValue:[FBApplicationProcessProxy proxyWithApplicationProcess:applicationProcess] forKey:keyPath];
 }
 
 @end
