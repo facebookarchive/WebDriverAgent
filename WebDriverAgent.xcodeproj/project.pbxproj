@@ -181,8 +181,6 @@
 		EE158B431CBD459C00A3E3F0 /* XCTestSuite.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031231BFA3461007EDC1D /* XCTestSuite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158B441CBD459C00A3E3F0 /* XCTestSuiteRun.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031241BFA3461007EDC1D /* XCTestSuiteRun.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158B451CBD459C00A3E3F0 /* XCTouchEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031251BFA3461007EDC1D /* XCTouchEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE158B461CBD459C00A3E3F0 /* XCTouchGesture.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031261BFA3461007EDC1D /* XCTouchGesture.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE158B471CBD459C00A3E3F0 /* XCTouchPath.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031271BFA3461007EDC1D /* XCTouchPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158B481CBD459C00A3E3F0 /* XCUIApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = EED031281BFA3461007EDC1D /* XCUIApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158B491CBD459C00A3E3F0 /* XCUIApplicationImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = EE606A721C93021100C0FC53 /* XCUIApplicationImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158B4A1CBD459C00A3E3F0 /* XCUIApplicationProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = EE606A731C93021100C0FC53 /* XCUIApplicationProcess.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -551,8 +549,6 @@
 		EED031231BFA3461007EDC1D /* XCTestSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestSuite.h; sourceTree = "<group>"; };
 		EED031241BFA3461007EDC1D /* XCTestSuiteRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestSuiteRun.h; sourceTree = "<group>"; };
 		EED031251BFA3461007EDC1D /* XCTouchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTouchEvent.h; sourceTree = "<group>"; };
-		EED031261BFA3461007EDC1D /* XCTouchGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTouchGesture.h; sourceTree = "<group>"; };
-		EED031271BFA3461007EDC1D /* XCTouchPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTouchPath.h; sourceTree = "<group>"; };
 		EED031281BFA3461007EDC1D /* XCUIApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIApplication.h; sourceTree = "<group>"; };
 		EED031291BFA3461007EDC1D /* XCUICoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUICoordinate.h; sourceTree = "<group>"; };
 		EED0312A1BFA3461007EDC1D /* XCUIDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIDevice.h; sourceTree = "<group>"; };
@@ -1060,8 +1056,6 @@
 				EED031231BFA3461007EDC1D /* XCTestSuite.h */,
 				EED031241BFA3461007EDC1D /* XCTestSuiteRun.h */,
 				EED031251BFA3461007EDC1D /* XCTouchEvent.h */,
-				EED031261BFA3461007EDC1D /* XCTouchGesture.h */,
-				EED031271BFA3461007EDC1D /* XCTouchPath.h */,
 				EED031281BFA3461007EDC1D /* XCUIApplication.h */,
 				EE606A721C93021100C0FC53 /* XCUIApplicationImpl.h */,
 				EE606A731C93021100C0FC53 /* XCUIApplicationProcess.h */,
@@ -1150,7 +1144,6 @@
 				EE158AFF1CBD459C00A3E3F0 /* _XCKVOExpectation.h in Headers */,
 				EE158B241CBD459C00A3E3F0 /* XCSourceCodeTreeNodeEnumerator.h in Headers */,
 				EE158B531CBD459C00A3E3F0 /* XCUIElementHitPointCoordinate.h in Headers */,
-				EE158B461CBD459C00A3E3F0 /* XCTouchGesture.h in Headers */,
 				EE158B041CBD459C00A3E3F0 /* _XCTestDriverTestObserver.h in Headers */,
 				EE158B221CBD459C00A3E3F0 /* XCSourceCodeRecording.h in Headers */,
 				EE158B201CBD459C00A3E3F0 /* XCPointerEvent.h in Headers */,
@@ -1166,7 +1159,6 @@
 				EE158B431CBD459C00A3E3F0 /* XCTestSuite.h in Headers */,
 				EE158B2A1CBD459C00A3E3F0 /* XCTest.h in Headers */,
 				EE158B321CBD459C00A3E3F0 /* XCTestCaseSuite.h in Headers */,
-				EE158B471CBD459C00A3E3F0 /* XCTouchPath.h in Headers */,
 				EE158B2F1CBD459C00A3E3F0 /* XCTestCase-XCTestSuiteExtensions.h in Headers */,
 				EE158B101CBD459C00A3E3F0 /* XCActivityRecord.h in Headers */,
 				EE158B381CBD459C00A3E3F0 /* XCTestExpectation.h in Headers */,

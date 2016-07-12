@@ -17,9 +17,9 @@
 #import "XCElementSnapshot-Hitpoint.h"
 #import "XCElementSnapshot.h"
 #import "XCEventGenerator.h"
+#import "XCPointerEventPath.h"
+#import "XCSynthesizedEventRecord.h"
 #import "XCTestDriver.h"
-#import "XCTouchGesture.h"
-#import "XCTouchPath.h"
 #import "XCUIApplication.h"
 #import "XCUICoordinate.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -34,6 +34,7 @@ const CGFloat FBScrollVelocity = 200.f;
 const CGFloat FBScrollBoundingVelocityPadding = 0.0f;
 const CGFloat FBScrollTouchProportion = 0.75f;
 const CGFloat FBScrollCoolOffTime = 1.f;
+const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
 @interface XCElementSnapshot (FBScrolling)
 
@@ -247,17 +248,19 @@ const CGFloat FBScrollCoolOffTime = 1.f;
 
   double offset = 0.3; // Waiting before scrolling helps to make it more stable
   double scrollingTime = MAX(fabs(vector.dx), fabs(vector.dy))/FBScrollVelocity;
-  XCTouchPath *touchPath = [[XCTouchPath alloc] initWithTouchDown:startCoordinate.screenPoint orientation:self.application.interfaceOrientation offset:offset];
-  offset += MAX(scrollingTime, 0.1); // Setting Minimum scrolling time to avoid testmanager complaining about timing
-  [touchPath liftUpAtPoint:endCoordinate.screenPoint offset:offset];
+  XCPointerEventPath *touchPath = [[XCPointerEventPath alloc] initForTouchAtPoint:startCoordinate.screenPoint offset:offset];
+  offset += MAX(scrollingTime, FBMinimumTouchEventDelay); // Setting Minimum scrolling time to avoid testmanager complaining about timing
+  [touchPath moveToPoint:endCoordinate.screenPoint atOffset:offset];
+  offset += FBMinimumTouchEventDelay;
+  [touchPath liftUpAtOffset:offset];
 
-  XCTouchGesture *gesture = [[XCTouchGesture alloc] initWithName:@"FBScroll"];
-  [gesture addTouchPath:touchPath];
+  XCSynthesizedEventRecord *event = [[XCSynthesizedEventRecord alloc] initWithName:@"FBScroll" interfaceOrientation:self.application.interfaceOrientation];
+  [event addPointerEventPath:touchPath];
 
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    [[XCTestDriver sharedTestDriver].managerProxy _XCT_performTouchGesture:gesture completion:^(NSError *scrollingError) {
+    [[XCTestDriver sharedTestDriver].managerProxy _XCT_synthesizeEvent:event completion:^(NSError *scrollingError) {
       innerError = scrollingError;
       didSucceed = (scrollingError == nil);
       completion();
