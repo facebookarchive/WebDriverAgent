@@ -71,6 +71,13 @@ class Screen extends React.Component {
     const topOffset = screenshot.height;
 
     var scale = screenshot.scale;
+
+    // hide nodes with rect out of bound
+    if (rect.origin.x < 0 || rect.origin.x * 2 >= screenshot.width ||
+      rect.origin.y < 0 || rect.origin.y * 2 >= screenshot.height){
+        return {}
+    }
+
     return {
       left: rect.origin.x * scale * 2,
       top: rect.origin.y * scale * 2 - topOffset * scale - elementsMargins,
