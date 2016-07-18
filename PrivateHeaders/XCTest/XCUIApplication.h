@@ -33,12 +33,12 @@
 @property(readonly) XCUIElement *keyboard; // @synthesize keyboard=_keyboard;
 @property(readonly, nonatomic) UIInterfaceOrientation interfaceOrientation; //TODO tvos
 @property(readonly, nonatomic) BOOL running;
-@property(nonatomic) int processID; // @synthesize processID=_processID;
+@property(nonatomic) pid_t processID; // @synthesize processID=_processID;
 @property unsigned long long state; // @synthesize state=_state;
 @property(readonly) XCAccessibilityElement *accessibilityElement;
 
 + (id)keyPathsForValuesAffectingRunning;
-+ (id)appWithPID:(int)arg1;
++ (instancetype)appWithPID:(pid_t)processID;
 
 - (void)dismissKeyboard;
 - (void)_waitForViewControllerViewDidDisappearWithTimeout:(double)arg1;
