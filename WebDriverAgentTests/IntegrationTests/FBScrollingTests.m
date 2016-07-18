@@ -39,15 +39,20 @@
 
 - (void)testSimpleScroll
 {
+  FBAssertVisibleCell(@"0");
+  FBAssertVisibleCell(@"10");
   [self.tableView fb_scrollDown];
-  FBAssertVisibleCell(@"20");
+  FBAssertInvisibleCell(@"0");
+  FBAssertInvisibleCell(@"10");
+  XCTAssertTrue(self.testedApplication.cells.count > 0);
   [self.tableView fb_scrollUp];
   FBAssertVisibleCell(@"0");
+  FBAssertVisibleCell(@"10");
 }
 
 - (void)testScrollToVisible
 {
-  NSString *cellName = @"20";
+  NSString *cellName = @"30";
   FBAssertInvisibleCell(cellName);
   NSError *error;
   XCTAssertTrue([FBCellElementWithLabel(cellName) fb_scrollToVisibleWithError:&error]);
