@@ -24,10 +24,14 @@
 
 + (instancetype)fb_springboard
 {
-  FBSpringboardApplication *springboard = [[FBSpringboardApplication alloc] initPrivateWithPath:nil bundleID:@"com.apple.springboard"];
-  [springboard query];
-  [springboard resolve];
-  return springboard;
+  static FBSpringboardApplication *_springboardApp;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    _springboardApp = [[FBSpringboardApplication alloc] initPrivateWithPath:nil bundleID:@"com.apple.springboard"];
+  });
+  [_springboardApp query];
+  [_springboardApp resolve];
+  return _springboardApp;
 }
 
 - (BOOL)fb_tapApplicationWithIdentifier:(NSString *)identifier error:(NSError **)error
