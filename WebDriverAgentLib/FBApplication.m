@@ -37,6 +37,17 @@
   return application;
 }
 
++ (instancetype)appWithPID:(pid_t)processID
+{
+  FBApplication *application = [self fb_registeredApplicationWithProcessID:processID];
+  if (application) {
+    return application;
+  }
+  application = [super appWithPID:processID];
+  [FBApplication fb_registerApplication:application withProcessID:processID];
+  return application;
+}
+
 - (void)launch
 {
   if (!self.fb_shouldWaitForQuiescence) {
@@ -44,6 +55,7 @@
     self.fb_isObservingAppImplCurrentProcess = YES;
   }
   [super launch];
+  [FBApplication fb_registerApplication:self withProcessID:self.processID];
 }
 
 - (void)terminate
@@ -53,6 +65,9 @@
   }
   [super terminate];
 }
+
+
+#pragma mark - Quiescence
 
 - (void)_waitForQuiescence
 {
@@ -87,6 +102,25 @@
     return;
   }
   [object setValue:[FBApplicationProcessProxy proxyWithApplicationProcess:applicationProcess] forKey:keyPath];
+}
+
+
+#pragma mark - Process registration
+
+static NSMutableDictionary *FBPidToApplicationMapping;
+
++ (instancetype)fb_registeredApplicationWithProcessID:(pid_t)processID
+{
+  return FBPidToApplicationMapping[@(processID)];
+}
+
++ (void)fb_registerApplication:(FBApplication *)application withProcessID:(pid_t)processID
+{
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    FBPidToApplicationMapping = [NSMutableDictionary dictionary];
+  });
+  FBPidToApplicationMapping[@(application.processID)] = application;
 }
 
 @end
