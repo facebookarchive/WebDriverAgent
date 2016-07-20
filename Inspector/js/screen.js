@@ -54,7 +54,6 @@ class Screen extends React.Component {
     if (this.props.highlightedNode == null) {
       return null;
     }
-    
     const rect = this.props.highlightedNode.rect;
     return (
       <div
@@ -71,18 +70,21 @@ class Screen extends React.Component {
     const topOffset = screenshot.height;
 
     var scale = screenshot.scale;
+    // Rect attribute use pt, but screenshot use px.
+    // So caculate its px/pt scale automatically.
+    var pxPtScale = screenshot.width / this.props.rootNode.rect.size.width;
 
     // hide nodes with rect out of bound
-    if (rect.origin.x < 0 || rect.origin.x * 2 >= screenshot.width ||
-      rect.origin.y < 0 || rect.origin.y * 2 >= screenshot.height){
+    if (rect.origin.x < 0 || rect.origin.x * pxPtScale >= screenshot.width ||
+      rect.origin.y < 0 || rect.origin.y * pxPtScale >= screenshot.height){
         return {}
     }
 
     return {
-      left: rect.origin.x * scale * 2,
-      top: rect.origin.y * scale * 2 - topOffset * scale - elementsMargins,
-      width: rect.size.width * scale * 2,
-      height: rect.size.height * scale * 2,
+      left: rect.origin.x * scale * pxPtScale,
+      top: rect.origin.y * scale * pxPtScale - topOffset * scale - elementsMargins,
+      width: rect.size.width * scale * pxPtScale,
+      height: rect.size.height * scale * pxPtScale,
     };
   }
 }
@@ -90,6 +92,7 @@ class Screen extends React.Component {
 Screen.propTypes = {
   highlightedNode: React.PropTypes.object,
   screenshot: React.PropTypes.object,
+  rootNode: React.PropTypes.object,
 };
 
 module.exports = Screen;
