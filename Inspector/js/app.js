@@ -59,7 +59,8 @@ class App extends React.Component {
   		<div id="app">
   			<Screen
           highlightedNode={this.state.highlightedNode}
-          screenshot={this.state.screenshot} />
+          screenshot={this.state.screenshot}
+          rootNode={this.state.rootNode} />
   			<Tree
           onHighlightedNodeChange={(node) => {
             this.setState({
