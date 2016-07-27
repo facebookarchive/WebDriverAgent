@@ -12,6 +12,8 @@
 #import "FBIntegrationTestCase.h"
 #import "FBTestMacros.h"
 #import "XCUIElement+FBTap.h"
+#import "XCUIElement+FBIsVisible.h"
+#import "FBElementCache.h"
 
 @interface FBTapTest : FBIntegrationTestCase
 @end
@@ -25,6 +27,23 @@
   XCTAssertTrue(self.testedApplication.alerts.count == 0);
   [self.testedApplication.buttons[FBShowAlertButtonName] fb_tapWithError:&error];
   FBAssertWaitTillBecomesTrue(self.testedApplication.alerts.count > 0);
+}
+
+- (void)testTapSuccess
+{
+  [self goToContacts];
+  XCUIElement *element = self.testedApplication.tables.cells[@"John Appleseed"];
+  NSError *error;
+  FBAssertWaitTillBecomesTrue(element.fb_isVisible);
+  XCTAssertTrue([element fb_tapWithError:&error]);
+  //assert the contacts picker is dismissed
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Alerts"].fb_isVisible);
+
+  [self goToContacts];
+  element = self.testedApplication.tables.cells[@"John Appleseed"];
+  FBAssertWaitTillBecomesTrue(element.fb_isVisible);
+  XCTAssertTrue([element fb_tapWithError:&error]);
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Alerts"].fb_isVisible);
 }
 
 @end
