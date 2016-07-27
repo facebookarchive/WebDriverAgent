@@ -51,6 +51,12 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[FBShowAlertButtonName].fb_isVisible);
 }
 
+- (void)goToContacts
+{
+  [self.testedApplication.buttons[@"Contacts"] tap];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.navigationBars.buttons[@"Cancel"].fb_isVisible);
+}
+
 - (void)goToSpringBoardFirstPage
 {
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];

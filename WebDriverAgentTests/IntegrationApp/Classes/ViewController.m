@@ -8,8 +8,13 @@
  */
 
 #import "ViewController.h"
+#import <UIKit/UIKit.h>
+@import ContactsUI;
 
-@interface ViewController ()
+@interface ViewController () <CNContactPickerDelegate>
+
+@property (strong, nonatomic) CNContactPickerViewController *picker;
+
 @end
 
 @implementation ViewController
@@ -24,6 +29,20 @@
 - (IBAction)didTapButton:(UIButton *)button
 {
   button.selected = !button.selected;
+}
+
+- (IBAction)didTapContacts:(UIButton *)button
+{
+  _picker = [[CNContactPickerViewController alloc] init];
+  self.picker.delegate = self;
+  [self.navigationController presentViewController:self.picker animated:YES completion:nil];
+}
+
+
+
+- (void)contactPicker:(CNContactPickerViewController *)picker didSelectContact:(CNContact *)contact
+{
+  [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
