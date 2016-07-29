@@ -19,7 +19,7 @@ function build() {
       $ACTION \
       CODE_SIGN_IDENTITY="" \
       CODE_SIGNING_REQUIRED=NO \
-  | xcpretty
+  | xcpretty && exit ${PIPESTATUS[0]}
 }
 
 ./Scripts/bootstrap.sh
