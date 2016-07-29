@@ -13,13 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class XCUIElement, XCElementSnapshot;
-
 @interface FBFindElementCommands : NSObject <FBCommandHandler>
-
-+ (NSArray<XCUIElement *> *)descendantsOfElement:(XCUIElement *)element withXPathQuery:(NSString *)xpathQuery;
-
-+ (NSArray<XCElementSnapshot *> *)descendantsOfElementSnapshot:(XCElementSnapshot *)elementSnapshot withXPathQuery:(NSString *)xpathQuery;
 
 @end
 

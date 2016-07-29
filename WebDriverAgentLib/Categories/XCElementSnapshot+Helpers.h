@@ -14,12 +14,20 @@ NS_ASSUME_NONNULL_BEGIN
 @interface XCElementSnapshot (Helpers)
 
 /**
- Returns an array of descendants matching give type
+ Returns an array of descendants matching given type
 
  @param type requested descendant type
- @return an array of descendants matching give type
+ @return an array of descendants matching given type
  */
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type;
+
+/**
+ Returns an array of descendants matching given xpath query
+
+ @param xpathQuery requested xpath query
+ @return an array of descendants matching given xpath query
+ */
+- (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery;
 
 /**
  Returns first (going up element tree) parent that matches given type. If non found returns nil.

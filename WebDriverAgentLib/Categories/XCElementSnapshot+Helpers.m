@@ -9,6 +9,8 @@
 
 #import "XCElementSnapshot+Helpers.h"
 
+#import <KissXML/DDXML.h>
+
 #import "FBFindElementCommands.h"
 #import "FBRunLoopSpinner.h"
 #import "FBLogger.h"
@@ -16,6 +18,10 @@
 #import "XCAXClient_iOS.h"
 #import "XCTestDriver.h"
 #import "XCTestPrivateSymbols.h"
+#import "XCUIElement.h"
+#import "XCUIElement+WebDriverAttributes.h"
+
+static NSString *const kXMLIndexPathKey = @"private_indexPath";
 
 inline static BOOL valuesAreEqual(id value1, id value2);
 
@@ -23,7 +29,62 @@ inline static BOOL valuesAreEqual(id value1, id value2);
 
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type
 {
-  return [FBFindElementCommands descendantsOfElementSnapshot:self withXPathQuery:[FBXPathCreator xpathWithSubelementsOfType:type]];
+  NSString *xpathQuery = [FBXPathCreator xpathWithSubelementsOfType:type];
+  return [self fb_descendantsMatchingXPathQuery:xpathQuery];
+}
+
+- (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery
+{
+  NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
+  DDXMLElement *xmlElement = [self XMLElementFromElement:self indexPath:@"top" elementStore:elementStore];
+  NSError *error;
+  NSArray *xpathNodes = [xmlElement nodesForXPath:xpathQuery error:&error];
+  if (![xpathNodes count]) {
+    return nil;
+  }
+
+  NSMutableArray *matchingSnapshots = [NSMutableArray array];
+  for (DDXMLElement *childXMLElement in xpathNodes) {
+    XCElementSnapshot *element = [elementStore objectForKey:[[childXMLElement attributeForName:kXMLIndexPathKey] stringValue]];
+    if (element) {
+      [matchingSnapshots addObject:element];
+    }
+  }
+  return matchingSnapshots;
+}
+
+- (DDXMLElement *)XMLElementFromElement:(XCElementSnapshot *)snapshot indexPath:(NSString *)indexPath elementStore:(NSMutableDictionary *)elementStore
+{
+  DDXMLElement *xmlElement = [[DDXMLElement alloc] initWithName:snapshot.wdType];
+  [xmlElement addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:snapshot.wdType]];
+  if (snapshot.wdValue) {
+    id value = snapshot.wdValue;
+    NSString *stringValue;
+    if ([value isKindOfClass:[NSValue class]]) {
+      stringValue = [value stringValue];
+    } else if ([value isKindOfClass:[NSString class]]) {
+      stringValue = value;
+    } else {
+      stringValue = [value description];
+    }
+    [xmlElement addAttribute:[DDXMLNode attributeWithName:@"value" stringValue:stringValue]];
+  }
+  if (snapshot.wdName) {
+    [xmlElement addAttribute:[DDXMLNode attributeWithName:@"name" stringValue:snapshot.wdName]];
+  }
+  if (snapshot.wdLabel) {
+    [xmlElement addAttribute:[DDXMLNode attributeWithName:@"label" stringValue:snapshot.wdLabel]];
+  }
+  [xmlElement addAttribute:[DDXMLNode attributeWithName:kXMLIndexPathKey stringValue:indexPath]];
+
+  NSArray *children = snapshot.children;
+  for (NSUInteger i  = 0; i < [children count]; i++) {
+    XCElementSnapshot *childSnapshot = children[i];
+    NSString *newIndexPath = [indexPath stringByAppendingFormat:@",%lu", (unsigned long)i];
+    elementStore[newIndexPath] = childSnapshot;
+    [xmlElement addChild:[self XMLElementFromElement:childSnapshot indexPath:newIndexPath elementStore:elementStore]];
+  }
+  return xmlElement;
 }
 
 - (XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type
