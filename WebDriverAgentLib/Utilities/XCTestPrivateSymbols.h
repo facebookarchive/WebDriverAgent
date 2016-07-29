@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <WebDriverAgentLib/XCDebugLogDelegate-Protocol.h>
+@protocol XCDebugLogDelegate;
 
 /*! Accessibility identifier for is visible attribute */
 extern NSNumber *FB_XCAXAIsVisibleAttribute;
