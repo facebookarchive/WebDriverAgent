@@ -32,11 +32,12 @@
   NSSet<NSString *> *expectedLabels = [NSSet setWithArray:@[
     @"Alerts",
     @"Attributes",
+    @"Contacts",
     @"Scrolling",
     @"Deadlock app",
   ]];
   NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingClassName:@"XCUIElementTypeButton"];
-  XCTAssertEqual(matchingSnapshots.count, 4);
+  XCTAssertEqual(matchingSnapshots.count, expectedLabels.count);
   NSArray<NSString *> *labels = [matchingSnapshots valueForKeyPath:@"@distinctUnionOfObjects.label"];
   XCTAssertEqualObjects([NSSet setWithArray:labels], expectedLabels);
 
