@@ -11,15 +11,21 @@
 set -eu
 
 function build() {
- xcodebuild \
-      -project WebDriverAgent.xcodeproj \
-      -scheme $TARGET \
-      -sdk $SDK \
-      -destination "platform=iOS Simulator,name=${DESTINATION-'iPhone 6'}" \
-      $ACTION \
-      CODE_SIGN_IDENTITY="" \
-      CODE_SIGNING_REQUIRED=NO \
-  | xcpretty
+  if [ ! -z "${DESTINATION:-}" ]; then
+    DESTINATION_CMD="-destination \"name=${DESTINATION}\""
+  fi
+  lines=(
+    "xcodebuild"
+    "-project WebDriverAgent.xcodeproj"
+    "-scheme ${TARGET=WebDriverAgentRunner}"
+    "-sdk ${SDK=iphoneos}"
+    "${DESTINATION_CMD-}"
+    "${ACTION-archive}"
+    "CODE_SIGN_IDENTITY=\"\""
+    "CODE_SIGNING_REQUIRED=NO"
+    "| xcpretty -f `xcpretty-travis-formatter` && exit \${PIPESTATUS[0]}"
+  )
+  eval "${lines[*]}"
 }
 
 ./Scripts/bootstrap.sh
