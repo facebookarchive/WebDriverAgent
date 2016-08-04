@@ -80,9 +80,11 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   if (self.fb_isVisible) {
     return YES;
   }
-  XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeCollectionView];
-  scrollView = scrollView ?: [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeTable];
-  scrollView = scrollView ?: [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeScrollView];
+  NSArray *possibleParents = [NSArray arrayWithObjects:[NSNumber numberWithInteger:XCUIElementTypeScrollView],
+                                [NSNumber numberWithInteger:XCUIElementTypeCollectionView],
+                                [NSNumber numberWithInteger:XCUIElementTypeTable], nil];
+    
+  XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingOneOfTypes:possibleParents];
 
   XCElementSnapshot *targetCellSnapshot = self.fb_parentCellSnapshot;
   NSArray<XCElementSnapshot *> *cellSnapshots = [scrollView fb_descendantsMatchingType:XCUIElementTypeCell];
