@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return parent element matching one of given types
  */
 
-- (nullable XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *>*)types;
+- (nullable XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types;
 
 /**
  Returns value for given accessibility property identifier.

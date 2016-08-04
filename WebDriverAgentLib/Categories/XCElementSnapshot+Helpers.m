@@ -24,7 +24,7 @@
 static NSString *const kXMLIndexPathKey = @"private_indexPath";
 
 inline static BOOL valuesAreEqual(id value1, id value2);
-inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, NSArray<NSNumber *>* types);
+inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, NSArray<NSNumber *> *types);
 
 @implementation XCElementSnapshot (Helpers)
 
@@ -97,13 +97,13 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
   return snapshot;
 }
 
-- (XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *>*)types
+- (XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types
 {
- XCElementSnapshot *snapshot = self.parent;
- while (snapshot && !isSnapshotTypeAmongstGivenTypes(snapshot, types)) {
-     snapshot = snapshot.parent;
- }
- return snapshot;
+  XCElementSnapshot *snapshot = self.parent;
+  while (snapshot && !isSnapshotTypeAmongstGivenTypes(snapshot, types)) {
+      snapshot = snapshot.parent;
+  }
+  return snapshot;
 }
 
 - (id)fb_attributeValue:(NSNumber *)attribute
@@ -129,12 +129,12 @@ inline static BOOL valuesAreEqual(id value1, id value2)
   return value1 == value2 || [value1 isEqual:value2];
 }
 
-inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, NSArray<NSNumber *>* types)
+inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, NSArray<NSNumber *> *types)
 {
- for (NSUInteger i = 0; i < types.count; i++) {
-  if([NSNumber numberWithInteger: snapshot.elementType] == types[i]){
-      return YES;
+  for (NSUInteger i = 0; i < types.count; i++) {
+   if([@(snapshot.elementType) isEqual: types[i]]){
+       return YES;
+   }
   }
- }
- return NO;
+  return NO;
 }
