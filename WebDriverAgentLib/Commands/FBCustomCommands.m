@@ -79,7 +79,7 @@
         } else if ([direction isEqualToString:@"right"]) {
             [request.session.application fb_scrollRight];
         } else {
-            return FBResponseWithErrorFormat(@"Unsupported scroll type");
+            return FBResponseWithErrorFormat(@"Unsupported scroll direction");
         }
         return FBResponseWithOK();
     } else {
