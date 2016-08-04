@@ -22,6 +22,7 @@
 #import "XCUIDevice+FBHelpers.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
+#import "XCUIElement+FBScrolling.h"
 
 @implementation FBCustomCommands
 
@@ -32,6 +33,7 @@
     [[FBRoute POST:@"/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/timeouts"] respondWithTarget:self action:@selector(handleTimeouts:)],
+    [[FBRoute POST:@"/scroll"] respondWithTarget:self action:@selector(handleScrollCommand:)],
   ];
 }
 
@@ -62,6 +64,27 @@
 {
   // This method is intentionally not supported.
   return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleScrollCommand:(FBRouteRequest *)request
+{
+    NSString *const direction = request.arguments[@"direction"];
+    if (direction) {
+        if ([direction isEqualToString:@"up"]) {
+            [request.session.application fb_scrollUp];
+        } else if ([direction isEqualToString:@"down"]) {
+            [request.session.application fb_scrollDown];
+        } else if ([direction isEqualToString:@"left"]) {
+            [request.session.application fb_scrollLeft];
+        } else if ([direction isEqualToString:@"right"]) {
+            [request.session.application fb_scrollRight];
+        } else {
+            return FBResponseWithErrorFormat(@"Unsupported scroll type");
+        }
+        return FBResponseWithOK();
+    } else {
+        return FBResponseWithErrorFormat(@"Missing direction parameter");
+    }
 }
 
 @end
