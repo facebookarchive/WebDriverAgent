@@ -68,23 +68,15 @@
 
 + (id<FBResponsePayload>)handleScrollCommand:(FBRouteRequest *)request
 {
-    NSString *const direction = request.arguments[@"direction"];
-    if (direction) {
-        if ([direction isEqualToString:@"up"]) {
-            [request.session.application fb_scrollUp];
-        } else if ([direction isEqualToString:@"down"]) {
-            [request.session.application fb_scrollDown];
-        } else if ([direction isEqualToString:@"left"]) {
-            [request.session.application fb_scrollLeft];
-        } else if ([direction isEqualToString:@"right"]) {
-            [request.session.application fb_scrollRight];
-        } else {
-            return FBResponseWithErrorFormat(@"Unsupported scroll direction");
-        }
-        return FBResponseWithOK();
-    } else {
-        return FBResponseWithErrorFormat(@"Missing direction parameter");
-    }
+  NSString *const direction = request.arguments[@"direction"];
+  if(!direction) {
+      return FBResponseWithErrorFormat(@"Missing direction parameter");
+  }
+  NSError *error;
+  if (![request.session.application fb_scrollInDirection:direction error:&error]) {
+      return FBResponseWithError(error);
+  }
+  return FBResponseWithOK();
 }
 
 @end

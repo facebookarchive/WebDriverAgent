@@ -233,14 +233,9 @@
 
   NSString *const direction = request.arguments[@"direction"];
   if (direction) {
-    if ([direction isEqualToString:@"up"]) {
-      [element fb_scrollUp];
-    } else if ([direction isEqualToString:@"down"]) {
-      [element fb_scrollDown];
-    } else if ([direction isEqualToString:@"left"]) {
-      [element fb_scrollLeft];
-    } else if ([direction isEqualToString:@"right"]) {
-      [element fb_scrollRight];
+    NSError *error;
+    if (![request.session.application fb_scrollInDirection:direction error:&error]) {
+        return FBResponseWithError(error);
     }
     return FBResponseWithOK();
   }
