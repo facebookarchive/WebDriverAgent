@@ -177,9 +177,10 @@
   XCUIElement *element = [elementCache elementForUUID:elementUUID];
   NSError *error = nil;
   
-  //scrollelement to visiable but ignore errros happen during scroll
-  [element fb_scrollToVisibleWithError:&error];
-  error = nil;
+  //scroll element to visiable before clicking
+  if (![element fb_scrollToVisibleWithError:&error]) {
+      return FBResponseWithError(error);
+  }
     
   if (![element fb_tapWithError:&error]) {
     return FBResponseWithError(error);
