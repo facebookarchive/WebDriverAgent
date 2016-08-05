@@ -159,11 +159,19 @@
   FBElementCache *elementCache = request.session.elementCache;
   NSString *elementUUID = request.parameters[@"uuid"];
   XCUIElement *element = [elementCache elementForUUID:elementUUID];
+  id value = request.arguments[@"value"];
+  if (!value) {
+    return FBResponseWithErrorFormat(@"Missing 'value' parameter");
+  }
+  if (element.elementType == XCUIElementTypePickerWheel) {
+    [element adjustToPickerWheelValue:value];
+    return FBResponseWithOK();
+  }
   NSError *error = nil;
   if (!element.hasKeyboardFocus && ![element fb_tapWithError:&error]) {
     return FBResponseWithError(error);
   }
-  NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
+  NSString *textToType = [value componentsJoinedByString:@""];
   if (![FBKeyboard typeText:textToType error:&error]) {
     return FBResponseWithError(error);
   }
