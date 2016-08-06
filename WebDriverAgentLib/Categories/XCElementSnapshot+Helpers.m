@@ -132,7 +132,7 @@ inline static BOOL valuesAreEqual(id value1, id value2)
 inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, NSArray<NSNumber *> *types)
 {
   for (NSUInteger i = 0; i < types.count; i++) {
-   if([@(snapshot.elementType) isEqual: types[i]]){
+   if([@(snapshot.elementType) isEqual: types[i]] || [types[i] isEqual: @(XCUIElementTypeAny)]){
        return YES;
    }
   }

@@ -64,4 +64,18 @@
   XCTAssertEqual(windowSnapshot.elementType, XCUIElementTypeWindow);
 }
 
+- (void)testParentMatchingOneOfTypes
+{
+  [self goToAttributesPage];
+  XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
+  XCTAssertTrue(todayPickerWheel.exists);
+  [todayPickerWheel resolve];
+  XCElementSnapshot *datePicker = [todayPickerWheel.lastSnapshot fb_parentMatchingOneOfTypes:@[@(XCUIElementTypeDatePicker), @(XCUIElementTypeWindow)]];
+  XCTAssertNotNil(datePicker);
+  XCTAssertEqual(datePicker.elementType, XCUIElementTypeDatePicker);
+  XCElementSnapshot *otherSnapshot = [todayPickerWheel.lastSnapshot fb_parentMatchingOneOfTypes:@[@(XCUIElementTypeAny), @(XCUIElementTypeWindow)]];
+  XCTAssertNotNil(otherSnapshot);
+  XCTAssertEqual(otherSnapshot.elementType, XCUIElementTypeOther);
+}
+
 @end
