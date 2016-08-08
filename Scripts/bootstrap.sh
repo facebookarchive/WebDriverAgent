@@ -21,7 +21,7 @@ fi
 function assert_has_carthage() {
   if ! command -v carthage > /dev/null; then
     echo "Please make sure that you have Carthage installed (https://github.com/Carthage/Carthage)"
-    echo "Note: We are expecting that npm installed in /usr/local/bin/"
+    echo "Note: We are expecting that carthage installed in /usr/local/bin/"
     exit 1;
   fi
 }
