@@ -60,6 +60,7 @@
     [[FBRoute POST:@"/uiaElement/:uuid/value"] respondWithTarget:self action:@selector(handleGetUIAElementValue:)],
     [[FBRoute POST:@"/uiaTarget/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
     [[FBRoute POST:@"/tap/:uuid"] respondWithTarget:self action:@selector(handleTap:)],
+    [[FBRoute POST:@"/scroll"] respondWithTarget:self action:@selector(handleScrollOnApplication:)],
     [[FBRoute POST:@"/keys"] respondWithTarget:self action:@selector(handleKeys:)],
     [[FBRoute GET:@"/window/:uuid/size"] respondWithTarget:self action:@selector(handleGetWindowSize:)],
   ];
@@ -233,11 +234,7 @@
 
   NSString *const direction = request.arguments[@"direction"];
   if (direction) {
-    NSError *error;
-    if (![request.session.application fb_scrollInDirection:direction error:&error]) {
-        return FBResponseWithError(error);
-    }
-    return FBResponseWithOK();
+    return [self.class handleScrollElementInDirection:element withDirection:direction withRequest:request];
   }
 
   NSString *const predicateString = request.arguments[@"predicateString"];
@@ -315,6 +312,14 @@
   return FBResponseWithStatus(FBCommandStatusNoError, session.application.wdRect[@"size"]);
 }
 
++ (id<FBResponsePayload>)handleScrollOnApplication:(FBRouteRequest *)request
+{
+  NSString *const direction = request.arguments[@"direction"];
+  if (direction) {
+    return [self.class handleScrollElementInDirection:request.session.application withDirection:direction withRequest:request];
+  }
+  return FBResponseWithErrorFormat(@"Missing direction parameter");
+}
 
 #pragma mark - Helpers
 
@@ -325,6 +330,15 @@
     return FBResponseWithErrorFormat(@"Can't scroll to element that does not exist");
   }
   if (![element fb_scrollToVisibleWithError:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleScrollElementInDirection:(XCUIElement *)element withDirection:(NSString *)direction withRequest:(FBRouteRequest *)request
+{
+  NSError *error;
+  if (![element fb_scrollInDirection:direction error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();

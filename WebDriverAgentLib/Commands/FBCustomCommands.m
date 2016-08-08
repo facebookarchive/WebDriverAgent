@@ -33,7 +33,6 @@
     [[FBRoute POST:@"/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/timeouts"] respondWithTarget:self action:@selector(handleTimeouts:)],
-    [[FBRoute POST:@"/scroll"] respondWithTarget:self action:@selector(handleScrollCommand:)],
   ];
 }
 
@@ -63,19 +62,6 @@
 + (id<FBResponsePayload>)handleTimeouts:(FBRouteRequest *)request
 {
   // This method is intentionally not supported.
-  return FBResponseWithOK();
-}
-
-+ (id<FBResponsePayload>)handleScrollCommand:(FBRouteRequest *)request
-{
-  NSString *const direction = request.arguments[@"direction"];
-  if(!direction) {
-      return FBResponseWithErrorFormat(@"Missing direction parameter");
-  }
-  NSError *error;
-  if (![request.session.application fb_scrollInDirection:direction error:&error]) {
-      return FBResponseWithError(error);
-  }
   return FBResponseWithOK();
 }
 
