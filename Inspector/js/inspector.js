@@ -61,7 +61,7 @@ class Inspector extends React.Component {
           {fieldName}:
         </div>
         <div className="inspector-field-value">
-          {fieldValue}
+          {String(fieldValue)}
         </div>
       </div>
     );
