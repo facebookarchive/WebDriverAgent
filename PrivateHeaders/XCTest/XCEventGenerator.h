@@ -30,10 +30,15 @@ typedef void (^XCEventGeneratorHandler)(XCSynthesizedEventRecord *record, NSErro
 - (double)pinchInRect:(CGRect)arg1 withScale:(double)arg2 velocity:(double)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
 - (double)pressAtPoint:(CGPoint)arg1 forDuration:(double)arg2 liftAtPoint:(CGPoint)arg3 velocity:(double)arg4 orientation:(UIInterfaceOrientation)arg5 name:(NSString *)arg6 handler:(XCEventGeneratorHandler)arg7;
 - (double)pressAtPoint:(CGPoint)arg1 forDuration:(double)arg2 orientation:(UIInterfaceOrientation)arg3 handler:(XCEventGeneratorHandler)arg4;
+
+// iOS 9.x specific
 - (double)tapWithNumberOfTaps:(unsigned long long)arg1 numberOfTouches:(unsigned long long)arg2 inRect:(CGRect)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
 - (double)twoFingerTapInRect:(CGRect)arg1 orientation:(UIInterfaceOrientation)arg2 handler:(XCEventGeneratorHandler)arg3;
 - (double)doubleTapAtPoint:(CGPoint)arg1 orientation:(UIInterfaceOrientation)arg2 handler:(XCEventGeneratorHandler)arg3;
 - (double)tapAtPoint:(CGPoint)arg1 orientation:(UIInterfaceOrientation)arg2 handler:(XCEventGeneratorHandler)arg3;
+
+// iOS 10.x specific
+- (double)tapAtTouchLocations:(NSArray *)locations numberOfTaps:(NSInteger)numberOfTaps orientation:(UIInterfaceOrientation)orientation handler:(XCEventGeneratorHandler)handler;
 
 #elif TARGET_OS_MAC
 - (double)sendKeyboardInputs:(id)arg1 layout:(id)arg2 handler:(CDUnknownBlockType)arg3;
