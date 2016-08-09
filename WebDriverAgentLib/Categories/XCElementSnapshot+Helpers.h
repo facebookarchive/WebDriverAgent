@@ -43,7 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
  @param types possible parent types
  @return parent element matching one of given types
  */
-
 - (nullable XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types;
 
 /**
