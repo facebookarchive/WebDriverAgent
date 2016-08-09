@@ -62,7 +62,7 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
   FBAssertWaitTillBecomesTrue([FBSpringboardApplication fb_springboard].icons[@"Safari"].exists);
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
-  FBAssertWaitTillBecomesTrue([FBSpringboardApplication fb_springboard].icons[@"Calendar"].exists);
+  FBAssertWaitTillBecomesTrue([FBSpringboardApplication fb_springboard].icons[@"Calendar"].fb_isVisible);
 }
 
 - (void)gotToScrollsWithAccessibilityStrippedCells:(BOOL)accessibilityStrippedCells
