@@ -24,6 +24,7 @@
 static NSString *const kXMLIndexPathKey = @"private_indexPath";
 
 inline static BOOL valuesAreEqual(id value1, id value2);
+inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, NSArray<NSNumber *> *types);
 
 @implementation XCElementSnapshot (FBHelpers)
 
@@ -96,6 +97,15 @@ inline static BOOL valuesAreEqual(id value1, id value2);
   return snapshot;
 }
 
+- (XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types
+{
+  XCElementSnapshot *snapshot = self.parent;
+  while (snapshot && !isSnapshotTypeAmongstGivenTypes(snapshot, types)) {
+      snapshot = snapshot.parent;
+  }
+  return snapshot;
+}
+
 - (id)fb_attributeValue:(NSNumber *)attribute
 {
   NSDictionary *attributesResult = [[XCAXClient_iOS sharedClient] attributesForElementSnapshot:self attributeList:@[attribute]];
@@ -117,4 +127,14 @@ inline static BOOL valuesAreEqual(id value1, id value2);
 inline static BOOL valuesAreEqual(id value1, id value2)
 {
   return value1 == value2 || [value1 isEqual:value2];
+}
+
+inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, NSArray<NSNumber *> *types)
+{
+  for (NSUInteger i = 0; i < types.count; i++) {
+   if([@(snapshot.elementType) isEqual: types[i]] || [types[i] isEqual: @(XCUIElementTypeAny)]){
+       return YES;
+   }
+  }
+  return NO;
 }
