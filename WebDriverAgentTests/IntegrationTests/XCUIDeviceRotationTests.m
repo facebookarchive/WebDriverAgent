@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "FBIntegrationTestCase.h"
-#import "XCUIDevice+Rotation.h"
+#import "XCUIDevice+FBRotation.h"
 
 @interface XCUIDeviceRotationTests : FBIntegrationTestCase
 

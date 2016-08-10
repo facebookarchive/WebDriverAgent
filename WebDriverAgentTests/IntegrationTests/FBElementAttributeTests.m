@@ -13,7 +13,7 @@
 #import "FBFindElementCommands.h"
 #import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
-#import "XCUIElement+WebDriverAttributes.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 
 @interface FBElementAttributeTests : FBIntegrationTestCase
 @end

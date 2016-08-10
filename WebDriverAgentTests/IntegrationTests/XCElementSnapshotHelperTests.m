@@ -10,7 +10,7 @@
 #import <XCTest/XCTest.h>
 
 #import "FBIntegrationTestCase.h"
-#import "XCElementSnapshot+Helpers.h"
+#import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement.h"
 
 @interface XCElementSnapshotHelperTests : FBIntegrationTestCase

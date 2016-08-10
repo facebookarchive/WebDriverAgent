@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "XCUIElement+WebDriverAttributes.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 
 #import <objc/runtime.h>
 

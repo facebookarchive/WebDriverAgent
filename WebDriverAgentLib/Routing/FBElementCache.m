@@ -11,7 +11,7 @@
 
 #import "FBAlert.h"
 #import "XCUIElement.h"
-#import "XCUIElement+Utilities.h"
+#import "XCUIElement+FBUtilities.h"
 
 
 @interface FBElementCache ()

@@ -7,13 +7,13 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "XCUIElement+Utilities.h"
+#import "XCUIElement+FBUtilities.h"
 
 #import "FBAlert.h"
 #import "FBRunLoopSpinner.h"
-#import "XCUIElement+WebDriverAttributes.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 
-@implementation XCUIElement (Utilities)
+@implementation XCUIElement (FBUtilities)
 
 - (BOOL)fb_waitUntilFrameIsStable
 {

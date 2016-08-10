@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface XCUIDevice (Rotation)
+@interface XCUIDevice (FBRotation)
 
 /**
  Sets the devices orientation to the rotation passed.

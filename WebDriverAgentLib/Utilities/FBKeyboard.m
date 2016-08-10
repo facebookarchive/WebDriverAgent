@@ -15,7 +15,7 @@
 #import "FBRunLoopSpinner.h"
 #import "FBMacros.h"
 #import "XCElementSnapshot.h"
-#import "XCUIElement+Utilities.h"
+#import "XCUIElement+FBUtilities.h"
 #import "XCTestDriver.h"
 
 static const NSUInteger FBTypingFrequency = 60;

@@ -8,7 +8,7 @@
  */
 
 #import "FBOrientationCommands.h"
-#import "XCUIDevice+Rotation.h"
+#import "XCUIDevice+FBRotation.h"
 #import "FBRouteRequest.h"
 #import "FBMacros.h"
 #import "FBSession.h"

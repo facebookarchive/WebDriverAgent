@@ -14,8 +14,8 @@
 #import "FBElementTypeTransformer.h"
 #import "FBMacros.h"
 #import "XCUIElement+FBIsVisible.h"
-#import "XCUIElement+WebDriverAttributes.h"
-#import "XCElementSnapshot+Helpers.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
+#import "XCElementSnapshot+FBHelpers.h"
 
 @implementation XCUIApplication (FBHelpers)
 

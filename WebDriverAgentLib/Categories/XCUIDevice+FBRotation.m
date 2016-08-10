@@ -7,9 +7,9 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "XCUIDevice+Rotation.h"
+#import "XCUIDevice+FBRotation.h"
 
-@implementation XCUIDevice (Rotation)
+@implementation XCUIDevice (FBRotation)
 
 - (BOOL)setDeviceRotation:(NSDictionary *)rotationObj
 {

@@ -12,8 +12,8 @@
 
 #import "FBElementTypeTransformer.h"
 #import "XCElementSnapshot.h"
-#import "XCElementSnapshot+Helpers.h"
-#import "XCUIElement+WebDriverAttributes.h"
+#import "XCElementSnapshot+FBHelpers.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 
 @implementation XCUIElement (FBFind)
 

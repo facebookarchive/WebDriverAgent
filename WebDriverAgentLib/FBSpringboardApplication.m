@@ -11,7 +11,7 @@
 
 #import "FBRunLoopSpinner.h"
 #import "FBMacros.h"
-#import "XCElementSnapshot+Helpers.h"
+#import "XCElementSnapshot+FBHelpers.h"
 #import "XCElementSnapshot.h"
 #import "XCUIApplication+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"

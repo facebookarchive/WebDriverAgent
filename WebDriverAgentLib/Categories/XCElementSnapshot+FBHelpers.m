@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "XCElementSnapshot+Helpers.h"
+#import "XCElementSnapshot+FBHelpers.h"
 
 #import <KissXML/DDXML.h>
 
@@ -19,13 +19,13 @@
 #import "XCTestDriver.h"
 #import "XCTestPrivateSymbols.h"
 #import "XCUIElement.h"
-#import "XCUIElement+WebDriverAttributes.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 
 static NSString *const kXMLIndexPathKey = @"private_indexPath";
 
 inline static BOOL valuesAreEqual(id value1, id value2);
 
-@implementation XCElementSnapshot (Helpers)
+@implementation XCElementSnapshot (FBHelpers)
 
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type
 {
