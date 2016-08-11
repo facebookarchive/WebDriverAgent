@@ -34,6 +34,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fb_scrollRight;
 
 /**
+ Scrolls receiver in given direction
+ 
+ @param direction directon in which reciever will be scrolled.
+ @param error If there is an error, upon return contains an NSError object that describes the problem.
+ @return YES if the operation succeeds, otherwise NO.
+ */
+- (BOOL)fb_scrollInDirection:(NSString *)direction error:(NSError **)error;
+
+/**
  Scrolls parent scroll view till receiver is visible.
 
  @param error If there is an error, upon return contains an NSError object that describes the problem.

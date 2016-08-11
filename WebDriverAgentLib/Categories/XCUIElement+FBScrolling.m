@@ -69,6 +69,25 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   [self.lastSnapshot fb_scrollRightByNormalizedDistance:FBFullscreenNormalizedDistance];
 }
 
+- (BOOL)fb_scrollInDirection:(NSString *)direction error:(NSError **)error
+{
+  if ([direction isEqualToString:@"up"]) {
+      [self fb_scrollUp];
+  } else if ([direction isEqualToString:@"down"]) {
+      [self fb_scrollDown];
+  } else if ([direction isEqualToString:@"left"]) {
+      [self fb_scrollLeft];
+  } else if ([direction isEqualToString:@"right"]) {
+      [self fb_scrollRight];
+  } else {
+      return
+      [[[FBErrorBuilder builder]
+        withDescriptionFormat:@"Unsupported scroll direction"]
+      buildError:error];
+  }
+  return YES;
+}
+
 - (BOOL)fb_scrollToVisibleWithError:(NSError **)error
 {
   return [self fb_scrollToVisibleWithNormalizedScrollDistance:FBScrollToVisibleNormalizedDistance error:error];

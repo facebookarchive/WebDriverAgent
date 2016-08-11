@@ -22,6 +22,7 @@
 #import "XCUIDevice+FBHelpers.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
+#import "XCUIElement+FBScrolling.h"
 
 @implementation FBCustomCommands
 

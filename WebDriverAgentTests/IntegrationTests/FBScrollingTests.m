@@ -50,6 +50,24 @@
   FBAssertVisibleCell(@"10");
 }
 
+- (void)testScrollInDirection
+{
+  NSError *error;
+  FBAssertVisibleCell(@"0");
+  FBAssertVisibleCell(@"10");
+  XCTAssertTrue([self.testedApplication fb_scrollInDirection:@"down" error:&error]);
+  XCTAssertNil(error);
+  FBAssertInvisibleCell(@"0");
+  FBAssertInvisibleCell(@"10");
+  XCTAssertTrue(self.testedApplication.cells.count > 0);
+  XCTAssertTrue([self.tableView fb_scrollInDirection:@"up" error:&error]);
+  FBAssertVisibleCell(@"0");
+  FBAssertVisibleCell(@"10");
+  XCTAssertNil(error);
+  XCTAssertFalse([self.testedApplication fb_scrollInDirection:@"northeast" error:&error]);
+  XCTAssertEqualObjects(error.localizedDescription, @"Unsupported scroll direction");
+}
+
 - (void)testScrollToVisible
 {
   NSString *cellName = @"30";
