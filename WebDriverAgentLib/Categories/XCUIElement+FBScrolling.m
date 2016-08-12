@@ -44,6 +44,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 - (void)fb_scrollRightByNormalizedDistance:(CGFloat)distance;
 - (BOOL)fb_scrollByNormalizedVector:(CGVector)normalizedScrollVector;
 - (BOOL)fb_scrollByVector:(CGVector)vector error:(NSError **)error;
+- (XCElementSnapshot *)fb_findScrollViewWithVisibleCellSnapshotWitherror:(NSError **)error;
 
 @end
 
@@ -80,13 +81,13 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   if (self.fb_isVisible) {
     return YES;
   }
-  NSArray *possibleParents = @[
+ /* NSArray *possibleParents = @[
                                @(XCUIElementTypeScrollView),
                                @(XCUIElementTypeCollectionView),
                                @(XCUIElementTypeTable),
-                              ];
+                              ];*/
     
-  XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingOneOfTypes:possibleParents];
+  XCElementSnapshot *scrollView = [self.lastSnapshot fb_findScrollViewWithVisibleCellSnapshotWitherror:error];
 
   XCElementSnapshot *targetCellSnapshot = self.fb_parentCellSnapshot;
   NSArray<XCElementSnapshot *> *cellSnapshots = [scrollView fb_descendantsMatchingType:XCUIElementTypeCell];
@@ -197,6 +198,31 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   [self fb_scrollByNormalizedVector:CGVectorMake(-distance, 0.0)];
 }
 
+- (XCElementSnapshot *)fb_findScrollViewWithVisibleCellSnapshotWitherror:(NSError **)error
+{
+    NSArray *possibleParents = @[
+                                 @(XCUIElementTypeScrollView),
+                                 @(XCUIElementTypeCollectionView),
+                                 @(XCUIElementTypeTable),
+                                 ];
+    
+    XCElementSnapshot *scrollView = [self fb_parentMatchingOneOfTypes:possibleParents];
+    
+    NSArray<XCElementSnapshot *> *cellSnapshots = [scrollView fb_descendantsMatchingType:XCUIElementTypeCell];
+    if (cellSnapshots.count == 0) {
+        // In some cases XCTest will not report Cell Views. In that case grabbing descendants and trying to figure out scroll directon from them.
+        cellSnapshots = scrollView._allDescendants;
+    }
+    NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)]];
+    
+    if (visibleCellSnapshots.count < 2) {
+        return [scrollView fb_findScrollViewWithVisibleCellSnapshotWitherror:error];
+        
+    } else {
+        return scrollView;
+    }
+    
+}
 
 - (BOOL)fb_scrollByNormalizedVector:(CGVector)normalizedScrollVector
 {
