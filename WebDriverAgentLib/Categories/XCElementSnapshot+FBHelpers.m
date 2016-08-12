@@ -14,6 +14,7 @@
 #import "FBFindElementCommands.h"
 #import "FBRunLoopSpinner.h"
 #import "FBLogger.h"
+#import "FBMacros.h"
 #import "FBXPathCreator.h"
 #import "XCAXClient_iOS.h"
 #import "XCTestDriver.h"
@@ -25,6 +26,7 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
 
 inline static BOOL valuesAreEqual(id value1, id value2);
 inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, NSArray<NSNumber *> *types);
+inline static BOOL doesSnapshotHasMoreThanOneVisibleChildSnapshot(XCElementSnapshot* snapshot);
 
 @implementation XCElementSnapshot (FBHelpers)
 
@@ -99,9 +101,21 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
 
 - (XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types
 {
+    XCElementSnapshot *snapshot = self.parent;
+    while (snapshot && !isSnapshotTypeAmongstGivenTypes(snapshot, types)) {
+        snapshot = snapshot.parent;
+    }
+    return snapshot;
+}
+
+- (XCElementSnapshot *)fb_findVisibleParentMatchingOneOfTypesAndHasMoreThanOneChild:(NSArray<NSNumber *> *)types
+{
   XCElementSnapshot *snapshot = self.parent;
-  while (snapshot && !isSnapshotTypeAmongstGivenTypes(snapshot, types)) {
-      snapshot = snapshot.parent;
+  while (snapshot) {
+    if (isSnapshotTypeAmongstGivenTypes(snapshot, types) && [snapshot isWDVisible] && doesSnapshotHasMoreThanOneVisibleChildSnapshot(snapshot)) {
+      break;
+    }
+    snapshot = snapshot.parent;
   }
   return snapshot;
 }
@@ -135,6 +149,20 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
    if([@(snapshot.elementType) isEqual: types[i]] || [types[i] isEqual: @(XCUIElementTypeAny)]){
        return YES;
    }
+  }
+  return NO;
+}
+
+inline static BOOL doesSnapshotHasMoreThanOneVisibleChildSnapshot(XCElementSnapshot* snapshot)
+{
+  NSArray<XCElementSnapshot *> *cellSnapshots = [snapshot fb_descendantsMatchingType:XCUIElementTypeCell];
+  if (cellSnapshots.count == 0) {
+    // In some cases XCTest will not report Cell Views. In that case grabbing descendants and trying to figure out scroll directon from them.
+    cellSnapshots = snapshot._allDescendants;
+  }
+  NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, isWDVisible)]];
+  if (visibleCellSnapshots.count > 1) {
+    return YES;
   }
   return NO;
 }

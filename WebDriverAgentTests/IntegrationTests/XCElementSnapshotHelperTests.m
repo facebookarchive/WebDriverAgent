@@ -63,35 +63,35 @@
   XCTAssertEqual(windowSnapshot.elementType, XCUIElementTypeWindow);
 }
 
-- (void)testParentMatchingOneOfTypes
+- (void)testFindVisibleParentMatchingOneOfTypes
 {
   [self goToAttributesPage];
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
   XCTAssertTrue(todayPickerWheel.exists);
   [todayPickerWheel resolve];
-  XCElementSnapshot *datePicker = [todayPickerWheel.lastSnapshot fb_parentMatchingOneOfTypes:@[@(XCUIElementTypeDatePicker), @(XCUIElementTypeWindow)]];
+  XCElementSnapshot *datePicker = [todayPickerWheel.lastSnapshot fb_findVisibleParentMatchingOneOfTypesAndHasMoreThanOneChild:@[@(XCUIElementTypeDatePicker), @(XCUIElementTypeWindow)]];
   XCTAssertNotNil(datePicker);
   XCTAssertEqual(datePicker.elementType, XCUIElementTypeDatePicker);
 }
 
-- (void)testParentMatchingOneOfTypesWithXCUIElementTypeAny
+- (void)testFindVisibleParentMatchingOneOfTypesWithXCUIElementTypeAny
 {
   [self goToAttributesPage];
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
   XCTAssertTrue(todayPickerWheel.exists);
   [todayPickerWheel resolve];
-  XCElementSnapshot *otherSnapshot = [todayPickerWheel.lastSnapshot fb_parentMatchingOneOfTypes:@[@(XCUIElementTypeAny), @(XCUIElementTypeWindow)]];
+  XCElementSnapshot *otherSnapshot = [todayPickerWheel.lastSnapshot fb_findVisibleParentMatchingOneOfTypesAndHasMoreThanOneChild:@[@(XCUIElementTypeAny), @(XCUIElementTypeWindow)]];
   XCTAssertNotNil(otherSnapshot);
   XCTAssertEqual(otherSnapshot.elementType, XCUIElementTypeOther);
 }
 
-- (void)testParentMatchingOneOfTypesWithAbsentParents
+- (void)testFindVisibleParentMatchingOneOfTypesWithAbsentParents
 {
   [self goToAttributesPage];
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
   XCTAssertTrue(todayPickerWheel.exists);
   [todayPickerWheel resolve];
-  XCElementSnapshot *otherSnapshot = [todayPickerWheel.lastSnapshot fb_parentMatchingOneOfTypes:@[@(XCUIElementTypeTab), @(XCUIElementTypeLink)]];
+  XCElementSnapshot *otherSnapshot = [todayPickerWheel.lastSnapshot fb_findVisibleParentMatchingOneOfTypesAndHasMoreThanOneChild:@[@(XCUIElementTypeTab), @(XCUIElementTypeLink)]];
   XCTAssertNil(otherSnapshot);
 }
 
