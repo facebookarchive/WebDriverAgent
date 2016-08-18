@@ -38,12 +38,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type;
 
 /**
- Returns first (going up element tree) parent that matches one of given types. If non found returns nil.
+ Returns first (going up element tree) visible parent that matches one of given types. If non found returns nil.
  
  @param types possible parent types
- @return parent element matching one of given types
+ @return visible parent element matching one of given types
  */
-- (nullable XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types;
+- (nullable XCElementSnapshot *)fb_findVisibleParentMatchingOneOfTypes:(NSArray<NSNumber *> *)types;
 
 /**
  Returns value for given accessibility property identifier.

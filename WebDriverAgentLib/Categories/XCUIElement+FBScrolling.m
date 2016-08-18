@@ -44,7 +44,6 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 - (void)fb_scrollRightByNormalizedDistance:(CGFloat)distance;
 - (BOOL)fb_scrollByNormalizedVector:(CGVector)normalizedScrollVector;
 - (BOOL)fb_scrollByVector:(CGVector)vector error:(NSError **)error;
-- (XCElementSnapshot *)fb_findVisibleScrollableView;
 
 @end
 
@@ -82,13 +81,18 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
     return YES;
   }
 
-  XCElementSnapshot *scrollView = [self.lastSnapshot fb_findVisibleScrollableView];
+  NSArray *possibleParents = @[
+                               @(XCUIElementTypeScrollView),
+                               @(XCUIElementTypeCollectionView),
+                               @(XCUIElementTypeTable),
+                               ];
+    
+  XCElementSnapshot *scrollView = [self.lastSnapshot fb_findVisibleParentMatchingOneOfTypes:possibleParents];
   
   if (scrollView == nil) {
     return
-    [[[FBErrorBuilder builder]
-      withDescriptionFormat:@"Failed to find scrollable visible parent"]
-       buildError:error];
+    [[FBErrorBuilder builder]
+      withDescriptionFormat:@"Failed to find scrollable visible parent"];
   }
 
   XCElementSnapshot *targetCellSnapshot = self.fb_parentCellSnapshot;
@@ -279,25 +283,6 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   // We should wait till scroll view cools off, before continuing
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBScrollCoolOffTime]];
   return didSucceed;
-}
-
-- (XCElementSnapshot *)fb_findVisibleScrollableView
-{
-  NSArray *possibleParents = @[
-                               @(XCUIElementTypeScrollView),
-                               @(XCUIElementTypeCollectionView),
-                               @(XCUIElementTypeTable),
-                              ];
-    
-  XCElementSnapshot *scrollView = [self fb_parentMatchingOneOfTypes:possibleParents];
-    
-  if (scrollView == nil) {
-    return nil;
-  } else if (![scrollView fb_isVisible]) {
-    return [scrollView fb_findVisibleScrollableView];
-  } else {
-    return scrollView;
-  }
 }
 
 @end
