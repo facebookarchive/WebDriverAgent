@@ -39,6 +39,9 @@
 
 + (instancetype)appWithPID:(pid_t)processID
 {
+  if ([NSProcessInfo processInfo].processIdentifier == processID) {
+    return nil;
+  }
   FBApplication *application = [self fb_registeredApplicationWithProcessID:processID];
   if (application) {
     return application;
