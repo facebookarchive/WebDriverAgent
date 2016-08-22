@@ -128,7 +128,7 @@
                                 <rect key="frame" x="20" y="75" width="560" height="30"/>
                                 <accessibility key="accessibilityConfiguration" identifier="" label=""/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Kpo-oC-QzU">
                                 <rect key="frame" x="161" y="382" width="39" height="37"/>
@@ -151,7 +151,7 @@
                                 <rect key="frame" x="20" y="113" width="560" height="30"/>
                                 <accessibility key="accessibilityConfiguration" identifier="aIdentifier" label="aLabel"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Exq-MB-zeu">
                                 <rect key="frame" x="156" y="169" width="127" height="30"/>
