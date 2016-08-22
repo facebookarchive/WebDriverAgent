@@ -51,7 +51,7 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[FBShowAlertButtonName].fb_isVisible);
 }
 
-- (void)goToContactsPage
+- (void)goToContacts
 {
   [self.testedApplication.buttons[@"Contacts"] tap];
   FBAssertWaitTillBecomesTrue(self.testedApplication.navigationBars.buttons[@"Cancel"].fb_isVisible);
@@ -65,9 +65,11 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
   FBAssertWaitTillBecomesTrue([FBSpringboardApplication fb_springboard].icons[@"Calendar"].fb_isVisible);
 }
 
-- (void)gotToScrollPage
+- (void)gotToScrollsWithAccessibilityStrippedCells:(BOOL)accessibilityStrippedCells
 {
   [self.testedApplication.buttons[@"Scrolling"] tap];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Plain"].fb_isVisible);
+  [self.testedApplication.buttons[accessibilityStrippedCells ? @"Accessibility stripped": @"Plain"] tap];
   FBAssertWaitTillBecomesTrue(self.testedApplication.tables.element.fb_isVisible);
 }
 

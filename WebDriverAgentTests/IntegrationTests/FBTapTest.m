@@ -31,7 +31,7 @@
 
 - (void)testTapSuccess
 {
-  [self goToContactsPage];
+  [self goToContacts];
   XCUIElement *element = self.testedApplication.tables.cells[@"John Appleseed"];
   NSError *error;
   FBAssertWaitTillBecomesTrue(element.fb_isVisible);
@@ -39,7 +39,7 @@
   //assert the contacts picker is dismissed
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Alerts"].fb_isVisible);
 
-  [self goToContactsPage];
+  [self goToContacts];
   element = self.testedApplication.tables.cells[@"John Appleseed"];
   FBAssertWaitTillBecomesTrue(element.fb_isVisible);
   XCTAssertTrue([element fb_tapWithError:&error]);

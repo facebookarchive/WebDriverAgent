@@ -24,10 +24,15 @@
 
 @implementation FBScrollingTests
 
++ (BOOL)shouldUseStrippedCells
+{
+  return NO;
+}
+
 - (void)setUp
 {
   [super setUp];
-  [self gotToScrollPage];
+  [self gotToScrollsWithAccessibilityStrippedCells:NO];
   self.tableView = self.testedApplication.tables.element;
   [self.tableView resolve];
 }
