@@ -55,7 +55,6 @@
     [[FBRoute POST:@"/uiaElement/:uuid/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTap:)],
     [[FBRoute POST:@"/uiaElement/:uuid/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHold:)],
     [[FBRoute POST:@"/uiaElement/:uuid/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
-    [[FBRoute POST:@"/uiaElement/:uuid/value"] respondWithTarget:self action:@selector(handleGetUIAElementValue:)],
     [[FBRoute POST:@"/uiaTarget/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
     [[FBRoute POST:@"/tap/:uuid"] respondWithTarget:self action:@selector(handleTap:)],
     [[FBRoute POST:@"/keys"] respondWithTarget:self action:@selector(handleKeys:)],
@@ -248,21 +247,6 @@
     return [self.class handleScrollElementToVisible:element withRequest:request];
   }
   return FBResponseWithErrorFormat(@"Unsupported scroll type");
-}
-
-+ (id<FBResponsePayload>)handleGetUIAElementValue:(FBRouteRequest *)request
-{
-    FBElementCache *elementCache = request.session.elementCache;
-    XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-    if (element.elementType != XCUIElementTypePickerWheel) {
-        return FBResponseWithErrorFormat(@"Element is not of type %@", [FBElementTypeTransformer shortStringWithElementType:XCUIElementTypePickerWheel]);
-    }
-    NSString *wheelPickerValue = request.arguments[@"value"];
-    if (!wheelPickerValue) {
-        return FBResponseWithErrorFormat(@"Missing value parameter");
-    }
-    [element adjustToPickerWheelValue:wheelPickerValue];
-    return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleDrag:(FBRouteRequest *)request
