@@ -43,8 +43,6 @@
   @[
     [[FBRoute GET:@"/element/:uuid/enabled"] respondWithTarget:self action:@selector(handleGetEnabled:)],
     [[FBRoute GET:@"/element/:uuid/rect"] respondWithTarget:self action:@selector(handleGetRect:)],
-    [[FBRoute GET:@"/element/:uuid/size"] respondWithTarget:self action:@selector(handleGetSize:)],
-    [[FBRoute GET:@"/element/:uuid/location"] respondWithTarget:self action:@selector(handleGetLocation:)],
     [[FBRoute GET:@"/element/:uuid/location_in_view"] respondWithTarget:self action:@selector(handleGetLocationInView:)],
     [[FBRoute GET:@"/element/:uuid/attribute/:name"] respondWithTarget:self action:@selector(handleGetAttribute:)],
     [[FBRoute GET:@"/element/:uuid/text"] respondWithTarget:self action:@selector(handleGetText:)],
@@ -81,20 +79,6 @@
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   return FBResponseWithStatus(FBCommandStatusNoError, element.wdRect);
-}
-
-+ (id<FBResponsePayload>)handleGetSize:(FBRouteRequest *)request
-{
-  FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  return FBResponseWithStatus(FBCommandStatusNoError, element.wdSize);
-}
-
-+ (id<FBResponsePayload>)handleGetLocation:(FBRouteRequest *)request
-{
-  FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  return FBResponseWithStatus(FBCommandStatusNoError, element.wdLocation);
 }
 
 + (id<FBResponsePayload>)handleGetLocationInView:(FBRouteRequest *)request
