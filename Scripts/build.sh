@@ -23,7 +23,7 @@ function build() {
     "${ACTION-archive}"
     "CODE_SIGN_IDENTITY=\"\""
     "CODE_SIGNING_REQUIRED=NO"
-    "| xcpretty -f `xcpretty-travis-formatter` && exit \${PIPESTATUS[0]}"
+    "| xcpretty && exit \${PIPESTATUS[0]}"
   )
   eval "${lines[*]}"
 }
