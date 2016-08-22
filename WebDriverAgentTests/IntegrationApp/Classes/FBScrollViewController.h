@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FBStrippedTableView : UITableView
+@interface FBScrollViewController : UIViewController
 
 @end
