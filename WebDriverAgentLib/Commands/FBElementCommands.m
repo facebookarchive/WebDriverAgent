@@ -24,6 +24,7 @@
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBScrolling.h"
 #import "XCUIElement+FBTap.h"
+#import "XCUIElement+FBTyping.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "FBElementTypeTransformer.h"
@@ -150,12 +151,9 @@
     [element adjustToPickerWheelValue:value];
     return FBResponseWithOK();
   }
-  NSError *error = nil;
-  if (!element.hasKeyboardFocus && ![element fb_tapWithError:&error]) {
-    return FBResponseWithError(error);
-  }
   NSString *textToType = [value componentsJoinedByString:@""];
-  if (![FBKeyboard typeText:textToType error:&error]) {
+  NSError *error = nil;
+  if (![element fb_typeText:textToType error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithElementUUID(elementUUID);
@@ -179,14 +177,7 @@
   NSString *elementUUID = request.parameters[@"uuid"];
   XCUIElement *element = [elementCache elementForUUID:elementUUID];
   NSError *error;
-  if (!element.hasKeyboardFocus && ![element fb_tapWithError:&error]) {
-    return FBResponseWithError(error);
-  }
-  NSMutableString *textToType = @"".mutableCopy;
-  for (NSUInteger i = 0 ; i < [element.value length] ; i++) {
-    [textToType appendString:@"\b"];
-  }
-  if (![FBKeyboard typeText:textToType error:&error]) {
+  if (![element fb_clearTextWithError:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithElementUUID(elementUUID);
