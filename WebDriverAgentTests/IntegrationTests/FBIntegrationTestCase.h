@@ -31,7 +31,7 @@ extern NSString *const FBShowSheetAlertButtonName;
 /**
  Navigates integration app to contacts page
  */
-- (void)goToContacts;
+- (void)goToContactsPage;
 
 /**
  Navigates to SpringBoard first page
@@ -39,9 +39,8 @@ extern NSString *const FBShowSheetAlertButtonName;
 - (void)goToSpringBoardFirstPage;
 
 /**
- Navigates integration app to scrolling page
- @param accessibilityStrippedCells whether should navigate to tableview with accessibility stripped cell
+ Navigates to scrolling page
  */
-- (void)gotToScrollsWithAccessibilityStrippedCells:(BOOL)accessibilityStrippedCells;
+- (void)gotToScrollPage;
 
 @end
