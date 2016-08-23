@@ -45,6 +45,14 @@
   FBAssertInvisibleCell(@"50");
 }
 
+- (void)testCellVisibility
+{
+  FBAssertVisibleCell(@"0");
+  FBAssertVisibleCell(@"10");
+  FBAssertInvisibleCell(@"30");
+  FBAssertInvisibleCell(@"50");
+}
+
 - (void)testSimpleScroll
 {
   FBAssertVisibleCell(@"0");
