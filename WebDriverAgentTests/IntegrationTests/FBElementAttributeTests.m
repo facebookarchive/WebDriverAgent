@@ -26,18 +26,6 @@
   [self goToAttributesPage];
 }
 
-- (void)testIsVisible
-{
-  XCTAssertTrue(self.testedApplication.buttons[@"Button"].exists);
-  XCTAssertTrue(self.testedApplication.buttons[@"Button"].fb_isVisible);
-
-  XCTAssertTrue(self.testedApplication.staticTexts[@"alpha_invisible"].exists);
-  XCTAssertFalse(self.testedApplication.staticTexts[@"alpha_invisible"].fb_isVisible);
-
-  XCTAssertTrue(self.testedApplication.staticTexts[@"hidden_invisible"].exists);
-  XCTAssertFalse(self.testedApplication.staticTexts[@"hidden_invisible"].fb_isVisible);
-}
-
 - (void)testIsAccessible
 {
   XCTAssertTrue(self.testedApplication.buttons[@"Button"].exists);
