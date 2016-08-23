@@ -11,15 +11,25 @@
 
 @implementation FBTableDataSource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSUInteger)count
 {
   return 100;
+}
+
+- (NSString *)textForElementAtIndex:(NSInteger)index
+{
+  return [NSString stringWithFormat:@"%ld", (long)index];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+  return self.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-  cell.textLabel.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+  cell.textLabel.text = [self textForElementAtIndex:indexPath.row];
   return cell;
 }
 

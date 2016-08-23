@@ -11,4 +11,7 @@
 
 @interface FBTableDataSource : NSObject <UITableViewDataSource>
 
+- (NSUInteger)count;
+- (NSString *)textForElementAtIndex:(NSInteger)index;
+
 @end
