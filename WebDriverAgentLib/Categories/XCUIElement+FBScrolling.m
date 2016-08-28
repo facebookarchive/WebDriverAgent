@@ -91,8 +91,9 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   
   if (scrollView == nil) {
     return
-    [[FBErrorBuilder builder]
-      withDescriptionFormat:@"Failed to find scrollable visible parent"];
+    [[[FBErrorBuilder builder]
+      withDescriptionFormat:@"Failed to find scrollable visible parent"]
+     buildError:error];
   }
 
   XCElementSnapshot *targetCellSnapshot = self.fb_parentCellSnapshot;
