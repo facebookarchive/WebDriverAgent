@@ -44,7 +44,10 @@ function print_usage() {
 function fetch_and_build_dependencies() {
   echo -e "${BOLD}Fetching dependencies"
   assert_has_carthage
-  carthage bootstrap
+  if ! cmp -s Cartfile.resolved Carthage/Cartfile.resolved; then
+    carthage bootstrap
+    cp Cartfile.resolved Carthage
+  fi
 }
 
 function build_inspector() {
