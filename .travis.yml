@@ -11,8 +11,8 @@ branches:
     - master
 
 env:
-- TARGET=WebDriverAgentLib SDK=iphonesimulator DESTINATION='iPad 2' ACTION=test
-- TARGET=WebDriverAgentLib SDK=iphonesimulator DESTINATION='iPhone 6' ACTION=test
+- TARGET=WebDriverAgentLib SDK=iphonesimulator DESTINATION='iPad 2' ACTION='build test'
+- TARGET=WebDriverAgentLib SDK=iphonesimulator DESTINATION='iPhone 6' ACTION='build test'
 - TARGET=WebDriverAgentRunner SDK=iphonesimulator ACTION=build
 - TARGET=WebDriverAgentRunner SDK=iphoneos ACTION=build
 - TARGET=WebDriverAgentUSBClient SDK=macosx ACTION=build
