@@ -32,7 +32,6 @@
   NSSet<NSString *> *expectedLabels = [NSSet setWithArray:@[
     @"Alerts",
     @"Attributes",
-    @"Contacts",
     @"Scrolling",
     @"Deadlock app",
   ]];
