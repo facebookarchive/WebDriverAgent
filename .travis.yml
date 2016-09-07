@@ -4,6 +4,10 @@ sudo: false
 before_install:
   - brew install carthage
 
+cache:
+  directories:
+  - Carthage
+
 script: ./Scripts/build.sh
 
 branches:
