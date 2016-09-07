@@ -36,7 +36,7 @@
   FBSession *session = request.session;
   NSString *alertText = [FBAlert alertWithApplication:session.application].text;
   if (!alertText) {
-    return FBResponseWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
+    return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
   }
   return FBResponseWithStatus(FBCommandStatusNoError, alertText);
 }
@@ -45,7 +45,7 @@
 {
   FBSession *session = request.session;
   if (![[FBAlert alertWithApplication:session.application] acceptWithError:nil]) {
-    return FBResponseWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
+    return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
   }
   return FBResponseWithOK();
 }
@@ -54,7 +54,7 @@
 {
   FBSession *session = request.session;
   if (![[FBAlert alertWithApplication:session.application] dismissWithError:nil]) {
-    return FBResponseWithStatus(FBCommandStatusNoSuchElement, @"unable to find an alert");
+    return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
   }
   return FBResponseWithOK();
 }
