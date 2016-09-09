@@ -10,17 +10,18 @@
 
 set -eu
 
-function build() {
+function run_xcode_action() {
   if [ ! -z "${DESTINATION:-}" ]; then
     DESTINATION_CMD="-destination \"name=${DESTINATION}\""
   fi
   lines=(
     "xcodebuild"
+    "-verbose"
     "-project WebDriverAgent.xcodeproj"
     "-scheme ${TARGET=WebDriverAgentRunner}"
     "-sdk ${SDK=iphoneos}"
     "${DESTINATION_CMD-}"
-    "${ACTION-archive}"
+    "$1"
     "CODE_SIGN_IDENTITY=\"\""
     "CODE_SIGNING_REQUIRED=NO"
   )
@@ -28,4 +29,10 @@ function build() {
 }
 
 ./Scripts/bootstrap.sh
-build
+
+# Always build target first
+run_xcode_action 'build'
+
+if [ "${ACTION=archive}" != "build" ]; then
+  run_xcode_action "${ACTION=archive}"
+fi
