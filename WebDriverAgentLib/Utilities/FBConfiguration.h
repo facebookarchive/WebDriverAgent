@@ -28,6 +28,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSRange)bindingPortRange;
 
 /**
+ YES if should listen on USB. NO otherwise.
+ */
++ (BOOL)shouldListenOnUSB;
+
+/**
  YES if verbose logging is enabled. NO otherwise.
  */
 + (BOOL)verboseLoggingEnabled;

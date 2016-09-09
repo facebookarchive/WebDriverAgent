@@ -11,6 +11,8 @@
 
 #import <UIKit/UIKit.h>
 
+#include "TargetConditionals.h"
+
 BOOL _AXSAutomationSetFauxCollectionViewCellsEnabled(BOOL);
 
 static NSUInteger const DefaultStartingPort = 8100;
@@ -38,6 +40,15 @@ static NSUInteger const DefaultPortRange = 100;
   }
 
   return NSMakeRange(DefaultStartingPort, DefaultPortRange);
+}
+
++ (BOOL)shouldListenOnUSB
+{
+#if TARGET_OS_SIMULATOR
+  return NO;
+#else
+  return YES;
+#endif
 }
 
 + (BOOL)verboseLoggingEnabled
