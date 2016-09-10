@@ -118,7 +118,11 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
 
   XCElementSnapshot *lastSnapshot = visibleCellSnapshots.lastObject;
-  NSUInteger targetCellIndex = [cellSnapshots indexOfObject:targetCellSnapshot];
+  // Can't just do indexOfObject, because targetCellSnapshot may represent the same object represented by a member of cellSnapshots, yet be a different object
+  // than that member. This reflects the fact that targetCellSnapshot came out of self.fb_parentCellSnapshot, not out of cellSnapshots directly.
+  NSUInteger targetCellIndex = [cellSnapshots indexOfObjectPassingTest:^BOOL(XCElementSnapshot * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    return [obj _matchesElement:targetCellSnapshot];
+  }];
   NSUInteger visibleCellIndex = [cellSnapshots indexOfObject:lastSnapshot];
 
   if (targetCellIndex == NSNotFound) {
