@@ -76,6 +76,13 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
 - (BOOL)fb_scrollToVisibleWithNormalizedScrollDistance:(CGFloat)normalizedScrollDistance error:(NSError **)error
 {
+  return [self fb_scrollToVisibleWithNormalizedScrollDistance:normalizedScrollDistance
+                                              scrollDirection:FBXCUIElementScrollDirectionUnknown
+                                                        error:error];
+}
+
+- (BOOL)fb_scrollToVisibleWithNormalizedScrollDistance:(CGFloat)normalizedScrollDistance scrollDirection:(FBXCUIElementScrollDirection)scrollDirection error:(NSError **)error
+{
   [self resolve];
   if (self.fb_isVisible) {
     return YES;
@@ -90,8 +97,14 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
   XCElementSnapshot *targetCellSnapshot = self.fb_parentCellSnapshot;
   NSArray<XCElementSnapshot *> *cellSnapshots = [scrollView fb_descendantsMatchingType:XCUIElementTypeCell];
+
   if (cellSnapshots.count == 0) {
-    // In some cases XCTest will not report Cell Views. In that case grabbing descendants and trying to figure out scroll directon from them.
+    // For the home screen, cells are actually of type XCUIElementTypeIcon
+    cellSnapshots = [scrollView fb_descendantsMatchingType:XCUIElementTypeIcon];
+  }
+
+  if (cellSnapshots.count == 0) {
+    // In some cases XCTest will not report Cell Views. In that case grab all descendants and try to figure out scroll directon from them.
     cellSnapshots = scrollView._allDescendants;
   }
   NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)]];
@@ -102,29 +115,45 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
       withDescriptionFormat:@"Failed to perform scroll with visible cell count %lu", (unsigned long)visibleCellSnapshots.count]
      buildError:error];
   }
+
+
   XCElementSnapshot *lastSnapshot = visibleCellSnapshots.lastObject;
   NSUInteger targetCellIndex = [cellSnapshots indexOfObject:targetCellSnapshot];
   NSUInteger visibleCellIndex = [cellSnapshots indexOfObject:lastSnapshot];
 
-  XCElementSnapshot *firsVisibleCell = visibleCellSnapshots.firstObject;
-  XCElementSnapshot *lastVisibleCell = visibleCellSnapshots.lastObject;
-  CGVector cellGrowthVector = CGVectorMake(firsVisibleCell.frame.origin.x - lastVisibleCell.frame.origin.x,
-                                       firsVisibleCell.frame.origin.y - lastVisibleCell.frame.origin.y
-                                       );
+  if (targetCellIndex == NSNotFound) {
+    return [[[FBErrorBuilder builder]
+             withDescription:@"Failed to perform scroll, target cell not found"]
+            buildError:error];
+  }
 
-  const BOOL isVerticalScroll = (ABS(cellGrowthVector.dy) > ABS(cellGrowthVector.dx));
+  if (scrollDirection == FBXCUIElementScrollDirectionUnknown) {
+    // Try to determine the scroll direction by determining the vector between the first and last visible cells
+    XCElementSnapshot *firstVisibleCell = visibleCellSnapshots.firstObject;
+    XCElementSnapshot *lastVisibleCell = visibleCellSnapshots.lastObject;
+    CGVector cellGrowthVector = CGVectorMake(firstVisibleCell.frame.origin.x - lastVisibleCell.frame.origin.x,
+                                             firstVisibleCell.frame.origin.y - lastVisibleCell.frame.origin.y
+                                             );
+    if (ABS(cellGrowthVector.dy) > ABS(cellGrowthVector.dx)) {
+      scrollDirection = FBXCUIElementScrollDirectionVertical;
+    } else {
+      scrollDirection = FBXCUIElementScrollDirectionHorizontal;
+    }
+  }
 
   const NSUInteger maxScrollCount = 25;
   NSUInteger scrollCount = 0;
 
   XCElementSnapshot *prescrollSnapshot = self.lastSnapshot;
-  // Scrolling till cell is visible and got corrent value of frames
+  // Scrolling till cell is visible and get current value of frames
   while (![self fb_isEquivalentElementSnapshotVisible:prescrollSnapshot] && scrollCount < maxScrollCount) {
     if (targetCellIndex < visibleCellIndex) {
-      isVerticalScroll ? [scrollView fb_scrollUpByNormalizedDistance:normalizedScrollDistance] : [scrollView fb_scrollLeftByNormalizedDistance:normalizedScrollDistance];
+      scrollDirection == FBXCUIElementScrollDirectionVertical ? [scrollView fb_scrollUpByNormalizedDistance:normalizedScrollDistance] :
+      [scrollView fb_scrollLeftByNormalizedDistance:normalizedScrollDistance];
     }
     else {
-      isVerticalScroll ? [scrollView fb_scrollDownByNormalizedDistance:normalizedScrollDistance] : [scrollView fb_scrollRightByNormalizedDistance:normalizedScrollDistance];
+      scrollDirection == FBXCUIElementScrollDirectionVertical ? [scrollView fb_scrollDownByNormalizedDistance:normalizedScrollDistance] :
+      [scrollView fb_scrollRightByNormalizedDistance:normalizedScrollDistance];
     }
     [self resolve]; // Resolve is needed for correct visibility
     scrollCount++;
@@ -166,8 +195,13 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 - (XCElementSnapshot *)fb_parentCellSnapshot
 {
   XCElementSnapshot *targetCellSnapshot = self.lastSnapshot;
-  if (self.elementType != XCUIElementTypeCell) {
-    targetCellSnapshot = [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeCell];
+  // XCUIElementTypeIcon is the cell type for homescreen icons
+  NSArray<NSNumber *> *acceptableElementTypes = @[
+                                                  @(XCUIElementTypeCell),
+                                                  @(XCUIElementTypeIcon),
+                                                  ];
+  if (self.elementType != XCUIElementTypeCell && self.elementType != XCUIElementTypeIcon) {
+    targetCellSnapshot = [self.lastSnapshot fb_parentMatchingOneOfTypes:acceptableElementTypes];
   }
   return targetCellSnapshot;
 }
