@@ -120,16 +120,11 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   XCElementSnapshot *lastSnapshot = visibleCellSnapshots.lastObject;
   // Can't just do indexOfObject, because targetCellSnapshot may represent the same object represented by a member of cellSnapshots, yet be a different object
   // than that member. This reflects the fact that targetCellSnapshot came out of self.fb_parentCellSnapshot, not out of cellSnapshots directly.
+  // If the result is NSNotFound, we'll just proceed by scrolling downward/rightward, since NSNotFound will always be larger than the current index.
   NSUInteger targetCellIndex = [cellSnapshots indexOfObjectPassingTest:^BOOL(XCElementSnapshot * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     return [obj _matchesElement:targetCellSnapshot];
   }];
   NSUInteger visibleCellIndex = [cellSnapshots indexOfObject:lastSnapshot];
-
-  if (targetCellIndex == NSNotFound) {
-    return [[[FBErrorBuilder builder]
-             withDescription:@"Failed to perform scroll, target cell not found"]
-            buildError:error];
-  }
 
   if (scrollDirection == FBXCUIElementScrollDirectionUnknown) {
     // Try to determine the scroll direction by determining the vector between the first and last visible cells
