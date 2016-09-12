@@ -28,12 +28,6 @@ NSString *wdAttributeNameForAttributeName(NSString *name);
 /*! Element's frame in NSDictionary format */
 @property (nonatomic, readonly, copy) NSDictionary *wdRect;
 
-/*! Element's size */
-@property (nonatomic, readonly, copy) NSDictionary *wdSize;
-
-/*! Element's origin */
-@property (nonatomic, readonly, copy) NSDictionary *wdLocation;
-
 /*! Element's name */
 @property (nonatomic, readonly, copy) NSString *wdName;
 

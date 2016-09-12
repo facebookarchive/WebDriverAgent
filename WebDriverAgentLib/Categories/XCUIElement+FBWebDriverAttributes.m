@@ -136,14 +136,4 @@
     };
 }
 
-- (NSDictionary *)wdSize
-{
-    return (NSDictionary *_Nonnull)self.wdRect[@"size"];
-}
-
-- (NSDictionary *)wdLocation
-{
-    return (NSDictionary *_Nonnull)self.wdRect[@"origin"];
-}
-
 @end

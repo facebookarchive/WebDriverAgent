@@ -44,7 +44,6 @@
   @[
     [[FBRoute GET:@"/element/:uuid/enabled"] respondWithTarget:self action:@selector(handleGetEnabled:)],
     [[FBRoute GET:@"/element/:uuid/rect"] respondWithTarget:self action:@selector(handleGetRect:)],
-    [[FBRoute GET:@"/element/:uuid/location_in_view"] respondWithTarget:self action:@selector(handleGetLocationInView:)],
     [[FBRoute GET:@"/element/:uuid/attribute/:name"] respondWithTarget:self action:@selector(handleGetAttribute:)],
     [[FBRoute GET:@"/element/:uuid/text"] respondWithTarget:self action:@selector(handleGetText:)],
     [[FBRoute GET:@"/element/:uuid/displayed"] respondWithTarget:self action:@selector(handleGetDisplayed:)],
@@ -79,17 +78,6 @@
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   return FBResponseWithStatus(FBCommandStatusNoError, element.wdRect);
-}
-
-+ (id<FBResponsePayload>)handleGetLocationInView:(FBRouteRequest *)request
-{
-  FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  NSError *error;
-  if ([element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithStatus(FBCommandStatusNoError, element.wdLocation);
-  }
-  return FBResponseWithError(error);
 }
 
 + (id<FBResponsePayload>)handleGetAttribute:(FBRouteRequest *)request
