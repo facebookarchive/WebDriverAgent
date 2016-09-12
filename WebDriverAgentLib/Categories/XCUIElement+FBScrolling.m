@@ -80,13 +80,21 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   if (self.fb_isVisible) {
     return YES;
   }
+
   NSArray *possibleParents = @[
                                @(XCUIElementTypeScrollView),
                                @(XCUIElementTypeCollectionView),
                                @(XCUIElementTypeTable),
-                              ];
+                               ];
     
-  XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingOneOfTypes:possibleParents];
+  XCElementSnapshot *scrollView = [self.lastSnapshot fb_findVisibleParentMatchingOneOfTypes:possibleParents];
+  
+  if (scrollView == nil) {
+    return
+    [[[FBErrorBuilder builder]
+      withDescriptionFormat:@"Failed to find scrollable visible parent"]
+     buildError:error];
+  }
 
   XCElementSnapshot *targetCellSnapshot = self.fb_parentCellSnapshot;
   NSArray<XCElementSnapshot *> *cellSnapshots = [scrollView fb_descendantsMatchingType:XCUIElementTypeCell];
@@ -196,7 +204,6 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 {
   [self fb_scrollByNormalizedVector:CGVectorMake(-distance, 0.0)];
 }
-
 
 - (BOOL)fb_scrollByNormalizedVector:(CGVector)normalizedScrollVector
 {
