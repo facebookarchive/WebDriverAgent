@@ -121,19 +121,13 @@
 
 - (NSDictionary *)wdRect
 {
-  return
-  @{
-    @"origin":
-      @{
-        @"x": @(CGRectGetMinX(self.frame)),
-        @"y": @(CGRectGetMinY(self.frame)),
-        },
-    @"size":
-      @{
-        @"width": @(CGRectGetWidth(self.frame)),
-        @"height": @(CGRectGetHeight(self.frame)),
-        },
-    };
+    return
+    @{
+      @"x": @(CGRectGetMinX(self.frame)),
+      @"y": @(CGRectGetMinY(self.frame)),
+      @"width": @(CGRectGetWidth(self.frame)),
+      @"height": @(CGRectGetHeight(self.frame)),
+      };
 }
 
 @end
