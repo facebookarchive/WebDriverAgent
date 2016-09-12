@@ -10,12 +10,13 @@
 #import "FBApplication.h"
 
 #import "FBApplicationProcessProxy.h"
+#import "FBRunLoopSpinner.h"
 #import "FBMacros.h"
+#import "XCAccessibilityElement.h"
+#import "XCAXClient_iOS.h"
 #import "XCUIApplication.h"
 #import "XCUIApplicationImpl.h"
 #import "XCUIApplicationProcess.h"
-#import "XCAXClient_iOS.h"
-#import "XCAccessibilityElement.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 
@@ -27,6 +28,12 @@
 
 + (instancetype)fb_activeApplication
 {
+  [[[FBRunLoopSpinner new]
+    timeout:5]
+   spinUntilTrue:^BOOL{
+     return [[XCAXClient_iOS sharedClient] activeApplications].count == 1;
+   }];
+
   XCAccessibilityElement *activeApplicationElement = [[[XCAXClient_iOS sharedClient] activeApplications] firstObject];
   if (!activeApplicationElement) {
     return nil;

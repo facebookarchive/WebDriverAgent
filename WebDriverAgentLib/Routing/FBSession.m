@@ -67,14 +67,9 @@ static FBSession *_activeSession;
 
 - (FBApplication *)application
 {
-  FBApplication *application = self.testedApplication;
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K != %d", FBStringify(XCAccessibilityElement, processIdentifier), self.testedApplication.processID];
-  XCAccessibilityElement *anotherActiveApplication = [[[[XCAXClient_iOS sharedClient] activeApplications] filteredArrayUsingPredicate:predicate] firstObject];
-  if (anotherActiveApplication) {
-    // If different active app is detected, using it instead of tested one
-    application = [FBApplication appWithPID:anotherActiveApplication.processIdentifier];
-  }
-  else if (!application.running) {
+  FBApplication *application = [FBApplication fb_activeApplication];
+  const BOOL testedApplicationIsActiveAndNotRunning = (application.processID == self.testedApplication.processID && !application.running);
+  if (testedApplicationIsActiveAndNotRunning) {
     [[NSException exceptionWithName:FBApplicationCrashedException reason:@"Application is not running, possibly crashed" userInfo:nil] raise];
   }
   [application query];

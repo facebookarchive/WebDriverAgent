@@ -33,7 +33,7 @@
 - (void)notifyOnNextOccurrenceOfUserTestingEvent:(id)arg1 handler:(CDUnknownBlockType)arg2;
 - (void)handleUserTestingNotification:(id)arg1;
 - (id)elementAtPoint:(CGPoint)arg1 error:(id *)arg2;
-- (id)activeApplications;
+- (NSArray<XCAccessibilityElement *> *)activeApplications;
 - (id)systemApplication;
 - (id)init;
 
