@@ -76,6 +76,8 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
   if (snapshot.wdLabel) {
     [xmlElement addAttribute:[DDXMLNode attributeWithName:@"label" stringValue:snapshot.wdLabel]];
   }
+  [xmlElement addAttribute:[DDXMLNode attributeWithName:@"isVisible" stringValue:snapshot.wdVisible ? @"1" : @"0"]];
+  [xmlElement addAttribute:[DDXMLNode attributeWithName:@"isEnabled" stringValue:snapshot.wdEnabled ? @"1" : @"0"]];
   [xmlElement addAttribute:[DDXMLNode attributeWithName:kXMLIndexPathKey stringValue:indexPath]];
 
   NSArray *children = snapshot.children;
