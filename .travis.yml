@@ -1,8 +1,6 @@
 language: objective-c
 osx_image: xcode8
 sudo: false
-before_install:
-  - brew install carthage
 
 cache:
   directories:
