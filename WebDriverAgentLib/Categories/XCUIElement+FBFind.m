@@ -31,6 +31,16 @@
   return result.copy;
 }
 
+#pragma mark - Search by CellByIndex
+
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingCellByIndex:(NSString *)cellIndex
+{
+    NSMutableArray *result = [NSMutableArray array];
+    NSUInteger index = cellIndex.integerValue;
+    XCUIElement *elem = [[self descendantsMatchingType:XCUIElementTypeCell] elementBoundByIndex:index];
+    [result addObject:elem];
+    return result.copy;
+}
 
 #pragma mark - Search by property value
 

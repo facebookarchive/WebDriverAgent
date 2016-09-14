@@ -23,6 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingClassName:(NSString *)className;
 
 /**
+ Returns an array of descendants matching given cell index
+
+ @param cellIndex requested cell index
+ @return an array of descendants matching given cell index
+ */
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingCellByIndex:(NSString *)cellIndex;
+
+/**
  Returns an array of descendants matching given accessibility id
 
  @param accessibilityId requested accessibility id
