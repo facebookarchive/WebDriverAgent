@@ -33,13 +33,44 @@
 
 #pragma mark - Search by CellByIndex
 
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingCellByIndex:(NSString *)cellIndex
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingHui:(NSString *)cellIndex
 {
-    NSMutableArray *result = [NSMutableArray array];
-    NSUInteger index = cellIndex.integerValue;
-    XCUIElement *elem = [[self descendantsMatchingType:XCUIElementTypeCell] elementBoundByIndex:index];
-    [result addObject:elem];
-    return result.copy;
+  NSMutableArray *resultElementList = [NSMutableArray array];
+  NSArray *tokens = [cellIndex componentsSeparatedByString:@"|"];
+  NSError *error = nil;
+  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(getBy.*)\\((.+)\\)" options:NSRegularExpressionCaseInsensitive error:&error];
+
+  __block XCUIElement *currentElement = self;
+
+  [tokens enumerateObjectsUsingBlock:^(NSString *token, NSUInteger tokenIdx, BOOL *stopTokenEnum) {
+
+      NSArray *matches = [regex matchesInString:token
+                                        options:NSMatchingAnchored
+                                          range:NSMakeRange(0, [token length])];
+      NSTextCheckingResult *regRes = [matches objectAtIndex:0];
+      NSRange funcRange = [regRes rangeAtIndex:1];
+      NSRange argRange = [regRes rangeAtIndex:2];
+      NSString *func = [token substringWithRange:funcRange];
+      NSString *arg = [token substringWithRange:argRange];
+      if ([func isEqualToString:@"getById"]) {
+        currentElement = [[currentElement fb_descendantsMatchingIdentifier:arg] firstObject];
+      } else if ([func isEqualToString:@"getByClass"]) {
+        currentElement = [[currentElement fb_descendantsMatchingClassName:arg] firstObject];
+      } else if ([func isEqualToString:@"getByIndex"]) {
+        NSArray *asdf = [arg componentsSeparatedByString:@","];
+        NSUInteger type = [[asdf objectAtIndex:0] integerValue];
+        NSUInteger indx = [[asdf objectAtIndex:1] integerValue];
+        currentElement = [[currentElement descendantsMatchingType:type] elementBoundByIndex:indx];
+      } else if ([func isEqualToString:@"getByAttribute"]) {
+        NSArray *asdf = [arg componentsSeparatedByString:@","];
+        NSString *attrName = [asdf objectAtIndex:0];
+        NSString *attrValue = [asdf objectAtIndex:1];
+        currentElement = [[currentElement fb_descendantsMatchingProperty:attrName value:attrValue partialSearch:false] firstObject];
+      }
+  }];
+  
+  [resultElementList addObject:currentElement];
+  return resultElementList.copy;
 }
 
 #pragma mark - Search by property value

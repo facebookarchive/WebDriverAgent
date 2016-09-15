@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param cellIndex requested cell index
  @return an array of descendants matching given cell index
  */
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingCellByIndex:(NSString *)cellIndex;
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingHui:(NSString *)cellIndex;
 
 /**
  Returns an array of descendants matching given accessibility id
