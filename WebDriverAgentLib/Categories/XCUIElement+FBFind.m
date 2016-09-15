@@ -33,10 +33,10 @@
 
 #pragma mark - Search by CellByIndex
 
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingHui:(NSString *)cellIndex
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingHui:(NSString *)locator
 {
   NSMutableArray *resultElementList = [NSMutableArray array];
-  NSArray *tokens = [cellIndex componentsSeparatedByString:@"|"];
+  NSArray *tokens = [locator componentsSeparatedByString:@"|"];
   NSError *error = nil;
   NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(getBy.*)\\((.+)\\)" options:NSRegularExpressionCaseInsensitive error:&error];
 
