@@ -39,7 +39,7 @@
   XCUIElement *appElement = [[self descendantsMatchingType:XCUIElementTypeAny]
                              elementMatchingPredicate:[NSPredicate predicateWithFormat:@"%K = %@", FBStringify(XCUIElement, identifier), identifier]
                              ];
-  if (![appElement fb_scrollToVisibleWithNormalizedScrollDistance:1.0 error:error]) {
+  if (![appElement fb_scrollToVisibleWithNormalizedScrollDistance:1.0 scrollDirection:FBXCUIElementScrollDirectionHorizontal error:error]) {
     return NO;
   }
   if (![appElement fb_tapWithError:error]) {

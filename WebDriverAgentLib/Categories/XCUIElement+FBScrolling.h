@@ -11,6 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ Defines directions in which scrolling is possible.
+ */
+typedef NS_ENUM(NSUInteger, FBXCUIElementScrollDirection) {
+  FBXCUIElementScrollDirectionUnknown,
+  FBXCUIElementScrollDirectionVertical,
+  FBXCUIElementScrollDirectionHorizontal,
+};
+
 @interface XCUIElement (FBScrolling)
 
 /**
@@ -43,13 +52,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Scrolls parent scroll view till receiver is visible. Whenever element is invisible it scrolls by normalizedScrollDistance
- in it's direction. Eg. if normalizedScrollDistance is equal to 0.5, each step will scroll by half of scroll view's size.
+ in its direction. E.g. if normalizedScrollDistance is equal to 0.5, each step will scroll by half of scroll view's size.
 
  @param normalizedScrollDistance single scroll step normalized (0.0 - 1.0) distance
  @param error If there is an error, upon return contains an NSError object that describes the problem.
  @return YES if the operation succeeds, otherwise NO.
  */
 - (BOOL)fb_scrollToVisibleWithNormalizedScrollDistance:(CGFloat)normalizedScrollDistance error:(NSError **)error;
+
+/**
+ Scrolls parent scroll view till receiver is visible. Whenever element is invisible it scrolls by normalizedScrollDistance
+ in its direction. E.g. if normalizedScrollDistance is equal to 0.5, each step will scroll by half of scroll view's size.
+
+ @param normalizedScrollDistance single scroll step normalized (0.0 - 1.0) distance
+ @param scrollDirection the direction in which the scroll view should be scrolled, or FBXCUIElementScrollDirectionUnknown 
+ to attempt to determine it automatically
+ @param error If there is an error, upon return contains an NSError object that describes the problem.
+ @return YES if the operation succeeds, otherwise NO.
+ */
+- (BOOL)fb_scrollToVisibleWithNormalizedScrollDistance:(CGFloat)normalizedScrollDistance scrollDirection:(FBXCUIElementScrollDirection)scrollDirection error:(NSError **)error;
 
 @end
 
