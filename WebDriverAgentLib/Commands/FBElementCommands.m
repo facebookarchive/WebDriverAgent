@@ -53,6 +53,7 @@
     [[FBRoute POST:@"/element/:uuid/click"] respondWithTarget:self action:@selector(handleClick:)],
     [[FBRoute POST:@"/element/:uuid/clear"] respondWithTarget:self action:@selector(handleClear:)],
     [[FBRoute POST:@"/uiaElement/:uuid/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTap:)],
+    [[FBRoute POST:@"/uiaElement/:uuid/twoFingerTap"] respondWithTarget:self action:@selector(handleTwoFingerTap:)],
     [[FBRoute POST:@"/uiaElement/:uuid/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHold:)],
     [[FBRoute POST:@"/uiaElement/:uuid/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
     [[FBRoute POST:@"/uiaTarget/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
@@ -177,6 +178,14 @@
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   [element doubleTap];
   return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleTwoFingerTap:(FBRouteRequest *)request
+{
+    FBElementCache *elementCache = request.session.elementCache;
+    XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+    [element twoFingerTap];
+    return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleTouchAndHold:(FBRouteRequest *)request
