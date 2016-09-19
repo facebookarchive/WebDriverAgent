@@ -38,14 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type;
 
 /**
- Returns first (going up element tree) parent that matches one of given types. If non found returns nil.
- 
- @param types possible parent types
- @return parent element matching one of given types
- */
-- (nullable XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types;
-
-/**
  Returns first (going up element tree) visible parent that matches one of given types and has more than one child. If non found returns nil.
  
  @param types possible parent types

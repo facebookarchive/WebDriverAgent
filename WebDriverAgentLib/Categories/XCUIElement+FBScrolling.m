@@ -207,7 +207,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
                                                   @(XCUIElementTypeIcon),
                                                   ];
   if (self.elementType != XCUIElementTypeCell && self.elementType != XCUIElementTypeIcon) {
-    targetCellSnapshot = [self.lastSnapshot fb_parentMatchingOneOfTypes:acceptableElementTypes];
+    targetCellSnapshot = [self.lastSnapshot fb_findVisibleParentMatchingOneOfTypesAndHasMoreThanOneChild:acceptableElementTypes];
   }
   return targetCellSnapshot;
 }

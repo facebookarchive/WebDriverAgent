@@ -99,15 +99,6 @@ inline static BOOL doesSnapshotHasMoreThanOneVisibleChildSnapshot(XCElementSnaps
   return snapshot;
 }
 
-- (XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types
-{
-    XCElementSnapshot *snapshot = self.parent;
-    while (snapshot && !isSnapshotTypeAmongstGivenTypes(snapshot, types)) {
-        snapshot = snapshot.parent;
-    }
-    return snapshot;
-}
-
 - (XCElementSnapshot *)fb_findVisibleParentMatchingOneOfTypesAndHasMoreThanOneChild:(NSArray<NSNumber *> *)types
 {
   XCElementSnapshot *snapshot = self.parent;
