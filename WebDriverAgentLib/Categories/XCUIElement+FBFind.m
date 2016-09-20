@@ -33,7 +33,7 @@
 
 #pragma mark - Search by CellByIndex
 
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingHui:(NSString *)locator
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingXui:(NSString *)locator
 {
   NSMutableArray *resultElementList = [NSMutableArray array];
   NSArray *tokens = [locator componentsSeparatedByString:@"|"];
@@ -54,13 +54,16 @@
       NSString *arg = [token substringWithRange:argRange];
       if ([func isEqualToString:@"getById"]) {
         currentElement = [[currentElement fb_descendantsMatchingIdentifier:arg] firstObject];
-      } else if ([func isEqualToString:@"getByClass"]) {
-        currentElement = [[currentElement fb_descendantsMatchingClassName:arg] firstObject];
       } else if ([func isEqualToString:@"getByIndex"]) {
         NSArray *asdf = [arg componentsSeparatedByString:@","];
         NSUInteger type = [[asdf objectAtIndex:0] integerValue];
-        NSUInteger indx = [[asdf objectAtIndex:1] integerValue];
-        currentElement = [[currentElement descendantsMatchingType:type] elementBoundByIndex:indx];
+        NSString *val = [asdf objectAtIndex:1];
+        if ([val isEqualToString:@"last"]) {
+          currentElement = [[[currentElement descendantsMatchingType:type] allElementsBoundByIndex] lastObject];
+        } else {
+          NSUInteger indx = [[asdf objectAtIndex:1] integerValue];
+          currentElement = [[currentElement descendantsMatchingType:type] elementBoundByIndex:indx];
+        }
       } else if ([func isEqualToString:@"getByAttribute"]) {
         NSArray *asdf = [arg componentsSeparatedByString:@","];
         NSString *attrName = [asdf objectAtIndex:0];

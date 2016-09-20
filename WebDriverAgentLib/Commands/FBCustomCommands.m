@@ -32,6 +32,7 @@
     [[FBRoute POST:@"/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/timeouts"] respondWithTarget:self action:@selector(handleTimeouts:)],
+    [[FBRoute POST:@"/timeouts/implicit_wait"] respondWithTarget:self action:@selector(handleTimeouts:)],
   ];
 }
 
@@ -61,7 +62,10 @@
 + (id<FBResponsePayload>)handleTimeouts:(FBRouteRequest *)request
 {
   // This method is intentionally not supported.
-  return FBResponseWithOK();
+  NSDictionary *result = @{
+          @"value": @"200",
+  };
+  return FBResponseWithStatus(FBCommandStatusNoError, result);
 }
 
 @end
