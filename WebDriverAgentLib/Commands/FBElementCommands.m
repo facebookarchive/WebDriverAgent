@@ -280,8 +280,11 @@
 
 + (id<FBResponsePayload>)handleGetWindowSize:(FBRouteRequest *)request
 {
-  FBSession *session = request.session;
-  return FBResponseWithStatus(FBCommandStatusNoError, session.application.wdRect[@"size"]);
+  CGRect frame = request.session.application.wdFrame;
+  return FBResponseWithStatus(FBCommandStatusNoError, @{
+    @"width": @(CGRectGetWidth(frame)),
+    @"height": @(CGRectGetHeight(frame)),
+  });
 }
 
 
