@@ -10,7 +10,6 @@
 		44757A851D42CF9700ECF35E /* XCUIDeviceRotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */; };
 		644A7DFB1D90C0E6002E0751 /* FBInvisibleParentScrollingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 644A7DFA1D90C0E6002E0751 /* FBInvisibleParentScrollingController.m */; };
 		644A7DFD1D90CB5E002E0751 /* FBInvisibleParentScrollingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 644A7DFA1D90C0E6002E0751 /* FBInvisibleParentScrollingController.m */; };
-		644A7E031D90E8BF002E0751 /* FBInvisibleParentScrollingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 644A7E021D90E8BF002E0751 /* FBInvisibleParentScrollingTests.m */; };
 		644A7E041D90E9B9002E0751 /* FBInvisibleParentScrollingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 644A7E021D90E8BF002E0751 /* FBInvisibleParentScrollingTests.m */; };
 		AD35D01A1CF1418E00870A75 /* RoutingHTTPServer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD35D01C1CF141A600870A75 /* KissXML.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD271CF120B000806E5D /* KissXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1598,7 +1597,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE9AB8011CAEE048008C271F /* UITestingUITests.m in Sources */,
-				644A7E031D90E8BF002E0751 /* FBInvisibleParentScrollingTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
