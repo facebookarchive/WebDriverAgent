@@ -29,6 +29,11 @@ extern NSString *const FBShowSheetAlertButtonName;
 - (void)goToAlertsPage;
 
 /**
+ Navigates integration app to InvisibleScrolling page
+ */
+- (void)goToInvisibleScrollingPage;
+
+/**
  Navigates to SpringBoard first page
  */
 - (void)goToSpringBoardFirstPage;

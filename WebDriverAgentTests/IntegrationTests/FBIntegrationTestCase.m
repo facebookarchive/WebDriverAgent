@@ -51,6 +51,12 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[FBShowAlertButtonName].fb_isVisible);
 }
 
+- (void)goToInvisibleScrollingPage
+{
+    [self.testedApplication.buttons[@"Invisible Parent Scroll"] tap];
+    FBAssertWaitTillBecomesTrue(self.testedApplication.staticTexts[@"3"].fb_isVisible);
+}
+
 - (void)goToSpringBoardFirstPage
 {
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
