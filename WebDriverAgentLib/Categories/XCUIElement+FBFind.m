@@ -59,10 +59,18 @@
         NSUInteger type = [[asdf objectAtIndex:0] integerValue];
         NSString *val = [asdf objectAtIndex:1];
         if ([val isEqualToString:@"last"]) {
-          currentElement = [[[currentElement descendantsMatchingType:type] allElementsBoundByIndex] lastObject];
+          if (tokenIdx == 0) {
+            currentElement = [[[currentElement descendantsMatchingType:type] allElementsBoundByIndex] lastObject];
+          } else {
+            currentElement = [[[currentElement childrenMatchingType:type] allElementsBoundByIndex] lastObject];
+          }
         } else {
           NSUInteger indx = [[asdf objectAtIndex:1] integerValue];
-          currentElement = [[currentElement descendantsMatchingType:type] elementBoundByIndex:indx];
+          if (tokenIdx == 0) {
+            currentElement = [[currentElement descendantsMatchingType:type] elementBoundByIndex:indx];
+          } else {
+            currentElement = [[currentElement childrenMatchingType:type] elementBoundByIndex:indx];
+          }
         }
       } else if ([func isEqualToString:@"getByAttribute"]) {
         NSArray *asdf = [arg componentsSeparatedByString:@","];
