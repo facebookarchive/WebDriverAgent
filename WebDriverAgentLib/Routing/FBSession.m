@@ -15,6 +15,7 @@
 #import "FBApplication.h"
 #import "FBElementCache.h"
 #import "FBMacros.h"
+#import "FBSpringboardApplication.h"
 #import "XCAccessibilityElement.h"
 #import "XCAXClient_iOS.h"
 #import "XCUIElement.h"
@@ -30,7 +31,7 @@ NSString *const FBApplicationCrashedException = @"FBApplicationCrashedException"
 static FBSession *_activeSession;
 + (instancetype)activeSession
 {
-  return _activeSession;
+  return _activeSession ?: [FBSession sessionWithApplication:nil];
 }
 
 + (void)markSessionActive:(FBSession *)session

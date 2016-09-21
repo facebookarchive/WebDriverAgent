@@ -61,6 +61,7 @@
   FBResponseWithStatus(
     FBCommandStatusNoError,
     @{
+      @"currentSessionID" : [FBSession activeSession].identifier,
       @"state" : @"success",
       @"os" :
         @{
