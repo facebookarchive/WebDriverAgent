@@ -32,6 +32,7 @@
 - (void)testRunner
 {
   [FBConfiguration shouldShowFakeCollectionViewCells:YES];
+  [FBConfiguration setTestManagerRequestTimeout:120];
   [[FBWebServer new] startServing];
 }
 
