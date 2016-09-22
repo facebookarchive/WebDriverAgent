@@ -28,7 +28,7 @@ static NSUInteger const DefaultPortRange = 100;
   _AXSAutomationSetFauxCollectionViewCellsEnabled(showFakeCells);
 }
 
-+ (void)setTestManagerRequestTimeout:(float)timeout
++ (void)setTestManagerRequestTimeout:(double)timeout
 {
   _XCTSetEventConfirmationTimeout(timeout);
 }

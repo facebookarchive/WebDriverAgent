@@ -16,7 +16,7 @@ NSNumber *FB_XCAXAIsElementAttribute;
 
 void (*XCSetDebugLogger)(id <XCDebugLogDelegate>);
 id<XCDebugLogDelegate> (*XCDebugLogger)();
-void (*_XCTSetEventConfirmationTimeout)(float);
+void (*_XCTSetEventConfirmationTimeout)(double);
 
 __attribute__((constructor)) void FBLoadXCTestSymbols(void)
 {
@@ -29,7 +29,7 @@ __attribute__((constructor)) void FBLoadXCTestSymbols(void)
   XCSetDebugLogger = (void (*)(id <XCDebugLogDelegate>))FBRetrieveXCTestSymbol("XCSetDebugLogger");
   XCDebugLogger = (id<XCDebugLogDelegate>(*)(void))FBRetrieveXCTestSymbol("XCDebugLogger");
 
-  _XCTSetEventConfirmationTimeout = (void (*)(float))FBRetrieveXCTestSymbol("_XCTSetEventConfirmationTimeout");
+  _XCTSetEventConfirmationTimeout = (void (*)(double))FBRetrieveXCTestSymbol("_XCTSetEventConfirmationTimeout");
 
   NSArray<NSNumber *> *accessibilityAttributes = XCAXAccessibilityAttributesForStringAttributes(@[XC_kAXXCAttributeIsVisible, XC_kAXXCAttributeIsElement]);
   FB_XCAXAIsVisibleAttribute = accessibilityAttributes[0];

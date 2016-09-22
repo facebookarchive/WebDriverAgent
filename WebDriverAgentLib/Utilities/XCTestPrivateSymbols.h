@@ -24,7 +24,7 @@ extern id<XCDebugLogDelegate> (*XCDebugLogger)();
 extern void (*XCSetDebugLogger)(id <XCDebugLogDelegate>);
 
 /*! Setter for XCTest <-> TestManager timeout */
-extern void (*_XCTSetEventConfirmationTimeout)(float);
+extern void (*_XCTSetEventConfirmationTimeout)(double);
 
 /**
  Method used to retrieve pointer for given symbol 'name' from given 'binary'
