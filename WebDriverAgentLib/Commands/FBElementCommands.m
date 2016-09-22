@@ -136,11 +136,14 @@
   if (!value) {
     return FBResponseWithErrorFormat(@"Missing 'value' parameter");
   }
+  NSString *textToType = value;
+  if ([value isKindOfClass:[NSArray class]]) {
+    textToType = [value componentsJoinedByString:@""];
+  }
   if (element.elementType == XCUIElementTypePickerWheel) {
-    [element adjustToPickerWheelValue:value];
+    [element adjustToPickerWheelValue:textToType];
     return FBResponseWithOK();
   }
-  NSString *textToType = [value componentsJoinedByString:@""];
   NSError *error = nil;
   if (![element fb_typeText:textToType error:&error]) {
     return FBResponseWithError(error);
