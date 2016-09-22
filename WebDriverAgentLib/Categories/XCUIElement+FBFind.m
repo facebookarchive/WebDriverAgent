@@ -38,45 +38,122 @@
   NSMutableArray *resultElementList = [NSMutableArray array];
   NSArray *tokens = [locator componentsSeparatedByString:@"|"];
   NSError *error = nil;
-  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(getBy.*)\\((.+)\\)" options:NSRegularExpressionCaseInsensitive error:&error];
+  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^(\\.{0,1})([0-9\\*]*)(\\(.+\\))*(\\[[0-9a-z]+\\]){0,1}$" options:NSRegularExpressionCaseInsensitive error:&error];
 
   __block XCUIElement *currentElement = self;
 
   [tokens enumerateObjectsUsingBlock:^(NSString *token, NSUInteger tokenIdx, BOOL *stopTokenEnum) {
-
       NSArray *matches = [regex matchesInString:token
                                         options:NSMatchingAnchored
                                           range:NSMakeRange(0, [token length])];
       NSTextCheckingResult *regRes = [matches objectAtIndex:0];
-      NSRange funcRange = [regRes rangeAtIndex:1];
-      NSRange argRange = [regRes rangeAtIndex:2];
-      NSString *func = [token substringWithRange:funcRange];
-      NSString *arg = [token substringWithRange:argRange];
-      if ([func isEqualToString:@"getById"]) {
-        currentElement = [[currentElement fb_descendantsMatchingIdentifier:arg] firstObject];
-      } else if ([func isEqualToString:@"getByIndex"]) {
-        NSArray *asdf = [arg componentsSeparatedByString:@","];
-        NSUInteger type = [[asdf objectAtIndex:0] integerValue];
-        NSString *val = [asdf objectAtIndex:1];
-        if ([val isEqualToString:@"last"]) {
-          if (tokenIdx == 0) {
-            currentElement = [[[currentElement descendantsMatchingType:type] allElementsBoundByIndex] lastObject];
-          } else {
-            currentElement = [[[currentElement childrenMatchingType:type] allElementsBoundByIndex] lastObject];
-          }
-        } else {
-          NSUInteger indx = [[asdf objectAtIndex:1] integerValue];
-          if (tokenIdx == 0) {
-            currentElement = [[currentElement descendantsMatchingType:type] elementBoundByIndex:indx];
-          } else {
-            currentElement = [[currentElement childrenMatchingType:type] elementBoundByIndex:indx];
+      NSInteger count = [regRes numberOfRanges];
+      NSRange childCharRange = [regRes rangeAtIndex:1];
+      NSRange typeRange = [regRes rangeAtIndex:2];
+      NSString *childChar = [token substringWithRange:childCharRange];
+      NSString *type = [token substringWithRange:typeRange];
+      NSInteger elementType ;
+      XCUIElementQuery *query;
+
+      if ([type isEqualToString:@"*"]) {
+        elementType = XCUIElementTypeAny;
+      } else {
+        elementType = [type intValue];
+      }
+
+      if ([childChar isEqualToString:@"."]) {
+        query = [currentElement childrenMatchingType:elementType];
+      } else {
+        query = [currentElement descendantsMatchingType:elementType];
+      }
+
+      Boolean hasCondition = false;
+      NSRange condTypeRange;
+      NSRange valueRange;
+      NSString *condType;
+      NSString *value;
+
+      Boolean hasIndex = false;
+      NSRange indexRange;
+      NSString *index;
+
+      for (NSInteger i = 3; i < count; i++) {
+        NSRange optionRange = [regRes rangeAtIndex:i];
+        if (optionRange.length == 0) {
+          continue;
+        }
+        NSString *option = [token substringWithRange:optionRange];
+
+        NSError *errorCond = nil;
+        NSRegularExpression *regexCondition = [NSRegularExpression regularExpressionWithPattern:@"\\((.*)=(.*)\\)" options:NSRegularExpressionCaseInsensitive error:&errorCond];
+        NSArray *conditionMatches = [regexCondition matchesInString:option
+                                          options:NSMatchingAnchored
+                                            range:NSMakeRange(0, [option length])];
+        if ([conditionMatches count] > 0) {
+          NSTextCheckingResult *regConditionRes = [conditionMatches objectAtIndex:0];
+          NSInteger condCount = [regConditionRes numberOfRanges];
+          if (condCount > 0) {
+            hasCondition = true;
+            condTypeRange = [regConditionRes rangeAtIndex:1];
+            valueRange = [regConditionRes rangeAtIndex:2];
+            condType = [option substringWithRange:condTypeRange];
+            value = [option substringWithRange:valueRange];
+            continue;
           }
         }
-      } else if ([func isEqualToString:@"getByAttribute"]) {
-        NSArray *asdf = [arg componentsSeparatedByString:@","];
-        NSString *attrName = [asdf objectAtIndex:0];
-        NSString *attrValue = [asdf objectAtIndex:1];
-        currentElement = [[currentElement fb_descendantsMatchingProperty:attrName value:attrValue partialSearch:false] firstObject];
+
+        NSError *errorInd = nil;
+        NSRegularExpression *regexIndex = [NSRegularExpression regularExpressionWithPattern:@"\\[(.*)\\]" options:NSRegularExpressionCaseInsensitive error:&errorInd];
+        NSArray *indexMatches = [regexIndex matchesInString:option
+                                                            options:NSMatchingAnchored
+                                                              range:NSMakeRange(0, [option length])];
+        if ([indexMatches count] > 0) {
+          NSTextCheckingResult *regIndexRes = [indexMatches objectAtIndex:0];
+          NSInteger indexCount = [regIndexRes numberOfRanges];
+          if (indexCount > 0) {
+            hasIndex = true;
+            indexRange = [regIndexRes rangeAtIndex:1];
+            index = [option substringWithRange:indexRange];
+          }
+        }
+      }
+
+      Boolean isArray = false;
+      NSArray *array;
+
+      if (hasCondition) {
+        if ([condType isEqualToString:@"id"]) {
+          query = [query matchingIdentifier:value];
+        } else {
+          array = [currentElement fb_descendantsMatchingProperty:condType value:value partialSearch:false];
+          if ([array count] == 0) {
+            query = [currentElement childrenMatchingType:XCUIElementTypeOther];
+          } else {
+            isArray = true;
+          }
+        }
+      }
+
+      if (hasIndex) {
+        if (isArray) {
+          if ([index isEqualToString:@"last"]) {
+            currentElement = [array lastObject];
+          } else {
+            currentElement = array[[index intValue]];
+          }
+        } else {
+          if ([index isEqualToString:@"last"]) {
+            currentElement = [[query allElementsBoundByIndex] lastObject];
+          } else {
+            currentElement = [query elementBoundByIndex:[index intValue]];
+          }
+        }
+      } else {
+        if (isArray) {
+          currentElement = array[0];
+        } else {
+          currentElement = [query elementBoundByIndex:0];
+        }
       }
   }];
   
