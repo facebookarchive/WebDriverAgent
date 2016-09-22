@@ -10,8 +10,7 @@
 
 @interface XCTestSuite : XCTest
 {
-    NSString *_name;
-    NSMutableArray *_tests;
+    id _internalImplementation;
 }
 @property(readonly, copy) NSArray *tests;
 
@@ -32,10 +31,12 @@
 - (void)_sortTestsUsingComparator:(CDUnknownBlockType)arg1;
 - (void)performTest:(id)arg1;
 - (void)_recordUnexpectedFailureForTestRun:(id)arg1 description:(id)arg2 exception:(id)arg3;
+- (void)recordFailureWithDescription:(id)arg1 inFile:(id)arg2 atLine:(unsigned long long)arg3 expected:(BOOL)arg4;
 - (Class)testRunClass;
 - (Class)_requiredTestRunBaseClass;
 - (unsigned long long)testCaseCount;
 - (void)addTest:(id)arg1;
+- (id)_testSuiteWithIdentifier:(id)arg1;
 - (id)description;
 - (id)name;
 - (id)initWithName:(id)arg1;

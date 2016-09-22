@@ -4,8 +4,8 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-#import <XCTest/XCTest.h>
+#import <Foundation/Foundation.h>
 
-@interface XCTest (XCTestProbeExtensions)
-- (void)removeTestsWithNames:(id)arg1;
+@interface NSValue (XCTestAdditions)
+- (id)xct_contentDescription;
 @end
