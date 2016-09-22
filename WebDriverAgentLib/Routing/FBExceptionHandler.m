@@ -15,6 +15,7 @@
 #import "FBResponsePayload.h"
 #import "FBSession.h"
 
+NSString *const FBInvalidArgumentException = @"FBInvalidArgumentException";
 NSString *const FBSessionDoesNotExistException = @"FBSessionDoesNotExistException";
 NSString *const FBApplicationDeadlockDetectedException = @"FBApplicationDeadlockDetectedException";
 NSString *const FBElementAttributeUnknownException = @"FBElementAttributeUnknownException";
@@ -31,6 +32,12 @@ NSString *const FBElementAttributeUnknownException = @"FBElementAttributeUnknown
 
   if ([exception.name isEqualToString:FBSessionDoesNotExistException]) {
     id<FBResponsePayload> payload = FBResponseWithStatus(FBCommandStatusNoSuchSession, [exception description]);
+    [payload dispatchWithResponse:response];
+    return YES;
+  }
+
+  if ([exception.name isEqualToString:FBInvalidArgumentException]) {
+    id<FBResponsePayload> payload = FBResponseWithStatus(FBCommandStatusInvalidArgument, [exception description]);
     [payload dispatchWithResponse:response];
     return YES;
   }

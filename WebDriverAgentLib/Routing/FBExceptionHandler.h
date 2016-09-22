@@ -21,6 +21,9 @@ extern NSString *const FBApplicationDeadlockDetectedException;
 /*! Exception used to notify about unknown attribute */
 extern NSString *const FBElementAttributeUnknownException;
 
+/*! Exception used to notify about invalid argument */
+extern NSString *const FBInvalidArgumentException;
+
 /**
  Class used to handle exceptions raised by command handlers
  */

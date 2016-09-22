@@ -38,8 +38,8 @@
   XCTAssertEqual(XCUIElementTypeIcon, [FBElementTypeTransformer elementTypeWithTypeName:@"XCUIElementTypeIcon"]);
   XCTAssertEqual(XCUIElementTypeTab, [FBElementTypeTransformer elementTypeWithTypeName:@"XCUIElementTypeTab"]);
   XCTAssertEqual(XCUIElementTypeOther, [FBElementTypeTransformer elementTypeWithTypeName:@"XCUIElementTypeOther"]);
-  XCTAssertEqual(XCUIElementTypeAny, [FBElementTypeTransformer elementTypeWithTypeName:@"Whatever"]);
-  XCTAssertEqual(XCUIElementTypeAny, [FBElementTypeTransformer elementTypeWithTypeName:nil]);
+  XCTAssertThrows([FBElementTypeTransformer elementTypeWithTypeName:@"Whatever"]);
+  XCTAssertThrows([FBElementTypeTransformer elementTypeWithTypeName:nil]);
 }
 
 @end
