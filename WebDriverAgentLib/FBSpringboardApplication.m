@@ -50,7 +50,9 @@
      interval:0.3]
     timeoutErrorMessage:@"Timeout waiting for application to activate"]
    spinUntilTrue:^BOOL{
-     return !self.fb_mainWindowSnapshot.fb_isVisible;
+     return
+      [FBApplication fb_activeApplication].processID != self.processID &&
+      [FBApplication fb_activeApplication].fb_mainWindowSnapshot.fb_isVisible;
    } error:error];
 }
 
