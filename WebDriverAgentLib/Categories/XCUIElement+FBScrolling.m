@@ -23,6 +23,7 @@
 #import "XCUICoordinate.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 
 #define FBPointFuzzyEqualToPoint(point1, point2, threshold) ((fabs(point1.x - point2.x) < threshold) && (fabs(point1.y - point2.y) < threshold))
 
@@ -93,8 +94,16 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
                                @(XCUIElementTypeTable),
                                ];
     
-  XCElementSnapshot *scrollView = [self.lastSnapshot fb_findVisibleParentMatchingOneOfTypesAndHasMoreThanOneChild:possibleParents];
-  
+    XCElementSnapshot *scrollView = [self.lastSnapshot fb_findVisibleParentMatchingOneOfTypesWithFilter:possibleParents
+      filter:^(XCElementSnapshot *snapshot) {
+          if ([snapshot isWDVisible] && [snapshot fb_hasMoreThanOneVisibleChildSnapshot]) {
+            return YES;
+          }
+          else {
+            return NO;
+          }
+      }];
+                                     // return ([snapshot isWDVisible] && [snapshot fb_hasMoreThanOneVisibleChildSnapshot]);
   if (scrollView == nil) {
     return
     [[[FBErrorBuilder builder]
@@ -207,7 +216,10 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
                                                   @(XCUIElementTypeIcon),
                                                   ];
   if (self.elementType != XCUIElementTypeCell && self.elementType != XCUIElementTypeIcon) {
-    targetCellSnapshot = [self.lastSnapshot fb_findVisibleParentMatchingOneOfTypesAndHasMoreThanOneChild:acceptableElementTypes];
+      targetCellSnapshot = [self.lastSnapshot fb_findVisibleParentMatchingOneOfTypesWithFilter:acceptableElementTypes
+            filter:^(XCElementSnapshot *snapshot) {
+                return YES;
+            }];
   }
   return targetCellSnapshot;
 }

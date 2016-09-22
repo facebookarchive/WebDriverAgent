@@ -69,7 +69,10 @@
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
   XCTAssertTrue(todayPickerWheel.exists);
   [todayPickerWheel resolve];
-  XCElementSnapshot *datePicker = [todayPickerWheel.lastSnapshot fb_findVisibleParentMatchingOneOfTypesAndHasMoreThanOneChild:@[@(XCUIElementTypeDatePicker), @(XCUIElementTypeWindow)]];
+  XCElementSnapshot *datePicker = [todayPickerWheel.lastSnapshot fb_findVisibleParentMatchingOneOfTypesWithFilter:@[@(XCUIElementTypeDatePicker), @(XCUIElementTypeWindow)]
+    filter:^(XCElementSnapshot *snapshot){
+        return YES;
+    }];
   XCTAssertNotNil(datePicker);
   XCTAssertEqual(datePicker.elementType, XCUIElementTypeDatePicker);
 }
@@ -80,7 +83,10 @@
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
   XCTAssertTrue(todayPickerWheel.exists);
   [todayPickerWheel resolve];
-  XCElementSnapshot *otherSnapshot = [todayPickerWheel.lastSnapshot fb_findVisibleParentMatchingOneOfTypesAndHasMoreThanOneChild:@[@(XCUIElementTypeAny), @(XCUIElementTypeWindow)]];
+  XCElementSnapshot *otherSnapshot = [todayPickerWheel.lastSnapshot fb_findVisibleParentMatchingOneOfTypesWithFilter:@[@(XCUIElementTypeAny), @(XCUIElementTypeWindow)]
+    filter:^(XCElementSnapshot *snapshot){
+        return YES;
+    }];
   XCTAssertNotNil(otherSnapshot);
   XCTAssertEqual(otherSnapshot.elementType, XCUIElementTypeOther);
 }
@@ -91,7 +97,10 @@
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
   XCTAssertTrue(todayPickerWheel.exists);
   [todayPickerWheel resolve];
-  XCElementSnapshot *otherSnapshot = [todayPickerWheel.lastSnapshot fb_findVisibleParentMatchingOneOfTypesAndHasMoreThanOneChild:@[@(XCUIElementTypeTab), @(XCUIElementTypeLink)]];
+  XCElementSnapshot *otherSnapshot = [todayPickerWheel.lastSnapshot fb_findVisibleParentMatchingOneOfTypesWithFilter:@[@(XCUIElementTypeTab), @(XCUIElementTypeLink)]
+    filter:^(XCElementSnapshot *snapshot){
+        return YES;
+    }];
   XCTAssertNil(otherSnapshot);
 }
 

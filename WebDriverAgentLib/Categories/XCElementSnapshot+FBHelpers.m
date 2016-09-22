@@ -26,7 +26,6 @@ static NSString *const kXMLIndexPathKey = @"private_indexPath";
 
 inline static BOOL valuesAreEqual(id value1, id value2);
 inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, NSArray<NSNumber *> *types);
-inline static BOOL doesSnapshotHasMoreThanOneVisibleChildSnapshot(XCElementSnapshot* snapshot);
 
 @implementation XCElementSnapshot (FBHelpers)
 
@@ -99,11 +98,11 @@ inline static BOOL doesSnapshotHasMoreThanOneVisibleChildSnapshot(XCElementSnaps
   return snapshot;
 }
 
-- (XCElementSnapshot *)fb_findVisibleParentMatchingOneOfTypesAndHasMoreThanOneChild:(NSArray<NSNumber *> *)types
+- (XCElementSnapshot *)fb_findVisibleParentMatchingOneOfTypesWithFilter:(NSArray<NSNumber *> *)types filter:(BOOL(^)(XCElementSnapshot *snapshot))filter
 {
   XCElementSnapshot *snapshot = self.parent;
   while (snapshot) {
-    if (isSnapshotTypeAmongstGivenTypes(snapshot, types) && [snapshot isWDVisible] && doesSnapshotHasMoreThanOneVisibleChildSnapshot(snapshot)) {
+    if (isSnapshotTypeAmongstGivenTypes(snapshot, types) && filter(snapshot)) {
       break;
     }
     snapshot = snapshot.parent;
@@ -127,6 +126,20 @@ inline static BOOL doesSnapshotHasMoreThanOneVisibleChildSnapshot(XCElementSnaps
     valuesAreEqual(self.placeholderValue, snapshot.placeholderValue);
 }
 
+- (BOOL)fb_hasMoreThanOneVisibleChildSnapshot
+{
+    NSArray<XCElementSnapshot *> *cellSnapshots = [self fb_descendantsMatchingType:XCUIElementTypeCell];
+    if (cellSnapshots.count == 0) {
+        // In some cases XCTest will not report Cell Views. In that case grabbing descendants and trying to figure out scroll directon from them.
+        cellSnapshots = self._allDescendants;
+    }
+    NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, isWDVisible)]];
+    if (visibleCellSnapshots.count > 1) {
+        return YES;
+    }
+    return NO;
+}
+
 @end
 
 inline static BOOL valuesAreEqual(id value1, id value2)
@@ -140,20 +153,6 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
    if([@(snapshot.elementType) isEqual: types[i]] || [types[i] isEqual: @(XCUIElementTypeAny)]){
        return YES;
    }
-  }
-  return NO;
-}
-
-inline static BOOL doesSnapshotHasMoreThanOneVisibleChildSnapshot(XCElementSnapshot* snapshot)
-{
-  NSArray<XCElementSnapshot *> *cellSnapshots = [snapshot fb_descendantsMatchingType:XCUIElementTypeCell];
-  if (cellSnapshots.count == 0) {
-    // In some cases XCTest will not report Cell Views. In that case grabbing descendants and trying to figure out scroll directon from them.
-    cellSnapshots = snapshot._allDescendants;
-  }
-  NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, isWDVisible)]];
-  if (visibleCellSnapshots.count > 1) {
-    return YES;
   }
   return NO;
 }
