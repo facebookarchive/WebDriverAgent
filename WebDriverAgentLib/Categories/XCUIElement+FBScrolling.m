@@ -99,9 +99,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
           if ([snapshot isWDVisible] && [snapshot fb_hasMoreThanOneVisibleChildSnapshot]) {
             return YES;
           }
-          else {
-            return NO;
-          }
+          return NO;
       }];
                                      // return ([snapshot isWDVisible] && [snapshot fb_hasMoreThanOneVisibleChildSnapshot]);
   if (scrollView == nil) {
