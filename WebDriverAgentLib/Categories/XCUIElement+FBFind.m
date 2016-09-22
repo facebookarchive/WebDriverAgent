@@ -35,6 +35,7 @@
 
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingXui:(NSString *)locator
 {
+  // TODO: Добавить везде обработку ошибок и возвращать соответствующие ошибки в ответе API.
   // Делим локатор по вертикальной черте на элементы.
   NSMutableArray *resultElementList = [NSMutableArray array];
   NSArray *tokens = [locator componentsSeparatedByString:@"|"];
