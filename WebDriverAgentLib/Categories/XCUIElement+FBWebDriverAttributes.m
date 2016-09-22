@@ -106,7 +106,10 @@
   }
   XCElementSnapshot *parentSnapshot = self.parent;
   while (parentSnapshot) {
-    if (parentSnapshot.fb_isAccessibilityElement) {
+    // In the scenario when table provides Search results controller, table could be marked as accessible element, even though it isn't
+    // As it is highly unlikely that table view should ever be an accessibility element itself,
+    // for now we work around that by skipping Table View in container checks
+    if (parentSnapshot.fb_isAccessibilityElement && parentSnapshot.elementType != XCUIElementTypeTable) {
       return NO;
     }
     parentSnapshot = parentSnapshot.parent;
