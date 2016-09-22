@@ -97,9 +97,17 @@
 
 - (BOOL)isWDAccessible
 {
-  // We skip isAccessible check for text field, as they aren't working correctly.
-  // The reason they aren't working correctly is that actual accessible element isn't text field itself, but nested element
-  if (self.elementType != XCUIElementTypeTextField && self.elementType != XCUIElementTypeSecureTextField) {
+  // Special cases:
+  // Table view cell: we consider it accessible if it's container is accessible
+  // Text fields: actual accessible element isn't text field itself, but nested element
+  if (self.elementType == XCUIElementTypeCell) {
+    if (!self.fb_isAccessibilityElement) {
+      XCElementSnapshot *containerView = [[self children] firstObject];
+      if (!containerView.fb_isAccessibilityElement) {
+        return NO;
+      }
+    }
+  } else if (self.elementType != XCUIElementTypeTextField && self.elementType != XCUIElementTypeSecureTextField) {
     if (!self.fb_isAccessibilityElement) {
       return NO;
     }
