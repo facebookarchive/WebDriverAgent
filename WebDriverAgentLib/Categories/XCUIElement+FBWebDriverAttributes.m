@@ -125,6 +125,16 @@
   return YES;
 }
 
+- (BOOL)isWDAccessibilityContainer
+{
+  for (XCElementSnapshot *child in self.children) {
+    if (child.isWDAccessibilityContainer || child.fb_isAccessibilityElement) {
+      return YES;
+    }
+  }
+  return NO;
+}
+
 - (BOOL)isWDEnabled
 {
   return self.isEnabled;

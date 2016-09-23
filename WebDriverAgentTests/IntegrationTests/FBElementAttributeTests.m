@@ -26,13 +26,31 @@
   [self goToAttributesPage];
 }
 
-- (void)testIsAccessible
+- (void)testElementAccessibilityAttributes
 {
-  XCTAssertTrue(self.testedApplication.buttons[@"Button"].exists);
-  XCTAssertTrue(self.testedApplication.buttons[@"Button"].fb_isAccessibilityElement);
+  // "Button" is accessibility element, and therefore isn't accessibility container
+  XCUIElement *buttonElement = self.testedApplication.buttons[@"Button"];
+  XCTAssertTrue(buttonElement.exists);
+  XCTAssertTrue(buttonElement.fb_isAccessibilityElement);
+  XCTAssertFalse(buttonElement.isWDAccessibilityContainer);
+}
 
-  XCTAssertTrue(self.testedApplication.buttons[@"not_accessible"].exists);
-  XCTAssertFalse(self.testedApplication.buttons[@"not_accessible"].fb_isAccessibilityElement);
+- (void)testContainerAccessibilityAttributes
+{
+  // "not_accessible" isn't accessibility element, but contains accessibility elements, so it is accessibility container
+  XCUIElement *inaccessibleButtonElement = self.testedApplication.buttons[@"not_accessible"];
+  XCTAssertTrue(inaccessibleButtonElement.exists);
+  XCTAssertFalse(inaccessibleButtonElement.fb_isAccessibilityElement);
+  XCTAssertTrue(inaccessibleButtonElement.isWDAccessibilityContainer);
+}
+
+- (void)testIgnoredAccessibilityAttributes
+{
+  // Images are neither accessibility elements nor contain them, so both checks should fail
+  XCUIElement *imageElement = self.testedApplication.images.element;
+  XCTAssertTrue(imageElement.exists);
+  XCTAssertFalse(imageElement.fb_isAccessibilityElement);
+  XCTAssertFalse(imageElement.isWDAccessibilityContainer);
 }
 
 - (void)testButtonAttributes
