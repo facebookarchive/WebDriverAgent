@@ -118,7 +118,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   } else if ([usingText isEqualToString:@"class name"]) {
     elements = [element fb_descendantsMatchingClassName:value];
   } else if ([usingText isEqualToString:@"xui"]) {
-      elements = [element fb_descendantsMatchingXui:value];
+      elements = [element av_descendantsMatchingXui:value];
   } else if ([usingText isEqualToString:@"xpath"]) {
     elements = [element fb_descendantsMatchingXPathQuery:value];
   } else if ([usingText isEqualToString:@"predicate string"]) {

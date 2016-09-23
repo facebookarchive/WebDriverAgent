@@ -31,159 +31,6 @@
   return result.copy;
 }
 
-#pragma mark - Search by CellByIndex
-
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingXui:(NSString *)locator
-{
-  // TODO: Добавить везде обработку ошибок и возвращать соответствующие ошибки в ответе API.
-  // Делим локатор по вертикальной черте на элементы.
-  NSMutableArray *resultElementList = [NSMutableArray array];
-  NSArray *tokens = [locator componentsSeparatedByString:@"|"];
-  NSError *error = nil;
-  // Создаем регулярку для парсинга одной части локатора.
-  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^(\\.{0,1})([0-9\\*]*)(\\(.+\\))*(\\[[0-9a-z]+\\]){0,1}$" options:NSRegularExpressionCaseInsensitive error:&error];
-
-  __block XCUIElement *currentElement = self;
-
-  // Цикл обходит все элементы локатора.
-  [tokens enumerateObjectsUsingBlock:^(NSString *token, NSUInteger tokenIdx, BOOL *stopTokenEnum) {
-      // Проверяем по регекспу созданному ранее, что локатор элемента корректный и парсим его.
-      NSArray *matches = [regex matchesInString:token
-                                        options:NSMatchingAnchored
-                                          range:NSMakeRange(0, [token length])];
-      NSTextCheckingResult *regRes = [matches objectAtIndex:0];
-      // Получае количество совпандений в строки по регулярному вырожению.
-      NSInteger count = [regRes numberOfRanges];
-      // Получаем признак того нужен ли нам потомок или ребенок.
-      NSRange childCharRange = [regRes rangeAtIndex:1];
-      NSString *childChar = [token substringWithRange:childCharRange];
-      // Получаем тип запрашеваемого элемента.
-      NSRange typeRange = [regRes rangeAtIndex:2];
-      NSString *type = [token substringWithRange:typeRange];
-      NSInteger elementType ;
-      XCUIElementQuery *query;
-
-      // Если тип указан как звездочка, значит берем любой элемент, если указан пробрасываем его.
-      if ([type isEqualToString:@"*"]) {
-        elementType = XCUIElementTypeAny;
-      } else {
-        elementType = [type intValue];
-      }
-
-      // Если в начале стоит точка, то мы берем ребенка, если нет, то потомка.
-      if ([childChar isEqualToString:@"."]) {
-        query = [currentElement childrenMatchingType:elementType];
-      } else {
-        query = [currentElement descendantsMatchingType:elementType];
-      }
-
-      // Инициализируем переменные для условия.
-      Boolean hasCondition = false;
-      NSRange condTypeRange;
-      NSRange valueRange;
-      NSString *condType;
-      NSString *value;
-
-      // Инициализируем переменные для индекса.
-      Boolean hasIndex = false;
-      NSRange indexRange;
-      NSString *index;
-
-      // В цикле перебераем оставшиеся части локатора элемента.
-      for (NSInteger i = 3; i < count; i++) {
-        NSRange optionRange = [regRes rangeAtIndex:i];
-        // Если совпадение присутствует в массиве, но пустое, то идем дальше
-        if (optionRange.length == 0) {
-          continue;
-        }
-        // Получем строку совпадения.
-        NSString *option = [token substringWithRange:optionRange];
-
-        // Проверяем является ли часть локатора элемента условием с помощью regex, если является сохраняем информацию
-        // в перменные и переходим к следующей итерации.
-        NSError *errorCond = nil;
-        NSRegularExpression *regexCondition = [NSRegularExpression regularExpressionWithPattern:@"\\((.*)=(.*)\\)" options:NSRegularExpressionCaseInsensitive error:&errorCond];
-        NSArray *conditionMatches = [regexCondition matchesInString:option
-                                          options:NSMatchingAnchored
-                                            range:NSMakeRange(0, [option length])];
-        if ([conditionMatches count] > 0) {
-          NSTextCheckingResult *regConditionRes = [conditionMatches objectAtIndex:0];
-          NSInteger condCount = [regConditionRes numberOfRanges];
-          if (condCount > 0) {
-            hasCondition = true;
-            condTypeRange = [regConditionRes rangeAtIndex:1];
-            valueRange = [regConditionRes rangeAtIndex:2];
-            condType = [option substringWithRange:condTypeRange];
-            value = [option substringWithRange:valueRange];
-            continue;
-          }
-        }
-
-        // Проверяем является ли часть локатора элемента индексом с помощью regex, если является сохраняем информацию
-        // в перменные.
-        NSError *errorInd = nil;
-        NSRegularExpression *regexIndex = [NSRegularExpression regularExpressionWithPattern:@"\\[(.*)\\]" options:NSRegularExpressionCaseInsensitive error:&errorInd];
-        NSArray *indexMatches = [regexIndex matchesInString:option
-                                                            options:NSMatchingAnchored
-                                                              range:NSMakeRange(0, [option length])];
-        if ([indexMatches count] > 0) {
-          NSTextCheckingResult *regIndexRes = [indexMatches objectAtIndex:0];
-          NSInteger indexCount = [regIndexRes numberOfRanges];
-          if (indexCount > 0) {
-            hasIndex = true;
-            indexRange = [regIndexRes rangeAtIndex:1];
-            index = [option substringWithRange:indexRange];
-          }
-        }
-      }
-
-      // Признак того будет ли результат применени я условий запросом или массивом.
-      Boolean isArray = false;
-      NSArray *array;
-
-      // TODO: Переписать что бы всегда работать с запросом.
-      // Применение условий к запросу элемента
-      if (hasCondition) {
-        if ([condType isEqualToString:@"id"]) {
-          query = [query matchingIdentifier:value];
-        } else {
-          array = [currentElement fb_descendantsMatchingProperty:condType value:value partialSearch:false];
-          if ([array count] == 0) {
-            query = [currentElement childrenMatchingType:XCUIElementTypeOther];
-          } else {
-            isArray = true;
-          }
-        }
-      }
-
-      // Применяем индекс к запросу или к массиву. Если индекс не указан, то берем первый элемент.
-      if (hasIndex) {
-        if (isArray) {
-          if ([index isEqualToString:@"last"]) {
-            currentElement = [array lastObject];
-          } else {
-            currentElement = array[[index intValue]];
-          }
-        } else {
-          if ([index isEqualToString:@"last"]) {
-            currentElement = [[query allElementsBoundByIndex] lastObject];
-          } else {
-            currentElement = [query elementBoundByIndex:[index intValue]];
-          }
-        }
-      } else {
-        if (isArray) {
-          currentElement = array[0];
-        } else {
-          currentElement = [query elementBoundByIndex:0];
-        }
-      }
-  }];
-  
-  [resultElementList addObject:currentElement];
-  return resultElementList.copy;
-}
-
 #pragma mark - Search by property value
 
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingProperty:(NSString *)property value:(NSString *)value partialSearch:(BOOL)partialSearch
@@ -267,6 +114,158 @@
   NSArray *children = [[[self descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:accessibilityId] allElementsBoundByIndex];
   [result addObjectsFromArray: children];
   return result.copy;
+}
+
+#pragma mark - Search by Xui
+
+- (NSArray<XCUIElement *> *)av_descendantsMatchingXui:(NSString *)locator
+{
+  // Делим локатор по вертикальной черте на элементы.
+  NSMutableArray *resultElementList = [NSMutableArray array];
+  NSArray *tokens = [self av_parseLocator:locator];
+  NSError *error = nil;
+  // Создаем регулярку для парсинга одной части локатора.
+  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^(\\.{0,1})([0-9\\*]*)(\\(.+\\))*(\\[[0-9a-z]+\\]){0,1}$" options:NSRegularExpressionCaseInsensitive error:&error];
+
+  __block XCUIElement *currentElement = self;
+
+  // Цикл обходит все элементы локатора.
+  [tokens enumerateObjectsUsingBlock:^(NSString *token, NSUInteger tokenIdx, BOOL *stopTokenEnum) {
+      NSTextCheckingResult *regRes = [self av_parsePartOfLocator:regex locator:token];
+      XCUIElementQuery *query = [self av_getQueryByType:regRes locator:token element:currentElement];
+      currentElement = [self av_getElement:regRes locator:token query:query];
+
+  }];
+
+  [resultElementList addObject:currentElement];
+  return resultElementList.copy;
+}
+
+- (NSArray *)av_parseLocator:(NSString *)locator {
+  return  [locator componentsSeparatedByString:@"|"];
+}
+
+- (NSTextCheckingResult *)av_parsePartOfLocator:(NSRegularExpression *)regex locator: (NSString *)locator {
+  NSArray *matches = [regex matchesInString:locator
+                                    options:NSMatchingAnchored
+                                      range:NSMakeRange(0, [locator length])];
+  if ([matches count] == 0) {
+    NSString *message = [NSString stringWithFormat: @"Bad part of locator: %@", locator];
+    @throw [NSException exceptionWithName:NSInvalidArgumentException reason:message userInfo:nil];
+  }
+  return [matches objectAtIndex:0];
+}
+
+-(XCUIElementQuery *)av_getQueryByType:(NSTextCheckingResult *)regRes locator: (NSString *)locator element: (XCUIElement *)element {
+  // Получаем признак того нужен ли нам потомок или ребенок.
+  NSRange childCharRange = [regRes rangeAtIndex:1];
+  NSString *childChar = [locator substringWithRange:childCharRange];
+  // Получаем тип запрашеваемого элемента.
+  NSRange typeRange = [regRes rangeAtIndex:2];
+  NSString *type = [locator substringWithRange:typeRange];
+  NSInteger elementType ;
+  XCUIElementQuery *query;
+
+  // Если тип указан как звездочка, значит берем любой элемент, если указан пробрасываем его.
+  if ([type isEqualToString:@"*"]) {
+    elementType = XCUIElementTypeAny;
+  } else {
+    elementType = [type intValue];
+  }
+
+  // Если в начале стоит точка, то мы берем ребенка, если нет, то потомка.
+  if ([childChar isEqualToString:@"."]) {
+    query = [element childrenMatchingType:elementType];
+  } else {
+    query = [element descendantsMatchingType:elementType];
+  }
+  return query;
+}
+
+- (XCUIElement *)av_getElement:(NSTextCheckingResult *)regRes
+                       locator:(NSString *)locator
+                       query:(XCUIElementQuery *)query
+{
+  // Инициализируем переменные для условия.
+  Boolean hasPredicate = false;
+  NSString *predicate;
+
+  // Инициализируем переменные для индекса.
+  Boolean hasIndex = false;
+  NSString *index;
+
+  // Получае количество совпандений в строки по регулярному вырожению.
+  NSInteger countMatches = [regRes numberOfRanges];
+
+  // В цикле перебераем оставшиеся части локатора элемента.
+  for (NSInteger i = 3; i < countMatches; i++) {
+    NSRange optionRange = [regRes rangeAtIndex:i];
+    // Если совпадение присутствует в массиве, но пустое, то идем дальше
+    if (optionRange.length == 0) {
+      continue;
+    }
+    // Получем строку совпадения.
+    NSString *option = [locator substringWithRange:optionRange];
+
+    // Проверяем является ли часть локатора элемента условием с помощью regex, если является сохраняем информацию
+    // в перменные и переходим к следующей итерации.
+    NSError *errorCond = nil;
+    NSRegularExpression *regexCondition = [NSRegularExpression regularExpressionWithPattern:@"\\((.*)\\)" options:NSRegularExpressionCaseInsensitive error:&errorCond];
+    NSArray *predicateMatches = [regexCondition matchesInString:option
+                                                        options:NSMatchingAnchored
+                                                          range:NSMakeRange(0, [option length])];
+    if ([predicateMatches count] > 0) {
+      NSTextCheckingResult *regConditionRes = [predicateMatches objectAtIndex:0];
+      NSInteger condCount = [regConditionRes numberOfRanges];
+      if (condCount > 0) {
+        hasPredicate = true;
+        NSRange predicateRange = [regConditionRes rangeAtIndex:1];
+        predicate = [option substringWithRange:predicateRange];
+        continue;
+      }
+    }
+
+    // Проверяем является ли часть локатора элемента индексом с помощью regex, если является сохраняем информацию
+    // в перменные.
+    NSError *errorInd = nil;
+    NSRegularExpression *regexIndex = [NSRegularExpression regularExpressionWithPattern:@"\\[(.*)\\]" options:NSRegularExpressionCaseInsensitive error:&errorInd];
+    NSArray *indexMatches = [regexIndex matchesInString:option
+                                                options:NSMatchingAnchored
+                                                  range:NSMakeRange(0, [option length])];
+    if ([indexMatches count] > 0) {
+      NSTextCheckingResult *regIndexRes = [indexMatches objectAtIndex:0];
+      NSInteger indexCount = [regIndexRes numberOfRanges];
+      if (indexCount > 0) {
+        hasIndex = true;
+        NSRange indexRange = [regIndexRes rangeAtIndex:1];
+        index = [option substringWithRange:indexRange];
+      }
+    }
+  }
+
+  // Применение условий к запросу элемента
+  if (hasPredicate) {
+    if ([predicate hasPrefix:@"id"]) {
+      NSArray *explodeResult = [predicate componentsSeparatedByString:@"="];
+      query = [query matchingIdentifier:explodeResult[1]];
+    } else {
+      NSPredicate *predicateObj = [NSPredicate predicateWithFormat:predicate];
+      query = [query matchingPredicate:predicateObj];
+    }
+  }
+
+  // Применяем индекс к запросу или к массиву. Если индекс не указан, то берем первый элемент.
+  XCUIElement *element;
+  if (hasIndex) {
+    if ([index isEqualToString:@"last"]) {
+      element = [[query allElementsBoundByIndex] lastObject];
+    } else {
+      element = [query elementBoundByIndex:[index intValue]];
+    }
+  } else {
+    element = [query elementBoundByIndex:0];
+  }
+  return element;
 }
 
 @end

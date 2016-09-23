@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param locator requested xui locator
  @return an array of descendants matching given cell index
  */
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingXui:(NSString *)locator;
+- (NSArray<XCUIElement *> *)av_descendantsMatchingXui:(NSString *)locator;
 
 /**
  Returns an array of descendants matching given accessibility id
