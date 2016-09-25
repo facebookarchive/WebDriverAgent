@@ -12,6 +12,7 @@
 #import "FBIntegrationTestCase.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 
 @interface XCElementSnapshotHelperTests : FBIntegrationTestCase
 @property (nonatomic, strong) XCUIElement *testedView;
@@ -69,10 +70,7 @@
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
   XCTAssertTrue(todayPickerWheel.exists);
   [todayPickerWheel resolve];
-  XCElementSnapshot *datePicker = [todayPickerWheel.lastSnapshot fb_findVisibleParentMatchingOneOfTypesWithFilter:@[@(XCUIElementTypeDatePicker), @(XCUIElementTypeWindow)]
-    filter:^(XCElementSnapshot *snapshot){
-        return YES;
-    }];
+  XCElementSnapshot *datePicker = [todayPickerWheel.lastSnapshot fb_parentMatchingOneOfTypes:@[@(XCUIElementTypeDatePicker), @(XCUIElementTypeWindow)]];
   XCTAssertNotNil(datePicker);
   XCTAssertEqual(datePicker.elementType, XCUIElementTypeDatePicker);
 }
@@ -83,10 +81,7 @@
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
   XCTAssertTrue(todayPickerWheel.exists);
   [todayPickerWheel resolve];
-  XCElementSnapshot *otherSnapshot = [todayPickerWheel.lastSnapshot fb_findVisibleParentMatchingOneOfTypesWithFilter:@[@(XCUIElementTypeAny), @(XCUIElementTypeWindow)]
-    filter:^(XCElementSnapshot *snapshot){
-        return YES;
-    }];
+  XCElementSnapshot *otherSnapshot = [todayPickerWheel.lastSnapshot fb_parentMatchingOneOfTypes:@[@(XCUIElementTypeAny), @(XCUIElementTypeWindow)]];
   XCTAssertNotNil(otherSnapshot);
   XCTAssertEqual(otherSnapshot.elementType, XCUIElementTypeOther);
 }
@@ -97,11 +92,27 @@
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
   XCTAssertTrue(todayPickerWheel.exists);
   [todayPickerWheel resolve];
-  XCElementSnapshot *otherSnapshot = [todayPickerWheel.lastSnapshot fb_findVisibleParentMatchingOneOfTypesWithFilter:@[@(XCUIElementTypeTab), @(XCUIElementTypeLink)]
-    filter:^(XCElementSnapshot *snapshot){
-        return YES;
-    }];
+  XCElementSnapshot *otherSnapshot = [todayPickerWheel.lastSnapshot fb_parentMatchingOneOfTypes:@[@(XCUIElementTypeTab), @(XCUIElementTypeLink)]];
   XCTAssertNil(otherSnapshot);
+}
+
+- (void)testParentMatchingOneOfTypesWithFilter
+{
+    [self goToInvisibleScrollingPage];
+    XCUIElement *wdaStaticText = self.testedApplication.staticTexts[@"WDA"];
+    XCTAssertTrue(wdaStaticText.exists);
+    [wdaStaticText resolve];
+    NSArray *acceptedParents = @[
+                                 @(XCUIElementTypeScrollView),
+                                 @(XCUIElementTypeCollectionView),
+                                 @(XCUIElementTypeTable),
+                                 ];
+    XCElementSnapshot *scrollView = [wdaStaticText.lastSnapshot fb_parentMatchingOneOfTypesWithFilter:acceptedParents
+      filter:^(XCElementSnapshot *snapshot) {
+          return [snapshot isWDVisible];
+
+       }];
+    XCTAssertEqualObjects(scrollView.identifier, @"scrollView");
 }
 
 @end

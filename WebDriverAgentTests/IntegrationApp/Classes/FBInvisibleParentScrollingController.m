@@ -35,6 +35,7 @@ static const CGFloat FBSubviewHeight = 40.0;
         [self.scrollView addSubview:label];
     }
     UIScrollView *innerScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, (count + 1) * FBSubviewHeight, CGRectGetWidth(self.view.frame), FBSubviewHeight + 300)];
+    [innerScrollview setValue:@"innerScrollview" forKeyPath: @"accessibilityIdentifier"];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(innerScrollview.frame), FBSubviewHeight)];
     label.text = @"WDA";
     label.textAlignment = NSTextAlignmentCenter;

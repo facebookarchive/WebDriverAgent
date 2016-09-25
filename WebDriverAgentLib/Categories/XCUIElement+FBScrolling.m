@@ -87,49 +87,49 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   if (self.fb_isVisible) {
     return YES;
   }
-
-  NSArray *possibleParents = @[
+  __block NSArray<XCElementSnapshot *> *cellSnapshots, *visibleCellSnapshots;
+    
+  NSArray *acceptedParents = @[
                                @(XCUIElementTypeScrollView),
                                @(XCUIElementTypeCollectionView),
                                @(XCUIElementTypeTable),
                                ];
     
-    XCElementSnapshot *scrollView = [self.lastSnapshot fb_findVisibleParentMatchingOneOfTypesWithFilter:possibleParents
+  XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingOneOfTypesWithFilter:acceptedParents
       filter:^(XCElementSnapshot *snapshot) {
-          if ([snapshot isWDVisible] && [snapshot fb_hasMoreThanOneVisibleChildSnapshot]) {
-            return YES;
+          
+          if ([snapshot isWDVisible]) {
+              
+              cellSnapshots = [snapshot fb_descendantsMatchingType:XCUIElementTypeCell];
+              
+              if (cellSnapshots.count == 0) {
+                  // For the home screen, cells are actually of type XCUIElementTypeIcon
+                  cellSnapshots = [snapshot fb_descendantsMatchingType:XCUIElementTypeIcon];
+              }
+              
+              if (cellSnapshots.count == 0) {
+                  // In some cases XCTest will not report Cell Views. In that case grab all descendants and try to figure out scroll directon from them.
+                  cellSnapshots = snapshot._allDescendants;
+              }
+              
+              visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)]];
+              
+              if (visibleCellSnapshots.count > 1) {
+                  return YES;
+              }
+              return NO;
           }
           return NO;
       }];
-                                     // return ([snapshot isWDVisible] && [snapshot fb_hasMoreThanOneVisibleChildSnapshot]);
+    
   if (scrollView == nil) {
     return
     [[[FBErrorBuilder builder]
-      withDescriptionFormat:@"Failed to find scrollable visible parent"]
+      withDescriptionFormat:@"Failed to find scrollable visible parent with 2 visible children"]
      buildError:error];
   }
 
   XCElementSnapshot *targetCellSnapshot = self.fb_parentCellSnapshot;
-  NSArray<XCElementSnapshot *> *cellSnapshots = [scrollView fb_descendantsMatchingType:XCUIElementTypeCell];
-
-  if (cellSnapshots.count == 0) {
-    // For the home screen, cells are actually of type XCUIElementTypeIcon
-    cellSnapshots = [scrollView fb_descendantsMatchingType:XCUIElementTypeIcon];
-  }
-
-  if (cellSnapshots.count == 0) {
-    // In some cases XCTest will not report Cell Views. In that case grab all descendants and try to figure out scroll directon from them.
-    cellSnapshots = scrollView._allDescendants;
-  }
-  NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)]];
-
-  if (visibleCellSnapshots.count < 2) {
-    return
-    [[[FBErrorBuilder builder]
-      withDescriptionFormat:@"Failed to perform scroll with visible cell count %lu", (unsigned long)visibleCellSnapshots.count]
-     buildError:error];
-  }
-
 
   XCElementSnapshot *lastSnapshot = visibleCellSnapshots.lastObject;
   // Can't just do indexOfObject, because targetCellSnapshot may represent the same object represented by a member of cellSnapshots, yet be a different object
@@ -214,10 +214,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
                                                   @(XCUIElementTypeIcon),
                                                   ];
   if (self.elementType != XCUIElementTypeCell && self.elementType != XCUIElementTypeIcon) {
-      targetCellSnapshot = [self.lastSnapshot fb_findVisibleParentMatchingOneOfTypesWithFilter:acceptableElementTypes
-            filter:^(XCElementSnapshot *snapshot) {
-                return YES;
-            }];
+      targetCellSnapshot = [self.lastSnapshot fb_parentMatchingOneOfTypes:acceptableElementTypes];
   }
   return targetCellSnapshot;
 }

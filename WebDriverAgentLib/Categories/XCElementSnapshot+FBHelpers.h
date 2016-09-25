@@ -38,13 +38,21 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type;
 
 /**
+ Returns first (going up element tree) parent that matches one of given types. If non found returns nil.
+ 
+ @param types possible parent types
+ @return parent element matching one of given types
+ */
+- (nullable XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types;
+
+/**
  Returns first (going up element tree) visible parent that matches one of given types and has more than one child. If non found returns nil.
  
  @param types possible parent types
- @param filter will be used to filter results even further after matching one of given types
- @return visible parent element matching one of given types
+ @param filter will filter results even further after matching one of given types
+ @return parent element matching one of given types and satisfying filter condition
  */
-- (nullable XCElementSnapshot *)fb_findVisibleParentMatchingOneOfTypesWithFilter:(NSArray<NSNumber *> *)types filter:(BOOL(^)(XCElementSnapshot *snapshot))filter;
+- (nullable XCElementSnapshot *)fb_parentMatchingOneOfTypesWithFilter:(NSArray<NSNumber *> *)types filter:(BOOL(^)(XCElementSnapshot *snapshot))filter;
 
 /**
  Returns value for given accessibility property identifier.
@@ -61,13 +69,6 @@ NS_ASSUME_NONNULL_BEGIN
  @return YES, if they match otherwise NO
  */
 - (BOOL)fb_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot;
-
-/**
- Method used to determine whether given element has more than one visible child element.
- 
- @return YES, element has more than one visible child element.
- */
-- (BOOL)fb_hasMoreThanOneVisibleChildSnapshot;
 
 @end
 
