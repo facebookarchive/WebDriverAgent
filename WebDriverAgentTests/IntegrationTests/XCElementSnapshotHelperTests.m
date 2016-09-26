@@ -37,6 +37,7 @@
     @"Attributes",
     @"Scrolling",
     @"Deadlock app",
+    @"Invisible Parent Scroll"
   ]];
   NSArray<XCElementSnapshot *> *matchingSnapshots = [self.testedView.lastSnapshot fb_descendantsMatchingType:XCUIElementTypeButton];
   XCTAssertEqual(matchingSnapshots.count, expectedLabels.count);
@@ -150,7 +151,7 @@
   XCUIElement *threeStaticText = self.testedApplication.staticTexts[@"3"];
   [threeStaticText resolve];
   XCElementSnapshot *xcuiElementCell = [threeStaticText.lastSnapshot fb_parentCellSnapshot];
-  XCTAssertEqual(xcuiElementCell.elementType, 50);
+  XCTAssertEqual(xcuiElementCell.elementType, 75);
 }
 
 @end
