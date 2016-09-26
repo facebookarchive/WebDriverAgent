@@ -47,7 +47,7 @@
 - (void)testIgnoredAccessibilityAttributes
 {
   // Images are neither accessibility elements nor contain them, so both checks should fail
-  XCUIElement *imageElement = self.testedApplication.images.element;
+  XCUIElement *imageElement = [self.testedApplication.images elementBoundByIndex:0];
   XCTAssertTrue(imageElement.exists);
   XCTAssertFalse(imageElement.fb_isAccessibilityElement);
   XCTAssertFalse(imageElement.isWDAccessibilityContainer);
