@@ -27,7 +27,7 @@ static const CGFloat FBSubviewHeight = 40.0;
 
 - (void)setupLabelViews
 {
-    NSUInteger count = 15;
+    NSUInteger count = self.dataSource.count;
     for (NSUInteger i = 0 ; i < count ; i++) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, i * FBSubviewHeight, CGRectGetWidth(self.view.frame), FBSubviewHeight)];
         label.text = [self.dataSource textForElementAtIndex:i];
@@ -35,7 +35,7 @@ static const CGFloat FBSubviewHeight = 40.0;
         [self.scrollView addSubview:label];
     }
     UIScrollView *innerScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, (count + 1) * FBSubviewHeight, CGRectGetWidth(self.view.frame), FBSubviewHeight + 300)];
-    [innerScrollview setValue:@"innerScrollview" forKeyPath: @"accessibilityIdentifier"];
+    innerScrollview.accessibilityIdentifier = @"innerScrollview";
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(innerScrollview.frame), FBSubviewHeight)];
     label.text = @"WDA";
     label.textAlignment = NSTextAlignmentCenter;

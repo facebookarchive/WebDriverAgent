@@ -95,31 +95,21 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
                                @(XCUIElementTypeTable),
                                ];
     
-  XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingOneOfTypesWithFilter:acceptedParents
+  XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingOneOfTypes:acceptedParents
       filter:^(XCElementSnapshot *snapshot) {
           
-          if ([snapshot isWDVisible]) {
+         if (![snapshot isWDVisible]) {
+           return NO;
+         }
+          
+         cellSnapshots = [snapshot fb_descendantsCellSnapshots];
               
-              cellSnapshots = [snapshot fb_descendantsMatchingType:XCUIElementTypeCell];
+         visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)]];
               
-              if (cellSnapshots.count == 0) {
-                  // For the home screen, cells are actually of type XCUIElementTypeIcon
-                  cellSnapshots = [snapshot fb_descendantsMatchingType:XCUIElementTypeIcon];
-              }
-              
-              if (cellSnapshots.count == 0) {
-                  // In some cases XCTest will not report Cell Views. In that case grab all descendants and try to figure out scroll directon from them.
-                  cellSnapshots = snapshot._allDescendants;
-              }
-              
-              visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)]];
-              
-              if (visibleCellSnapshots.count > 1) {
-                  return YES;
-              }
-              return NO;
-          }
-          return NO;
+         if (visibleCellSnapshots.count > 1) {
+           return YES;
+         }
+         return NO;
       }];
     
   if (scrollView == nil) {
@@ -129,7 +119,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
      buildError:error];
   }
 
-  XCElementSnapshot *targetCellSnapshot = self.fb_parentCellSnapshot;
+  XCElementSnapshot *targetCellSnapshot = [self.lastSnapshot fb_parentCellSnapshot];
 
   XCElementSnapshot *lastSnapshot = visibleCellSnapshots.lastObject;
   // Can't just do indexOfObject, because targetCellSnapshot may represent the same object represented by a member of cellSnapshots, yet be a different object
@@ -180,7 +170,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   }
 
   // Cell is now visible, but it might be only partialy visible, scrolling till whole frame is visible
-  targetCellSnapshot = self.fb_parentCellSnapshot;
+  targetCellSnapshot = [self.lastSnapshot fb_parentCellSnapshot];
   CGVector scrollVector = CGVectorMake(targetCellSnapshot.visibleFrame.size.width - targetCellSnapshot.frame.size.width,
                                        targetCellSnapshot.visibleFrame.size.height - targetCellSnapshot.frame.size.height
                                        );
@@ -203,20 +193,6 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
     }
   }
   return NO;
-}
-
-- (XCElementSnapshot *)fb_parentCellSnapshot
-{
-  XCElementSnapshot *targetCellSnapshot = self.lastSnapshot;
-  // XCUIElementTypeIcon is the cell type for homescreen icons
-  NSArray<NSNumber *> *acceptableElementTypes = @[
-                                                  @(XCUIElementTypeCell),
-                                                  @(XCUIElementTypeIcon),
-                                                  ];
-  if (self.elementType != XCUIElementTypeCell && self.elementType != XCUIElementTypeIcon) {
-      targetCellSnapshot = [self.lastSnapshot fb_parentMatchingOneOfTypes:acceptableElementTypes];
-  }
-  return targetCellSnapshot;
 }
 
 @end

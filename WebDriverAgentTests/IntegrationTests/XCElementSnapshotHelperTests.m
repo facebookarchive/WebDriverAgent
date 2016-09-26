@@ -10,9 +10,11 @@
 #import <XCTest/XCTest.h>
 
 #import "FBIntegrationTestCase.h"
+#import "FBTestMacros.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
+#import "XCUIElement+FBIsVisible.h"
 
 @interface XCElementSnapshotHelperTests : FBIntegrationTestCase
 @property (nonatomic, strong) XCUIElement *testedView;
@@ -64,7 +66,7 @@
   XCTAssertEqual(windowSnapshot.elementType, XCUIElementTypeWindow);
 }
 
-- (void)testFindVisibleParentMatchingOneOfTypes
+- (void)testParentMatchingOneOfTypes
 {
   [self goToAttributesPage];
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
@@ -75,7 +77,7 @@
   XCTAssertEqual(datePicker.elementType, XCUIElementTypeDatePicker);
 }
 
-- (void)testFindVisibleParentMatchingOneOfTypesWithXCUIElementTypeAny
+- (void)testParentMatchingOneOfTypesWithXCUIElementTypeAny
 {
   [self goToAttributesPage];
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
@@ -86,7 +88,7 @@
   XCTAssertEqual(otherSnapshot.elementType, XCUIElementTypeOther);
 }
 
-- (void)testFindVisibleParentMatchingOneOfTypesWithAbsentParents
+- (void)testParentMatchingOneOfTypesWithAbsentParents
 {
   [self goToAttributesPage];
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
@@ -98,21 +100,57 @@
 
 - (void)testParentMatchingOneOfTypesWithFilter
 {
-    [self goToInvisibleScrollingPage];
-    XCUIElement *wdaStaticText = self.testedApplication.staticTexts[@"WDA"];
-    XCTAssertTrue(wdaStaticText.exists);
-    [wdaStaticText resolve];
-    NSArray *acceptedParents = @[
-                                 @(XCUIElementTypeScrollView),
-                                 @(XCUIElementTypeCollectionView),
-                                 @(XCUIElementTypeTable),
-                                 ];
-    XCElementSnapshot *scrollView = [wdaStaticText.lastSnapshot fb_parentMatchingOneOfTypesWithFilter:acceptedParents
-      filter:^(XCElementSnapshot *snapshot) {
-          return [snapshot isWDVisible];
+  [self goToInvisibleScrollingPage];
+  XCUIElement *wdaStaticText = self.testedApplication.staticTexts[@"WDA"];
+  XCTAssertTrue(wdaStaticText.exists);
+  [wdaStaticText resolve];
+  NSArray *acceptedParents = @[
+                               @(XCUIElementTypeScrollView),
+                               @(XCUIElementTypeCollectionView),
+                               @(XCUIElementTypeTable),
+                               ];
+  XCElementSnapshot *scrollView = [wdaStaticText.lastSnapshot fb_parentMatchingOneOfTypes:acceptedParents
+    filter:^(XCElementSnapshot *snapshot) {
+        return [snapshot isWDVisible];
+     }];
+  XCTAssertEqualObjects(scrollView.identifier, @"scrollView");
+}
 
-       }];
-    XCTAssertEqualObjects(scrollView.identifier, @"scrollView");
+- (void)testParentMatchingOneOfTypesWithFilterRetruningNo
+{
+  [self goToInvisibleScrollingPage];
+  XCUIElement *wdaStaticText = self.testedApplication.staticTexts[@"WDA"];
+  XCTAssertTrue(wdaStaticText.exists);
+  [wdaStaticText resolve];
+  NSArray *acceptedParents = @[
+                               @(XCUIElementTypeScrollView),
+                               @(XCUIElementTypeCollectionView),
+                               @(XCUIElementTypeTable),
+                               ];
+  XCElementSnapshot *scrollView = [wdaStaticText.lastSnapshot fb_parentMatchingOneOfTypes:acceptedParents
+    filter:^(XCElementSnapshot *snapshot) {
+        return NO;
+    }];
+  XCTAssertNil(scrollView);
+}
+
+- (void)testDescendantsCellSnapshots
+{
+  [self goToScrollPageWithCells:false];
+  XCUIElement *scrollView = [[self.testedApplication.query descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:@"scrollView"].element;
+  [scrollView resolve];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.staticTexts[@"3"].fb_isVisible);
+  XCTAssertTrue([scrollView.lastSnapshot fb_descendantsCellSnapshots].count == 100);
+}
+
+- (void)testParentCellSnapshot
+{
+  [self goToScrollPageWithCells:true];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.staticTexts[@"3"].fb_isVisible);
+  XCUIElement *threeStaticText = self.testedApplication.staticTexts[@"3"];
+  [threeStaticText resolve];
+  XCElementSnapshot *xcuiElementCell = [threeStaticText.lastSnapshot fb_parentCellSnapshot];
+  XCTAssertEqual(xcuiElementCell.elementType, 50);
 }
 
 @end
