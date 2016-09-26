@@ -54,6 +54,10 @@ static const NSUInteger FBTypingFrequency = 60;
    }
    error:error];
 
+  if (!keyboard) {
+    return NO;
+  }
+
   if (![keyboard fb_waitUntilFrameIsStable]) {
     return
     [[[FBErrorBuilder builder]
