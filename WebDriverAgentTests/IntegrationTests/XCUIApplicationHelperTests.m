@@ -61,7 +61,8 @@
   NSError *error;
   XCTAssertTrue([self.testedApplication fb_deactivateWithDuration:1 error:&error]);
   XCTAssertNil(error);
-  XCTAssertTrue(self.testedApplication.buttons[@"Alerts"].fb_isVisible);
+  XCTAssertTrue(self.testedApplication.buttons[@"Alerts"].exists);
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Alerts"].fb_isVisible);
 }
 
 - (void)testActiveApplication
