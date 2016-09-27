@@ -23,7 +23,8 @@
   [self fb_waitUntilFrameIsStable];
   __block BOOL didSucceed;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    CGPoint hitPoint = self.isHittable ? self.lastSnapshot.hitPoint : [self coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)].screenPoint;
+    NSValue *hitpointValue = self.lastSnapshot.suggestedHitpoints.firstObject;
+    CGPoint hitPoint = hitpointValue ? hitpointValue.CGPointValue : [self coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)].screenPoint;
     XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
       if (commandError) {
         [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
