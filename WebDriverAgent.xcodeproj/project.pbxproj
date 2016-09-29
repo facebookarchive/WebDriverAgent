@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		44757A851D42CF9700ECF35E /* XCUIDeviceRotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */; };
-		644A7DFB1D90C0E6002E0751 /* FBInvisibleParentScrollingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 644A7DFA1D90C0E6002E0751 /* FBInvisibleParentScrollingController.m */; };
-		644A7DFD1D90CB5E002E0751 /* FBInvisibleParentScrollingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 644A7DFA1D90C0E6002E0751 /* FBInvisibleParentScrollingController.m */; };
-		644A7E041D90E9B9002E0751 /* FBInvisibleParentScrollingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 644A7E021D90E8BF002E0751 /* FBInvisibleParentScrollingTests.m */; };
 		AD35D01A1CF1418E00870A75 /* RoutingHTTPServer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD35D01C1CF141A600870A75 /* KissXML.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD271CF120B000806E5D /* KissXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD35D0631CF1C2C200870A75 /* KissXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD271CF120B000806E5D /* KissXML.framework */; };
@@ -308,9 +305,6 @@
 
 /* Begin PBXFileReference section */
 		44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceRotationTests.m; sourceTree = "<group>"; };
-		644A7DFA1D90C0E6002E0751 /* FBInvisibleParentScrollingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBInvisibleParentScrollingController.m; sourceTree = "<group>"; };
-		644A7DFC1D90C103002E0751 /* FBInvisibleParentScrollingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBInvisibleParentScrollingController.h; sourceTree = "<group>"; };
-		644A7E021D90E8BF002E0751 /* FBInvisibleParentScrollingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBInvisibleParentScrollingTests.m; sourceTree = "<group>"; };
 		AD35D0291CF1B39E00870A75 /* generate_modules.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate_modules.sh; sourceTree = "<group>"; };
 		AD35D0651CF1C2CE00870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/iOS/Peertalk.framework; sourceTree = "<group>"; };
 		AD35D0691CF1C30700870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/Mac/Peertalk.framework; sourceTree = "<group>"; };
@@ -899,7 +893,6 @@
 				EEBBD48D1D4785FC00656A81 /* XCUIElementFBFindTests.m */,
 				EE1E06E11D181CC9007CF043 /* XCUIElementHelperTests.m */,
 				EE9B76551CF7987300275851 /* Info.plist */,
-				644A7E021D90E8BF002E0751 /* FBInvisibleParentScrollingTests.m */,
 			);
 			path = IntegrationTests;
 			sourceTree = "<group>";
@@ -946,8 +939,6 @@
 				EE55B3231D1D5388003AAAEC /* FBTableDataSource.m */,
 				EE9B76841CF7997600275851 /* ViewController.h */,
 				EE9B76851CF7997600275851 /* ViewController.m */,
-				644A7DFA1D90C0E6002E0751 /* FBInvisibleParentScrollingController.m */,
-				644A7DFC1D90C103002E0751 /* FBInvisibleParentScrollingController.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1523,7 +1514,6 @@
 				EE158ABF1CBD456F00A3E3F0 /* FBElementCommands.m in Sources */,
 				EE158AD51CBD456F00A3E3F0 /* FBExceptionHandler.m in Sources */,
 				EEE376421D59F81400ED88DD /* XCElementSnapshot+FBHelpers.m in Sources */,
-				644A7DFB1D90C0E6002E0751 /* FBInvisibleParentScrollingController.m in Sources */,
 				EE158AE91CBD456F00A3E3F0 /* FBElementTypeTransformer.m in Sources */,
 				EE158AF61CBD456F00A3E3F0 /* FBApplication.m in Sources */,
 				EE158AB51CBD456F00A3E3F0 /* XCUIElement+FBTap.m in Sources */,
@@ -1560,7 +1550,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				644A7DFD1D90CB5E002E0751 /* FBInvisibleParentScrollingController.m in Sources */,
 				EE9B768E1CF7997600275851 /* AppDelegate.m in Sources */,
 				EE1E06E71D182E95007CF043 /* FBAlertViewController.m in Sources */,
 				EE9B76911CF7997600275851 /* main.m in Sources */,
@@ -1574,7 +1563,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				644A7E041D90E9B9002E0751 /* FBInvisibleParentScrollingTests.m in Sources */,
 				EE26409B1D0EB5E8009BE6B0 /* FBTapTest.m in Sources */,
 				EE26409D1D0EBA25009BE6B0 /* FBElementAttributeTests.m in Sources */,
 				AD7672401D6B826F00610457 /* FBTypingTest.m in Sources */,

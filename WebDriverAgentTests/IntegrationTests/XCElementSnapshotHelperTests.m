@@ -36,8 +36,7 @@
     @"Alerts",
     @"Attributes",
     @"Scrolling",
-    @"Deadlock app",
-    @"Invisible Parent Scroll"
+    @"Deadlock app"
   ]];
   NSArray<XCElementSnapshot *> *matchingSnapshots = [self.testedView.lastSnapshot fb_descendantsMatchingType:XCUIElementTypeButton];
   XCTAssertEqual(matchingSnapshots.count, expectedLabels.count);
@@ -101,16 +100,15 @@
 
 - (void)testParentMatchingOneOfTypesWithFilter
 {
-  [self goToInvisibleScrollingPage];
-  XCUIElement *wdaStaticText = self.testedApplication.staticTexts[@"WDA"];
-  XCTAssertTrue(wdaStaticText.exists);
-  [wdaStaticText resolve];
+  [self goToScrollPageWithCells:false];
+  XCUIElement *threeStaticText = self.testedApplication.staticTexts[@"3"];
+  [threeStaticText resolve];
   NSArray *acceptedParents = @[
                                @(XCUIElementTypeScrollView),
                                @(XCUIElementTypeCollectionView),
                                @(XCUIElementTypeTable),
                                ];
-  XCElementSnapshot *scrollView = [wdaStaticText.lastSnapshot fb_parentMatchingOneOfTypes:acceptedParents
+  XCElementSnapshot *scrollView = [threeStaticText.lastSnapshot fb_parentMatchingOneOfTypes:acceptedParents
     filter:^(XCElementSnapshot *snapshot) {
         return [snapshot isWDVisible];
      }];
@@ -119,16 +117,15 @@
 
 - (void)testParentMatchingOneOfTypesWithFilterRetruningNo
 {
-  [self goToInvisibleScrollingPage];
-  XCUIElement *wdaStaticText = self.testedApplication.staticTexts[@"WDA"];
-  XCTAssertTrue(wdaStaticText.exists);
-  [wdaStaticText resolve];
+  [self goToScrollPageWithCells:false];
+  XCUIElement *threeStaticText = self.testedApplication.staticTexts[@"3"];
+  [threeStaticText resolve];
   NSArray *acceptedParents = @[
                                @(XCUIElementTypeScrollView),
                                @(XCUIElementTypeCollectionView),
                                @(XCUIElementTypeTable),
                                ];
-  XCElementSnapshot *scrollView = [wdaStaticText.lastSnapshot fb_parentMatchingOneOfTypes:acceptedParents
+  XCElementSnapshot *scrollView = [threeStaticText.lastSnapshot fb_parentMatchingOneOfTypes:acceptedParents
     filter:^(XCElementSnapshot *snapshot) {
         return NO;
     }];

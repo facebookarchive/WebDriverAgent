@@ -63,17 +63,6 @@
                                     <segue destination="YzO-du-v3Y" kind="show" animates="NO" id="Ds1-bA-25D"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Af-Fq-d0Z">
-                                <rect key="frame" x="250" y="245" width="150" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="YYS-y3-9GU"/>
-                                    <constraint firstAttribute="width" constant="150" id="vJO-vn-DwU"/>
-                                </constraints>
-                                <state key="normal" title="Invisible Parent Scroll"/>
-                                <connections>
-                                    <segue destination="y8i-Pl-Dkb" kind="show" id="SCG-PR-tXz"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <accessibility key="accessibilityConfiguration" label="MainView"/>
@@ -82,9 +71,7 @@
                             <constraint firstItem="S56-6U-3gG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="113" id="8UW-Nz-F04"/>
                             <constraint firstItem="nbp-zX-Om1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="112.5" id="Ahr-dg-qwa"/>
                             <constraint firstItem="nbp-zX-Om1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="29" id="GcP-yp-Ze6"/>
-                            <constraint firstItem="0Af-Fq-d0Z" firstAttribute="top" secondItem="S56-6U-3gG" secondAttribute="bottom" constant="8" id="Po2-14-W49"/>
                             <constraint firstItem="M2N-Yn-ytb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="112.5" id="Yr3-Lt-qdn"/>
-                            <constraint firstItem="0Af-Fq-d0Z" firstAttribute="trailing" secondItem="YgP-SF-TkS" secondAttribute="trailing" constant="9" id="asn-Hc-Lt9"/>
                             <constraint firstItem="YgP-SF-TkS" firstAttribute="top" secondItem="nbp-zX-Om1" secondAttribute="bottom" constant="8" id="b56-i5-Lxo"/>
                             <constraint firstItem="S56-6U-3gG" firstAttribute="top" secondItem="M2N-Yn-ytb" secondAttribute="bottom" constant="8" id="rMW-LW-ejO"/>
                             <constraint firstItem="M2N-Yn-ytb" firstAttribute="top" secondItem="YgP-SF-TkS" secondAttribute="bottom" constant="8" id="tMN-gl-smg"/>
@@ -544,43 +531,6 @@
                 <customObject id="Vxa-lD-ODn" customClass="FBTableDataSource"/>
             </objects>
             <point key="canvasLocation" x="2302" y="746"/>
-        </scene>
-        <!--Invisible Parent Scrolling Controller-->
-        <scene sceneID="k0l-2i-jQC">
-            <objects>
-                <viewController id="y8i-Pl-Dkb" customClass="FBInvisibleParentScrollingController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="oud-dL-vpD"/>
-                        <viewControllerLayoutGuide type="bottom" id="DhB-oK-xR7"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="QO5-ts-5By">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VVF-2r-kPT">
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="scrollView"/>
-                                </userDefinedRuntimeAttributes>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="VVF-2r-kPT" firstAttribute="leading" secondItem="QO5-ts-5By" secondAttribute="leadingMargin" constant="-16" id="9Go-Hq-XSt"/>
-                            <constraint firstItem="DhB-oK-xR7" firstAttribute="top" secondItem="VVF-2r-kPT" secondAttribute="bottom" constant="67" id="DFY-CL-doj"/>
-                            <constraint firstItem="VVF-2r-kPT" firstAttribute="top" secondItem="oud-dL-vpD" secondAttribute="bottom" constant="8" id="Ugy-GQ-lcS"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="VVF-2r-kPT" secondAttribute="trailing" constant="-16" id="saR-Ae-0mx"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="ao9-Z1-wtX"/>
-                    <connections>
-                        <outlet property="dataSource" destination="swM-LM-Wxk" id="rHc-sp-Jw8"/>
-                        <outlet property="scrollView" destination="VVF-2r-kPT" id="G0I-yJ-yfZ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bjy-8V-EtA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="swM-LM-Wxk" userLabel="Data Source" customClass="FBTableDataSource"/>
-            </objects>
-            <point key="canvasLocation" x="1055.2" y="-70.614692653673174"/>
         </scene>
     </scenes>
 </document>
