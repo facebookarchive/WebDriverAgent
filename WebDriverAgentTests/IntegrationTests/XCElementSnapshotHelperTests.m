@@ -36,7 +36,7 @@
     @"Alerts",
     @"Attributes",
     @"Scrolling",
-    @"Deadlock app"
+    @"Deadlock app",
   ]];
   NSArray<XCElementSnapshot *> *matchingSnapshots = [self.testedView.lastSnapshot fb_descendantsMatchingType:XCUIElementTypeButton];
   XCTAssertEqual(matchingSnapshots.count, expectedLabels.count);

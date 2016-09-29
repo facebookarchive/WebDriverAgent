@@ -33,7 +33,7 @@
     @"Alerts",
     @"Attributes",
     @"Scrolling",
-    @"Deadlock app"
+    @"Deadlock app",
   ]];
   NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingClassName:@"XCUIElementTypeButton"];
   XCTAssertEqual(matchingSnapshots.count, expectedLabels.count);
