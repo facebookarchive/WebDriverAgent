@@ -9,7 +9,22 @@
 
 #import "XCElementSnapshot+FBHelpers.h"
 
-#import <KissXML/DDXML.h>
+#ifdef __clang__
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wpadded"
+#endif
+
+#import <libxml/tree.h>
+#import <libxml/parser.h>
+#import <libxml/HTMLparser.h>
+#import <libxml/xpath.h>
+#import <libxml/xpathInternals.h>
+#import <libxml/encoding.h>
+#import <libxml/xmlwriter.h>
+
+#ifdef __clang__
+    #pragma clang diagnostic pop
+#endif
 
 #import "FBFindElementCommands.h"
 #import "FBRunLoopSpinner.h"
@@ -20,6 +35,8 @@
 #import "XCTestPrivateSymbols.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
+
+const static char *_UTF8Encoding = "UTF-8";
 
 static NSString *const kXMLIndexPathKey = @"private_indexPath";
 
@@ -36,28 +53,142 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
 
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery
 {
+  int rc;
+  xmlTextWriterPtr writer;
+  xmlDocPtr doc;
+    
+  writer = xmlNewTextWriterDoc(&doc, 0);
+  if (NULL == writer) {
+    NSLog(@"Failed to invoke libxml2>xmlNewTextWriterDoc");
+    return nil;
+  }
+  rc = xmlTextWriterStartDocument(writer, NULL, _UTF8Encoding, NULL);
+  if (rc < 0) {
+    NSLog(@"Failed to invoke libxml2>xmlTextWriterStartDocument");
+    return nil;
+  }
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
-  DDXMLElement *xmlElement = [self XMLElementFromElement:self indexPath:@"top" elementStore:elementStore];
-  NSError *error;
-  NSArray *xpathNodes = [xmlElement nodesForXPath:xpathQuery error:&error];
-  if (![xpathNodes count]) {
+  rc = [self generateXMLPresentation:self indexPath:@"top" elementStore:elementStore writer:writer];
+  if (rc < 0) {
+    NSLog(@"Failed to generate XML map of the top element");
+    return nil;
+  }
+  rc = xmlTextWriterEndDocument(writer);
+  if (rc < 0) {
+    NSLog(@"Failed to invoke libxml2>xmlTextWriterEndDocument");
+    return nil;
+  }
+    
+  xmlXPathContextPtr xpathCtx;
+  xmlXPathObjectPtr xpathObj;
+ 
+  xpathCtx = xmlXPathNewContext(doc);
+  if (NULL == xpathCtx) {
+    NSLog(@"Failed to invoke libxml2>xmlXPathNewContext");
+    xmlFreeTextWriter(writer);
+    xmlFreeDoc(doc);
+    return nil;
+  }
+
+  xpathObj = xmlXPathEvalExpression([XCElementSnapshot xmlCharPtrForInput:[xpathQuery cStringUsingEncoding:NSUTF8StringEncoding]], xpathCtx);
+  if (NULL == xpathObj) {
+    NSLog(@"Failed to invoke libxml2>xmlXPathEvalExpression");
+    xmlXPathFreeContext(xpathCtx);
+    xmlFreeTextWriter(writer);
+    xmlFreeDoc(doc);
+    return nil;
+  }
+  xmlNodeSetPtr nodes = xpathObj->nodesetval;
+  if (!nodes) {
+    xmlXPathFreeObject(xpathObj);
+    xmlXPathFreeContext(xpathCtx);
+    xmlFreeTextWriter(writer);
+    xmlFreeDoc(doc);
     return nil;
   }
 
   NSMutableArray *matchingSnapshots = [NSMutableArray array];
-  for (DDXMLElement *childXMLElement in xpathNodes) {
-    XCElementSnapshot *element = [elementStore objectForKey:[[childXMLElement attributeForName:kXMLIndexPathKey] stringValue]];
+  const xmlChar *indexPathKeyName = [XCElementSnapshot xmlCharPtrForInput:[kXMLIndexPathKey cStringUsingEncoding:NSUTF8StringEncoding]];
+  for (NSInteger i = 0; i < nodes->nodeNr; i++) {
+    xmlNodePtr currentNode = nodes->nodeTab[i];
+    xmlChar *attrValue = xmlGetProp(currentNode, indexPathKeyName);
+    if (NULL == attrValue) {
+      NSLog(@"Cannot read %@ attribute from a node", kXMLIndexPathKey);
+      xmlXPathFreeObject(xpathObj);
+      xmlXPathFreeContext(xpathCtx);
+      xmlFreeTextWriter(writer);
+      xmlFreeDoc(doc);
+      return nil;
+    }
+    XCElementSnapshot *element = [elementStore objectForKey:(id)[NSString stringWithCString:(const char*)attrValue encoding:NSUTF8StringEncoding]];
     if (element) {
       [matchingSnapshots addObject:element];
     }
   }
+    
+  xmlXPathFreeObject(xpathObj);
+  xmlXPathFreeContext(xpathCtx);
+  xmlFreeTextWriter(writer);
+  xmlFreeDoc(doc);
+   
   return matchingSnapshots;
 }
 
-- (DDXMLElement *)XMLElementFromElement:(XCElementSnapshot *)snapshot indexPath:(NSString *)indexPath elementStore:(NSMutableDictionary *)elementStore
++ (xmlChar *) xmlCharPtrForInput:(const char *)input
 {
-  DDXMLElement *xmlElement = [[DDXMLElement alloc] initWithName:snapshot.wdType];
-  [xmlElement addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:snapshot.wdType]];
+  xmlChar *output;
+  int ret;
+  int size;
+  int outputSize;
+  int temp;
+  xmlCharEncodingHandlerPtr handler;
+  if (0 == input) {
+    NSLog(@"xmlCharPtrForInput method expects non-empty input");
+    return NULL;
+  }
+    
+  handler = xmlFindCharEncodingHandler(_UTF8Encoding);
+  if (!handler) {
+    NSLog(@"Failed to invoke libxml2>xmlFindCharEncodingHandler");
+    return NULL;
+  }
+    
+  size = (int) strlen(input) + 1;
+  outputSize = size * 2 - 1;
+  output = (unsigned char *) xmlMalloc((size_t) outputSize);
+    
+  if (0 != output) {
+    temp = size - 1;
+    ret = handler->input(output, &outputSize, (const xmlChar *) input, &temp);
+    if ((ret < 0) || (temp - size + 1)) {
+      xmlFree(output);
+      output = 0;
+    } else {
+      output = (unsigned char *) xmlRealloc(output, outputSize + 1);
+      output[outputSize] = 0;
+    }
+  }
+    
+  return output;
+}
+
+- (int )generateXMLPresentation:(XCElementSnapshot *)snapshot indexPath:(NSString *)indexPath elementStore:(NSMutableDictionary *)elementStore writer:(xmlTextWriterPtr)writer
+{
+  int rc;
+    
+  rc = xmlTextWriterStartElement(writer, [XCElementSnapshot xmlCharPtrForInput:[snapshot.wdType cStringUsingEncoding:NSUTF8StringEncoding]]);
+  if (rc < 0) {
+    NSLog(@"Failed to invoke libxml2>xmlTextWriterStartElement");
+    return rc;
+  }
+    
+  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "type",
+                                   [XCElementSnapshot xmlCharPtrForInput:[snapshot.wdType cStringUsingEncoding:NSUTF8StringEncoding]]);
+  if (rc < 0) {
+    NSLog(@"Failed to invoke libxml2>xmlTextWriterWriteAttribute");
+    return rc;
+  }
+    
   if (snapshot.wdValue) {
     id value = snapshot.wdValue;
     NSString *stringValue;
@@ -68,24 +199,56 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
     } else {
       stringValue = [value description];
     }
-    [xmlElement addAttribute:[DDXMLNode attributeWithName:@"value" stringValue:stringValue]];
+    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "value",
+                                     [XCElementSnapshot xmlCharPtrForInput:[stringValue cStringUsingEncoding:NSUTF8StringEncoding]]);
+    if (rc < 0) {
+      NSLog(@"Failed to invoke libxml2>xmlTextWriterWriteAttribute");
+      return rc;
+    }
   }
+    
   if (snapshot.wdName) {
-    [xmlElement addAttribute:[DDXMLNode attributeWithName:@"name" stringValue:snapshot.wdName]];
+    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "name",
+                                     [XCElementSnapshot xmlCharPtrForInput:[snapshot.wdName cStringUsingEncoding:NSUTF8StringEncoding]]);
+    if (rc < 0) {
+      NSLog(@"Failed to invoke libxml2>xmlTextWriterWriteAttribute");
+      return rc;
+    }
   }
   if (snapshot.wdLabel) {
-    [xmlElement addAttribute:[DDXMLNode attributeWithName:@"label" stringValue:snapshot.wdLabel]];
+    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "label",
+                                     [XCElementSnapshot xmlCharPtrForInput:[snapshot.wdLabel cStringUsingEncoding:NSUTF8StringEncoding]]);
+    if (rc < 0) {
+      NSLog(@"Failed to invoke libxml2>xmlTextWriterWriteAttribute");
+      return rc;
+    }
   }
-  [xmlElement addAttribute:[DDXMLNode attributeWithName:kXMLIndexPathKey stringValue:indexPath]];
-
+  rc = xmlTextWriterWriteAttribute(writer, [XCElementSnapshot xmlCharPtrForInput:[kXMLIndexPathKey cStringUsingEncoding:NSUTF8StringEncoding]],
+                                   [XCElementSnapshot xmlCharPtrForInput:[indexPath cStringUsingEncoding:NSUTF8StringEncoding]]);
+  if (rc < 0) {
+    NSLog(@"Failed to invoke libxml2>xmlTextWriterWriteAttribute");
+    return rc;
+  }
+    
   NSArray *children = snapshot.children;
   for (NSUInteger i  = 0; i < [children count]; i++) {
     XCElementSnapshot *childSnapshot = children[i];
     NSString *newIndexPath = [indexPath stringByAppendingFormat:@",%lu", (unsigned long)i];
     elementStore[newIndexPath] = childSnapshot;
-    [xmlElement addChild:[self XMLElementFromElement:childSnapshot indexPath:newIndexPath elementStore:elementStore]];
+    rc = [self generateXMLPresentation:childSnapshot indexPath:newIndexPath elementStore:elementStore writer:writer];
+    if (rc < 0) {
+      NSLog(@"Failed to generate XML map of a subelement");
+      return rc;
+    }
   }
-  return xmlElement;
+    
+  rc = xmlTextWriterEndElement(writer);
+  if (rc < 0) {
+    NSLog(@"Failed to invoke libxml2>xmlTextWriterEndElement");
+    return rc;
+  }
+    
+  return 0;
 }
 
 - (XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type

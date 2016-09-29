@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		44757A851D42CF9700ECF35E /* XCUIDeviceRotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */; };
+		7174AF041D9D39AF008C8AD5 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7174AF031D9D39AF008C8AD5 /* libxml2.tbd */; };
 		AD35D01A1CF1418E00870A75 /* RoutingHTTPServer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD35D01C1CF141A600870A75 /* KissXML.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD271CF120B000806E5D /* KissXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AD35D0631CF1C2C200870A75 /* KissXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD271CF120B000806E5D /* KissXML.framework */; };
 		AD35D0641CF1C2C300870A75 /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; };
 		AD35D0661CF1C2CE00870A75 /* Peertalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD35D0651CF1C2CE00870A75 /* Peertalk.framework */; };
 		AD35D06A1CF1C30700870A75 /* Peertalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD35D0691CF1C30700870A75 /* Peertalk.framework */; };
@@ -305,10 +305,11 @@
 
 /* Begin PBXFileReference section */
 		44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceRotationTests.m; sourceTree = "<group>"; };
+		7174AF031D9D39AF008C8AD5 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		AD35D0291CF1B39E00870A75 /* generate_modules.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate_modules.sh; sourceTree = "<group>"; };
 		AD35D0651CF1C2CE00870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/iOS/Peertalk.framework; sourceTree = "<group>"; };
 		AD35D0691CF1C30700870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/Mac/Peertalk.framework; sourceTree = "<group>"; };
-		AD42DD271CF120B000806E5D /* KissXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KissXML.framework; path = Carthage/Build/iOS/KissXML.framework; sourceTree = "<group>"; };
+		AD42DD271CF120B000806E5D /* KissXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KissXML.framework; path = /Users/elf/code/WebDriverAgent/Carthage/Build/iOS/KissXML.framework; sourceTree = "<absolute>"; };
 		AD42DD2A1CF121E600806E5D /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RoutingHTTPServer.framework; path = Carthage/Build/iOS/RoutingHTTPServer.framework; sourceTree = "<group>"; };
 		AD6C26921CF2379700F8B5FF /* FBAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBAlert.h; path = WebDriverAgentLib/FBAlert.h; sourceTree = SOURCE_ROOT; };
@@ -565,8 +566,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7174AF041D9D39AF008C8AD5 /* libxml2.tbd in Frameworks */,
 				EE7E27221D06CA91001BEC7B /* libAccessibility.tbd in Frameworks */,
-				AD35D0631CF1C2C200870A75 /* KissXML.framework in Frameworks */,
 				AD35D0661CF1C2CE00870A75 /* Peertalk.framework in Frameworks */,
 				AD35D0641CF1C2C300870A75 /* RoutingHTTPServer.framework in Frameworks */,
 			);
@@ -664,7 +665,6 @@
 		AD35D0671CF1C2DA00870A75 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				AD42DD271CF120B000806E5D /* KissXML.framework */,
 				AD35D0651CF1C2CE00870A75 /* Peertalk.framework */,
 				AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */,
 				EE7E27211D06CA91001BEC7B /* libAccessibility.tbd */,
@@ -702,6 +702,7 @@
 		B6E83A410C45944B036B6B0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7174AF031D9D39AF008C8AD5 /* libxml2.tbd */,
 				AD35D0671CF1C2DA00870A75 /* iOS */,
 				AD35D0681CF1C2EC00870A75 /* OSX */,
 			);
@@ -1739,6 +1740,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = WebDriverAgentLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -1766,6 +1768,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = WebDriverAgentLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
