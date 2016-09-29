@@ -115,12 +115,12 @@
 {
   NSMutableArray *matchingElements = [NSMutableArray array];
   [elements enumerateObjectsUsingBlock:^(XCUIElement *element, NSUInteger elementIdx, BOOL *stopElementEnum) {
+    id lastSnapshot = [element lastSnapshot];
+    if (nil == lastSnapshot) {
+      [element resolve];
+      lastSnapshot = [element lastSnapshot];
+    }
     [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
-      id lastSnapshot = [element lastSnapshot];
-      if (nil == lastSnapshot) {
-        [element resolve];
-        lastSnapshot = [element lastSnapshot];
-      }
       if ([lastSnapshot _matchesElement:snapshot]) {
         [matchingElements addObject:element];
         *stopSnapshotEnum = YES;
