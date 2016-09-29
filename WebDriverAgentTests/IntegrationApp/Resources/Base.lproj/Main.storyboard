@@ -67,11 +67,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <accessibility key="accessibilityConfiguration" label="MainView"/>
                         <constraints>
-                            <constraint firstItem="YgP-SF-TkS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="112.5" id="41Q-cm-l5K"/>
-                            <constraint firstItem="S56-6U-3gG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="113" id="8UW-Nz-F04"/>
-                            <constraint firstItem="nbp-zX-Om1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="112.5" id="Ahr-dg-qwa"/>
+                            <constraint firstItem="YgP-SF-TkS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"  id="41Q-cm-l5K"/>
+                            <constraint firstItem="S56-6U-3gG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"  id="8UW-Nz-F04"/>
+                            <constraint firstItem="nbp-zX-Om1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"  id="Ahr-dg-qwa"/>
                             <constraint firstItem="nbp-zX-Om1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="29" id="GcP-yp-Ze6"/>
-                            <constraint firstItem="M2N-Yn-ytb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="112.5" id="Yr3-Lt-qdn"/>
+                            <constraint firstItem="M2N-Yn-ytb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"  id="Yr3-Lt-qdn"/>
                             <constraint firstItem="YgP-SF-TkS" firstAttribute="top" secondItem="nbp-zX-Om1" secondAttribute="bottom" constant="8" id="b56-i5-Lxo"/>
                             <constraint firstItem="S56-6U-3gG" firstAttribute="top" secondItem="M2N-Yn-ytb" secondAttribute="bottom" constant="8" id="rMW-LW-ejO"/>
                             <constraint firstItem="M2N-Yn-ytb" firstAttribute="top" secondItem="YgP-SF-TkS" secondAttribute="bottom" constant="8" id="tMN-gl-smg"/>
