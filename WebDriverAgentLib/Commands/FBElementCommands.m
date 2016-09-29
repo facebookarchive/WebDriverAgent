@@ -60,6 +60,8 @@
     [[FBRoute POST:@"/uiaTarget/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
     [[FBRoute POST:@"/tap/:uuid"] respondWithTarget:self action:@selector(handleTap:)],
     [[FBRoute POST:@"/keys"] respondWithTarget:self action:@selector(handleKeys:)],
+    [[FBRoute GET:@"/window/size"] respondWithTarget:self action:@selector(handleGetWindowSize:)],
+    // TODO: This API call should be deprecated and replaced with the one above without the extra :uuid parameter
     [[FBRoute GET:@"/window/:uuid/size"] respondWithTarget:self action:@selector(handleGetWindowSize:)],
   ];
 }
