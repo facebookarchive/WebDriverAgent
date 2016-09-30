@@ -87,45 +87,41 @@
     return @[];
   }
   // Prefiltering elements speeds up search by XPath a lot, because [element resolve] is the most expensive operation here
-  NSArray *allElementsByType = [self filterPotentialMatchesByType:matchingSnapshots];
-  NSArray *matchingElements = [self filterElements:allElementsByType matchingSnapshots:matchingSnapshots];
+  NSDictionary *elementsByType = [self filterPotentialMatchesByType:matchingSnapshots];
+  NSArray *matchingElements = [self filterElements:elementsByType matchingSnapshots:matchingSnapshots];
   return matchingElements;
 }
 
-- (NSArray<XCUIElement *> *)filterPotentialMatchesByType:(NSArray<XCElementSnapshot *> *)snapshots {
+- (NSDictionary<NSNumber *, NSArray<XCElementSnapshot *> *> *)filterPotentialMatchesByType:(NSArray<XCElementSnapshot *> *)snapshots {
   NSMutableSet *matchingTypes = [NSMutableSet set];
   [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
     [matchingTypes addObject:@(snapshot.elementType)];
   }];
-  NSMutableArray *result = [NSMutableArray array];
+  NSMutableDictionary *result = [NSMutableDictionary dictionary];
   [matchingTypes enumerateObjectsUsingBlock:^(NSNumber *elementTypeAsNumber, BOOL *stopEnum) {
     XCUIElementType elementType = (XCUIElementType)elementTypeAsNumber.unsignedIntegerValue;
     NSArray *descendantsOfType = [[self descendantsMatchingType:elementType] allElementsBoundByIndex];
-    if (XCUIElementTypeAny == elementType) {
-      // No need to continue filtering - all descendants should be in the resulting list
-      [result removeAllObjects];
-      *stopEnum=YES;
-    }
-    [result addObjectsFromArray:descendantsOfType];
+    result[elementTypeAsNumber] = descendantsOfType;
   }];
   return result.copy;
 }
 
-- (NSArray<XCUIElement *> *)filterElements:(NSArray<XCUIElement *> *)elements matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots
+- (NSArray<XCUIElement *> *)filterElements:(NSDictionary<NSNumber *, NSArray<XCElementSnapshot *> *> *)elementsMap matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots
 {
   NSMutableArray *matchingElements = [NSMutableArray array];
-  [elements enumerateObjectsUsingBlock:^(XCUIElement *element, NSUInteger elementIdx, BOOL *stopElementEnum) {
-    id lastSnapshot = [element lastSnapshot];
-    if (nil == lastSnapshot) {
-      [element resolve];
-      lastSnapshot = [element lastSnapshot];
-    }
-    [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
-      if ([lastSnapshot _matchesElement:snapshot]) {
-        [matchingElements addObject:element];
-        *stopSnapshotEnum = YES;
-      }
-    }];
+  [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
+    NSArray *elements = elementsMap[@(snapshot.elementType)];
+    [elements enumerateObjectsUsingBlock:^(XCUIElement *element, NSUInteger elementIdx, BOOL *stopElementEnum) {
+        id lastSnapshot = [element lastSnapshot];
+        if (nil == lastSnapshot) {
+            [element resolve];
+            lastSnapshot = [element lastSnapshot];
+        }
+        if ([lastSnapshot _matchesElement:snapshot]) {
+            [matchingElements addObject:element];
+            *stopElementEnum = YES;
+        }
+      }];
   }];
   return matchingElements.copy;
 }
