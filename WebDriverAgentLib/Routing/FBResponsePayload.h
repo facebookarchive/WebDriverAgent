@@ -36,7 +36,7 @@ id<FBResponsePayload> FBResponseWithCachedElement(XCUIElement *element, FBElemen
 /**
  Returns 'FBCommandStatusNoError' response payload with given array of 'elements', which will be also cached in 'elementCache'
  */
-id<FBResponsePayload> FBResponseWithCachedElements(NSArray<XCUIElement *> *elements, FBElementCache *elementCache);
+id<FBResponsePayload> FBResponseWithCachedElements(NSArray<XCUIElement *> *elements, FBElementCache *elementCache, BOOL compact);
 
 /**
  Returns 'FBCommandStatusNoError' response payload with given elementUUID
