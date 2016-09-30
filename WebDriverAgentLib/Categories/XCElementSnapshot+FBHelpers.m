@@ -39,6 +39,8 @@
 const static char *_UTF8Encoding = "UTF-8";
 
 static NSString *const kXMLIndexPathKey = @"private_indexPath";
+NSString *const XCElementSnapshotInvalidXPathException = @"XCElementSnapshotInvalidXPathException";
+NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnapshotXPathQueryEvaluationException";
 
 inline static BOOL valuesAreEqual(id value1, id value2);
 inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, NSArray<NSNumber *> *types);
@@ -51,6 +53,15 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
   return [self fb_descendantsMatchingXPathQuery:xpathQuery];
 }
 
++(void)throwException:(NSString *)name forQuery:(NSString *)xpathQuery withLogDetails:(NSString *)logDetails __attribute__((noreturn))
+{
+  if (nil != logDetails) {
+    [FBLogger log:logDetails];
+  }
+  NSString *reason = [NSString stringWithFormat:@"Cannot evaluate results for XPath expression \"%@\"", xpathQuery];
+  @throw [NSException exceptionWithName:name reason:reason userInfo:@{}];
+}
+
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery
 {
   int rc;
@@ -59,23 +70,27 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
     
   writer = xmlNewTextWriterDoc(&doc, 0);
   if (NULL == writer) {
-    NSLog(@"Failed to invoke libxml2>xmlNewTextWriterDoc");
+    NSString *logDetails = [NSString stringWithFormat:@"Failed to invoke libxml2>xmlNewTextWriterDoc for XPath query \"%@\"", xpathQuery];
+    [self.class throwException:XCElementSnapshotXPathQueryEvaluationException forQuery:xpathQuery withLogDetails:logDetails];
     return nil;
   }
   rc = xmlTextWriterStartDocument(writer, NULL, _UTF8Encoding, NULL);
   if (rc < 0) {
-    NSLog(@"Failed to invoke libxml2>xmlTextWriterStartDocument");
+    NSString *logDetails = [NSString stringWithFormat:@"Failed to invoke libxml2>xmlTextWriterStartDocument for XPath query \"%@\". Error code: %d", xpathQuery, rc];
+    [self.class throwException:XCElementSnapshotXPathQueryEvaluationException forQuery:xpathQuery withLogDetails:logDetails];
     return nil;
   }
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
   rc = [self generateXMLPresentation:self indexPath:@"top" elementStore:elementStore writer:writer];
   if (rc < 0) {
-    NSLog(@"Failed to generate XML map of the top element");
+    NSString *logDetails = [NSString stringWithFormat:@"Failed to generate XML presentation for XPath query \"%@\". Error code: %d", xpathQuery, rc];
+    [self.class throwException:XCElementSnapshotXPathQueryEvaluationException forQuery:xpathQuery withLogDetails:logDetails];
     return nil;
   }
   rc = xmlTextWriterEndDocument(writer);
   if (rc < 0) {
-    NSLog(@"Failed to invoke libxml2>xmlTextWriterEndDocument");
+    NSString *logDetails = [NSString stringWithFormat:@"Failed to invoke libxml2>xmlXPathNewContext for XPath query \"%@\". Error code: %d", xpathQuery, rc];
+    [self.class throwException:XCElementSnapshotXPathQueryEvaluationException forQuery:xpathQuery withLogDetails:logDetails];
     return nil;
   }
     
@@ -84,18 +99,20 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
  
   xpathCtx = xmlXPathNewContext(doc);
   if (NULL == xpathCtx) {
-    NSLog(@"Failed to invoke libxml2>xmlXPathNewContext");
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
+    NSString *logDetails = [NSString stringWithFormat:@"Failed to invoke libxml2>xmlXPathNewContext for XPath query \"%@\"", xpathQuery];
+    [self.class throwException:XCElementSnapshotXPathQueryEvaluationException forQuery:xpathQuery withLogDetails:logDetails];
     return nil;
   }
 
   xpathObj = xmlXPathEvalExpression([XCElementSnapshot xmlCharPtrForInput:[xpathQuery cStringUsingEncoding:NSUTF8StringEncoding]], xpathCtx);
   if (NULL == xpathObj) {
-    NSLog(@"Failed to invoke libxml2>xmlXPathEvalExpression");
     xmlXPathFreeContext(xpathCtx);
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
+    NSString *logDetails = [NSString stringWithFormat:@"Failed to invoke libxml2>xmlXPathEvalExpression for XPath query \"%@\"", xpathQuery];
+    [self.class throwException:XCElementSnapshotInvalidXPathException forQuery:xpathQuery withLogDetails:logDetails];
     return nil;
   }
   xmlNodeSetPtr nodes = xpathObj->nodesetval;
@@ -113,11 +130,12 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
     xmlNodePtr currentNode = nodes->nodeTab[i];
     xmlChar *attrValue = xmlGetProp(currentNode, indexPathKeyName);
     if (NULL == attrValue) {
-      NSLog(@"Cannot read %@ attribute from a node", kXMLIndexPathKey);
       xmlXPathFreeObject(xpathObj);
       xmlXPathFreeContext(xpathCtx);
       xmlFreeTextWriter(writer);
       xmlFreeDoc(doc);
+      NSString *logDetails = [NSString stringWithFormat:@"Failed to invoke libxml2>xmlGetProp for XPath query \"%@\"", xpathQuery];
+      [self.class throwException:XCElementSnapshotXPathQueryEvaluationException forQuery:xpathQuery withLogDetails:logDetails];
       return nil;
     }
     XCElementSnapshot *element = [elementStore objectForKey:(id)[NSString stringWithCString:(const char*)attrValue encoding:NSUTF8StringEncoding]];
@@ -143,13 +161,12 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
   int temp;
   xmlCharEncodingHandlerPtr handler;
   if (0 == input) {
-    NSLog(@"xmlCharPtrForInput method expects non-empty input");
     return NULL;
   }
     
   handler = xmlFindCharEncodingHandler(_UTF8Encoding);
   if (!handler) {
-    NSLog(@"Failed to invoke libxml2>xmlFindCharEncodingHandler");
+    [FBLogger log:@"Failed to invoke libxml2>xmlFindCharEncodingHandler"];
     return NULL;
   }
     
@@ -178,14 +195,14 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
     
   rc = xmlTextWriterStartElement(writer, [XCElementSnapshot xmlCharPtrForInput:[snapshot.wdType cStringUsingEncoding:NSUTF8StringEncoding]]);
   if (rc < 0) {
-    NSLog(@"Failed to invoke libxml2>xmlTextWriterStartElement");
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterStartElement. Error code: %d", rc];
     return rc;
   }
     
   rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "type",
                                    [XCElementSnapshot xmlCharPtrForInput:[snapshot.wdType cStringUsingEncoding:NSUTF8StringEncoding]]);
   if (rc < 0) {
-    NSLog(@"Failed to invoke libxml2>xmlTextWriterWriteAttribute");
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
     return rc;
   }
     
@@ -202,7 +219,7 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
     rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "value",
                                      [XCElementSnapshot xmlCharPtrForInput:[stringValue cStringUsingEncoding:NSUTF8StringEncoding]]);
     if (rc < 0) {
-      NSLog(@"Failed to invoke libxml2>xmlTextWriterWriteAttribute");
+      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
       return rc;
     }
   }
@@ -211,7 +228,7 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
     rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "name",
                                      [XCElementSnapshot xmlCharPtrForInput:[snapshot.wdName cStringUsingEncoding:NSUTF8StringEncoding]]);
     if (rc < 0) {
-      NSLog(@"Failed to invoke libxml2>xmlTextWriterWriteAttribute");
+      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
       return rc;
     }
   }
@@ -219,14 +236,14 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
     rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "label",
                                      [XCElementSnapshot xmlCharPtrForInput:[snapshot.wdLabel cStringUsingEncoding:NSUTF8StringEncoding]]);
     if (rc < 0) {
-      NSLog(@"Failed to invoke libxml2>xmlTextWriterWriteAttribute");
+      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
       return rc;
     }
   }
   rc = xmlTextWriterWriteAttribute(writer, [XCElementSnapshot xmlCharPtrForInput:[kXMLIndexPathKey cStringUsingEncoding:NSUTF8StringEncoding]],
                                    [XCElementSnapshot xmlCharPtrForInput:[indexPath cStringUsingEncoding:NSUTF8StringEncoding]]);
   if (rc < 0) {
-    NSLog(@"Failed to invoke libxml2>xmlTextWriterWriteAttribute");
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
     return rc;
   }
     
@@ -237,14 +254,13 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
     elementStore[newIndexPath] = childSnapshot;
     rc = [self generateXMLPresentation:childSnapshot indexPath:newIndexPath elementStore:elementStore writer:writer];
     if (rc < 0) {
-      NSLog(@"Failed to generate XML map of a subelement");
       return rc;
     }
   }
     
   rc = xmlTextWriterEndElement(writer);
   if (rc < 0) {
-    NSLog(@"Failed to invoke libxml2>xmlTextWriterEndElement");
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
     return rc;
   }
     

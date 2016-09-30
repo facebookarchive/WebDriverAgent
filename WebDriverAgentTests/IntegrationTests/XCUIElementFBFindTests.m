@@ -12,6 +12,7 @@
 #import "FBIntegrationTestCase.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBFind.h"
+#import "XCElementSnapshot+FBHelpers.h"
 
 @interface XCUIElementFBFindTests : FBIntegrationTestCase
 @property (nonatomic, strong) XCUIElement *testedView;
@@ -65,6 +66,12 @@
 {
     NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//*[@label='Scrolling']/preceding::*[boolean(string(@label))]"];
     XCTAssertEqual(matchingSnapshots.count, 3);
+}
+
+- (void)testDescendantsWithWrongXPathQuery
+{
+    XCTAssertThrowsSpecificNamed([self.testedView fb_descendantsMatchingXPathQuery:@"//*[blabla(@label, Scrolling')]"], NSException,
+                                 XCElementSnapshotInvalidXPathException);
 }
 
 - (void)testDescendantsWithPredicateString
