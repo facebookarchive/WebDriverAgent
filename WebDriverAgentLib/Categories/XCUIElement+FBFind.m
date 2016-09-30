@@ -112,16 +112,16 @@
   [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
     NSArray *elements = elementsMap[@(snapshot.elementType)];
     [elements enumerateObjectsUsingBlock:^(XCUIElement *element, NSUInteger elementIdx, BOOL *stopElementEnum) {
-        id lastSnapshot = [element lastSnapshot];
-        if (nil == lastSnapshot) {
-            [element resolve];
-            lastSnapshot = [element lastSnapshot];
-        }
-        if ([lastSnapshot _matchesElement:snapshot]) {
-            [matchingElements addObject:element];
-            *stopElementEnum = YES;
-        }
-      }];
+      id lastSnapshot = [element lastSnapshot];
+      if (nil == lastSnapshot) {
+        [element resolve];
+        lastSnapshot = [element lastSnapshot];
+      }
+      if ([lastSnapshot _matchesElement:snapshot]) {
+        [matchingElements addObject:element];
+        *stopElementEnum = YES;
+      }
+    }];
   }];
   return matchingElements.copy;
 }
