@@ -61,6 +61,12 @@
   XCTAssertEqualObjects(matchingSnapshots.lastObject.label, @"Alerts");
 }
 
+- (void)testDescendantsWithComplexXPathQuery
+{
+    NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//*[@label='Scrolling']/preceding::*[boolean(string(@label))]"];
+    XCTAssertEqual(matchingSnapshots.count, 3);
+}
+
 - (void)testDescendantsWithPredicateString
 {
   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"label = 'Alerts'"];
