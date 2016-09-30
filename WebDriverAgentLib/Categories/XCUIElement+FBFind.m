@@ -69,7 +69,8 @@
 
 #pragma mark - Search by Predicate String
 
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate {
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate
+{
   XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate];
   NSArray *childElements = [query allElementsBoundByIndex];
   return childElements;
@@ -92,7 +93,8 @@
   return matchingElements;
 }
 
-- (NSDictionary<NSNumber *, NSArray<XCElementSnapshot *> *> *)filterPotentialMatchesByType:(NSArray<XCElementSnapshot *> *)snapshots {
+- (NSDictionary<NSNumber *, NSArray<XCElementSnapshot *> *> *)filterPotentialMatchesByType:(NSArray<XCElementSnapshot *> *)snapshots
+{
   NSMutableSet *matchingTypes = [NSMutableSet set];
   [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
     [matchingTypes addObject:@(snapshot.elementType)];
