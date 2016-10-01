@@ -13,6 +13,7 @@
 #import "XCUIElement.h"
 #import "XCUIElement+FBFind.h"
 #import "XCElementSnapshot+FBHelpers.h"
+#import "XCElementSnapshot+FBXPath.h"
 
 @interface XCUIElementFBFindTests : FBIntegrationTestCase
 @property (nonatomic, strong) XCUIElement *testedView;

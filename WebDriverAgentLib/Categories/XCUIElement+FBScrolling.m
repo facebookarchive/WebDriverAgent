@@ -15,6 +15,7 @@
 #import "FBMacros.h"
 #import "FBMathUtils.h"
 #import "XCElementSnapshot+FBHelpers.h"
+#import "XCElementSnapshot+FBXPath.h"
 #import "XCElementSnapshot.h"
 #import "XCEventGenerator.h"
 #import "XCPointerEventPath.h"
