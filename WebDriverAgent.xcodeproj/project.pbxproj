@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		44757A851D42CF9700ECF35E /* XCUIDeviceRotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */; };
+		7122C8621D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 7122C8601D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.h */; };
+		7122C8631D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 7122C8611D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.m */; };
 		7174AF041D9D39AF008C8AD5 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7174AF031D9D39AF008C8AD5 /* libxml2.tbd */; };
 		AD35D01A1CF1418E00870A75 /* RoutingHTTPServer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD35D01C1CF141A600870A75 /* KissXML.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD271CF120B000806E5D /* KissXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -305,6 +307,8 @@
 
 /* Begin PBXFileReference section */
 		44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceRotationTests.m; sourceTree = "<group>"; };
+		7122C8601D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCElementSnapshot+FBXPath.h"; sourceTree = "<group>"; };
+		7122C8611D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCElementSnapshot+FBXPath.m"; sourceTree = "<group>"; };
 		7174AF031D9D39AF008C8AD5 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		AD35D0291CF1B39E00870A75 /* generate_modules.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate_modules.sh; sourceTree = "<group>"; };
 		AD35D0651CF1C2CE00870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/iOS/Peertalk.framework; sourceTree = "<group>"; };
@@ -723,6 +727,8 @@
 			children = (
 				EEE3763B1D59F81400ED88DD /* XCElementSnapshot+FBHelpers.h */,
 				EEE3763C1D59F81400ED88DD /* XCElementSnapshot+FBHelpers.m */,
+				7122C8601D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.h */,
+				7122C8611D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.m */,
 				AD6C269A1CF2494200F8B5FF /* XCUIApplication+FBHelpers.h */,
 				AD6C269B1CF2494200F8B5FF /* XCUIApplication+FBHelpers.m */,
 				AD6C26961CF2481700F8B5FF /* XCUIDevice+FBHelpers.h */,
@@ -1124,6 +1130,7 @@
 				EEE007CE1D92BA190043D05C /* NSValue-XCTestAdditions.h in Headers */,
 				EEE007F31D92BA190043D05C /* XCTestDriverInterface-Protocol.h in Headers */,
 				EEE007CC1D92BA190043D05C /* CDStructures.h in Headers */,
+				7122C8621D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.h in Headers */,
 				EEE007E91D92BA190043D05C /* XCSymbolicatorHolder.h in Headers */,
 				EEE008071D92BA190043D05C /* XCUIElement.h in Headers */,
 				EEE007CB1D92BA190043D05C /* _XCTestSuiteImplementation.h in Headers */,
@@ -1473,6 +1480,7 @@
 				EE3A18631CDE618F00DE4205 /* FBErrorBuilder.m in Sources */,
 				EE158AD71CBD456F00A3E3F0 /* FBHTTPOverUSBServer.m in Sources */,
 				EE158AF21CBD456F00A3E3F0 /* FBXPathCreator.m in Sources */,
+				7122C8631D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.m in Sources */,
 				AD6C269D1CF2494200F8B5FF /* XCUIApplication+FBHelpers.m in Sources */,
 				EE3A18671CDE734B00DE4205 /* FBKeyboard.m in Sources */,
 				EE158AFA1CBD456F00A3E3F0 /* FBApplicationProcessProxy.m in Sources */,
