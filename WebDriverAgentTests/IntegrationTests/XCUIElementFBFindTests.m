@@ -13,7 +13,8 @@
 #import "XCUIElement.h"
 #import "XCUIElement+FBFind.h"
 #import "XCElementSnapshot+FBHelpers.h"
-#import "XCElementSnapshot+FBXPath.h"
+#import "XCUIElement+FBIsVisible.h"
+#import "FBXPath.h"
 
 @interface XCUIElementFBFindTests : FBIntegrationTestCase
 @property (nonatomic, strong) XCUIElement *testedView;
@@ -73,6 +74,25 @@
 {
     XCTAssertThrowsSpecificNamed([self.testedView fb_descendantsMatchingXPathQuery:@"//*[blabla(@label, Scrolling')]"], NSException,
                                  XCElementSnapshotInvalidXPathException);
+}
+
+- (void)testVisibleDescendantWithXPathQuery
+{
+  NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton[@name='Alerts' and @isEnabled='1' and @isVisible='1']"];
+  XCTAssertEqual(matchingSnapshots.count, 1);
+  XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypeButton);
+  XCTAssertTrue(matchingSnapshots.lastObject.isEnabled);
+  XCTAssertTrue(matchingSnapshots.lastObject.fb_isVisible);
+  XCTAssertEqualObjects(matchingSnapshots.lastObject.label, @"Alerts");
+}
+
+- (void)testInvisibleDescendantWithXPathQuery
+{
+  [self goToAttributesPage];
+  NSArray<XCUIElement *> *matchingSnapshots = [self.testedApplication fb_descendantsMatchingXPathQuery:@"//XCUIElementTypePageIndicator[@isVisible='0']"];
+  XCTAssertEqual(matchingSnapshots.count, 1);
+  XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypePageIndicator);
+  XCTAssertFalse(matchingSnapshots.lastObject.fb_isVisible);
 }
 
 - (void)testDescendantsWithPredicateString

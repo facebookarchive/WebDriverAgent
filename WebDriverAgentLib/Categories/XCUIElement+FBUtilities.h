@@ -8,6 +8,7 @@
  */
 
 #import <XCTest/XCTest.h>
+#import <WebDriverAgentLib/XCElementSnapshot.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,6 +31,14 @@ NS_ASSUME_NONNULL_BEGIN
  @return YES if receiver obstructs 'element', otherwise NO
  */
 - (BOOL)fb_obstructsElement:(XCUIElement *)element;
+
+/**
+ Gets the most recent snapshot of the current element. The element will be 
+ automatically resolved if the snapshot is not available yet
+ 
+ @return The recent snapshot of the element
+ */
+- (XCElementSnapshot *) fb_lastSnapshot;
 
 @end
 

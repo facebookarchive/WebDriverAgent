@@ -12,7 +12,6 @@
 #import "FBIntegrationTestCase.h"
 #import "FBTestMacros.h"
 #import "XCElementSnapshot+FBHelpers.h"
-#import "XCElementSnapshot+FBXPath.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "XCUIElement+FBIsVisible.h"
