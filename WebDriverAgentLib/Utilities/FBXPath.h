@@ -7,6 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+#import <Foundation/Foundation.h>
+#import <XCTest/XCUIElementTypes.h>
 #import <WebDriverAgentLib/XCElementSnapshot.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,23 +22,16 @@ extern NSString *const XCElementSnapshotInvalidXPathException;
  */
 extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
 
-@interface XCElementSnapshot (FBXPath)
-
-/**
- Returns an array of descendants matching given type
- 
- @param type requested descendant type
- @return an array of descendants matching given type
- */
-- (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type;
+@interface FBXPath : NSObject
 
 /**
  Returns an array of descendants matching given xpath query
  
+ @param root the root element to execute XPath query for
  @param xpathQuery requested xpath query
  @return an array of descendants matching given xpath query
  */
-- (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery;
++ (NSArray<XCElementSnapshot *> *)findMatchesIn:(XCElementSnapshot *)root withXPathQuery:(NSString *)xpathQuery;
 
 @end
 

@@ -11,7 +11,6 @@
 
 #import "FBIntegrationTestCase.h"
 #import "XCElementSnapshot+FBHelpers.h"
-#import "XCElementSnapshot+FBXPath.h"
 #import "XCUIElement.h"
 
 @interface XCElementSnapshotHelperTests : FBIntegrationTestCase

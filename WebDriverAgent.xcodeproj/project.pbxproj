@@ -8,11 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		44757A851D42CF9700ECF35E /* XCUIDeviceRotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */; };
-		7122C8621D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 7122C8601D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.h */; };
-		7122C8631D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 7122C8611D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.m */; };
+		711084441DA3AA7500F913D6 /* FBXPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 711084421DA3AA7500F913D6 /* FBXPath.h */; };
+		711084451DA3AA7500F913D6 /* FBXPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 711084431DA3AA7500F913D6 /* FBXPath.m */; };
 		7174AF041D9D39AF008C8AD5 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7174AF031D9D39AF008C8AD5 /* libxml2.tbd */; };
 		AD35D01A1CF1418E00870A75 /* RoutingHTTPServer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AD35D01C1CF141A600870A75 /* KissXML.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD271CF120B000806E5D /* KissXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD35D0641CF1C2C300870A75 /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; };
 		AD35D0661CF1C2CE00870A75 /* Peertalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD35D0651CF1C2CE00870A75 /* Peertalk.framework */; };
 		AD35D06A1CF1C30700870A75 /* Peertalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD35D0691CF1C30700870A75 /* Peertalk.framework */; };
@@ -297,7 +296,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				AD35D06B1CF1C31B00870A75 /* Peertalk.framework in Copy Frameworks */,
-				AD35D01C1CF141A600870A75 /* KissXML.framework in Copy Frameworks */,
 				AD35D01A1CF1418E00870A75 /* RoutingHTTPServer.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -307,13 +305,12 @@
 
 /* Begin PBXFileReference section */
 		44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceRotationTests.m; sourceTree = "<group>"; };
-		7122C8601D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCElementSnapshot+FBXPath.h"; sourceTree = "<group>"; };
-		7122C8611D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCElementSnapshot+FBXPath.m"; sourceTree = "<group>"; };
+		711084421DA3AA7500F913D6 /* FBXPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXPath.h; sourceTree = "<group>"; };
+		711084431DA3AA7500F913D6 /* FBXPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPath.m; sourceTree = "<group>"; };
 		7174AF031D9D39AF008C8AD5 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		AD35D0291CF1B39E00870A75 /* generate_modules.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate_modules.sh; sourceTree = "<group>"; };
 		AD35D0651CF1C2CE00870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/iOS/Peertalk.framework; sourceTree = "<group>"; };
 		AD35D0691CF1C30700870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/Mac/Peertalk.framework; sourceTree = "<group>"; };
-		AD42DD271CF120B000806E5D /* KissXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KissXML.framework; path = /Users/elf/code/WebDriverAgent/Carthage/Build/iOS/KissXML.framework; sourceTree = "<absolute>"; };
 		AD42DD2A1CF121E600806E5D /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RoutingHTTPServer.framework; path = Carthage/Build/iOS/RoutingHTTPServer.framework; sourceTree = "<group>"; };
 		AD6C26921CF2379700F8B5FF /* FBAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBAlert.h; path = WebDriverAgentLib/FBAlert.h; sourceTree = SOURCE_ROOT; };
@@ -727,8 +724,6 @@
 			children = (
 				EEE3763B1D59F81400ED88DD /* XCElementSnapshot+FBHelpers.h */,
 				EEE3763C1D59F81400ED88DD /* XCElementSnapshot+FBHelpers.m */,
-				7122C8601D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.h */,
-				7122C8611D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.m */,
 				AD6C269A1CF2494200F8B5FF /* XCUIApplication+FBHelpers.h */,
 				AD6C269B1CF2494200F8B5FF /* XCUIApplication+FBHelpers.m */,
 				AD6C26961CF2481700F8B5FF /* XCUIDevice+FBHelpers.h */,
@@ -855,6 +850,8 @@
 				EE9AB7991CAEDF0C008C271F /* FBXPathCreator.m */,
 				EE6B64FB1D0F86EF00E85F5D /* XCTestPrivateSymbols.h */,
 				EE6B64FC1D0F86EF00E85F5D /* XCTestPrivateSymbols.m */,
+				711084421DA3AA7500F913D6 /* FBXPath.h */,
+				711084431DA3AA7500F913D6 /* FBXPath.m */,
 			);
 			name = Utilities;
 			path = WebDriverAgentLib/Utilities;
@@ -1130,7 +1127,6 @@
 				EEE007CE1D92BA190043D05C /* NSValue-XCTestAdditions.h in Headers */,
 				EEE007F31D92BA190043D05C /* XCTestDriverInterface-Protocol.h in Headers */,
 				EEE007CC1D92BA190043D05C /* CDStructures.h in Headers */,
-				7122C8621D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.h in Headers */,
 				EEE007E91D92BA190043D05C /* XCSymbolicatorHolder.h in Headers */,
 				EEE008071D92BA190043D05C /* XCUIElement.h in Headers */,
 				EEE007CB1D92BA190043D05C /* _XCTestSuiteImplementation.h in Headers */,
@@ -1161,6 +1157,7 @@
 				EEE007FB1D92BA190043D05C /* XCTestObservation-Protocol.h in Headers */,
 				EEE0080C1D92BA190043D05C /* XCUIRecorderNodeFinderMatch.h in Headers */,
 				EEE007E71D92BA190043D05C /* XCSourceCodeTreeNodeEnumerator.h in Headers */,
+				711084441DA3AA7500F913D6 /* FBXPath.h in Headers */,
 				EEE007E11D92BA190043D05C /* XCKeyboardLayout.h in Headers */,
 				EEE007CF1D92BA190043D05C /* UIGestureRecognizer-RecordingAdditions.h in Headers */,
 				EEE007EF1D92BA190043D05C /* XCTestConfiguration.h in Headers */,
@@ -1476,11 +1473,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE158AC71CBD456F00A3E3F0 /* FBScreenshotCommands.m in Sources */,
+				711084451DA3AA7500F913D6 /* FBXPath.m in Sources */,
 				EE158AE71CBD456F00A3E3F0 /* FBWebServer.m in Sources */,
 				EE3A18631CDE618F00DE4205 /* FBErrorBuilder.m in Sources */,
 				EE158AD71CBD456F00A3E3F0 /* FBHTTPOverUSBServer.m in Sources */,
 				EE158AF21CBD456F00A3E3F0 /* FBXPathCreator.m in Sources */,
-				7122C8631D9FD9A200FE71A3 /* XCElementSnapshot+FBXPath.m in Sources */,
 				AD6C269D1CF2494200F8B5FF /* XCUIApplication+FBHelpers.m in Sources */,
 				EE3A18671CDE734B00DE4205 /* FBKeyboard.m in Sources */,
 				EE158AFA1CBD456F00A3E3F0 /* FBApplicationProcessProxy.m in Sources */,
@@ -1748,7 +1745,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = WebDriverAgentLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -1776,7 +1772,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = WebDriverAgentLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;

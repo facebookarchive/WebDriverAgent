@@ -52,5 +52,15 @@
   return YES;
 }
 
+- (XCElementSnapshot *) fb_lastSnapshot
+{
+  XCElementSnapshot *lastSnapshot = [self lastSnapshot];
+  if (nil == lastSnapshot) {
+    [self resolve];
+    return [self lastSnapshot];
+  } else {
+    return lastSnapshot;
+  }
+}
 
 @end
