@@ -11,6 +11,22 @@
 #import <XCTest/XCUIElementTypes.h>
 #import <WebDriverAgentLib/XCElementSnapshot.h>
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpadded"
+#endif
+
+#import <libxml/tree.h>
+#import <libxml/parser.h>
+#import <libxml/xpath.h>
+#import <libxml/xpathInternals.h>
+#import <libxml/encoding.h>
+#import <libxml/xmlwriter.h>
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**

@@ -9,23 +9,6 @@
 
 #import "FBXPath.h"
 
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpadded"
-#endif
-
-#import <libxml/tree.h>
-#import <libxml/parser.h>
-#import <libxml/HTMLparser.h>
-#import <libxml/xpath.h>
-#import <libxml/xpathInternals.h>
-#import <libxml/encoding.h>
-#import <libxml/xmlwriter.h>
-
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
-
 #import "FBLogger.h"
 #import "XCAXClient_iOS.h"
 #import "XCTestDriver.h"
@@ -47,7 +30,6 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   NSString * reason = [NSString stringWithFormat:@"Cannot evaluate results for XPath expression \"%@\"", xpathQuery];
   @throw [NSException exceptionWithName:name reason:reason userInfo:@{}];
 }
-
 
 + (NSArray<XCElementSnapshot *> *)findMatchesIn:(XCElementSnapshot *)root withXPathQuery:(NSString *)xpathQuery
 {
@@ -86,7 +68,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 +(NSArray *)collectMatchingSnapshots:(xmlNodeSetPtr)nodeSet withElementStore:(NSMutableDictionary *)elementStore
 {
   NSMutableArray *matchingSnapshots = [NSMutableArray array];
-  const xmlChar *indexPathKeyName = [self.class xmlCharPtrForInput:[kXMLIndexPathKey cStringUsingEncoding:NSUTF8StringEncoding]];
+  const xmlChar *indexPathKeyName = [FBXPath xmlCharPtrForInput:[kXMLIndexPathKey cStringUsingEncoding:NSUTF8StringEncoding]];
   for (NSInteger i = 0; i < nodeSet->nodeNr; i++) {
     xmlNodePtr currentNode = nodeSet->nodeTab[i];
     xmlChar *attrValue = xmlGetProp(currentNode, indexPathKeyName);
@@ -116,6 +98,8 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     [FBLogger log:@"Failed to generate XML presentation of a screen element"];
     return rc;
   }
+  // The current node should be in the store as well
+  elementStore[topNodeIndexPath] = root;
   rc = xmlTextWriterEndDocument(writer);
   if (rc < 0) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlXPathNewContext. Error code: %d", rc];
@@ -173,7 +157,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     return NULL;
   }
   
-  xpathObj = xmlXPathEvalExpression([self.class xmlCharPtrForInput:[xpathQuery cStringUsingEncoding:NSUTF8StringEncoding]], xpathCtx);
+  xpathObj = xmlXPathEvalExpression([FBXPath xmlCharPtrForInput:[xpathQuery cStringUsingEncoding:NSUTF8StringEncoding]], xpathCtx);
   if (NULL == xpathObj) {
     xmlXPathFreeContext(xpathCtx);
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlXPathEvalExpression for XPath query \"%@\"", xpathQuery];
@@ -237,8 +221,8 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     return rc;
   }
   
-  rc = xmlTextWriterWriteAttribute(writer, [self.class xmlCharPtrForInput:[kXMLIndexPathKey cStringUsingEncoding:NSUTF8StringEncoding]],
-                                   [self.class xmlCharPtrForInput:[indexPath cStringUsingEncoding:NSUTF8StringEncoding]]);
+  rc = xmlTextWriterWriteAttribute(writer, [FBXPath xmlCharPtrForInput:[kXMLIndexPathKey cStringUsingEncoding:NSUTF8StringEncoding]],
+                                   [FBXPath xmlCharPtrForInput:[indexPath cStringUsingEncoding:NSUTF8StringEncoding]]);
   if (rc < 0) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
     return rc;
@@ -251,7 +235,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 {
   int rc;
   
-  rc = xmlTextWriterStartElement(writer, [self.class xmlCharPtrForInput:[root.wdType cStringUsingEncoding:NSUTF8StringEncoding]]);
+  rc = xmlTextWriterStartElement(writer, [FBXPath xmlCharPtrForInput:[root.wdType cStringUsingEncoding:NSUTF8StringEncoding]]);
   if (rc < 0) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterStartElement. Error code: %d", rc];
     return rc;
@@ -275,7 +259,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   
   rc = xmlTextWriterEndElement(writer);
   if (rc < 0) {
-    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterEndElement. Error code: %d", rc];
     return rc;
   }
   
