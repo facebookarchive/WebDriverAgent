@@ -13,6 +13,7 @@
 #import "FBRunLoopSpinner.h"
 #import "FBLogger.h"
 #import "FBMacros.h"
+#import "FBMathUtils.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCElementSnapshot.h"
 #import "XCEventGenerator.h"
@@ -24,8 +25,6 @@
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
-
-#define FBPointFuzzyEqualToPoint(point1, point2, threshold) ((fabs(point1.x - point2.x) < threshold) && (fabs(point1.y - point2.y) < threshold))
 
 const CGFloat FBFuzzyPointThreshold = 20.f; //Smallest determined value that is not interpreted as touch
 const CGFloat FBFullscreenNormalizedDistance = 1.0f;
