@@ -14,12 +14,12 @@ function prebootSimulator() {
   if [ -z "${DESTINATION:-}" ]; then
     return
   fi
-  xcrun instruments -t 'Blank' -l 1 -w "${DESTINATION}"
+  xcrun instruments -t 'Blank' -l 1 -w "${DESTINATION} (${IOS})"
 }
 
 function build() {
   if [ ! -z "${DESTINATION:-}" ]; then
-    DESTINATION_CMD="-destination \"name=${DESTINATION}\""
+    DESTINATION_CMD="-destination \"name=${DESTINATION},OS=${IOS}\""
   fi
   lines=(
     "xcodebuild"
