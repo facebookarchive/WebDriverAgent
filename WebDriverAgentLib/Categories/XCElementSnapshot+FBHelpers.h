@@ -46,6 +46,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types;
 
 /**
+ Returns first (going up element tree) visible parent that matches one of given types and has more than one child. If non found returns nil.
+ 
+ @param types possible parent types
+ @param filter will filter results even further after matching one of given types
+ @return parent element matching one of given types and satisfying filter condition
+ */
+- (nullable XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types filter:(BOOL(^)(XCElementSnapshot *snapshot))filter;
+
+/**
  Returns value for given accessibility property identifier.
 
  @param attribute attribute's accessibility identifier
@@ -61,6 +70,19 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)fb_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot;
 
+/**
+ Returns an array of descendants cell snapshots
+ 
+ @return an array of descendants cell snapshots
+ */
+- (NSArray<XCElementSnapshot *> *)fb_descendantsCellSnapshots;
+
+/**
+ Returns itself if it is either XCUIElementTypeIcon or XCUIElementTypeCell. Otherwise, returns first (going up element tree) parent that matches cell (XCUIElementTypeCell or  XCUIElementTypeIcon). If non found returns nil.
+ 
+ @return parent element matching either XCUIElementTypeIcon or XCUIElementTypeCell.
+ */
+- (nullable XCElementSnapshot *)fb_parentCellSnapshot;
 @end
 
 NS_ASSUME_NONNULL_END

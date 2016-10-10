@@ -87,7 +87,7 @@
 
 - (CGRect)wdFrame
 {
-  return self.frame;
+  return CGRectIntegral(self.frame);
 }
 
 - (BOOL)isWDVisible
@@ -142,13 +142,13 @@
 
 - (NSDictionary *)wdRect
 {
-    return
-    @{
-      @"x": @(CGRectGetMinX(self.frame)),
-      @"y": @(CGRectGetMinY(self.frame)),
-      @"width": @(CGRectGetWidth(self.frame)),
-      @"height": @(CGRectGetHeight(self.frame)),
-      };
+  CGRect frame = self.wdFrame;
+  return @{
+    @"x": @(CGRectGetMinX(frame)),
+    @"y": @(CGRectGetMinY(frame)),
+    @"width": @(CGRectGetWidth(frame)),
+    @"height": @(CGRectGetHeight(frame)),
+  };
 }
 
 @end
