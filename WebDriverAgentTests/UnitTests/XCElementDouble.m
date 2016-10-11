@@ -9,82 +9,35 @@
 
 #import "XCElementDouble.h"
 
-@interface XCElementDouble ()
-@property (nonatomic, copy, readwrite) NSString *wdName;
-@property (nonatomic, copy, readwrite) NSString *wdLabel;
-@property (nonatomic, copy, readwrite) NSString *wdType;
-@property (nonatomic, strong, nullable, readwrite) id wdValue;
-@property (nonatomic, readwrite, getter = isWDEnabled) BOOL wdEnabled;
-@property (nonatomic, readwrite, getter = isWDVisible) BOOL wdVisible;
-@property (nonatomic, readwrite, getter = isWDAccessible) BOOL wdAccessible;
-@property (nonatomic, copy, readwrite) NSArray *children;
-@end
-
 @implementation XCElementDouble
-- (BOOL)isWDAccessibilityContainer
-{
-  return NO;
-}
 
-- (CGRect)wdFrame
+- (id)init
 {
-  return CGRectMake(0, 0, 0, 0);
+  self = [super init];
+  if (self) {
+    self.wdFrame = CGRectMake(0, 0, 0, 0);
+    self.wdName = @"testName";
+    self.wdLabel = @"testLabel";
+    self.wdValue = @"кирилиця";
+    self.wdVisible = YES;
+    self.wdAccessible = YES;
+    self.wdEnabled = YES;
+    self.children = @[];
+    self.wdRect =  @{@"x": @(0),
+                     @"y": @(0),
+                     @"width": @(0),
+                     @"height": @(0),
+                    };
+    self.wdAccessibilityContainer = NO;
+    self.elementType = XCUIElementTypeOther;
+    self.wdType = @"XCUIElementTypeOther";
+  }
+  return self;
 }
 
 - (id)fb_valueForWDAttributeName:(NSString *)name
 {
   return @"test";
-}
-
-- (NSDictionary *)wdRect
-{
-  return
-  @{
-    @"x": @(0),
-    @"y": @(0),
-    @"width": @(0),
-    @"height": @(0),
-    };
-}
-
-- (id)wdValue
-{
-  return @"кирилиця";
-}
-
-- (NSString *)wdName
-{
-  return @"testName";
-}
-
-- (NSString *)wdLabel
-{
-  return @"testLabel";
-}
-
-- (NSString *)wdType
-{
-  return @"XCUIElementTypeOther";
-}
-
-- (BOOL)isWDVisible
-{
-  return YES;
-}
-
-- (BOOL)isWDAccessible
-{
-  return YES;
-}
-
-- (BOOL)isWDEnabled
-{
-  return YES;
-}
-
-- (NSArray *)children
-{
-  return @[];
 }
 
 @end

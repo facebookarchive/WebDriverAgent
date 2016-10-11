@@ -110,6 +110,15 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
     return targetCellSnapshot;
 }
 
++ (NSSet<NSNumber *> *)fb_getUniqueTypes:(NSArray<XCElementSnapshot *> *)matchingSnapshots
+{
+  NSMutableSet *matchingTypes = [NSMutableSet set];
+  [matchingSnapshots enumerateObjectsUsingBlock:^(XCElementSnapshot* snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
+    [matchingTypes addObject: @(snapshot.elementType)];
+  }];
+  return matchingTypes.copy;
+}
+
 @end
 
 inline static BOOL valuesAreEqual(id value1, id value2)
