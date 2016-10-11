@@ -91,17 +91,17 @@
   // Prefiltering elements speeds up search by XPath a lot, because [element resolve] is the most expensive operation here
   NSSet *matchedTypes = [XCUIElement getSnapshotsTypes:matchingSnapshots];
   NSDictionary *elementsByType = [self splitElementsByType:matchingSnapshots byTypes:matchedTypes];
-  NSArray *matchingElements = [self filterElements:elementsByType matchingSnapshots:matchingSnapshots];
+  NSArray *matchingElements = [XCUIElement filterElements:elementsByType matchingSnapshots:matchingSnapshots];
   return matchingElements;
 }
 
-+(NSSet *)getSnapshotsTypes:(NSArray<XCElementSnapshot *> *)matchingSnapshots
++ (NSSet<NSNumber *> *)getSnapshotsTypes:(NSArray<XCElementSnapshot *> *)matchingSnapshots
 {
   NSMutableSet *matchingTypes = [NSMutableSet set];
   [matchingSnapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
     [matchingTypes addObject:@(snapshot.elementType)];
   }];
-  return matchingTypes;
+  return matchingTypes.copy;
 }
 
 - (NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)splitElementsByType:(NSArray<XCElementSnapshot *> *)snapshots byTypes:(NSSet *)types
@@ -115,7 +115,7 @@
   return result.copy;
 }
 
-- (NSArray<XCUIElement *> *)filterElements:(NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)elementsMap matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots
++ (NSArray<XCUIElement *> *)filterElements:(NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)elementsMap matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots
 {
   NSMutableArray *matchingElements = [NSMutableArray array];
   [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {

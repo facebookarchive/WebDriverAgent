@@ -12,7 +12,7 @@
 		711084451DA3AA7500F913D6 /* FBXPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 711084431DA3AA7500F913D6 /* FBXPath.m */; };
 		712A0C851DA3E459007D02E5 /* FBXPathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 712A0C841DA3E459007D02E5 /* FBXPathTests.m */; };
 		712A0C871DA3E55D007D02E5 /* FBXPath-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 712A0C861DA3E55D007D02E5 /* FBXPath-Private.h */; };
-		712A0C8B1DA3E8DE007D02E5 /* XCTestElementSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 712A0C8A1DA3E8DE007D02E5 /* XCTestElementSnapshot.m */; };
+		712A0C8B1DA3E8DE007D02E5 /* XCElementDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = 712A0C8A1DA3E8DE007D02E5 /* XCElementDouble.m */; };
 		712A0C8C1DA3F25B007D02E5 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7174AF031D9D39AF008C8AD5 /* libxml2.tbd */; };
 		7174AF041D9D39AF008C8AD5 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7174AF031D9D39AF008C8AD5 /* libxml2.tbd */; };
 		AD35D01A1CF1418E00870A75 /* RoutingHTTPServer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -319,8 +319,8 @@
 		711084431DA3AA7500F913D6 /* FBXPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPath.m; sourceTree = "<group>"; };
 		712A0C841DA3E459007D02E5 /* FBXPathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathTests.m; sourceTree = "<group>"; };
 		712A0C861DA3E55D007D02E5 /* FBXPath-Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBXPath-Private.h"; sourceTree = "<group>"; };
-		712A0C891DA3E8DE007D02E5 /* XCTestElementSnapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTestElementSnapshot.h; sourceTree = "<group>"; };
-		712A0C8A1DA3E8DE007D02E5 /* XCTestElementSnapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCTestElementSnapshot.m; sourceTree = "<group>"; };
+		712A0C891DA3E8DE007D02E5 /* XCElementDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCElementDouble.h; path = ../XCElementDouble.h; sourceTree = "<group>"; };
+		712A0C8A1DA3E8DE007D02E5 /* XCElementDouble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCElementDouble.m; path = ../XCElementDouble.m; sourceTree = "<group>"; };
 		7174AF031D9D39AF008C8AD5 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		AD35D0291CF1B39E00870A75 /* generate_modules.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate_modules.sh; sourceTree = "<group>"; };
 		AD35D0651CF1C2CE00870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/iOS/Peertalk.framework; sourceTree = "<group>"; };
@@ -646,15 +646,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		712A0C881DA3E891007D02E5 /* XPath */ = {
-			isa = PBXGroup;
-			children = (
-				712A0C891DA3E8DE007D02E5 /* XCTestElementSnapshot.h */,
-				712A0C8A1DA3E8DE007D02E5 /* XCTestElementSnapshot.m */,
-			);
-			name = XPath;
-			sourceTree = "<group>";
-		};
 		91F9DAE01B99DBC2001349B2 = {
 			isa = PBXGroup;
 			children = (
@@ -722,6 +713,8 @@
 		ADBC39951D07840300327304 /* Doubles */ = {
 			isa = PBXGroup;
 			children = (
+				712A0C891DA3E8DE007D02E5 /* XCElementDouble.h */,
+				712A0C8A1DA3E8DE007D02E5 /* XCElementDouble.m */,
 				ADBC39961D07842800327304 /* XCUIElementDouble.h */,
 				ADBC39971D07842800327304 /* XCUIElementDouble.m */,
 				EE6A89271D0B257B0083E92B /* FBApplicationDouble.h */,
@@ -940,7 +933,6 @@
 		EE9B76561CF7987300275851 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				712A0C881DA3E891007D02E5 /* XPath */,
 				ADBC39951D07840300327304 /* Doubles */,
 				EEE16E961D33A25500172525 /* FBConfigurationTests.m */,
 				ADBC39931D0782CD00327304 /* FBElementCacheTests.m */,
@@ -1588,7 +1580,7 @@
 				ADBC39941D0782CD00327304 /* FBElementCacheTests.m in Sources */,
 				ADEF63AD1D09DCCF0070A7E3 /* FBXPathCreatorTests.m in Sources */,
 				ADEF63AF1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m in Sources */,
-				712A0C8B1DA3E8DE007D02E5 /* XCTestElementSnapshot.m in Sources */,
+				712A0C8B1DA3E8DE007D02E5 /* XCElementDouble.m in Sources */,
 				EE9B76591CF7987800275851 /* FBRouteTests.m in Sources */,
 				EE6A892B1D0B25820083E92B /* FBApplicationDouble.m in Sources */,
 				EE6A892D1D0B2AF40083E92B /* FBErrorBuilderTests.m in Sources */,

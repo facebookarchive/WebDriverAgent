@@ -7,8 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <WebDriverAgentLib/XCElementSnapshot.h>
+#import <Foundation/Foundation.h>
+#import "FBElement.h"
 
-@interface XCTestElementSnapshot : XCElementSnapshot
-
+@interface XCElementDouble : NSObject<FBElement>
 @end
