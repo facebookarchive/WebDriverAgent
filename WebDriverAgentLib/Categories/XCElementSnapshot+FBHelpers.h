@@ -64,6 +64,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)fb_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot;
 
+/**
+ Method used to collect all the unique snapshot types from an array of snapshots.
+ 
+ @param matchingSnapshots array of snpashots
+ @return set of unique snapshot types (XCUIElementType items) or an empty set in case the input is empty
+ */
++ (NSSet<NSNumber *> *)fb_getUniqueTypes:(NSArray<XCElementSnapshot *> *)matchingSnapshots;
+
 @end
 
 NS_ASSUME_NONNULL_END
