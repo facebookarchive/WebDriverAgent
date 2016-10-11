@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param withElementStore an empty dictionary to store indexes mapping
  @return zero if the method has completed successfully
  */
-+(int)getSnapshotAsXML:(XCElementSnapshot *)root withWriter:(xmlTextWriterPtr)writer withElementStore:(NSMutableDictionary *)elementStore;
++ (int)getSnapshotAsXML:(id<FBElement>)root writer:(xmlTextWriterPtr)writer elementStore:(NSMutableDictionary *)elementStore;
 
 /**
  Gets the list of matched snapshots from xmllib2-compatible xmlNodeSetPtr structure
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param withElementStore dictionary containing index->snapshot mapping
  @return array of filtered elements or nil in case of failure. Can be empty array as well
  */
-+(NSArray *)collectMatchingSnapshots:(xmlNodeSetPtr)nodeSet withElementStore:(NSMutableDictionary *)elementStore;
++ (NSArray *)collectMatchingSnapshots:(xmlNodeSetPtr)nodeSet elementStore:(NSMutableDictionary *)elementStore;
 
 /**
  Gets the list of matched XPath nodes from xmllib2-compatible XML document
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param withDocument libxml2-compatible document pointer
  @return pointer to a libxml2-compatible structure with set of matched nodes or NULL in case of failure
  */
-+(xmlXPathObjectPtr)evaluate:(NSString *)xpathQuery withDocument:(xmlDocPtr)doc;
++ (xmlXPathObjectPtr)evaluate:(NSString *)xpathQuery document:(xmlDocPtr)doc;
 
 @end
 

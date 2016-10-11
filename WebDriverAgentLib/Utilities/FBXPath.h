@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 #import <XCTest/XCUIElementTypes.h>
-#import <WebDriverAgentLib/XCElementSnapshot.h>
+#import "FBElement.h"
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -47,7 +47,7 @@ extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
  @param xpathQuery requested xpath query
  @return an array of descendants matching given xpath query
  */
-+ (NSArray<XCElementSnapshot *> *)findMatchesIn:(XCElementSnapshot *)root withXPathQuery:(NSString *)xpathQuery;
++ (NSArray<id<FBElement>> *)findMatchesIn:(id<FBElement>)root xpathQuery:(NSString *)xpathQuery;
 
 @end
 

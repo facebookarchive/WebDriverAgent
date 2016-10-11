@@ -11,7 +11,7 @@
 
 #import "FBXPath.h"
 #import "FBXPath-Private.h"
-#import "XCTestElementSnapshot.h"
+#import "XCElementDouble.h"
 
 @interface FBXPathTests : XCTestCase
 @end
@@ -20,16 +20,14 @@
 
 - (void)testSnapshotXPathPresentation
 {
-  int rc;
-  xmlTextWriterPtr writer;
   xmlDocPtr doc;
+  
+  xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
+  NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
+  id<FBElement> root = [XCElementDouble new];
   int buffersize;
   xmlChar *xmlbuff;
-  
-  writer = xmlNewTextWriterDoc(&doc, 0);
-  NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
-  XCTestElementSnapshot *root = [XCTestElementSnapshot new];
-  rc = [FBXPath getSnapshotAsXML:root withWriter:writer withElementStore:elementStore];
+  int rc = [FBXPath getSnapshotAsXML:root writer:writer elementStore:elementStore];
   if (0 == rc) {
     xmlDocDumpFormatMemory(doc, &xmlbuff, &buffersize, 1);
   }
@@ -46,28 +44,26 @@
 
 - (void)testSnapshotXPathResultsMatching
 {
-  int rc;
-  xmlTextWriterPtr writer;
   xmlDocPtr doc;
   
-  writer = xmlNewTextWriterDoc(&doc, 0);
+  xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
-  XCTestElementSnapshot *root = [XCTestElementSnapshot new];
-  rc = [FBXPath getSnapshotAsXML:root withWriter:writer withElementStore:elementStore];
+  id<FBElement> root = [XCElementDouble new];
+  int rc = [FBXPath getSnapshotAsXML:root writer:writer elementStore:elementStore];
   if (rc < 0) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
     XCTAssertEqual(rc, 0);
   }
   
-  xmlXPathObjectPtr queryResult = [FBXPath evaluate:@"//XCUIElementTypeOther" withDocument:doc];
+  xmlXPathObjectPtr queryResult = [FBXPath evaluate:@"//XCUIElementTypeOther" document:doc];
   if (NULL == queryResult) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
     XCTAssertNotEqual(NULL, queryResult);
   }
   
-  NSArray *matchingSnapshots = [FBXPath collectMatchingSnapshots:queryResult->nodesetval withElementStore:elementStore];
+  NSArray *matchingSnapshots = [FBXPath collectMatchingSnapshots:queryResult->nodesetval elementStore:elementStore];
   xmlXPathFreeObject(queryResult);
   xmlFreeTextWriter(writer);
   xmlFreeDoc(doc);

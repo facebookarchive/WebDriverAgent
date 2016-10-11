@@ -25,47 +25,49 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 @implementation FBXPath
 
-+(void)throwException:(NSString *)name forQuery:(NSString *)xpathQuery __attribute__((noreturn))
++ (void)throwException:(NSString *)name forQuery:(NSString *)xpathQuery __attribute__((noreturn))
 {
   NSString * reason = [NSString stringWithFormat:@"Cannot evaluate results for XPath expression \"%@\"", xpathQuery];
   @throw [NSException exceptionWithName:name reason:reason userInfo:@{}];
 }
 
-+ (NSArray<XCElementSnapshot *> *)findMatchesIn:(XCElementSnapshot *)root withXPathQuery:(NSString *)xpathQuery
++ (NSArray<id<FBElement>> *)findMatchesIn:(id<FBElement>)root xpathQuery:(NSString *)xpathQuery
 {
-  int rc;
-  xmlTextWriterPtr writer;
   xmlDocPtr doc;
   
-  writer = xmlNewTextWriterDoc(&doc, 0);
+  xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
   if (NULL == writer) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlNewTextWriterDoc for XPath query \"%@\"", xpathQuery];
     [FBXPath throwException:XCElementSnapshotXPathQueryEvaluationException forQuery:xpathQuery];
+    return nil;
   }
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
-  rc = [FBXPath getSnapshotAsXML:root withWriter:writer withElementStore:elementStore];
+  int rc = [FBXPath getSnapshotAsXML:root writer:writer elementStore:elementStore];
   if (rc < 0) {
     [FBXPath throwException:XCElementSnapshotXPathQueryEvaluationException forQuery:xpathQuery];
+    return nil;
   }
   
-  xmlXPathObjectPtr queryResult = [FBXPath evaluate:xpathQuery withDocument:doc];
+  xmlXPathObjectPtr queryResult = [FBXPath evaluate:xpathQuery document:doc];
   if (NULL == queryResult) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
     [FBXPath throwException:XCElementSnapshotInvalidXPathException forQuery:xpathQuery];
+    return nil;
   }
   
-  NSArray *matchingSnapshots = [FBXPath collectMatchingSnapshots:queryResult->nodesetval withElementStore:elementStore];
+  NSArray *matchingSnapshots = [FBXPath collectMatchingSnapshots:queryResult->nodesetval elementStore:elementStore];
   xmlXPathFreeObject(queryResult);
   xmlFreeTextWriter(writer);
   xmlFreeDoc(doc);
   if (nil == matchingSnapshots) {
     [FBXPath throwException:XCElementSnapshotXPathQueryEvaluationException forQuery:xpathQuery];
+    return nil;
   }
   return matchingSnapshots;
 }
 
-+(NSArray *)collectMatchingSnapshots:(xmlNodeSetPtr)nodeSet withElementStore:(NSMutableDictionary *)elementStore
++ (NSArray *)collectMatchingSnapshots:(xmlNodeSetPtr)nodeSet elementStore:(NSMutableDictionary *)elementStore
 {
   NSMutableArray *matchingSnapshots = [NSMutableArray array];
   const xmlChar *indexPathKeyName = [FBXPath xmlCharPtrForInput:[kXMLIndexPathKey cStringUsingEncoding:NSUTF8StringEncoding]];
@@ -84,11 +86,9 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   return matchingSnapshots;
 }
 
-+(int)getSnapshotAsXML:(XCElementSnapshot *)root withWriter:(xmlTextWriterPtr)writer withElementStore:(NSMutableDictionary *)elementStore
++ (int)getSnapshotAsXML:(id<FBElement>)root writer:(xmlTextWriterPtr)writer elementStore:(NSMutableDictionary *)elementStore
 {
-  int rc;
-  
-  rc = xmlTextWriterStartDocument(writer, NULL, _UTF8Encoding, NULL);
+  int rc = xmlTextWriterStartDocument(writer, NULL, _UTF8Encoding, NULL);
   if (rc < 0) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterStartDocument. Error code: %d", rc];
     return rc;
@@ -105,35 +105,28 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlXPathNewContext. Error code: %d", rc];
     return rc;
   }
-  
   return 0;
 }
 
 + (xmlChar *) xmlCharPtrForInput:(const char *)input
 {
-  xmlChar *output;
-  int ret;
-  int size;
-  int outputSize;
-  int temp;
-  xmlCharEncodingHandlerPtr handler;
   if (0 == input) {
     return NULL;
   }
   
-  handler = xmlFindCharEncodingHandler(_UTF8Encoding);
+  xmlCharEncodingHandlerPtr handler = xmlFindCharEncodingHandler(_UTF8Encoding);
   if (!handler) {
     [FBLogger log:@"Failed to invoke libxml2>xmlFindCharEncodingHandler"];
     return NULL;
   }
   
-  size = (int) strlen(input) + 1;
-  outputSize = size * 2 - 1;
-  output = (unsigned char *) xmlMalloc((size_t) outputSize);
+  int size = (int) strlen(input) + 1;
+  int outputSize = size * 2 - 1;
+  xmlChar *output = (unsigned char *) xmlMalloc((size_t) outputSize);
   
   if (0 != output) {
-    temp = size - 1;
-    ret = handler->input(output, &outputSize, (const xmlChar *) input, &temp);
+    int temp = size - 1;
+    int ret = handler->input(output, &outputSize, (const xmlChar *) input, &temp);
     if ((ret < 0) || (temp - size + 1)) {
       xmlFree(output);
       output = 0;
@@ -146,18 +139,15 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   return output;
 }
 
-+(xmlXPathObjectPtr)evaluate:(NSString *)xpathQuery withDocument:(xmlDocPtr)doc
++ (xmlXPathObjectPtr)evaluate:(NSString *)xpathQuery document:(xmlDocPtr)doc
 {
-  xmlXPathContextPtr xpathCtx;
-  xmlXPathObjectPtr xpathObj;
-  
-  xpathCtx = xmlXPathNewContext(doc);
+  xmlXPathContextPtr xpathCtx = xmlXPathNewContext(doc);
   if (NULL == xpathCtx) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlXPathNewContext for XPath query \"%@\"", xpathQuery];
     return NULL;
   }
   
-  xpathObj = xmlXPathEvalExpression([FBXPath xmlCharPtrForInput:[xpathQuery cStringUsingEncoding:NSUTF8StringEncoding]], xpathCtx);
+  xmlXPathObjectPtr xpathObj = xmlXPathEvalExpression([FBXPath xmlCharPtrForInput:[xpathQuery cStringUsingEncoding:NSUTF8StringEncoding]], xpathCtx);
   if (NULL == xpathObj) {
     xmlXPathFreeContext(xpathCtx);
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlXPathEvalExpression for XPath query \"%@\"", xpathQuery];
@@ -167,12 +157,10 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   return xpathObj;
 }
 
-+(int)recordElementAttributes:(xmlTextWriterPtr)writer forElement:(XCElementSnapshot *)element indexPath:(NSString *)indexPath
++ (int)recordElementAttributes:(xmlTextWriterPtr)writer forElement:(id<FBElement>)element indexPath:(NSString *)indexPath
 {
-  int rc;
-  
-  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "type",
-                                   [FBXPath xmlCharPtrForInput:[element.wdType cStringUsingEncoding:NSUTF8StringEncoding]]);
+  int rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "type",
+                                       [FBXPath xmlCharPtrForInput:[element.wdType cStringUsingEncoding:NSUTF8StringEncoding]]);
   if (rc < 0) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
     return rc;
@@ -231,11 +219,9 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   return 0;
 }
 
-+ (int)generateXMLPresentation:(XCElementSnapshot *)root indexPath:(NSString *)indexPath elementStore:(NSMutableDictionary *)elementStore writer:(xmlTextWriterPtr)writer
++ (int)generateXMLPresentation:(id<FBElement>)root indexPath:(NSString *)indexPath elementStore:(NSMutableDictionary *)elementStore writer:(xmlTextWriterPtr)writer
 {
-  int rc;
-  
-  rc = xmlTextWriterStartElement(writer, [FBXPath xmlCharPtrForInput:[root.wdType cStringUsingEncoding:NSUTF8StringEncoding]]);
+  int rc = xmlTextWriterStartElement(writer, [FBXPath xmlCharPtrForInput:[root.wdType cStringUsingEncoding:NSUTF8StringEncoding]]);
   if (rc < 0) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterStartElement. Error code: %d", rc];
     return rc;
@@ -246,7 +232,10 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     return rc;
   }
   
-  NSArray *children = root.children;
+  NSArray *children = @[];
+  if ([root respondsToSelector:@selector(children)]) {
+    children = [root performSelector:@selector(children)];
+  }
   for (NSUInteger i  = 0; i < [children count]; i++) {
     XCElementSnapshot *childSnapshot = children[i];
     NSString *newIndexPath = [indexPath stringByAppendingFormat:@",%lu", (unsigned long)i];
