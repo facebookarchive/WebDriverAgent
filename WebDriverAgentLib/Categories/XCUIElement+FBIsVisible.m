@@ -28,7 +28,11 @@
 
 - (BOOL)fb_isVisible
 {
-  return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
+  // To avoid known issue "Error copying attributes -25202" in XCTest framework
+  if (self.frame.size.height > 0 && self.frame.size.width > 0) {
+    return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
+  }
+  return NO;
 }
 
 @end
