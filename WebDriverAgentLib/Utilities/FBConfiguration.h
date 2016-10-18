@@ -23,11 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)shouldShowFakeCollectionViewCells:(BOOL)showFakeCells;
 
 /**
- Changes default TestManager request timeout
- */
-+ (void)setTestManagerRequestTimeout:(double)timeout;
-
-/**
  The range of ports that the HTTP Server should attempt to bind on launch
  */
 + (NSRange)bindingPortRange;

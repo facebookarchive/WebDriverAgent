@@ -12,7 +12,7 @@
 
 #import <RoutingHTTPServer/RoutingHTTPServer.h>
 
-#import <peertalk/PTChannel.h>
+#import <Peertalk/PTChannel.h>
 
 #import "FBLogger.h"
 
