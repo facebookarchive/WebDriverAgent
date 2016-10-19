@@ -39,7 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
  @return The recent snapshot of the element
  */
 - (XCElementSnapshot *) fb_lastSnapshot;
-
 @end
 
 NS_ASSUME_NONNULL_END
