@@ -11,7 +11,7 @@
 
 #import "FBXPath.h"
 #import "FBXPath-Private.h"
-#import "XCElementDouble.h"
+#import "XCUIElementDouble.h"
 
 @interface FBXPathTests : XCTestCase
 @end
@@ -24,7 +24,7 @@
   
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
-  id<FBElement> root = [XCElementDouble new];
+  id<FBElement> root = [XCUIElementDouble new];
   int buffersize;
   xmlChar *xmlbuff;
   int rc = [FBXPath getSnapshotAsXML:root writer:writer elementStore:elementStore];
@@ -48,7 +48,7 @@
   
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
-  id<FBElement> root = [XCElementDouble new];
+  id<FBElement> root = [XCUIElementDouble new];
   int rc = [FBXPath getSnapshotAsXML:root writer:writer elementStore:elementStore];
   if (rc < 0) {
     xmlFreeTextWriter(writer);

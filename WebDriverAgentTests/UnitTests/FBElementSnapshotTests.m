@@ -11,22 +11,22 @@
 #import <XCTest/XCTest.h>
 
 #import "XCElementSnapshot+FBHelpers.h"
-#import "XCElementDouble.h"
+#import "XCUIElementDouble.h"
 
 @interface FBElementSnapshotTests : XCTestCase
 @end
 
 @implementation FBElementSnapshotTests
 
-- (void)testSnapshotXPathPresentation {
+- (void)testUniqueTypesFiltering {
   NSMutableArray *elements = [NSMutableArray new];
-  XCElementDouble *el1 = [XCElementDouble new];
+  XCUIElementDouble *el1 = [XCUIElementDouble new];
   [elements addObject:el1];
-  XCElementDouble *el2 = [XCElementDouble new];
+  XCUIElementDouble *el2 = [XCUIElementDouble new];
   el2.elementType = XCUIElementTypeAlert;
   el2.wdType = @"XCUIElementTypeAlert";
   [elements addObject:el2];
-  XCElementDouble *el3 = [XCElementDouble new];
+  XCUIElementDouble *el3 = [XCUIElementDouble new];
   [elements addObject:el3];
   
   XCTAssertNotEqual(el1.elementType, el2.elementType);
