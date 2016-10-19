@@ -112,7 +112,7 @@
   [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
     NSArray *elements = elementsMap[@(snapshot.elementType)];
     [elements enumerateObjectsUsingBlock:^(XCUIElement *element, NSUInteger elementIdx, BOOL *stopElementEnum) {
-      if ([[element fb_lastSnapshot] _matchesElement:snapshot]) {
+      if ([element.fb_lastSnapshot _matchesElement:snapshot]) {
         [matchingElements addObject:element];
         *stopElementEnum = YES;
       }

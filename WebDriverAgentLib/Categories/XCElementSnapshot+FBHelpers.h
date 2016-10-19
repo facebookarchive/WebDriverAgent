@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Returns an array of descendants matching given type
- 
+
  @param type requested descendant type
  @return an array of descendants matching given type
  */
