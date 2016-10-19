@@ -40,7 +40,7 @@
      */
     return NO;
   }
-  return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];;
+  return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
 }
 
 @end
