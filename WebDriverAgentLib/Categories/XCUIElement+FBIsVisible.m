@@ -28,7 +28,6 @@
 
 - (BOOL)fb_isVisible
 {
-  // To avoid known issue "Error copying attributes -25202" in XCTest framework
   if (self.frame.size.height <= 0 || self.frame.size.width <= 0) {
     /*
      It turns out, that XCTest triggers
