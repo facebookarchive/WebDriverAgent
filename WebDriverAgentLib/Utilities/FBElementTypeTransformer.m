@@ -9,6 +9,8 @@
 
 #import "FBElementTypeTransformer.h"
 
+#import "FBExceptionHandler.h"
+
 @implementation FBElementTypeTransformer
 
 static NSDictionary *ElementTypeToStringMapping;
@@ -114,6 +116,10 @@ static NSDictionary *StringToElementTypeMapping;
 {
   [self createMapping];
   NSNumber *type = StringToElementTypeMapping[typeName];
+  if (!type) {
+    NSString *reason = [NSString stringWithFormat:@"Invalid argument for class used '%@'. Did you mean XCUIElementType%@?", typeName, typeName];
+    @throw [NSException exceptionWithName:FBInvalidArgumentException reason:reason userInfo:@{}];
+  }
   return (XCUIElementType) ( type ? type.unsignedIntegerValue : XCUIElementTypeAny);
 }
 

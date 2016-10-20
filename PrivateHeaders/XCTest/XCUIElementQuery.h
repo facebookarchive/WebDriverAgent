@@ -48,5 +48,4 @@
 - (unsigned long long)_derivedExpressedType;
 - (id)initWithInputQuery:(id)arg1 queryDescription:(id)arg2 filter:(CDUnknownBlockType)arg3;
 
-
 @end

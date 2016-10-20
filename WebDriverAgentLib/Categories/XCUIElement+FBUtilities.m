@@ -10,6 +10,7 @@
 #import "XCUIElement+FBUtilities.h"
 
 #import "FBAlert.h"
+#import "FBMathUtils.h"
 #import "FBRunLoopSpinner.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 
@@ -22,10 +23,10 @@
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
   return
   [[[FBRunLoopSpinner new]
-     timeout:5.]
+     timeout:10.]
    spinUntilTrue:^BOOL{
      [self resolve];
-     const BOOL isSameFrame = CGRectEqualToRect(frame, self.wdFrame);
+     const BOOL isSameFrame = FBRectFuzzyEqualToRect(self.wdFrame, frame, FBDefaultFrameFuzzyThreshold);
      frame = self.wdFrame;
      return isSameFrame;
    }];

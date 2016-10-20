@@ -48,11 +48,13 @@
   XCTAssertEqual(self.session, [FBSession activeSession]);
 }
 
-- (void)testKillingSession
+- (void)testAfterKillingSessionShouldCreateNewOne
 {
+  NSString *sessionIdentifier = self.session.identifier;
   [self.session kill];
   XCTAssertTrue(((FBApplicationDouble *)self.testedApplication).didTerminate);
-  XCTAssertNil([FBSession activeSession]);
+  XCTAssertNotNil([FBSession activeSession]);
+  XCTAssertNotEqual([FBSession activeSession].identifier, sessionIdentifier);
 }
 
 @end

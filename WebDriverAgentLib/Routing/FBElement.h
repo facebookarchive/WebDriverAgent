@@ -49,6 +49,9 @@ NSString *wdAttributeNameForAttributeName(NSString *name);
 /*! Whether element is accessible */
 @property (nonatomic, readonly, getter = isWDAccessible) BOOL wdAccessible;
 
+/*! Whether element is an accessibility container (contains children of any depth that are accessible) */
+@property (nonatomic, readonly, getter = isWDAccessibilityContainer) BOOL wdAccessibilityContainer;
+
 /**
  Returns value of given property specified in WebDriver Spec
 

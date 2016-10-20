@@ -16,7 +16,7 @@
 
 #import "XCUIElement+FBWebDriverAttributes.h"
 
-inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSString *elementUUID);
+inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSString *elementUUID, BOOL compact);
 
 id<FBResponsePayload> FBResponseWithOK()
 {
@@ -31,15 +31,15 @@ id<FBResponsePayload> FBResponseWithObject(id object)
 id<FBResponsePayload> FBResponseWithCachedElement(XCUIElement *element, FBElementCache *elementCache)
 {
   NSString *elementUUID = [elementCache storeElement:element];
-  return FBResponseWithStatus(FBCommandStatusNoError, FBDictionaryResponseWithElement(element, elementUUID));
+  return FBResponseWithStatus(FBCommandStatusNoError, FBDictionaryResponseWithElement(element, elementUUID, NO));
 }
 
-id<FBResponsePayload> FBResponseWithCachedElements(NSArray<XCUIElement *> *elements, FBElementCache *elementCache)
+id<FBResponsePayload> FBResponseWithCachedElements(NSArray<XCUIElement *> *elements, FBElementCache *elementCache, BOOL compact)
 {
   NSMutableArray *elementsResponse = [NSMutableArray array];
   for (XCUIElement *element in elements) {
     NSString *elementUUID = [elementCache storeElement:element];
-    [elementsResponse addObject:FBDictionaryResponseWithElement(element, elementUUID)];
+    [elementsResponse addObject:FBDictionaryResponseWithElement(element, elementUUID, compact)];
   }
   return FBResponseWithStatus(FBCommandStatusNoError, elementsResponse);
 }
@@ -83,12 +83,13 @@ id<FBResponsePayload> FBResponseFileWithPath(NSString *path)
   return [[FBResponseFilePayload alloc] initWithFilePath:path];
 }
 
-inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSString *elementUUID)
+inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSString *elementUUID, BOOL compact)
 {
-  return
-  @{
-    @"ELEMENT": elementUUID,
-    @"type": element.wdType,
-    @"label" : element.wdLabel ?: [NSNull null],
-    };
+  NSMutableDictionary *dictionary = [NSMutableDictionary new];
+  dictionary[@"ELEMENT"] = elementUUID;
+  if (!compact) {
+    dictionary[@"type"] = element.wdType;
+    dictionary[@"label"] = element.wdLabel ?: [NSNull null];
+  }
+  return dictionary.copy;
 }
