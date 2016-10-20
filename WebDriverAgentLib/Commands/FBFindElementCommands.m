@@ -18,6 +18,7 @@
 #import "FBSession.h"
 #import "FBApplication.h"
 #import "XCUIElement+FBFind.h"
+#import "XCUIElement+AVFind.h"
 #import "XCUIElement+FBIsVisible.h"
 
 static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteRequest *request)

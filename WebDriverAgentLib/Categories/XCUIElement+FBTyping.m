@@ -10,13 +10,13 @@
 #import "XCUIElement+FBTyping.h"
 
 #import "FBKeyboard.h"
-#import "XCUIElement+FBTap.h"
+#import "XCUIElement+AVTap.h"
 
 @implementation XCUIElement (FBTyping)
 
 - (BOOL)fb_typeText:(NSString *)text error:(NSError **)error
 {
-  if (!self.hasKeyboardFocus && ![self fb_tapForClearWithError:error]) {
+  if (!self.hasKeyboardFocus && ![self av_tapForClearWithError:error]) {
     return NO;
   }
   if (![FBKeyboard typeText:text error:error]) {

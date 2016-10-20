@@ -31,6 +31,10 @@
 		ADDA07241D6BB2BF001700AC /* FBScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDA07231D6BB2BF001700AC /* FBScrollViewController.m */; };
 		ADEF63AD1D09DCCF0070A7E3 /* FBXPathCreatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */; };
 		ADEF63AF1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEF63AE1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m */; };
+		CAC5C0766C2D30A4F1F71888 /* XCUIElement+AVFind.h in Headers */ = {isa = PBXBuildFile; fileRef = CAC5C16FD2A508D0C75A5CF8 /* XCUIElement+AVFind.h */; };
+		CAC5C990877767BAF9038A53 /* XCUIElement+AVTap.h in Headers */ = {isa = PBXBuildFile; fileRef = CAC5C7B2871F6954094F1B46 /* XCUIElement+AVTap.h */; };
+		CAC5CD690887EF06A0405A06 /* XCUIElement+AVTap.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC5C1141C8EA20D755850DB /* XCUIElement+AVTap.m */; };
+		CAC5CFF14B4E0B8A0E3A43C4 /* XCUIElement+AVFind.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC5CF83C471DD4D4C80D87C /* XCUIElement+AVFind.m */; };
 		EE05BAFA1D13003C00A3EB00 /* FBKeyboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05BAF91D13003C00A3EB00 /* FBKeyboardTests.m */; };
 		EE158AAE1CBD456F00A3E3F0 /* XCUIElement+FBAccessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7451CAEDF0C008C271F /* XCUIElement+FBAccessibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158AAF1CBD456F00A3E3F0 /* XCUIElement+FBAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7461CAEDF0C008C271F /* XCUIElement+FBAccessibility.m */; };
@@ -333,6 +337,10 @@
 		ADDA07231D6BB2BF001700AC /* FBScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBScrollViewController.m; sourceTree = "<group>"; };
 		ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathCreatorTests.m; sourceTree = "<group>"; };
 		ADEF63AE1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRuntimeUtilsTests.m; sourceTree = "<group>"; };
+		CAC5C1141C8EA20D755850DB /* XCUIElement+AVTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+AVTap.m"; sourceTree = "<group>"; };
+		CAC5C16FD2A508D0C75A5CF8 /* XCUIElement+AVFind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+AVFind.h"; sourceTree = "<group>"; };
+		CAC5C7B2871F6954094F1B46 /* XCUIElement+AVTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+AVTap.h"; sourceTree = "<group>"; };
+		CAC5CF83C471DD4D4C80D87C /* XCUIElement+AVFind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+AVFind.m"; sourceTree = "<group>"; };
 		EE05BAF91D13003C00A3EB00 /* FBKeyboardTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKeyboardTests.m; sourceTree = "<group>"; };
 		EE158A991CBD452B00A3E3F0 /* WebDriverAgentLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WebDriverAgentLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE158B5D1CBD479000A3E3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = WebDriverAgentLib/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -758,6 +766,10 @@
 				EEE376401D59F81400ED88DD /* XCUIElement+FBUtilities.m */,
 				EEE376471D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.h */,
 				EEE376481D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.m */,
+				CAC5C7B2871F6954094F1B46 /* XCUIElement+AVTap.h */,
+				CAC5C1141C8EA20D755850DB /* XCUIElement+AVTap.m */,
+				CAC5CF83C471DD4D4C80D87C /* XCUIElement+AVFind.m */,
+				CAC5C16FD2A508D0C75A5CF8 /* XCUIElement+AVFind.h */,
 			);
 			name = Categories;
 			path = WebDriverAgentLib/Categories;
@@ -1246,6 +1258,9 @@
 				EEBBD48B1D47746D00656A81 /* XCUIElement+FBFind.h in Headers */,
 				EE6A893A1D0B38640083E92B /* FBFailureProofTestCase.h in Headers */,
 				EEE376411D59F81400ED88DD /* XCElementSnapshot+FBHelpers.h in Headers */,
+				EE158B0D1CBD459C00A3E3F0 /* UISwipeGestureRecognizer-RecordingAdditions.h in Headers */,
+				CAC5C990877767BAF9038A53 /* XCUIElement+AVTap.h in Headers */,
+				CAC5C0766C2D30A4F1F71888 /* XCUIElement+AVFind.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1537,8 +1552,10 @@
 				EEE376421D59F81400ED88DD /* XCElementSnapshot+FBHelpers.m in Sources */,
 				EE158AE91CBD456F00A3E3F0 /* FBElementTypeTransformer.m in Sources */,
 				EE158AF61CBD456F00A3E3F0 /* FBApplication.m in Sources */,
-				EE158AB51CBD456F00A3E3F0 /* XCUIElement+FBTap.m in Sources */,
 				EE18883B1DA661C400307AA8 /* FBMathUtils.m in Sources */,
+				EE158AB51CBD456F00A3E3F0 /* XCUIElement+FBTap.m in Sources */,
+				CAC5CD690887EF06A0405A06 /* XCUIElement+AVTap.m in Sources */,
+				CAC5CFF14B4E0B8A0E3A43C4 /* XCUIElement+AVFind.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

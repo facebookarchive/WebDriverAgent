@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "XCUIElement+FBTap.h"
+#import "XCUIElement+AVTap.h"
 
 #import "FBRunLoopSpinner.h"
 #import "FBLogger.h"
@@ -16,15 +16,14 @@
 #import "XCEventGenerator.h"
 #import "XCSynthesizedEventRecord.h"
 
-@implementation XCUIElement (FBTap)
+@implementation XCUIElement (AVTap)
 
-- (BOOL)fb_tapWithError:(NSError **)error
+- (BOOL)av_tapForClearWithError:(NSError **)error
 {
   [self fb_waitUntilFrameIsStable];
   __block BOOL didSucceed;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    NSValue *hitpointValue = self.lastSnapshot.suggestedHitpoints.firstObject;
-    CGPoint hitPoint = hitpointValue ? hitpointValue.CGPointValue : [self coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)].screenPoint;
+    CGPoint hitPoint = [self coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)].screenPoint;
     XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
       if (commandError) {
         [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
