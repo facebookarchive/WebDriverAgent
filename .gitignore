@@ -1,3 +1,6 @@
+# OS X
+.DS_Store
+
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
@@ -33,6 +36,7 @@ xcuserdata
 # Carthage
 Carthage/Build
 Carthage/Checkouts
+Carthage/Cartfile.resolved
 
 # Resource bundle recreated on each build
 Resources/WebDriverAgent.bundle

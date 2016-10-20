@@ -90,18 +90,22 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
 
 - (XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type
 {
-  XCElementSnapshot *snapshot = self.parent;
-  while (snapshot && snapshot.elementType != type) {
-    snapshot = snapshot.parent;
-  }
-  return snapshot;
+  NSArray *acceptedParents = @[@(type)];
+  return [self fb_parentMatchingOneOfTypes:acceptedParents];
 }
 
 - (XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types
 {
+  return [self fb_parentMatchingOneOfTypes:types filter:^(XCElementSnapshot *snapshot) {
+    return YES;
+  }];
+}
+
+- (XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types filter:(BOOL(^)(XCElementSnapshot *snapshot))filter
+{
   XCElementSnapshot *snapshot = self.parent;
-  while (snapshot && !isSnapshotTypeAmongstGivenTypes(snapshot, types)) {
-      snapshot = snapshot.parent;
+  while (snapshot && !(isSnapshotTypeAmongstGivenTypes(snapshot, types) && filter(snapshot))) {
+    snapshot = snapshot.parent;
   }
   return snapshot;
 }
@@ -120,6 +124,37 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
     valuesAreEqual(self.label, snapshot.label) &&
     valuesAreEqual(self.value, snapshot.value) &&
     valuesAreEqual(self.placeholderValue, snapshot.placeholderValue);
+}
+
+- (NSArray<XCElementSnapshot *> *)fb_descendantsCellSnapshots
+{
+  NSArray<XCElementSnapshot *> *cellSnapshots = [self fb_descendantsMatchingType:XCUIElementTypeCell];
+    
+  if (cellSnapshots.count == 0) {
+      // For the home screen, cells are actually of type XCUIElementTypeIcon
+      cellSnapshots = [self fb_descendantsMatchingType:XCUIElementTypeIcon];
+  }
+   
+  if (cellSnapshots.count == 0) {
+      // In some cases XCTest will not report Cell Views. In that case grab all descendants and try to figure out scroll directon from them.
+      cellSnapshots = self._allDescendants;
+  }
+  
+    return cellSnapshots;
+}
+
+- (XCElementSnapshot *)fb_parentCellSnapshot
+{
+    XCElementSnapshot *targetCellSnapshot = self;
+    // XCUIElementTypeIcon is the cell type for homescreen icons
+    NSArray<NSNumber *> *acceptableElementTypes = @[
+                                                    @(XCUIElementTypeCell),
+                                                    @(XCUIElementTypeIcon),
+                                                    ];
+    if (self.elementType != XCUIElementTypeCell && self.elementType != XCUIElementTypeIcon) {
+        targetCellSnapshot = [self fb_parentMatchingOneOfTypes:acceptableElementTypes];
+    }
+    return targetCellSnapshot;
 }
 
 @end

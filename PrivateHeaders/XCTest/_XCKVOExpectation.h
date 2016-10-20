@@ -18,7 +18,7 @@
     NSLock *_lock;
 }
 
-@property BOOL hasUnregistered; // @synthesize hasUnregistered=_hasUnregistered;
+@property BOOL isRegistered; // @synthesize isRegistered=_isRegistered;
 @property(copy) CDUnknownBlockType handler; // @synthesize handler=_handler;
 @property(retain) id expectedValue; // @synthesize expectedValue=_expectedValue;
 @property(copy) NSString *keyPath; // @synthesize keyPath=_keyPath;
@@ -28,6 +28,6 @@
 - (void)observeValueForKeyPath:(id)arg1 ofObject:(id)arg2 change:(id)arg3 context:(void *)arg4;
 - (void)_safelyUnregister;
 - (void)startObserving;
-- (id)_initForTestCase:(id)arg1 withDescription:(id)arg2;
+- (id)initWithDescription:(id)arg1;
 
 @end

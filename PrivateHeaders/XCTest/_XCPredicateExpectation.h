@@ -20,6 +20,8 @@
 @property(retain) id object; // @synthesize object=_object;
 
 - (void)_considerFulfilling;
+- (void)cleanup;
+- (void)setTimer:(id)arg1;
 - (void)startObserving;
 
 @end

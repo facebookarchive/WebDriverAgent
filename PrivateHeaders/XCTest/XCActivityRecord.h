@@ -17,6 +17,7 @@
     XCElementSnapshot *_snapshot;
     NSArray *_elementsOfInterest;
     XCSynthesizedEventRecord *_synthesizedEvent;
+    NSData *_diagnosticReportData;
 }
 
 @property(retain) XCSynthesizedEventRecord *synthesizedEvent; // @synthesize synthesizedEvent=_synthesizedEvent;

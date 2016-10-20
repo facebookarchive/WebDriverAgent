@@ -76,15 +76,14 @@
 {
   BOOL isAccessible = [snapshot isWDAccessible];
   BOOL isVisible = [snapshot isWDVisible];
-  if (!isVisible) {
-    return nil;
-  }
 
   NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 
   if (isAccessible) {
-    info[@"value"] = FBValueOrNull(snapshot.wdValue);
-    info[@"label"] = FBValueOrNull(snapshot.wdLabel);
+    if (isVisible) {
+      info[@"value"] = FBValueOrNull(snapshot.wdValue);
+      info[@"label"] = FBValueOrNull(snapshot.wdLabel);
+    }
   } else {
     NSMutableArray *children = [[NSMutableArray alloc] init];
     for (XCElementSnapshot *childSnapshot in snapshot.children) {

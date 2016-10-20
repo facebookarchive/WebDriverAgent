@@ -12,6 +12,8 @@
 #import <XCTest/XCUIDevice.h>
 
 #import "FBApplication.h"
+#import "FBConfiguration.h"
+#import "FBExceptionHandler.h"
 #import "FBKeyboard.h"
 #import "FBResponsePayload.h"
 #import "FBRoute.h"

@@ -63,17 +63,16 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 {
   FBSession *session = request.session;
   NSArray *elements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application];
-  return FBResponseWithCachedElements(elements, request.session.elementCache);
+  return FBResponseWithCachedElements(elements, request.session.elementCache, NO);
 }
 
 + (id<FBResponsePayload>)handleFindVisibleCells:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *collection = [elementCache elementForUUID:request.parameters[@"uuid"]];
-
   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)];
-  NSArray *elements = [[collection childrenMatchingType:XCUIElementTypeCell] matchingPredicate:predicate].allElementsBoundByIndex;
-  return FBResponseWithCachedElements(elements, request.session.elementCache);
+  NSArray *elements = [collection.cells matchingPredicate:predicate].allElementsBoundByIndex;
+  return FBResponseWithCachedElements(elements, request.session.elementCache, YES);
 }
 
 + (id<FBResponsePayload>)handleFindSubElement:(FBRouteRequest *)request
@@ -96,7 +95,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   if (foundElements.count == 0) {
     return FBNoSuchElementErrorResponseForRequest(request);
   }
-  return FBResponseWithCachedElements(foundElements, request.session.elementCache);
+  return FBResponseWithCachedElements(foundElements, request.session.elementCache, NO);
 }
 
 

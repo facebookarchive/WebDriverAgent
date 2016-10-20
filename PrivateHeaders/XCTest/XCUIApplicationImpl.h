@@ -24,7 +24,7 @@
 
 - (instancetype)initWithPath:(id)arg1 bundleID:(id)arg2;
 
-- (void)launchWithArguments:(id)arg1 environment:(id)arg2 usingXcode:(_Bool)arg3;
+- (void)launchWithArguments:(id)arg1 environment:(id)arg2 usingXcode:(BOOL)arg3;
 - (void)terminate;
 
 - (void)waitForViewControllerViewDidDisappearWithTimeout:(double)arg1;
