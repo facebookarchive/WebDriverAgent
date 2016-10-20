@@ -11,15 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface XCUIElement (FBTap)
+@interface XCUIElement (AVTap)
 
 /**
- Waits for element to become stable (not move) and performs sync tap on element
+ Waits for element to become stable (not move) and performs sync tap on element for clear action
 
  @param error If there is an error, upon return contains an NSError object that describes the problem.
  @return YES if the operation succeeds, otherwise NO.
 */
-- (BOOL)fb_tapWithError:(NSError **)error;
+- (BOOL)av_tapForClearWithError:(NSError **)error;
 
 @end
 

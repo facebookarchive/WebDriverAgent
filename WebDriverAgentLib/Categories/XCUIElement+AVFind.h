@@ -7,19 +7,20 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <WebDriverAgentLib/XCUIElement.h>
+
+#import <XCTest/XCTest.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface XCUIElement (FBTap)
+@interface XCUIElement (AVFind)
 
 /**
- Waits for element to become stable (not move) and performs sync tap on element
+ Returns an array of descendants matching given xui locator
 
- @param error If there is an error, upon return contains an NSError object that describes the problem.
- @return YES if the operation succeeds, otherwise NO.
-*/
-- (BOOL)fb_tapWithError:(NSError **)error;
+ @param locator requested xui locator
+ @return an array of descendants matching given cell index
+ */
+- (NSArray<XCUIElement *> *)av_descendantsMatchingXui:(NSString *)locator;
 
 @end
 
