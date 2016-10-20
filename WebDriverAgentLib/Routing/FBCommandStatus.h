@@ -21,6 +21,7 @@ typedef NS_ENUM(NSUInteger, FBCommandStatus){
     FBCommandStatusInvalidElementState = 12, //"An element command could not be completed because the element is in an invalid state (e.g. attempting to click a disabled element)")
     FBCommandStatusUnhandled = 13, //"An unknown server-side error occurred while processing the command")
     FBCommandStatusElementNotSelectable = 15, //"An attempt was made to select an element that cannot be selected")
+    FBCommandStatusInvalidArgument = 15, //"invalid argument")
     FBCommandStatusJavaScript = 17, //"An error occurred while executing user supplied JavaScript")
     FBCommandStatusXPathLookup = 19, //"An error occurred while searching for an element by XPath")
     FBCommandStatusTimeout = 21, //"An operation did not complete before its timeout expired")

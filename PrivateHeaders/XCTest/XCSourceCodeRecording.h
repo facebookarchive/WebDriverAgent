@@ -23,6 +23,8 @@
 - (BOOL)_createAndShareLocalVariableUsingSourceNode:(id)arg1 atIndex:(long long)arg2;
 - (id)_variableNameForVariableContentNode:(id)arg1;
 - (unsigned long long)_variableClassTypeForVariableContentNode:(id)arg1;
+- (id)_variableSuffixForElementType:(unsigned long long)arg1 classType:(unsigned long long)arg2;
+- (id)_transformedVariablePrefixForLabel:(id)arg1;
 - (id)_variableNameForElementType:(unsigned long long)arg1 label:(id)arg2 classType:(unsigned long long)arg3;
 - (id)_uniqueVariableNameWithName:(id)arg1;
 - (id)_nodes:(id)arg1 matchingDistanceFromRoot:(BOOL)arg2 variableContentNode:(id)arg3 withVariableName:(id)arg4 startingIndex:(long long)arg5 replacedNodes:(long long *)arg6 indexOfFirstReplacedNode:(long long *)arg7;

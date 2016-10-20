@@ -9,6 +9,8 @@
 @interface XCTestConfiguration : NSObject <NSSecureCoding>
 {
     NSURL *_testBundleURL;
+    NSString *_testBundleRelativePath;
+    NSString *_absolutePath;
     NSSet *_testsToSkip;
     NSSet *_testsToRun;
     BOOL _reportResultsToIDE;
@@ -17,6 +19,7 @@
     BOOL _disablePerformanceMetrics;
     BOOL _treatMissingBaselinesAsFailures;
     NSURL *_baselineFileURL;
+    NSString *_baselineFileRelativePath;
     NSString *_targetApplicationPath;
     NSString *_targetApplicationBundleID;
     NSString *_productModuleName;

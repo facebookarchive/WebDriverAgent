@@ -12,6 +12,7 @@
     id _payload;
     int _processIdentifier;
     struct __AXUIElement *_axElement;
+    unsigned long long _elementType;
 }
 @property(readonly) id payload; // @synthesize payload=_payload;
 @property(readonly) int processIdentifier; // @synthesize processIdentifier=_processIdentifier;

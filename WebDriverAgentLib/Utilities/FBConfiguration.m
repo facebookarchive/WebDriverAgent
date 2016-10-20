@@ -12,6 +12,7 @@
 #import <UIKit/UIKit.h>
 
 #include "TargetConditionals.h"
+#import "XCTestPrivateSymbols.h"
 
 BOOL _AXSAutomationSetFauxCollectionViewCellsEnabled(BOOL);
 

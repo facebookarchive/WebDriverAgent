@@ -10,7 +10,10 @@
 
 @interface XCApplicationMonitor : NSObject <XCTestObservation>
 {
-    NSMutableDictionary *_launchSessionTokens;
+    NSMutableDictionary *_applicationImplementations;
+    NSMutableDictionary *_applicationProcessesForPID;
+    NSMutableDictionary *_applicationProcessesForToken;
+    NSMutableSet *_launchedApplications;
     NSObject<OS_dispatch_queue> *_queue;
 }
 @property NSObject<OS_dispatch_queue> *queue; // @synthesize queue=_queue;

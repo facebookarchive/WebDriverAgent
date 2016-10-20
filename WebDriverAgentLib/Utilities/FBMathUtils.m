@@ -1,0 +1,39 @@
+/**
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+#import "FBMathUtils.h"
+
+CGFloat FBDefaultFrameFuzzyThreshold = 2.0;
+
+CGPoint FBRectGetCenter(CGRect rect)
+{
+  return CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
+}
+
+BOOL FBFloatFuzzyEqualToFloat(CGFloat float1, CGFloat float2, CGFloat threshold)
+{
+  return (fabs(float1 - float2) <= threshold);
+}
+
+BOOL FBPointFuzzyEqualToPoint(CGPoint point1, CGPoint point2, CGFloat threshold)
+{
+  return FBFloatFuzzyEqualToFloat(point1.x, point2.x, threshold) && FBFloatFuzzyEqualToFloat(point1.y, point2.y, threshold);
+}
+
+BOOL FBSizeFuzzyEqualToSize(CGSize size1, CGSize size2, CGFloat threshold)
+{
+  return FBFloatFuzzyEqualToFloat(size1.width, size2.width, threshold) && FBFloatFuzzyEqualToFloat(size1.height, size2.height, threshold);
+}
+
+BOOL FBRectFuzzyEqualToRect(CGRect rect1, CGRect rect2, CGFloat threshold)
+{
+  return
+  FBPointFuzzyEqualToPoint(FBRectGetCenter(rect1), FBRectGetCenter(rect2), threshold) &&
+  FBSizeFuzzyEqualToSize(rect1.size, rect2.size, threshold);
+}

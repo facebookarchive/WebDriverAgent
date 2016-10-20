@@ -40,7 +40,7 @@
     return FBResponseWithErrorFormat(@"There is no active application");
   }
   const BOOL accessibleTreeType = [request.arguments[@"accessible"] boolValue];
-  return FBResponseWithStatus(FBCommandStatusNoError, @{ @"tree": (accessibleTreeType ? application.fb_accessibilityTree : application.fb_tree) });
+  return FBResponseWithStatus(FBCommandStatusNoError, @{ @"tree": (accessibleTreeType ? application.fb_accessibilityTree : application.fb_tree) ?: @{} } );
 }
 
 @end

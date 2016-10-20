@@ -29,6 +29,7 @@
     XCAXClient_iOS *_AXClient_iOS;
 }
 
++ (BOOL)automaticallyNotifiesObserversForKey:(id)arg1;
 @property XCAXClient_iOS *AXClient_iOS; // @synthesize AXClient_iOS=_AXClient_iOS;
 @property XCApplicationMonitor *applicationMonitor; // @synthesize applicationMonitor=_applicationMonitor;
 @property id <XCTestManager_IDEInterface> IDEProxy; // @synthesize IDEProxy=_IDEProxy;

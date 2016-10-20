@@ -87,7 +87,7 @@
 
 - (CGRect)wdFrame
 {
-  return self.frame;
+  return CGRectIntegral(self.frame);
 }
 
 - (BOOL)isWDVisible
@@ -97,21 +97,42 @@
 
 - (BOOL)isWDAccessible
 {
-  // We skip isAccessible check for text field, as they aren't working correctly.
-  // The reason they aren't working correctly is that actual accessible element isn't text field itself, but nested element
-  if (self.elementType != XCUIElementTypeTextField && self.elementType != XCUIElementTypeSecureTextField) {
+  // Special cases:
+  // Table view cell: we consider it accessible if it's container is accessible
+  // Text fields: actual accessible element isn't text field itself, but nested element
+  if (self.elementType == XCUIElementTypeCell) {
+    if (!self.fb_isAccessibilityElement) {
+      XCElementSnapshot *containerView = [[self children] firstObject];
+      if (!containerView.fb_isAccessibilityElement) {
+        return NO;
+      }
+    }
+  } else if (self.elementType != XCUIElementTypeTextField && self.elementType != XCUIElementTypeSecureTextField) {
     if (!self.fb_isAccessibilityElement) {
       return NO;
     }
   }
   XCElementSnapshot *parentSnapshot = self.parent;
   while (parentSnapshot) {
-    if (parentSnapshot.fb_isAccessibilityElement) {
+    // In the scenario when table provides Search results controller, table could be marked as accessible element, even though it isn't
+    // As it is highly unlikely that table view should ever be an accessibility element itself,
+    // for now we work around that by skipping Table View in container checks
+    if (parentSnapshot.fb_isAccessibilityElement && parentSnapshot.elementType != XCUIElementTypeTable) {
       return NO;
     }
     parentSnapshot = parentSnapshot.parent;
   }
   return YES;
+}
+
+- (BOOL)isWDAccessibilityContainer
+{
+  for (XCElementSnapshot *child in self.children) {
+    if (child.isWDAccessibilityContainer || child.fb_isAccessibilityElement) {
+      return YES;
+    }
+  }
+  return NO;
 }
 
 - (BOOL)isWDEnabled
@@ -121,19 +142,13 @@
 
 - (NSDictionary *)wdRect
 {
-  return
-  @{
-    @"origin":
-      @{
-        @"x": @(CGRectGetMinX(self.frame)),
-        @"y": @(CGRectGetMinY(self.frame)),
-        },
-    @"size":
-      @{
-        @"width": @(CGRectGetWidth(self.frame)),
-        @"height": @(CGRectGetHeight(self.frame)),
-        },
-    };
+  CGRect frame = self.wdFrame;
+  return @{
+    @"x": @(CGRectGetMinX(frame)),
+    @"y": @(CGRectGetMinY(frame)),
+    @"width": @(CGRectGetWidth(frame)),
+    @"height": @(CGRectGetHeight(frame)),
+  };
 }
 
 @end

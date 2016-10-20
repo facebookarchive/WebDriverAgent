@@ -48,7 +48,7 @@ extern NSString *const FBApplicationCrashedException;
  @param application The application that we want to create session for
  @return new session
  */
-+ (instancetype)sessionWithApplication:(FBApplication *)application;
++ (instancetype)sessionWithApplication:(nullable FBApplication *)application;
 
 /**
  Kills application associated with that session and removes session

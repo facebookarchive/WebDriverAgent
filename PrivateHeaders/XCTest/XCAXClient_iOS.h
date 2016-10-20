@@ -12,6 +12,7 @@
 @interface XCAXClient_iOS : NSObject
 {
     NSMutableDictionary *_userTestingNotificationHandlers;
+    NSMutableDictionary *_cacheAccessibilityLoadedValuesForPIDs;
     unsigned long long *_alertNotificationCounter;
 }
 
@@ -35,6 +36,9 @@
 - (id)elementAtPoint:(CGPoint)arg1 error:(id *)arg2;
 - (NSArray<XCAccessibilityElement *> *)activeApplications;
 - (id)systemApplication;
+- (BOOL)loadAccessibility:(id *)arg1;
+- (BOOL)_registerForAXNotification:(int)arg1 error:(id *)arg2;
+- (BOOL)_loadAccessibility:(id *)arg1;
 - (id)init;
 
 @end
