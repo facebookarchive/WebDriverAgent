@@ -135,10 +135,13 @@
 - (void)testDescendantsCellSnapshots
 {
   [self goToScrollPageWithCells:false];
-  XCUIElement *scrollView = [[self.testedApplication.query descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:@"scrollView"].element;
+  XCUIElement *scrollView = self.testedApplication.scrollViews[@"scrollView"];
   [scrollView resolve];
   FBAssertWaitTillBecomesTrue(self.testedApplication.staticTexts[@"3"].fb_isVisible);
-  XCTAssertTrue([scrollView.lastSnapshot fb_descendantsCellSnapshots].count == 100);
+  NSArray *cells = [scrollView.lastSnapshot fb_descendantsCellSnapshots];
+  XCTAssertGreaterThanOrEqual(cells.count, 10);
+  XCElementSnapshot *element = cells.firstObject;
+  XCTAssertEqualObjects(element.label, @"0");
 }
 
 - (void)testParentCellSnapshot
