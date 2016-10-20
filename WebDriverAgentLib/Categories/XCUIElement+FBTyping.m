@@ -16,7 +16,7 @@
 
 - (BOOL)fb_typeText:(NSString *)text error:(NSError **)error
 {
-  if (!self.hasKeyboardFocus && ![self fb_tapWithError:error]) {
+  if (!self.hasKeyboardFocus && ![self fb_tapForClearWithError:error]) {
     return NO;
   }
   if (![FBKeyboard typeText:text error:error]) {

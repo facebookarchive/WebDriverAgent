@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return YES if the operation succeeds, otherwise NO.
 */
 - (BOOL)fb_tapWithError:(NSError **)error;
+- (BOOL)fb_tapForClearWithError:(NSError **)error;
 
 @end
 
