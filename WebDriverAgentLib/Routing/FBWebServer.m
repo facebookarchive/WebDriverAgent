@@ -70,9 +70,9 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   [FBLogger logFmt:@"Built at %s %s", __DATE__, __TIME__];
   self.exceptionHandler = [FBExceptionHandler new];
   [self startHTTPServer];
-  if (FBConfiguration.shouldListenOnUSB) {
+  //if (FBConfiguration.shouldListenOnUSB) {
     [self startUSBServer];
-  }
+  //}
   [[NSRunLoop mainRunLoop] run];
 }
 
