@@ -78,6 +78,13 @@
   XCTAssertNil(matchingSnapshot);
 }
 
+- (void)testSingleLastDescendantWithXPathQuery
+{
+  XCUIElement *matchingSnapshot = [self.testedView fb_firstDescendantMatchingXPathQuery:@"(//XCUIElementTypeButton)[last()]"];
+  XCTAssertNotNil(matchingSnapshot);
+  XCTAssertEqual(matchingSnapshot.elementType, XCUIElementTypeButton);
+}
+
 - (void)testDescendantsWithXPathQueryNoMatches
 {
   NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton[@label='Alerts1']"];
@@ -94,6 +101,12 @@
 {
     XCTAssertThrowsSpecificNamed([self.testedView fb_descendantsMatchingXPathQuery:@"//*[blabla(@label, Scrolling')]"], NSException,
                                  XCElementSnapshotInvalidXPathException);
+}
+
+- (void)testFirstDescendantWithWrongXPathQuery
+{
+  XCTAssertThrowsSpecificNamed([self.testedView fb_firstDescendantMatchingXPathQuery:@"//*[blabla(@label, Scrolling')]"], NSException,
+                               XCElementSnapshotInvalidXPathException);
 }
 
 - (void)testVisibleDescendantWithXPathQuery

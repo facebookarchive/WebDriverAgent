@@ -90,7 +90,12 @@
   }
   XCElementSnapshot *firstMatch = [matchingSnapshots firstObject];
   NSArray *elements = [[self descendantsMatchingType:firstMatch.elementType] allElementsBoundByIndex];
-  for (XCUIElement *element in elements) {
+  NSEnumerator *elementsEnumerator = [elements objectEnumerator];
+  // Speed up elements lookup by starting from the end of the elements array if 'last()' function call is detected in xpath query
+  if ([xpathQuery containsString:@"last()"]) {
+    elementsEnumerator = [elements reverseObjectEnumerator];
+  }
+  for (XCUIElement *element in elementsEnumerator) {
     if ([element.fb_lastSnapshot _matchesElement:firstMatch]) {
       return element;
     }
