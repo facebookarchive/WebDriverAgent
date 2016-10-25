@@ -39,6 +39,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery;
 
 /**
+ Returns the very first descendant matching given xpath query
+ 
+ @param xpathQuery requested xpath query
+ @return matched descendant or nil if no matches have been found
+ */
+- (XCUIElement *)fb_firstDescendantMatchingXPathQuery:(NSString *)xpathQuery;
+
+/**
  Returns an array of descendants matching given predicate
 
  @param predicate requested predicate

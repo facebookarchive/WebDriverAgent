@@ -80,6 +80,24 @@
 
 #pragma mark - Search by xpath
 
+- (XCUIElement *)fb_firstDescendantMatchingXPathQuery:(NSString *)xpathQuery
+{
+  // XPath will try to match elements only class name, so requesting elements by XCUIElementTypeAny will not work. We should use '*' instead.
+  xpathQuery = [xpathQuery stringByReplacingOccurrencesOfString:@"XCUIElementTypeAny" withString:@"*"];
+  NSArray *matchingSnapshots = [self.lastSnapshot fb_descendantsMatchingXPathQuery:xpathQuery];
+  if (0 == [matchingSnapshots count]) {
+    return nil;
+  }
+  XCElementSnapshot *firstMatch = [matchingSnapshots firstObject];
+  NSArray *elements = [[self descendantsMatchingType:firstMatch.elementType] allElementsBoundByIndex];
+  for (XCUIElement *element in elements) {
+    if ([element.fb_lastSnapshot _matchesElement:firstMatch]) {
+      return element;
+    }
+  }
+  return nil;
+}
+
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery
 {
   // XPath will try to match elements only class name, so requesting elements by XCUIElementTypeAny will not work. We should use '*' instead.

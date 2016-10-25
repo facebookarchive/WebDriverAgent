@@ -64,6 +64,20 @@
   XCTAssertEqualObjects(matchingSnapshots.lastObject.label, @"Alerts");
 }
 
+- (void)testSingleDescendantWithXPathQuery
+{
+  XCUIElement *matchingSnapshot = [self.testedView fb_firstDescendantMatchingXPathQuery:@"//XCUIElementTypeButton"];
+  XCTAssertNotNil(matchingSnapshot);
+  XCTAssertEqual(matchingSnapshot.elementType, XCUIElementTypeButton);
+  XCTAssertEqualObjects(matchingSnapshot.label, @"Alerts");
+}
+
+- (void)testSingleDescendantWithXPathQueryNoMatches
+{
+  XCUIElement *matchingSnapshot = [self.testedView fb_firstDescendantMatchingXPathQuery:@"//XCUIElementTypeButtonnn"];
+  XCTAssertNil(matchingSnapshot);
+}
+
 - (void)testDescendantsWithXPathQueryNoMatches
 {
   NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton[@label='Alerts1']"];

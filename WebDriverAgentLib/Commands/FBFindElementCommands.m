@@ -103,6 +103,10 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 
 + (XCUIElement *)elementUsing:(NSString *)usingText withValue:(NSString *)value under:(XCUIElement *)element
 {
+  if ([usingText isEqualToString:@"xpath"]) {
+    XCUIElement *resultElement = [element fb_firstDescendantMatchingXPathQuery:value];
+    return [[[FBAlert alertWithApplication:element.application] filterObstructedElements:@[resultElement]] firstObject];
+  }
   return [[self elementsUsing:usingText withValue:value under:element] firstObject];
 }
 
