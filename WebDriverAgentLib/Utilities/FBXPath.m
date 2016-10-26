@@ -208,30 +208,13 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
     return rc;
   }
-
-  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "x",
-                                   [FBXPath xmlCharPtrForInput:[[element.wdRect[@"x"] stringValue] cStringUsingEncoding:NSUTF8StringEncoding]]);
-  if (rc < 0) {
-    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
-    return rc;
-  }
-  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "y",
-                                   [FBXPath xmlCharPtrForInput:[[element.wdRect[@"y"] stringValue] cStringUsingEncoding:NSUTF8StringEncoding]]);
-  if (rc < 0) {
-    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
-    return rc;
-  }
-  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "width",
-                                   [FBXPath xmlCharPtrForInput:[[element.wdRect[@"width"] stringValue] cStringUsingEncoding:NSUTF8StringEncoding]]);
-  if (rc < 0) {
-    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
-    return rc;
-  }
-  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "height",
-                                   [FBXPath xmlCharPtrForInput:[[element.wdRect[@"height"] stringValue] cStringUsingEncoding:NSUTF8StringEncoding]]);
-  if (rc < 0) {
-    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
-    return rc;
+  for (NSString *attrName in @[@"x", @"y", @"width", @"height"]) {
+    rc = xmlTextWriterWriteAttribute(writer, [FBXPath xmlCharPtrForInput:[attrName cStringUsingEncoding:NSUTF8StringEncoding]],
+                                     [FBXPath xmlCharPtrForInput:[[element.wdRect[attrName] stringValue] cStringUsingEncoding:NSUTF8StringEncoding]]);
+    if (rc < 0) {
+      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+      return rc;
+    }
   }
   
   rc = xmlTextWriterWriteAttribute(writer, [FBXPath xmlCharPtrForInput:[kXMLIndexPathKey cStringUsingEncoding:NSUTF8StringEncoding]],
