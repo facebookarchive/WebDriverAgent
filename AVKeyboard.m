@@ -18,7 +18,7 @@
 #import "XCUIElement+FBUtilities.h"
 #import "XCTestDriver.h"
 
-static const NSUInteger AVTypingFrequency = 20;
+static const NSUInteger AVTypingFrequency = 5;
 
 @implementation AVKeyboard
 
