@@ -158,18 +158,22 @@
 
   // Применяем индекс к запросу или к массиву. Если индекс не указан, то берем первый элемент.
   XCUIElement *element;
-  NSArray<XCUIElement *> *elements;
+  NSArray<XCUIElement *> *resElements;
+  NSArray<XCUIElement *> *elements = [query allElementsBoundByIndex];
   if (hasIndex) {
     if ([index isEqualToString:@"last"]) {
-      element = [[query allElementsBoundByIndex] lastObject];
+      element = [elements lastObject];
+      resElements = [NSArray arrayWithObject:element];
     } else {
-      element = [query elementBoundByIndex:[index intValue]];
+        if ([elements count] > (NSUInteger) [index integerValue]) {
+            element = [elements objectAtIndex:[index intValue]];
+            resElements = [NSArray arrayWithObject:element];
+        }
     }
-    elements = [NSArray arrayWithObject:element];
   } else {
-    elements = [query allElementsBoundByIndex];
+      resElements = elements;
   }
-  return elements;
+  return resElements;
 }
 
 @end
