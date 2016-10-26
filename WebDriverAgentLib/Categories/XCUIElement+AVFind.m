@@ -26,16 +26,20 @@
   NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^(\\.{0,1})([0-9\\*]*)(\\(.+\\))*(\\[[0-9a-z]+\\]){0,1}$" options:NSRegularExpressionCaseInsensitive error:&error];
 
   __block XCUIElement *currentElement = self;
+  __block NSArray<XCUIElement *> *currentElements;
 
   // Цикл обходит все элементы локатора.
   [tokens enumerateObjectsUsingBlock:^(NSString *token, NSUInteger tokenIdx, BOOL *stopTokenEnum) {
       NSTextCheckingResult *regRes = [self av_parsePartOfLocator:regex locator:token];
       XCUIElementQuery *query = [self av_getQueryByType:regRes locator:token element:currentElement];
-      currentElement = [self av_getElement:regRes locator:token query:query];
-
+      currentElements = [self av_getElements:regRes locator:token query:query];
+      if ([currentElements count] > 0) {
+          currentElement = [currentElements objectAtIndex:0];
+      }
   }];
 
-  [resultElementList addObject:currentElement];
+//  [resultElementList addObject:currentElement];
+  resultElementList = [NSMutableArray arrayWithArray:currentElements];
   return resultElementList.copy;
 }
 
@@ -80,7 +84,7 @@
   return query;
 }
 
-- (XCUIElement *)av_getElement:(NSTextCheckingResult *)regRes
+- (NSArray<XCUIElement *> *)av_getElements:(NSTextCheckingResult *)regRes
                        locator:(NSString *)locator
                        query:(XCUIElementQuery *)query
 {
@@ -154,16 +158,18 @@
 
   // Применяем индекс к запросу или к массиву. Если индекс не указан, то берем первый элемент.
   XCUIElement *element;
+  NSArray<XCUIElement *> *elements;
   if (hasIndex) {
     if ([index isEqualToString:@"last"]) {
       element = [[query allElementsBoundByIndex] lastObject];
     } else {
       element = [query elementBoundByIndex:[index intValue]];
     }
+    elements = [NSArray arrayWithObject:element];
   } else {
-    element = [query elementBoundByIndex:0];
+    elements = [query allElementsBoundByIndex];
   }
-  return element;
+  return elements;
 }
 
 @end
