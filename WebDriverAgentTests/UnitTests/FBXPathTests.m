@@ -37,7 +37,7 @@
   XCTAssertEqual(rc, 0);
 
   NSString *resultXml = [NSString stringWithCString:(const char*)xmlbuff encoding:NSUTF8StringEncoding];
-  NSString *expectedXml = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<XCUIElementTypeOther type=\"XCUIElementTypeOther\" value=\"кирилиця\" name=\"testName\" label=\"testLabel\" isVisible=\"1\" isEnabled=\"1\" private_indexPath=\"top\"/>\n";
+  NSString *expectedXml = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<XCUIElementTypeOther type=\"XCUIElementTypeOther\" value=\"кирилиця\" name=\"testName\" label=\"testLabel\" visible=\"true\" enabled=\"true\" x=\"0\" y=\"0\" width=\"0\" height=\"0\" private_indexPath=\"top\"/>\n";
   XCTAssertTrue([resultXml isEqualToString: expectedXml]);
   XCTAssertEqual(1, [elementStore count]);
 }

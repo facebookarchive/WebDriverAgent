@@ -198,12 +198,37 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
       return rc;
     }
   }
-  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "isVisible", element.wdVisible ? BAD_CAST "1" : BAD_CAST "0");
+  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "visible", element.wdVisible ? BAD_CAST "true" : BAD_CAST "false");
   if (rc < 0) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
     return rc;
   }
-  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "isEnabled", element.wdEnabled ? BAD_CAST "1" : BAD_CAST "0");
+  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "enabled", element.wdEnabled ? BAD_CAST "true" : BAD_CAST "false");
+  if (rc < 0) {
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+    return rc;
+  }
+
+  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "x",
+                                   [FBXPath xmlCharPtrForInput:[[element.wdRect[@"x"] stringValue] cStringUsingEncoding:NSUTF8StringEncoding]]);
+  if (rc < 0) {
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+    return rc;
+  }
+  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "y",
+                                   [FBXPath xmlCharPtrForInput:[[element.wdRect[@"y"] stringValue] cStringUsingEncoding:NSUTF8StringEncoding]]);
+  if (rc < 0) {
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+    return rc;
+  }
+  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "width",
+                                   [FBXPath xmlCharPtrForInput:[[element.wdRect[@"width"] stringValue] cStringUsingEncoding:NSUTF8StringEncoding]]);
+  if (rc < 0) {
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+    return rc;
+  }
+  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "height",
+                                   [FBXPath xmlCharPtrForInput:[[element.wdRect[@"height"] stringValue] cStringUsingEncoding:NSUTF8StringEncoding]]);
   if (rc < 0) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
     return rc;

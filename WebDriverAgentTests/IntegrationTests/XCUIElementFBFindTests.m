@@ -15,6 +15,7 @@
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "FBXPath.h"
+#import "FBXPath-Private.h"
 
 @interface XCUIElementFBFindTests : FBIntegrationTestCase
 @property (nonatomic, strong) XCUIElement *testedView;
@@ -72,6 +73,28 @@
   XCTAssertEqualObjects(matchingSnapshot.label, @"Alerts");
 }
 
+- (void)testSingleDescendantXMLRepresentation
+{
+  XCUIElement *matchingSnapshot = [self.testedView fb_firstDescendantMatchingXPathQuery:@"//XCUIElementTypeButton"];
+
+  xmlDocPtr doc;
+  xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
+  NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
+  int buffersize;
+  xmlChar *xmlbuff;
+  int rc = [FBXPath getSnapshotAsXML:(id<FBElement>)matchingSnapshot writer:writer elementStore:elementStore];
+  if (0 == rc) {
+    xmlDocDumpFormatMemory(doc, &xmlbuff, &buffersize, 1);
+  }
+  xmlFreeTextWriter(writer);
+  xmlFreeDoc(doc);
+  XCTAssertEqual(rc, 0);
+  
+  NSString *resultXml = [NSString stringWithCString:(const char*)xmlbuff encoding:NSUTF8StringEncoding];
+  NSString *expectedXml = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<XCUIElementTypeButton type=\"XCUIElementTypeButton\" name=\"Alerts\" label=\"Alerts\" visible=\"true\" enabled=\"true\" x=\"137\" y=\"93\" width=\"101\" height=\"30\" private_indexPath=\"top\"/>\n";
+  XCTAssertTrue([resultXml isEqualToString: expectedXml]);
+}
+
 - (void)testSingleDescendantWithXPathQueryNoMatches
 {
   XCUIElement *matchingSnapshot = [self.testedView fb_firstDescendantMatchingXPathQuery:@"//XCUIElementTypeButtonnn"];
@@ -111,7 +134,7 @@
 
 - (void)testVisibleDescendantWithXPathQuery
 {
-  NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton[@name='Alerts' and @isEnabled='1' and @isVisible='1']"];
+  NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton[@name='Alerts' and @enabled='true' and @visible='true']"];
   XCTAssertEqual(matchingSnapshots.count, 1);
   XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypeButton);
   XCTAssertTrue(matchingSnapshots.lastObject.isEnabled);
@@ -122,7 +145,7 @@
 - (void)testInvisibleDescendantWithXPathQuery
 {
   [self goToAttributesPage];
-  NSArray<XCUIElement *> *matchingSnapshots = [self.testedApplication fb_descendantsMatchingXPathQuery:@"//XCUIElementTypePageIndicator[@isVisible='0']"];
+  NSArray<XCUIElement *> *matchingSnapshots = [self.testedApplication fb_descendantsMatchingXPathQuery:@"//XCUIElementTypePageIndicator[@visible='false']"];
   XCTAssertEqual(matchingSnapshots.count, 1);
   XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypePageIndicator);
   XCTAssertFalse(matchingSnapshots.lastObject.fb_isVisible);
