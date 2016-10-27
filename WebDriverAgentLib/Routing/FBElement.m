@@ -7,9 +7,21 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+#import <Foundation/Foundation.h>
+
 #import "FBElement.h"
+#import "FBElementTypeTransformer.h"
 
 NSString *wdAttributeNameForAttributeName(NSString *name)
 {
   return [NSString stringWithFormat:@"wd%@", name.capitalizedString];
+}
+
+NSSet<NSNumber *> *wdGetUniqueElementsTypes(NSArray<id<FBElement>> *elements)
+{
+  NSMutableSet *matchingTypes = [NSMutableSet set];
+  [elements enumerateObjectsUsingBlock:^(id<FBElement> element, NSUInteger elementIdx, BOOL *stopElementsEnum) {
+    [matchingTypes addObject: @([FBElementTypeTransformer elementTypeWithTypeName:element.wdType])];
+  }];
+  return matchingTypes.copy;
 }

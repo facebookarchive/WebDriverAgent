@@ -52,6 +52,9 @@ NSString *wdAttributeNameForAttributeName(NSString *name);
 /*! Whether element is an accessibility container (contains children of any depth that are accessible) */
 @property (nonatomic, readonly, getter = isWDAccessibilityContainer) BOOL wdAccessibilityContainer;
 
+/*! Child elements */
+@property(copy) NSArray *children;
+
 /**
  Returns value of given property specified in WebDriver Spec
 
@@ -60,5 +63,13 @@ NSString *wdAttributeNameForAttributeName(NSString *name);
 - (nullable id)fb_valueForWDAttributeName:(NSString *__nullable)name;
 
 @end
+
+/**
+ Function used to collect all the unique element types from an array of elements.
+ 
+ @param elements array of elements
+ @return set of unique element types (XCUIElementType items) or an empty set in case the input is empty
+ */
+NSSet<NSNumber *> *wdGetUniqueElementsTypes(NSArray<id<FBElement>> *elements);
 
 NS_ASSUME_NONNULL_END

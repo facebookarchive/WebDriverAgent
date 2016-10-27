@@ -80,11 +80,16 @@
 
 #pragma mark - Search by xpath
 
-- (XCUIElement *)fb_firstDescendantMatchingXPathQuery:(NSString *)xpathQuery
+- (NSArray<XCElementSnapshot *> *)getMatchedSnapshotsByXPathQuery:(NSString *)xpathQuery
 {
   // XPath will try to match elements only class name, so requesting elements by XCUIElementTypeAny will not work. We should use '*' instead.
   xpathQuery = [xpathQuery stringByReplacingOccurrencesOfString:@"XCUIElementTypeAny" withString:@"*"];
-  NSArray *matchingSnapshots = [self.lastSnapshot fb_descendantsMatchingXPathQuery:xpathQuery];
+  return [self.lastSnapshot fb_descendantsMatchingXPathQuery:xpathQuery];
+}
+
+- (XCUIElement *)fb_firstDescendantMatchingXPathQuery:(NSString *)xpathQuery
+{
+  NSArray *matchingSnapshots = [self getMatchedSnapshotsByXPathQuery:xpathQuery];
   if (0 == [matchingSnapshots count]) {
     return nil;
   }
@@ -105,28 +110,15 @@
 
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery
 {
-  // XPath will try to match elements only class name, so requesting elements by XCUIElementTypeAny will not work. We should use '*' instead.
-  xpathQuery = [xpathQuery stringByReplacingOccurrencesOfString:@"XCUIElementTypeAny" withString:@"*"];
-  NSArray *matchingSnapshots = [self.lastSnapshot fb_descendantsMatchingXPathQuery:xpathQuery];
+  NSArray *matchingSnapshots = [self getMatchedSnapshotsByXPathQuery:xpathQuery];
   if (0 == [matchingSnapshots count]) {
     return @[];
   }
   // Prefiltering elements speeds up search by XPath a lot, because [element resolve] is the most expensive operation here
-  NSSet *matchedTypes = [XCElementSnapshot fb_getUniqueTypes:matchingSnapshots];
-  NSDictionary *elementsByType = [self splitElementsByType:matchingSnapshots byTypes:matchedTypes];
-  NSArray *matchingElements = [XCUIElement filterElements:elementsByType matchingSnapshots:matchingSnapshots];
+  NSSet *byTypes = wdGetUniqueElementsTypes(matchingSnapshots);
+  NSDictionary *categorizedDescendants = [self categorizeDescendants:byTypes];
+  NSArray *matchingElements = [XCUIElement filterElements:categorizedDescendants matchingSnapshots:matchingSnapshots];
   return matchingElements;
-}
-
-- (NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)splitElementsByType:(NSArray<XCElementSnapshot *> *)snapshots byTypes:(NSSet *)types
-{
-  NSMutableDictionary *result = [NSMutableDictionary dictionary];
-  [types enumerateObjectsUsingBlock:^(NSNumber *elementTypeAsNumber, BOOL *stopEnum) {
-    XCUIElementType elementType = (XCUIElementType)elementTypeAsNumber.unsignedIntegerValue;
-    NSArray *descendantsOfType = [[self descendantsMatchingType:elementType] allElementsBoundByIndex];
-    result[elementTypeAsNumber] = descendantsOfType;
-  }];
-  return result.copy;
 }
 
 + (NSArray<XCUIElement *> *)filterElements:(NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)elementsMap matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots

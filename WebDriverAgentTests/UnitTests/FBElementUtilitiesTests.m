@@ -10,15 +10,15 @@
 
 #import <XCTest/XCTest.h>
 
-#import "XCElementSnapshot+FBHelpers.h"
+#import "FBElement.h"
 #import "XCUIElementDouble.h"
 
-@interface FBElementSnapshotTests : XCTestCase
+@interface FBElementUtilitiesTests : XCTestCase
 @end
 
-@implementation FBElementSnapshotTests
+@implementation FBElementUtilitiesTests
 
-- (void)testUniqueTypesFiltering {
+- (void)testTypesFiltering {
   NSMutableArray *elements = [NSMutableArray new];
   XCUIElementDouble *el1 = [XCUIElementDouble new];
   [elements addObject:el1];
@@ -29,12 +29,7 @@
   XCUIElementDouble *el3 = [XCUIElementDouble new];
   [elements addObject:el3];
   
-  XCTAssertNotEqual(el1.elementType, el2.elementType);
-  XCTAssertFalse([el1.wdType isEqualToString: el2.wdType]);
-  XCTAssertEqual(el1.elementType, el3.elementType);
-  XCTAssertTrue([el1.wdType isEqualToString: el3.wdType]);
-
-  NSSet *result = [XCElementSnapshot fb_getUniqueTypes:elements];
+  NSSet *result = wdGetUniqueElementsTypes(elements);
   XCTAssertEqual([result count], 2);
 }
 

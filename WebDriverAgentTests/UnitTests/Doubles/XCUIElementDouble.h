@@ -25,7 +25,7 @@
 @property (nonatomic, readwrite, getter=isWDEnabled) BOOL wdEnabled;
 @property (nonatomic, readwrite, getter=isWDVisible) BOOL wdVisible;
 @property (nonatomic, readwrite, getter=isWDAccessible) BOOL wdAccessible;
-@property (nonatomic, copy, readwrite, nullable) NSArray *children;
+@property (copy, nonnull) NSArray *children;
 @property (nonatomic, readwrite, assign) XCUIElementType elementType;
 @property (nonatomic, readwrite, getter=isWDAccessibilityContainer) BOOL wdAccessibilityContainer;
 

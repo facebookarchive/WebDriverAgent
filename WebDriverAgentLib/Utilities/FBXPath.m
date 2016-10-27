@@ -44,6 +44,8 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
   int rc = [FBXPath getSnapshotAsXML:root writer:writer elementStore:elementStore];
   if (rc < 0) {
+    xmlFreeTextWriter(writer);
+    xmlFreeDoc(doc);
     [FBXPath throwException:XCElementSnapshotXPathQueryEvaluationException forQuery:xpathQuery];
     return nil;
   }
@@ -240,10 +242,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     return rc;
   }
   
-  NSArray *children = @[];
-  if ([root respondsToSelector:@selector(children)]) {
-    children = [root performSelector:@selector(children)];
-  }
+  NSArray *children = root.children;
   for (NSUInteger i  = 0; i < [children count]; i++) {
     XCElementSnapshot *childSnapshot = children[i];
     NSString *newIndexPath = [indexPath stringByAppendingFormat:@",%lu", (unsigned long)i];
