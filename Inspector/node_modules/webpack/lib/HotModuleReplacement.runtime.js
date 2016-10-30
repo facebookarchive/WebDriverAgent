@@ -5,6 +5,17 @@
 /*global $hash$ installedModules $require$ hotDownloadManifest hotDownloadUpdateChunk modules */
 module.exports = function() {
 
+	// Copied from https://github.com/facebook/react/blob/bef45b0/src/shared/utils/canDefineProperty.js
+	var canDefineProperty = false;
+	try {
+		Object.defineProperty({}, "x", {
+			get: function() {}
+		});
+		canDefineProperty = true;
+	} catch(x) {
+		// IE will fail on defineProperty
+	}
+
 	var hotApplyOnUpdate = true;
 	var hotCurrentHash = $hash$; // eslint-disable-line no-unused-vars
 	var hotCurrentModuleData = {};
@@ -29,10 +40,26 @@ module.exports = function() {
 		};
 		for(var name in $require$) {
 			if(Object.prototype.hasOwnProperty.call($require$, name)) {
-				fn[name] = $require$[name];
+				if(canDefineProperty) {
+					Object.defineProperty(fn, name, (function(name) {
+						return {
+							configurable: true,
+							enumerable: true,
+							get: function() {
+								return $require$[name];
+							},
+							set: function(value) {
+								$require$[name] = value;
+							}
+						};
+					}(name)));
+				} else {
+					fn[name] = $require$[name];
+				}
 			}
 		}
-		fn.e = function(chunkId, callback) {
+
+		function ensure(chunkId, callback) {
 			if(hotStatus === "ready")
 				hotSetStatus("prepare");
 			hotChunksLoading++;
@@ -55,7 +82,15 @@ module.exports = function() {
 					}
 				}
 			});
-		};
+		}
+		if(canDefineProperty) {
+			Object.defineProperty(fn, "e", {
+				enumerable: true,
+				value: ensure
+			});
+		} else {
+			fn.e = ensure;
+		}
 		return fn;
 	}
 
