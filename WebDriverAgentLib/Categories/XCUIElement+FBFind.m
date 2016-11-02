@@ -21,14 +21,23 @@
 
 #pragma mark - Search by ClassName
 
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingClassName:(NSString *)className
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingClassName:(NSString *)className shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
   NSMutableArray *result = [NSMutableArray array];
   XCUIElementType type = [FBElementTypeTransformer elementTypeWithTypeName:className];
   if (self.elementType == type || type == XCUIElementTypeAny) {
     [result addObject:self];
   }
-  [result addObjectsFromArray:[[self descendantsMatchingType:type] allElementsBoundByIndex]];
+  if (shouldReturnAfterFirstMatch) {
+    if (0 == [result count]) {
+      XCUIElementQuery *query = [self descendantsMatchingType:type];
+      if (query.count > 0) {
+        [result addObject:[query elementBoundByIndex:0]];
+      }
+    }
+  } else {
+    [result addObjectsFromArray:[[self descendantsMatchingType:type] allElementsBoundByIndex]];
+  }
   return result.copy;
 }
 
@@ -70,11 +79,18 @@
 
 #pragma mark - Search by Predicate String
 
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
   XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate];
-  NSArray *childElements = [query allElementsBoundByIndex];
-  return childElements;
+  NSMutableArray *result = [NSMutableArray array];
+  if (shouldReturnAfterFirstMatch) {
+    if (query.count > 0) {
+      [result addObject:[query elementBoundByIndex:0]];
+    }
+  } else {
+    [result addObjectsFromArray:[query allElementsBoundByIndex]];
+  }
+  return result.copy;
 }
 
 
@@ -126,14 +142,22 @@
 
 #pragma mark - Search by Accessibility Id
 
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingIdentifier:(NSString *)accessibilityId
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingIdentifier:(NSString *)accessibilityId shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
   NSMutableArray *result = [NSMutableArray array];
   if (self.identifier == accessibilityId) {
     [result addObject:self];
   }
-  NSArray *children = [[[self descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:accessibilityId] allElementsBoundByIndex];
-  [result addObjectsFromArray: children];
+  if (shouldReturnAfterFirstMatch) {
+    if (0 == [result count]) {
+      XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:accessibilityId];
+      if (query.count > 0) {
+        [result addObject:[query elementBoundByIndex:0]];
+      }
+    }
+  } else {
+    [result addObjectsFromArray:[[[self descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:accessibilityId] allElementsBoundByIndex]];
+  }
   return result.copy;
 }
 

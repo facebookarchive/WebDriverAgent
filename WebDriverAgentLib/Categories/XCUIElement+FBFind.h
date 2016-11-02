@@ -18,17 +18,23 @@ NS_ASSUME_NONNULL_BEGIN
  Returns an array of descendants matching given class name
 
  @param className requested class name
+ @param shouldReturnAfterFirstMatch set it to YES if you want only the first found element to be
+ resolved and returned. This will speed up the search significantly if given class name matches multiple
+ nodes in the UI tree
  @return an array of descendants matching given class name
  */
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingClassName:(NSString *)className;
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingClassName:(NSString *)className shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch;
 
 /**
  Returns an array of descendants matching given accessibility id
 
  @param accessibilityId requested accessibility id
+ @param shouldReturnAfterFirstMatch set it to YES if you want only the first found element to be
+ resolved and returned. This will speed up the search significantly if given id matches multiple
+ nodes in the UI tree
  @return an array of descendants matching given accessibility id
  */
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingIdentifier:(NSString *)accessibilityId;
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingIdentifier:(NSString *)accessibilityId shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch;
 
 /**
  Returns an array of descendants matching given xpath query
@@ -45,9 +51,12 @@ NS_ASSUME_NONNULL_BEGIN
  Returns an array of descendants matching given predicate
 
  @param predicate requested predicate
+ @param shouldReturnAfterFirstMatch set it to YES if you want only the first found element to be
+ resolved and returned. This will speed up the search significantly if given predicate matches multiple
+ nodes in the UI tree
  @return an array of descendants matching given predicate
  */
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate;
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch;
 
 /**
  Returns an array of descendants with property matching given value
