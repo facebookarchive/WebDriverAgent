@@ -87,51 +87,38 @@
   return [self.lastSnapshot fb_descendantsMatchingXPathQuery:xpathQuery];
 }
 
-- (XCUIElement *)fb_firstDescendantMatchingXPathQuery:(NSString *)xpathQuery
-{
-  NSArray *matchingSnapshots = [self getMatchedSnapshotsByXPathQuery:xpathQuery];
-  if (0 == [matchingSnapshots count]) {
-    return nil;
-  }
-  XCElementSnapshot *firstMatch = [matchingSnapshots firstObject];
-  NSArray *elements = [[self descendantsMatchingType:firstMatch.elementType] allElementsBoundByIndex];
-  NSEnumerator *elementsEnumerator = [elements objectEnumerator];
-  // Speed up elements lookup by starting from the end of the elements array if 'last()' function call is detected in xpath query
-  if ([xpathQuery containsString:@"last()"]) {
-    elementsEnumerator = [elements reverseObjectEnumerator];
-  }
-  for (XCUIElement *element in elementsEnumerator) {
-    if ([element.fb_lastSnapshot _matchesElement:firstMatch]) {
-      return element;
-    }
-  }
-  return nil;
-}
-
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
   NSArray *matchingSnapshots = [self getMatchedSnapshotsByXPathQuery:xpathQuery];
   if (0 == [matchingSnapshots count]) {
     return @[];
   }
+  if (shouldReturnAfterFirstMatch) {
+    matchingSnapshots = @[[matchingSnapshots firstObject]];
+  }
   // Prefiltering elements speeds up search by XPath a lot, because [element resolve] is the most expensive operation here
   NSSet *byTypes = wdGetUniqueElementsTypes(matchingSnapshots);
   NSDictionary *categorizedDescendants = [self categorizeDescendants:byTypes];
-  NSArray *matchingElements = [XCUIElement filterElements:categorizedDescendants matchingSnapshots:matchingSnapshots];
+  NSArray *matchingElements = [XCUIElement filterElements:categorizedDescendants matchingSnapshots:matchingSnapshots
+                                         useReversedOrder:[xpathQuery containsString:@"last()"]];
   return matchingElements;
 }
 
-+ (NSArray<XCUIElement *> *)filterElements:(NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)elementsMap matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots
++ (NSArray<XCUIElement *> *)filterElements:(NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)elementsMap matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots useReversedOrder:(BOOL)useReversedOrder
 {
   NSMutableArray *matchingElements = [NSMutableArray array];
   [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
     NSArray *elements = elementsMap[@(snapshot.elementType)];
-    [elements enumerateObjectsUsingBlock:^(XCUIElement *element, NSUInteger elementIdx, BOOL *stopElementEnum) {
+    NSEnumerator *elementsEnumerator = [elements objectEnumerator];
+    if (useReversedOrder) {
+      elementsEnumerator = [elements reverseObjectEnumerator];
+    }
+    for (XCUIElement *element in elementsEnumerator) {
       if ([element.fb_lastSnapshot _matchesElement:snapshot]) {
         [matchingElements addObject:element];
-        *stopElementEnum = YES;
+        break;
       }
-    }];
+    };
   }];
   return matchingElements.copy;
 }

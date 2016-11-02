@@ -33,7 +33,7 @@
 
 - (void)testSingleDescendantXMLRepresentation
 {
-  XCUIElement *matchingSnapshot = [self.testedView fb_firstDescendantMatchingXPathQuery:@"//XCUIElementTypeButton"];
+  XCUIElement *matchingSnapshot = [[self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton" shouldReturnAfterFirstMatch:YES] firstObject];
   
   xmlDocPtr doc;
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);

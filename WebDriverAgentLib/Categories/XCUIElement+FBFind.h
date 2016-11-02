@@ -34,17 +34,12 @@ NS_ASSUME_NONNULL_BEGIN
  Returns an array of descendants matching given xpath query
 
  @param xpathQuery requested xpath query
+ @param shouldReturnAfterFirstMatch set it to YES if you want only the first found element to be
+ resolved and returned. This will speed up the search significantly if given xpath matches multiple
+ nodes in the UI tree
  @return an array of descendants matching given xpath query
  */
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery;
-
-/**
- Returns the very first descendant matching given xpath query
- 
- @param xpathQuery requested xpath query
- @return matched descendant or nil if no matches have been found
- */
-- (nullable XCUIElement *)fb_firstDescendantMatchingXPathQuery:(NSString *)xpathQuery;
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch;
 
 /**
  Returns an array of descendants matching given predicate
