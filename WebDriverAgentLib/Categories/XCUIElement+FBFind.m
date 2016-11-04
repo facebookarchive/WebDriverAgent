@@ -28,15 +28,16 @@
   if (self.elementType == type || type == XCUIElementTypeAny) {
     [result addObject:self];
   }
+  XCUIElementQuery *query = [self descendantsMatchingType:type];
   if (shouldReturnAfterFirstMatch) {
     if (0 == [result count]) {
-      XCUIElementQuery *query = [self descendantsMatchingType:type];
-      if (query.count > 0) {
-        [result addObject:[query elementBoundByIndex:0]];
+      XCUIElement *match = [query elementBoundByIndex:0];
+      if (match && [match exists]) {
+        [result addObject:match];
       }
     }
   } else {
-    [result addObjectsFromArray:[[self descendantsMatchingType:type] allElementsBoundByIndex]];
+    [result addObjectsFromArray:[query allElementsBoundByIndex]];
   }
   return result.copy;
 }
@@ -84,8 +85,9 @@
   XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate];
   NSMutableArray *result = [NSMutableArray array];
   if (shouldReturnAfterFirstMatch) {
-    if (query.count > 0) {
-      [result addObject:[query elementBoundByIndex:0]];
+    XCUIElement *match = [query elementBoundByIndex:0];
+    if (match && [match exists]) {
+      [result addObject:match];
     }
   } else {
     [result addObjectsFromArray:[query allElementsBoundByIndex]];
@@ -148,15 +150,16 @@
   if (self.identifier == accessibilityId) {
     [result addObject:self];
   }
+  XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:accessibilityId];
   if (shouldReturnAfterFirstMatch) {
     if (0 == [result count]) {
-      XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:accessibilityId];
-      if (query.count > 0) {
-        [result addObject:[query elementBoundByIndex:0]];
+      XCUIElement *match = [query elementBoundByIndex:0];
+      if (match && [match exists]) {
+        [result addObject:match];
       }
     }
   } else {
-    [result addObjectsFromArray:[[[self descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:accessibilityId] allElementsBoundByIndex]];
+    [result addObjectsFromArray:[query allElementsBoundByIndex]];
   }
   return result.copy;
 }
