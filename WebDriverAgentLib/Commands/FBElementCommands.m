@@ -154,6 +154,14 @@
     [element adjustToPickerWheelValue:textToType];
     return FBResponseWithOK();
   }
+  if (element.elementType == XCUIElementTypeSlider) {
+    CGFloat sliderValue = textToType.floatValue;
+    if (sliderValue < 0.0 || sliderValue > 1.0 ) {
+      return FBResponseWithErrorFormat(@"Value of slider should be in 0..1 range");
+    }
+    [element adjustToNormalizedSliderPosition:sliderValue];
+    return FBResponseWithOK();
+  }
   NSError *error = nil;
   if (![element fb_scrollToVisibleWithError:&error]) {
     return FBResponseWithError(error);
