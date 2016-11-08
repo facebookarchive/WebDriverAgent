@@ -902,6 +902,7 @@
 				EE26409A1D0EB5E8009BE6B0 /* FBTapTest.m */,
 				EE1E06DC1D1811C4007CF043 /* FBTestMacros.h */,
 				AD76723F1D6B826F00610457 /* FBTypingTest.m */,
+				EE9B76551CF7987300275851 /* Info.plist */,
 				EEBBDB9A1D1032F0000738CD /* XCElementSnapshotHelperTests.m */,
 				EE1E06E31D18213F007CF043 /* XCUIApplicationHelperTests.m */,
 				EEDFE1231D9C08C700E6FFE5 /* XCUIDeviceHealthCheckTests.m */,
@@ -909,7 +910,6 @@
 				44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */,
 				EEBBD48D1D4785FC00656A81 /* XCUIElementFBFindTests.m */,
 				EE1E06E11D181CC9007CF043 /* XCUIElementHelperTests.m */,
-				EE9B76551CF7987300275851 /* Info.plist */,
 			);
 			path = IntegrationTests;
 			sourceTree = "<group>";
