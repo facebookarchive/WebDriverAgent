@@ -33,14 +33,14 @@
 
 - (void)testSingleDescendantXMLRepresentation
 {
-  XCUIElement *matchingSnapshot = [[self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton" shouldReturnAfterFirstMatch:YES] firstObject];
+  id<FBElement> matchingSnapshot = (id<FBElement>)[[self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton" shouldReturnAfterFirstMatch:YES] firstObject];
   
   xmlDocPtr doc;
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
   int buffersize;
   xmlChar *xmlbuff;
-  int rc = [FBXPath getSnapshotAsXML:(id<FBElement>)matchingSnapshot writer:writer elementStore:elementStore];
+  int rc = [FBXPath getSnapshotAsXML:matchingSnapshot writer:writer elementStore:elementStore];
   if (0 == rc) {
     xmlDocDumpFormatMemory(doc, &xmlbuff, &buffersize, 1);
   }
@@ -49,7 +49,7 @@
   XCTAssertEqual(rc, 0);
   
   NSString *resultXml = [NSString stringWithCString:(const char*)xmlbuff encoding:NSUTF8StringEncoding];
-  NSString *expectedXml = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<XCUIElementTypeButton type=\"XCUIElementTypeButton\" name=\"Alerts\" label=\"Alerts\" visible=\"true\" enabled=\"true\" x=\"137\" y=\"93\" width=\"101\" height=\"30\" private_indexPath=\"top\"/>\n";
+  NSString *expectedXml = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<XCUIElementTypeButton type=\"XCUIElementTypeButton\" name=\"Alerts\" label=\"Alerts\" visible=\"true\" enabled=\"true\" x=\"%@\" y=\"%@\" width=\"%@\" height=\"%@\" private_indexPath=\"top\"/>\n", [matchingSnapshot.wdRect[@"x"] stringValue], [matchingSnapshot.wdRect[@"y"] stringValue], [matchingSnapshot.wdRect[@"width"] stringValue], [matchingSnapshot.wdRect[@"height"] stringValue]];
   XCTAssertTrue([resultXml isEqualToString: expectedXml]);
 }
 

@@ -18,6 +18,18 @@
 
 @implementation XCUIElement (FBFind)
 
++ (NSArray<XCUIElement *> *)lookupDescendants:(XCUIElementQuery *)query shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
+{
+  if (shouldReturnAfterFirstMatch) {
+    XCUIElement *match = [query elementBoundByIndex:0];
+    if (match && [match exists]) {
+      return @[match];
+    }
+    return @[];
+  }
+  return [query allElementsBoundByIndex];
+}
+
 
 #pragma mark - Search by ClassName
 
@@ -27,18 +39,12 @@
   XCUIElementType type = [FBElementTypeTransformer elementTypeWithTypeName:className];
   if (self.elementType == type || type == XCUIElementTypeAny) {
     [result addObject:self];
+    if (shouldReturnAfterFirstMatch) {
+      return result.copy;
+    }
   }
   XCUIElementQuery *query = [self descendantsMatchingType:type];
-  if (shouldReturnAfterFirstMatch) {
-    if (0 == [result count]) {
-      XCUIElement *match = [query elementBoundByIndex:0];
-      if (match && [match exists]) {
-        [result addObject:match];
-      }
-    }
-  } else {
-    [result addObjectsFromArray:[query allElementsBoundByIndex]];
-  }
+  [result addObjectsFromArray:[self.class lookupDescendants:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch]];
   return result.copy;
 }
 
@@ -83,16 +89,7 @@
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
   XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate];
-  NSMutableArray *result = [NSMutableArray array];
-  if (shouldReturnAfterFirstMatch) {
-    XCUIElement *match = [query elementBoundByIndex:0];
-    if (match && [match exists]) {
-      [result addObject:match];
-    }
-  } else {
-    [result addObjectsFromArray:[query allElementsBoundByIndex]];
-  }
-  return result.copy;
+  return [self.class lookupDescendants:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch];
 }
 
 
@@ -117,8 +114,7 @@
   // Prefiltering elements speeds up search by XPath a lot, because [element resolve] is the most expensive operation here
   NSSet *byTypes = wdGetUniqueElementsTypes(matchingSnapshots);
   NSDictionary *categorizedDescendants = [self categorizeDescendants:byTypes];
-  NSArray *matchingElements = [XCUIElement filterElements:categorizedDescendants matchingSnapshots:matchingSnapshots
-                                         useReversedOrder:[xpathQuery containsString:@"last()"]];
+  NSArray *matchingElements = [XCUIElement filterElements:categorizedDescendants matchingSnapshots:matchingSnapshots useReversedOrder:[xpathQuery containsString:@"last()"]];
   return matchingElements;
 }
 
@@ -149,18 +145,12 @@
   NSMutableArray *result = [NSMutableArray array];
   if (self.identifier == accessibilityId) {
     [result addObject:self];
+    if (shouldReturnAfterFirstMatch) {
+      return result.copy;
+    }
   }
   XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:accessibilityId];
-  if (shouldReturnAfterFirstMatch) {
-    if (0 == [result count]) {
-      XCUIElement *match = [query elementBoundByIndex:0];
-      if (match && [match exists]) {
-        [result addObject:match];
-      }
-    }
-  } else {
-    [result addObjectsFromArray:[query allElementsBoundByIndex]];
-  }
+  [result addObjectsFromArray:[self.class lookupDescendants:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch]];
   return result.copy;
 }
 
