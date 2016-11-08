@@ -17,17 +17,6 @@
 
 @implementation XCUIDeviceRotationTests
 
-- (void)setUp
-{
-  [super setUp];
-  //setup portrait before any test
-  [[XCUIDevice sharedDevice] fb_setDeviceRotation:@{
-    @"x" : @(0),
-    @"y" : @(0),
-    @"z" : @(0)
-  }];
-}
-
 - (void)testLandscapeRightOrientation
 {
   BOOL success = [[XCUIDevice sharedDevice] fb_setDeviceInterfaceOrientation:UIDeviceOrientationLandscapeRight];
@@ -41,7 +30,6 @@
   XCTAssertTrue(success, @"Device should support LandscapeLeft");
   XCTAssertEqual(UIDeviceOrientationLandscapeLeft, [XCUIDevice sharedDevice].orientation, @"Device should be in landscape right mode");
 }
-
 
 - (void)testLandscapeRightRotation
 {
