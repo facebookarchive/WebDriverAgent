@@ -28,15 +28,15 @@
 
 - (BOOL)fb_isVisible
 {
-  if (self.frame.size.height <= 0 || self.frame.size.width <= 0) {
+  if (self.frame.size.width <= 0 || self.frame.size.height <= 0 || !CGRectIntersectsRect(self.frame, self.application.frame)) {
     /*
      It turns out, that XCTest triggers
        Enqueue Failure: UI Testing Failure - Failure fetching attributes for element
        <XCAccessibilityElement: 0x60000025f9e0> Device element: Error Domain=XCTestManagerErrorDomain Code=13
        "Error copying attributes -25202" UserInfo={NSLocalizedDescription=Error copying attributes -25202} <unknown> 0 1
-     error in the log if we try to get visibility attribute for an element snapshot whose width or height
-     are less or equal to zero. Also, XCTest waits for 15 seconds after this line appears in the log, which makes /source
-     command execution extremely slow for some applications.
+     error in the log if we try to get visibility attribute for an element snapshot, which does not intesect with visible appication area
+     or if it has zero width/height. Also, XCTest waits for 15 seconds after this line appears in the log, which makes /source command
+     execution extremely slow for some applications.
      */
     return NO;
   }
