@@ -28,7 +28,8 @@
 - (BOOL)fb_clearTextWithError:(NSError **)error
 {
   NSMutableString *textToType = @"".mutableCopy;
-  for (NSUInteger i = 0 ; i < [self.value length] ; i++) {
+  NSUInteger len = [self.value length];
+  for (NSUInteger i = 0 ; i <= len ; i++) {
     [textToType appendString:@"\b"];
   }
   if (![self fb_typeText:textToType error:error]) {
