@@ -16,6 +16,10 @@
 
 - (BOOL)fb_isVisible
 {
+  // Calling resolve method is expensive, so we try to perform fast verification first
+  if (!self.exists || CGRectIsEmpty(self.frame) || !CGRectIntersectsRect(self.frame, self.application.frame)) {
+    return NO;
+  }
   if (!self.lastSnapshot) {
     [self resolve];
   }
