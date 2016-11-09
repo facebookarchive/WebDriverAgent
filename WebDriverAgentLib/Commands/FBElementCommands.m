@@ -154,10 +154,15 @@
     [element adjustToPickerWheelValue:textToType];
     return FBResponseWithOK();
   }
-  NSError *error = nil;
-  if (![element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithError(error);
+  if (element.elementType == XCUIElementTypeSlider) {
+    CGFloat sliderValue = textToType.floatValue;
+    if (sliderValue < 0.0 || sliderValue > 1.0 ) {
+      return FBResponseWithErrorFormat(@"Value of slider should be in 0..1 range");
+    }
+    [element adjustToNormalizedSliderPosition:sliderValue];
+    return FBResponseWithOK();
   }
+  NSError *error = nil;
   if (![element fb_typeText:textToType error:&error]) {
     return FBResponseWithError(error);
   }
@@ -170,9 +175,6 @@
   NSString *elementUUID = request.parameters[@"uuid"];
   XCUIElement *element = [elementCache elementForUUID:elementUUID];
   NSError *error = nil;
-  if (![element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithError(error);
-  }
   if (![element fb_tapWithError:&error]) {
     return FBResponseWithError(error);
   }
@@ -185,9 +187,6 @@
   NSString *elementUUID = request.parameters[@"uuid"];
   XCUIElement *element = [elementCache elementForUUID:elementUUID];
   NSError *error;
-  if (![element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithError(error);
-  }
   if (![element fb_clearTextWithError:&error]) {
     return FBResponseWithError(error);
   }
@@ -198,10 +197,6 @@
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  NSError *error;
-  if (![element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithError(error);
-  }
   [element doubleTap];
   return FBResponseWithOK();
 }
@@ -210,10 +205,6 @@
 {
     FBElementCache *elementCache = request.session.elementCache;
     XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-    NSError *error;
-    if (![element fb_scrollToVisibleWithError:&error]) {
-      return FBResponseWithError(error);
-    }
     [element twoFingerTap];
     return FBResponseWithOK();
 }
@@ -222,10 +213,6 @@
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  NSError *error;
-  if (![element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithError(error);
-  }
   [element pressForDuration:[request.arguments[@"duration"] doubleValue]];
   return FBResponseWithOK();
 }
@@ -234,10 +221,7 @@
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  NSError *error;
-  if (![element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithError(error);
-  }
+
   // Using presence of arguments as a way to convey control flow seems like a pretty bad idea but it's
   // what ios-driver did and sadly, we must copy them.
   NSString *const name = request.arguments[@"name"];
@@ -295,10 +279,6 @@
   CGFloat y = (CGFloat)[request.arguments[@"y"] doubleValue];
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   if (element != nil) {
-    NSError *error;
-    if (![element fb_scrollToVisibleWithError:&error]) {
-      return FBResponseWithError(error);
-    }
     CGRect rect = element.frame;
     x += rect.origin.x;
     y += rect.origin.y;

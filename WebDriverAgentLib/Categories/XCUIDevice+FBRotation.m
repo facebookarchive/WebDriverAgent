@@ -9,20 +9,38 @@
 
 #import "XCUIDevice+FBRotation.h"
 
+static const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
+
 @implementation XCUIDevice (FBRotation)
 
-- (BOOL)setDeviceRotation:(NSDictionary *)rotationObj
+- (BOOL)fb_setDeviceInterfaceOrientation:(UIDeviceOrientation)orientation
 {
-    NSArray<NSNumber *> *keysForRotationObj = [[self rotationMapping] allKeysForObject:rotationObj];
-    if (keysForRotationObj.count == 0) {
-        return NO;
-    }
-    NSInteger orientation = keysForRotationObj.firstObject.integerValue;
-    [XCUIDevice sharedDevice].orientation = orientation;
-    return YES;
+  [XCUIDevice sharedDevice].orientation = orientation;
+  return [self waitUntilInterfaceIsAtOrientation:orientation];
 }
 
-- (NSDictionary *)rotationMapping
+- (BOOL)fb_setDeviceRotation:(NSDictionary *)rotationObj
+{
+  NSArray<NSNumber *> *keysForRotationObj = [self.fb_rotationMapping allKeysForObject:rotationObj];
+  if (keysForRotationObj.count == 0) {
+    return NO;
+  }
+  NSInteger orientation = keysForRotationObj.firstObject.integerValue;
+  [XCUIDevice sharedDevice].orientation = orientation;
+  return [self waitUntilInterfaceIsAtOrientation:[XCUIDevice sharedDevice].orientation];
+}
+
+- (BOOL)waitUntilInterfaceIsAtOrientation:(NSInteger)orientation
+{
+  FBApplication *application = FBApplication.fb_activeApplication;
+  NSDate *startDate = [NSDate date];
+  while (![@(application.interfaceOrientation) isEqualToNumber:@(orientation)] && (-1 * [startDate timeIntervalSinceNow]) < kFBWebDriverOrientationChangeDelay) {
+    CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.3, YES);
+  }
+  return [@(application.interfaceOrientation) isEqualToNumber:@(orientation)];
+}
+
+- (NSDictionary *)fb_rotationMapping
 {
     static NSDictionary *rotationMap;
     static dispatch_once_t onceToken;

@@ -13,6 +13,7 @@
 #import "FBTestMacros.h"
 #import "FBIntegrationTestCase.h"
 #import "FBRunLoopSpinner.h"
+#import "XCUIDevice+FBRotation.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBIsVisible.h"
 
@@ -37,6 +38,9 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
   // Force resolving XCUIApplication
   [self.testedApplication query];
   [self.testedApplication resolve];
+
+  // Reset orientation
+  [[XCUIDevice sharedDevice] fb_setDeviceInterfaceOrientation:UIDeviceOrientationPortrait];
 }
 
 - (void)goToAttributesPage
