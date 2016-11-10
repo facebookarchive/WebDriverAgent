@@ -59,6 +59,8 @@
     [[FBRoute POST:@"/uiaElement/:uuid/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
     [[FBRoute POST:@"/uiaTarget/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
     [[FBRoute POST:@"/tap/:uuid"] respondWithTarget:self action:@selector(handleTap:)],
+    [[FBRoute POST:@"/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHoldCoordinate:)],
+    [[FBRoute POST:@"/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
     [[FBRoute POST:@"/keys"] respondWithTarget:self action:@selector(handleKeys:)],
     [[FBRoute GET:@"/window/size"] respondWithTarget:self action:@selector(handleGetWindowSize:)],
     // TODO: This API call should be deprecated and replaced with the one above without the extra :uuid parameter
@@ -201,6 +203,13 @@
   return FBResponseWithOK();
 }
 
++ (id<FBResponsePayload>)handleDoubleTapCoordinate:(FBRouteRequest *)request
+{
+  XCUICoordinate *doubleTapCoordinate = [self.class getGestureCoordinate:request];
+  [doubleTapCoordinate doubleTap];
+  return FBResponseWithOK();
+}
+
 + (id<FBResponsePayload>)handleTwoFingerTap:(FBRouteRequest *)request
 {
     FBElementCache *elementCache = request.session.elementCache;
@@ -214,6 +223,13 @@
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   [element pressForDuration:[request.arguments[@"duration"] doubleValue]];
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleTouchAndHoldCoordinate:(FBRouteRequest *)request
+{
+  XCUICoordinate *pressCoordinate = [self.class getGestureCoordinate:request];
+  [pressCoordinate pressForDuration:[request.arguments[@"duration"] doubleValue]];
   return FBResponseWithOK();
 }
 
@@ -321,6 +337,15 @@
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
+}
+
++ (XCUICoordinate *)getGestureCoordinate:(FBRouteRequest *)request
+{
+  FBSession *session = request.session;
+  CGVector point = CGVectorMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
+  XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:session.application normalizedOffset:CGVectorMake(0, 0)];
+  XCUICoordinate *gestureCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:point];
+  return gestureCoordinate;
 }
 
 @end
