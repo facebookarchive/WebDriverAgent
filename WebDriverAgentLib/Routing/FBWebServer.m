@@ -106,7 +106,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     [FBLogger logFmt:@"Last attempt to start web server failed with error %@", [error description]];
     abort();
   }
-  [FBLogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [XCUIDevice sharedDevice].fb_wifiIPAddress, [self.server port], FBServerURLEndMarker];
+  [FBLogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [XCUIDevice sharedDevice].fb_wifiIPAddress ?: @"localhost", [self.server port], FBServerURLEndMarker];
 }
 
 - (void)startUSBServer
