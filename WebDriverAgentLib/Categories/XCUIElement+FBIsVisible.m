@@ -28,7 +28,7 @@
 
 - (BOOL)fb_isVisible
 {
-  if (CGRectIsEmpty(self.frame) || !CGRectIntersectsRect(self.frame, self.application.frame)) {
+  if (CGRectIsEmpty(self.frame) || CGRectIsEmpty(self.visibleFrame)) {
     /*
      It turns out, that XCTest triggers
        Enqueue Failure: UI Testing Failure - Failure fetching attributes for element
