@@ -98,4 +98,16 @@
   XCTAssertFalse(FBRectFuzzyEqualToRect(referenceRect, CGRectMake(-1, -1, 1, 1), 1));
 }
 
+
+- (void)testPointInvertion
+{
+  const CGPoint testPoint = CGPointMake(1, 2);
+  const CGSize screenSize = CGSizeMake(10, 15);
+  const CGFloat t = FBDefaultFrameFuzzyThreshold;
+  XCTAssertTrue(FBPointFuzzyEqualToPoint(CGPointMake(1, 2), FBInvertPointForApplication(testPoint, screenSize, UIInterfaceOrientationPortrait), t));
+  XCTAssertTrue(FBPointFuzzyEqualToPoint(CGPointMake(9, 13), FBInvertPointForApplication(testPoint, screenSize, UIInterfaceOrientationPortraitUpsideDown), t));
+  XCTAssertTrue(FBPointFuzzyEqualToPoint(CGPointMake(2, 14), FBInvertPointForApplication(testPoint, screenSize, UIInterfaceOrientationLandscapeLeft), t));
+  XCTAssertTrue(FBPointFuzzyEqualToPoint(CGPointMake(8, 1), FBInvertPointForApplication(testPoint, screenSize, UIInterfaceOrientationLandscapeRight), t));
+}
+
 @end

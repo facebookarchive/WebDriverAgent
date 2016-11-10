@@ -59,6 +59,8 @@
     [[FBRoute POST:@"/uiaElement/:uuid/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
     [[FBRoute POST:@"/uiaTarget/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
     [[FBRoute POST:@"/tap/:uuid"] respondWithTarget:self action:@selector(handleTap:)],
+    [[FBRoute POST:@"/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHoldCoordinate:)],
+    [[FBRoute POST:@"/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
     [[FBRoute POST:@"/keys"] respondWithTarget:self action:@selector(handleKeys:)],
     [[FBRoute GET:@"/window/size"] respondWithTarget:self action:@selector(handleGetWindowSize:)],
     // TODO: This API call should be deprecated and replaced with the one above without the extra :uuid parameter
@@ -154,10 +156,15 @@
     [element adjustToPickerWheelValue:textToType];
     return FBResponseWithOK();
   }
-  NSError *error = nil;
-  if (![element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithError(error);
+  if (element.elementType == XCUIElementTypeSlider) {
+    CGFloat sliderValue = textToType.floatValue;
+    if (sliderValue < 0.0 || sliderValue > 1.0 ) {
+      return FBResponseWithErrorFormat(@"Value of slider should be in 0..1 range");
+    }
+    [element adjustToNormalizedSliderPosition:sliderValue];
+    return FBResponseWithOK();
   }
+  NSError *error = nil;
   if (![element fb_typeText:textToType error:&error]) {
     return FBResponseWithError(error);
   }
@@ -170,9 +177,6 @@
   NSString *elementUUID = request.parameters[@"uuid"];
   XCUIElement *element = [elementCache elementForUUID:elementUUID];
   NSError *error = nil;
-  if (![element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithError(error);
-  }
   if (![element fb_tapWithError:&error]) {
     return FBResponseWithError(error);
   }
@@ -185,9 +189,6 @@
   NSString *elementUUID = request.parameters[@"uuid"];
   XCUIElement *element = [elementCache elementForUUID:elementUUID];
   NSError *error;
-  if (![element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithError(error);
-  }
   if (![element fb_clearTextWithError:&error]) {
     return FBResponseWithError(error);
   }
@@ -198,11 +199,14 @@
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  NSError *error;
-  if (![element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithError(error);
-  }
   [element doubleTap];
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleDoubleTapCoordinate:(FBRouteRequest *)request
+{
+  XCUICoordinate *doubleTapCoordinate = [self.class getGestureCoordinate:request];
+  [doubleTapCoordinate doubleTap];
   return FBResponseWithOK();
 }
 
@@ -210,10 +214,6 @@
 {
     FBElementCache *elementCache = request.session.elementCache;
     XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-    NSError *error;
-    if (![element fb_scrollToVisibleWithError:&error]) {
-      return FBResponseWithError(error);
-    }
     [element twoFingerTap];
     return FBResponseWithOK();
 }
@@ -222,11 +222,14 @@
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  NSError *error;
-  if (![element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithError(error);
-  }
   [element pressForDuration:[request.arguments[@"duration"] doubleValue]];
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleTouchAndHoldCoordinate:(FBRouteRequest *)request
+{
+  XCUICoordinate *pressCoordinate = [self.class getGestureCoordinate:request];
+  [pressCoordinate pressForDuration:[request.arguments[@"duration"] doubleValue]];
   return FBResponseWithOK();
 }
 
@@ -234,10 +237,7 @@
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  NSError *error;
-  if (![element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithError(error);
-  }
+
   // Using presence of arguments as a way to convey control flow seems like a pretty bad idea but it's
   // what ios-driver did and sadly, we must copy them.
   NSString *const name = request.arguments[@"name"];
@@ -295,10 +295,6 @@
   CGFloat y = (CGFloat)[request.arguments[@"y"] doubleValue];
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   if (element != nil) {
-    NSError *error;
-    if (![element fb_scrollToVisibleWithError:&error]) {
-      return FBResponseWithError(error);
-    }
     CGRect rect = element.frame;
     x += rect.origin.x;
     y += rect.origin.y;
@@ -341,6 +337,15 @@
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
+}
+
++ (XCUICoordinate *)getGestureCoordinate:(FBRouteRequest *)request
+{
+  FBSession *session = request.session;
+  CGVector point = CGVectorMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
+  XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:session.application normalizedOffset:CGVectorMake(0, 0)];
+  XCUICoordinate *gestureCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:point];
+  return gestureCoordinate;
 }
 
 @end

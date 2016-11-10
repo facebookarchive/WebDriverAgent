@@ -86,7 +86,7 @@
         <!--Navigation Controller-->
         <scene sceneID="bWj-vr-GrF">
             <objects>
-                <navigationController id="nJd-IZ-bfU" sceneMemberID="viewController">
+                <navigationController id="nJd-IZ-bfU" customClass="FBNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hZx-8U-FDw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

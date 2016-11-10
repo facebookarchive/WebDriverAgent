@@ -10,10 +10,12 @@
 #import <XCTest/XCTest.h>
 
 #import "FBIntegrationTestCase.h"
+
+#import "FBElementCache.h"
 #import "FBTestMacros.h"
+#import "XCUIDevice+FBRotation.h"
 #import "XCUIElement+FBTap.h"
 #import "XCUIElement+FBIsVisible.h"
-#import "FBElementCache.h"
 
 @interface FBTapTest : FBIntegrationTestCase
 @end
@@ -23,6 +25,36 @@
 - (void)testTap
 {
   [self goToAlertsPage];
+  NSError *error;
+  XCTAssertTrue(self.testedApplication.alerts.count == 0);
+  [self.testedApplication.buttons[FBShowAlertButtonName] fb_tapWithError:&error];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.alerts.count > 0);
+}
+
+- (void)testTapInLandscapeLeft
+{
+  [self goToAlertsPage];
+  [[XCUIDevice sharedDevice] fb_setDeviceInterfaceOrientation:UIDeviceOrientationLandscapeLeft];
+  NSError *error;
+  XCTAssertTrue(self.testedApplication.alerts.count == 0);
+  [self.testedApplication.buttons[FBShowAlertButtonName] fb_tapWithError:&error];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.alerts.count > 0);
+}
+
+- (void)testTapInLandscapeRight
+{
+  [self goToAlertsPage];
+  [[XCUIDevice sharedDevice] fb_setDeviceInterfaceOrientation:UIDeviceOrientationLandscapeRight];
+  NSError *error;
+  XCTAssertTrue(self.testedApplication.alerts.count == 0);
+  [self.testedApplication.buttons[FBShowAlertButtonName] fb_tapWithError:&error];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.alerts.count > 0);
+}
+
+- (void)testTapInPortraitUpsideDown
+{
+  [self goToAlertsPage];
+  [[XCUIDevice sharedDevice] fb_setDeviceInterfaceOrientation:UIDeviceOrientationPortraitUpsideDown];
   NSError *error;
   XCTAssertTrue(self.testedApplication.alerts.count == 0);
   [self.testedApplication.buttons[FBShowAlertButtonName] fb_tapWithError:&error];

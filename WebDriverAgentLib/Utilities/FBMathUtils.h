@@ -9,6 +9,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class XCUIApplication;
+
 extern CGFloat FBDefaultFrameFuzzyThreshold;
 
 /*! Returns center point of given rect */
@@ -25,3 +27,6 @@ BOOL FBSizeFuzzyEqualToSize(CGSize size1, CGSize size2, CGFloat threshold);
 
 /*! Returns whether rect are equal within given threshold */
 BOOL FBRectFuzzyEqualToRect(CGRect rect1, CGRect rect2, CGFloat threshold);
+
+/*! Inverts point if necessary to match location on screen */
+CGPoint FBInvertPointForApplication(CGPoint point, CGSize screenSize, UIInterfaceOrientation orientation);

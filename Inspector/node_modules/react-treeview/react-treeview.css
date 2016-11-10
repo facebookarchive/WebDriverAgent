@@ -26,6 +26,10 @@
   user-select: none;
 }
 
+.tree-view_arrow:after {
+  content: '▾';
+}
+
 /* rotate the triangle to close it */
 .tree-view_arrow-collapsed {
   -webkit-transform: rotate(-90deg);

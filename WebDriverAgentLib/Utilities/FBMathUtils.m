@@ -37,3 +37,18 @@ BOOL FBRectFuzzyEqualToRect(CGRect rect1, CGRect rect2, CGFloat threshold)
   FBPointFuzzyEqualToPoint(FBRectGetCenter(rect1), FBRectGetCenter(rect2), threshold) &&
   FBSizeFuzzyEqualToSize(rect1.size, rect2.size, threshold);
 }
+
+CGPoint FBInvertPointForApplication(CGPoint point, CGSize screenSize, UIInterfaceOrientation orientation)
+{
+  switch (orientation) {
+    case UIInterfaceOrientationUnknown:
+    case UIInterfaceOrientationPortrait:
+      return point;
+    case UIInterfaceOrientationPortraitUpsideDown:
+      return CGPointMake(screenSize.width - point.x, screenSize.height - point.y);
+    case UIInterfaceOrientationLandscapeLeft:
+      return CGPointMake(point.y, screenSize.height - point.x);
+    case UIInterfaceOrientationLandscapeRight:
+      return CGPointMake(screenSize.width - point.y, point.x);
+  }
+}
