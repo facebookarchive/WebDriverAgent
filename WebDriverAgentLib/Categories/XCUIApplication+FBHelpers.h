@@ -8,7 +8,6 @@
  */
 
 #import <XCTest/XCTest.h>
-#import "XCAXClient_iOS.h"
 
 @class XCElementSnapshot;
 

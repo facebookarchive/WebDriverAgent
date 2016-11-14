@@ -17,6 +17,7 @@
 #import "XCUIDevice+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
+#import "XCAXClient_iOS.h"
 
 const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
 
