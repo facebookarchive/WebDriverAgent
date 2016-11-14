@@ -19,6 +19,8 @@
 #import "FBApplication.h"
 #import "XCUIElement+FBFind.h"
 #import "XCUIElement+FBIsVisible.h"
+#import "XCUIApplication+FBHelpers.h"
+#import "FBLogger.h"
 
 static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteRequest *request)
 {
@@ -52,6 +54,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 + (id<FBResponsePayload>)handleFindElement:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
+  [self.class waitUntilNoAnimationsActive:session.application];
   XCUIElement *element = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application];
   if (!element) {
     return FBNoSuchElementErrorResponseForRequest(request);
@@ -62,12 +65,14 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 + (id<FBResponsePayload>)handleFindElements:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
+  [self.class waitUntilNoAnimationsActive:session.application];
   NSArray *elements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application];
   return FBResponseWithCachedElements(elements, request.session.elementCache, NO);
 }
 
 + (id<FBResponsePayload>)handleFindVisibleCells:(FBRouteRequest *)request
 {
+  [self.class waitUntilNoAnimationsActive:request.session.application];
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *collection = [elementCache elementForUUID:request.parameters[@"uuid"]];
   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)];
@@ -77,6 +82,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 
 + (id<FBResponsePayload>)handleFindSubElement:(FBRouteRequest *)request
 {
+  [self.class waitUntilNoAnimationsActive:request.session.application];
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   XCUIElement *foundElement = [self.class elementUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
@@ -88,6 +94,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 
 + (id<FBResponsePayload>)handleFindSubElements:(FBRouteRequest *)request
 {
+  [self.class waitUntilNoAnimationsActive:request.session.application];
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   NSArray *foundElements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element];
@@ -127,6 +134,15 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     [[NSException exceptionWithName:FBElementAttributeUnknownException reason:[NSString stringWithFormat:@"Invalid locator requested: %@", usingText] userInfo:nil] raise];
   }
   return [[FBAlert alertWithApplication:element.application] filterObstructedElements:elements];
+}
+
+const NSTimeInterval NO_ANIMATIONS_TIMEOUT = 5.0;
+
++ (void)waitUntilNoAnimationsActive:(XCUIApplication *)currentApplication
+{
+  if (![currentApplication waitUntilNoAnimationsActive:NO_ANIMATIONS_TIMEOUT]) {
+    [FBLogger logFmt:@"There are still some active animations after %f seconds timeout. This may cause unexpected problems while detecting UI elements.", NO_ANIMATIONS_TIMEOUT];
+  }
 }
 
 @end
