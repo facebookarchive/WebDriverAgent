@@ -34,6 +34,7 @@
     [[FBRoute POST:@"/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/timeouts"] respondWithTarget:self action:@selector(handleTimeouts:)],
+    [[FBRoute GET:@"/waitUntilNoAnimationsActive/:timeout"] respondWithTarget:self action:@selector(handleWaitUntilNoAnimationsActive:)],
   ];
 }
 
@@ -63,6 +64,19 @@
 + (id<FBResponsePayload>)handleTimeouts:(FBRouteRequest *)request
 {
   // This method is intentionally not supported.
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleWaitUntilNoAnimationsActive:(FBRouteRequest *)request
+{
+  NSNumber *timeout = request.parameters[@"timeout"];
+  if (![request.session.application waitUntilNoAnimationsActive:[timeout doubleValue]]) {
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    NSString *description = [NSString stringWithFormat:@"There are still some active animations after %@ seconds timeout", [timeout stringValue]];
+    [details setValue:description forKey:NSLocalizedDescriptionKey];
+    NSError *error = [NSError errorWithDomain:@"WDA" code:500 userInfo:details];
+    return FBResponseWithError(error);
+  }
   return FBResponseWithOK();
 }
 
