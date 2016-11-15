@@ -11,12 +11,9 @@
 
 #import "FBIntegrationTestCase.h"
 #import "FBCustomCommands.h"
-#import "XCUIElement.h"
-#import "XCUIElement+FBFind.h"
 #import "XCUIApplication+FBHelpers.h"
 
 @interface FBCustomCommandsTests : FBIntegrationTestCase
-@property (nonatomic, strong) XCUIElement *testedView;
 @end
 
 @implementation FBCustomCommandsTests
