@@ -14,8 +14,10 @@
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBFind.h"
 #import "XCUIElement+FBIsVisible.h"
+#import "XCUIElement+FBUtilities.h"
 #import "FBXPath.h"
 #import "FBXPath-Private.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 
 @interface FBXPathTests : FBIntegrationTestCase
 @property (nonatomic, strong) XCUIElement *testedView;
@@ -33,7 +35,8 @@
 
 - (void)testSingleDescendantXMLRepresentation
 {
-  id<FBElement> matchingSnapshot = (id<FBElement>)[[self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton" shouldReturnAfterFirstMatch:YES] firstObject];
+  XCUIElement *matchingElement = [[self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton" shouldReturnAfterFirstMatch:YES] firstObject];
+  XCElementSnapshot *matchingSnapshot = matchingElement.fb_lastSnapshot;
   
   xmlDocPtr doc;
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
@@ -55,7 +58,7 @@
 
 - (void)testFindMatchesInElement
 {
-  NSArray<id<FBElement>> *matchingSnapshots = [FBXPath findMatchesIn:(id<FBElement>)self.testedView xpathQuery:@"//XCUIElementTypeButton"];
+  NSArray *matchingSnapshots = [FBXPath findMatchesIn:self.testedView.fb_lastSnapshot xpathQuery:@"//XCUIElementTypeButton"];
   
   XCTAssertEqual([matchingSnapshots count], 4);
   for (id<FBElement> element in matchingSnapshots) {

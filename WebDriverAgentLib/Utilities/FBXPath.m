@@ -31,7 +31,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   @throw [NSException exceptionWithName:name reason:reason userInfo:@{}];
 }
 
-+ (NSArray<id<FBElement>> *)findMatchesIn:(id<FBElement>)root xpathQuery:(NSString *)xpathQuery
++ (NSArray<XCElementSnapshot *> *)findMatchesIn:(XCElementSnapshot *)root xpathQuery:(NSString *)xpathQuery
 {
   xmlDocPtr doc;
   
@@ -88,7 +88,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   return matchingSnapshots;
 }
 
-+ (int)getSnapshotAsXML:(id<FBElement>)root writer:(xmlTextWriterPtr)writer elementStore:(NSMutableDictionary *)elementStore
++ (int)getSnapshotAsXML:(XCElementSnapshot *)root writer:(xmlTextWriterPtr)writer elementStore:(NSMutableDictionary *)elementStore
 {
   int rc = xmlTextWriterStartDocument(writer, NULL, _UTF8Encoding, NULL);
   if (rc < 0) {
@@ -159,7 +159,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   return xpathObj;
 }
 
-+ (int)recordElementAttributes:(xmlTextWriterPtr)writer forElement:(id<FBElement>)element indexPath:(NSString *)indexPath
++ (int)recordElementAttributes:(xmlTextWriterPtr)writer forElement:(XCElementSnapshot *)element indexPath:(NSString *)indexPath
 {
   int rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "type",
                                        [FBXPath xmlCharPtrForInput:[element.wdType cStringUsingEncoding:NSUTF8StringEncoding]]);
@@ -229,7 +229,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   return 0;
 }
 
-+ (int)generateXMLPresentation:(id<FBElement>)root indexPath:(NSString *)indexPath elementStore:(NSMutableDictionary *)elementStore writer:(xmlTextWriterPtr)writer
++ (int)generateXMLPresentation:(XCElementSnapshot *)root indexPath:(NSString *)indexPath elementStore:(NSMutableDictionary *)elementStore writer:(xmlTextWriterPtr)writer
 {
   int rc = xmlTextWriterStartElement(writer, [FBXPath xmlCharPtrForInput:[root.wdType cStringUsingEncoding:NSUTF8StringEncoding]]);
   if (rc < 0) {

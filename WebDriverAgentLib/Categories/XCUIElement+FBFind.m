@@ -15,19 +15,20 @@
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
+#import "FBElementUtils.h"
 
 @implementation XCUIElement (FBFind)
 
-+ (NSArray<XCUIElement *> *)lookupDescendants:(XCUIElementQuery *)query shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
++ (NSArray<XCUIElement *> *)fb_extractMatchingElementsFromQuery:(XCUIElementQuery *)query shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
-  if (shouldReturnAfterFirstMatch) {
-    XCUIElement *match = [query elementBoundByIndex:0];
-    if (match && [match exists]) {
-      return @[match];
-    }
-    return @[];
+  if (!shouldReturnAfterFirstMatch) {
+    return query.allElementsBoundByIndex;
   }
-  return [query allElementsBoundByIndex];
+  XCUIElement *matchedElement = [query elementBoundByIndex:0];
+  if (matchedElement && matchedElement.exists) {
+    return @[matchedElement];
+  }
+  return @[];
 }
 
 
@@ -44,7 +45,7 @@
     }
   }
   XCUIElementQuery *query = [self descendantsMatchingType:type];
-  [result addObjectsFromArray:[self.class lookupDescendants:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch]];
+  [result addObjectsFromArray:[self.class fb_extractMatchingElementsFromQuery:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch]];
   return result.copy;
 }
 
@@ -72,7 +73,7 @@
     }
   }
 
-  property = wdAttributeNameForAttributeName(property);
+  property = [FBElementUtils fb_attributeNameForAttributeName:property];
   value = [value stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
   NSString *operation = partialSearch ?
   [NSString stringWithFormat:@"%@ like '*%@*'", property, value] :
@@ -89,7 +90,7 @@
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
   XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate];
-  return [self.class lookupDescendants:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch];
+  return [self.class fb_extractMatchingElementsFromQuery:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch];
 }
 
 
@@ -112,13 +113,13 @@
     matchingSnapshots = @[[matchingSnapshots firstObject]];
   }
   // Prefiltering elements speeds up search by XPath a lot, because [element resolve] is the most expensive operation here
-  NSSet *byTypes = wdGetUniqueElementsTypes(matchingSnapshots);
-  NSDictionary *categorizedDescendants = [self categorizeDescendants:byTypes];
-  NSArray *matchingElements = [XCUIElement filterElements:categorizedDescendants matchingSnapshots:matchingSnapshots useReversedOrder:[xpathQuery containsString:@"last()"]];
+  NSSet *byTypes = [FBElementUtils fb_getUniqueElementsTypes:matchingSnapshots];
+  NSDictionary *categorizedDescendants = [self fb_categorizeDescendants:byTypes];
+  NSArray *matchingElements = [self.class fb_filterElements:categorizedDescendants matchingSnapshots:matchingSnapshots useReversedOrder:[xpathQuery containsString:@"last()"]];
   return matchingElements;
 }
 
-+ (NSArray<XCUIElement *> *)filterElements:(NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)elementsMap matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots useReversedOrder:(BOOL)useReversedOrder
++ (NSArray<XCUIElement *> *)fb_filterElements:(NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)elementsMap matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots useReversedOrder:(BOOL)useReversedOrder
 {
   NSMutableArray *matchingElements = [NSMutableArray array];
   [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
@@ -150,7 +151,7 @@
     }
   }
   XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:accessibilityId];
-  [result addObjectsFromArray:[self.class lookupDescendants:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch]];
+  [result addObjectsFromArray:[self.class fb_extractMatchingElementsFromQuery:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch]];
   return result.copy;
 }
 

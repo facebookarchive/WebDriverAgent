@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Returns an array of descendants matching given xpath query. This method will always
  throw an exception if there is an error during XPath evaluation, so the returned array
- is nevever expected to be equal to nil
+ is never expected to be equal to nil
  
  @param xpathQuery requested xpath query. Only XPath v1.0 libxml2-based implementation is supported
  @return an array of descendants matching given xpath query. Empty array will be retuned if

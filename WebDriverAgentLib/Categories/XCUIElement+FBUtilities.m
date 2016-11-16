@@ -53,7 +53,7 @@
   return YES;
 }
 
-- (XCElementSnapshot *) fb_lastSnapshot
+- (XCElementSnapshot *)fb_lastSnapshot
 {
   if (self.lastSnapshot) {
     return self.lastSnapshot;
@@ -62,7 +62,7 @@
   return self.lastSnapshot;
 }
 
-- (NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)categorizeDescendants:(NSSet<NSNumber *> *) byTypes
+- (NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)fb_categorizeDescendants:(NSSet<NSNumber *> *)byTypes
 {
   NSMutableDictionary *result = [NSMutableDictionary dictionary];
   [byTypes enumerateObjectsUsingBlock:^(NSNumber *elementTypeAsNumber, BOOL *stopEnum) {

@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return The recent snapshot of the element
  */
-- (XCElementSnapshot *) fb_lastSnapshot;
+- (XCElementSnapshot *)fb_lastSnapshot;
 
 /**
  Categorizes all descendants of the current (self) element based on unique types provided in byTypes set
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return The dictionary, caontaining arrays descendant elements as values categorized by their types as keys.
  An empty dictionary will be returned in case if byTypes set has no items
  */
-- (NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)categorizeDescendants:(NSSet<NSNumber *> *) byTypes;
+- (NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)fb_categorizeDescendants:(NSSet<NSNumber *> *)byTypes;
 
 @end
 

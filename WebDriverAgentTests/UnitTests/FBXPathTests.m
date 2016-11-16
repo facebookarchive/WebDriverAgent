@@ -24,10 +24,10 @@
   
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
-  id<FBElement> root = [XCUIElementDouble new];
+  XCUIElementDouble *root = [XCUIElementDouble new];
   int buffersize;
   xmlChar *xmlbuff;
-  int rc = [FBXPath getSnapshotAsXML:root writer:writer elementStore:elementStore];
+  int rc = [FBXPath getSnapshotAsXML:(XCElementSnapshot *)root writer:writer elementStore:elementStore];
   if (0 == rc) {
     xmlDocDumpFormatMemory(doc, &xmlbuff, &buffersize, 1);
   }
@@ -48,8 +48,8 @@
   
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
-  id<FBElement> root = [XCUIElementDouble new];
-  int rc = [FBXPath getSnapshotAsXML:root writer:writer elementStore:elementStore];
+  XCUIElementDouble *root = [XCUIElementDouble new];
+  int rc = [FBXPath getSnapshotAsXML:(XCElementSnapshot *)root writer:writer elementStore:elementStore];
   if (rc < 0) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);

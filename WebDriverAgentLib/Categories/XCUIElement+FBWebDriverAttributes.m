@@ -16,6 +16,7 @@
 #import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
+#import "FBElementUtils.h"
 
 @implementation XCUIElement (WebDriverAttributesForwarding)
 
@@ -44,7 +45,7 @@
 
 - (id)fb_valueForWDAttributeName:(NSString *)name
 {
-  return [self valueForKey:wdAttributeNameForAttributeName(name)];
+  return [self valueForKey:[FBElementUtils fb_attributeNameForAttributeName:name]];
 }
 
 - (id)wdValue

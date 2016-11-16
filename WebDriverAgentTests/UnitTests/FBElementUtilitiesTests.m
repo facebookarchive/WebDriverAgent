@@ -12,6 +12,7 @@
 
 #import "FBElement.h"
 #import "XCUIElementDouble.h"
+#import "FBElementUtils.h"
 
 @interface FBElementUtilitiesTests : XCTestCase
 @end
@@ -29,7 +30,7 @@
   XCUIElementDouble *el3 = [XCUIElementDouble new];
   [elements addObject:el3];
   
-  NSSet *result = wdGetUniqueElementsTypes(elements);
+  NSSet *result = [FBElementUtils fb_getUniqueElementsTypes:elements];
   XCTAssertEqual([result count], 2);
 }
 
