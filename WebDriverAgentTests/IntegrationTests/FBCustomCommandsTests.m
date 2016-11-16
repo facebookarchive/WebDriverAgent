@@ -29,7 +29,7 @@
   NSTimeInterval timeout = 15.0;
   [self goToAttributesPage];
   NSDate *timeStarted = [NSDate date];
-  [self.testedApplication waitUntilNoAnimationsActive:timeout];
+  XCTAssertTrue([self.testedApplication waitUntilNoAnimationsActive:timeout]);
   NSDictionary *tree = self.testedApplication.fb_tree;
   NSDate *timeFinished = [NSDate date];
   NSTimeInterval executionTime = [timeFinished timeIntervalSinceDate:timeStarted];
