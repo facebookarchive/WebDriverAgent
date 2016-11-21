@@ -100,7 +100,7 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
 
 + (BOOL)setDeviceOrientation:(NSString *)orientation forApplication:(FBApplication *)application
 {
-  NSNumber *orientationValue = [[self _orientationsMapping] objectForKey:orientation];
+  NSNumber *orientationValue = [[self _orientationsMapping] objectForKey:[orientation uppercaseString]];
   if (orientationValue == nil) {
     return NO;
   }
