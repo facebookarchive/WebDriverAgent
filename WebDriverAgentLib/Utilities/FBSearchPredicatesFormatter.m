@@ -20,8 +20,9 @@
     NSMutableArray *predicates = [NSMutableArray array];
     for (NSPredicate *predicate in [compPred subpredicates]) {
       NSPredicate *newPredicate = [predicate predicateByChangingComparisonsWithBlock: block];
-      if (newPredicate != nil)
+      if (newPredicate != nil) {
         [predicates addObject: newPredicate];
+      }
     }
     return [[NSCompoundPredicate alloc] initWithType: compPred.compoundPredicateType
                                         subpredicates: predicates];
