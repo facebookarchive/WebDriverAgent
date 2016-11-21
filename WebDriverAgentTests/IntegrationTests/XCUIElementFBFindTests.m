@@ -12,6 +12,7 @@
 #import "FBIntegrationTestCase.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBFind.h"
+#import "FBSearchPredicatesFormatter.h"
 
 @interface XCUIElementFBFindTests : FBIntegrationTestCase
 @property (nonatomic, strong) XCUIElement *testedView;

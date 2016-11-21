@@ -39,10 +39,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery;
 
 /**
- Returns an array of descendants matching given predicate
-
+ Returns an array of descendants matching given predicate.
+ Allowed property names are only these declared in FBElement protocol (property names are received in runtime)
+ and their shortcuts (without 'wd' prefix). All other property names are considered as unknown.
+ 
  @param predicate requested predicate
  @return an array of descendants matching given predicate
+ @throw FBUnknownPredicateKeyException in case the given property name is not declared in FBElement protocol
  */
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate;
 

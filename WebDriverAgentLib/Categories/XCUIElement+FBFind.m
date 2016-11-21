@@ -11,6 +11,7 @@
 #import "XCUIElement+FBFind.h"
 
 #import "FBElementTypeTransformer.h"
+#import "FBSearchPredicatesFormatter.h"
 #import "XCElementSnapshot.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
@@ -70,7 +71,8 @@
 #pragma mark - Search by Predicate String
 
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate {
-  XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate];
+  NSPredicate *formattedPredicate = [FBSearchPredicatesFormatter fb_formatSearchPredicate:predicate];
+  XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:formattedPredicate];
   NSArray *childElements = [query allElementsBoundByIndex];
   return childElements;
 }
