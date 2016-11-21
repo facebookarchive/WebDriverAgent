@@ -44,7 +44,7 @@ NSString *const FBUnknownPredicateKeyException = @"FBUnknownPredicateKeyExceptio
   objc_property_t *properties = protocol_copyPropertyList(objc_getProtocol("FBElement"), &propsCount);
   for (unsigned int i = 0; i < propsCount; ++i) {
     objc_property_t property = properties[i];
-    const char * name= property_getName(property);
+    const char *name = property_getName(property);
     NSString *nsName = [NSString stringWithUTF8String:name];
     if (nsName) {
       [result addObject:nsName];
