@@ -81,8 +81,7 @@ NSString *const FBUnknownPredicateKeyException = @"FBUnknownPredicateKeyExceptio
 }
 
 + (NSPredicate *)fb_formatSearchPredicate:(NSPredicate *)input {
-  NSMutableArray *validPropertyNames = [NSMutableArray array];
-  [validPropertyNames addObjectsFromArray:[FBSearchPredicatesFormatter getAllowedPropertyNames]];
+  NSArray *validPropertyNames = [FBSearchPredicatesFormatter getAllowedPropertyNames];
   return [input predicateByChangingComparisonsWithBlock:^NSPredicate *(NSComparisonPredicate *cp) {
     NSExpression *left = [self.class formatExpression:[cp leftExpression] validPropertyNames:validPropertyNames];
     NSExpression *right = [self.class formatExpression:[cp rightExpression] validPropertyNames:validPropertyNames];
