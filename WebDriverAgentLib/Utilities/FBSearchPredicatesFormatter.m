@@ -26,7 +26,8 @@
     }
     return [[NSCompoundPredicate alloc] initWithType: compPred.compoundPredicateType
                                         subpredicates: predicates];
-  } if ([self isKindOfClass: [NSComparisonPredicate class]]) {
+  }
+  if ([self isKindOfClass: [NSComparisonPredicate class]]) {
     return block((NSComparisonPredicate *)self);
   }
   return self;
@@ -55,11 +56,10 @@ NSString *const FBUnknownPredicateKeyException = @"FBUnknownPredicateKeyExceptio
 }
 
 + (NSString *)shortcutNameToWDPropertyName:(NSString *)originalName {
-  NSString *result = originalName.copy;
-  if (![result hasPrefix:wdPrefix]) {
-    result = [NSString stringWithFormat:@"%@%@%@", wdPrefix, [[result substringToIndex:1] uppercaseString], [result substringFromIndex:1]];
+  if (![originalName hasPrefix:wdPrefix]) {
+    return [NSString stringWithFormat:@"%@%@%@", wdPrefix, [[originalName substringToIndex:1] uppercaseString], [originalName substringFromIndex:1]];
   }
-  return result;
+  return originalName;
 }
 
 + (NSExpression *)formatExpression:(NSExpression *)input validPropertyNames:(NSArray<NSString *> *)validPropertyNames
