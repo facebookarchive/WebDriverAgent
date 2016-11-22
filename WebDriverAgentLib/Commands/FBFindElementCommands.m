@@ -18,6 +18,7 @@
 #import "FBSession.h"
 #import "FBApplication.h"
 #import "XCUIElement+FBFind.h"
+#import "XCUIElement+AVFind.h"
 #import "XCUIElement+FBIsVisible.h"
 
 static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteRequest *request)
@@ -116,6 +117,8 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     elements = [element fb_descendantsMatchingProperty:components[0] value:components[1] partialSearch:partialSearch];
   } else if ([usingText isEqualToString:@"class name"]) {
     elements = [element fb_descendantsMatchingClassName:value];
+  } else if ([usingText isEqualToString:@"xui"]) {
+      elements = [element av_descendantsMatchingXui:value];
   } else if ([usingText isEqualToString:@"xpath"]) {
     elements = [element fb_descendantsMatchingXPathQuery:value];
   } else if ([usingText isEqualToString:@"predicate string"]) {

@@ -31,7 +31,6 @@
   return result.copy;
 }
 
-
 #pragma mark - Search by property value
 
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingProperty:(NSString *)property value:(NSString *)value partialSearch:(BOOL)partialSearch

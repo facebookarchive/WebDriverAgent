@@ -21,6 +21,7 @@
 #import "FBMacros.h"
 #import "XCUICoordinate.h"
 #import "XCUIDevice.h"
+#import "XCUIElement+AVTyping.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBScrolling.h"
 #import "XCUIElement+FBTap.h"
@@ -51,6 +52,7 @@
     [[FBRoute GET:@"/element/:uuid/accessibilityContainer"] respondWithTarget:self action:@selector(handleGetIsAccessibilityContainer:)],
     [[FBRoute GET:@"/element/:uuid/name"] respondWithTarget:self action:@selector(handleGetName:)],
     [[FBRoute POST:@"/element/:uuid/value"] respondWithTarget:self action:@selector(handleSetValue:)],
+    [[FBRoute POST:@"/uiaElement/:uuid/valueSlow"] respondWithTarget:self action:@selector(handleSetSlowValue:)],
     [[FBRoute POST:@"/element/:uuid/click"] respondWithTarget:self action:@selector(handleClick:)],
     [[FBRoute POST:@"/element/:uuid/clear"] respondWithTarget:self action:@selector(handleClear:)],
     [[FBRoute POST:@"/element/:uuid/pinch"] respondWithTarget:self action:@selector(handlePinch:)],
@@ -170,6 +172,33 @@
     return FBResponseWithError(error);
   }
   return FBResponseWithElementUUID(elementUUID);
+}
+
++ (id<FBResponsePayload>)handleSetSlowValue:(FBRouteRequest *)request
+{
+    FBElementCache *elementCache = request.session.elementCache;
+    NSString *elementUUID = request.parameters[@"uuid"];
+    XCUIElement *element = [elementCache elementForUUID:elementUUID];
+    id value = request.arguments[@"value"];
+    if (!value) {
+        return FBResponseWithErrorFormat(@"Missing 'value' parameter");
+    }
+    NSString *textToType = value;
+    if ([value isKindOfClass:[NSArray class]]) {
+        textToType = [value componentsJoinedByString:@""];
+    }
+    if (element.elementType == XCUIElementTypePickerWheel) {
+        [element adjustToPickerWheelValue:textToType];
+        return FBResponseWithOK();
+    }
+    NSError *error = nil;
+    if (![element fb_scrollToVisibleWithError:&error]) {
+        return FBResponseWithError(error);
+    }
+    if (![element av_slowTypeText:textToType error:&error]) {
+        return FBResponseWithError(error);
+    }
+    return FBResponseWithElementUUID(elementUUID);
 }
 
 + (id<FBResponsePayload>)handleClick:(FBRouteRequest *)request

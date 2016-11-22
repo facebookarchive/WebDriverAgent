@@ -10,13 +10,13 @@
 #import "XCUIElement+FBTyping.h"
 
 #import "FBKeyboard.h"
-#import "XCUIElement+FBTap.h"
+#import "XCUIElement+AVTap.h"
 
 @implementation XCUIElement (FBTyping)
 
 - (BOOL)fb_typeText:(NSString *)text error:(NSError **)error
 {
-  if (!self.hasKeyboardFocus && ![self fb_tapWithError:error]) {
+  if (!self.hasKeyboardFocus && ![self av_tapForClearWithError:error]) {
     return NO;
   }
   if (![FBKeyboard typeText:text error:error]) {
@@ -28,7 +28,8 @@
 - (BOOL)fb_clearTextWithError:(NSError **)error
 {
   NSMutableString *textToType = @"".mutableCopy;
-  for (NSUInteger i = 0 ; i < [self.value length] ; i++) {
+  NSUInteger len = [self.value length];
+  for (NSUInteger i = 0 ; i <= len ; i++) {
     [textToType appendString:@"\b"];
   }
   if (![self fb_typeText:textToType error:error]) {
