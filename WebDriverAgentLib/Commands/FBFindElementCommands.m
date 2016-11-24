@@ -113,7 +113,9 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   const BOOL isSearchByIdentifier = ([usingText isEqualToString:@"name"] || [usingText isEqualToString:@"id"] || [usingText isEqualToString:@"accessibility id"]);
   if (partialSearch || [usingText isEqualToString:@"link text"]) {
     NSArray *components = [value componentsSeparatedByString:@"="];
-    elements = [element fb_descendantsMatchingProperty:components[0] value:components[1] partialSearch:partialSearch];
+    NSString *propertyValue = components.lastObject;
+    NSString *propertyName = (components.count < 2 ? @"name" : components.firstObject);
+    elements = [element fb_descendantsMatchingProperty:propertyName value:propertyValue partialSearch:partialSearch];
   } else if ([usingText isEqualToString:@"class name"]) {
     elements = [element fb_descendantsMatchingClassName:value];
   } else if ([usingText isEqualToString:@"xpath"]) {
