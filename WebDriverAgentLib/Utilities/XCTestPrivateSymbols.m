@@ -32,16 +32,16 @@ __attribute__((constructor)) void FBLoadXCTestSymbols(void)
   FB_XCAXAIsVisibleAttribute = accessibilityAttributes[0];
   FB_XCAXAIsElementAttribute = accessibilityAttributes[1];
 
-  NSCAssert(FB_XCAXAIsVisibleAttribute != nil , @"Failed to retrieve FB_XCAXAIsVisibleAttribute");
-  NSCAssert(FB_XCAXAIsElementAttribute != nil , @"Failed to retrieve FB_XCAXAIsElementAttribute");
+  NSCAssert(FB_XCAXAIsVisibleAttribute != nil , @"Failed to retrieve FB_XCAXAIsVisibleAttribute", FB_XCAXAIsVisibleAttribute);
+  NSCAssert(FB_XCAXAIsElementAttribute != nil , @"Failed to retrieve FB_XCAXAIsElementAttribute", FB_XCAXAIsElementAttribute);
 }
 
 void *FBRetrieveXCTestSymbol(const char *name)
 {
   Class XCTestClass = NSClassFromString(@"XCTestCase");
-  NSCAssert(XCTestClass != nil, @"XCTest should be already linked");
+  NSCAssert(XCTestClass != nil, @"XCTest should be already linked", XCTestClass);
   NSString *XCTestBinary = [NSBundle bundleForClass:XCTestClass].executablePath;
   const char *binaryPath = XCTestBinary.UTF8String;
-  NSCAssert(binaryPath != nil, @"XCTest binary path should not be nil");
+  NSCAssert(binaryPath != nil, @"XCTest binary path should not be nil", binaryPath);
   return FBRetrieveSymbolFromBinary(binaryPath, name);
 }
