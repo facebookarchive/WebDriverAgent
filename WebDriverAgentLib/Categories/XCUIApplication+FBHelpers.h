@@ -39,6 +39,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSDictionary *)fb_accessibilityTree;
 
+/**
+ Waits until applications under test has no active animations
+ 
+ @param maxWaitTimeout max count of seconds to wait for NoAnimations event to happen
+ @return YES if wait operation succeeds and NO if there are still some active animations
+ in the application under test after the timeout has expired
+ */
+- (BOOL)waitUntilNoAnimationsActive:(NSTimeInterval)maxWaitTimeout;
+
 @end
 
 NS_ASSUME_NONNULL_END

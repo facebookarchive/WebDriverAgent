@@ -17,6 +17,7 @@
 #import "XCUIDevice+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
+#import "XCAXClient_iOS.h"
 
 const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
 
@@ -109,6 +110,14 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
     return nil;
   }
   return info;
+}
+
+- (BOOL)waitUntilNoAnimationsActive:(NSTimeInterval)maxWaitTimeout
+{
+  dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+  [[XCAXClient_iOS sharedClient] notifyWhenNoAnimationsAreActiveForApplication:self reply:^{dispatch_semaphore_signal(sem);}];
+  dispatch_time_t timeout = dispatch_time(DISPATCH_TIME_NOW, (uint64_t)(maxWaitTimeout * NSEC_PER_SEC));
+  return (0 == dispatch_semaphore_wait(sem, timeout));
 }
 
 @end

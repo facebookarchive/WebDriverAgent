@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		44757A851D42CF9700ECF35E /* XCUIDeviceRotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */; };
+		716A26DE1DDB018100ABE88A /* FBCustomCommandsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 716A26DD1DDB018100ABE88A /* FBCustomCommandsTests.m */; };
 		AD35D01A1CF1418E00870A75 /* RoutingHTTPServer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD35D01C1CF141A600870A75 /* KissXML.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD271CF120B000806E5D /* KissXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD35D0631CF1C2C200870A75 /* KissXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD271CF120B000806E5D /* KissXML.framework */; };
@@ -312,6 +313,7 @@
 
 /* Begin PBXFileReference section */
 		44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceRotationTests.m; sourceTree = "<group>"; };
+		716A26DD1DDB018100ABE88A /* FBCustomCommandsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBCustomCommandsTests.m; sourceTree = "<group>"; };
 		AD35D0291CF1B39E00870A75 /* generate_modules.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate_modules.sh; sourceTree = "<group>"; };
 		AD35D0651CF1C2CE00870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/iOS/Peertalk.framework; sourceTree = "<group>"; };
 		AD35D0691CF1C30700870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/Mac/Peertalk.framework; sourceTree = "<group>"; };
@@ -896,6 +898,7 @@
 			isa = PBXGroup;
 			children = (
 				EE9B76991CF799F400275851 /* FBAlertTests.m */,
+				716A26DD1DDB018100ABE88A /* FBCustomCommandsTests.m */,
 				EE26409C1D0EBA25009BE6B0 /* FBElementAttributeTests.m */,
 				EE6A89361D0B35920083E92B /* FBFailureProofTestCaseTests.m */,
 				EE1E06DB1D18090F007CF043 /* FBIntegrationTestCase.h */,
@@ -1602,6 +1605,7 @@
 				EE1E06E41D18213F007CF043 /* XCUIApplicationHelperTests.m in Sources */,
 				EEBBDB9B1D1032F0000738CD /* XCElementSnapshotHelperTests.m in Sources */,
 				EE1E06E21D181CC9007CF043 /* XCUIElementHelperTests.m in Sources */,
+				716A26DE1DDB018100ABE88A /* FBCustomCommandsTests.m in Sources */,
 				EE1E06E01D181BB4007CF043 /* XCUIDeviceHelperTests.m in Sources */,
 				EEBBD48E1D4785FC00656A81 /* XCUIElementFBFindTests.m in Sources */,
 				44757A851D42CF9700ECF35E /* XCUIDeviceRotationTests.m in Sources */,
