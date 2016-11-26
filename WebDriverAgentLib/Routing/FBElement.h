@@ -13,11 +13,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- Function that returns property name defined by this protocol for given WebDriver Spec property name
- */
-NSString *wdAttributeNameForAttributeName(NSString *name);
-
-/**
  Protocol that should be implemented by class that can return element properties defined in WebDriver Spec
  */
 @protocol FBElement <NSObject>

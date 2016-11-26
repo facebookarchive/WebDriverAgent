@@ -63,15 +63,15 @@ function build_inspector() {
     rm -R "$RESOURCE_BUNDLE_DIR";
   fi
   mkdir -p "$RESOURCE_BUNDLE_DIR"
+  cd "$INSPECTOR_DIR"
 
-  echo "Building inspector.js..."
-  cd "$INSPECTOR_DIR" && BUILD_OUTPUT_DIR="$RESOURCE_BUNDLE_DIR" npm run build && cd "$CURRENT_DIR"
-  if [[ $? -ne 0 ]]; then
-    echo "Error occured during 'npm run build', please check npm build log"
-    exit 1
-  fi
+  echo "Fetching Inspector dependencies..."
+  npm install
+
+  echo "Building Inspector..."
+  BUILD_OUTPUT_DIR="$RESOURCE_BUNDLE_DIR" npm run build
+  cd "$CURRENT_DIR"
   cp "$INSPECTOR_DIR/index.html" "$RESOURCE_BUNDLE_DIR"
-
   echo "Done"
 }
 

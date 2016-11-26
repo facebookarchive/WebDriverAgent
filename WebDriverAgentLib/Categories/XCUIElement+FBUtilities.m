@@ -53,5 +53,24 @@
   return YES;
 }
 
+- (XCElementSnapshot *)fb_lastSnapshot
+{
+  if (self.lastSnapshot) {
+    return self.lastSnapshot;
+  }
+  [self resolve];
+  return self.lastSnapshot;
+}
+
+- (NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)fb_categorizeDescendants:(NSSet<NSNumber *> *)byTypes
+{
+  NSMutableDictionary *result = [NSMutableDictionary dictionary];
+  [byTypes enumerateObjectsUsingBlock:^(NSNumber *elementTypeAsNumber, BOOL *stopEnum) {
+    XCUIElementType elementType = (XCUIElementType)elementTypeAsNumber.unsignedIntegerValue;
+    NSArray *descendantsOfType = [[self descendantsMatchingType:elementType] allElementsBoundByIndex];
+    result[elementTypeAsNumber] = descendantsOfType;
+  }];
+  return result.copy;
+}
 
 @end
