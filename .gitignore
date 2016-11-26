@@ -38,9 +38,11 @@ Carthage/Build
 Carthage/Checkouts
 Carthage/Cartfile.resolved
 
+# Inspector files
+Inspector/node_modules
+
 # Resource bundle recreated on each build
 Resources/WebDriverAgent.bundle
 
 # Modules map recreated on each build
 Modules/module.modulemap
-
