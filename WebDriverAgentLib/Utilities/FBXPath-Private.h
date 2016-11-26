@@ -18,10 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param root the root element to execute XPath query for
  @param writer the correspondig libxml2 writer object
- @param elementStore an empty dictionary to store indexes mapping
+ @param elementStore an empty dictionary to store indexes mapping or nil if no mappings should be stored
  @return zero if the method has completed successfully
  */
-+ (int)getSnapshotAsXML:(XCElementSnapshot *)root writer:(xmlTextWriterPtr)writer elementStore:(NSMutableDictionary *)elementStore;
++ (int)getSnapshotAsXML:(XCElementSnapshot *)root writer:(xmlTextWriterPtr)writer elementStore:(nullable NSMutableDictionary *)elementStore;
 
 /**
  Gets the list of matched snapshots from xmllib2-compatible xmlNodeSetPtr structure
