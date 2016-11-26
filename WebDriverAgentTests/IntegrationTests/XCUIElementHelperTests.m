@@ -8,10 +8,13 @@
  */
 
 #import <XCTest/XCTest.h>
+#import "XCTest/XCUIElementTypes.h"
 
 #import "FBIntegrationTestCase.h"
 #import "FBTestMacros.h"
+#import "FBElement.h"
 #import "XCUIElement+FBUtilities.h"
+#import "FBElementUtils.h"
 
 @interface XCUIElementHelperTests : FBIntegrationTestCase
 @end
@@ -48,6 +51,24 @@
 
   XCTAssertTrue([alert fb_obstructsElement:showAlertButton]);
   XCTAssertFalse([alert fb_obstructsElement:acceptAlertButton]);
+}
+
+- (void)testDescendantsCategorizationByType
+{
+  NSArray *buttons = [self.testedApplication.buttons allElementsBoundByIndex];
+  NSArray *sameButtons = [self.testedApplication.buttons allElementsBoundByIndex];
+  NSArray *windows = [self.testedApplication.windows allElementsBoundByIndex];
+  
+  NSMutableArray *allElements = [NSMutableArray array];
+  [allElements addObjectsFromArray:buttons];
+  [allElements addObjectsFromArray:sameButtons];
+  [allElements addObjectsFromArray:windows];
+  
+  NSSet *byTypes = [FBElementUtils fb_getUniqueElementsTypes:allElements];
+  NSDictionary *categorizedDescendants = [self.testedApplication fb_categorizeDescendants:byTypes];
+  XCTAssertEqual(2, [categorizedDescendants count]);
+  XCTAssertEqual([categorizedDescendants[@(XCUIElementTypeButton)] count], [buttons count]);
+  XCTAssertEqual([categorizedDescendants[@(XCUIElementTypeWindow)] count], [windows count]);
 }
 
 @end
