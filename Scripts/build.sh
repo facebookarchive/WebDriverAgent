@@ -10,13 +10,6 @@
 
 set -eu
 
-function prebootSimulator() {
-  if [ -z "${DESTINATION:-}" ]; then
-    return
-  fi
-  xcrun instruments -t 'Blank' -l 1 -w "${DESTINATION} (${IOS})"
-}
-
 function build() {
   if [ ! -z "${DESTINATION:-}" ]; then
     DESTINATION_CMD="-destination \"name=${DESTINATION},OS=${IOS}\""
@@ -35,5 +28,4 @@ function build() {
 }
 
 ./Scripts/bootstrap.sh
-prebootSimulator
 build
