@@ -36,14 +36,14 @@
   ];
   for (NSString* strExp in predicateExpressions) {
     NSPredicate *expr = [NSPredicate predicateWithFormat:strExp];
-    XCTAssertNotNil([FBSearchPredicatesFormatter fb_formatSearchPredicate:expr]);
+    XCTAssertNotNil([FBSearchPredicatesFormatter formatSearchPredicate:expr]);
   }
 }
 
 - (void)testFormattingForPredicateWithUnknownKey
 {
   NSPredicate *expr = [NSPredicate predicateWithFormat:@"title == 'blabla'"];
-  XCTAssertThrowsSpecificNamed([FBSearchPredicatesFormatter fb_formatSearchPredicate:expr], NSException, FBUnknownPredicateKeyException);
+  XCTAssertThrowsSpecificNamed([FBSearchPredicatesFormatter formatSearchPredicate:expr], NSException, FBUnknownPredicateKeyException);
 }
 
 @end

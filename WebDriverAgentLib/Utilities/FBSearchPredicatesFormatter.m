@@ -7,10 +7,9 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <objc/runtime.h>
-
 #import "FBSearchPredicatesFormatter.h"
 #import "FBElement.h"
+#import "FBElementUtils.h"
 
 @implementation NSPredicate (ExtractComparisons)
 
@@ -35,32 +34,9 @@
 
 @end
 
-NSString *const wdPrefix = @"wd";
 NSString *const FBUnknownPredicateKeyException = @"FBUnknownPredicateKeyException";
 
 @implementation FBSearchPredicatesFormatter
-
-+ (NSArray<NSString *> *)getAllowedPropertyNames {
-  NSMutableArray *result = [NSMutableArray array];
-  unsigned int propsCount = 0;
-  objc_property_t *properties = protocol_copyPropertyList(objc_getProtocol("FBElement"), &propsCount);
-  for (unsigned int i = 0; i < propsCount; ++i) {
-    objc_property_t property = properties[i];
-    const char *name = property_getName(property);
-    NSString *nsName = [NSString stringWithUTF8String:name];
-    if (nsName) {
-      [result addObject:nsName];
-    }
-  }
-  return result.copy;
-}
-
-+ (NSString *)shortcutNameToWDPropertyName:(NSString *)originalName {
-  if (![originalName hasPrefix:wdPrefix]) {
-    return [NSString stringWithFormat:@"%@%@%@", wdPrefix, [[originalName substringToIndex:1] uppercaseString], [originalName substringFromIndex:1]];
-  }
-  return originalName;
-}
 
 + (NSExpression *)formatExpression:(NSExpression *)input validPropertyNames:(NSArray<NSString *> *)validPropertyNames
 {
@@ -68,7 +44,7 @@ NSString *const FBUnknownPredicateKeyException = @"FBUnknownPredicateKeyExceptio
     return input;
   }
   NSString *keyPath = [input keyPath];
-  NSString *actualPropName = [self.class shortcutNameToWDPropertyName:keyPath];
+  NSString *actualPropName = [FBElementUtils wdAttributeNameForAttributeName:keyPath];
   if ([actualPropName containsString:@"."]) {
     actualPropName = [actualPropName substringToIndex:[actualPropName rangeOfString:@"."].location];
   }
@@ -77,11 +53,11 @@ NSString *const FBUnknownPredicateKeyException = @"FBUnknownPredicateKeyExceptio
     @throw [NSException exceptionWithName:FBUnknownPredicateKeyException reason:description userInfo:@{}];
     return nil;
   }
-  return [NSExpression expressionForKeyPath:[self.class shortcutNameToWDPropertyName:keyPath]];
+  return [NSExpression expressionForKeyPath:[FBElementUtils wdAttributeNameForAttributeName:keyPath]];
 }
 
-+ (NSPredicate *)fb_formatSearchPredicate:(NSPredicate *)input {
-  NSArray *validPropertyNames = [FBSearchPredicatesFormatter getAllowedPropertyNames];
++ (NSPredicate *)formatSearchPredicate:(NSPredicate *)input {
+  NSArray *validPropertyNames = [FBElementUtils getWDPropertiesNames];
   return [input predicateByChangingComparisonsWithBlock:^NSPredicate *(NSComparisonPredicate *cp) {
     NSExpression *left = [self.class formatExpression:[cp leftExpression] validPropertyNames:validPropertyNames];
     NSExpression *right = [self.class formatExpression:[cp rightExpression] validPropertyNames:validPropertyNames];

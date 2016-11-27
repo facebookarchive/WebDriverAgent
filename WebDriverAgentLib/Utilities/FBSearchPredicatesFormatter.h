@@ -26,7 +26,7 @@ extern NSString *const FBUnknownPredicateKeyException;
  @return formatted predicate
  @throw FBUnknownPredicateKeyException in case the given property name is not declared in FBElement protocol
  */
-+ (NSPredicate *)fb_formatSearchPredicate:(NSPredicate *)input;
++ (NSPredicate *)formatSearchPredicate:(NSPredicate *)input;
 
 @end
 

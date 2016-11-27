@@ -8,6 +8,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 
 @class NSMutableDictionary;
+@class XCAccessibilityElement;
 
 @interface XCAXClient_iOS : NSObject
 {
