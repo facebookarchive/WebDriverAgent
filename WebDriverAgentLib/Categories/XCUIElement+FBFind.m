@@ -11,7 +11,7 @@
 #import "XCUIElement+FBFind.h"
 
 #import "FBElementTypeTransformer.h"
-#import "FBSearchPredicatesFormatter.h"
+#import "NSPredicate+FBFormat.h"
 #import "XCElementSnapshot.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBUtilities.h"
@@ -90,7 +90,7 @@
 
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
-  NSPredicate *formattedPredicate = [FBSearchPredicatesFormatter formatSearchPredicate:predicate];
+  NSPredicate *formattedPredicate = [NSPredicate fb_formatSearchPredicate:predicate];
   XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:formattedPredicate];
   return [self.class fb_extractMatchingElementsFromQuery:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch];
 }

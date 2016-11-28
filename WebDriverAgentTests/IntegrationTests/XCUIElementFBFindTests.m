@@ -162,7 +162,7 @@
 
 - (void)testSingleDescendantWithPredicateString
 {
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"elementType = %lu", (unsigned long)XCUIElementTypeButton]];
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type = 'XCUIElementTypeButton'"];
   NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingPredicate:predicate shouldReturnAfterFirstMatch:YES];
   XCTAssertEqual(matchingSnapshots.count, 1);
   XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypeButton);

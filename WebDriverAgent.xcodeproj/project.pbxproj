@@ -16,12 +16,14 @@
 		713C6DCF1DDC772A00285B92 /* FBElementUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 713C6DCD1DDC772A00285B92 /* FBElementUtils.h */; };
 		713C6DD01DDC772A00285B92 /* FBElementUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 713C6DCE1DDC772A00285B92 /* FBElementUtils.m */; };
 		714CA3C71DC23186000F12C9 /* FBXPathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 714CA3C61DC23186000F12C9 /* FBXPathTests.m */; };
+		71555A3D1DEC460A007D4A8B /* NSExpression+FBFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 71555A3B1DEC460A007D4A8B /* NSExpression+FBFormat.h */; };
+		71555A3E1DEC460A007D4A8B /* NSExpression+FBFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 71555A3C1DEC460A007D4A8B /* NSExpression+FBFormat.m */; };
 		7174AF041D9D39AF008C8AD5 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7174AF031D9D39AF008C8AD5 /* libxml2.tbd */; };
 		719FF5B91DAD21F5008E0099 /* FBElementUtilitiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 719FF5B81DAD21F5008E0099 /* FBElementUtilitiesTests.m */; };
+		71A224E51DE2F56600844D55 /* NSPredicate+FBFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 71A224E31DE2F56600844D55 /* NSPredicate+FBFormat.h */; };
+		71A224E61DE2F56600844D55 /* NSPredicate+FBFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A224E41DE2F56600844D55 /* NSPredicate+FBFormat.m */; };
+		71A224E81DE326C500844D55 /* NSPredicateFBFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A224E71DE326C500844D55 /* NSPredicateFBFormatTests.m */; };
 		71E95ADF1DC101BA002D0364 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7174AF031D9D39AF008C8AD5 /* libxml2.tbd */; };
-		71A224E51DE2F56600844D55 /* FBSearchPredicatesFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 71A224E31DE2F56600844D55 /* FBSearchPredicatesFormatter.h */; };
-		71A224E61DE2F56600844D55 /* FBSearchPredicatesFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A224E41DE2F56600844D55 /* FBSearchPredicatesFormatter.m */; };
-		71A224E81DE326C500844D55 /* FBSourcePredicateFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A224E71DE326C500844D55 /* FBSourcePredicateFormatterTests.m */; };
 		AD35D01A1CF1418E00870A75 /* RoutingHTTPServer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD35D0641CF1C2C300870A75 /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; };
 		AD35D0661CF1C2CE00870A75 /* Peertalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD35D0651CF1C2CE00870A75 /* Peertalk.framework */; };
@@ -329,11 +331,13 @@
 		713C6DCD1DDC772A00285B92 /* FBElementUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBElementUtils.h; sourceTree = "<group>"; };
 		713C6DCE1DDC772A00285B92 /* FBElementUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementUtils.m; sourceTree = "<group>"; };
 		714CA3C61DC23186000F12C9 /* FBXPathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathTests.m; sourceTree = "<group>"; };
+		71555A3B1DEC460A007D4A8B /* NSExpression+FBFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSExpression+FBFormat.h"; sourceTree = "<group>"; };
+		71555A3C1DEC460A007D4A8B /* NSExpression+FBFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSExpression+FBFormat.m"; sourceTree = "<group>"; };
 		7174AF031D9D39AF008C8AD5 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		719FF5B81DAD21F5008E0099 /* FBElementUtilitiesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementUtilitiesTests.m; sourceTree = "<group>"; };
-		71A224E31DE2F56600844D55 /* FBSearchPredicatesFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSearchPredicatesFormatter.h; sourceTree = "<group>"; };
-		71A224E41DE2F56600844D55 /* FBSearchPredicatesFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSearchPredicatesFormatter.m; sourceTree = "<group>"; };
-		71A224E71DE326C500844D55 /* FBSourcePredicateFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSourcePredicateFormatterTests.m; sourceTree = "<group>"; };
+		71A224E31DE2F56600844D55 /* NSPredicate+FBFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSPredicate+FBFormat.h"; path = "../Utilities/NSPredicate+FBFormat.h"; sourceTree = "<group>"; };
+		71A224E41DE2F56600844D55 /* NSPredicate+FBFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPredicate+FBFormat.m"; path = "../Utilities/NSPredicate+FBFormat.m"; sourceTree = "<group>"; };
+		71A224E71DE326C500844D55 /* NSPredicateFBFormatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPredicateFBFormatTests.m; sourceTree = "<group>"; };
 		AD35D0291CF1B39E00870A75 /* generate_modules.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate_modules.sh; sourceTree = "<group>"; };
 		AD35D0651CF1C2CE00870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/iOS/Peertalk.framework; sourceTree = "<group>"; };
 		AD35D0691CF1C30700870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/Mac/Peertalk.framework; sourceTree = "<group>"; };
@@ -756,6 +760,10 @@
 		EE9AB73E1CAEDF0C008C271F /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				71555A3B1DEC460A007D4A8B /* NSExpression+FBFormat.h */,
+				71555A3C1DEC460A007D4A8B /* NSExpression+FBFormat.m */,
+				71A224E31DE2F56600844D55 /* NSPredicate+FBFormat.h */,
+				71A224E41DE2F56600844D55 /* NSPredicate+FBFormat.m */,
 				EEE3763B1D59F81400ED88DD /* XCElementSnapshot+FBHelpers.h */,
 				EEE3763C1D59F81400ED88DD /* XCElementSnapshot+FBHelpers.m */,
 				AD6C269A1CF2494200F8B5FF /* XCUIApplication+FBHelpers.h */,
@@ -883,8 +891,6 @@
 				EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */,
 				EE9AB7911CAEDF0C008C271F /* FBRuntimeUtils.h */,
 				EE9AB7921CAEDF0C008C271F /* FBRuntimeUtils.m */,
-				71A224E31DE2F56600844D55 /* FBSearchPredicatesFormatter.h */,
-				71A224E41DE2F56600844D55 /* FBSearchPredicatesFormatter.m */,
 				EE7E271A1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.h */,
 				EE7E271B1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.m */,
 				EE9AB7981CAEDF0C008C271F /* FBXPathCreator.h */,
@@ -958,7 +964,7 @@
 				ADEF63AE1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m */,
 				EE6A89251D0B19E60083E92B /* FBSessionTests.m */,
 				712A0C841DA3E459007D02E5 /* FBXPathTests.m */,
-				71A224E71DE326C500844D55 /* FBSourcePredicateFormatterTests.m */,
+				71A224E71DE326C500844D55 /* NSPredicateFBFormatTests.m */,
 				ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */,
 				EE18883C1DA663EB00307AA8 /* FBMathUtilsTests.m */,
 				EE9B76581CF7987300275851 /* Info.plist */,
@@ -1175,7 +1181,7 @@
 				EEE007C01D92BA190043D05C /* _XCInternalTestRun.h in Headers */,
 				EEE007CE1D92BA190043D05C /* NSValue-XCTestAdditions.h in Headers */,
 				EEE007F31D92BA190043D05C /* XCTestDriverInterface-Protocol.h in Headers */,
-				71A224E51DE2F56600844D55 /* FBSearchPredicatesFormatter.h in Headers */,
+				71A224E51DE2F56600844D55 /* NSPredicate+FBFormat.h in Headers */,
 				EEE007CC1D92BA190043D05C /* CDStructures.h in Headers */,
 				EEE007E91D92BA190043D05C /* XCSymbolicatorHolder.h in Headers */,
 				EEE008071D92BA190043D05C /* XCUIElement.h in Headers */,
@@ -1200,6 +1206,7 @@
 				EEE007F11D92BA190043D05C /* XCTestContextScope.h in Headers */,
 				EEE007E31D92BA190043D05C /* XCPointerEvent.h in Headers */,
 				EEE008001D92BA190043D05C /* XCTestSuite.h in Headers */,
+				71555A3D1DEC460A007D4A8B /* NSExpression+FBFormat.h in Headers */,
 				EEE0080E1D92BA190043D05C /* XCUIRecorderUtilities.h in Headers */,
 				EEE007EE1D92BA190043D05C /* XCTestCaseSuite.h in Headers */,
 				EEE007F21D92BA190043D05C /* XCTestDriver.h in Headers */,
@@ -1530,6 +1537,7 @@
 				711084451DA3AA7500F913D6 /* FBXPath.m in Sources */,
 				EE158AE71CBD456F00A3E3F0 /* FBWebServer.m in Sources */,
 				EE3A18631CDE618F00DE4205 /* FBErrorBuilder.m in Sources */,
+				71555A3E1DEC460A007D4A8B /* NSExpression+FBFormat.m in Sources */,
 				EE158AD71CBD456F00A3E3F0 /* FBHTTPOverUSBServer.m in Sources */,
 				EE158AF21CBD456F00A3E3F0 /* FBXPathCreator.m in Sources */,
 				AD6C269D1CF2494200F8B5FF /* XCUIApplication+FBHelpers.m in Sources */,
@@ -1542,7 +1550,7 @@
 				EE158ADD1CBD456F00A3E3F0 /* FBResponsePayload.m in Sources */,
 				EE158ADF1CBD456F00A3E3F0 /* FBRoute.m in Sources */,
 				EEE9B4731CD02B88009D2030 /* FBRunLoopSpinner.m in Sources */,
-				71A224E61DE2F56600844D55 /* FBSearchPredicatesFormatter.m in Sources */,
+				71A224E61DE2F56600844D55 /* NSPredicate+FBFormat.m in Sources */,
 				EEE376441D59F81400ED88DD /* XCUIDevice+FBRotation.m in Sources */,
 				EE158AE21CBD456F00A3E3F0 /* FBRouteRequest.m in Sources */,
 				EE158ADB1CBD456F00A3E3F0 /* FBResponseJSONPayload.m in Sources */,
@@ -1603,7 +1611,7 @@
 				ADEF63AD1D09DCCF0070A7E3 /* FBXPathCreatorTests.m in Sources */,
 				ADEF63AF1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m in Sources */,
 				EE9B76591CF7987800275851 /* FBRouteTests.m in Sources */,
-				71A224E81DE326C500844D55 /* FBSourcePredicateFormatterTests.m in Sources */,
+				71A224E81DE326C500844D55 /* NSPredicateFBFormatTests.m in Sources */,
 				EE6A892B1D0B25820083E92B /* FBApplicationDouble.m in Sources */,
 				EE6A892D1D0B2AF40083E92B /* FBErrorBuilderTests.m in Sources */,
 				712A0C851DA3E459007D02E5 /* FBXPathTests.m in Sources */,

@@ -12,21 +12,21 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /*! Notification used to notify about unknown key in predicate expression */
-extern NSString *const FBUnknownPredicateKeyException;
+static NSString *const FBUnknownPredicateKeyException;
 
-@interface FBSearchPredicatesFormatter : NSObject
+@interface NSExpression (FBFormat)
 
 /**
- Method used to normalize/verify NSPredicate expressions before passing them to WDA.
+ Method used to normalize/verify NSExpression expressions before passing them to WDA.
  Only expressions of NSKeyPathExpressionType are going to be verified.
  Allowed property names are only these declared in FBElement protocol (property names are received in runtime)
  and their shortcuts (without 'wd' prefix). All other property names are considered as unknown.
  
- @param input predicate object received from user input
- @return formatted predicate
+ @param input expression object received from user input
+ @return formatted expression
  @throw FBUnknownPredicateKeyException in case the given property name is not declared in FBElement protocol
  */
-+ (NSPredicate *)formatSearchPredicate:(NSPredicate *)input;
++ (instancetype)fb_expressionWithExpression:(NSExpression *)input;
 
 @end
 
