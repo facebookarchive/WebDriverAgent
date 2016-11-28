@@ -33,14 +33,14 @@ static NSString *const FBUnknownPredicateKeyException = @"FBUnknownPredicateKeyE
   return [NSExpression expressionForKeyPath:[FBElementUtils wdAttributeNameForAttributeName:keyPath]];
 }
 
-static NSArray<NSString *> *cachedWDPropertiesNames = nil;
+static NSArray<NSString *> *cachedWDPropertyNames = nil;
 
 static NSArray<NSString *> *getCachedWDPropertyNames()
 {
-  if (nil == cachedWDPropertiesNames) {
-    cachedWDPropertiesNames = [FBElementUtils getWDPropertyNames];
+  if (nil == cachedWDPropertyNames) {
+    cachedWDPropertyNames = [FBElementUtils getWDPropertyNames];
   }
-  return cachedWDPropertiesNames;
+  return cachedWDPropertyNames;
 }
 
 @end
