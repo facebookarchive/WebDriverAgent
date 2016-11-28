@@ -16,11 +16,11 @@
 #import "FBXPath.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 
-@interface FBXPathTests : FBIntegrationTestCase
+@interface FBXPathIntegrationTests : FBIntegrationTestCase
 @property (nonatomic, strong) XCUIElement *testedView;
 @end
 
-@implementation FBXPathTests
+@implementation FBXPathIntegrationTests
 
 - (void)setUp
 {

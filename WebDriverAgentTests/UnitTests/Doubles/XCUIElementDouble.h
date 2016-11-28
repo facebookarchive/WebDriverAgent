@@ -8,7 +8,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "FBElement.h"
+#import <WebDriverAgentLib/FBElement.h>
 #import <XCTest/XCUIElementTypes.h>
 
 @class XCUIApplication;
