@@ -24,7 +24,7 @@ static NSString *const FBUnknownPredicateKeyException = @"FBUnknownPredicateKeyE
   if ([actualPropName containsString:@"."]) {
     actualPropName = [actualPropName substringToIndex:[actualPropName rangeOfString:@"."].location];
   }
-  NSArray *validPropertiesNames = getCachedWDPropertyNames();
+  NSArray *validPropertiesNames = [self.class cachedWDPropertyNames];
   if (![validPropertiesNames containsObject:actualPropName]) {
     NSString *description = [NSString stringWithFormat:@"The key '%@' is unknown in '%@' predicate expression. Valid keys are: %@", actualPropName, input, validPropertiesNames];
     @throw [NSException exceptionWithName:FBUnknownPredicateKeyException reason:description userInfo:@{}];
@@ -33,10 +33,9 @@ static NSString *const FBUnknownPredicateKeyException = @"FBUnknownPredicateKeyE
   return [NSExpression expressionForKeyPath:[FBElementUtils wdAttributeNameForAttributeName:keyPath]];
 }
 
-static NSArray<NSString *> *cachedWDPropertyNames = nil;
-
-static NSArray<NSString *> *getCachedWDPropertyNames()
++ (NSArray<NSString *> *)cachedWDPropertyNames
 {
+  static NSArray<NSString *> *cachedWDPropertyNames = nil;
   if (nil == cachedWDPropertyNames) {
     cachedWDPropertyNames = [FBElementUtils getWDPropertyNames];
   }

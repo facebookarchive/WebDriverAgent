@@ -10,7 +10,6 @@
 #import <XCTest/XCTest.h>
 
 #import "NSPredicate+FBFormat.h"
-#import "NSExpression+FBFormat.h"
 
 @interface NSPredicateFBFormatTests : XCTestCase
 @end
@@ -62,7 +61,7 @@
 - (void)testFormattingForPredicateWithUnknownKey
 {
   NSPredicate *expr = [NSPredicate predicateWithFormat:@"title == 'blabla'"];
-  XCTAssertThrowsSpecificNamed([NSPredicate fb_formatSearchPredicate:expr], NSException, FBUnknownPredicateKeyException);
+  XCTAssertThrows([NSPredicate fb_formatSearchPredicate:expr]);
 }
 
 @end
