@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBRouteRequest.h"
+#import <WebDriverAgentLib/FBRouteRequest.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
