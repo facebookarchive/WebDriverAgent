@@ -12,7 +12,7 @@
 #import "FBElementUtils.h"
 #import "FBElementTypeTransformer.h"
 
-NSString *const WD_PREFIX = @"wd";
+static NSString *const WD_PREFIX = @"wd";
 
 @implementation FBElementUtils
 
