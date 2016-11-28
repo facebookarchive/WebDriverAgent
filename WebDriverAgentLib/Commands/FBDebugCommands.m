@@ -23,10 +23,11 @@
 {
   return
   @[
-    [[FBRoute GET:@"/source"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
-    [[FBRoute GET:@"/source"].withoutSession respondWithTarget:self action:@selector(handleGetTreeCommand:)],
     [[FBRoute GET:@"/source/:type"] respondWithTarget:self action:@selector(handleGetSourceCommand:)],
     [[FBRoute GET:@"/source/:type"].withoutSession respondWithTarget:self action:@selector(handleGetSourceCommand:)],
+    // TODO: Kill source methods, that support json representation only
+    [[FBRoute GET:@"/source"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
+    [[FBRoute GET:@"/source"].withoutSession respondWithTarget:self action:@selector(handleGetTreeCommand:)],
     // TODO: Kill POST methods for source and move accessiblity tree to extension scheme
     [[FBRoute POST:@"/source"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
     [[FBRoute POST:@"/source"].withoutSession respondWithTarget:self action:@selector(handleGetTreeCommand:)],
@@ -49,22 +50,22 @@
 + (id<FBResponsePayload>)handleGetSourceCommand:(FBRouteRequest *)request
 {
   FBApplication *application = request.session.application ?: [FBApplication fb_activeApplication];
-  if (!application) {
-    return FBResponseWithErrorFormat(@"There is no active application");
-  }
   NSString *sourceType = request.parameters[@"type"];
   id result;
+  FBCommandStatus status = FBCommandStatusNoError;
   if ([sourceType caseInsensitiveCompare:@"json"] == NSOrderedSame) {
     result = application.fb_tree;
   } else if ([sourceType caseInsensitiveCompare:@"xml"] == NSOrderedSame) {
     result = [FBXPath getSnapshotAsXMLString:application.lastSnapshot];
-    if (nil == result) {
-      return FBResponseWithErrorFormat(@"Cannot get XML representation of the current application");
-    }
   } else {
-    return FBResponseWithErrorFormat(@"Unknown source type '%@'. Only 'xml' and 'json' source types are supported", sourceType);
+    status = FBCommandStatusUnsupported;
+    result = [NSString stringWithFormat:@"Unknown source type '%@'. Only 'xml' and 'json' source types are supported.", sourceType];
   }
-  return FBResponseWithStatus(FBCommandStatusNoError, @{ @"tree": result } );
+  if (!result) {
+    status = FBCommandStatusUnhandled;
+    result = [NSString stringWithFormat:@"Cannot get '%@' source of the current application", sourceType];
+  }
+  return FBResponseWithStatus(status, (status == FBCommandStatusNoError) ? @{ @"tree": result } : result);
 }
 
 @end
