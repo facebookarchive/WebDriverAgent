@@ -31,7 +31,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   @throw [NSException exceptionWithName:name reason:reason userInfo:@{}];
 }
 
-+ (nullable NSString *)getSnapshotAsXMLString:(XCElementSnapshot *)root
++ (nullable NSString *)xmlStringWithSnapshot:(XCElementSnapshot *)root
 {
   xmlDocPtr doc;
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);

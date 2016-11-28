@@ -57,7 +57,7 @@ extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
  @param root the root element
  @return valid XML document as string or nil in case of failure
  */
-+ (nullable NSString *)getSnapshotAsXMLString:(XCElementSnapshot *)root;
++ (nullable NSString *)xmlStringWithSnapshot:(XCElementSnapshot *)root;
 
 @end
 

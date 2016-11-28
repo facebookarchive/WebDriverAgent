@@ -36,7 +36,7 @@
   XCUIElement *matchingElement = [[self.testedView fb_descendantsMatchingXPathQuery:[NSString stringWithFormat:@"//%@", expectedType] shouldReturnAfterFirstMatch:YES] firstObject];
   XCElementSnapshot *matchingSnapshot = matchingElement.fb_lastSnapshot;
   
-  NSString *xmlStr = [FBXPath getSnapshotAsXMLString:matchingSnapshot];
+  NSString *xmlStr = [FBXPath xmlStringWithSnapshot:matchingSnapshot];
   XCTAssertNotNil(xmlStr);
   
   NSString *expectedXml = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<%@ type=\"%@\" name=\"%@\" label=\"%@\" visible=\"%@\" enabled=\"%@\" x=\"%@\" y=\"%@\" width=\"%@\" height=\"%@\"/>\n", expectedType, expectedType, matchingSnapshot.wdName, matchingSnapshot.wdLabel, matchingSnapshot.wdVisible ? @"true" : @"false", matchingSnapshot.wdEnabled ? @"true" : @"false", [matchingSnapshot.wdRect[@"x"] stringValue], [matchingSnapshot.wdRect[@"y"] stringValue], [matchingSnapshot.wdRect[@"width"] stringValue], [matchingSnapshot.wdRect[@"height"] stringValue]];
