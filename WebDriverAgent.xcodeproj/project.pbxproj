@@ -328,7 +328,6 @@
 		714CA3C61DC23186000F12C9 /* FBXPathIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathIntegrationTests.m; sourceTree = "<group>"; };
 		7174AF031D9D39AF008C8AD5 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		719FF5B81DAD21F5008E0099 /* FBElementUtilitiesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementUtilitiesTests.m; sourceTree = "<group>"; };
-		AD35D0291CF1B39E00870A75 /* generate_modules.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate_modules.sh; sourceTree = "<group>"; };
 		AD35D0651CF1C2CE00870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/iOS/Peertalk.framework; sourceTree = "<group>"; };
 		AD35D0691CF1C30700870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/Mac/Peertalk.framework; sourceTree = "<group>"; };
 		AD42DD2A1CF121E600806E5D /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
@@ -896,7 +895,6 @@
 			children = (
 				EEE4C66A1CDFA21F00A386A2 /* bootstrap.sh */,
 				EE9AB8031CAEE182008C271F /* build.sh */,
-				AD35D0291CF1B39E00870A75 /* generate_modules.sh */,
 			);
 			path = Scripts;
 			sourceTree = "<group>";
@@ -1293,7 +1291,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE158AA01CBD452B00A3E3F0 /* Build configuration list for PBXNativeTarget "WebDriverAgentLib" */;
 			buildPhases = (
-				AD35D0281CF1B37A00870A75 /* Generate modules */,
 				EE158A941CBD452B00A3E3F0 /* Sources */,
 				EE158A951CBD452B00A3E3F0 /* Frameworks */,
 				EE158A961CBD452B00A3E3F0 /* Headers */,
@@ -1493,23 +1490,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		AD35D0281CF1B37A00870A75 /* Generate modules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Generate modules";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = ./Scripts/generate_modules.sh;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EE158A941CBD452B00A3E3F0 /* Sources */ = {
@@ -1800,7 +1780,6 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
 				INFOPLIST_FILE = WebDriverAgentLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1828,7 +1807,6 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
 				INFOPLIST_FILE = WebDriverAgentLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
