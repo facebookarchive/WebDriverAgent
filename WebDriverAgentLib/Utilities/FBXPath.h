@@ -9,8 +9,8 @@
 
 #import <Foundation/Foundation.h>
 #import <XCTest/XCUIElementTypes.h>
-#import "FBElement.h"
-#import "XCElementSnapshot.h"
+#import <WebDriverAgentLib/FBElement.h>
+#import <WebDriverAgentLib/XCElementSnapshot.h>
 
 #ifdef __clang__
 #pragma clang diagnostic push

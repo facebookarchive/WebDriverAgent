@@ -9,7 +9,7 @@
 
 #import <XCTest/XCTest.h>
 #import <WebDriverAgentLib/XCElementSnapshot.h>
-#import "FBElement.h"
+#import <WebDriverAgentLib/FBElement.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
