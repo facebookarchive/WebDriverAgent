@@ -33,7 +33,7 @@ static NSString *const WD_PREFIX = @"wd";
   return matchingTypes.copy;
 }
 
-+ (NSArray<NSString *> *)getWDPropertiesNames {
++ (NSArray<NSString *> *)getWDPropertyNames {
   NSMutableArray *result = [NSMutableArray array];
   unsigned int propsCount = 0;
   objc_property_t *properties = protocol_copyPropertyList(objc_getProtocol("FBElement"), &propsCount);

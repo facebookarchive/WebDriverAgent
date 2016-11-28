@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return list of matching property names sorted by declaration order
  */
-+ (NSArray<NSString *> *)getWDPropertiesNames;
++ (NSArray<NSString *> *)getWDPropertyNames;
 
 @end
 
