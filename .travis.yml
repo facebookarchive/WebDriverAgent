@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode8.2
+osx_image: xcode8.1
 sudo: false
 
 cache:
@@ -13,8 +13,8 @@ branches:
     - master
 
 env:
-- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION=test DESTINATION='iPad Air 2' IOS='10.2'
-- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION=test DESTINATION='iPhone SE' IOS='10.2'
+- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION=test DESTINATION='iPad Air 2' IOS='10.1'
+- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION=test DESTINATION='iPhone SE' IOS='10.1'
 - TARGET=WebDriverAgentRunner SDK=iphonesimulator ACTION=build
 - TARGET=WebDriverAgentRunner SDK=iphoneos ACTION=build
 - TARGET=WebDriverAgentUSBClient SDK=macosx ACTION=build
