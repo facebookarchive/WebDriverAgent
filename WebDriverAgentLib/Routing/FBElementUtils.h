@@ -28,14 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
  @param elements array of elements
  @return set of unique element types (XCUIElementType items) or an empty set in case the input is empty
  */
-+ (NSSet<NSNumber *> *)getUniqueElementsTypes:(NSArray<id<FBElement>> *)elements;
++ (NSSet<NSNumber *> *)uniqueElementTypesWithElements:(NSArray<id<FBElement>> *)elements;
 
 /**
  Returns all properties of FBElement protocol having 'wd' prefix
  
  @return list of matching property names sorted by declaration order
  */
-+ (NSArray<NSString *> *)getWDPropertyNames;
++ (NSArray<NSString *> *)wdPropertyNames;
 
 @end
 

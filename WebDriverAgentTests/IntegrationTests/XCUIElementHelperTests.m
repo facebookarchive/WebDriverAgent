@@ -64,7 +64,7 @@
   [allElements addObjectsFromArray:sameButtons];
   [allElements addObjectsFromArray:windows];
   
-  NSSet *byTypes = [FBElementUtils getUniqueElementsTypes:allElements];
+  NSSet *byTypes = [FBElementUtils uniqueElementTypesWithElements:allElements];
   NSDictionary *categorizedDescendants = [self.testedApplication fb_categorizeDescendants:byTypes];
   XCTAssertEqual(2, [categorizedDescendants count]);
   XCTAssertEqual([categorizedDescendants[@(XCUIElementTypeButton)] count], [buttons count]);

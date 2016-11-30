@@ -26,7 +26,7 @@ static NSString *const FBUnknownPredicateKeyException;
  @return formatted expression
  @throw FBUnknownPredicateKeyException in case the given property name is not declared in FBElement protocol
  */
-+ (instancetype)fb_expressionWithExpression:(NSExpression *)input;
++ (instancetype)fb_wdExpressionWithExpression:(NSExpression *)input;
 
 @end
 

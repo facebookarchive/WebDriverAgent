@@ -115,7 +115,7 @@
     matchingSnapshots = @[[matchingSnapshots firstObject]];
   }
   // Prefiltering elements speeds up search by XPath a lot, because [element resolve] is the most expensive operation here
-  NSSet *byTypes = [FBElementUtils getUniqueElementsTypes:matchingSnapshots];
+  NSSet *byTypes = [FBElementUtils uniqueElementTypesWithElements:matchingSnapshots];
   NSDictionary *categorizedDescendants = [self fb_categorizeDescendants:byTypes];
   NSArray *matchingElements = [self.class fb_filterElements:categorizedDescendants matchingSnapshots:matchingSnapshots useReversedOrder:[xpathQuery containsString:@"last()"]];
   return matchingElements;

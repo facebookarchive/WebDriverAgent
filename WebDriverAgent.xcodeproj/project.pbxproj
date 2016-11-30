@@ -330,7 +330,6 @@
 		712A0C861DA3E55D007D02E5 /* FBXPath-Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBXPath-Private.h"; sourceTree = "<group>"; };
 		713C6DCD1DDC772A00285B92 /* FBElementUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBElementUtils.h; sourceTree = "<group>"; };
 		713C6DCE1DDC772A00285B92 /* FBElementUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementUtils.m; sourceTree = "<group>"; };
-		714CA3C61DC23186000F12C9 /* FBXPathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathTests.m; sourceTree = "<group>"; };
 		71555A3B1DEC460A007D4A8B /* NSExpression+FBFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSExpression+FBFormat.h"; sourceTree = "<group>"; };
 		71555A3C1DEC460A007D4A8B /* NSExpression+FBFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSExpression+FBFormat.m"; sourceTree = "<group>"; };
 		714CA3C61DC23186000F12C9 /* FBXPathIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathIntegrationTests.m; sourceTree = "<group>"; };
@@ -339,7 +338,6 @@
 		71A224E31DE2F56600844D55 /* NSPredicate+FBFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSPredicate+FBFormat.h"; path = "../Utilities/NSPredicate+FBFormat.h"; sourceTree = "<group>"; };
 		71A224E41DE2F56600844D55 /* NSPredicate+FBFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPredicate+FBFormat.m"; path = "../Utilities/NSPredicate+FBFormat.m"; sourceTree = "<group>"; };
 		71A224E71DE326C500844D55 /* NSPredicateFBFormatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPredicateFBFormatTests.m; sourceTree = "<group>"; };
-		AD35D0291CF1B39E00870A75 /* generate_modules.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate_modules.sh; sourceTree = "<group>"; };
 		AD35D0651CF1C2CE00870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/iOS/Peertalk.framework; sourceTree = "<group>"; };
 		AD35D0691CF1C30700870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/Mac/Peertalk.framework; sourceTree = "<group>"; };
 		AD42DD2A1CF121E600806E5D /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };

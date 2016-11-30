@@ -14,7 +14,7 @@ static NSString *const FBUnknownPredicateKeyException = @"FBUnknownPredicateKeyE
 
 @implementation NSExpression (FBFormat)
 
-+ (instancetype)fb_expressionWithExpression:(NSExpression *)input
++ (instancetype)fb_wdExpressionWithExpression:(NSExpression *)input
 {
   if ([input expressionType] != NSKeyPathExpressionType) {
     return input;
@@ -35,10 +35,11 @@ static NSString *const FBUnknownPredicateKeyException = @"FBUnknownPredicateKeyE
 
 + (NSArray<NSString *> *)cachedWDPropertyNames
 {
-  static NSArray<NSString *> *cachedWDPropertyNames = nil;
-  if (nil == cachedWDPropertyNames) {
-    cachedWDPropertyNames = [FBElementUtils getWDPropertyNames];
-  }
+  static NSArray<NSString *> *cachedWDPropertyNames;
+  static dispatch_once_t token;
+  dispatch_once(&token, ^{
+    cachedWDPropertyNames = [FBElementUtils wdPropertyNames];
+  });
   return cachedWDPropertyNames;
 }
 

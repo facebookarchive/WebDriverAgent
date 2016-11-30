@@ -31,10 +31,11 @@
   return original;
 }
 
-+ (instancetype)fb_formatSearchPredicate:(NSPredicate *)input {
++ (instancetype)fb_formatSearchPredicate:(NSPredicate *)input
+{
   return [self.class fb_predicateWithPredicate:input comparisonModifier:^NSPredicate *(NSComparisonPredicate *cp) {
-    NSExpression *left = [NSExpression fb_expressionWithExpression:[cp leftExpression]];
-    NSExpression *right = [NSExpression fb_expressionWithExpression:[cp rightExpression]];
+    NSExpression *left = [NSExpression fb_wdExpressionWithExpression:[cp leftExpression]];
+    NSExpression *right = [NSExpression fb_wdExpressionWithExpression:[cp rightExpression]];
     return [NSComparisonPredicate predicateWithLeftExpression:left
                                               rightExpression:right
                                                      modifier:cp.comparisonPredicateModifier

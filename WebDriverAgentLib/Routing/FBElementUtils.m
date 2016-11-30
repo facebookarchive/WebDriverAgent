@@ -24,7 +24,7 @@ static NSString *const WD_PREFIX = @"wd";
   return [NSString stringWithFormat:@"%@%@", WD_PREFIX, name.capitalizedString];
 }
 
-+ (NSSet<NSNumber *> *)getUniqueElementsTypes:(NSArray<id<FBElement>> *)elements
++ (NSSet<NSNumber *> *)uniqueElementTypesWithElements:(NSArray<id<FBElement>> *)elements
 {
   NSMutableSet *matchingTypes = [NSMutableSet set];
   [elements enumerateObjectsUsingBlock:^(id<FBElement> element, NSUInteger elementIdx, BOOL *stopElementsEnum) {
@@ -33,7 +33,7 @@ static NSString *const WD_PREFIX = @"wd";
   return matchingTypes.copy;
 }
 
-+ (NSArray<NSString *> *)getWDPropertyNames {
++ (NSArray<NSString *> *)wdPropertyNames {
   NSMutableArray *result = [NSMutableArray array];
   unsigned int propsCount = 0;
   objc_property_t *properties = protocol_copyPropertyList(objc_getProtocol("FBElement"), &propsCount);
