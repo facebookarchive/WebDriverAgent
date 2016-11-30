@@ -12,7 +12,8 @@
 
 @implementation NSPredicate (FBFormat)
 
-+ (instancetype)fb_predicateWithPredicate:(NSPredicate *)original comparisonModifier:(NSPredicate *(^)(NSComparisonPredicate *))comparisonModifier {
++ (instancetype)fb_predicateWithPredicate:(NSPredicate *)original comparisonModifier:(NSPredicate *(^)(NSComparisonPredicate *))comparisonModifier
+{
   if ([original isKindOfClass:NSCompoundPredicate.class]) {
     NSCompoundPredicate *compPred = (NSCompoundPredicate *)original;
     NSMutableArray *predicates = [NSMutableArray array];
