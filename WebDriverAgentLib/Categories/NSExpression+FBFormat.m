@@ -10,7 +10,7 @@
 #import "NSExpression+FBFormat.h"
 #import "FBElementUtils.h"
 
-static NSString *const FBUnknownPredicateKeyException = @"FBUnknownPredicateKeyException";
+NSString *const FBUnknownPredicateKeyException = @"FBUnknownPredicateKeyException";
 
 @implementation NSExpression (FBFormat)
 

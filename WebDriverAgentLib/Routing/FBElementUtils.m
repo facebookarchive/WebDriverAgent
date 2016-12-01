@@ -45,6 +45,7 @@ static NSString *const WD_PREFIX = @"wd";
       [result addObject:nsName];
     }
   }
+  free(properties);
   return result.copy;
 }
 

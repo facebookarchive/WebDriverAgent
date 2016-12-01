@@ -16,10 +16,10 @@
 #import "XCUIElement+FBUtilities.h"
 #import "FBElementUtils.h"
 
-@interface XCUIElementHelperTests : FBIntegrationTestCase
+@interface XCUIElementHelperIntegrationTests : FBIntegrationTestCase
 @end
 
-@implementation XCUIElementHelperTests
+@implementation XCUIElementHelperIntegrationTests
 
 - (void)setUp
 {
