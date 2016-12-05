@@ -30,7 +30,7 @@
   XCUIElementDouble *el3 = [XCUIElementDouble new];
   [elements addObject:el3];
   
-  NSSet *result = [FBElementUtils fb_getUniqueElementsTypes:elements];
+  NSSet *result = [FBElementUtils uniqueElementTypesWithElements:elements];
   XCTAssertEqual([result count], 2);
 }
 

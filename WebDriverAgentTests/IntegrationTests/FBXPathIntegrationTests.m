@@ -11,12 +11,9 @@
 
 #import "FBIntegrationTestCase.h"
 #import "XCUIElement.h"
-#import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBFind.h"
-#import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBUtilities.h"
 #import "FBXPath.h"
-#import "FBXPath-Private.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 
 @interface FBXPathIntegrationTests : FBIntegrationTestCase
@@ -35,25 +32,15 @@
 
 - (void)testSingleDescendantXMLRepresentation
 {
-  XCUIElement *matchingElement = [[self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton" shouldReturnAfterFirstMatch:YES] firstObject];
+  NSString *expectedType = @"XCUIElementTypeButton";
+  XCUIElement *matchingElement = [[self.testedView fb_descendantsMatchingXPathQuery:[NSString stringWithFormat:@"//%@", expectedType] shouldReturnAfterFirstMatch:YES] firstObject];
   XCElementSnapshot *matchingSnapshot = matchingElement.fb_lastSnapshot;
   
-  xmlDocPtr doc;
-  xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
-  NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
-  int buffersize;
-  xmlChar *xmlbuff;
-  int rc = [FBXPath getSnapshotAsXML:matchingSnapshot writer:writer elementStore:elementStore];
-  if (0 == rc) {
-    xmlDocDumpFormatMemory(doc, &xmlbuff, &buffersize, 1);
-  }
-  xmlFreeTextWriter(writer);
-  xmlFreeDoc(doc);
-  XCTAssertEqual(rc, 0);
+  NSString *xmlStr = [FBXPath xmlStringWithSnapshot:matchingSnapshot];
+  XCTAssertNotNil(xmlStr);
   
-  NSString *resultXml = [NSString stringWithCString:(const char*)xmlbuff encoding:NSUTF8StringEncoding];
-  NSString *expectedXml = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<XCUIElementTypeButton type=\"XCUIElementTypeButton\" name=\"Alerts\" label=\"Alerts\" visible=\"true\" enabled=\"true\" x=\"%@\" y=\"%@\" width=\"%@\" height=\"%@\" private_indexPath=\"top\"/>\n", [matchingSnapshot.wdRect[@"x"] stringValue], [matchingSnapshot.wdRect[@"y"] stringValue], [matchingSnapshot.wdRect[@"width"] stringValue], [matchingSnapshot.wdRect[@"height"] stringValue]];
-  XCTAssertTrue([resultXml isEqualToString: expectedXml]);
+  NSString *expectedXml = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<%@ type=\"%@\" name=\"%@\" label=\"%@\" visible=\"%@\" enabled=\"%@\" x=\"%@\" y=\"%@\" width=\"%@\" height=\"%@\"/>\n", expectedType, expectedType, matchingSnapshot.wdName, matchingSnapshot.wdLabel, matchingSnapshot.wdVisible ? @"true" : @"false", matchingSnapshot.wdEnabled ? @"true" : @"false", [matchingSnapshot.wdRect[@"x"] stringValue], [matchingSnapshot.wdRect[@"y"] stringValue], [matchingSnapshot.wdRect[@"width"] stringValue], [matchingSnapshot.wdRect[@"height"] stringValue]];
+  XCTAssertTrue([xmlStr isEqualToString: expectedXml]);
 }
 
 - (void)testFindMatchesInElement

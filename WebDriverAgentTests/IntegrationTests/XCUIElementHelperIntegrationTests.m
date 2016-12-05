@@ -16,10 +16,10 @@
 #import "XCUIElement+FBUtilities.h"
 #import "FBElementUtils.h"
 
-@interface XCUIElementHelperTests : FBIntegrationTestCase
+@interface XCUIElementHelperIntegrationTests : FBIntegrationTestCase
 @end
 
-@implementation XCUIElementHelperTests
+@implementation XCUIElementHelperIntegrationTests
 
 - (void)setUp
 {
@@ -64,7 +64,7 @@
   [allElements addObjectsFromArray:sameButtons];
   [allElements addObjectsFromArray:windows];
   
-  NSSet *byTypes = [FBElementUtils fb_getUniqueElementsTypes:allElements];
+  NSSet *byTypes = [FBElementUtils uniqueElementTypesWithElements:allElements];
   NSDictionary *categorizedDescendants = [self.testedApplication fb_categorizeDescendants:byTypes];
   XCTAssertEqual(2, [categorizedDescendants count]);
   XCTAssertEqual([categorizedDescendants[@(XCUIElementTypeButton)] count], [buttons count]);

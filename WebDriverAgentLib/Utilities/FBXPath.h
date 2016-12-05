@@ -50,6 +50,15 @@ extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
  */
 + (NSArray<XCElementSnapshot *> *)findMatchesIn:(XCElementSnapshot *)root xpathQuery:(NSString *)xpathQuery;
 
+/**
+ Gets XML representation of XCElementSnapshot with all its descendants. This method generates the same
+ representation, which is used for XPath search
+ 
+ @param root the root element
+ @return valid XML document as string or nil in case of failure
+ */
++ (nullable NSString *)xmlStringWithSnapshot:(XCElementSnapshot *)root;
+
 @end
 
 NS_ASSUME_NONNULL_END

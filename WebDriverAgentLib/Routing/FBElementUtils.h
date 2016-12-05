@@ -15,20 +15,27 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FBElementUtils : NSObject
 
 /**
- Function that returns property name defined by FBElement protocol for given WebDriver Spec property name
+ Returns property name defined by FBElement protocol for given WebDriver Spec property name
  
  @param name WebDriver Spec property name
  @return the corresponding property name
  */
-+ (NSString *)fb_attributeNameForAttributeName:(NSString *)name;
++ (NSString *)wdAttributeNameForAttributeName:(NSString *)name;
 
 /**
- Function used to collect all the unique element types from an array of elements.
+ Collects all the unique element types from an array of elements.
  
  @param elements array of elements
  @return set of unique element types (XCUIElementType items) or an empty set in case the input is empty
  */
-+ (NSSet<NSNumber *> *)fb_getUniqueElementsTypes:(NSArray<id<FBElement>> *)elements;
++ (NSSet<NSNumber *> *)uniqueElementTypesWithElements:(NSArray<id<FBElement>> *)elements;
+
+/**
+ Returns all properties of FBElement protocol having 'wd' prefix
+ 
+ @return list of matching property names sorted by declaration order
+ */
++ (NSArray<NSString *> *)wdPropertyNames;
 
 @end
 

@@ -7,23 +7,46 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+#import <objc/runtime.h>
+
 #import "FBElementUtils.h"
 #import "FBElementTypeTransformer.h"
 
+static NSString *const WD_PREFIX = @"wd";
+
 @implementation FBElementUtils
 
-+ (NSString *)fb_attributeNameForAttributeName:(NSString *)name
++ (NSString *)wdAttributeNameForAttributeName:(NSString *)name
 {
-  return [NSString stringWithFormat:@"wd%@", name.capitalizedString];
+  if ([name hasPrefix:WD_PREFIX]) {
+    return name;
+  }
+  return [NSString stringWithFormat:@"%@%@", WD_PREFIX, name.capitalizedString];
 }
 
-+ (NSSet<NSNumber *> *)fb_getUniqueElementsTypes:(NSArray<id<FBElement>> *)elements
++ (NSSet<NSNumber *> *)uniqueElementTypesWithElements:(NSArray<id<FBElement>> *)elements
 {
   NSMutableSet *matchingTypes = [NSMutableSet set];
   [elements enumerateObjectsUsingBlock:^(id<FBElement> element, NSUInteger elementIdx, BOOL *stopElementsEnum) {
     [matchingTypes addObject: @([FBElementTypeTransformer elementTypeWithTypeName:element.wdType])];
   }];
   return matchingTypes.copy;
+}
+
++ (NSArray<NSString *> *)wdPropertyNames {
+  NSMutableArray *result = [NSMutableArray array];
+  unsigned int propsCount = 0;
+  objc_property_t *properties = protocol_copyPropertyList(objc_getProtocol("FBElement"), &propsCount);
+  for (unsigned int i = 0; i < propsCount; ++i) {
+    objc_property_t property = properties[i];
+    const char *name = property_getName(property);
+    NSString *nsName = [NSString stringWithUTF8String:name];
+    if (nsName && [nsName hasPrefix:WD_PREFIX]) {
+      [result addObject:nsName];
+    }
+  }
+  free(properties);
+  return result.copy;
 }
 
 @end

@@ -48,13 +48,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch;
 
 /**
- Returns an array of descendants matching given predicate
-
+ Returns an array of descendants matching given predicate.
+ Allowed property names are only these declared in FBElement protocol (property names are received in runtime)
+ and their shortcuts (without 'wd' prefix). All other property names are considered as unknown.
+ 
  @param predicate requested predicate
  @param shouldReturnAfterFirstMatch set it to YES if you want only the first found element to be
  resolved and returned. This will speed up the search significantly if given predicate matches multiple
  nodes in the UI tree
  @return an array of descendants matching given predicate
+ @throw FBUnknownPredicateKeyException in case the given property name is not declared in FBElement protocol
  */
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch;
 
