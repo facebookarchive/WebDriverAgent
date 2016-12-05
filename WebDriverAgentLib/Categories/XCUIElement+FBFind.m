@@ -11,6 +11,7 @@
 #import "XCUIElement+FBFind.h"
 
 #import "FBElementTypeTransformer.h"
+#import "NSPredicate+FBFormat.h"
 #import "XCElementSnapshot.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBUtilities.h"
@@ -73,7 +74,7 @@
     }
   }
 
-  property = [FBElementUtils fb_attributeNameForAttributeName:property];
+  property = [FBElementUtils wdAttributeNameForAttributeName:property];
   value = [value stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
   NSString *operation = partialSearch ?
   [NSString stringWithFormat:@"%@ like '*%@*'", property, value] :
@@ -89,7 +90,8 @@
 
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
-  XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate];
+  NSPredicate *formattedPredicate = [NSPredicate fb_formatSearchPredicate:predicate];
+  XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:formattedPredicate];
   return [self.class fb_extractMatchingElementsFromQuery:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch];
 }
 
@@ -113,7 +115,7 @@
     matchingSnapshots = @[[matchingSnapshots firstObject]];
   }
   // Prefiltering elements speeds up search by XPath a lot, because [element resolve] is the most expensive operation here
-  NSSet *byTypes = [FBElementUtils fb_getUniqueElementsTypes:matchingSnapshots];
+  NSSet *byTypes = [FBElementUtils uniqueElementTypesWithElements:matchingSnapshots];
   NSDictionary *categorizedDescendants = [self fb_categorizeDescendants:byTypes];
   NSArray *matchingElements = [self.class fb_filterElements:categorizedDescendants matchingSnapshots:matchingSnapshots useReversedOrder:[xpathQuery containsString:@"last()"]];
   return matchingElements;

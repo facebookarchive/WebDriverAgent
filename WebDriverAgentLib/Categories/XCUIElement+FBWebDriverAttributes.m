@@ -45,7 +45,7 @@
 
 - (id)fb_valueForWDAttributeName:(NSString *)name
 {
-  return [self valueForKey:[FBElementUtils fb_attributeNameForAttributeName:name]];
+  return [self valueForKey:[FBElementUtils wdAttributeNameForAttributeName:name]];
 }
 
 - (id)wdValue
