@@ -17,7 +17,17 @@
   if ([input expressionType] != NSKeyPathExpressionType) {
     return input;
   }
-  return [NSExpression expressionForKeyPath:[FBElementUtils wdAttributeNameForAttributeName:[input keyPath]]];
+  NSString *actualPropName = [input keyPath];
+  NSString *suffix = nil;
+  if ([actualPropName containsString:@"."]) {
+    NSUInteger dotPos = [actualPropName rangeOfString:@"."].location;
+    actualPropName = [actualPropName substringToIndex:dotPos];
+    suffix = [actualPropName substringFromIndex:dotPos];
+  }
+  if (nil == suffix) {
+    return [NSExpression expressionForKeyPath:[FBElementUtils wdAttributeNameForAttributeName:actualPropName]];
+  }
+  return [NSExpression expressionForKeyPath:[NSString stringWithFormat:@"%@.%@", [FBElementUtils wdAttributeNameForAttributeName:actualPropName], suffix]];
 }
 
 @end

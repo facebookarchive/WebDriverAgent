@@ -39,12 +39,7 @@ static NSString *const WD_PREFIX = @"wd";
   NSMutableArray *validNames = [NSMutableArray array];
   [validNames addObjectsFromArray:availableProperties];
   [validNames addObjectsFromArray:availableGetters];
-  NSString *nameToVerify = resultAttrubuteName;
-  if ([nameToVerify containsString:@"."]) {
-    // Complex keys with dots are OK for predicate expressions
-    nameToVerify = [nameToVerify substringToIndex:[nameToVerify rangeOfString:@"."].location];
-  }
-  if (![validNames containsObject:nameToVerify]) {
+  if (![validNames containsObject:resultAttrubuteName]) {
     NSString *description = [NSString stringWithFormat:@"The attribute '%@' is unknown. Valid attribute names are: %@", name, [[FBElementUtils wdProperties] allKeys]];
     @throw [NSException exceptionWithName:FBUnknownAttributeException reason:description userInfo:@{}];
     return nil;
