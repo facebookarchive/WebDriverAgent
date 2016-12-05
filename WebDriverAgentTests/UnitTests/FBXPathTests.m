@@ -18,7 +18,7 @@
 
 @implementation FBXPathTests
 
-- (void)testSnapshotXPathPresentation
+- (void)testInternalSnapshotXPathPresentation
 {
   xmlDocPtr doc;
   
