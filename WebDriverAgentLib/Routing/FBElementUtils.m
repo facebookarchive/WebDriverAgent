@@ -89,7 +89,7 @@ static NSString *const WD_PREFIX = @"wd";
     free(properties);
     propertiesWithGetters = result.copy;
   });
-  return propertiesWithGetters;
+  return propertiesWithGetters.copy;
 }
 
 @end
