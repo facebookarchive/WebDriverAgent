@@ -76,14 +76,18 @@ static NSString *const WD_PREFIX = @"wd";
       if (nil == attributes) {
         continue;
       }
-      NSArray *splitAttrs = [attributes componentsSeparatedByString:@","];
+      BOOL isGetterFound = NO;
       // https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html
-      for(NSString *part in splitAttrs) {
+      NSArray *splitAttrs = [attributes componentsSeparatedByString:@","];
+      for (NSString *part in splitAttrs) {
         if ([part hasPrefix:@"G"]) {
           [result setObject:[part substringFromIndex:1] forKey:nsName];
-        } else {
-          [result setObject:[NSNull null] forKey:nsName];
+          isGetterFound = YES;
+          break;
         }
+      }
+      if (!isGetterFound) {
+        [result setObject:[NSNull null] forKey:nsName];
       }
     }
     free(properties);
