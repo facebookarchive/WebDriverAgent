@@ -30,45 +30,45 @@
   XCTAssertNotNil(self.matchingElement);
 }
 
-- (void)verifyGettingStringAttribute:(NSString *)shortcutName expectedValue:(id)expectedValue
+- (void)verifyGettingAttributeWithShortcut:(NSString *)shortcutName expectedValue:(id)expectedValue
 {
   id actualValue = [self.matchingElement fb_valueForWDAttributeName:[FBElementUtils wdAttributeNameForAttributeName:shortcutName]];
   id actualShortcutValue = [self.matchingElement fb_valueForWDAttributeName:shortcutName];
   if (nil == expectedValue) {
     XCTAssertNil(actualValue);
     XCTAssertNil(actualShortcutValue);
+    return;
+  }
+  if ([actualValue isKindOfClass:NSString.class]) {
+    XCTAssertTrue([actualValue isEqualToString:expectedValue]);
+    XCTAssertTrue([actualShortcutValue isEqualToString:expectedValue]);
+  } else if ([actualValue isKindOfClass:NSNumber.class]) {
+    XCTAssertTrue([actualValue isEqualToNumber:expectedValue]);
+    XCTAssertTrue([actualShortcutValue isEqualToNumber:expectedValue]);
   } else {
-    if ([actualValue isKindOfClass:NSString.class]) {
-      XCTAssertTrue([actualValue isEqualToString:expectedValue]);
-      XCTAssertTrue([actualShortcutValue isEqualToString:expectedValue]);
-    } else if ([actualValue isKindOfClass:NSNumber.class]) {
-      XCTAssertTrue([actualValue isEqualToNumber:expectedValue]);
-      XCTAssertTrue([actualShortcutValue isEqualToNumber:expectedValue]);
-    } else {
-      // This should not happen
-      XCTAssertTrue(NO);
-    }
+    XCTAssertEqual(actualValue, expectedValue);
+    XCTAssertEqual(actualShortcutValue, expectedValue);
   }
 }
 
 - (void)testGetNameAttribute
 {
-  [self verifyGettingStringAttribute:@"name" expectedValue:self.matchingElement.wdName];
+  [self verifyGettingAttributeWithShortcut:@"name" expectedValue:self.matchingElement.wdName];
 }
 
 - (void)testGetValueAttribute
 {
-  [self verifyGettingStringAttribute:@"value" expectedValue:self.matchingElement.wdValue];
+  [self verifyGettingAttributeWithShortcut:@"value" expectedValue:self.matchingElement.wdValue];
 }
 
 - (void)testGetLabelAttribute
 {
-  [self verifyGettingStringAttribute:@"label" expectedValue:self.matchingElement.wdLabel];
+  [self verifyGettingAttributeWithShortcut:@"label" expectedValue:self.matchingElement.wdLabel];
 }
 
 - (void)testGetTypeAttribute
 {
-  [self verifyGettingStringAttribute:@"type" expectedValue:self.matchingElement.wdType];
+  [self verifyGettingAttributeWithShortcut:@"type" expectedValue:self.matchingElement.wdType];
 }
 
 - (void)testGetRectAttribute
@@ -85,22 +85,22 @@
 
 - (void)testGetEnabledAttribute
 {
-  [self verifyGettingStringAttribute:@"enabled" expectedValue:[NSNumber numberWithBool:self.matchingElement.wdEnabled]];
+  [self verifyGettingAttributeWithShortcut:@"enabled" expectedValue:[NSNumber numberWithBool:self.matchingElement.wdEnabled]];
 }
 
 - (void)testGetAccessibleAttribute
 {
-  [self verifyGettingStringAttribute:@"accessible" expectedValue:[NSNumber numberWithBool:self.matchingElement.wdAccessible]];
+  [self verifyGettingAttributeWithShortcut:@"accessible" expectedValue:[NSNumber numberWithBool:self.matchingElement.wdAccessible]];
 }
 
 - (void)testGetVisibleAttribute
 {
-  [self verifyGettingStringAttribute:@"visible" expectedValue:[NSNumber numberWithBool:self.matchingElement.wdVisible]];
+  [self verifyGettingAttributeWithShortcut:@"visible" expectedValue:[NSNumber numberWithBool:self.matchingElement.wdVisible]];
 }
 
 - (void)testGetAccessibilityContainerAttribute
 {
-  [self verifyGettingStringAttribute:@"accessibilityContainer" expectedValue:[NSNumber numberWithBool:self.matchingElement.wdAccessibilityContainer]];
+  [self verifyGettingAttributeWithShortcut:@"accessibilityContainer" expectedValue:[NSNumber numberWithBool:self.matchingElement.wdAccessibilityContainer]];
 }
 
 
