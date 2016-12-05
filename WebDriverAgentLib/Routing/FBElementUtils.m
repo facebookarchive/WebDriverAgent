@@ -40,7 +40,7 @@ static NSString *const WD_PREFIX = @"wd";
   [validNames addObjectsFromArray:availableProperties];
   [validNames addObjectsFromArray:availableGetters];
   if (![validNames containsObject:resultAttrubuteName]) {
-    NSString *description = [NSString stringWithFormat:@"The attribute '%@' is unknown. Valid attribute names are: %@", name, [[FBElementUtils wdProperties] allKeys]];
+    NSString *description = [NSString stringWithFormat:@"The attribute '%@' is unknown. Valid attribute names are: %@", name, availableProperties];
     @throw [NSException exceptionWithName:FBUnknownAttributeException reason:description userInfo:@{}];
     return nil;
   }
