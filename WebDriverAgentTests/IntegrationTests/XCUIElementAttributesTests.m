@@ -32,7 +32,8 @@
 
 - (void)verifyGettingAttributeWithShortcut:(NSString *)shortcutName expectedValue:(id)expectedValue
 {
-  id actualValue = [self.matchingElement fb_valueForWDAttributeName:[FBElementUtils wdAttributeNameForAttributeName:shortcutName]];
+  NSString *fullAttributeName = [NSString stringWithFormat:@"wd%@", [NSString stringWithFormat:@"%@%@", [[shortcutName substringToIndex:1] uppercaseString], [shortcutName substringFromIndex:1]]];
+  id actualValue = [self.matchingElement fb_valueForWDAttributeName:fullAttributeName];
   id actualShortcutValue = [self.matchingElement fb_valueForWDAttributeName:shortcutName];
   if (nil == expectedValue) {
     XCTAssertNil(actualValue);
@@ -103,5 +104,9 @@
   [self verifyGettingAttributeWithShortcut:@"accessibilityContainer" expectedValue:[NSNumber numberWithBool:self.matchingElement.wdAccessibilityContainer]];
 }
 
+- (void)testGetInvalidAttribute
+{
+  XCTAssertThrowsSpecificNamed([self verifyGettingAttributeWithShortcut:@"invalid" expectedValue:@"blabla"], NSException, FBUnknownAttributeException);
+}
 
 @end
