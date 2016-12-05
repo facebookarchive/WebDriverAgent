@@ -11,9 +11,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*! Notification used to notify about unknown key in predicate expression */
-extern NSString *const FBUnknownPredicateKeyException;
-
 @interface NSExpression (FBFormat)
 
 /**

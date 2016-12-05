@@ -18,15 +18,19 @@
 
 - (void)testGettingWDProperties
 {
-  NSArray *properties = [FBElementUtils wdPropertyNames];
-  XCTAssertTrue([properties containsObject:@"wdName"]);
+  NSDictionary *properties = [FBElementUtils wdProperties];
+  XCTAssertTrue([properties.allKeys containsObject:@"wdName"]);
   
-  NSArray *wdProperties = [properties filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF beginsWith[c] 'wd'"]];
+  NSArray *wdProperties = [properties.allKeys filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF beginsWith[c] 'wd'"]];
   XCTAssertTrue(wdProperties.count > 0);
   XCTAssertEqual(properties.count, wdProperties.count);
   
-  NSArray *nonWDProperties = [properties filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT(SELF beginsWith[c] 'wd')"]];
+  NSArray *nonWDProperties = [properties.allKeys filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT(SELF beginsWith[c] 'wd')"]];
   XCTAssertEqual(nonWDProperties.count, 0);
+  
+  NSArray *allGetters = [[FBElementUtils wdProperties] allValues];
+  NSArray *filteredGetters = [allGetters filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF beginsWith[c] 'is'"]];
+  XCTAssertTrue(filteredGetters.count > 0);
 }
 
 @end

@@ -49,8 +49,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Returns value of given property specified in WebDriver Spec
-
- @param name name of property defined in WebDriver Spec
+ Check the FBElement protocol to get list of supported attributes.
+ This method also supports shortcuts, like wdName == name, wdValue == value.
+ 
+ @param name WebDriver Spec property name
+ @return the corresponding property value
+ @throws FBUnknownAttributeException if there is no matching attribute defined in FBElement protocol
  */
 - (nullable id)fb_valueForWDAttributeName:(NSString *__nullable)name;
 

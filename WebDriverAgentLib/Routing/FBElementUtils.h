@@ -12,13 +12,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/*! Notification used to notify about unknown attribute name */
+extern NSString *const FBUnknownAttributeException;
+
 @interface FBElementUtils : NSObject
 
 /**
- Returns property name defined by FBElement protocol for given WebDriver Spec property name
+ Returns property name defined by FBElement protocol for the given WebDriver Spec property name.
+ Check the FBElement protocol to get list of supported attributes.
+ This method also supports shortcuts, like wdName == name, wdValue == value.
+ In case the corresponding attribute has a getter defined then the name of the getter witll be returned instead,
+ which makes this method compatible with KVO lookup
  
  @param name WebDriver Spec property name
  @return the corresponding property name
+ @throws FBUnknownAttributeException if there is no matching attribute defined in FBElement protocol
  */
 + (NSString *)wdAttributeNameForAttributeName:(NSString *)name;
 
@@ -31,11 +39,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSSet<NSNumber *> *)uniqueElementTypesWithElements:(NSArray<id<FBElement>> *)elements;
 
 /**
- Returns all properties of FBElement protocol having 'wd' prefix
+ Returns all properties of FBElement protocol having 'wd' prefix with their getters
  
- @return list of matching property names sorted by declaration order
+ @return list of matching property names with their getter names if getter method exists for the corresponding property
+ or [NSNull null] if it does not exist
  */
-+ (NSArray<NSString *> *)wdPropertyNames;
++ (NSDictionary<NSString *, id> *)wdProperties;
 
 @end
 

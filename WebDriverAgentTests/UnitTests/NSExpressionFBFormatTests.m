@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 
 #import "NSExpression+FBFormat.h"
+#import "FBElementUtils.h"
 
 @interface NSExpressionFBFormatTests : XCTestCase
 @end
@@ -49,7 +50,7 @@
 - (void)testFormattingForPredicateWithUnknownKey
 {
   NSExpression *expr = [NSExpression expressionWithFormat:@"title"];
-  XCTAssertThrowsSpecificNamed([NSExpression fb_wdExpressionWithExpression:expr], NSException, FBUnknownPredicateKeyException);
+  XCTAssertThrowsSpecificNamed([NSExpression fb_wdExpressionWithExpression:expr], NSException, FBUnknownAttributeException);
 }
 
 @end
