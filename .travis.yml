@@ -5,6 +5,7 @@ sudo: false
 cache:
   directories:
   - Carthage
+  - Inspector/node_modules
 
 script: ./Scripts/build.sh
 
