@@ -71,12 +71,12 @@ static NSString *const WD_PREFIX = @"wd";
       if (nil == nsName || ![nsName hasPrefix:WD_PREFIX]) {
         continue;
       }
+      [result setObject:[NSNull null] forKey:nsName];
       const char *c_attributes = property_getAttributes(property);
       NSString *attributes = [NSString stringWithUTF8String:c_attributes];
       if (nil == attributes) {
         continue;
       }
-      [result setObject:[NSNull null] forKey:nsName];
       // https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html
       NSArray *splitAttrs = [attributes componentsSeparatedByString:@","];
       for (NSString *part in splitAttrs) {
