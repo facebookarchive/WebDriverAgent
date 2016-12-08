@@ -14,6 +14,8 @@
 
 NSString *const FBUnknownAttributeException = @"FBUnknownAttributeException";
 static NSString *const WD_PREFIX = @"wd";
+static NSString *const OBJC_PROP_GETTER_PREFIX = @"G";
+static NSString *const OBJC_PROP_ATTRIBS_SEPARATOR = @",";
 
 @implementation FBElementUtils
 
@@ -21,25 +23,17 @@ static NSString *const WD_PREFIX = @"wd";
 {
   NSAssert(name.length > 0, @"Attribute name cannot be empty");
   NSString *resultAttrubuteName = name;
-  NSArray *availableProperties = [[FBElementUtils wdProperties] allKeys];
-  NSMutableArray *availableGetters = [NSMutableArray new];
-  for (id value in [[FBElementUtils wdProperties] allValues]) {
-    if ([value isKindOfClass:NSString.class]) {
-      [availableGetters addObject:value];
-    }
-  }
+  NSArray *availableProperties = [FBElementUtils wdProperties].allKeys;
+  NSArray *availableGetters = [FBElementUtils wdProperties].allValues;
   if (!([availableProperties containsObject:resultAttrubuteName] || [availableGetters containsObject:resultAttrubuteName])) {
     resultAttrubuteName = [NSString stringWithFormat:@"%@%@", WD_PREFIX, [NSString stringWithFormat:@"%@%@", [[name substringToIndex:1] uppercaseString], [name substringFromIndex:1]]];
   }
   NSString *getterName = [[self.class wdProperties] objectForKey:resultAttrubuteName];
-  if ([getterName isKindOfClass:NSString.class]) {
+  if (nil != getterName && [getterName isKindOfClass:NSString.class]) {
     // Return the corresponding getter name for KVO lookup if exists
     resultAttrubuteName = getterName;
   }
-  NSMutableArray *validNames = [NSMutableArray array];
-  [validNames addObjectsFromArray:availableProperties];
-  [validNames addObjectsFromArray:availableGetters];
-  if (![validNames containsObject:resultAttrubuteName]) {
+  if (!([availableProperties containsObject:resultAttrubuteName] || [availableGetters containsObject:resultAttrubuteName])) {
     NSString *description = [NSString stringWithFormat:@"The attribute '%@' is unknown. Valid attribute names are: %@", name, availableProperties];
     @throw [NSException exceptionWithName:FBUnknownAttributeException reason:description userInfo:@{}];
     return nil;
@@ -78,9 +72,9 @@ static NSString *const WD_PREFIX = @"wd";
         continue;
       }
       // https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html
-      NSArray *splitAttrs = [attributes componentsSeparatedByString:@","];
+      NSArray *splitAttrs = [attributes componentsSeparatedByString:OBJC_PROP_ATTRIBS_SEPARATOR];
       for (NSString *part in splitAttrs) {
-        if ([part hasPrefix:@"G"]) {
+        if ([part hasPrefix:OBJC_PROP_GETTER_PREFIX]) {
           [result setObject:[part substringFromIndex:1] forKey:nsName];
           break;
         }

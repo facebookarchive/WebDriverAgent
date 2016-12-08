@@ -18,16 +18,13 @@
     return input;
   }
   NSString *actualPropName = [input keyPath];
-  NSString *suffix = nil;
-  if ([actualPropName containsString:@"."]) {
-    NSUInteger dotPos = [actualPropName rangeOfString:@"."].location;
+  NSUInteger dotPos = [actualPropName rangeOfString:@"."].location;
+  if (NSNotFound != dotPos) {
     actualPropName = [actualPropName substringToIndex:dotPos];
-    suffix = [actualPropName substringFromIndex:dotPos];
+    NSString *suffix = [actualPropName substringFromIndex:dotPos];
+    return [NSExpression expressionForKeyPath:[NSString stringWithFormat:@"%@.%@", [FBElementUtils wdAttributeNameForAttributeName:actualPropName], suffix]];
   }
-  if (nil == suffix) {
-    return [NSExpression expressionForKeyPath:[FBElementUtils wdAttributeNameForAttributeName:actualPropName]];
-  }
-  return [NSExpression expressionForKeyPath:[NSString stringWithFormat:@"%@.%@", [FBElementUtils wdAttributeNameForAttributeName:actualPropName], suffix]];
+  return [NSExpression expressionForKeyPath:[FBElementUtils wdAttributeNameForAttributeName:actualPropName]];
 }
 
 @end
