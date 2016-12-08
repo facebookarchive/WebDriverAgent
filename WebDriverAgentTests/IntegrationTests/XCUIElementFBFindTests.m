@@ -145,10 +145,10 @@
 - (void)testInvisibleDescendantWithXPathQuery
 {
   [self goToAttributesPage];
-  NSArray<XCUIElement *> *matchingSnapshots = [self.testedApplication fb_descendantsMatchingXPathQuery:@"//XCUIElementTypePageIndicator[@visible='false']" shouldReturnAfterFirstMatch:NO];
+  NSArray<XCUIElement *> *matchingSnapshots = [self.testedApplication fb_descendantsMatchingXPathQuery:@"//XCUIElementTypePageIndicator[@visible='true']" shouldReturnAfterFirstMatch:NO];
   XCTAssertEqual(matchingSnapshots.count, 1);
   XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypePageIndicator);
-  XCTAssertFalse(matchingSnapshots.lastObject.fb_isVisible);
+  XCTAssertTrue(matchingSnapshots.lastObject.fb_isVisible);
 }
 
 - (void)testDescendantsWithPredicateString
