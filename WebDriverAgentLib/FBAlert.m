@@ -106,6 +106,27 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   return mText.length > 0 ? mText.copy : [NSNull null];
 }
 
+- (NSMutableArray *) labels
+{
+  NSMutableArray *value = [NSMutableArray array];
+  
+  XCUIElement *alertElement = self.alertElement;
+  
+  if (!alertElement) {
+    return nil;
+  }
+  
+  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
+  
+  for(XCUIElement *button in buttons)
+  {
+    
+    [value addObject:[button wdLabel]];
+  }
+  
+  return value;
+}
+
 - (BOOL)acceptWithError:(NSError **)error
 {
   XCUIElement *alertElement = self.alertElement;
@@ -145,6 +166,29 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
     return NO;
   }
   return [cancelButton fb_tapWithError:error];
+}
+
+- (BOOL)clickAlertButton:(NSString *)label withError:(NSError **)error {
+  
+  XCUIElement *alertElement = self.alertElement;
+  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
+  XCUIElement *requestedButton;
+  
+  for(XCUIElement *button in buttons) {
+    if([[button wdLabel] isEqualToString:label]){
+      requestedButton = button;
+      break;
+    }
+  }
+  
+  if(!requestedButton) {
+    return
+    [[[FBErrorBuilder builder]
+      withDescriptionFormat:@"Failed to find button with label %@ for alert: %@", label, alertElement]
+     buildError:error];
+  }
+  
+  return [requestedButton fb_tapWithError:error];
 }
 
 + (BOOL)isElementObstructedByAlertView:(XCUIElement *)element alert:(XCUIElement *)alert
