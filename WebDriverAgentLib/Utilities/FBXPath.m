@@ -89,6 +89,9 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 + (NSArray *)collectMatchingSnapshots:(xmlNodeSetPtr)nodeSet elementStore:(NSMutableDictionary *)elementStore
 {
+  if (xmlXPathNodeSetIsEmpty(nodeSet)) {
+    return @[];
+  }
   NSMutableArray *matchingSnapshots = [NSMutableArray array];
   const xmlChar *indexPathKeyName = [FBXPath xmlCharPtrForInput:[kXMLIndexPathKey cStringUsingEncoding:NSUTF8StringEncoding]];
   for (NSInteger i = 0; i < nodeSet->nodeNr; i++) {
