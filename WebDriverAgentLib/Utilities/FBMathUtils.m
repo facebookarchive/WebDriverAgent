@@ -52,3 +52,13 @@ CGPoint FBInvertPointForApplication(CGPoint point, CGSize screenSize, UIInterfac
       return CGPointMake(screenSize.width - point.y, point.x);
   }
 }
+
+CGSize FBAdjustDimensionsForApplication(CGSize actualSize, UIInterfaceOrientation orientation)
+{
+  if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+    if (actualSize.height > actualSize.width) {
+      return CGSizeMake(actualSize.height, actualSize.width);
+    }
+  }
+  return actualSize;
+}

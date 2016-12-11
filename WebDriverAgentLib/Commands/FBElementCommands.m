@@ -19,6 +19,7 @@
 #import "FBSession.h"
 #import "FBApplication.h"
 #import "FBMacros.h"
+#import "FBMathUtils.h"
 #import "XCUICoordinate.h"
 #import "XCUIDevice.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -206,7 +207,8 @@
 
 + (id<FBResponsePayload>)handleDoubleTapCoordinate:(FBRouteRequest *)request
 {
-  XCUICoordinate *doubleTapCoordinate = [self.class getGestureCoordinate:request];
+  CGPoint doubleTapPoint = CGPointMake([request.arguments[@"x"] doubleValue], [request.arguments[@"y"] doubleValue]);
+  XCUICoordinate *doubleTapCoordinate = [self.class gestureCoordinateWithCoordinate:doubleTapPoint application:request.session.application];
   [doubleTapCoordinate doubleTap];
   return FBResponseWithOK();
 }
@@ -229,7 +231,8 @@
 
 + (id<FBResponsePayload>)handleTouchAndHoldCoordinate:(FBRouteRequest *)request
 {
-  XCUICoordinate *pressCoordinate = [self.class getGestureCoordinate:request];
+  CGPoint touchPoint = CGPointMake([request.arguments[@"x"] doubleValue], [request.arguments[@"y"] doubleValue]);
+  XCUICoordinate *pressCoordinate = [self.class gestureCoordinateWithCoordinate:touchPoint application:request.session.application];
   [pressCoordinate pressForDuration:[request.arguments[@"duration"] doubleValue]];
   return FBResponseWithOK();
 }
@@ -278,12 +281,11 @@
 + (id<FBResponsePayload>)handleDrag:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  CGVector startPoint = CGVectorMake((CGFloat)[request.arguments[@"fromX"] doubleValue], (CGFloat)[request.arguments[@"fromY"] doubleValue]);
-  CGVector endPoint = CGVectorMake((CGFloat)[request.arguments[@"toX"] doubleValue], (CGFloat)[request.arguments[@"toY"] doubleValue]);
+  CGPoint startPoint = CGPointMake((CGFloat)[request.arguments[@"fromX"] doubleValue], (CGFloat)[request.arguments[@"fromY"] doubleValue]);
+  CGPoint endPoint = CGPointMake((CGFloat)[request.arguments[@"toX"] doubleValue], (CGFloat)[request.arguments[@"toY"] doubleValue]);
   NSTimeInterval duration = [request.arguments[@"duration"] doubleValue];
-  XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:session.application normalizedOffset:CGVectorMake(0, 0)];
-  XCUICoordinate *endCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:endPoint];
-  XCUICoordinate *startCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:startPoint];
+  XCUICoordinate *endCoordinate = [self.class gestureCoordinateWithCoordinate:endPoint application:session.application];
+  XCUICoordinate *startCoordinate = [self.class gestureCoordinateWithCoordinate:startPoint application:session.application];
   [startCoordinate pressForDuration:duration thenDragToCoordinate:endCoordinate];
   return FBResponseWithOK();
 }
@@ -291,7 +293,6 @@
 + (id<FBResponsePayload>)handleTap:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  FBSession *session = request.session;
   CGFloat x = (CGFloat)[request.arguments[@"x"] doubleValue];
   CGFloat y = (CGFloat)[request.arguments[@"y"] doubleValue];
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
@@ -300,8 +301,7 @@
     x += rect.origin.x;
     y += rect.origin.y;
   }
-  XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:session.application normalizedOffset:CGVectorMake(0, 0)];
-  XCUICoordinate *tapCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(x, y)];
+  XCUICoordinate *tapCoordinate = [self.class gestureCoordinateWithCoordinate:CGPointMake(x, y) application:request.session.application];
   [tapCoordinate tap];
   return FBResponseWithOK();
 }
@@ -329,9 +329,10 @@
 + (id<FBResponsePayload>)handleGetWindowSize:(FBRouteRequest *)request
 {
   CGRect frame = request.session.application.wdFrame;
+  CGSize screenSize = FBAdjustDimensionsForApplication(frame.size, request.session.application.interfaceOrientation);
   return FBResponseWithStatus(FBCommandStatusNoError, @{
-    @"width": @(CGRectGetWidth(frame)),
-    @"height": @(CGRectGetHeight(frame)),
+    @"width": @(screenSize.width),
+    @"height": @(screenSize.height),
   });
 }
 
@@ -350,13 +351,12 @@
   return FBResponseWithOK();
 }
 
-+ (XCUICoordinate *)getGestureCoordinate:(FBRouteRequest *)request
++ (XCUICoordinate *)gestureCoordinateWithCoordinate:(CGPoint)coordinate application:(XCUIApplication *)application
 {
-  FBSession *session = request.session;
-  CGVector point = CGVectorMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
-  XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:session.application normalizedOffset:CGVectorMake(0, 0)];
-  XCUICoordinate *gestureCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:point];
-  return gestureCoordinate;
+  // TODO: handle this properly after XCTest starts to respect actual interface orientation
+  CGPoint point = FBInvertPointForApplication(coordinate, application.frame.size, application.interfaceOrientation);
+  XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:application normalizedOffset:CGVectorMake(0, 0)];
+  return [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(point.x, point.y)];
 }
 
 @end
