@@ -207,7 +207,7 @@
 
 + (id<FBResponsePayload>)handleDoubleTapCoordinate:(FBRouteRequest *)request
 {
-  CGPoint doubleTapPoint = CGPointMake([request.arguments[@"x"] doubleValue], [request.arguments[@"y"] doubleValue]);
+  CGPoint doubleTapPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
   XCUICoordinate *doubleTapCoordinate = [self.class gestureCoordinateWithCoordinate:doubleTapPoint application:request.session.application];
   [doubleTapCoordinate doubleTap];
   return FBResponseWithOK();
@@ -231,7 +231,7 @@
 
 + (id<FBResponsePayload>)handleTouchAndHoldCoordinate:(FBRouteRequest *)request
 {
-  CGPoint touchPoint = CGPointMake([request.arguments[@"x"] doubleValue], [request.arguments[@"y"] doubleValue]);
+  CGPoint touchPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
   XCUICoordinate *pressCoordinate = [self.class gestureCoordinateWithCoordinate:touchPoint application:request.session.application];
   [pressCoordinate pressForDuration:[request.arguments[@"duration"] doubleValue]];
   return FBResponseWithOK();
