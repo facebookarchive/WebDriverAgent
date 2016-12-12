@@ -296,13 +296,15 @@
   CGFloat x = (CGFloat)[request.arguments[@"x"] doubleValue];
   CGFloat y = (CGFloat)[request.arguments[@"y"] doubleValue];
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  if (element != nil) {
-    CGRect rect = element.frame;
-    x += rect.origin.x;
-    y += rect.origin.y;
+  if (nil == element) {
+    XCUICoordinate *tapCoordinate = [self.class gestureCoordinateWithCoordinate:CGPointMake(x, y) application:request.session.application];
+    [tapCoordinate tap];
+  } else {
+    NSError *error;
+    if (![element fb_tapCoordinateWithError:&error relativeCoordinate:CGPointMake(x, y)]) {
+      return FBResponseWithError(error);
+    }
   }
-  XCUICoordinate *tapCoordinate = [self.class gestureCoordinateWithCoordinate:CGPointMake(x, y) application:request.session.application];
-  [tapCoordinate tap];
   return FBResponseWithOK();
 }
 
@@ -353,7 +355,7 @@
 
 + (XCUICoordinate *)gestureCoordinateWithCoordinate:(CGPoint)coordinate application:(XCUIApplication *)application
 {
-  // TODO: handle this properly after XCTest starts to respect actual interface orientation
+  // TODO: handle this properly after XCTest starts to respect landscape interface orientation
   CGPoint point = FBInvertPointForApplication(coordinate, application.frame.size, application.interfaceOrientation);
   XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:application normalizedOffset:CGVectorMake(0, 0)];
   return [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(point.x, point.y)];

@@ -11,6 +11,7 @@
 
 #import "FBRunLoopSpinner.h"
 #import "FBLogger.h"
+#import "FBMacros.h"
 #import "FBMathUtils.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCElementSnapshot-Hitpoint.h"
@@ -21,12 +22,23 @@
 
 - (BOOL)fb_tapWithError:(NSError **)error
 {
+  NSValue *hitpointValue = self.lastSnapshot.suggestedHitpoints.firstObject;
+  CGPoint hitPoint = hitpointValue ? hitpointValue.CGPointValue : [self coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)].screenPoint;
+  hitPoint.x -= self.frame.origin.x;
+  hitPoint.y -= self.frame.origin.y;
+  return [self fb_tapCoordinateWithError:error relativeCoordinate:hitPoint];
+}
+
+- (BOOL)fb_tapCoordinateWithError:(NSError **)error relativeCoordinate:(CGPoint)relativeCoordinate
+{
   [self fb_waitUntilFrameIsStable];
   __block BOOL didSucceed;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    NSValue *hitpointValue = self.lastSnapshot.suggestedHitpoints.firstObject;
-    CGPoint hitPoint = hitpointValue ? hitpointValue.CGPointValue : [self coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)].screenPoint;
-    hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
+    CGPoint hitPoint = CGPointMake(self.frame.origin.x + relativeCoordinate.x, self.frame.origin.y + relativeCoordinate.y);
+    // TODO: Change that after XCTest starts to respect landscape orientation
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+      hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
+    }
     XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
       if (commandError) {
         [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
