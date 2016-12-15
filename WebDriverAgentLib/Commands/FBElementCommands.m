@@ -374,11 +374,11 @@
  @param coordinate absolute screen coordinates
  @param application the instance of current application under test
  @shouldApplyOrientationWorkaround whether to apply orientation workaround. This is to
- handle XCTest bug where it does not translates screen coordinates for elements if
- screen oriantation is different from the default one (portrait).
+ handle XCTest bug where it does not translate screen coordinates for elements if
+ screen orientation is different from the default one (which is portrait).
  Different iOS version have different behavior, for example iOS 9.3 returns correct
- coordinates for elements in landscape, but iOS 10.0+ returns wrong coordinatesm as if
- the current screen orientation would be portrait
+ coordinates for elements in landscape, but iOS 10.0+ returns inverted coordinates as if
+ the current screen orientation would be portrait.
  @return translated gesture coordinates ready to be passed to XCUICoordinate methods
  */
 + (XCUICoordinate *)gestureCoordinateWithCoordinate:(CGPoint)coordinate application:(XCUIApplication *)application shouldApplyOrientationWorkaround:(BOOL)shouldApplyOrientationWorkaround
