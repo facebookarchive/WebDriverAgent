@@ -54,7 +54,7 @@
     [[FBRoute POST:@"/element/:uuid/click"] respondWithTarget:self action:@selector(handleClick:)],
     [[FBRoute POST:@"/element/:uuid/clear"] respondWithTarget:self action:@selector(handleClear:)],
     [[FBRoute POST:@"/element/:uuid/pinch"] respondWithTarget:self action:@selector(handlePinch:)],
-    [[FBRoute POST:@"/element/:uuid/swipe"] respondWithTarget:self action:@selector(handleSwipe:)],
+    [[FBRoute POST:@"/uiaElement/:uuid/swipe"] respondWithTarget:self action:@selector(handleSwipe:)],
     [[FBRoute POST:@"/uiaElement/:uuid/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTap:)],
     [[FBRoute POST:@"/uiaElement/:uuid/twoFingerTap"] respondWithTarget:self action:@selector(handleTwoFingerTap:)],
     [[FBRoute POST:@"/uiaElement/:uuid/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHold:)],
@@ -305,6 +305,8 @@
         [element swipeLeft];
     } else if ([direction isEqualToString:@"right"]) {
         [element swipeRight];
+    } else {
+      return FBResponseWithErrorFormat(@"Unsupported swipe type");
     }
     return FBResponseWithOK();
 }
