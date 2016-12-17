@@ -65,6 +65,11 @@
     [[FBRoute POST:@"/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
     [[FBRoute POST:@"/keys"] respondWithTarget:self action:@selector(handleKeys:)],
     [[FBRoute GET:@"/window/size"] respondWithTarget:self action:@selector(handleGetWindowSize:)],
+    
+    // For Support Swipe
+    [[FBRoute GET:@"/element/:uuid/swipeLeft"] respondWithTarget:self action:@selector(handleSwipeLeft:)],
+    [[FBRoute GET:@"/element/:uuid/swipeRight"] respondWithTarget:self action:@selector(handleSwipeRight:)],
+    
     // TODO: This API call should be deprecated and replaced with the one above without the extra :uuid parameter
     [[FBRoute GET:@"/window/:uuid/size"] respondWithTarget:self action:@selector(handleGetWindowSize:)],
   ];
@@ -72,6 +77,22 @@
 
 
 #pragma mark - Commands
+
++ (id<FBResponsePayload>)handleSwipeLeft:(FBRouteRequest *)request
+{
+    FBElementCache *elementCache = request.session.elementCache;
+    XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+    [element swipeLeft];
+    return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleSwipeRight:(FBRouteRequest *)request
+{
+    FBElementCache *elementCache = request.session.elementCache;
+    XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+    [element swipeRight];
+    return FBResponseWithOK();
+}
 
 + (id<FBResponsePayload>)handleGetEnabled:(FBRouteRequest *)request
 {
