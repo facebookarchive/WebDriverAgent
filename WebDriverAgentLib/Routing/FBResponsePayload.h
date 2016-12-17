@@ -65,6 +65,32 @@ id<FBResponsePayload> FBResponseFileWithPath(NSString *path);
 
 
 /**
+ Returns @{@"error" : msg }
+ */
+id<FBResponsePayload> CBXResponseWithErrorFormat(NSString *format, ...) NS_FORMAT_FUNCTION(1, 2);
+
+/**
+ Returns 'status' response payload with given object
+ */
+id<FBResponsePayload> CBXResponseWithStatus(NSString *status, __nullable id extraInfo);
+
+/**
+ Returns @{@"error" : error.localizedDescription, @"info" : info}
+ */
+id<FBResponsePayload> CBXResponseWithError(NSError *error);
+
+
+/**
+ Response with deserialized exception
+ */
+id<FBResponsePayload> CBXResponseWithException(NSException *exc);
+
+/**
+ Generic json response
+ */
+id<FBResponsePayload> CBXResponseWithJSON(NSDictionary *json);
+
+/**
  Protocol for objects that can dispatch some kind of a payload for given 'response'
  */
 @protocol FBResponsePayload <NSObject>

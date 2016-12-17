@@ -31,7 +31,7 @@
  */
 - (void)testRunner
 {
-  [FBConfiguration shouldShowFakeCollectionViewCells:YES];
+    //[FBConfiguration shouldShowFakeCollectionViewCells:YES];
   [[FBWebServer new] startServing];
 }
 

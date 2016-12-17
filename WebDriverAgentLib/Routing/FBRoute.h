@@ -64,6 +64,11 @@ typedef __nonnull id<FBResponsePayload> (^FBRouteSyncHandler)(FBRouteRequest *re
 - (instancetype)withoutSession;
 
 /**
+ Marks the request as requiring a CBX session: i.e., _any_ app session must exist first. 
+ */
+- (instancetype)withCBXSession;
+
+/**
  Dispatches response for request
  */
 - (void)mountRequest:(FBRouteRequest *)request intoResponse:(RouteResponse *)response;

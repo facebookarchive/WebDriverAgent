@@ -15,6 +15,8 @@
 #import "FBResponsePayload.h"
 #import "FBSession.h"
 
+NSString *const CBXSessionDoesNotExistException = @"CBXSessionDoesNotExistException";
+
 NSString *const FBInvalidArgumentException = @"FBInvalidArgumentException";
 NSString *const FBSessionDoesNotExistException = @"FBSessionDoesNotExistException";
 NSString *const FBApplicationDeadlockDetectedException = @"FBApplicationDeadlockDetectedException";

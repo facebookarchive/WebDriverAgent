@@ -78,6 +78,48 @@ id<FBResponsePayload> FBResponseWithStatus(FBCommandStatus status, id object)
   }];
 }
 
+/**
+ Returns @{@"error" : error.localizedDescription, @"info" : info}
+ */
+id<FBResponsePayload> CBXResponseWithError(NSError *error) {
+    return [[FBResponseJSONPayload alloc] initWithDictionary:@{
+       @"error" : error.localizedDescription,
+    }];
+}
+
+id<FBResponsePayload> CBXResponseWithException(NSException *exc) {
+    return [[FBResponseJSONPayload alloc] initWithDictionary:@{
+                                                               @"error" : exc.name ?: @"",
+                                                               @"reason" : exc.reason ?: @"",
+                                                               @"info" : exc.userInfo ?: @{}
+                                                               }];
+}
+
+
+id<FBResponsePayload> CBXResponseWithErrorFormat(NSString *format, ...)
+{
+    va_list argList;
+    va_start(argList, format);
+    NSString *errorMessage = [[NSString alloc] initWithFormat:format arguments:argList];
+    id<FBResponsePayload> payload = CBXResponseWithJSON(@{@"error" : errorMessage});
+    va_end(argList);
+    return payload;
+}
+
+/**
+ Returns 'status' response payload with given object
+ */
+id<FBResponsePayload> CBXResponseWithStatus(NSString *status, id object) {
+    return CBXResponseWithJSON(@{
+       @"info" : object ?: @{},
+       @"status" : status,
+    });
+}
+
+id<FBResponsePayload> CBXResponseWithJSON(NSDictionary *json) {
+    return [[FBResponseJSONPayload alloc] initWithDictionary:json];
+}
+
 id<FBResponsePayload> FBResponseFileWithPath(NSString *path)
 {
   return [[FBResponseFilePayload alloc] initWithFilePath:path];

@@ -34,6 +34,10 @@ static FBSession *_activeSession;
   return _activeSession ?: [FBSession sessionWithApplication:nil];
 }
 
++ (nullable FBElementCache *)activeSessionCache {
+    return [[self activeSession] elementCache];
+}
+
 + (void)markSessionActive:(FBSession *)session
 {
   _activeSession = session;

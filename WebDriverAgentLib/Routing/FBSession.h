@@ -33,6 +33,8 @@ extern NSString *const FBApplicationCrashedException;
 
 + (nullable instancetype)activeSession;
 
++ (nullable FBElementCache *)activeSessionCache;
+
 /**
  Fetches session for given identifier.
  If identifier doesn't match activeSession identifier, will return nil.

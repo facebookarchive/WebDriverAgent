@@ -23,6 +23,8 @@
 #import "FBConfiguration.h"
 #import "FBLogger.h"
 
+#import "CBXUndefinedCommands.h"
+
 #import "XCUIDevice+FBHelpers.h"
 
 static NSString *const FBServerURLBeginMarker = @"ServerURLHere->";
@@ -71,24 +73,72 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   self.exceptionHandler = [FBExceptionHandler new];
   [self startHTTPServer];
   if (FBConfiguration.shouldListenOnUSB) {
-    [self startUSBServer];
+       [self startUSBServer];
   }
-  [[NSRunLoop mainRunLoop] run];
+  
+    NSTimeInterval interval = 0.1;
+    while ([self.server isRunning]) {
+        
+        // If we are worried about alloc'ing NSDate objects, it might be
+        // possible to replace with:
+        // CFRunLoopRunInMode(kCFRunLoopDefaultMode, timeout_, false);
+        NSDate *until = [[NSDate date] dateByAddingTimeInterval:interval];
+        [[NSRunLoop mainRunLoop] runUntilDate:until];
+        
+        // Turning this behavior off because it has some unpleasant side effects.
+        //
+        // Your tests have completed on a device and the DeviceAgent is still
+        // running.  You open Twitter and DeviceAgent auto-allows Twitter access
+        // to your Contacts.
+        //
+        // [self handleSpringBoardAlert];
+    }
+}
+
+- (void)stop {
+    if ([NSThread currentThread] != [NSThread mainThread]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [FBLogger logFmt:@"Shuttind down the server at at %s %s", __DATE__, __TIME__];
+            [self.server stop:NO];
+            [self.USBServer stop];
+        });
+    }
 }
 
 - (void)startHTTPServer
 {
   self.server = [[RoutingHTTPServer alloc] init];
   [self.server setRouteQueue:dispatch_get_main_queue()];
-  [self.server setDefaultHeader:@"Server" value:@"WebDriverAgent/1.0"];
+    
+    [self.server setDefaultHeader:@"Server"
+                        value:@"iOSAutomationAgent"];
+    [self.server setConnectionClass:[RoutingConnection self]];
+    [self.server setType:@"_calabus_._tcp."];
+    
+    NSString *uuid = [[NSProcessInfo processInfo] globallyUniqueString];
+    NSString *token = [uuid componentsSeparatedByString:@"-"][0];
+    NSString *serverName = [NSString stringWithFormat:@"iOSAutomationAgent-%@", token];
+    [self.server setName:serverName];
+    
+    NSDictionary *capabilities =
+    @{
+      @"name" : [[UIDevice currentDevice] name]
+      };
+    
+    [self.server setTXTRecordDictionary:capabilities];
+    
   [self.server setConnectionClass:[FBHTTPConnection self]];
 
   [self registerRouteHandlers:[self.class collectCommandHandlerClasses]];
   [self registerServerKeyRouteHandlers];
 
-  NSRange serverPortRange = FBConfiguration.bindingPortRange;
-  NSError *error;
+    NSError *error;
   BOOL serverStarted = NO;
+
+    //TODO: Flexible ports
+    [self.server setPort:27753];
+    /*
+     NSRange serverPortRange = FBConfiguration.bindingPortRange;
 
   for (NSUInteger index = 0; index < serverPortRange.length; index++) {
     NSInteger port = serverPortRange.location + index;
@@ -101,6 +151,8 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
     [FBLogger logFmt:@"Failed to start web server on port %ld with error %@", (long)port, [error description]];
   }
+     */
+    serverStarted = [self attemptToStartServer:self.server onPort:self.server.port withError:&error];
 
   if (!serverStarted) {
     [FBLogger logFmt:@"Last attempt to start web server failed with error %@", [error description]];
@@ -142,7 +194,13 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 {
   for (Class<FBCommandHandler> commandHandler in commandHandlerClasses) {
     NSArray *routes = [commandHandler routes];
+      if ([commandHandler.class isSubclassOfClass:CBXCommands.class]) {
+          NSLog(@"Adding CBXRoutes>>>");
+      }
     for (FBRoute *route in routes) {
+        if ([commandHandler.class isSubclassOfClass:CBXCommands.class]) {
+            NSLog(@"\t%@ %@", route.verb, route.path);
+        }
       [self.server handleMethod:route.verb withPath:route.path block:^(RouteRequest *request, RouteResponse *response) {
         NSDictionary *arguments = [NSJSONSerialization JSONObjectWithData:request.body options:NSJSONReadingMutableContainers error:NULL];
         FBRouteRequest *routeParams = [FBRouteRequest
@@ -179,6 +237,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     [response respondWithString:@"I-AM-ALIVE"];
   }];
   [self registerRouteHandlers:@[FBUnknownCommands.class]];
+    [self registerRouteHandlers:@[CBXUndefinedCommands.class]];
 }
 
 @end
