@@ -6,7 +6,7 @@
 
 #import <XCTest/XCUIApplication.h>
 
-@class NSArray, NSDictionary, NSString, XCAccessibilityElement, XCApplicationQuery;
+@class NSArray, NSDictionary, NSString, XCAccessibilityElement, XCApplicationQuery, XCUIApplicationImpl;
 
 @interface XCUIApplication ()
 {
@@ -18,14 +18,14 @@
     XCUIElement *_keyboard;
     NSArray *_launchArguments;
     NSDictionary *_launchEnvironment;
-    NSString *_path;
-    NSString *_bundleID;
+    XCUIApplicationImpl *_applicationImpl;
     XCApplicationQuery *_applicationQuery;
     unsigned long long _generation;
 }
 @property unsigned long long generation; // @synthesize generation=_generation;
 @property BOOL eventLoopIsIdle; // @synthesize eventLoopIsIdle=_eventLoopIsIdle;
 @property(retain) XCApplicationQuery *applicationQuery; // @synthesize applicationQuery=_applicationQuery;
+@property(retain) XCUIApplicationImpl *applicationImpl; // @synthesize applicationQuery=_applicationQuery;
 @property(readonly, copy) NSString *bundleID; // @synthesize bundleID=_bundleID;
 @property(readonly, copy) NSString *path; // @synthesize path=_path;
 @property BOOL ancillary; // @synthesize ancillary=_ancillary;
@@ -33,12 +33,12 @@
 @property(readonly) XCUIElement *keyboard; // @synthesize keyboard=_keyboard;
 @property(readonly, nonatomic) UIInterfaceOrientation interfaceOrientation; //TODO tvos
 @property(readonly, nonatomic) BOOL running;
-@property(nonatomic) int processID; // @synthesize processID=_processID;
+@property(nonatomic) pid_t processID; // @synthesize processID=_processID;
 @property unsigned long long state; // @synthesize state=_state;
 @property(readonly) XCAccessibilityElement *accessibilityElement;
 
 + (id)keyPathsForValuesAffectingRunning;
-+ (id)appWithPID:(int)arg1;
++ (instancetype)appWithPID:(pid_t)processID;
 
 - (void)dismissKeyboard;
 - (void)_waitForViewControllerViewDidDisappearWithTimeout:(double)arg1;
@@ -46,8 +46,6 @@
 - (void)terminate;
 - (void)_launchUsingXcode:(BOOL)arg1;
 - (void)launch;
-- (void)_waitForLaunchProgressViaProxy:(id)arg1;
-- (void)_waitForLaunchTokenViaProxy:(id)arg1;
 - (id)application;
 - (id)description;
 - (id)lastSnapshot;

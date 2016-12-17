@@ -34,7 +34,7 @@ class Screen extends React.Component {
     return {
       width: screenshot.width * screenshot.scale,
       height: screenshot.height * screenshot.scale,
-    }
+    };
   }
 
   screenshot() {
@@ -71,11 +71,21 @@ class Screen extends React.Component {
     const topOffset = screenshot.height;
 
     var scale = screenshot.scale;
+    // Rect attribute use pt, but screenshot use px.
+    // So caculate its px/pt scale automatically.
+    var pxPtScale = screenshot.width / this.props.rootNode.rect.size.width;
+
+    // hide nodes with rect out of bound
+    if (rect.origin.x < 0 || rect.origin.x * pxPtScale >= screenshot.width ||
+      rect.origin.y < 0 || rect.origin.y * pxPtScale >= screenshot.height){
+        return {}
+    }
+
     return {
-      left: rect.x * scale * 2,
-      top: rect.y * scale * 2 - topOffset * scale - elementsMargins,
-      width: rect.width * scale * 2,
-      height: rect.height * scale * 2,
+      left: rect.origin.x * scale * pxPtScale,
+      top: rect.origin.y * scale * pxPtScale - topOffset * scale - elementsMargins,
+      width: rect.size.width * scale * pxPtScale,
+      height: rect.size.height * scale * pxPtScale,
     };
   }
 }

@@ -40,6 +40,7 @@ class Inspector extends React.Component {
     return (
       <div>
         {this.renderField('Class', attributes.type)}
+        {this.renderField('Raw identifier', attributes.rawIdentifier)}
         {this.renderField('Name', attributes.name)}
         {this.renderField('Value', attributes.value)}
         {this.renderField('Label', attributes.label)}
@@ -60,7 +61,7 @@ class Inspector extends React.Component {
           {fieldName}:
         </div>
         <div className="inspector-field-value">
-          {fieldValue}
+          {String(fieldValue)}
         </div>
       </div>
     );

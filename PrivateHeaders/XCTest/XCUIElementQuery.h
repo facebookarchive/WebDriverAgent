@@ -4,7 +4,7 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-#import <XCTWebDriverAgentLib/CDStructures.h>
+#import <WebDriverAgentLib/CDStructures.h>
 #import <XCTest/XCUIElementQuery.h>
 
 @class NSArray, NSOrderedSet, NSString, XCUIApplication, XCUIElement;
@@ -47,6 +47,5 @@
 - (id)_derivedExpressedIdentifiers;
 - (unsigned long long)_derivedExpressedType;
 - (id)initWithInputQuery:(id)arg1 queryDescription:(id)arg2 filter:(CDUnknownBlockType)arg3;
-
 
 @end

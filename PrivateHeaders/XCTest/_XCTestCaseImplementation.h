@@ -4,9 +4,9 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-@class NSArray, NSInvocation, NSMutableArray, NSMutableDictionary, NSMutableSet, NSString, XCTestCaseRun, XCTestContext;
+@class NSArray, NSInvocation, NSMutableArray, NSMutableDictionary, NSMutableSet, NSString, XCTestCaseRun, XCTestContext, XCTestExpectationWaiter;
 
-#import <XCTWebDriverAgentLib/CDStructures.h>
+#import <WebDriverAgentLib/CDStructures.h>
 
 @interface _XCTestCaseImplementation : NSObject
 {
@@ -14,11 +14,6 @@
     XCTestCaseRun *_testCaseRun;
     BOOL _continueAfterFailure;
     NSMutableSet *_expectations;
-    NSMutableArray *_fulfillments;
-    NSObject<OS_dispatch_source> *_timeoutSource;
-    double _timeoutDuration;
-    BOOL _waiting;
-    CDUnknownBlockType _completionHandler;
     NSArray *_performanceMetricIDs;
     NSArray *_activePerformanceMetricIDs;
     NSMutableDictionary *_perfMetricDataForID;
@@ -35,6 +30,7 @@
     unsigned long long _callAddressForCurrentWait;
     NSArray *_callAddressesForLastCreatedExpectation;
     long long _runLoopNestingCount;
+    XCTestExpectationWaiter *_currentExpectationWaiter;
     NSMutableArray *_failureRecords;
     BOOL _shouldHaltWhenReceivesControl;
     BOOL _shouldIgnoreSubsequentFailures;
@@ -43,20 +39,16 @@
 }
 
 @property(readonly) XCTestContext *testContext; // @synthesize testContext=_testContext;
+@property(retain, nonatomic) XCTestExpectationWaiter *currentExpectationWaiter; // @synthesize currentExpectationWaiter=_currentExpectationWaiter;
 @property(retain, nonatomic) NSMutableArray *activityRecordStack; // @synthesize activityRecordStack=_activityRecordStack;
 @property BOOL shouldIgnoreSubsequentFailures; // @synthesize shouldIgnoreSubsequentFailures=_shouldIgnoreSubsequentFailures;
 @property BOOL shouldHaltWhenReceivesControl; // @synthesize shouldHaltWhenReceivesControl=_shouldHaltWhenReceivesControl;
 @property(retain, nonatomic) NSMutableArray *failureRecords; // @synthesize failureRecords=_failureRecords;
 @property long long runLoopNestingCount; // @synthesize runLoopNestingCount=_runLoopNestingCount;
-@property(nonatomic) NSObject<OS_dispatch_source> *timeoutSource; // @synthesize timeoutSource=_timeoutSource;
 @property(copy) NSArray *callAddressesForLastCreatedExpectation; // @synthesize callAddressesForLastCreatedExpectation=_callAddressesForLastCreatedExpectation;
 @property unsigned long long callAddressForCurrentWait; // @synthesize callAddressForCurrentWait=_callAddressForCurrentWait;
 @property unsigned long long lineNumberForUnexpectedFailure; // @synthesize lineNumberForUnexpectedFailure=_lineNumberForUnexpectedFailure;
 @property(copy) NSString *filePathForUnexpectedFailure; // @synthesize filePathForUnexpectedFailure=_filePathForUnexpectedFailure;
-@property(copy) CDUnknownBlockType completionHandler; // @synthesize completionHandler=_completionHandler;
-@property double timeoutDuration; // @synthesize timeoutDuration=_timeoutDuration;
-@property BOOL waiting; // @synthesize waiting=_waiting;
-@property(retain, nonatomic) NSMutableArray *fulfillments; // @synthesize fulfillments=_fulfillments;
 @property(retain, nonatomic) NSMutableSet *expectations; // @synthesize expectations=_expectations;
 @property BOOL didStopMeasuring; // @synthesize didStopMeasuring=_didStopMeasuring;
 @property BOOL didStartMeasuring; // @synthesize didStartMeasuring=_didStartMeasuring;

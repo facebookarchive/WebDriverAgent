@@ -20,7 +20,7 @@ import Inspector from 'js/inspector';
 require('css/app.css')
 
 const SCREENSHOT_ENDPOINT = 'screenshot';
-const TREE_ENDPOINT = 'tree';
+const TREE_ENDPOINT = 'source';
 const ORIENTATION_ENDPOINT = 'orientation';
 
 class App extends React.Component {
@@ -59,7 +59,8 @@ class App extends React.Component {
   		<div id="app">
   			<Screen
           highlightedNode={this.state.highlightedNode}
-          screenshot={this.state.screenshot} />
+          screenshot={this.state.screenshot}
+          rootNode={this.state.rootNode} />
   			<Tree
           onHighlightedNodeChange={(node) => {
             this.setState({
