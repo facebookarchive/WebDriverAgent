@@ -52,6 +52,15 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 @implementation FBWebServer
 
+static FBWebServer *singletonInstance;
+
++ (void)initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        singletonInstance = [self new];
+    });
+}
+
 + (NSArray<Class<FBCommandHandler>> *)collectCommandHandlerClasses
 {
   NSArray *handlersClasses = FBClassesThatConformsToProtocol(@protocol(FBCommandHandler));
@@ -65,6 +74,14 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     [handlers addObject:aClass];
   }
   return handlers.copy;
+}
+
++ (void)startServing {
+    [singletonInstance startServing];
+}
+
++ (void)stop {
+    [singletonInstance stop];
 }
 
 - (void)startServing
@@ -102,6 +119,10 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
             [self.server stop:NO];
             [self.USBServer stop];
         });
+    } else {
+        [FBLogger logFmt:@"Shuttind down the server at at %s %s", __DATE__, __TIME__];
+        [self.server stop:NO];
+        [self.USBServer stop];
     }
 }
 

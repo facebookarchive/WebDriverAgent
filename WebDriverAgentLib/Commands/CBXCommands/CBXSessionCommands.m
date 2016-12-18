@@ -2,6 +2,7 @@
 #import "CBXLSApplicationWorkspace.h"
 #import "CBXSessionCommands.h"
 #import "FBApplication.h"
+#import "FBWebServer.h"
 #import "FBSession.h"
 
 @implementation CBXSessionCommands
@@ -71,7 +72,7 @@
     //Want to make sure this route actually returns a response to the client before shutting down
     float nSecsToShutdown = 0.2f;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(nSecsToShutdown * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
+        [FBWebServer stop];
     });
 
     return CBXResponseWithJSON(@{
