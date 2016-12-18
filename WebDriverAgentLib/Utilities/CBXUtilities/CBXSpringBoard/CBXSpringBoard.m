@@ -224,8 +224,8 @@ typedef enum : NSUInteger {
         // This could also be done with [button tap].
         //
         // However, the system seems more stable if we use our touch gesture.
-        CGFloat x = CGRectGetMinX(frame) + (CGRectGetWidth(frame)/2.0);
-        CGFloat y = CGRectGetMinY(frame) + (CGRectGetHeight(frame)/2.0);
+        double x = CGRectGetMinX(frame) + (CGRectGetWidth(frame)/2.0);
+        double y = CGRectGetMinY(frame) + (CGRectGetHeight(frame)/2.0);
         
         NSDictionary *specifiers = @{@"coordinate" : @{ @"x" : @(x), @"y" : @(y)}};
         BOOL success = [CBXGestureCommands handleTouch:specifiers options:@{}];

@@ -113,8 +113,8 @@ NSString *const LPDeviceSimKeyIphoneSimulatorDevice_LEGACY = @"IPHONE_SIMULATOR_
         nativeScale = screen.nativeScale;
     }
 
-    CGFloat iphone6_zoom_sample = 1.171875;
-    CGFloat iphone6p_zoom_sample = 0.96;
+    CGFloat iphone6_zoom_sample = 1.171875f;
+    CGFloat iphone6p_zoom_sample = 0.96f;
 
     UIScreenMode *screenMode = [screen currentMode];
     CGSize screenSizeForMode = screenMode.size;
