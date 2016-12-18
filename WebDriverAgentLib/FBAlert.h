@@ -58,6 +58,12 @@ extern NSString *const FBAlertObstructingElementException;
  */
 - (BOOL)dismissWithError:(NSError **)error;
 
+
+/**
+ Attempt to handle by pressing button with text
+ */
+- (BOOL)pressButtonTitled:(NSString *)title error:(NSError **)error;
+
 /**
  Filters out elements obstructed by alert
 

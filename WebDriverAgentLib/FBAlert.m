@@ -147,6 +147,15 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   return [cancelButton fb_tapWithError:error];
 }
 
+- (BOOL)pressButtonTitled:(NSString *)title error:(NSError **)error {
+    XCUIElement *alertElement = self.alertElement;
+    XCUIElement *button = alertElement.buttons[title];
+    if (!button.exists) {
+        return NO;
+    }
+    return [button fb_tapWithError:error];
+}
+
 + (BOOL)isElementObstructedByAlertView:(XCUIElement *)element alert:(XCUIElement *)alert
 {
   if (!alert.exists) {

@@ -1,7 +1,8 @@
 
-#import "CBXSpringBoard.h"
+#import "CBXAlertHandler.h"
 #import "CBXSpringBoardAlert.h"
 #import "CBXSpringBoardAlerts.h"
+#import "CBXGestureCommands.h"
 
 #import "XCUIElement.h"
 #import "XCUIApplication.h"
@@ -9,16 +10,19 @@
 #import "XCElementSnapshot.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 
-#import "CBXGestureCommands.h"
+#import "FBApplication.h"
+#import "FBSession.h"
+#import "FBLogger.h"
 
 typedef enum : NSUInteger {
     SpringBoardAlertHandlerIgnoringAlerts = 0,
     SpringBoardAlertHandlerNoAlert,
     SpringBoardAlertHandlerDismissedAlert,
-    SpringBoardAlertHandlerUnrecognizedAlert
+    SpringBoardAlertHandlerUnrecognizedAlert,
+    SpringBoardAlertHandlerUnableToDismiss
 } SpringBoardAlertHandlerResult;
 
-@interface CBXSpringBoard ()
+@interface CBXAlertHandler ()
 
 - (BOOL)shouldDismissAlertsAutomatically;
 - (BOOL)tapAlertButtonWithFrame:(CGRect)frame;
@@ -26,42 +30,30 @@ typedef enum : NSUInteger {
 
 @end
 
-@implementation CBXSpringBoard
+@implementation CBXAlertHandler
 
-- (instancetype)initPrivateWithPath:(id)arg1 bundleID:(id)arg2 {
-    self = [super initPrivateWithPath:arg1 bundleID:arg2];
-    if (self) {
-        // Please keep.  There were implementations that required ivars.
-        // Interacting with SpringBoard is a WIP.
+- (instancetype)init_private {
+    if ((self = [super init])) {
+        XCUIApplication *app = [FBSession activeSession].application;
+        _alert = [FBAlert alertWithApplication:app];
     }
     return self;
 }
 
-+ (instancetype)application {
-    static CBXSpringBoard *_springBoard;
++ (instancetype)alertHandler {
+    static CBXAlertHandler *_handler;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        _handler = [CBXAlertHandler new];
+        /*
         _springBoard = [[CBXSpringBoard alloc]
                         initPrivateWithPath:nil
                         bundleID:@"com.apple.springboard"];
         [[_springBoard applicationQuery] elementBoundByIndex:0];
         [_springBoard resolve];
+         */
     });
-    return _springBoard;
-}
-
-- (XCUIElement *)queryForAlert {
-    @synchronized (self) {
-        XCUIElement *alert = nil;
-
-        XCUIElementQuery *query = [self descendantsMatchingType:XCUIElementTypeAlert];
-        NSArray <XCUIElement *> *elements = [query allElementsBoundByIndex];
-
-        if ([elements count] != 0) {
-            alert = elements[0];
-        }
-        return alert;
-    }
+    return _handler;
 }
 
 - (BOOL)shouldDismissAlertsAutomatically {
@@ -69,12 +61,10 @@ typedef enum : NSUInteger {
     return YES;
 }
 
-- (void)handleAlertsOrThrow {
-
+- (void)handleSpringboardAlertsOrThrow {
     @synchronized (self) {
-
         if (![self shouldDismissAlertsAutomatically]) { return; }
-
+        
         SpringBoardAlertHandlerResult current = SpringBoardAlertHandlerNoAlert;
 
         // There are fewer than 20 kinds of SpringBoard alerts.
@@ -83,7 +73,7 @@ typedef enum : NSUInteger {
 
         current = [self handleAlert];
 
-        while(current != SpringBoardAlertHandlerNoAlert && try < maxTries) {
+        while (current != SpringBoardAlertHandlerNoAlert && try < maxTries) {
             current = [self handleAlert];
             if (current == SpringBoardAlertHandlerUnrecognizedAlert) {
                 break;
@@ -92,20 +82,19 @@ typedef enum : NSUInteger {
         }
 
         if (try == maxTries || current == SpringBoardAlertHandlerUnrecognizedAlert) {
-            XCUIElement *alert = nil;
             NSString *alertTitle = nil;
             NSArray *alertButtonTitles = @[];
 
-            alert = [self queryForAlert];
-
-            if (alert && alert.exists) {
-                alertTitle = alert.label;
-                XCUIElementQuery *query = [alert descendantsMatchingType:XCUIElementTypeButton];
+            if ([self.alert isPresent]) {
+                XCUIElement *alertElement = [self.alert alertElement];
+                
+                alertTitle = self.alert.text;
+                XCUIElementQuery *query = [alertElement descendantsMatchingType:XCUIElementTypeButton];
                 NSArray<XCUIElement *> *buttons = [query allElementsBoundByIndex];
 
                 NSMutableArray *mutable = [NSMutableArray arrayWithCapacity:buttons.count];
 
-                for(XCUIElement *button in buttons) {
+                for (XCUIElement *button in buttons) {
                     if (button.exists) {
                         NSString *name = button.label;
                         if (name) {
@@ -132,16 +121,16 @@ typedef enum : NSUInteger {
 // This method is not protected by a lock!  It should only be called by
 // handleAlertsOrThrow
 - (SpringBoardAlertHandlerResult)handleAlert {
-
-    XCUIElement *alert = [self queryForAlert];
+    XCUIApplication *currentApp = [FBSession activeSession].application;
+    FBAlert *alert = [FBAlert alertWithApplication:currentApp];
 
     // There is not alert.
-    if (!alert || !alert.exists) {
+    if (![alert isPresent]) {
         return SpringBoardAlertHandlerNoAlert;
     }
 
     // .label is the title for English and German.  Hopefully for others too.
-    NSString *title = alert.label;
+    NSString *title = alert.text;
     CBXSpringBoardAlert *springBoardAlert = [[CBXSpringBoardAlerts shared] alertMatchingTitle:title];
 
     // We don't know about this alert.
@@ -149,65 +138,20 @@ typedef enum : NSUInteger {
         return SpringBoardAlertHandlerUnrecognizedAlert;
     }
 
-    XCUIElement *button = nil;
-    NSString *mark = springBoardAlert.defaultDismissButtonMark;
-
     // Alert is now gone? It can happen...
-    if (!alert.exists) {
+    if (![alert isPresent]) {
         return SpringBoardAlertHandlerNoAlert;
     }
 
-    button = alert.buttons[mark];
-    // Resolve before asking if the button exists.
-    [button resolve];
-
-    // A button with the expected title does not exist.
-    // It probably changed after an iOS update.
-    if (!button || !button.exists) {
-        button = nil;
-    }
-
-    // Use the default accept/deny button, but only if we recognize this alert.
-    if (!button) {
-
-        if (!alert.exists) {
-            return SpringBoardAlertHandlerNoAlert;
-        }
-
-        XCUIElementQuery *query = [alert descendantsMatchingType:XCUIElementTypeButton];
-        NSArray<XCUIElement *> *buttons = [query allElementsBoundByIndex];
-
-        if ([buttons count] == 0) {
-            return SpringBoardAlertHandlerNoAlert;
-        }
-
-        if (springBoardAlert.shouldAccept) {
-            button = buttons.lastObject;
-        } else {
-            button = buttons.firstObject;
-        }
-    }
-
-    // Resolve before asking if the button exists.
-    [button resolve];
-
-    if (!button || !button.exists) {
-        return SpringBoardAlertHandlerNoAlert;
-    }
-
-    // There are cases where the button does not respond to wdFrame.
-    // I cannot explain why, but it was happening during development.
-    CGRect frame;
-    if (![button respondsToSelector:@selector(wdFrame)]) {
-        frame = [button frame];
+    NSError *e;
+    if (springBoardAlert.shouldAccept) {
+        [alert acceptWithError:&e];
     } else {
-        frame = [button wdFrame];
+        [alert dismissWithError:&e];
     }
-
-    BOOL success = [self tapAlertButtonWithFrame:frame];
-
-    if (!success) {
-        return SpringBoardAlertHandlerNoAlert;
+    if (e) {
+        [FBLogger logFmt:@"Error handling alert (%@): %@", alert.text, e];
+        return SpringBoardAlertHandlerUnableToDismiss;
     }
 
     return SpringBoardAlertHandlerDismissedAlert;
@@ -271,32 +215,17 @@ typedef enum : NSUInteger {
 
 - (SpringBoardDismissAlertResult)dismissAlertByTappingButtonWithTitle:(NSString *)title {
     @synchronized (self) {
-        XCUIElement *alert = [self queryForAlert];
-
-        if (!alert) {
+        if (![self.alert isPresent]) {
             return SpringBoardDismissAlertNoAlert;
         } else {
-            XCUIElement *button = alert.buttons[title];
-            [button resolve];
-
-            if (!button.exists) {
-                return SpringBoardDismissAlertNoMatchingButton;
-            }
-
-            // There are cases where the button does not respond to wdFrame.
-            CGRect frame;
-            if (![button respondsToSelector:@selector(wdFrame)]) {
-                frame = [button frame];
-            } else {
-                frame = [button wdFrame];
-            }
-
-            BOOL success = [self tapAlertButtonWithFrame:frame];
+            NSError *e;
+            BOOL success = [self.alert pressButtonTitled:title error:&e];
 
             SpringBoardDismissAlertResult result;
             if (success) {
                 result = SpringBoardDismissAlertDismissedAlert;
             } else {
+                [FBLogger logFmt:@"Error dissmissing button titled '%@': %@", title, e];
                 result = SpringBoardDismissAlertDismissTouchFailed;
             }
             return result;

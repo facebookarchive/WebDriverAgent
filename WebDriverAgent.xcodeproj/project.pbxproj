@@ -49,8 +49,8 @@
 		896D94011E05B200008A8358 /* CBXDeviceEventCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 896D93FF1E05B200008A8358 /* CBXDeviceEventCommands.m */; };
 		896D94041E05B53E008A8358 /* CBXUndefinedCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 896D94021E05B53E008A8358 /* CBXUndefinedCommands.h */; };
 		896D94051E05B53E008A8358 /* CBXUndefinedCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 896D94031E05B53E008A8358 /* CBXUndefinedCommands.m */; };
-		896D940D1E05B7DC008A8358 /* CBXSpringBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = 896D940B1E05B7DC008A8358 /* CBXSpringBoard.h */; };
-		896D940E1E05B7DC008A8358 /* CBXSpringBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 896D940C1E05B7DC008A8358 /* CBXSpringBoard.m */; };
+		896D940D1E05B7DC008A8358 /* CBXAlertHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 896D940B1E05B7DC008A8358 /* CBXAlertHandler.h */; };
+		896D940E1E05B7DC008A8358 /* CBXAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 896D940C1E05B7DC008A8358 /* CBXAlertHandler.m */; };
 		896D94131E05B7E8008A8358 /* CBXDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 896D940F1E05B7E8008A8358 /* CBXDevice.h */; };
 		896D94141E05B7E8008A8358 /* CBXDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 896D94101E05B7E8008A8358 /* CBXDevice.m */; };
 		896D94151E05B7E8008A8358 /* CBXInfoPlist.h in Headers */ = {isa = PBXBuildFile; fileRef = 896D94111E05B7E8008A8358 /* CBXInfoPlist.h */; };
@@ -400,8 +400,8 @@
 		896D93FF1E05B200008A8358 /* CBXDeviceEventCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBXDeviceEventCommands.m; sourceTree = "<group>"; };
 		896D94021E05B53E008A8358 /* CBXUndefinedCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBXUndefinedCommands.h; sourceTree = "<group>"; };
 		896D94031E05B53E008A8358 /* CBXUndefinedCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBXUndefinedCommands.m; sourceTree = "<group>"; };
-		896D940B1E05B7DC008A8358 /* CBXSpringBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBXSpringBoard.h; path = CBXUtilities/CBXSpringBoard/CBXSpringBoard.h; sourceTree = "<group>"; };
-		896D940C1E05B7DC008A8358 /* CBXSpringBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBXSpringBoard.m; path = CBXUtilities/CBXSpringBoard/CBXSpringBoard.m; sourceTree = "<group>"; };
+		896D940B1E05B7DC008A8358 /* CBXAlertHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBXAlertHandler.h; path = CBXUtilities/CBXSpringBoard/CBXAlertHandler.h; sourceTree = "<group>"; };
+		896D940C1E05B7DC008A8358 /* CBXAlertHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBXAlertHandler.m; path = CBXUtilities/CBXSpringBoard/CBXAlertHandler.m; sourceTree = "<group>"; };
 		896D940F1E05B7E8008A8358 /* CBXDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBXDevice.h; path = CBXUtilities/CBXDevice.h; sourceTree = "<group>"; };
 		896D94101E05B7E8008A8358 /* CBXDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBXDevice.m; path = CBXUtilities/CBXDevice.m; sourceTree = "<group>"; };
 		896D94111E05B7E8008A8358 /* CBXInfoPlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBXInfoPlist.h; path = CBXUtilities/CBXInfoPlist.h; sourceTree = "<group>"; };
@@ -784,8 +784,8 @@
 				896D94201E05B856008A8358 /* CBXSpringBoardAlert.m */,
 				896D94211E05B856008A8358 /* CBXSpringBoardAlerts.h */,
 				896D94221E05B856008A8358 /* CBXSpringBoardAlerts.m */,
-				896D940B1E05B7DC008A8358 /* CBXSpringBoard.h */,
-				896D940C1E05B7DC008A8358 /* CBXSpringBoard.m */,
+				896D940B1E05B7DC008A8358 /* CBXAlertHandler.h */,
+				896D940C1E05B7DC008A8358 /* CBXAlertHandler.m */,
 			);
 			name = CBXSpringBoard;
 			sourceTree = "<group>";
@@ -1312,7 +1312,7 @@
 				896D94291E05C4AE008A8358 /* CBXLSApplicationWorkspace.h in Headers */,
 				EEE007DE1D92BA190043D05C /* XCEventGenerator.h in Headers */,
 				EEE007F01D92BA190043D05C /* XCTestContext.h in Headers */,
-				896D940D1E05B7DC008A8358 /* CBXSpringBoard.h in Headers */,
+				896D940D1E05B7DC008A8358 /* CBXAlertHandler.h in Headers */,
 				EEE007E41D92BA190043D05C /* XCPointerEventPath.h in Headers */,
 				EEE007FC1D92BA190043D05C /* XCTestObservationCenter.h in Headers */,
 				EEE007C11D92BA190043D05C /* _XCKVOExpectation.h in Headers */,
@@ -1669,7 +1669,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				896D93D71E05AED9008A8358 /* CBXMetaCommands.m in Sources */,
-				896D940E1E05B7DC008A8358 /* CBXSpringBoard.m in Sources */,
+				896D940E1E05B7DC008A8358 /* CBXAlertHandler.m in Sources */,
 				896D94261E05B856008A8358 /* CBXSpringBoardAlerts.m in Sources */,
 				EE158AC71CBD456F00A3E3F0 /* FBScreenshotCommands.m in Sources */,
 				711084451DA3AA7500F913D6 /* FBXPath.m in Sources */,

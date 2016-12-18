@@ -7,7 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "XCUIApplication.h"
+#import <Foundation/Foundation.h>
+#import "FBAlert.h"
 
 // Experimental
 // This enum describes the success or failure of the
@@ -19,19 +20,14 @@ typedef enum : NSUInteger {
     SpringBoardDismissAlertDismissTouchFailed
 } SpringBoardDismissAlertResult;
 
-@interface CBXSpringBoard : XCUIApplication
+@interface CBXAlertHandler : NSObject
+
+@property (nonatomic, strong) FBAlert *alert;
 
 /**
  @return The XCUIApplication that is attached to SpringBoard
  */
-+ (instancetype)application;
-
-/**
- Query for alerts presented by SpringBoard.
-
- @return An alert if one is visible and nil otherwise.
- */
-- (XCUIElement *)queryForAlert;
++ (instancetype)alertHandler;
 
 /**
  This method always returns true.
@@ -57,7 +53,7 @@ typedef enum : NSUInteger {
  raise an exception if it cannot dismiss the alert after number of tries.
 
  */
-- (void)handleAlertsOrThrow;
+- (void)handleSpringboardAlertsOrThrow;
 
 /**
  Attempts to dismiss a SpringBoard alert by tapping a specific button.

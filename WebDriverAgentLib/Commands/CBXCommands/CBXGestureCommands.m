@@ -1,7 +1,7 @@
 
 #import "CBXTextInputFirstResponderProvider.h"
 #import "CBXGestureCommands.h"
-#import "CBXSpringBoard.h"
+#import "CBXAlertHandler.h"
 #import "CBXCoordinate.h"
 
 #import "FBApplication.h"
@@ -16,6 +16,7 @@
 #import "FBMacros.h"
 #import "FBLogger.h"
 #import "FBElementTypeTransformer.h"
+#import "FBAlert.h"
 
 #import "XCUICoordinate.h"
 #import "XCUIDevice.h"
@@ -61,13 +62,41 @@ typedef id<FBResponsePayload>(^noResultHandlerBlock)(void);
       [[FBRoute POST:CBXRoute(@"/gesture")].withCBXSession respondWithTarget:self
                                                                       action:@selector(handleGesture:)],
       [[FBRoute POST:CBXRoute(@"/dismiss-springboard-alerts")].withCBXSession respondWithTarget:self
-                                                                                         action:@selector(handleSpringboardAlerts:)]
+                                                                                         action:@selector(handleSpringboardAlerts:)],
+      [[FBRoute POST:CBXRoute(@"/dismiss-springboard-alert")].withCBXSession respondWithTarget:self
+                                                                                         action:@selector(handleSpringboardAlert:)],
       ];
 }
 
+- (id<FBResponsePayload>)handleSpringboardAlert:(FBRouteRequest *)request {
+    NSString *buttonTitle = request.arguments[@"button"];
+    
+    if (!buttonTitle) {
+        return CBXResponseWithException([NSException exceptionWithName:@"InvalidArgumentException"
+                                                                reason:@"Request body is missing required key: 'button'"
+                                                              userInfo:@{@"received_body" : request.arguments ?: @{}}]);
+    }
+    
+    FBAlert *alert = [CBXAlertHandler alertHandler].alert;
+    if (alert.isPresent) {
+        NSError *e;
+        BOOL success = [alert pressButtonTitled:buttonTitle error:&e];
+        if (success) {
+            return CBXResponseWithJSON(@{ @"status" : @"success" });
+        } else {
+            if (e) {
+                [FBLogger logFmt:@"Error dismissing alert with title '%@': %@", buttonTitle, e];
+            }
+            return CBXResponseWithErrorFormat(@"Error dismissing alert with title '%@': %@", buttonTitle, e);
+        }
+    } else {
+        return CBXResponseWithJSON(@{@"error": @"There is no SpringBoard alert."});
+    }
+}
+
 - (id<FBResponsePayload>)handleSpringboardAlerts:(FBRouteRequest *)request {
-        [[CBXSpringBoard application] handleAlertsOrThrow];
-        return CBXResponseWithJSON(@{ @"status" : @"no alerts" });
+     [[CBXAlertHandler alertHandler] handleSpringboardAlertsOrThrow];
+     return CBXResponseWithJSON(@{ @"status" : @"no alerts" });
 }
 
 - (id<FBResponsePayload>)getElementOrCoordinate:(NSDictionary *)specifiers
