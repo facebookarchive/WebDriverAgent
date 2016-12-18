@@ -262,13 +262,13 @@ typedef id<FBResponsePayload>(^noResultHandlerBlock)(void);
             scale = (CGFloat)[options[@"amount"] doubleValue];
             if ([options hasKey:@"pinch_direction"]) {
                 if ([options[@"pinch_direction"] isEqualToString:@"in"]) {
-                    scale = 1.0 / MAX(scale, 1.0);
+                    scale = 1.0f / MAX(scale, 1.0f);
                 }
             }
         } else if ([options hasKey:@"scale"]) {
             scale = (CGFloat)[options[@"scale"] doubleValue];
         } else {
-            scale = 0.5;
+            scale = 0.5f;
         }
         
         //TODO: sloppy for backwards compat
@@ -276,12 +276,12 @@ typedef id<FBResponsePayload>(^noResultHandlerBlock)(void);
         if ([options hasKey:@"duration"]) {
             velocity = (CGFloat)[options [@"duration"] doubleValue];
             if (scale < 1) {
-                velocity *= -1;
+                velocity *= -1.0f;
             }
         } else if ([options hasKey:@"velocity"]) {
             velocity = (CGFloat)[options [@"velocity"] doubleValue];
         } else {
-            velocity =  scale < 1 ? -1.0 : 1.0;
+            velocity =  scale < 1 ? -1.0f : 1.0f;
         }
         [FBLogger logFmt:@"pinchWithScale:%f velocity:%f", scale, velocity];
     return [self getElementOrCoordinate:specifiers

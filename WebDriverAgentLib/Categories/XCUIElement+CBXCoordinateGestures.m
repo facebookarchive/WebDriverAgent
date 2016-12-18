@@ -8,7 +8,7 @@
 #import "FBLogger.h"
 
 // Determined by the width of a two-finger touch.
-static float const CBX_FINGER_WIDTH = 78 /* Adding some buffer */ + 2;
+static float const CBX_FINGER_WIDTH = 78.0f /* Adding some buffer */ + 2.0f;
 
 @implementation XCUIElement (CBXCoordinateGestures)
 
@@ -24,8 +24,8 @@ static float const CBX_FINGER_WIDTH = 78 /* Adding some buffer */ + 2;
          The theory is that we should provide a rect just large enough to fit two fingers but
          centered around the desired point.
          */
-        CGRect twoFingerTapRect = CGRectMake(hitPoint.x - (CBX_FINGER_WIDTH / 2.0),
-                                             hitPoint.y - (CBX_FINGER_WIDTH / 2.0),
+        CGRect twoFingerTapRect = CGRectMake(hitPoint.x - (CBX_FINGER_WIDTH / 2.0f),
+                                             hitPoint.y - (CBX_FINGER_WIDTH / 2.0f),
                                              CBX_FINGER_WIDTH,
                                              CBX_FINGER_WIDTH);
         
@@ -51,8 +51,8 @@ static float const CBX_FINGER_WIDTH = 78 /* Adding some buffer */ + 2;
             The question is... how big should the rect be?
             Current working theory: should fit at least two fingers
          */
-        CGRect twoFingerTapRect = CGRectMake(hitPoint.x - (CBX_FINGER_WIDTH / 2.0),
-                                             hitPoint.y - (CBX_FINGER_WIDTH / 2.0),
+        CGRect twoFingerTapRect = CGRectMake(hitPoint.x - (CBX_FINGER_WIDTH / 2.0f),
+                                             hitPoint.y - (CBX_FINGER_WIDTH / 2.0f),
                                              CBX_FINGER_WIDTH,
                                              CBX_FINGER_WIDTH);
         
