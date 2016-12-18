@@ -27,11 +27,15 @@
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
+#import "XCUIElement+CBXCoordinateGestures.h"
 
 @implementation CBXGestureCommands
 #pragma mark - <FBCommandHandler>
 
 static NSDictionary <NSString *, NSString *>*gestureMap;
+
+typedef id<FBResponsePayload>(^elementOrCBXCoordinateHandler)(XCUIApplication *app, XCUIElement *element, CBXCoordinate *coord);
+typedef id<FBResponsePayload>(^noResultHandlerBlock)(void);
 
 + (void)initialize {
     static dispatch_once_t onceToken;
@@ -66,6 +70,22 @@ static NSDictionary <NSString *, NSString *>*gestureMap;
         return CBXResponseWithJSON(@{ @"status" : @"no alerts" });
 }
 
+- (id<FBResponsePayload>)getElementOrCoordinate:(NSDictionary *)specifiers
+                                        handler:(elementOrCBXCoordinateHandler)handler
+                                noResultHandler:(noResultHandlerBlock)noResultHandler {
+    XCUIApplication *app = [FBSession activeSession].application;
+    if ([specifiers hasKey:@"uuid"]) {
+        FBElementCache *elementCache = [FBSession activeSessionCache];
+        XCUIElement *element = [elementCache elementForUUID:specifiers[@"uuid"]];
+        return handler(app, element, nil);
+    } else if ([specifiers hasKey:@"coordinate"]) {
+        CBXCoordinate *coord = [CBXCoordinate withJSON:specifiers[@"coordinate"]];
+        return handler(app, nil, coord);
+    } else {
+        return noResultHandler();
+    }
+}
+
 //Public facing version
 //TODO: this is pretty dirty, refactor.
 + (BOOL)handleTouch:(NSDictionary *)specifiers options:(NSDictionary *)options {
@@ -83,7 +103,7 @@ static NSDictionary <NSString *, NSString *>*gestureMap;
         *success = NO;
     }
     
-    //TODO: maybe remove this?
+    //TODO: maybe remove this? Or always treat as touch and hold?
     double duration = 0.2;
     NSMutableDictionary *optCopy = [(options ?: @{}) mutableCopy];
     if ([options hasKey:@"duration"]) {
@@ -128,15 +148,23 @@ static NSDictionary <NSString *, NSString *>*gestureMap;
 }
 
 - (id<FBResponsePayload>)handleTouchAndHold:(NSDictionary *)specifiers options:(NSDictionary *)options success:(BOOL *)success {
-    XCUIElement *element = [CBXCommands elementFromSpecifiers:specifiers];
-    if (element) {
-        [element pressForDuration:[options[@"duration"] doubleValue]];
+    return [self getElementOrCoordinate:specifiers
+                                handler:^(XCUIApplication *app,
+                                          XCUIElement *element,
+                                          CBXCoordinate *coord) {
+        if (element) {
+            [element pressForDuration:[options[@"duration"] doubleValue]];
+        } else if (coord) {
+            XCUICoordinate *xcCoord = [CBXGestureCommands tapCoordinateForX:coord.x
+                                                                          y:coord.y];
+            [xcCoord pressForDuration:[options[@"duration"] doubleValue]];
+        }
         if (success) { *success = YES; }
         return CBXResponseWithStatus(@"success", nil);
-    } else {
+    } noResultHandler:^id<FBResponsePayload>{
         if (success) { *success = NO; }
         return CBXResponseWithErrorFormat(@"No element found for specifiers: %@", specifiers.pretty);
-    }
+    }];
 }
 
 - (id<FBResponsePayload>)handleEnterText:(NSDictionary *)specifiers options:(NSDictionary *)options {
@@ -170,21 +198,37 @@ static NSDictionary <NSString *, NSString *>*gestureMap;
 }
 
 - (id<FBResponsePayload>)handleDoubleTap:(NSDictionary *)specifiers options:(NSDictionary *)options {
-    XCUIElement *element = [CBXCommands elementFromSpecifiers:specifiers];
-    if (element) {
-        [element doubleTap];
+    return [self getElementOrCoordinate:specifiers
+                                handler:^id<FBResponsePayload>(XCUIApplication *app,
+                                                               XCUIElement *element,
+                                                               CBXCoordinate *coord) {
+        if (element) {
+            [element doubleTap];
+        } else if (coord) {
+            XCUICoordinate *xcCoord = [CBXGestureCommands tapCoordinateForX:coord.x
+                                                                          y:coord.y];
+            [xcCoord doubleTap];
+        }
         return CBXResponseWithStatus(@"success", nil);
-    }
-    return CBXResponseWithErrorFormat(@"No element found for specifiers: %@", specifiers.pretty);
+    } noResultHandler:^id<FBResponsePayload>{
+        return CBXResponseWithErrorFormat(@"No element found for specifiers: %@", specifiers.pretty);
+    }];
 }
 
 - (id<FBResponsePayload>)handleTwoFingerTap:(NSDictionary *)specifiers options:(NSDictionary *)options {
-    XCUIElement *element = [CBXCommands elementFromSpecifiers:specifiers];
-    if (element) {
-        [element twoFingerTap];
+    return [self getElementOrCoordinate:specifiers
+                                handler:^id<FBResponsePayload>(XCUIApplication *app,
+                                                               XCUIElement *element,
+                                                               CBXCoordinate *coord) {
+        if (element) {
+            [element twoFingerTap];
+        } else {
+            [app cbx_twoFingerTapAtCoordinate:coord.cgpoint withError:nil];
+        }
         return CBXResponseWithStatus(@"success", nil);
-    }
-    return CBXResponseWithErrorFormat(@"No element found for specifiers: %@", specifiers.pretty);
+    } noResultHandler:^id<FBResponsePayload>{
+        return CBXResponseWithErrorFormat(@"No element found for specifiers: %@", specifiers.pretty);
+    }];
 }
 
 - (id<FBResponsePayload>)handleDrag:(NSDictionary *)specifiers options:(NSDictionary *)options {
@@ -212,9 +256,6 @@ static NSDictionary <NSString *, NSString *>*gestureMap;
 }
 
 - (id<FBResponsePayload>)handlePinch:(NSDictionary *)specifiers options:(NSDictionary *)options {
-    XCUIElement *element = [CBXCommands elementFromSpecifiers:specifiers];
-    
-    if (element) {
         //TODO: this is a sloppy conversion for quick and dirty backwards compat
         CGFloat scale;
         if ([options hasKey:@"amount"]) {
@@ -234,19 +275,34 @@ static NSDictionary <NSString *, NSString *>*gestureMap;
         CGFloat velocity;
         if ([options hasKey:@"duration"]) {
             velocity = (CGFloat)[options [@"duration"] doubleValue];
+            if (scale < 1) {
+                velocity *= -1;
+            }
         } else if ([options hasKey:@"velocity"]) {
             velocity = (CGFloat)[options [@"velocity"] doubleValue];
         } else {
-            velocity = 1.0;
+            velocity =  scale < 1 ? -1.0 : 1.0;
         }
         [FBLogger logFmt:@"pinchWithScale:%f velocity:%f", scale, velocity];
-        [element pinchWithScale:scale velocity:velocity];
+    return [self getElementOrCoordinate:specifiers
+                                handler:^id<FBResponsePayload>(XCUIApplication *app,
+                                                               XCUIElement *element,
+                                                               CBXCoordinate *coord) {
+        if (element) {
+            [element pinchWithScale:scale velocity:velocity];
+        } else {
+            [app cbx_pinchAtCoordinate:coord.cgpoint
+                                 scale:scale
+                              velocity:velocity
+                             withError:nil];
+        }
         return CBXResponseWithStatus(@"success", @{
                                                    @"scale" : @(scale),
                                                    @"velocity" : @(velocity)
                                                    });
-    }
-    return CBXResponseWithErrorFormat(@"No element found for specifiers: %@", specifiers.pretty);
+    } noResultHandler:^id<FBResponsePayload>{
+        return CBXResponseWithErrorFormat(@"No element found for specifiers: %@", specifiers.pretty);
+    }];
 }
 
 - (id<FBResponsePayload>)handleRotate:(NSDictionary *)specifiers options:(NSDictionary *)options {

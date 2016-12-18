@@ -8,8 +8,11 @@
  */
 
 #import <WebDriverAgentLib/XCUIElement.h>
+#import "XCEventGenerator.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void(^eventGenerationBlock)(XCEventGenerator *eventGenerator, XCEventGeneratorHandler handlerBlock);
 
 @interface XCUIElement (FBTap)
 
@@ -20,6 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
  @return YES if the operation succeeds, otherwise NO.
 */
 - (BOOL)fb_tapWithError:(NSError **)error;
+
+/**
+ CBX Additions
+ */
+- (BOOL)tapAtCoordinate:(CGPoint)point withError:(NSError * _Nullable __autoreleasing *)error;
+
+//TODO: Move this somewhere more general
+- (BOOL)generateEvent:(eventGenerationBlock)eventBlock error:(NSError * _Nullable __autoreleasing *)error;
 
 @end
 

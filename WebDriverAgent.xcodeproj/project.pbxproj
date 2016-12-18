@@ -26,6 +26,8 @@
 		71A224E61DE2F56600844D55 /* NSPredicate+FBFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A224E41DE2F56600844D55 /* NSPredicate+FBFormat.m */; };
 		71A224E81DE326C500844D55 /* NSPredicateFBFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A224E71DE326C500844D55 /* NSPredicateFBFormatTests.m */; };
 		71E95ADF1DC101BA002D0364 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7174AF031D9D39AF008C8AD5 /* libxml2.tbd */; };
+		893988B31E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.h in Headers */ = {isa = PBXBuildFile; fileRef = 893988B11E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.h */; };
+		893988B41E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.m in Sources */ = {isa = PBXBuildFile; fileRef = 893988B21E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.m */; };
 		896D93D61E05AED9008A8358 /* CBXMetaCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 896D93D41E05AED9008A8358 /* CBXMetaCommands.h */; };
 		896D93D71E05AED9008A8358 /* CBXMetaCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 896D93D51E05AED9008A8358 /* CBXMetaCommands.m */; };
 		896D93E01E05AF14008A8358 /* CBXCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 896D93D81E05AF14008A8358 /* CBXCommands.h */; };
@@ -375,6 +377,8 @@
 		71A224E31DE2F56600844D55 /* NSPredicate+FBFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSPredicate+FBFormat.h"; path = "../Utilities/NSPredicate+FBFormat.h"; sourceTree = "<group>"; };
 		71A224E41DE2F56600844D55 /* NSPredicate+FBFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPredicate+FBFormat.m"; path = "../Utilities/NSPredicate+FBFormat.m"; sourceTree = "<group>"; };
 		71A224E71DE326C500844D55 /* NSPredicateFBFormatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPredicateFBFormatTests.m; sourceTree = "<group>"; };
+		893988B11E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+CBXCoordinateGestures.h"; sourceTree = "<group>"; };
+		893988B21E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+CBXCoordinateGestures.m"; sourceTree = "<group>"; };
 		896D93D41E05AED9008A8358 /* CBXMetaCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBXMetaCommands.h; path = CBXCommands/CBXMetaCommands.h; sourceTree = "<group>"; };
 		896D93D51E05AED9008A8358 /* CBXMetaCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBXMetaCommands.m; path = CBXCommands/CBXMetaCommands.m; sourceTree = "<group>"; };
 		896D93D81E05AF14008A8358 /* CBXCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBXCommands.h; path = CBXCommands/CBXCommands.h; sourceTree = "<group>"; };
@@ -907,6 +911,8 @@
 				EE9AB74A1CAEDF0C008C271F /* XCUIElement+FBScrolling.m */,
 				EE9AB74B1CAEDF0C008C271F /* XCUIElement+FBTap.h */,
 				EE9AB74C1CAEDF0C008C271F /* XCUIElement+FBTap.m */,
+				893988B11E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.h */,
+				893988B21E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.m */,
 				AD76723B1D6B7CC000610457 /* XCUIElement+FBTyping.h */,
 				AD76723C1D6B7CC000610457 /* XCUIElement+FBTyping.m */,
 				EEE3763F1D59F81400ED88DD /* XCUIElement+FBUtilities.h */,
@@ -1391,6 +1397,7 @@
 				EEE007F41D92BA190043D05C /* XCTestExpectation.h in Headers */,
 				EEE007FA1D92BA190043D05C /* XCTestManager_TestsInterface-Protocol.h in Headers */,
 				713C6DCF1DDC772A00285B92 /* FBElementUtils.h in Headers */,
+				893988B31E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.h in Headers */,
 				EEE007F61D92BA190043D05C /* XCTestExpectationWaiter.h in Headers */,
 				EEE007D01D92BA190043D05C /* UILongPressGestureRecognizer-RecordingAdditions.h in Headers */,
 				EEE008021D92BA190043D05C /* XCUIApplication.h in Headers */,
@@ -1696,6 +1703,7 @@
 				EEE3764A1D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.m in Sources */,
 				EE158ACB1CBD456F00A3E3F0 /* FBTouchIDCommands.m in Sources */,
 				EE158ABD1CBD456F00A3E3F0 /* FBDebugCommands.m in Sources */,
+				893988B41E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.m in Sources */,
 				EE158ACD1CBD456F00A3E3F0 /* FBUnknownCommands.m in Sources */,
 				EE158AC51CBD456F00A3E3F0 /* FBOrientationCommands.m in Sources */,
 				EE158AEB1CBD456F00A3E3F0 /* FBRuntimeUtils.m in Sources */,
@@ -2143,7 +2151,7 @@
 					"$(inherited)",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.apple.test.DeviceAgent-Runner";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.microsoft.iOSAutomationRunner-Runner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USES_XCTRUNNER = YES;
 			};
@@ -2165,7 +2173,7 @@
 					"$(inherited)",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.apple.test.DeviceAgent-Runner";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.microsoft.iOSAutomationRunner-Runner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USES_XCTRUNNER = YES;
 			};

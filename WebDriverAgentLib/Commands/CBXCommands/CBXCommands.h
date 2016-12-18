@@ -13,6 +13,4 @@
 
 @interface CBXCommands : NSObject/* Do not implement FBCommandHandler */
 + (XCUICoordinate *)tapCoordinateForX:(CGFloat)x y:(CGFloat)y;
-+ (XCUIElement *)elementAtPoint:(CGPoint)point error:(NSError **)e;
-+ (XCUIElement *)elementFromSpecifiers:(NSDictionary *)specifiers;
 @end
