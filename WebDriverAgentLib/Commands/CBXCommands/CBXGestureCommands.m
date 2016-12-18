@@ -47,7 +47,7 @@ typedef id<FBResponsePayload>(^noResultHandlerBlock)(void);
                        @"enter_text" : @"handleEnterText:options:",
                        @"clear_text" : @"handleClearText:options:",
                        @"double_tap" : @"handleDoubleTap:options:",
-                       @"two_finger_tap" : @"handleDoubleTap:options:",
+                       @"two_finger_tap" : @"handleTwoFingerTap:options:",
                        @"drag" : @"handleDrag:options:",
                        @"pinch" : @"handlePinch:options:",
                        @"rotate" : @"handleRotate:options:"
@@ -335,6 +335,7 @@ typedef id<FBResponsePayload>(^noResultHandlerBlock)(void);
 }
 
 - (id<FBResponsePayload>)handleRotate:(NSDictionary *)specifiers options:(NSDictionary *)options {
+    //TODO rotate:(radians) velocity:(velocity)
     return CBXResponseWithErrorFormat(@"Finger rotation is not not implemented...");
 }
 

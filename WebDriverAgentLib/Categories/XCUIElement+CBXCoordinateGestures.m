@@ -9,6 +9,7 @@
 
 // Determined by the width of a two-finger touch.
 static float const CBX_FINGER_WIDTH = 78.0f /* Adding some buffer */ + 2.0f;
+static float const CBX_HALF_FINGER = CBX_FINGER_WIDTH / 2.0f;
 
 @implementation XCUIElement (CBXCoordinateGestures)
 
@@ -24,18 +25,32 @@ static float const CBX_FINGER_WIDTH = 78.0f /* Adding some buffer */ + 2.0f;
          The theory is that we should provide a rect just large enough to fit two fingers but
          centered around the desired point.
          */
-        CGRect twoFingerTapRect = CGRectMake(hitPoint.x - (CBX_FINGER_WIDTH / 2.0f),
-                                             hitPoint.y - (CBX_FINGER_WIDTH / 2.0f),
+        CGRect twoFingerTapRect = CGRectMake(hitPoint.x - CBX_HALF_FINGER,
+                                             hitPoint.y - CBX_HALF_FINGER,
                                              CBX_FINGER_WIDTH,
                                              CBX_FINGER_WIDTH);
         
-        SEL tapper = @selector(pinchInRect:withScale:velocity:orientation:handler:);
+        SEL tapper = @selector(twoFingerTapInRect:orientation:handler:);
         if ([eventGenerator respondsToSelector:tapper]) {
             [eventGenerator twoFingerTapInRect:twoFingerTapRect
                                    orientation:self.interfaceOrientation
                                        handler:handlerBlock];
         } else {
-            [FBLogger logFmt:@"Error: Unable to synthesize event, XCEventGenerator does not respond to %@", NSStringFromSelector(tapper)];
+            //If we're here, we need to pick two points to touch.
+            //TODO: something more intelligent.
+            CGPoint one, two;
+            one = CGPointMake(point.x - CBX_HALF_FINGER, point.y);
+            two = CGPointMake(point.x + CBX_HALF_FINGER, point.y);
+            NSValue *p1 = [NSValue valueWithCGPoint:one],
+                    *p2 = [NSValue valueWithCGPoint:two];
+            [FBLogger logFmt:@"'%@' unavailable, manually tapping %@ and %@",
+                             NSStringFromSelector(tapper),
+                             p1,
+                             p2];
+            [eventGenerator tapAtTouchLocations:@[p1, p2]
+                                   numberOfTaps:1
+                                    orientation:self.interfaceOrientation
+                                        handler:handlerBlock];
         }
     } error:error];
 }
