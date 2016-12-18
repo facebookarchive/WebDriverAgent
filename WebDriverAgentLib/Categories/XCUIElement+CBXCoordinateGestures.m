@@ -66,8 +66,8 @@ static float const CBX_HALF_FINGER = CBX_FINGER_WIDTH / 2.0f;
             The question is... how big should the rect be?
             Current working theory: should fit at least two fingers
          */
-        CGRect twoFingerTapRect = CGRectMake(hitPoint.x - (CBX_FINGER_WIDTH / 2.0f),
-                                             hitPoint.y - (CBX_FINGER_WIDTH / 2.0f),
+        CGRect twoFingerTapRect = CGRectMake(hitPoint.x - CBX_HALF_FINGER,
+                                             hitPoint.y - CBX_HALF_FINGER,
                                              CBX_FINGER_WIDTH,
                                              CBX_FINGER_WIDTH);
         
