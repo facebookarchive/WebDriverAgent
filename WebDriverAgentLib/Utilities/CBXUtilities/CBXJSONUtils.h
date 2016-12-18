@@ -22,6 +22,8 @@
  @return Human-readable string version of the XCUIElementType or `nil` if not found.
  */
 + (NSString *)stringForElementType:(XCUIElementType)type;
+
++ (NSDictionary *)elementToJSON:(XCUIElement *)element;
 @end
 
 @interface NSArray(CBXExtensions)

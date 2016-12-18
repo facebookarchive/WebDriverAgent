@@ -28,6 +28,8 @@
 		71E95ADF1DC101BA002D0364 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7174AF031D9D39AF008C8AD5 /* libxml2.tbd */; };
 		893988B31E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.h in Headers */ = {isa = PBXBuildFile; fileRef = 893988B11E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.h */; };
 		893988B41E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.m in Sources */ = {isa = PBXBuildFile; fileRef = 893988B21E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.m */; };
+		893988B71E06EAD900DCDDE9 /* CBXQueryCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 893988B51E06EAD900DCDDE9 /* CBXQueryCommands.h */; };
+		893988B81E06EAD900DCDDE9 /* CBXQueryCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 893988B61E06EAD900DCDDE9 /* CBXQueryCommands.m */; };
 		896D93D61E05AED9008A8358 /* CBXMetaCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 896D93D41E05AED9008A8358 /* CBXMetaCommands.h */; };
 		896D93D71E05AED9008A8358 /* CBXMetaCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 896D93D51E05AED9008A8358 /* CBXMetaCommands.m */; };
 		896D93E01E05AF14008A8358 /* CBXCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 896D93D81E05AF14008A8358 /* CBXCommands.h */; };
@@ -379,6 +381,8 @@
 		71A224E71DE326C500844D55 /* NSPredicateFBFormatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPredicateFBFormatTests.m; sourceTree = "<group>"; };
 		893988B11E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+CBXCoordinateGestures.h"; sourceTree = "<group>"; };
 		893988B21E06CCB500DCDDE9 /* XCUIElement+CBXCoordinateGestures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+CBXCoordinateGestures.m"; sourceTree = "<group>"; };
+		893988B51E06EAD900DCDDE9 /* CBXQueryCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBXQueryCommands.h; sourceTree = "<group>"; };
+		893988B61E06EAD900DCDDE9 /* CBXQueryCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBXQueryCommands.m; sourceTree = "<group>"; };
 		896D93D41E05AED9008A8358 /* CBXMetaCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBXMetaCommands.h; path = CBXCommands/CBXMetaCommands.h; sourceTree = "<group>"; };
 		896D93D51E05AED9008A8358 /* CBXMetaCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBXMetaCommands.m; path = CBXCommands/CBXMetaCommands.m; sourceTree = "<group>"; };
 		896D93D81E05AF14008A8358 /* CBXCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBXCommands.h; path = CBXCommands/CBXCommands.h; sourceTree = "<group>"; };
@@ -753,6 +757,8 @@
 				896D93FF1E05B200008A8358 /* CBXDeviceEventCommands.m */,
 				896D94021E05B53E008A8358 /* CBXUndefinedCommands.h */,
 				896D94031E05B53E008A8358 /* CBXUndefinedCommands.m */,
+				893988B51E06EAD900DCDDE9 /* CBXQueryCommands.h */,
+				893988B61E06EAD900DCDDE9 /* CBXQueryCommands.m */,
 			);
 			name = CBXCommands;
 			sourceTree = "<group>";
@@ -1365,6 +1371,7 @@
 				896D93F41E05AF3C008A8358 /* CBXTextInputFirstResponderProvider.h in Headers */,
 				EEE007D61D92BA190043D05C /* XCActivityRecord.h in Headers */,
 				EEE007C91D92BA190043D05C /* _XCTestImplementation.h in Headers */,
+				893988B71E06EAD900DCDDE9 /* CBXQueryCommands.h in Headers */,
 				EEE007F71D92BA190043D05C /* XCTestLog.h in Headers */,
 				EEE007D81D92BA190043D05C /* XCApplicationMonitor.h in Headers */,
 				EEE007DC1D92BA190043D05C /* XCDeviceEvent.h in Headers */,
@@ -1688,6 +1695,7 @@
 				EE158ADD1CBD456F00A3E3F0 /* FBResponsePayload.m in Sources */,
 				EE158ADF1CBD456F00A3E3F0 /* FBRoute.m in Sources */,
 				EEE9B4731CD02B88009D2030 /* FBRunLoopSpinner.m in Sources */,
+				893988B81E06EAD900DCDDE9 /* CBXQueryCommands.m in Sources */,
 				71A224E61DE2F56600844D55 /* NSPredicate+FBFormat.m in Sources */,
 				EEE376441D59F81400ED88DD /* XCUIDevice+FBRotation.m in Sources */,
 				EE158AE21CBD456F00A3E3F0 /* FBRouteRequest.m in Sources */,

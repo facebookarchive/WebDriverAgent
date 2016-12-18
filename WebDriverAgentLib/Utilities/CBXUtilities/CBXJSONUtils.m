@@ -1,9 +1,60 @@
 
 #import "CBXJSONUtils.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
+#import "FBElementCache.h"
+#import "FBSession.h"
 
 @implementation CBXJSONUtils
 static NSDictionary <NSNumber *, NSString *> *elementTypeToString;
 static NSDictionary <NSString *, NSNumber *> *typeStringToElementType;
+
++ (NSDictionary *)elementToJSON:(XCUIElement *)element {
+    if (!element.exists) {
+        //Who knows what can go wrong if we pry into a non-existant element.
+        //Fail fast.
+        return @{@"error" : @"element does not exist"};
+    }
+    NSMutableDictionary *json = [NSMutableDictionary dictionary];
+    json[@"type"] = element.wdType ?: @"";
+    json[@"label"] = element.wdLabel ?: @"";
+    json[@"name"] = element.wdName ?: @"";
+    json[@"value"] = element.wdValue ?: @"";
+    json[@"frame"] = json[@"rect"] = element.wdRect;
+    json[@"id"] = element.identifier ?: @"";
+    json[@"enabled"] = @(element.wdEnabled);
+    json[@"visible"] = @(element.wdVisible);
+    json[@"hitable"] = @([self elementHitable:element]);
+    json[@"hit_point"] = [self elementHitPointToJSON:element];
+    json[@"ELEMENT"] = [[FBSession activeSessionCache] storeElement:element];
+    return json;
+}
+
++ (BOOL)elementHitable:(XCUIElement *)element {
+    if (![element respondsToSelector:@selector(isHittable)]) {
+        return NO;
+    } else {
+        return [element isHittable];
+    }
+}
+
++ (NSDictionary *)elementHitPointToJSON:(XCUIElement *)element {
+    id hitPoint = nil;
+    XCUICoordinate *coordinate = nil;
+    NSDictionary *dictionary = nil;
+    if ([element respondsToSelector:@selector(hitPointCoordinate)]) {
+        hitPoint = [element hitPointCoordinate];
+        if (hitPoint) {
+            if ([hitPoint respondsToSelector:@selector(screenPoint)]) {
+                
+                coordinate = (XCUICoordinate *)hitPoint;
+                CGPoint point = [coordinate screenPoint];
+                dictionary = @{ @"x" : @(point.x), @"y": @(point.y) };
+            }
+        }
+    }
+    
+    return dictionary ?: @{ @"x" : @(-1), @"y" : @(-1) };
+}
 
 + (NSString *)objToJSONString:(id)objcJsonObject {
     if (!objcJsonObject) {

@@ -25,7 +25,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) FBAlert *alert;
 
 /**
- @return The XCUIApplication that is attached to SpringBoard
+ @return Singleton wrapper for FBAlert handler object
  */
 + (instancetype)alertHandler;
 
@@ -71,6 +71,6 @@ typedef enum : NSUInteger {
  @param title the text of the button
  @return SpringBoardDismissAlertResult describes possible outcomes of the gesture.
  */
-- (SpringBoardDismissAlertResult)dismissAlertByTappingButtonWithTitle:(NSString *)title;
+- (SpringBoardDismissAlertResult)dismissSpringboardAlertByTappingButtonWithTitle:(NSString *)title;
 
 @end

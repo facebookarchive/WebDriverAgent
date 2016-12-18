@@ -78,9 +78,9 @@ typedef id<FBResponsePayload>(^noResultHandlerBlock)(void);
     }
     
     FBAlert *alert = [CBXAlertHandler alertHandler].alert;
-    if (alert.isPresent) {
+    if (alert.springboardAlertIsPresent) {
         NSError *e;
-        BOOL success = [alert pressButtonTitled:buttonTitle error:&e];
+        BOOL success = [alert pressSpringboardButtonTitled:buttonTitle error:&e];
         if (success) {
             return CBXResponseWithJSON(@{ @"status" : @"success" });
         } else {

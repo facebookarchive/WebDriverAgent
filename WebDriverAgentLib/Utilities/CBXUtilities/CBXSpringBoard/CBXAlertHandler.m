@@ -25,7 +25,6 @@ typedef enum : NSUInteger {
 @interface CBXAlertHandler ()
 
 - (BOOL)shouldDismissAlertsAutomatically;
-- (BOOL)tapAlertButtonWithFrame:(CGRect)frame;
 - (SpringBoardAlertHandlerResult)handleAlert;
 
 @end
@@ -85,10 +84,10 @@ typedef enum : NSUInteger {
             NSString *alertTitle = nil;
             NSArray *alertButtonTitles = @[];
 
-            if ([self.alert isPresent]) {
-                XCUIElement *alertElement = [self.alert alertElement];
+            if ([self.alert springboardAlertIsPresent]) {
+                XCUIElement *alertElement = [self.alert springboardAlertElement];
                 
-                alertTitle = self.alert.text;
+                alertTitle = self.alert.springBoardAlertText;
                 XCUIElementQuery *query = [alertElement descendantsMatchingType:XCUIElementTypeButton];
                 NSArray<XCUIElement *> *buttons = [query allElementsBoundByIndex];
 
@@ -121,16 +120,13 @@ typedef enum : NSUInteger {
 // This method is not protected by a lock!  It should only be called by
 // handleAlertsOrThrow
 - (SpringBoardAlertHandlerResult)handleAlert {
-    XCUIApplication *currentApp = [FBSession activeSession].application;
-    FBAlert *alert = [FBAlert alertWithApplication:currentApp];
-
     // There is not alert.
-    if (![alert isPresent]) {
+    if (![self.alert springboardAlertIsPresent]) {
         return SpringBoardAlertHandlerNoAlert;
     }
 
     // .label is the title for English and German.  Hopefully for others too.
-    NSString *title = alert.text;
+    NSString *title = self.alert.springBoardAlertText;
     CBXSpringBoardAlert *springBoardAlert = [[CBXSpringBoardAlerts shared] alertMatchingTitle:title];
 
     // We don't know about this alert.
@@ -139,87 +135,32 @@ typedef enum : NSUInteger {
     }
 
     // Alert is now gone? It can happen...
-    if (![alert isPresent]) {
+    // I am skeptical - CF
+    if (![self.alert springboardAlertIsPresent]) {
         return SpringBoardAlertHandlerNoAlert;
     }
 
     NSError *e;
     if (springBoardAlert.shouldAccept) {
-        [alert acceptWithError:&e];
+        [self.alert springboardAcceptWithError:&e];
     } else {
-        [alert dismissWithError:&e];
+        [self.alert springboardDismissWithError:&e];
     }
     if (e) {
-        [FBLogger logFmt:@"Error handling alert (%@): %@", alert.text, e];
+        [FBLogger logFmt:@"Error handling alert (%@): %@", self.alert.springBoardAlertText, e];
         return SpringBoardAlertHandlerUnableToDismiss;
     }
 
     return SpringBoardAlertHandlerDismissedAlert;
 }
 
-- (BOOL)tapAlertButtonWithFrame:(CGRect)frame {
+- (SpringBoardDismissAlertResult)dismissSpringboardAlertByTappingButtonWithTitle:(NSString *)title {
     @synchronized (self) {
-
-        // There are cases where we cannot find a hitpoint.
-        if (frame.origin.x <= 0.0 || frame.origin.y <= 0.0) {
-            return NO;
-        }
-
-        // This could also be done with [button tap].
-        //
-        // However, the system seems more stable if we use our touch gesture.
-        double x = CGRectGetMinX(frame) + (CGRectGetWidth(frame)/2.0);
-        double y = CGRectGetMinY(frame) + (CGRectGetHeight(frame)/2.0);
-        
-        NSDictionary *specifiers = @{@"coordinate" : @{ @"x" : @(x), @"y" : @(y)}};
-        BOOL success = [CBXGestureCommands handleTouch:specifiers options:@{}];
-        
-        
-        if (success) {
-            // There is one alert workflow that is very problematic:
-            //
-            // PhotoRoll
-            //
-            // 1. Trigger the alert
-            // 2. Alert appears
-            // 3. Alert is automatically dismissed
-            // 3. Photo Roll is animated on behind the alert
-            // 4. Next gesture or query triggers an alert query
-            //
-            // The AXServer crashes, then the AUT crashes, and then DeviceAgent
-            // performs the gesture or query on the SpringBoard.  For example, if
-            // the gesture was a touch to Cancel the Photo Roll, the Newstand app
-            // would open because that is the App Icon at the position of the
-            // of the Cancel touch.  Sleeping after the dismiss definitely
-            // reduced the frequency of crashes - they still happened.
-            //
-            // The AUT crash was caused by IImagePickerViewController which has a
-            // history of crashing in situations like this.
-            //
-            // After days device and simulator testing, I settled on 1.0 second.
-            // If there is no sleep or the sleep is too short the AXServer can
-            // disconnect which can cause the DeviceAgent to fail: crashes,
-            // TestPlan exits, etc.
-            //
-            // We will need to see if this value needs to be adjusted for different
-            // environments e.g. CI, XTC, Simulators, etc.
-            //
-            // We prefer stability over speed.
-            NSTimeInterval interval = 1.0;
-            NSDate *until = [[NSDate date] dateByAddingTimeInterval:interval];
-            [[NSRunLoop mainRunLoop] runUntilDate:until];
-        }
-        return success;
-    }
-}
-
-- (SpringBoardDismissAlertResult)dismissAlertByTappingButtonWithTitle:(NSString *)title {
-    @synchronized (self) {
-        if (![self.alert isPresent]) {
+        if (![self.alert springboardAlertIsPresent]) {
             return SpringBoardDismissAlertNoAlert;
         } else {
             NSError *e;
-            BOOL success = [self.alert pressButtonTitled:title error:&e];
+            BOOL success = [self.alert pressSpringboardButtonTitled:title error:&e];
 
             SpringBoardDismissAlertResult result;
             if (success) {
