@@ -8,7 +8,7 @@
  */
 
 #import "FBResponseJSONPayload.h"
-
+#import "CBXJSONUtils.h"
 #import <RoutingHTTPServer/RouteResponse.h>
 
 @interface FBResponseJSONPayload ()
@@ -36,12 +36,13 @@
 - (void)dispatchWithResponse:(RouteResponse *)response
 {
   NSError *error;
-  NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.dictionary
-                                                     options:NSJSONWritingPrettyPrinted
-                                                       error:&error];
-  NSCAssert(jsonData, @"Valid JSON must be responded, error of %@", error);
+
+    const char *s = [self.dictionary.pretty UTF8String];
+    
+    NSData *d = [NSData dataWithBytes:s length:strlen(s)];
+  NSCAssert(d, @"Valid JSON must be responded, error of %@", error);
   [response setHeader:@"Content-Type" value:@"application/json;charset=UTF-8"];
-  [response respondWithData:jsonData];
+  [response respondWithData:d];
 }
 
 @end

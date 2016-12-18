@@ -43,7 +43,7 @@ typedef enum : NSUInteger {
     static CBXAlertHandler *_handler;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _handler = [CBXAlertHandler new];
+        _handler = [[CBXAlertHandler alloc] init_private];
         /*
         _springBoard = [[CBXSpringBoard alloc]
                         initPrivateWithPath:nil

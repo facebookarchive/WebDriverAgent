@@ -71,11 +71,15 @@ id<FBResponsePayload> FBResponseWithErrorFormat(NSString *format, ...)
 
 id<FBResponsePayload> FBResponseWithStatus(FBCommandStatus status, id object)
 {
-  return [[FBResponseJSONPayload alloc] initWithDictionary:@{
-    @"value" : object ?: @{},
-    @"sessionId" : [FBSession activeSession].identifier ?: NSNull.null,
-    @"status" : @(status),
-  }];
+    NSMutableDictionary *resp = [@{
+                                  @"value" : object ?: @{},
+                                  @"sessionId" : [FBSession activeSession].identifier ?: NSNull.null,
+                                  @"status" : @(status),
+                                  } mutableCopy];
+    if (status != FBCommandStatusNoError) {
+        resp[@"error"] = @"Unhandled Route";
+    }
+  return [[FBResponseJSONPayload alloc] initWithDictionary:resp];
 }
 
 /**

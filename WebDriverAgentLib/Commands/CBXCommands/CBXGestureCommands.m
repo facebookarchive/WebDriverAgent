@@ -68,7 +68,7 @@ typedef id<FBResponsePayload>(^noResultHandlerBlock)(void);
       ];
 }
 
-- (id<FBResponsePayload>)handleSpringboardAlert:(FBRouteRequest *)request {
++ (id<FBResponsePayload>)handleSpringboardAlert:(FBRouteRequest *)request {
     NSString *buttonTitle = request.arguments[@"button"];
     
     if (!buttonTitle) {
@@ -94,7 +94,7 @@ typedef id<FBResponsePayload>(^noResultHandlerBlock)(void);
     }
 }
 
-- (id<FBResponsePayload>)handleSpringboardAlerts:(FBRouteRequest *)request {
++ (id<FBResponsePayload>)handleSpringboardAlerts:(FBRouteRequest *)request {
      [[CBXAlertHandler alertHandler] handleSpringboardAlertsOrThrow];
      return CBXResponseWithJSON(@{ @"status" : @"no alerts" });
 }

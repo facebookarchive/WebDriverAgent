@@ -13,11 +13,11 @@
       ];
 }
 
-- (id<FBResponsePayload>)handleSpringboardAlert:(FBRouteRequest *)request {
++ (id<FBResponsePayload>)handleSpringboardAlert:(FBRouteRequest *)request {
     FBAlert *alert = [CBXAlertHandler alertHandler].alert;
     NSArray *results = @[];
     if (alert.springboardAlertIsPresent) {
-        results = @[CBXResponseWithJSON([CBXJSONUtils elementToJSON:alert.springboardAlertElement])];
+        results = @[[CBXJSONUtils elementToJSON:alert.springboardAlertElement]];
     }
     return CBXResponseWithJSON(@{@"result" : results});
 }

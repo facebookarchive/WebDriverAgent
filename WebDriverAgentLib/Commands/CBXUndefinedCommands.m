@@ -8,13 +8,13 @@
 
 + (NSArray *)routes {
     return @[
-             [[FBRoute GET:CBXRoute(@"/*")].withCBXSession respondWithTarget:self
+             [[FBRoute GET:CBXRoute(@"/*")].withoutSession respondWithTarget:self
                                                                       action:@selector(handleUndefinedRoute:)],
-             [[FBRoute POST:CBXRoute(@"/*")].withCBXSession respondWithTarget:self
+             [[FBRoute POST:CBXRoute(@"/*")].withoutSession respondWithTarget:self
                                                                       action:@selector(handleUndefinedRoute:)],
-             [[FBRoute DELETE:CBXRoute(@"/*")].withCBXSession respondWithTarget:self
+             [[FBRoute DELETE:CBXRoute(@"/*")].withoutSession respondWithTarget:self
                                                                       action:@selector(handleUndefinedRoute:)],
-             [[FBRoute PUT:CBXRoute(@"/*")].withCBXSession respondWithTarget:self
+             [[FBRoute PUT:CBXRoute(@"/*")].withoutSession respondWithTarget:self
                                                                       action:@selector(handleUndefinedRoute:)],
              ];
 }
