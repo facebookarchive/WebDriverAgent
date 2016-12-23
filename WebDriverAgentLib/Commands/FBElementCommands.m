@@ -328,12 +328,35 @@
 
 + (id<FBResponsePayload>)handleGetWindowSize:(FBRouteRequest *)request
 {
-  CGRect frame = request.session.application.wdFrame;
-  return FBResponseWithStatus(FBCommandStatusNoError, @{
-    @"width": @(CGRectGetWidth(frame)),
-    @"height": @(CGRectGetHeight(frame)),
-  });
+    CGRect frame = request.session.application.wdFrame;
+
+    NSNumber *width = @(CGRectGetWidth(frame));
+    NSNumber *height = @(CGRectGetHeight(frame));
+    NSNumber *orientationValue = @0;
+
+    UIInterfaceOrientation orientation = request.session.application.interfaceOrientation;
+    if(orientation == UIInterfaceOrientationPortrait) { //Portrait orientation
+        orientationValue = @0;
+    } else if (orientation == UIInterfaceOrientationPortraitUpsideDown) {//Portrait orientation
+        orientationValue = @1;
+    } else if(orientation == UIInterfaceOrientationLandscapeRight){ //Landscape orientation
+        height = @(CGRectGetWidth(frame));
+        width = @(CGRectGetHeight(frame));
+        orientationValue = @2;
+    } else if (orientation == UIInterfaceOrientationLandscapeLeft) { //Landscape orientation
+        height = @(CGRectGetWidth(frame));
+        width = @(CGRectGetHeight(frame));
+        orientationValue = @3;
+    } else {
+        orientationValue = @4;
+    }
+    return FBResponseWithStatus(FBCommandStatusNoError, @{
+                                                        @"width": width,
+                                                        @"height": height,
+                                                        @"orientation":orientationValue,
+                                                        });
 }
+
 
 
 #pragma mark - Helpers
