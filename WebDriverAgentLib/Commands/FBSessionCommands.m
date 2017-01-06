@@ -15,6 +15,7 @@
 #import "FBApplication.h"
 #import "XCUIDevice.h"
 #import "XCUIDevice+FBHealthCheck.h"
+#import "XCUIDevice+FBHelpers.h"
 
 @implementation FBSessionCommands
 
@@ -84,6 +85,7 @@
       @"ios" :
         @{
           @"simulatorVersion" : [[UIDevice currentDevice] systemVersion],
+          @"ip" : [XCUIDevice sharedDevice].fb_wifiIPAddress,
         },
       @"build" :
         @{
