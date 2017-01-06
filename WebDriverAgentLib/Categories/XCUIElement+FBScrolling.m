@@ -92,6 +92,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
                                @(XCUIElementTypeScrollView),
                                @(XCUIElementTypeCollectionView),
                                @(XCUIElementTypeTable),
+                               @(XCUIElementTypeWebView),
                                ];
     
   XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingOneOfTypes:acceptedParents
