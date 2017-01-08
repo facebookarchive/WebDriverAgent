@@ -21,7 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Starts WebDriverAgent service by booting HTTP and USB server
  */
-- (void)startServing;
++ (void)startServing;
+
+/**
+ Shutdown the server
+ */
++ (void)stop;
 
 @end
 

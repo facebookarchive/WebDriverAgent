@@ -33,14 +33,25 @@ extern NSString *const FBAlertObstructingElementException;
 + (instancetype)alertWithApplication:(XCUIApplication *)application;
 
 /**
- Determines whether alert is present
+ Determines whether any alert is present
  */
 - (BOOL)isPresent;
+
+
+/**
+ Determines whether springboard alert is present
+ */
+- (BOOL)springboardAlertIsPresent;
 
 /**
  Returns alert's title and description separated by new lines
  */
 - (nullable NSString *)text;
+
+/**
+ Returns springboard alert's title and description separated by new lines
+ */
+- (nullable NSString *)springBoardAlertText;
 
 /**
  Accepts alert, if present
@@ -50,6 +61,8 @@ extern NSString *const FBAlertObstructingElementException;
  */
 - (BOOL)acceptWithError:(NSError **)error;
 
+- (BOOL)springboardAcceptWithError:(NSError **)error;
+
 /**
  Dismisses alert, if present
 
@@ -57,6 +70,14 @@ extern NSString *const FBAlertObstructingElementException;
  @return YES if the operation succeeds, otherwise NO.
  */
 - (BOOL)dismissWithError:(NSError **)error;
+
+- (BOOL)springboardDismissWithError:(NSError **)error;
+
+
+/**
+ Attempt to handle by pressing button with text
+ */
+- (BOOL)pressSpringboardButtonTitled:(NSString *)title error:(NSError **)error;
 
 /**
  Filters out elements obstructed by alert
@@ -70,6 +91,11 @@ extern NSString *const FBAlertObstructingElementException;
  XCUElement that represents alert
  */
 - (nullable XCUIElement *)alertElement;
+
+/**
+ XCUElement that represents springboard alert
+ */
+- (nullable XCUIElement *)springboardAlertElement;
 
 @end
 

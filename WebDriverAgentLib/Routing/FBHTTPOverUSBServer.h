@@ -29,6 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)startServing;
 
+/**
+ Shutdown the server
+ */
+- (void)stop;
+
 @end
 
 NS_ASSUME_NONNULL_END

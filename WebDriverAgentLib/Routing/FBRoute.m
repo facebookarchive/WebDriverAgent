@@ -14,10 +14,12 @@
 
 #import "FBExceptionHandler.h"
 #import "FBResponsePayload.h"
+#import "FBApplication.h"
 #import "FBSession.h"
 
 @interface FBRoute ()
 @property (nonatomic, assign, readwrite) BOOL requiresSession;
+@property (nonatomic, assign, readwrite) BOOL requiresCBXSession;
 @property (nonatomic, copy, readwrite) NSString *verb;
 @property (nonatomic, copy, readwrite) NSString *path;
 
@@ -118,10 +120,18 @@ static NSString *const FBRouteSessionPrefix = @"/session/:sessionID";
   return self;
 }
 
+- (instancetype)withCBXSession
+{
+    self.requiresSession = NO;
+    self.requiresCBXSession = YES;
+    return self;
+}
+
 - (instancetype)respondWithBlock:(FBRouteSyncHandler)handler
 {
   FBRoute_Sync *route = [FBRoute_Sync withVerb:self.verb path:self.path requiresSession:self.requiresSession];
   route.handler = handler;
+    route.requiresCBXSession = self.requiresCBXSession;
   return route;
 }
 
@@ -130,14 +140,23 @@ static NSString *const FBRouteSessionPrefix = @"/session/:sessionID";
   FBRoute_TargetAction *route = [FBRoute_TargetAction withVerb:self.verb path:self.path requiresSession:self.requiresSession];
   route.target = target;
   route.action = action;
+    route.requiresCBXSession = self.requiresCBXSession;
   return route;
 }
 
 - (void)decorateRequest:(FBRouteRequest *)request
 {
+    if (self.requiresCBXSession) {
+        //TODO: This doesn't work as expected
+        if ([FBApplication fb_activeApplication] == nil) {
+            [self raiseNoCBXSessionException];
+        }
+    }
+    
   if (!self.requiresSession) {
     return;
   }
+    
   NSString *sessionID = request.parameters[@"sessionID"];
   if (!sessionID) {
     [self raiseNoSessionException];
@@ -155,6 +174,12 @@ static NSString *const FBRouteSessionPrefix = @"/session/:sessionID";
 {
   [[NSException exceptionWithName:FBSessionDoesNotExistException reason:@"Session does not exist" userInfo:nil] raise];
 }
+
+- (void)raiseNoCBXSessionException
+{
+    [[NSException exceptionWithName:CBXSessionDoesNotExistException reason:@"Must launch an app with POST session prior to performing automation" userInfo:nil] raise];
+}
+
 
 - (void)mountRequest:(FBRouteRequest *)request intoResponse:(RouteResponse *)response
 {

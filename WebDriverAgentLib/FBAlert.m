@@ -86,65 +86,101 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   return self.alertElement.exists;
 }
 
+- (BOOL)springboardAlertIsPresent {
+    XCUIElement *alert = [FBSpringboardApplication fb_springboard].fb_alertElement;
+    return alert.exists;
+}
+
+- (NSString *)text:(XCUIElement *)alert
+{
+    if (!alert) {
+        return nil;
+    }
+    NSArray<XCElementSnapshot *> *staticTextList = [alert.lastSnapshot fb_descendantsMatchingType:XCUIElementTypeStaticText];
+    NSMutableString *mText = [NSMutableString string];
+    for (XCElementSnapshot *staticText in staticTextList) {
+        if (staticText.wdLabel && staticText.isWDVisible) {
+            [mText appendFormat:@"%@\n", staticText.wdLabel];
+        }
+    }
+    // Removing last '\n'
+    if (mText.length > 0) {
+        [mText replaceCharactersInRange:NSMakeRange(mText.length - @"\n".length, @"\n".length) withString:@""];
+    }
+    return mText.length > 0 ? mText.copy : [NSNull null];
+}
+
 - (NSString *)text
 {
-  XCUIElement *alert = self.alertElement;
-  if (!alert) {
-    return nil;
-  }
-  NSArray<XCElementSnapshot *> *staticTextList = [alert.lastSnapshot fb_descendantsMatchingType:XCUIElementTypeStaticText];
-  NSMutableString *mText = [NSMutableString string];
-  for (XCElementSnapshot *staticText in staticTextList) {
-    if (staticText.wdLabel && staticText.isWDVisible) {
-      [mText appendFormat:@"%@\n", staticText.wdLabel];
+    return [self text:self.alertElement];
+}
+
+- (NSString *)springBoardAlertText {
+    return [self text:self.springboardAlertElement];
+}
+
+- (BOOL)accept:(XCUIElement *)alertElement error:(NSError **)error {
+    NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
+    
+    XCUIElement *defaultButton;
+    if (alertElement.elementType == XCUIElementTypeAlert) {
+        defaultButton = buttons.lastObject;
+    } else {
+        defaultButton = buttons.firstObject;
     }
-  }
-  // Removing last '\n'
-  if (mText.length > 0) {
-    [mText replaceCharactersInRange:NSMakeRange(mText.length - @"\n".length, @"\n".length) withString:@""];
-  }
-  return mText.length > 0 ? mText.copy : [NSNull null];
+    if (!defaultButton) {
+        return
+        [[[FBErrorBuilder builder]
+          withDescriptionFormat:@"Failed to find accept button for alert: %@", alertElement]
+         buildError:error];
+    }
+    return [defaultButton fb_tapWithError:error];
+}
+
+- (BOOL)dismiss:(XCUIElement *)alertElement error:(NSError **)error {
+    XCUIElement *cancelButton;
+    NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
+    
+    if (alertElement.elementType == XCUIElementTypeAlert) {
+        cancelButton = buttons.firstObject;
+    } else {
+        cancelButton = buttons.lastObject;
+    }
+    if (!cancelButton) {
+        return
+        [[[FBErrorBuilder builder]
+          withDescriptionFormat:@"Failed to find dismiss button for alert: %@", alertElement]
+         buildError:error];
+        return NO;
+    }
+    return [cancelButton fb_tapWithError:error];
 }
 
 - (BOOL)acceptWithError:(NSError **)error
 {
-  XCUIElement *alertElement = self.alertElement;
-  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
-
-  XCUIElement *defaultButton;
-  if (alertElement.elementType == XCUIElementTypeAlert) {
-    defaultButton = buttons.lastObject;
-  } else {
-    defaultButton = buttons.firstObject;
-  }
-  if (!defaultButton) {
-    return
-    [[[FBErrorBuilder builder]
-      withDescriptionFormat:@"Failed to find accept button for alert: %@", alertElement]
-     buildError:error];
-  }
-  return [defaultButton fb_tapWithError:error];
+    return [self accept:self.alertElement error:error];
 }
 
 - (BOOL)dismissWithError:(NSError **)error
 {
-  XCUIElement *cancelButton;
-  XCUIElement *alertElement = self.alertElement;
-  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
+    return [self dismiss:self.alertElement error:error];
+}
 
-  if (alertElement.elementType == XCUIElementTypeAlert) {
-    cancelButton = buttons.firstObject;
-  } else {
-    cancelButton = buttons.lastObject;
-  }
-  if (!cancelButton) {
-    return
-    [[[FBErrorBuilder builder]
-      withDescriptionFormat:@"Failed to find dismiss button for alert: %@", alertElement]
-     buildError:error];
-    return NO;
-  }
-  return [cancelButton fb_tapWithError:error];
+- (BOOL)springboardAcceptWithError:(NSError **)error {
+    return [self accept:self.springboardAlertElement error:error];
+}
+
+- (BOOL)springboardDismissWithError:(NSError **)error {
+    return [self dismiss:self.springboardAlertElement error:error];
+}
+
+- (BOOL)pressSpringboardButtonTitled:(NSString *)title error:(NSError **)error {
+    XCUIElement *alertElement = self.springboardAlertElement;
+    XCUIElement *button = alertElement.buttons[title];
+    if (!button.exists) {
+        return NO;
+    }
+    return [button fb_tapWithError:error];
 }
 
 + (BOOL)isElementObstructedByAlertView:(XCUIElement *)element alert:(XCUIElement *)alert
@@ -181,6 +217,15 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
     [FBAlert throwRequestedItemObstructedByAlertException];
   }
   return elementBox.copy;
+}
+
+- (XCUIElement *)springboardAlertElement {
+    XCUIElement *alert = [FBSpringboardApplication fb_springboard].fb_alertElement;
+    if (!alert.exists){
+        return nil;
+    }
+    [alert resolve];
+    return alert;
 }
 
 - (XCUIElement *)alertElement

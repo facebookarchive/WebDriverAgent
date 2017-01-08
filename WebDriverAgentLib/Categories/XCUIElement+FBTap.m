@@ -19,33 +19,48 @@
 
 @implementation XCUIElement (FBTap)
 
+typedef void(^eventGenerationBlock)(XCEventGenerator *eventGenerator, XCEventGeneratorHandler handlerBlock);
+
+- (BOOL)generateEvent:(eventGenerationBlock)eventBlock error:(NSError * _Nullable __autoreleasing *)error {
+    [self fb_waitUntilFrameIsStable];
+    __block BOOL didSucceed;
+    [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
+        XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
+            if (commandError) {
+                [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
+            }
+            if (error) {
+                *error = commandError;
+            }
+            didSucceed = (commandError == nil);
+            completion();
+        };
+        eventBlock([XCEventGenerator sharedGenerator], handlerBlock);
+    }];
+    return didSucceed;
+}
+
+- (BOOL)tapAtCoordinate:(CGPoint)point withError:(NSError * _Nullable __autoreleasing *)error {
+    return [self generateEvent:^(XCEventGenerator *eventGenerator, XCEventGeneratorHandler handlerBlock) {
+        CGPoint hitPoint = FBInvertPointForApplication(point, self.application.frame.size, self.application.interfaceOrientation);
+        if ([eventGenerator respondsToSelector:@selector(tapAtTouchLocations:numberOfTaps:orientation:handler:)]) {
+            [eventGenerator tapAtTouchLocations:@[[NSValue valueWithCGPoint:hitPoint]]
+                                   numberOfTaps:1
+                                    orientation:self.interfaceOrientation
+                                        handler:handlerBlock];
+        } else {
+            [eventGenerator tapAtPoint:hitPoint
+                           orientation:self.interfaceOrientation
+                               handler:handlerBlock];
+        }
+    } error:error];
+}
+
 - (BOOL)fb_tapWithError:(NSError **)error
 {
-  [self fb_waitUntilFrameIsStable];
-  __block BOOL didSucceed;
-  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
     NSValue *hitpointValue = self.lastSnapshot.suggestedHitpoints.firstObject;
     CGPoint hitPoint = hitpointValue ? hitpointValue.CGPointValue : [self coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)].screenPoint;
-    hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
-    XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
-      if (commandError) {
-        [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
-      }
-      if (error) {
-        *error = commandError;
-      }
-      didSucceed = (commandError == nil);
-      completion();
-    };
-    XCEventGenerator *eventGenerator = [XCEventGenerator sharedGenerator];
-    if ([eventGenerator respondsToSelector:@selector(tapAtTouchLocations:numberOfTaps:orientation:handler:)]) {
-      [eventGenerator tapAtTouchLocations:@[[NSValue valueWithCGPoint:hitPoint]] numberOfTaps:1 orientation:self.interfaceOrientation handler:handlerBlock];
-    }
-    else {
-      [eventGenerator tapAtPoint:hitPoint orientation:self.interfaceOrientation handler:handlerBlock];
-    }
-  }];
-  return didSucceed;
+    return [self tapAtCoordinate:hitPoint withError:error];
 }
 
 @end

@@ -63,6 +63,10 @@ static const uint32_t FBUSBFrameType = 100;
   }];
 }
 
+- (void)stop {
+    [self.serverChannel cancel];
+}
+
 - (void)handleRequestData:(NSData *)data
 {
   NSError *error;

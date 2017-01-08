@@ -13,6 +13,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /*! Exception used to notify about missing session */
+extern NSString *const CBXSessionDoesNotExistException;
+
+/*! Exception used to notify about missing session */
 extern NSString *const FBSessionDoesNotExistException;
 
 /*! Exception used to notify about application deadlock */
