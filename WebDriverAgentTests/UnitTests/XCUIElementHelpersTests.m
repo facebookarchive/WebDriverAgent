@@ -12,21 +12,40 @@
 #import "FBElementUtils.h"
 
 @interface XCUIElementHelpersTests : XCTestCase
+@property (nonatomic) NSDictionary *namesMapping;
 @end
 
 @implementation XCUIElementHelpersTests
 
-- (void)testGettingWDProperties
+- (void)setUp
 {
-  NSArray *properties = [FBElementUtils wdPropertyNames];
-  XCTAssertTrue([properties containsObject:@"wdName"]);
-  
-  NSArray *wdProperties = [properties filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF beginsWith[c] 'wd'"]];
-  XCTAssertTrue(wdProperties.count > 0);
-  XCTAssertEqual(properties.count, wdProperties.count);
-  
-  NSArray *nonWDProperties = [properties filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT(SELF beginsWith[c] 'wd')"]];
-  XCTAssertEqual(nonWDProperties.count, 0);
+  [super setUp];
+  self.namesMapping = [FBElementUtils wdAttributeNamesMapping];
+}
+
+- (void)testMappingContainsNamesAndAliases
+{
+  XCTAssertTrue([self.namesMapping.allKeys containsObject:@"wdName"]);
+  XCTAssertTrue([self.namesMapping.allKeys containsObject:@"name"]);
+}
+
+- (void)testMappingContainsCorrectValueForAttrbutesWithoutGetters
+{
+  XCTAssertTrue([[self.namesMapping objectForKey:@"label"] isEqualToString:@"wdLabel"]);
+  XCTAssertTrue([[self.namesMapping objectForKey:@"wdLabel"] isEqualToString:@"wdLabel"]);
+}
+
+- (void)testMappingContainsCorrectValueForAttrbutesWithGetters
+{
+  XCTAssertTrue([[self.namesMapping objectForKey:@"visible"] isEqualToString:@"isWDVisible"]);
+  XCTAssertTrue([[self.namesMapping objectForKey:@"wdVisible"] isEqualToString:@"isWDVisible"]);
+}
+
+- (void)testEachPropertyHasAlias
+{
+  NSArray *aliases = [self.namesMapping.allKeys filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT(SELF beginsWith[c] 'wd')"]];
+  NSArray *names = [self.namesMapping.allKeys filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF beginsWith[c] 'wd'"]];
+  XCTAssertEqual(aliases.count, names.count);
 }
 
 @end
