@@ -12,25 +12,40 @@
 #import "FBElementUtils.h"
 
 @interface XCUIElementHelpersTests : XCTestCase
+@property (nonatomic) NSDictionary *namesMapping;
 @end
 
 @implementation XCUIElementHelpersTests
 
-- (void)testGettingWDProperties
+- (void)setUp
 {
-  NSDictionary *properties = [FBElementUtils wdProperties];
-  XCTAssertTrue([properties.allKeys containsObject:@"wdName"]);
-  
-  NSArray *wdProperties = [properties.allKeys filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF beginsWith[c] 'wd'"]];
-  XCTAssertTrue(wdProperties.count > 0);
-  XCTAssertEqual(properties.count, wdProperties.count);
-  
-  NSArray *nonWDProperties = [properties.allKeys filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT(SELF beginsWith[c] 'wd')"]];
-  XCTAssertEqual(nonWDProperties.count, 0);
-  
-  NSArray *allGetters = [[FBElementUtils wdProperties] allValues];
-  NSArray *filteredGetters = [allGetters filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF beginsWith[c] 'is'"]];
-  XCTAssertTrue(filteredGetters.count > 0);
+  [super setUp];
+  self.namesMapping = [FBElementUtils wdAttributeNamesMapping];
+}
+
+- (void)testMappingContainsNamesAndAliases
+{
+  XCTAssertTrue([self.namesMapping.allKeys containsObject:@"wdName"]);
+  XCTAssertTrue([self.namesMapping.allKeys containsObject:@"name"]);
+}
+
+- (void)testMappingContainsCorrectValueForAttrbutesWithoutGetters
+{
+  XCTAssertTrue([[self.namesMapping objectForKey:@"label"] isEqualToString:@"wdLabel"]);
+  XCTAssertTrue([[self.namesMapping objectForKey:@"wdLabel"] isEqualToString:@"wdLabel"]);
+}
+
+- (void)testMappingContainsCorrectValueForAttrbutesWithGetters
+{
+  XCTAssertTrue([[self.namesMapping objectForKey:@"visible"] isEqualToString:@"isWDVisible"]);
+  XCTAssertTrue([[self.namesMapping objectForKey:@"wdVisible"] isEqualToString:@"isWDVisible"]);
+}
+
+- (void)testEachPropertyHasAlias
+{
+  NSArray *aliases = [self.namesMapping.allKeys filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT(SELF beginsWith[c] 'wd')"]];
+  NSArray *names = [self.namesMapping.allKeys filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF beginsWith[c] 'wd'"]];
+  XCTAssertEqual(aliases.count, names.count);
 }
 
 @end

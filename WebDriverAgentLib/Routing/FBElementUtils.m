@@ -22,23 +22,14 @@ static NSString *const OBJC_PROP_ATTRIBS_SEPARATOR = @",";
 + (NSString *)wdAttributeNameForAttributeName:(NSString *)name
 {
   NSAssert(name.length > 0, @"Attribute name cannot be empty");
-  NSString *resultAttrubuteName = name;
-  NSArray *availableProperties = [FBElementUtils wdProperties].allKeys;
-  NSArray *availableGetters = [FBElementUtils wdProperties].allValues;
-  if (!([availableProperties containsObject:resultAttrubuteName] || [availableGetters containsObject:resultAttrubuteName])) {
-    resultAttrubuteName = [NSString stringWithFormat:@"%@%@", WD_PREFIX, [NSString stringWithFormat:@"%@%@", [[name substringToIndex:1] uppercaseString], [name substringFromIndex:1]]];
-  }
-  NSString *getterName = [[self.class wdProperties] objectForKey:resultAttrubuteName];
-  if (nil != getterName && [getterName isKindOfClass:NSString.class]) {
-    // Return the corresponding getter name for KVO lookup if exists
-    resultAttrubuteName = getterName;
-  }
-  if (!([availableProperties containsObject:resultAttrubuteName] || [availableGetters containsObject:resultAttrubuteName])) {
-    NSString *description = [NSString stringWithFormat:@"The attribute '%@' is unknown. Valid attribute names are: %@", name, availableProperties];
+  NSDictionary *attributeNamesMapping = [self.class wdAttributeNamesMapping];
+  NSString *result = [attributeNamesMapping valueForKey:name];
+  if (nil == result) {
+    NSString *description = [NSString stringWithFormat:@"The attribute '%@' is unknown. Valid attribute names are: %@", name, [attributeNamesMapping.allKeys sortedArrayUsingSelector:@selector(compare:)]];
     @throw [NSException exceptionWithName:FBUnknownAttributeException reason:description userInfo:@{}];
     return nil;
   }
-  return resultAttrubuteName;
+  return result;
 }
 
 + (NSSet<NSNumber *> *)uniqueElementTypesWithElements:(NSArray<id<FBElement>> *)elements
@@ -50,12 +41,12 @@ static NSString *const OBJC_PROP_ATTRIBS_SEPARATOR = @",";
   return matchingTypes.copy;
 }
 
-+ (NSDictionary<NSString *, id> *)wdProperties
++ (NSDictionary<NSString *, NSString *> *)wdAttributeNamesMapping
 {
-  static NSDictionary *propertiesWithGetters;
-  static dispatch_once_t propGettersToken;
-  dispatch_once(&propGettersToken, ^{
-    NSMutableDictionary *result = [NSMutableDictionary new];
+  static NSDictionary *attributeNamesMapping;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    NSMutableDictionary *wdPropertyGettersMapping = [NSMutableDictionary new];
     unsigned int propsCount = 0;
     objc_property_t *properties = protocol_copyPropertyList(objc_getProtocol("FBElement"), &propsCount);
     for (unsigned int i = 0; i < propsCount; ++i) {
@@ -65,7 +56,7 @@ static NSString *const OBJC_PROP_ATTRIBS_SEPARATOR = @",";
       if (nil == nsName || ![nsName hasPrefix:WD_PREFIX]) {
         continue;
       }
-      [result setObject:[NSNull null] forKey:nsName];
+      [wdPropertyGettersMapping setObject:[NSNull null] forKey:nsName];
       const char *c_attributes = property_getAttributes(property);
       NSString *attributes = [NSString stringWithUTF8String:c_attributes];
       if (nil == attributes) {
@@ -75,15 +66,42 @@ static NSString *const OBJC_PROP_ATTRIBS_SEPARATOR = @",";
       NSArray *splitAttrs = [attributes componentsSeparatedByString:OBJC_PROP_ATTRIBS_SEPARATOR];
       for (NSString *part in splitAttrs) {
         if ([part hasPrefix:OBJC_PROP_GETTER_PREFIX]) {
-          [result setObject:[part substringFromIndex:1] forKey:nsName];
+          [wdPropertyGettersMapping setObject:[part substringFromIndex:1] forKey:nsName];
           break;
         }
       }
     }
     free(properties);
-    propertiesWithGetters = result.copy;
+    
+    NSMutableDictionary *resultCache = [NSMutableDictionary new];
+    for (NSString *propName in wdPropertyGettersMapping) {
+      if ([[wdPropertyGettersMapping valueForKey:propName] isKindOfClass:NSNull.class]) {
+        // no getter
+        [resultCache setValue:propName forKey:propName];
+      } else {
+        // has getter method
+        [resultCache setValue:[wdPropertyGettersMapping objectForKey:propName] forKey:propName];
+      }
+      NSString *aliasName;
+      if (propName.length <= WD_PREFIX.length + 1) {
+        aliasName = [NSString stringWithFormat:@"%@",
+                        [propName substringWithRange:NSMakeRange(WD_PREFIX.length, 1)].lowercaseString];
+      } else {
+        aliasName = [NSString stringWithFormat:@"%@%@",
+                        [propName substringWithRange:NSMakeRange(WD_PREFIX.length, 1)].lowercaseString,
+                        [propName substringFromIndex:WD_PREFIX.length + 1]];
+      }
+      if ([[wdPropertyGettersMapping valueForKey:propName] isKindOfClass:NSNull.class]) {
+        // no getter
+        [resultCache setValue:propName forKey:aliasName];
+      } else {
+        // has getter method
+        [resultCache setValue:[wdPropertyGettersMapping objectForKey:propName] forKey:aliasName];
+      }
+    }
+    attributeNamesMapping = resultCache.copy;
   });
-  return propertiesWithGetters.copy;
+  return attributeNamesMapping.copy;
 }
 
 @end

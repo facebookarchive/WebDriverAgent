@@ -39,12 +39,12 @@ extern NSString *const FBUnknownAttributeException;
 + (NSSet<NSNumber *> *)uniqueElementTypesWithElements:(NSArray<id<FBElement>> *)elements;
 
 /**
- Returns all properties of FBElement protocol having 'wd' prefix with their getters
+ Returns mapping of all possible FBElement protocol properties aliases
  
- @return dictionary of matching property names with their getter names as values if getter method exists
- for the corresponding property or [NSNull null] if it does not exist
+ @return dictionary of matching property aliases with their real names as values or getter method names if exist
+ for KVO lookup
  */
-+ (NSDictionary<NSString *, id> *)wdProperties;
++ (NSDictionary<NSString *, NSString *> *)wdAttributeNamesMapping;
 
 @end
 
