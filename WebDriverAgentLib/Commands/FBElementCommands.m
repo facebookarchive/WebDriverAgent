@@ -316,7 +316,7 @@
     [tapCoordinate tap];
   } else {
     NSError *error;
-    if (![element fb_tapCoordinateWithError:&error relativeCoordinate:tapPoint]) {
+    if (![element fb_tapCoordinate:tapPoint error:&error]) {
       return FBResponseWithError(error);
     }
   }

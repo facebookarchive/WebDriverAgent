@@ -23,12 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Waits for element to become stable (not move) and performs sync tap on element
- 
- @param error If there is an error, upon return contains an NSError object that describes the problem.
+
  @param relativeCoordinate hit point coordinate relative to the current element position
+ @param error If there is an error, upon return contains an NSError object that describes the problem.
  @return YES if the operation succeeds, otherwise NO.
  */
-- (BOOL)fb_tapCoordinateWithError:(NSError **)error relativeCoordinate:(CGPoint)relativeCoordinate;
+- (BOOL)fb_tapCoordinate:(CGPoint)relativeCoordinate error:(NSError **)error;
 
 @end
 

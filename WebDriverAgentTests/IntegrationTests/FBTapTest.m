@@ -61,7 +61,7 @@
   NSError *error;
   XCTAssertTrue(self.testedApplication.alerts.count == 0);
   XCUIElement *dstButton = self.testedApplication.buttons[FBShowAlertButtonName];
-  [dstButton fb_tapCoordinateWithError:&error relativeCoordinate:CGPointMake(dstButton.frame.size.width / 2, dstButton.frame.size.height / 2)];
+  [dstButton fb_tapCoordinate:CGPointMake(dstButton.frame.size.width / 2, dstButton.frame.size.height / 2) error:&error];
   FBAssertWaitTillBecomesTrue(self.testedApplication.alerts.count > 0);
 }
 

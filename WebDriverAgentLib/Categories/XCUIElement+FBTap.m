@@ -26,17 +26,21 @@
   CGPoint hitPoint = hitpointValue ? hitpointValue.CGPointValue : [self coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)].screenPoint;
   hitPoint.x -= self.frame.origin.x;
   hitPoint.y -= self.frame.origin.y;
-  return [self fb_tapCoordinateWithError:error relativeCoordinate:hitPoint];
+  return [self fb_tapCoordinate:hitPoint error:error];
 }
 
-- (BOOL)fb_tapCoordinateWithError:(NSError **)error relativeCoordinate:(CGPoint)relativeCoordinate
+- (BOOL)fb_tapCoordinate:(CGPoint)relativeCoordinate error:(NSError **)error
 {
   [self fb_waitUntilFrameIsStable];
   __block BOOL didSucceed;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
     CGPoint hitPoint = CGPointMake(self.frame.origin.x + relativeCoordinate.x, self.frame.origin.y + relativeCoordinate.y);
-    // TODO: Change that after XCTest starts to respect landscape orientation
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+      /*
+       Since iOS 10.0 XCTest has a bug when it always returns portrait coordinates for UI elements
+       even if the device is not in portait mode. That is why we need to recalculate them manually
+       based on the current orientation value
+       */
       hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
     }
     XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
