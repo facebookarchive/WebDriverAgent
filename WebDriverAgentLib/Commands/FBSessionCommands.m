@@ -85,7 +85,7 @@
       @"ios" :
         @{
           @"simulatorVersion" : [[UIDevice currentDevice] systemVersion],
-          @"ip" : [XCUIDevice sharedDevice].fb_wifiIPAddress,
+          @"ip" : [XCUIDevice sharedDevice].fb_wifiIPAddress ?: [NSNull null],
         },
       @"build" :
         @{
