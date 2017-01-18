@@ -22,15 +22,15 @@
     self.wdFrame = CGRectMake(0, 0, 0, 0);
     self.wdName = @"testName";
     self.wdLabel = @"testLabel";
-    self.wdValue = @"кирилиця";
+    self.wdValue = @"magicValue";
     self.wdVisible = YES;
     self.wdAccessible = YES;
     self.wdEnabled = YES;
     self.children = @[];
-    self.wdRect =  @{@"x": @(0),
-                     @"y": @(0),
-                     @"width": @(0),
-                     @"height": @(0),
+    self.wdRect =  @{@"x": @0,
+                     @"y": @0,
+                     @"width": @0,
+                     @"height": @0,
                      };
     self.wdAccessibilityContainer = NO;
     self.elementType = XCUIElementTypeOther;
