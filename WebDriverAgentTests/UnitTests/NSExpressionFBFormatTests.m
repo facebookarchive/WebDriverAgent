@@ -20,31 +20,36 @@
 - (void)testFormattingForExistingProperty
 {
   NSExpression *expr = [NSExpression expressionWithFormat:@"wdName"];
-  XCTAssertNotNil([NSExpression fb_wdExpressionWithExpression:expr]);
+  NSExpression *prop = [NSExpression fb_wdExpressionWithExpression:expr];
+  XCTAssertEqualObjects([prop keyPath], @"wdName");
 }
 
 - (void)testFormattingForExistingPropertyShortcut
 {
   NSExpression *expr = [NSExpression expressionWithFormat:@"visible"];
-  XCTAssertNotNil([NSExpression fb_wdExpressionWithExpression:expr]);
+  NSExpression *prop = [NSExpression fb_wdExpressionWithExpression:expr];
+  XCTAssertEqualObjects([prop keyPath], @"isWDVisible");
 }
 
 - (void)testFormattingForValidExpressionWOKeys
 {
   NSExpression *expr = [NSExpression expressionWithFormat:@"1"];
-  XCTAssertNotNil([NSExpression fb_wdExpressionWithExpression:expr]);
+  NSExpression *prop = [NSExpression fb_wdExpressionWithExpression:expr];
+  XCTAssertEqualObjects([prop constantValue], [NSNumber numberWithInt:1]);
 }
 
 - (void)testFormattingForExistingComplexProperty
 {
   NSExpression *expr = [NSExpression expressionWithFormat:@"wdRect.x"];
-  XCTAssertNotNil([NSExpression fb_wdExpressionWithExpression:expr]);
+  NSExpression *prop = [NSExpression fb_wdExpressionWithExpression:expr];
+  XCTAssertEqualObjects([prop keyPath], @"wdRect.x");
 }
 
 - (void)testFormattingForExistingComplexPropertyWOPrefix
 {
   NSExpression *expr = [NSExpression expressionWithFormat:@"rect.x"];
-  XCTAssertNotNil([NSExpression fb_wdExpressionWithExpression:expr]);
+  NSExpression *prop = [NSExpression fb_wdExpressionWithExpression:expr];
+  XCTAssertEqualObjects([prop keyPath], @"wdRect.x");
 }
 
 - (void)testFormattingForPredicateWithUnknownKey

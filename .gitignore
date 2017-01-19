@@ -46,3 +46,6 @@ Resources/WebDriverAgent.bundle
 
 # Modules map recreated on each build
 Modules/module.modulemap
+
+# test run
+*.trace
