@@ -43,14 +43,7 @@ class TreeNode {
         height: rect.height,
         width: rect.width,
       },
-    }
-    var children = null;
-    if (node.children != null) {
-      children = node.children.map((child) => {
-        return TreeNode.buildNode(child, context);
-      });
-    }
-    return children;
+    };
   }
 
   constructor(key, name, children, node) {
