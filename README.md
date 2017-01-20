@@ -4,7 +4,8 @@ WebDriverAgent is a [WebDriver server](https://w3c.github.io/webdriver/webdriver
 
 ## Features
  * Works with device & simulator
- * Implements most of [WebDriver spec](https://w3c.github.io/webdriver/webdriver-spec.html)
+ * Implements most of [WebDriver Spec](https://w3c.github.io/webdriver/webdriver-spec.html)
+ * Implements part of [Mobile JSON Wire Protocol Spec](https://github.com/SeleniumHQ/mobile-spec/blob/master/spec-draft.md)
  * [USB support](https://github.com/facebook/WebDriverAgent/wiki/USB-support) for devices
  * Inspector [endpoint](http://localhost:8100/inspector) with friendly user interface to inspect current device state
  * Easy development cycle as it can be launched & debugged directly via Xcode
