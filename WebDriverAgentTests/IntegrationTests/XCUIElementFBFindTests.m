@@ -132,7 +132,7 @@
                                NSException, XCElementSnapshotInvalidXPathException);
 }
 
-- (void)disabled_testVisibleDescendantWithXPathQuery
+- (void)testVisibleDescendantWithXPathQuery
 {
   NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton[@name='Alerts' and @enabled='true' and @visible='true']" shouldReturnAfterFirstMatch:NO];
   XCTAssertEqual(matchingSnapshots.count, 1);
@@ -140,6 +140,16 @@
   XCTAssertTrue(matchingSnapshots.lastObject.isEnabled);
   XCTAssertTrue(matchingSnapshots.lastObject.fb_isVisible);
   XCTAssertEqualObjects(matchingSnapshots.lastObject.label, @"Alerts");
+}
+
+- (void)testVisibleDescendantWithXPathQueryAndAlternativeVisibilityDetection
+{
+  @try {
+    setenv("ALTERNATIVE_VISIBILITY_DETECTION", "YES", 1);
+    [self testVisibleDescendantWithXPathQuery];
+  } @finally {
+    unsetenv("ALTERNATIVE_VISIBILITY_DETECTION");
+  }
 }
 
 - (void)disabled_testInvisibleDescendantWithXPathQuery
