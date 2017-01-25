@@ -42,7 +42,11 @@ extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
 @interface FBXPath : NSObject
 
 /**
- Returns an array of descendants matching given xpath query
+ Returns an array of descendants matching given xpath query.
+ One can set INCLUDE_VISIBLE_ATTRIBUTE environment variable to YES
+ in order to include 'visible' attribute for all XML tree elements.
+ Note, that this might be unstable and slow, especially in
+ conjunction with ALTERNATIVE_VISIBILITY_DETECTION flag.
  
  @param root the root element to execute XPath query for
  @param xpathQuery requested xpath query
@@ -53,6 +57,10 @@ extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
 /**
  Gets XML representation of XCElementSnapshot with all its descendants. This method generates the same
  representation, which is used for XPath search
+ One can set INCLUDE_VISIBLE_ATTRIBUTE environment variable to YES
+ in order to include 'visible' attribute for all XML tree elements.
+ Note, that this might be unstable and slow, especially in
+ conjunction with ALTERNATIVE_VISIBILITY_DETECTION flag.
  
  @param root the root element
  @return valid XML document as string or nil in case of failure

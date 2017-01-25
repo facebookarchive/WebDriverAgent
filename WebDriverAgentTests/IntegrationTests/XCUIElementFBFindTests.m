@@ -134,12 +134,17 @@
 
 - (void)testVisibleDescendantWithXPathQuery
 {
-  NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton[@name='Alerts' and @enabled='true' and @visible='true']" shouldReturnAfterFirstMatch:NO];
-  XCTAssertEqual(matchingSnapshots.count, 1);
-  XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypeButton);
-  XCTAssertTrue(matchingSnapshots.lastObject.isEnabled);
-  XCTAssertTrue(matchingSnapshots.lastObject.fb_isVisible);
-  XCTAssertEqualObjects(matchingSnapshots.lastObject.label, @"Alerts");
+  @try {
+    setenv("INCLUDE_VISIBLE_ATTRIBUTE", "YES", 1);
+    NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton[@name='Alerts' and @enabled='true' and @visible='true']" shouldReturnAfterFirstMatch:NO];
+    XCTAssertEqual(matchingSnapshots.count, 1);
+    XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypeButton);
+    XCTAssertTrue(matchingSnapshots.lastObject.isEnabled);
+    XCTAssertTrue(matchingSnapshots.lastObject.fb_isVisible);
+    XCTAssertEqualObjects(matchingSnapshots.lastObject.label, @"Alerts");
+  } @finally {
+    unsetenv("INCLUDE_VISIBLE_ATTRIBUTE");
+  }
 }
 
 - (void)testVisibleDescendantWithXPathQueryAndAlternativeVisibilityDetection
