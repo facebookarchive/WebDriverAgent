@@ -17,14 +17,14 @@
   if ([input expressionType] != NSKeyPathExpressionType) {
     return input;
   }
-  NSString *actualPropName = [input keyPath];
-  NSUInteger dotPos = [actualPropName rangeOfString:@"."].location;
+  NSString *propName = [input keyPath];
+  NSUInteger dotPos = [propName rangeOfString:@"."].location;
   if (NSNotFound != dotPos) {
-    actualPropName = [actualPropName substringToIndex:dotPos];
-    NSString *suffix = [actualPropName substringFromIndex:dotPos];
+    NSString *actualPropName = [propName substringToIndex:dotPos];
+    NSString *suffix = [propName substringFromIndex:(dotPos + 1)];
     return [NSExpression expressionForKeyPath:[NSString stringWithFormat:@"%@.%@", [FBElementUtils wdAttributeNameForAttributeName:actualPropName], suffix]];
   }
-  return [NSExpression expressionForKeyPath:[FBElementUtils wdAttributeNameForAttributeName:actualPropName]];
+  return [NSExpression expressionForKeyPath:[FBElementUtils wdAttributeNameForAttributeName:propName]];
 }
 
 @end

@@ -44,7 +44,7 @@ class Tree extends React.Component {
 
   styleWithMaxHeight(height) {
     return {
-      'maxHeight': height
+      'maxHeight': height,
     };
   }
 
@@ -54,7 +54,7 @@ class Tree extends React.Component {
     }
     return (
       <div>
-        <div className="tree-header"></div>
+        <div className="tree-header"/>
         {this.renderNode(this.props.rootNode)}
       </div>
     );
@@ -62,11 +62,11 @@ class Tree extends React.Component {
 
   renderNode(node) {
     const isSelected = (this.props.selectedNode != null
-      && this.props.selectedNode.key == node.key);
+      && this.props.selectedNode.key === node.key);
     const className = classNames(
-      "tree-node",
+      'tree-node',
       {
-        "selected" : isSelected
+        'selected' : isSelected,
       }
     );
 

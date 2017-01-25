@@ -1,0 +1,14 @@
+[ignore]
+.*node_modules/fbjs/.*
+
+[include]
+
+[libs]
+
+[options]
+suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
+suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe
+esproposal.class_static_fields=enable
+
+[version]
+^0.38.0

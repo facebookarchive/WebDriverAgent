@@ -54,13 +54,12 @@ class Screen extends React.Component {
     if (this.props.highlightedNode == null) {
       return null;
     }
-    
+
     const rect = this.props.highlightedNode.rect;
     return (
       <div
         className="screen-highlighted-node"
-        style={this.styleForHighlightedNodeWithRect(rect)}>
-      </div>
+        style={this.styleForHighlightedNodeWithRect(rect)}/>
     );
   }
 
@@ -78,7 +77,7 @@ class Screen extends React.Component {
     // hide nodes with rect out of bound
     if (rect.origin.x < 0 || rect.origin.x * pxPtScale >= screenshot.width ||
       rect.origin.y < 0 || rect.origin.y * pxPtScale >= screenshot.height){
-        return {}
+        return {};
     }
 
     return {

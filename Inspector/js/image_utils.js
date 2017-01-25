@@ -16,7 +16,7 @@ class ImageUtils {
     var canvas = document.createElement('canvas');
     canvas.width = imageInLanscapeOrientation.height;
     canvas.height = imageInLanscapeOrientation.width;
-    
+
     var context = canvas.getContext('2d');
     context.rotate(-90 * (Math.PI / 180));
     context.translate(-imageInLanscapeOrientation.width, 0);
@@ -29,7 +29,7 @@ class ImageUtils {
     var canvas = document.createElement('canvas');
     canvas.width = imageInLanscapeRightOrientation.height;
     canvas.height = imageInLanscapeRightOrientation.width;
-    
+
     var context = canvas.getContext('2d');
     context.rotate(90 * (Math.PI / 180));
     context.translate(0, -imageInLanscapeRightOrientation.height);
