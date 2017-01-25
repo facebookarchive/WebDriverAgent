@@ -224,6 +224,13 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
       return rc;
     }
   }
+  if ([NSProcessInfo.processInfo.environment[@"INCLUDE_VISIBLE_ATTRIBUTE"] boolValue]) {
+    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "visible", element.wdVisible ? BAD_CAST "true" : BAD_CAST "false");
+    if (rc < 0) {
+      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+      return rc;
+    }
+  }
   rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "enabled", element.wdEnabled ? BAD_CAST "true" : BAD_CAST "false");
   if (rc < 0) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
