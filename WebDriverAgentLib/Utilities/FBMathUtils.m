@@ -52,3 +52,18 @@ CGPoint FBInvertPointForApplication(CGPoint point, CGSize screenSize, UIInterfac
       return CGPointMake(screenSize.width - point.y, point.x);
   }
 }
+
+CGSize FBAdjustDimensionsForApplication(CGSize actualSize, UIInterfaceOrientation orientation)
+{
+  if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+    /*
+     There is an XCTest bug that application.frame property returns exchanged dimensions for landscape mode.
+     This verification is just to make sure the bug is still there (since height is never greater than width in landscape) 
+     and to make it still working properly after XCTest itself starts to respect landscape mode.
+     */
+    if (actualSize.height > actualSize.width) {
+      return CGSizeMake(actualSize.height, actualSize.width);
+    }
+  }
+  return actualSize;
+}

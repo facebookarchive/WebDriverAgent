@@ -110,4 +110,17 @@
   XCTAssertTrue(FBPointFuzzyEqualToPoint(CGPointMake(8, 1), FBInvertPointForApplication(testPoint, screenSize, UIInterfaceOrientationLandscapeRight), t));
 }
 
+- (void)testSizeInversion
+{
+  const CGSize screenSizePortrait = CGSizeMake(10, 15);
+  const CGSize screenSizeLandscape = CGSizeMake(15, 10);
+  const CGFloat t = FBDefaultFrameFuzzyThreshold;
+  XCTAssertTrue(FBSizeFuzzyEqualToSize(screenSizePortrait, FBAdjustDimensionsForApplication(screenSizePortrait, UIInterfaceOrientationPortrait), t));
+  XCTAssertTrue(FBSizeFuzzyEqualToSize(screenSizePortrait, FBAdjustDimensionsForApplication(screenSizePortrait, UIInterfaceOrientationPortraitUpsideDown), t));
+  XCTAssertTrue(FBSizeFuzzyEqualToSize(screenSizeLandscape, FBAdjustDimensionsForApplication(screenSizePortrait, UIInterfaceOrientationLandscapeLeft), t));
+  XCTAssertTrue(FBSizeFuzzyEqualToSize(screenSizeLandscape, FBAdjustDimensionsForApplication(screenSizePortrait, UIInterfaceOrientationLandscapeRight), t));
+  XCTAssertTrue(FBSizeFuzzyEqualToSize(screenSizeLandscape, FBAdjustDimensionsForApplication(screenSizeLandscape, UIInterfaceOrientationLandscapeLeft), t));
+  XCTAssertTrue(FBSizeFuzzyEqualToSize(screenSizeLandscape, FBAdjustDimensionsForApplication(screenSizeLandscape, UIInterfaceOrientationLandscapeRight), t));
+}
+
 @end
