@@ -10,9 +10,16 @@
 
 set -eu
 
+function prebootSimulator() {
+  if [ -z "${DESTINATION:-}" ]; then
+    return
+  fi
+  xcrun instruments -t 'Blank' -l 1 -w "${DESTINATION} (${IOS})"
+}
+
 function build() {
   if [ ! -z "${DESTINATION:-}" ]; then
-    DESTINATION_CMD="-destination \"name=${DESTINATION}\""
+    DESTINATION_CMD="-destination \"name=${DESTINATION},OS=${IOS}\""
   fi
   lines=(
     "xcodebuild"
@@ -24,8 +31,9 @@ function build() {
     "CODE_SIGN_IDENTITY=\"\""
     "CODE_SIGNING_REQUIRED=NO"
   )
-  eval "${lines[*]}"
+  eval "${lines[*]}" | xcpretty && exit ${PIPESTATUS[0]}
 }
 
 ./Scripts/bootstrap.sh
+prebootSimulator
 build

@@ -12,7 +12,7 @@ import React from 'react';
 require('css/inspector.css');
 
 function boolToString(boolValue) {
-  return boolValue == '1' ? 'Yes' : 'No'
+  return boolValue === '1' ? 'Yes' : 'No';
 }
 
 class Inspector extends React.Component {

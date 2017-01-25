@@ -28,11 +28,6 @@ static NSUInteger const DefaultPortRange = 100;
   _AXSAutomationSetFauxCollectionViewCellsEnabled(showFakeCells);
 }
 
-+ (void)setTestManagerRequestTimeout:(double)timeout
-{
-  _XCTSetEventConfirmationTimeout(timeout);
-}
-
 + (NSRange)bindingPortRange
 {
   // 'WebDriverAgent --port 8080' can be passed via the arguments to the process

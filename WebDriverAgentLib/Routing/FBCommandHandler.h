@@ -9,10 +9,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import "FBCommandStatus.h"
-#import "FBResponsePayload.h"
-#import "FBRoute.h"
-#import "FBResponsePayload.h"
+#import <WebDriverAgentLib/FBCommandStatus.h>
+#import <WebDriverAgentLib/FBResponsePayload.h>
+#import <WebDriverAgentLib/FBRoute.h>
+#import <WebDriverAgentLib/FBResponsePayload.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

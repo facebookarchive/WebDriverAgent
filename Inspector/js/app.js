@@ -17,7 +17,7 @@ import TreeNode from 'js/tree_node';
 import TreeContext from 'js/tree_context';
 import Inspector from 'js/inspector';
 
-require('css/app.css')
+require('css/app.css');
 
 const SCREENSHOT_ENDPOINT = 'screenshot';
 const TREE_ENDPOINT = 'source';
@@ -56,12 +56,12 @@ class App extends React.Component {
 
   render() {
     return (
-  		<div id="app">
-  			<Screen
+      <div id="app">
+        <Screen
           highlightedNode={this.state.highlightedNode}
           screenshot={this.state.screenshot}
           rootNode={this.state.rootNode} />
-  			<Tree
+        <Tree
           onHighlightedNodeChange={(node) => {
             this.setState({
               highlightedNode: node,
@@ -74,8 +74,8 @@ class App extends React.Component {
           }}
           rootNode={this.state.rootNode}
           selectedNode={this.state.selectedNode} />
-  			<Inspector selectedNode={this.state.selectedNode} />
-  		</div>
+        <Inspector selectedNode={this.state.selectedNode} />
+      </div>
     );
   }
 }

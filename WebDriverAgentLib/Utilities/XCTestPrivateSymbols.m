@@ -16,7 +16,6 @@ NSNumber *FB_XCAXAIsElementAttribute;
 
 void (*XCSetDebugLogger)(id <XCDebugLogDelegate>);
 id<XCDebugLogDelegate> (*XCDebugLogger)();
-void (*_XCTSetEventConfirmationTimeout)(double);
 
 __attribute__((constructor)) void FBLoadXCTestSymbols(void)
 {
@@ -29,22 +28,20 @@ __attribute__((constructor)) void FBLoadXCTestSymbols(void)
   XCSetDebugLogger = (void (*)(id <XCDebugLogDelegate>))FBRetrieveXCTestSymbol("XCSetDebugLogger");
   XCDebugLogger = (id<XCDebugLogDelegate>(*)(void))FBRetrieveXCTestSymbol("XCDebugLogger");
 
-  _XCTSetEventConfirmationTimeout = (void (*)(double))FBRetrieveXCTestSymbol("_XCTSetEventConfirmationTimeout");
-
   NSArray<NSNumber *> *accessibilityAttributes = XCAXAccessibilityAttributesForStringAttributes(@[XC_kAXXCAttributeIsVisible, XC_kAXXCAttributeIsElement]);
   FB_XCAXAIsVisibleAttribute = accessibilityAttributes[0];
   FB_XCAXAIsElementAttribute = accessibilityAttributes[1];
 
-  NSCAssert(FB_XCAXAIsVisibleAttribute != nil , @"Failed to retrieve FB_XCAXAIsVisibleAttribute");
-  NSCAssert(FB_XCAXAIsElementAttribute != nil , @"Failed to retrieve FB_XCAXAIsElementAttribute");
+  NSCAssert(FB_XCAXAIsVisibleAttribute != nil , @"Failed to retrieve FB_XCAXAIsVisibleAttribute", FB_XCAXAIsVisibleAttribute);
+  NSCAssert(FB_XCAXAIsElementAttribute != nil , @"Failed to retrieve FB_XCAXAIsElementAttribute", FB_XCAXAIsElementAttribute);
 }
 
 void *FBRetrieveXCTestSymbol(const char *name)
 {
   Class XCTestClass = NSClassFromString(@"XCTestCase");
-  NSCAssert(XCTestClass != nil, @"XCTest should be already linked");
+  NSCAssert(XCTestClass != nil, @"XCTest should be already linked", XCTestClass);
   NSString *XCTestBinary = [NSBundle bundleForClass:XCTestClass].executablePath;
   const char *binaryPath = XCTestBinary.UTF8String;
-  NSCAssert(binaryPath != nil, @"XCTest binary path should not be nil");
+  NSCAssert(binaryPath != nil, @"XCTest binary path should not be nil", binaryPath);
   return FBRetrieveSymbolFromBinary(binaryPath, name);
 }

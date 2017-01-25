@@ -22,10 +22,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type;
 
 /**
- Returns an array of descendants matching given xpath query
-
- @param xpathQuery requested xpath query
- @return an array of descendants matching given xpath query
+ Returns an array of descendants matching given xpath query. This method will always
+ throw an exception if there is an error during XPath evaluation, so the returned array
+ is never expected to be equal to nil
+ 
+ @param xpathQuery requested xpath query. Only XPath v1.0 libxml2-based implementation is supported
+ @return an array of descendants matching given xpath query. Empty array will be retuned if
+ no matches are found (XPath query should be still valid though)
  */
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery;
 
@@ -46,6 +49,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types;
 
 /**
+ Returns first (going up element tree) visible parent that matches one of given types and has more than one child. If non found returns nil.
+ 
+ @param types possible parent types
+ @param filter will filter results even further after matching one of given types
+ @return parent element matching one of given types and satisfying filter condition
+ */
+- (nullable XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types filter:(BOOL(^)(XCElementSnapshot *snapshot))filter;
+
+/**
  Returns value for given accessibility property identifier.
 
  @param attribute attribute's accessibility identifier
@@ -60,6 +72,20 @@ NS_ASSUME_NONNULL_BEGIN
  @return YES, if they match otherwise NO
  */
 - (BOOL)fb_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot;
+
+/**
+ Returns an array of descendants cell snapshots
+ 
+ @return an array of descendants cell snapshots
+ */
+- (NSArray<XCElementSnapshot *> *)fb_descendantsCellSnapshots;
+
+/**
+ Returns itself if it is either XCUIElementTypeIcon or XCUIElementTypeCell. Otherwise, returns first (going up element tree) parent that matches cell (XCUIElementTypeCell or  XCUIElementTypeIcon). If non found returns nil.
+ 
+ @return parent element matching either XCUIElementTypeIcon or XCUIElementTypeCell.
+ */
+- (nullable XCElementSnapshot *)fb_parentCellSnapshot;
 
 @end
 

@@ -33,11 +33,24 @@ class TreeNode {
     return children;
   }
 
+  static buildRect(rect) {
+    return {
+      origin: {
+        x: rect.x,
+        y: rect.y,
+      },
+      size: {
+        height: rect.height,
+        width: rect.width,
+      },
+    };
+  }
+
   constructor(key, name, children, node) {
     this.key = key;
     this.name = name;
     this.children = children;
-    this.rect = node.rect;
+    this.rect = TreeNode.buildRect(node.rect);
     this.attributes = {
       type: node.type,
       rawIdentifier: node.rawIdentifier,

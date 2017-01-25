@@ -16,6 +16,7 @@
 #import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
+#import "FBElementUtils.h"
 
 @implementation XCUIElement (WebDriverAttributesForwarding)
 
@@ -44,7 +45,7 @@
 
 - (id)fb_valueForWDAttributeName:(NSString *)name
 {
-  return [self valueForKey:wdAttributeNameForAttributeName(name)];
+  return [self valueForKey:[FBElementUtils wdAttributeNameForAttributeName:name]];
 }
 
 - (id)wdValue
@@ -87,7 +88,7 @@
 
 - (CGRect)wdFrame
 {
-  return self.frame;
+  return CGRectIntegral(self.frame);
 }
 
 - (BOOL)isWDVisible
@@ -142,13 +143,13 @@
 
 - (NSDictionary *)wdRect
 {
-    return
-    @{
-      @"x": @(CGRectGetMinX(self.frame)),
-      @"y": @(CGRectGetMinY(self.frame)),
-      @"width": @(CGRectGetWidth(self.frame)),
-      @"height": @(CGRectGetHeight(self.frame)),
-      };
+  CGRect frame = self.wdFrame;
+  return @{
+    @"x": @(CGRectGetMinX(frame)),
+    @"y": @(CGRectGetMinY(frame)),
+    @"width": @(CGRectGetWidth(frame)),
+    @"height": @(CGRectGetHeight(frame)),
+  };
 }
 
 @end

@@ -11,7 +11,7 @@ import Ajax from 'simple-ajax';
 
 class Http {
   static get(path, callback) {
-    let ajax = new Ajax({
+    const ajax = new Ajax({
       url: path,
       method: 'GET',
     });
@@ -23,7 +23,7 @@ class Http {
   }
 
   static post(path, callback) {
-    let ajax = new Ajax({
+    const ajax = new Ajax({
       url: path,
       method: 'POST',
     });

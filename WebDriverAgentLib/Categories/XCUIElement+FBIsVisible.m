@@ -9,6 +9,7 @@
 
 #import "XCUIElement+FBIsVisible.h"
 
+#import "FBMathUtils.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCTestPrivateSymbols.h"
 
@@ -28,6 +29,13 @@
 
 - (BOOL)fb_isVisible
 {
+  if (CGRectIsEmpty(self.frame) || CGRectIsEmpty(self.visibleFrame)) {
+    return NO;
+  }
+  if ([NSProcessInfo.processInfo.environment[@"ALTERNATIVE_VISIBILITY_DETECTION"] boolValue]) {
+    CGSize screenSize = FBAdjustDimensionsForApplication(self.application.frame.size, self.application.interfaceOrientation);
+    return CGRectIntersectsRect(self.visibleFrame, CGRectMake(0, 0, screenSize.width, screenSize.height));
+  }
   return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
 }
 

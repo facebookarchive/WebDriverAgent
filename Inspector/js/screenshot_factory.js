@@ -21,7 +21,7 @@ function computePrefferdScale(screenshotWidth, screenshotHeight) {
 
 class ScreenshotFactory {
   static createScreenshot(orientation, base64EncodedImage, callback) {
-    ImageUtils.decodeBase64EncodedImage(base64EncodedImage, (decodedImage) => {      
+    ImageUtils.decodeBase64EncodedImage(base64EncodedImage, (decodedImage) => {
       if (this._shouldRotateImage(orientation)) {
         this._rotateImage(orientation, decodedImage, callback);
       } else {
@@ -31,15 +31,15 @@ class ScreenshotFactory {
   }
 
   static _shouldRotateImage(orientation) {
-    return ((orientation == 'LANDSCAPE') || (orientation == 'UIA_DEVICE_ORIENTATION_LANDSCAPERIGHT'));
+    return ((orientation === 'LANDSCAPE') || (orientation === 'UIA_DEVICE_ORIENTATION_LANDSCAPERIGHT'));
   }
 
   static _rotateImage(orientation, image, callback) {
-    if (orientation == 'LANDSCAPE') {
+    if (orientation === 'LANDSCAPE') {
       ImageUtils.rotateFromLandscapeOrientation(image, (rotatedImage) => {
         this._invokeCallbackWithImage(rotatedImage, callback);
       });
-    } else if (orientation == 'UIA_DEVICE_ORIENTATION_LANDSCAPERIGHT') {
+    } else if (orientation === 'UIA_DEVICE_ORIENTATION_LANDSCAPERIGHT') {
       ImageUtils.rotateFromLandscapeRightOrientation(image, (rotatedImage) => {
         this._invokeCallbackWithImage(rotatedImage, callback);
       });

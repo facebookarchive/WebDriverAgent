@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "FBResponsePayload.h"
+#import <WebDriverAgentLib/FBResponsePayload.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

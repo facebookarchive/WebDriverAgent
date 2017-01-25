@@ -3,6 +3,3 @@ github "marekcirkos/RoutingHTTPServer"
 
 # Used for USBOverHTTP
 github "marekcirkos/peertalk"
-
-# Used for XPath
-github "marekcirkos/KissXML"

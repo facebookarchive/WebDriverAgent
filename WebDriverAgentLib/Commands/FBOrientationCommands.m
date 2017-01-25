@@ -29,8 +29,6 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
   .portraitUpsideDown = @"UIA_DEVICE_ORIENTATION_PORTRAIT_UPSIDEDOWN",
 };
 
-const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
-
 @implementation FBOrientationCommands
 
 #pragma mark - <FBCommandHandler>
@@ -68,7 +66,7 @@ const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
 {
     XCUIDevice *device = [XCUIDevice sharedDevice];
     UIDeviceOrientation orientation = device.orientation;
-    return FBResponseWithStatus(FBCommandStatusNoError, device.rotationMapping[@(orientation)]);
+    return FBResponseWithStatus(FBCommandStatusNoError, device.fb_rotationMapping[@(orientation)]);
 }
 
 + (id<FBResponsePayload>)handleSetRotation:(FBRouteRequest *)request
@@ -97,33 +95,16 @@ const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
 
 + (BOOL)setDeviceRotation:(NSDictionary *)rotationObj forApplication:(FBApplication *)application
 {
-    if (![[XCUIDevice sharedDevice] setDeviceRotation:rotationObj]) {
-        return NO;
-    }
-    return [self waitUntilApplication:application isOrientation:[XCUIDevice sharedDevice].orientation];
+  return [[XCUIDevice sharedDevice] fb_setDeviceRotation:rotationObj];
 }
 
 + (BOOL)setDeviceOrientation:(NSString *)orientation forApplication:(FBApplication *)application
 {
-  NSNumber *orientationValue = [[self _orientationsMapping] objectForKey:orientation];
+  NSNumber *orientationValue = [[self _orientationsMapping] objectForKey:[orientation uppercaseString]];
   if (orientationValue == nil) {
     return NO;
   }
-  [XCUIDevice sharedDevice].orientation = orientationValue.integerValue;
-  return [self waitUntilApplication:application isOrientation:orientationValue.integerValue];
-}
-
-+ (BOOL)waitUntilApplication:(FBApplication *)application isOrientation:(NSInteger)orientation
-{
-    // We have a busy loop here while we wait for the orientation to change as we do not have any hooks
-    // into the event being handled.
-    // If we could just hook into the event handler to know when it has been processed..
-    NSDate *startDate = [NSDate date];
-    while (![@(application.interfaceOrientation) isEqualToNumber:@(orientation)] && (-1 * [startDate timeIntervalSinceNow]) < kFBWebDriverOrientationChangeDelay) {
-        CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.0, YES);
-    }
-    
-    return [@(application.interfaceOrientation) isEqualToNumber:@(orientation)];
+  return [[XCUIDevice sharedDevice] fb_setDeviceInterfaceOrientation:orientationValue.integerValue];
 }
 
 + (NSDictionary *)_orientationsMapping
@@ -137,11 +118,9 @@ const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
       FBWDOrientationValues.portraitUpsideDown : @(UIDeviceOrientationPortraitUpsideDown),
       FBWDOrientationValues.landscapeLeft : @(UIDeviceOrientationLandscapeLeft),
       FBWDOrientationValues.landscapeRight : @(UIDeviceOrientationLandscapeRight),
-    };
+      };
   });
   return orientationMap;
 }
-
-
 
 @end

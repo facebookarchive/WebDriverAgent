@@ -13,17 +13,22 @@
 #import "XCElementSnapshot.h"
 #import "FBElementTypeTransformer.h"
 #import "FBMacros.h"
+#import "XCElementSnapshot+FBHelpers.h"
+#import "XCUIDevice+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
-#import "XCElementSnapshot+FBHelpers.h"
+
+const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
 
 @implementation XCUIApplication (FBHelpers)
 
 - (BOOL)fb_deactivateWithDuration:(NSTimeInterval)duration error:(NSError **)error
 {
   NSString *applicationIdentifier = self.label;
-  [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
-  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:duration]];
+  if(![[XCUIDevice sharedDevice] fb_goToHomescreenWithError:error]) {
+    return NO;
+  }
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:MAX(duration, FBMinimumAppSwitchWait)]];
   if (![[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:error]) {
     return NO;
   }

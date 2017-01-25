@@ -8,11 +8,19 @@
  */
 
 #import <XCTest/XCTest.h>
-#import "FBApplication.h"
+#import <WebDriverAgentLib/FBApplication.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface XCUIDevice (FBRotation)
+
+/**
+ Sets requested device interface orientation.
+
+ @param orientation The interface orientation.
+ @return YES if the operation succeeds, otherwise NO.
+ */
+- (BOOL)fb_setDeviceInterfaceOrientation:(UIDeviceOrientation)orientation;
 
 /**
  Sets the devices orientation to the rotation passed.
@@ -20,10 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
  @param rotationObj The rotation defining the devices orientation.
  @return YES if the operation succeeds, otherwise NO.
  */
-- (BOOL)setDeviceRotation:(NSDictionary *)rotationObj;
+- (BOOL)fb_setDeviceRotation:(NSDictionary *)rotationObj;
 
 /*! The UIDeviceOrientation to rotation mappings */
-@property (strong, nonatomic, readonly) NSDictionary *rotationMapping;
+@property (strong, nonatomic, readonly) NSDictionary *fb_rotationMapping;
 
 @end
 

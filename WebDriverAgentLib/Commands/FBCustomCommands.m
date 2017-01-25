@@ -31,10 +31,13 @@
 {
   return
   @[
+    [[FBRoute POST:@"/timeouts"] respondWithTarget:self action:@selector(handleTimeouts:)],
+    [[FBRoute POST:@"/wda/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
+    [[FBRoute POST:@"/wda/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
+
+    // TODO: Those endpoints are deprecated and will die soon
     [[FBRoute POST:@"/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
-    [[FBRoute POST:@"/timeouts"].withoutSession respondWithTarget:self action:@selector(handleTimeouts:)],
-    [[FBRoute POST:@"/timeouts"] respondWithTarget:self action:@selector(handleTimeouts:)],
   ];
 }
 
@@ -63,10 +66,6 @@
 
 + (id<FBResponsePayload>)handleTimeouts:(FBRouteRequest *)request
 {
-  NSString *timeoutType = request.arguments[@"type"];
-  if ([timeoutType isEqualToString:@"xctevent"]) {
-    [FBConfiguration setTestManagerRequestTimeout:[request.arguments[@"ms"] floatValue] / 1000];
-  }
   // This method is intentionally not supported.
   return FBResponseWithOK();
 }
