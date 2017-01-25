@@ -45,8 +45,8 @@ extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
  Returns an array of descendants matching given xpath query.
  One can set INCLUDE_VISIBLE_ATTRIBUTE environment variable to YES
  in order to include 'visible' attribute for all XML tree elements.
- Note, that this might be unstable and slow, especially in
- conjunction with ALTERNATIVE_VISIBILITY_DETECTION flag.
+ Note, that this might cause unexpected test feezes, especially if
+ ALTERNATIVE_VISIBILITY_DETECTION environment variable is not set to YES.
  
  @param root the root element to execute XPath query for
  @param xpathQuery requested xpath query
@@ -59,8 +59,8 @@ extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
  representation, which is used for XPath search
  One can set INCLUDE_VISIBLE_ATTRIBUTE environment variable to YES
  in order to include 'visible' attribute for all XML tree elements.
- Note, that this might be unstable and slow, especially in
- conjunction with ALTERNATIVE_VISIBILITY_DETECTION flag.
+ Note, that this might cause unexpected test feezes, especially if
+ ALTERNATIVE_VISIBILITY_DETECTION environment variable is not set to YES.
  
  @param root the root element
  @return valid XML document as string or nil in case of failure

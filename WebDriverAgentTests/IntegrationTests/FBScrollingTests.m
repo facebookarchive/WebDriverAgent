@@ -35,13 +35,6 @@
   [self goToScrollPageWithCells:[self.class shouldShowCells]];
   self.scrollView = [[self.testedApplication.query descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:@"scrollView"].element;
   [self.scrollView resolve];
-  setenv("ALTERNATIVE_VISIBILITY_DETECTION", "YES", 1);
-}
-
-- (void)tearDown
-{
-  unsetenv("ALTERNATIVE_VISIBILITY_DETECTION");
-  [super tearDown];
 }
 
 - (void)testCellVisibility

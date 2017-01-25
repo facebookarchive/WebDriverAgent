@@ -26,16 +26,17 @@ NS_ASSUME_NONNULL_BEGIN
 @interface XCElementSnapshot (FBIsVisible)
 
 /*! Whether or not the element is visible.
- Set ALTERNATIVE_VISIBILITY_DETECTION environment variable to YES
- if you want the old "hacky" visibility detection algorithm to be used.
- That method gives almost 100% accuracy for visibility detection, but
- can cause unexpected XCTest delays and failures with "Error copying attributes -25202"
- record in logs.
- The current method does not experience such problems, although it is not able to properly
- detect visibility value for UI elements, which are present in the UI tree,
- but are covered by some other elements/views and thus are not really visible.
+ The current visibility detection algorithm gives almost 100% accuracy,
+ but in some situations it can cause unexpected delays and
+ failures with "Error copying attributes -25202" record in logs.
  See https://github.com/facebook/WebDriverAgent/issues/372 for more details.
-*/
+ 
+ Set ALTERNATIVE_VISIBILITY_DETECTION environment variable to YES
+ if you want to use visibility detection based on snapshot frame
+ analysis instead. This method does not cause unexpected test freezes,
+ although it is not able to properly detect visibility value for some UI elements,
+ which are present in the UI tree, but are not really visible in the app interface.
+ */
 @property (atomic, readonly) BOOL fb_isVisible;
 
 @end

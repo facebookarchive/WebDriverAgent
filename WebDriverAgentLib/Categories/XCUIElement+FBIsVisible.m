@@ -33,10 +33,10 @@
     return NO;
   }
   if ([NSProcessInfo.processInfo.environment[@"ALTERNATIVE_VISIBILITY_DETECTION"] boolValue]) {
-    return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
+    CGSize screenSize = FBAdjustDimensionsForApplication(self.application.frame.size, self.application.interfaceOrientation);
+    return CGRectIntersectsRect(self.visibleFrame, CGRectMake(0, 0, screenSize.width, screenSize.height));
   }
-  CGSize screenSize = FBAdjustDimensionsForApplication(self.application.frame.size, self.application.interfaceOrientation);
-  return CGRectIntersectsRect(self.visibleFrame, CGRectMake(0, 0, screenSize.width, screenSize.height));
+  return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
 }
 
 @end
