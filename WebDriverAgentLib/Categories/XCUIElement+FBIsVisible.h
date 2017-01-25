@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*! Whether or not the element is visible.
  Set ALTERNATIVE_VISIBILITY_DETECTION environment variable to YES
  if you want the old "hacky" visibility detection algorithm to be used.
- That method gives almost 100% reliability for visibility detection, but
+ That method gives almost 100% accuracy for visibility detection, but
  can cause unexpected XCTest delays and failures with "Error copying attributes -25202"
  record in logs.
  The current method does not experience such problems, although it is not able to properly
