@@ -167,11 +167,11 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 + (xmlXPathObjectPtr)evaluate:(NSString *)xpathQuery document:(xmlDocPtr)doc
 {
   xmlXPathContextPtr xpathCtx = xmlXPathNewContext(doc);
-  xpathCtx->node = doc->children;
   if (NULL == xpathCtx) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlXPathNewContext for XPath query \"%@\"", xpathQuery];
     return NULL;
   }
+  xpathCtx->node = doc->children;
 
   xmlXPathObjectPtr xpathObj = xmlXPathEvalExpression([FBXPath xmlCharPtrForInput:[xpathQuery cStringUsingEncoding:NSUTF8StringEncoding]], xpathCtx);
   if (NULL == xpathObj) {
