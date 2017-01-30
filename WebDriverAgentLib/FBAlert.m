@@ -123,7 +123,14 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
       withDescriptionFormat:@"Failed to find accept button for alert: %@", alertElement]
      buildError:error];
   }
-  return [defaultButton fb_tapWithError:error];
+  [defaultButton tap];
+  if (defaultButton.exists && defaultButton.application.interfaceOrientation != UIDeviceOrientationPortrait) {
+    // Tap method invokation might not work as expected in non-portrait mode
+    // due to a known XCTest bug. That is why we need to retry it using tap
+    // by coordinates if the alert is still visible
+    return [defaultButton fb_tapWithError:error];
+  }
+  return YES;
 }
 
 - (BOOL)dismissWithError:(NSError **)error
@@ -144,7 +151,14 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
      buildError:error];
     return NO;
   }
-  return [cancelButton fb_tapWithError:error];
+  [cancelButton tap];
+  if (cancelButton.exists && cancelButton.application.interfaceOrientation != UIDeviceOrientationPortrait) {
+    // Tap method invokation might not work as expected in non-portrait mode
+    // due to a known XCTest bug. That is why we need to retry it using tap
+    // by coordinates if the alert is still visible
+    return [cancelButton fb_tapWithError:error];
+  }
+  return YES;
 }
 
 + (BOOL)isElementObstructedByAlertView:(XCUIElement *)element alert:(XCUIElement *)alert
