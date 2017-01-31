@@ -18,6 +18,7 @@
 #import "FBResponsePayload.h"
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
+#import "FBRunLoopSpinner.h"
 #import "FBSession.h"
 #import "FBSpringboardApplication.h"
 #import "XCUIApplication+FBHelpers.h"
@@ -34,6 +35,7 @@
     [[FBRoute POST:@"/timeouts"] respondWithTarget:self action:@selector(handleTimeouts:)],
     [[FBRoute POST:@"/wda/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/wda/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
+    [[FBRoute POST:@"/wda/keyboard/dismiss"] respondWithTarget:self action:@selector(handleDismissKeyboardCommand:)],
 
     // TODO: Those endpoints are deprecated and will die soon
     [[FBRoute POST:@"/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
@@ -67,6 +69,25 @@
 + (id<FBResponsePayload>)handleTimeouts:(FBRouteRequest *)request
 {
   // This method is intentionally not supported.
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleDismissKeyboardCommand:(FBRouteRequest *)request
+{
+  [request.session.application dismissKeyboard];
+  NSError *error;
+  BOOL isKbdNotPresent =
+  [[[[FBRunLoopSpinner new]
+     timeout:5]
+    timeoutErrorMessage:@"The keyboard cannot be dismissed. Try to use custom approach instead."]
+   spinUntilTrue:^BOOL{
+     XCUIElement *foundKeyboard = [[FBApplication fb_activeApplication].query descendantsMatchingType:XCUIElementTypeKeyboard].element;
+     return !(foundKeyboard.exists && foundKeyboard.hittable);
+   }
+   error:&error];
+  if (!isKbdNotPresent) {
+    return FBResponseWithError(error);
+  }
   return FBResponseWithOK();
 }
 
