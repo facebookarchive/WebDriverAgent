@@ -30,6 +30,10 @@
   if (!self.shouldWaitForQuiescence) {
     return;
   }
+  if ([self.applicationProcess respondsToSelector:@selector(waitForQuiescenceIncludingAnimationsIdle:)]) {
+    [self.applicationProcess waitForQuiescenceIncludingAnimationsIdle:YES];
+    return;
+  }
   [self.applicationProcess waitForQuiescence];
 }
 

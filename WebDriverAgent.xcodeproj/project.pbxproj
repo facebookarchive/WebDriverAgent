@@ -231,6 +231,8 @@
 		EE35AD761E3B77D600A02D78 /* XCUIRecorderNodeFinderMatch.h in Headers */ = {isa = PBXBuildFile; fileRef = EE35AD051E3B77D600A02D78 /* XCUIRecorderNodeFinderMatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE35AD771E3B77D600A02D78 /* XCUIRecorderTimingMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = EE35AD061E3B77D600A02D78 /* XCUIRecorderTimingMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE35AD781E3B77D600A02D78 /* XCUIRecorderUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = EE35AD071E3B77D600A02D78 /* XCUIRecorderUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE35AD7B1E3B80C000A02D78 /* FBXCTestDaemonsProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = EE35AD791E3B80C000A02D78 /* FBXCTestDaemonsProxy.h */; };
+		EE35AD7C1E3B80C000A02D78 /* FBXCTestDaemonsProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE35AD7A1E3B80C000A02D78 /* FBXCTestDaemonsProxy.m */; };
 		EE3A18621CDE618F00DE4205 /* FBErrorBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3A18601CDE618F00DE4205 /* FBErrorBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3A18631CDE618F00DE4205 /* FBErrorBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A18611CDE618F00DE4205 /* FBErrorBuilder.m */; };
 		EE3A18661CDE734B00DE4205 /* FBKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3A18641CDE734B00DE4205 /* FBKeyboard.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -504,6 +506,8 @@
 		EE35AD051E3B77D600A02D78 /* XCUIRecorderNodeFinderMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderNodeFinderMatch.h; sourceTree = "<group>"; };
 		EE35AD061E3B77D600A02D78 /* XCUIRecorderTimingMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderTimingMessage.h; sourceTree = "<group>"; };
 		EE35AD071E3B77D600A02D78 /* XCUIRecorderUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIRecorderUtilities.h; sourceTree = "<group>"; };
+		EE35AD791E3B80C000A02D78 /* FBXCTestDaemonsProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXCTestDaemonsProxy.h; sourceTree = "<group>"; };
+		EE35AD7A1E3B80C000A02D78 /* FBXCTestDaemonsProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXCTestDaemonsProxy.m; sourceTree = "<group>"; };
 		EE3A18601CDE618F00DE4205 /* FBErrorBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBErrorBuilder.h; sourceTree = "<group>"; };
 		EE3A18611CDE618F00DE4205 /* FBErrorBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBErrorBuilder.m; sourceTree = "<group>"; };
 		EE3A18641CDE734B00DE4205 /* FBKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBKeyboard.h; path = WebDriverAgentLib/Utilities/FBKeyboard.h; sourceTree = SOURCE_ROOT; };
@@ -940,13 +944,15 @@
 				EE9AB7921CAEDF0C008C271F /* FBRuntimeUtils.m */,
 				EE7E271A1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.h */,
 				EE7E271B1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.m */,
+				EE35AD791E3B80C000A02D78 /* FBXCTestDaemonsProxy.h */,
+				EE35AD7A1E3B80C000A02D78 /* FBXCTestDaemonsProxy.m */,
+				712A0C861DA3E55D007D02E5 /* FBXPath-Private.h */,
+				711084421DA3AA7500F913D6 /* FBXPath.h */,
+				711084431DA3AA7500F913D6 /* FBXPath.m */,
 				EE9AB7981CAEDF0C008C271F /* FBXPathCreator.h */,
 				EE9AB7991CAEDF0C008C271F /* FBXPathCreator.m */,
 				EE6B64FB1D0F86EF00E85F5D /* XCTestPrivateSymbols.h */,
 				EE6B64FC1D0F86EF00E85F5D /* XCTestPrivateSymbols.m */,
-				711084421DA3AA7500F913D6 /* FBXPath.h */,
-				712A0C861DA3E55D007D02E5 /* FBXPath-Private.h */,
-				711084431DA3AA7500F913D6 /* FBXPath.m */,
 			);
 			name = Utilities;
 			path = WebDriverAgentLib/Utilities;
@@ -1254,6 +1260,7 @@
 				EE158AE61CBD456F00A3E3F0 /* FBWebServer.h in Headers */,
 				EE158AC61CBD456F00A3E3F0 /* FBScreenshotCommands.h in Headers */,
 				EE35AD0A1E3B77D600A02D78 /* _XCKVOExpectationImplementation.h in Headers */,
+				EE35AD7B1E3B80C000A02D78 /* FBXCTestDaemonsProxy.h in Headers */,
 				EE35AD721E3B77D600A02D78 /* XCUIElementHitPointCoordinate.h in Headers */,
 				EE35AD3F1E3B77D600A02D78 /* XCTDarwinNotificationExpectation.h in Headers */,
 				EE35AD5F1E3B77D600A02D78 /* XCTRunnerAutomationSession.h in Headers */,
@@ -1659,6 +1666,7 @@
 				EEE376421D59F81400ED88DD /* XCElementSnapshot+FBHelpers.m in Sources */,
 				EE158AE91CBD456F00A3E3F0 /* FBElementTypeTransformer.m in Sources */,
 				EE158AF61CBD456F00A3E3F0 /* FBApplication.m in Sources */,
+				EE35AD7C1E3B80C000A02D78 /* FBXCTestDaemonsProxy.m in Sources */,
 				EE158AB51CBD456F00A3E3F0 /* XCUIElement+FBTap.m in Sources */,
 				EE18883B1DA661C400307AA8 /* FBMathUtils.m in Sources */,
 			);

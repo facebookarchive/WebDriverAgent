@@ -9,6 +9,7 @@
 
 #import "XCUIElement+FBScrolling.h"
 
+#import "FBXCTestDaemonsProxy.h"
 #import "FBErrorBuilder.h"
 #import "FBRunLoopSpinner.h"
 #import "FBLogger.h"
@@ -87,31 +88,31 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
     return YES;
   }
   __block NSArray<XCElementSnapshot *> *cellSnapshots, *visibleCellSnapshots;
-    
+
   NSArray *acceptedParents = @[
                                @(XCUIElementTypeScrollView),
                                @(XCUIElementTypeCollectionView),
                                @(XCUIElementTypeTable),
                                @(XCUIElementTypeWebView),
                                ];
-    
+
   XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingOneOfTypes:acceptedParents
       filter:^(XCElementSnapshot *snapshot) {
-          
+
          if (![snapshot isWDVisible]) {
            return NO;
          }
-          
+
          cellSnapshots = [snapshot fb_descendantsCellSnapshots];
-              
+
          visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)]];
-              
+
          if (visibleCellSnapshots.count > 1) {
            return YES;
          }
          return NO;
       }];
-    
+
   if (scrollView == nil) {
     return
     [[[FBErrorBuilder builder]
@@ -125,7 +126,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   // Can't just do indexOfObject, because targetCellSnapshot may represent the same object represented by a member of cellSnapshots, yet be a different object
   // than that member. This reflects the fact that targetCellSnapshot came out of self.fb_parentCellSnapshot, not out of cellSnapshots directly.
   // If the result is NSNotFound, we'll just proceed by scrolling downward/rightward, since NSNotFound will always be larger than the current index.
-  NSUInteger targetCellIndex = [cellSnapshots indexOfObjectPassingTest:^BOOL(XCElementSnapshot * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+  NSUInteger targetCellIndex = [cellSnapshots indexOfObjectPassingTest:^BOOL(XCElementSnapshot *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
     return [obj _matchesElement:targetCellSnapshot];
   }];
   NSUInteger visibleCellIndex = [cellSnapshots indexOfObject:lastSnapshot];
@@ -286,7 +287,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    [[XCTestDriver sharedTestDriver].managerProxy _XCT_synthesizeEvent:event completion:^(NSError *scrollingError) {
+    [[FBXCTestDaemonsProxy testRunnerProxy] _XCT_synthesizeEvent:event completion:^(NSError *scrollingError) {
       innerError = scrollingError;
       didSucceed = (scrollingError == nil);
       completion();
