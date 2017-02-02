@@ -6,9 +6,11 @@
 
 #import <XCTest/XCTestObserver.h>
 
-@class NSFileHandle;
+#import "XCTestObservation.h"
 
-@interface XCTestLog : XCTestObserver
+@class NSFileHandle, NSString;
+
+@interface XCTestLog : XCTestObserver <XCTestObservation>
 {
 }
 @property(readonly) NSFileHandle *logFileHandle;

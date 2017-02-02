@@ -20,5 +20,6 @@
 - (void)addPointerEventPath:(id)arg1;
 - (id)initWithName:(id)arg1 interfaceOrientation:(long long)arg2;
 - (id)init;
+- (BOOL)synthesizeWithError:(id *)arg1;
 
 @end

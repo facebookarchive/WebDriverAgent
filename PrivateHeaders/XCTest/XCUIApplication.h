@@ -10,11 +10,9 @@
 
 @interface XCUIApplication ()
 {
-    BOOL _accessibilityActive;
     BOOL _ancillary;
-    BOOL _eventLoopIsIdle;
-    int _processID;
-    unsigned long long _state;
+    BOOL _doesNotHandleUIInterruptions;
+    BOOL _idleAnimationWaitEnabled;
     XCUIElement *_keyboard;
     NSArray *_launchArguments;
     NSDictionary *_launchEnvironment;
@@ -23,24 +21,26 @@
     unsigned long long _generation;
 }
 @property unsigned long long generation; // @synthesize generation=_generation;
-@property BOOL eventLoopIsIdle; // @synthesize eventLoopIsIdle=_eventLoopIsIdle;
 @property(retain) XCApplicationQuery *applicationQuery; // @synthesize applicationQuery=_applicationQuery;
 @property(retain) XCUIApplicationImpl *applicationImpl; // @synthesize applicationQuery=_applicationQuery;
 @property(readonly, copy) NSString *bundleID; // @synthesize bundleID=_bundleID;
 @property(readonly, copy) NSString *path; // @synthesize path=_path;
 @property BOOL ancillary; // @synthesize ancillary=_ancillary;
-@property(nonatomic) BOOL accessibilityActive; // @synthesize accessibilityActive=_accessibilityActive;
 @property(readonly) XCUIElement *keyboard; // @synthesize keyboard=_keyboard;
+
+@property(getter=isIdleAnimationWaitEnabled) BOOL idleAnimationWaitEnabled; // @synthesize idleAnimationWaitEnabled=_idleAnimationWaitEnabled;
+@property(nonatomic) BOOL doesNotHandleUIInterruptions; // @synthesize doesNotHandleUIInterruptions=_doesNotHandleUIInterruptions;
+@property(readonly) BOOL fauxCollectionViewCellsEnabled;
 @property(readonly, nonatomic) UIInterfaceOrientation interfaceOrientation; //TODO tvos
 @property(readonly, nonatomic) BOOL running;
 @property(nonatomic) pid_t processID; // @synthesize processID=_processID;
 @property unsigned long long state; // @synthesize state=_state;
 @property(readonly) XCAccessibilityElement *accessibilityElement;
 
-+ (id)keyPathsForValuesAffectingRunning;
 + (instancetype)appWithPID:(pid_t)processID;
 
 - (void)dismissKeyboard;
+- (BOOL)setFauxCollectionViewCellsEnabled:(BOOL)arg1 error:(id *)arg2;
 - (void)_waitForViewControllerViewDidDisappearWithTimeout:(double)arg1;
 - (void)_waitForQuiescence;
 - (void)terminate;
@@ -51,7 +51,7 @@
 - (id)lastSnapshot;
 - (id)query;
 - (void)clearQuery;
-- (XCUIElementType)elementType;
+- (void)resolveHandleUIInterruption:(BOOL)arg1;
 - (id)initPrivateWithPath:(id)arg1 bundleID:(id)arg2;
 - (id)init;
 

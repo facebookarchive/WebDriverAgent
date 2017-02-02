@@ -25,11 +25,14 @@
 - (instancetype)initWithPath:(id)arg1 bundleID:(id)arg2;
 
 - (void)launchWithArguments:(id)arg1 environment:(id)arg2 usingXcode:(BOOL)arg3;
+- (void)handleCrashUnderSymbol:(id)arg1;
 - (void)terminate;
 
 - (void)waitForViewControllerViewDidDisappearWithTimeout:(double)arg1;
-- (void)waitForQuiescence;
-- (void)_waitForLaunchProgressViaProxy:(id)arg1;
-- (void)_waitForLaunchTokenFromReceipt:(id)arg1;
+
+- (void)_waitForRunningActive;
+- (void)_launchUsingPlatformWithArguments:(id)arg1 environment:(id)arg2;
+- (void)_launchUsingXcodeWithArguments:(id)arg1 environment:(id)arg2;
+- (void)_waitForLaunchProgress;
 
 @end

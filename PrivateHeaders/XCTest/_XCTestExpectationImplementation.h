@@ -12,11 +12,12 @@
     NSString *_expectationDescription;
     id <XCTestExpectationDelegate> _delegate;
     BOOL _hasBeenWaitedOn;
-    unsigned long long _fulfillmentCount;
+    unsigned long long _expectedFulfillmentCount;
     unsigned long long _numberOfFulfillments;
     unsigned long long _fulfillmentToken;
     NSArray *_fulfillCallStackReturnAddresses;
-    BOOL _hasInverseBehavior;
+    BOOL _inverted;
+    BOOL _assertForOverFulfill;
     NSObject<OS_dispatch_queue> *_queue;
     NSObject<OS_dispatch_queue> *_delegateQueue;
 }
@@ -24,14 +25,16 @@
 @property(readonly, nonatomic) NSObject<OS_dispatch_queue> *delegateQueue; // @synthesize delegateQueue=_delegateQueue;
 @property(readonly, nonatomic) NSObject<OS_dispatch_queue> *queue; // @synthesize queue=_queue;
 @property(nonatomic) unsigned long long numberOfFulfillments; // @synthesize numberOfFulfillments=_numberOfFulfillments;
-@property(nonatomic) unsigned long long fulfillmentCount; // @synthesize fulfillmentCount=_fulfillmentCount;
+@property(nonatomic) unsigned long long expectedFulfillmentCount; // @synthesize expectedFulfillmentCount=_expectedFulfillmentCount;
 @property(copy) NSArray *fulfillCallStackReturnAddresses; // @synthesize fulfillCallStackReturnAddresses=_fulfillCallStackReturnAddresses;
 @property unsigned long long fulfillmentToken; // @synthesize fulfillmentToken=_fulfillmentToken;
-@property BOOL hasInverseBehavior; // @synthesize hasInverseBehavior=_hasInverseBehavior;
+@property BOOL assertForOverFulfill; // @synthesize assertForOverFulfill=_assertForOverFulfill;
+@property BOOL inverted; // @synthesize inverted=_inverted;
 @property BOOL hasBeenWaitedOn; // @synthesize hasBeenWaitedOn=_hasBeenWaitedOn;
 @property(retain) id <XCTestExpectationDelegate> delegate; // @synthesize delegate=_delegate;
 @property(copy) NSString *expectationDescription; // @synthesize expectationDescription=_expectationDescription;
-@property XCTestCase *testCase; // @synthesize testCase=_testCase;
-@property BOOL hasCompleted; // @synthesize hasCompleted=_hasCompleted;
+@property BOOL fulfilled; // @synthesize fulfilled=_fulfilled;
+
+- (id)init;
 
 @end

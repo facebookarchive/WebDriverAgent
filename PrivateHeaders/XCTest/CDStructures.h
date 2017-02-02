@@ -7,3 +7,19 @@
 #pragma mark Blocks
 
 typedef void (^CDUnknownBlockType)(void); // return type and parameters are unknown
+
+typedef struct {
+    unsigned int _field1;
+    unsigned int _field2;
+    unsigned int _field3;
+    unsigned int _field4;
+    unsigned int _field5;
+    unsigned int _field6;
+    unsigned int _field7;
+} CDStruct_a561fd19;
+
+typedef struct {
+    unsigned short _field1;
+    unsigned short _field2;
+    unsigned short _field3[1];
+} CDStruct_27a325c0;

@@ -4,7 +4,7 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-@class NSArray, NSInvocation, NSMutableArray, NSMutableDictionary, NSMutableSet, NSString, XCTestCaseRun, XCTestContext, XCTestExpectationWaiter;
+@class NSArray, NSInvocation, NSMutableArray, NSMutableDictionary, NSMutableSet, NSString, XCTestCaseRun, XCTestContext, XCTestExpectationWaiter, XCTWaiter;
 
 #import <WebDriverAgentLib/CDStructures.h>
 
@@ -14,9 +14,8 @@
     XCTestCaseRun *_testCaseRun;
     BOOL _continueAfterFailure;
     NSMutableSet *_expectations;
-    NSArray *_performanceMetricIDs;
     NSArray *_activePerformanceMetricIDs;
-    NSMutableDictionary *_perfMetricDataForID;
+    NSMutableDictionary *_perfMetricsForID;
     unsigned long long _startWallClockTime;
     struct time_value _startUserTime;
     struct time_value _startSystemTime;
@@ -30,7 +29,7 @@
     unsigned long long _callAddressForCurrentWait;
     NSArray *_callAddressesForLastCreatedExpectation;
     long long _runLoopNestingCount;
-    XCTestExpectationWaiter *_currentExpectationWaiter;
+    XCTWaiter *_currentWaiter;
     NSMutableArray *_failureRecords;
     BOOL _shouldHaltWhenReceivesControl;
     BOOL _shouldIgnoreSubsequentFailures;
@@ -39,7 +38,7 @@
 }
 
 @property(readonly) XCTestContext *testContext; // @synthesize testContext=_testContext;
-@property(retain, nonatomic) XCTestExpectationWaiter *currentExpectationWaiter; // @synthesize currentExpectationWaiter=_currentExpectationWaiter;
+@property(retain, nonatomic) XCTWaiter *currentWaiter; // @synthesize currentWaiter=_currentWaiter;
 @property(retain, nonatomic) NSMutableArray *activityRecordStack; // @synthesize activityRecordStack=_activityRecordStack;
 @property BOOL shouldIgnoreSubsequentFailures; // @synthesize shouldIgnoreSubsequentFailures=_shouldIgnoreSubsequentFailures;
 @property BOOL shouldHaltWhenReceivesControl; // @synthesize shouldHaltWhenReceivesControl=_shouldHaltWhenReceivesControl;
@@ -58,9 +57,8 @@
 @property struct time_value startUserTime; // @synthesize startUserTime=_startUserTime;
 @property struct time_value startSystemTime; // @synthesize startSystemTime=_startSystemTime;
 @property unsigned long long startWallClockTime; // @synthesize startWallClockTime=_startWallClockTime;
-@property(retain) NSMutableDictionary *perfMetricDataForID; // @synthesize perfMetricDataForID=_perfMetricDataForID;
+@property(retain) NSMutableDictionary *perfMetricsForID; // @synthesize perfMetricsForID=_perfMetricsForID;
 @property(copy) NSArray *activePerformanceMetricIDs; // @synthesize activePerformanceMetricIDs=_activePerformanceMetricIDs;
-@property(copy) NSArray *performanceMetricIDs; // @synthesize performanceMetricIDs=_performanceMetricIDs;
 @property BOOL continueAfterFailure; // @synthesize continueAfterFailure=_continueAfterFailure;
 @property(retain) XCTestCaseRun *testCaseRun; // @synthesize testCaseRun=_testCaseRun;
 @property(retain) NSInvocation *invocation; // @synthesize invocation=_invocation;

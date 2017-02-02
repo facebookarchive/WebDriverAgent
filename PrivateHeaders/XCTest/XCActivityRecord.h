@@ -18,8 +18,11 @@
     NSArray *_elementsOfInterest;
     XCSynthesizedEventRecord *_synthesizedEvent;
     NSData *_diagnosticReportData;
+    NSData *_memoryGraphData;
 }
 
+@property(copy) NSData *memoryGraphData; // @synthesize memoryGraphData=_memoryGraphData;
+@property(copy) NSData *diagnosticReportData; // @synthesize diagnosticReportData=_diagnosticReportData;
 @property(retain) XCSynthesizedEventRecord *synthesizedEvent; // @synthesize synthesizedEvent=_synthesizedEvent;
 @property(copy) NSArray *elementsOfInterest; // @synthesize elementsOfInterest=_elementsOfInterest;
 @property(retain) XCElementSnapshot *snapshot; // @synthesize snapshot=_snapshot;

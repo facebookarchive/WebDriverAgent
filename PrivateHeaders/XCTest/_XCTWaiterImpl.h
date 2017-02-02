@@ -6,16 +6,17 @@
 
 #import "NSObject.h"
 
-@class NSArray, NSObject<OS_dispatch_queue>, NSString;
+@class NSArray, NSMutableArray, NSObject<OS_dispatch_queue>, XCTWaiterManager;
 
-@interface _XCTestExpectationWaiterImplementation : NSObject
+@interface _XCTWaiterImpl : NSObject
 {
-    id <XCTestExpectationWaiterDelegate> _delegate;
-    NSString *_name;
+    id <XCTWaiterDelegate> _delegate;
+    XCTWaiterManager *_manager;
     NSArray *_waitCallStackReturnAddresses;
     NSObject<OS_dispatch_queue> *_queue;
     NSObject<OS_dispatch_queue> *_delegateQueue;
     NSArray *_expectations;
+    NSMutableArray *_fulfilledExpectations;
     struct __CFRunLoop *_waitingRunLoop;
     long long _state;
     double _timeout;
@@ -25,11 +26,12 @@
 @property BOOL enforceOrderOfFulfillment; // @synthesize enforceOrderOfFulfillment=_enforceOrderOfFulfillment;
 @property long long result; // @synthesize result=_result;
 @property long long state; // @synthesize state=_state;
+@property(readonly, nonatomic) NSMutableArray *fulfilledExpectations; // @synthesize fulfilledExpectations=_fulfilledExpectations;
 @property(copy, nonatomic) NSArray *expectations; // @synthesize expectations=_expectations;
 @property(readonly, nonatomic) NSObject<OS_dispatch_queue> *delegateQueue; // @synthesize delegateQueue=_delegateQueue;
 @property(readonly, nonatomic) NSObject<OS_dispatch_queue> *queue; // @synthesize queue=_queue;
-@property(copy) NSString *name; // @synthesize name=_name;
-@property id <XCTestExpectationWaiterDelegate> delegate; // @synthesize delegate=_delegate;
+@property XCTWaiterManager *manager; // @synthesize manager=_manager;
+@property id <XCTWaiterDelegate> delegate; // @synthesize delegate=_delegate;
 @property double timeout; // @synthesize timeout=_timeout;
 @property struct __CFRunLoop *waitingRunLoop; // @synthesize waitingRunLoop=_waitingRunLoop;
 @property(copy) NSArray *waitCallStackReturnAddresses; // @synthesize waitCallStackReturnAddresses=_waitCallStackReturnAddresses;

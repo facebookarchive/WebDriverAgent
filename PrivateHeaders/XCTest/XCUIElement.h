@@ -5,9 +5,8 @@
 //
 
 #import <XCTest/XCUIElement.h>
-#import <TargetConditionals.h>
 
-@class NSString, XCElementSnapshot, XCUIApplication, XCUIElementQuery;
+@class NSString, XCElementSnapshot, XCUIApplication, XCUICoordinate, XCUIElementQuery;
 
 @interface XCUIElement ()
 {
@@ -20,6 +19,9 @@
 @property(retain) XCElementSnapshot *lastSnapshot; // @synthesize lastSnapshot=_lastSnapshot;
 @property(readonly) XCUIElementQuery *query; // @synthesize query=_query;
 @property(readonly, nonatomic) UIInterfaceOrientation interfaceOrientation;
+@property(readonly, copy) XCUICoordinate *hitPointCoordinate;
+@property(readonly) BOOL isTopLevelTouchBarElement;
+@property(readonly) BOOL isTouchBarElement;
 @property(readonly) BOOL hasKeyboardFocus;
 @property(readonly, nonatomic) XCUIApplication *application;
 
@@ -28,9 +30,13 @@
 - (unsigned long long)traits;
 - (void)resolveHandleUIInterruption:(BOOL)arg1;
 - (void)resolve;
-
-#if !TARGET_OS_TV
-- (id)hitPointCoordinate;
-#endif
+- (BOOL)_waitForExistenceWithTimeout:(double)arg1;
+- (BOOL)evaluatePredicateForExpectation:(id)arg1 debugMessage:(id *)arg2;
+- (void)_swipe:(unsigned long long)arg1;
+- (void)_tapWithNumberOfTaps:(unsigned long long)arg1 numberOfTouches:(unsigned long long)arg2 activityTitle:(id)arg3;
+- (id)_highestNonWindowAncestorOfElement:(id)arg1 notSharedWithElement:(id)arg2;
+- (id)_pointsInFrame:(CGRect)arg1 numberOfTouches:(unsigned long long)arg2;
+- (CGPoint)_hitPointByAttemptingToScrollToVisibleSnapshot:(id)arg1;
+- (void)forcePress;
 
 @end

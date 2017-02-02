@@ -10,7 +10,7 @@
 {
 }
 
-- (void)terminateApplicationProcess:(id)arg1;
+- (void)_terminateApplicationProcess:(id)arg1;
 - (id)monitoredApplicationWithProcessIdentifier:(int)arg1;
 - (void)_beginMonitoringApplication:(id)arg1;
 - (id)init;

@@ -4,38 +4,14 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-#import "NSObject.h"
+#import <XCTest/XCTWaiter.h>
 
-#import "XCTestExpectationDelegate.h"
-
-@class NSArray, NSObject<OS_dispatch_queue>, NSString, _XCTestExpectationWaiterImplementation;
-
-@interface XCTestExpectationWaiter : NSObject <XCTestExpectationDelegate>
+@interface XCTestExpectationWaiter : XCTWaiter
 {
-    id _internalImplementation;
 }
-@property(readonly) _XCTestExpectationWaiterImplementation *internalImplementation; // @synthesize internalImplementation=_internalImplementation;
-@property(readonly, copy) NSArray *waitCallStackReturnAddresses;
-@property id <XCTestExpectationWaiterDelegate> delegate;
-@property(readonly) double timeout;
-@property struct __CFRunLoop *waitingRunLoop;
-@property(readonly, nonatomic) NSObject<OS_dispatch_queue> *delegateQueue;
-@property(readonly, nonatomic) NSObject<OS_dispatch_queue> *queue;
-@property(copy) NSString *name;
 
-- (long long)result;
-- (void)setState:(long long)arg1;
-- (long long)state;
-- (void)setWaitCallStackReturnAddresses:(id)arg1;
-- (void)_queue_validateExpectationFulfillmentWithTimeoutState:(BOOL)arg1;
-- (void)_queue_enforceOrderingWithFulfilledExpectations:(id)arg1;
-- (void)_queue_setExpectations:(id)arg1;
-- (void)_validateExpectationFulfillmentWithTimeoutState:(BOOL)arg1;
-- (void)didFulfillExpectation:(id)arg1;
-- (void)cancelWaiting;
-- (void)primitiveWait:(double)arg1;
 - (long long)wait:(double)arg1 forExpectations:(id)arg2 enforceOrder:(BOOL)arg3;
 - (long long)wait:(double)arg1 forExpectations:(id)arg2;
-- (id)initWithDelegate:(id)arg1;
 
 @end
+

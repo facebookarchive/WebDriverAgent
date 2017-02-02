@@ -16,56 +16,28 @@
 
 @interface XCTestDriver : NSObject <XCTestManager_TestsInterface, XCTestDriverInterface, XCDebugLogDelegate>
 {
-    XCTestSuite *_currentTestSuite;
-    XCTestConfiguration *_currentTestConfiguration;
-    CDUnknownBlockType _completionHandler;
-    NSXPCConnection *_managerConnection;
-    BOOL _connectionInProgress;
-    BOOL _waitingToStart;
-    BOOL _hasIDEConnection;
-    BOOL _runningSuite;
-    NSObject<OS_dispatch_queue> *_managerQueue;
-    NSUUID *_sessionIdentifier;
-    NSString *_sessionSocketPath;
-    DTXConnection *_IDEConnection;
-    id <XCTestManager_IDEInterface> _IDEProxy;
-    long long _IDEProtocolVersion;
-    unsigned long long _daemonProtocolVersion;
-    int _daemonAvailabilityToken;
+    XCTestConfiguration *_testConfiguration;
+    NSObject<OS_dispatch_queue> *_queue;
     NSMutableArray *_debugMessageBuffer;
     int _debugMessageBufferOverflow;
 }
-@property unsigned long long daemonProtocolVersion; // @synthesize daemonProtocolVersion=_daemonProtocolVersion;
-@property BOOL hasIDEConnection; // @synthesize hasIDEConnection=_hasIDEConnection;
-@property BOOL waitingToStart; // @synthesize waitingToStart=_waitingToStart;
-@property long long IDEProtocolVersion; // @synthesize IDEProtocolVersion=_IDEProtocolVersion;
-@property(readonly) id <XCTestManager_IDEInterface> IDEProxy; // @synthesize IDEProxy=_IDEProxy;
-@property(retain) DTXConnection *IDEConnection; // @synthesize IDEConnection=_IDEConnection;
-@property(retain) NSUUID *sessionIdentifier; // @synthesize sessionIdentifier=_sessionIdentifier;
-@property XCTestSuite *currentTestSuite; // @synthesize currentTestSuite=_currentTestSuite;
-@property(readonly) id <XCTestManager_ManagerInterface> managerProxy;
+@property int debugMessageBufferOverflow; // @synthesize debugMessageBufferOverflow=_debugMessageBufferOverflow;
+@property(retain) NSMutableArray *debugMessageBuffer; // @synthesize debugMessageBuffer=_debugMessageBuffer;
+@property(retain) NSObject<OS_dispatch_queue> *queue; // @synthesize queue=_queue;
+@property(readonly) XCTestConfiguration *testConfiguration; // @synthesize testConfiguration=_testConfiguration;
 
 + (instancetype)sharedTestDriver;
 
-- (void)_XCT_receivedAccessibilityNotification:(int)arg1 withPayload:(id)arg2;
-- (void)_XCT_applicationWithBundleID:(id)arg1 didUpdatePID:(int)arg2 andState:(unsigned long long)arg3;
-- (id)_IDE_processWithToken:(id)arg1 exitedWithStatus:(id)arg2;
-- (id)_IDE_stopTrackingProcessWithToken:(id)arg1;
-- (id)_IDE_processWithBundleID:(id)arg1 path:(id)arg2 pid:(id)arg3 crashedUnderSymbol:(id)arg4;
-- (id)_IDE_startExecutingTestPlanWithProtocolVersion:(id)arg1;
 - (void)runTestConfiguration:(id)arg1 completionHandler:(CDUnknownBlockType)arg2;
 - (void)runTestSuite:(id)arg1 completionHandler:(CDUnknownBlockType)arg2;
-- (void)_checkForTestManager;
-- (void)_connectToTestManager;
-- (void)_checkManagerDaemonStateAndConnectIfAvailable;
-- (void)_resetManagerConnection;
-- (void)_connectToIDEWithTransport:(id)arg1;
-- (BOOL)_preTestingInitialization;
-- (void)_runSuite;
-- (void)resumeAppSleep:(id)arg1;
-- (id)suspendAppSleep;
-- (void)_softlinkDTXConnectionServices;
+- (void)reportStallOnMainThreadInTestCase:(id)arg1 method:(id)arg2 file:(id)arg3 line:(unsigned long long)arg4;
+- (BOOL)runTestsAndReturnError:(id *)arg1;
+- (id)_readyIDESession:(id *)arg1;
+- (int)_connectedSocketForIDESession:(id *)arg1;
 - (void)logDebugMessage:(id)arg1;
-- (id)init;
+- (id)initWithTestConfiguration:(id)arg1;
+
+// Removed with iOS 10.3
+@property(readonly) id <XCTestManager_ManagerInterface> managerProxy;
 
 @end

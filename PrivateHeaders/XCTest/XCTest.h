@@ -18,6 +18,8 @@
 @property(readonly) Class _requiredTestRunBaseClass;
 @property(readonly, copy) NSString *name;
 @property(readonly) unsigned long long testCaseCount;
+@property(readonly) NSString *_methodNameForReporting;
+@property(readonly) NSString *_classNameForReporting;
 
 + (id)languageAgnosticTestClassNameForTestClass:(Class)arg1;
 
@@ -27,5 +29,6 @@
 - (id)run;
 - (void)performTest:(id)arg1;
 - (id)init;
+- (void)removeTestsWithNames:(id)arg1;
 
 @end

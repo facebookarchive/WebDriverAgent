@@ -46,15 +46,15 @@
 @property XCElementSnapshot *parent; // @synthesize parent=_parent;
 @property(retain) XCAccessibilityElement *parentAccessibilityElement; // @synthesize parentAccessibilityElement=_parentAccessibilityElement;
 @property(retain) XCAccessibilityElement *accessibilityElement; // @synthesize accessibilityElement=_accessibilityElement;
-@property(getter=isSelected) BOOL selected; // @synthesize selected=_selected;
-@property(getter=isEnabled) BOOL enabled; // @synthesize enabled=_enabled;
-@property(copy) NSString *label; // @synthesize label=_label;
-@property(copy) NSString *title; // @synthesize title=_title;
-@property struct CGRect frame; // @synthesize frame=_frame;
 @property(readonly) NSArray *suggestedHitpoints;
 @property(readonly) struct CGRect visibleFrame;
 @property(readonly) XCElementSnapshot *scrollView;
 @property(readonly, copy) NSString *truncatedValueString;
+@property(readonly) long long depth;
+@property(readonly, copy) XCElementSnapshot *pathFromRoot;
+@property(readonly) BOOL isTopLevelTouchBarElement;
+@property(readonly) BOOL isTouchBarElement;
+@property(readonly, copy) NSString *sparseTreeDescription;
 @property(readonly, copy) NSString *compactDescription;
 @property(readonly, copy) NSString *pathDescription;
 @property(readonly) NSString *recursiveDescriptionIncludingAccessibilityElement;
@@ -62,6 +62,8 @@
 @property(readonly, copy) NSArray *identifiers;
 @property(nonatomic) unsigned long long generation; // @synthesize generation=_generation;
 @property(nonatomic) XCUIApplication *application; // @synthesize application=_application;
+@property(readonly) struct CGPoint hitPointForScrolling;
+@property(readonly) struct CGPoint hitPoint;
 
 - (id)_uniquelyIdentifyingObjectiveCCode;
 - (id)_uniquelyIdentifyingSwiftCode;
@@ -71,6 +73,9 @@
 - (BOOL)_frameFuzzyMatchesElement:(id)arg1;
 - (BOOL)_fuzzyMatchesElement:(id)arg1;
 - (BOOL)_matchesElement:(id)arg1;
+- (BOOL)matchesTreeWithRoot:(id)arg1;
+- (void)mergeTreeWithSnapshot:(id)arg1;
+- (id)_childMatchingElement:(id)arg1;
 - (NSArray<XCElementSnapshot *> *)_allDescendants;
 - (BOOL)hasDescendantMatchingFilter:(CDUnknownBlockType)arg1;
 - (NSArray<XCElementSnapshot *> *)descendantsByFilteringWithBlock:(BOOL(^)(XCElementSnapshot *snapshot))block;
@@ -78,5 +83,8 @@
 - (void)enumerateDescendantsUsingBlock:(void(^)(XCElementSnapshot *snapshot))block;
 - (id)recursiveDescriptionWithIndent:(id)arg1 includeAccessibilityElement:(BOOL)arg2;
 - (id)init;
+- (struct CGPoint)hostingAndOrientationTransformedPoint:(struct CGPoint)arg1;
+- (struct CGPoint)_transformPoint:(struct CGPoint)arg1 windowContextID:(id)arg2 windowDisplayID:(id)arg3;
+- (id)hitTest:(struct CGPoint)arg1;
 
 @end

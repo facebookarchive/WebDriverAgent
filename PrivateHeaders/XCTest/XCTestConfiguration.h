@@ -24,7 +24,21 @@
     NSString *_targetApplicationBundleID;
     NSString *_productModuleName;
     BOOL _reportActivities;
+    BOOL _testsMustRunOnMainThread;
+    BOOL _initializeForUITesting;
+    NSArray *_targetApplicationArguments;
+    NSDictionary *_targetApplicationEnvironment;
+    NSDictionary *_aggregateStatisticsBeforeCrash;
+    NSString *_automationFrameworkPath;
+    BOOL _emitOSLogs;
 }
+@property BOOL emitOSLogs; // @synthesize emitOSLogs=_emitOSLogs;
+@property(copy) NSString *automationFrameworkPath; // @synthesize automationFrameworkPath=_automationFrameworkPath;
+@property(copy) NSDictionary *aggregateStatisticsBeforeCrash; // @synthesize aggregateStatisticsBeforeCrash=_aggregateStatisticsBeforeCrash;
+@property(copy) NSArray *targetApplicationArguments; // @synthesize targetApplicationArguments=_targetApplicationArguments;
+@property(copy) NSDictionary *targetApplicationEnvironment; // @synthesize targetApplicationEnvironment=_targetApplicationEnvironment;
+@property BOOL initializeForUITesting; // @synthesize initializeForUITesting=_initializeForUITesting;
+@property BOOL testsMustRunOnMainThread; // @synthesize testsMustRunOnMainThread=_testsMustRunOnMainThread;
 @property BOOL reportActivities; // @synthesize reportActivities=_reportActivities;
 @property(copy) NSString *productModuleName; // @synthesize productModuleName=_productModuleName;
 @property(copy) NSString *targetApplicationBundleID; // @synthesize targetApplicationBundleID=_targetApplicationBundleID;
@@ -32,12 +46,15 @@
 @property BOOL treatMissingBaselinesAsFailures; // @synthesize treatMissingBaselinesAsFailures=_treatMissingBaselinesAsFailures;
 @property BOOL disablePerformanceMetrics; // @synthesize disablePerformanceMetrics=_disablePerformanceMetrics;
 @property BOOL reportResultsToIDE; // @synthesize reportResultsToIDE=_reportResultsToIDE;
-@property(copy) NSURL *baselineFileURL; // @synthesize baselineFileURL=_baselineFileURL;
+@property(copy, nonatomic) NSURL *baselineFileURL; // @synthesize baselineFileURL=_baselineFileURL;
+@property(copy) NSString *baselineFileRelativePath; // @synthesize baselineFileRelativePath=_baselineFileRelativePath;
 @property(copy) NSString *pathToXcodeReportingSocket; // @synthesize pathToXcodeReportingSocket=_pathToXcodeReportingSocket;
 @property(copy) NSUUID *sessionIdentifier; // @synthesize sessionIdentifier=_sessionIdentifier;
 @property(copy) NSSet *testsToSkip; // @synthesize testsToSkip=_testsToSkip;
 @property(copy) NSSet *testsToRun; // @synthesize testsToRun=_testsToRun;
-@property(copy) NSURL *testBundleURL; // @synthesize testBundleURL=_testBundleURL;
+@property(copy, nonatomic) NSURL *testBundleURL; // @synthesize testBundleURL=_testBundleURL;
+@property(copy) NSString *testBundleRelativePath; // @synthesize testBundleRelativePath=_testBundleRelativePath;
+@property(copy) NSString *absolutePath; // @synthesize absolutePath=_absolutePath;
 
 + (id)configurationWithContentsOfFile:(id)arg1;
 + (id)activeTestConfiguration;

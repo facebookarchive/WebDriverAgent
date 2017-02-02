@@ -12,20 +12,28 @@
 {
     id _internalImplementation;
 }
-@property(readonly) _XCTestExpectationImplementation *internalImplementation; // @synthesize internalImplementation=_internalImplementation;
 @property BOOL hasBeenWaitedOn;
 @property id <XCTestExpectationDelegate> delegate;
 @property(readonly, copy) NSArray *fulfillCallStackReturnAddresses;
 @property(readonly) BOOL fulfilled;
 @property BOOL hasInverseBehavior;
+@property(getter=isInverted) BOOL inverted;
+@property(nonatomic) BOOL assertForOverFulfill;
+@property(nonatomic) unsigned long long expectedFulfillmentCount;
 @property(nonatomic) unsigned long long fulfillmentCount;
 @property(readonly) unsigned long long fulfillmentToken;
+@property(readonly) _XCTestExpectationImplementation *internalImplementation; // @synthesize internalImplementation=_internalImplementation;
+@property(copy) NSString *expectationDescription;
+@property(readonly, nonatomic) NSObject<OS_dispatch_queue> *delegateQueue;
+@property(readonly, nonatomic) NSObject<OS_dispatch_queue> *queue;
 
-+ (id)expectationForTestCase:(id)arg1 withDescription:(id)arg2;
++ (id)expectationWithDescription:(id)arg1;
 
 - (void)cleanup;
 - (void)_queue_fulfillWithCallStackReturnAddresses:(id)arg1;
 - (void)fulfill;
-- (id)_initForTestCase:(id)arg1 withDescription:(id)arg2;
+
+- (id)initWithDescription:(id)arg1;
+- (id)init;
 
 @end
