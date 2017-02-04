@@ -24,6 +24,7 @@
 #import "XCUIApplication+FBHelpers.h"
 #import "XCUIDevice+FBHelpers.h"
 #import "XCUIElement.h"
+#import "XCUIElement+FBIsVisible.h"
 #import "XCUIElementQuery.h"
 
 @implementation FBCustomCommands
@@ -76,16 +77,20 @@
 {
   [request.session.application dismissKeyboard];
   NSError *error;
-  BOOL isKbdNotPresent =
+  NSString *errorDescription = @"The keyboard cannot be dismissed. Try to dismiss it in the way supported by your application under test.";
+  if ([UIDevice.currentDevice userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    errorDescription = @"The keyboard on iPhone cannot be dismissed because of a known XCTest issue. Try to dismiss it in the way supported by your application under test.";
+  }
+  BOOL isKeyboardNotPresent =
   [[[[FBRunLoopSpinner new]
      timeout:5]
-    timeoutErrorMessage:@"The keyboard cannot be dismissed. Try to use custom approach instead."]
+    timeoutErrorMessage:errorDescription]
    spinUntilTrue:^BOOL{
      XCUIElement *foundKeyboard = [[FBApplication fb_activeApplication].query descendantsMatchingType:XCUIElementTypeKeyboard].element;
-     return !(foundKeyboard.exists && foundKeyboard.hittable);
+     return !(foundKeyboard.exists && foundKeyboard.fb_isVisible);
    }
    error:&error];
-  if (!isKbdNotPresent) {
+  if (!isKeyboardNotPresent) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
