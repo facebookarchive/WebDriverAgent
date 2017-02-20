@@ -119,12 +119,7 @@
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  id text;
-  if ([element elementType] == XCUIElementTypeStaticText || [element elementType] == XCUIElementTypeButton) {
-    text = [element wdLabel];
-  } else {
-    text = [element wdValue];
-  }
+  id text = FBFirstNonEmptyValue(element.wdValue, element.wdLabel);
   text = text ?: [NSNull null];
   return FBResponseWithStatus(FBCommandStatusNoError, text);
 }
