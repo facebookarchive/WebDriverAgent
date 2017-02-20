@@ -79,6 +79,7 @@
     [[FBRoute POST:@"/uiaElement/:uuid/twoFingerTap"] respondWithTarget:self action:@selector(handleTwoFingerTap:)],
     [[FBRoute POST:@"/uiaElement/:uuid/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHold:)],
     [[FBRoute POST:@"/uiaElement/:uuid/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
+    [[FBRoute POST:@"/wda/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDragCoordinate:)],
     [[FBRoute POST:@"/uiaTarget/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
     [[FBRoute POST:@"/tap/:uuid"] respondWithTarget:self action:@selector(handleTap:)],
     [[FBRoute POST:@"/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHoldCoordinate:)],
