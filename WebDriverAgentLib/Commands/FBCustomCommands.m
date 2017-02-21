@@ -37,6 +37,10 @@
     [[FBRoute POST:@"/wda/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/wda/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/wda/keyboard/dismiss"] respondWithTarget:self action:@selector(handleDismissKeyboardCommand:)],
+    
+    [[FBRoute POST:@"/wda/settings/reset"] respondWithTarget:self action:@selector(handleResetSettings:)],
+    [[FBRoute PUT:@"/wda/settings"] respondWithTarget:self action:@selector(handleChangeSettings:)],
+    [[FBRoute GET:@"/wda/settings"] respondWithTarget:self action:@selector(handleGetSettings:)],
 
     // TODO: Those endpoints are deprecated and will die soon
     [[FBRoute POST:@"/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
@@ -94,6 +98,23 @@
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleResetSettings:(FBRouteRequest *)request
+{
+  [FBConfiguration.sharedInstance resetSettings];
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleChangeSettings:(FBRouteRequest *)request
+{
+  [FBConfiguration.sharedInstance changeSettings:request.parameters];
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleGetSettings:(FBRouteRequest *)request
+{
+  return FBResponseWithStatus(FBCommandStatusNoError, [FBConfiguration.sharedInstance currentSettings]);
 }
 
 @end

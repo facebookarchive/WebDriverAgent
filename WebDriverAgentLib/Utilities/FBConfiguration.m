@@ -10,6 +10,7 @@
 #import "FBConfiguration.h"
 
 #import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 
 #include "TargetConditionals.h"
 #import "XCTestPrivateSymbols.h"
@@ -19,9 +20,59 @@ BOOL _AXSAutomationSetFauxCollectionViewCellsEnabled(BOOL);
 static NSUInteger const DefaultStartingPort = 8100;
 static NSUInteger const DefaultPortRange = 100;
 
+NSString *const FBUnknownSettingNameException = @"FBUnknownSettingNameException";
+
 @implementation FBConfiguration
 
 #pragma mark Public
+
++ (instancetype)sharedInstance
+{
+  static FBConfiguration *instance = nil;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    instance = [[self alloc] init];
+  });
+  return instance;
+}
+
+- (id)init
+{
+  if ((self = [super init])) {
+    [self resetSettings];
+  }
+  return self;
+}
+
+- (void)resetSettings
+{
+  self.useAlternativeVisibilityDetection = NO;
+  self.showVisibilityAttributeForXML = NO;
+}
+
+- (void)changeSettings:(NSDictionary<NSString *, id> *)newValues
+{
+  for (NSString *key in newValues) {
+    if (![self.class.availableSettings containsObject:key]) {
+      NSString *description = [NSString stringWithFormat:@"Setting '%@' is unknown. Valid setting names are: %@", key, [self.class.availableSettings sortedArrayUsingSelector:@selector(compare:)]];
+      @throw [NSException exceptionWithName:FBUnknownSettingNameException reason:description userInfo:@{}];
+    }
+    [self setValue:[newValues objectForKey:key] forKey:key];
+  }
+}
+
+- (NSDictionary<NSString *, id> *)currentSettings
+{
+  NSMutableDictionary *result = [NSMutableDictionary dictionary];
+  for (NSString *settingName in self.class.availableSettings) {
+    NSString *settingValue = [self valueForKey:settingName];
+    if (nil == settingValue) {
+      continue;
+    }
+    [result setObject:settingValue forKey:settingName];
+  }
+  return result.copy;
+}
 
 + (void)shouldShowFakeCollectionViewCells:(BOOL)showFakeCells
 {
@@ -72,6 +123,29 @@ static NSUInteger const DefaultPortRange = 100;
     return NSMakeRange(NSNotFound, 0);
   }
   return NSMakeRange(port, 1);
+}
+
++ (NSArray<NSString *> *)availableSettings
+{
+  static NSArray<NSString *> *result;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    unsigned int propsCount = 0;
+    NSMutableArray *propertyNames = [NSMutableArray array];
+    objc_property_t *properties = class_copyPropertyList(self.class, &propsCount);
+    for (unsigned int i = 0; i < propsCount; ++i) {
+      objc_property_t property = properties[i];
+      const char *name = property_getName(property);
+      NSString *nsName = [NSString stringWithUTF8String:name];
+      if (nil == nsName) {
+        continue;
+      }
+      [propertyNames addObject:nsName];
+    }
+    free(properties);
+    result = propertyNames.copy;
+  });
+  return result;
 }
 
 @end

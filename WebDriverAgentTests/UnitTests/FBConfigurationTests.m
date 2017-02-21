@@ -46,4 +46,32 @@
   XCTAssertTrue([FBConfiguration verboseLoggingEnabled]);
 }
 
+- (void)testChangingSettings
+{
+  XCTAssertEqual([FBConfiguration sharedInstance].useAlternativeVisibilityDetection, NO);
+  XCTAssertEqual([FBConfiguration sharedInstance].showVisibilityAttributeForXML, NO);
+  @try {
+    NSMutableDictionary<NSString *, id> *newSettings = [NSMutableDictionary dictionary];
+    [newSettings setValue:@(YES) forKey:@"useAlternativeVisibilityDetection"];
+    [[FBConfiguration sharedInstance] changeSettings:newSettings];
+    XCTAssertEqual([FBConfiguration sharedInstance].useAlternativeVisibilityDetection, YES);
+    XCTAssertEqual([FBConfiguration sharedInstance].showVisibilityAttributeForXML, NO);
+    
+    NSDictionary<NSString *, id> *changedSettings = [[FBConfiguration sharedInstance] currentSettings];
+    XCTAssertEqual([[changedSettings valueForKey:@"useAlternativeVisibilityDetection"] boolValue], YES);
+    XCTAssertEqual([[changedSettings valueForKey:@"showVisibilityAttributeForXML"] boolValue], NO);
+  } @finally {
+    [[FBConfiguration sharedInstance] resetSettings];
+  }
+  XCTAssertEqual([FBConfiguration sharedInstance].useAlternativeVisibilityDetection, NO);
+  XCTAssertEqual([FBConfiguration sharedInstance].showVisibilityAttributeForXML, NO);
+}
+
+- (void)testWrongSettingName
+{
+  NSMutableDictionary<NSString *, id> *newSettings = [NSMutableDictionary dictionary];
+  [newSettings setValue:@(YES) forKey:@"blabla"];
+  XCTAssertThrowsSpecificNamed([FBConfiguration.sharedInstance changeSettings:newSettings], NSException, FBUnknownSettingNameException);
+}
+
 @end
