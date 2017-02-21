@@ -9,6 +9,7 @@
 
 #import <XCTest/XCTest.h>
 
+#import "FBConfiguration.h"
 #import "FBIntegrationTestCase.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBFind.h"
@@ -132,14 +133,29 @@
                                NSException, XCElementSnapshotInvalidXPathException);
 }
 
-- (void)disabled_testVisibleDescendantWithXPathQuery
+- (void)testVisibleDescendantWithXPathQuery
 {
-  NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton[@name='Alerts' and @enabled='true' and @visible='true']" shouldReturnAfterFirstMatch:NO];
-  XCTAssertEqual(matchingSnapshots.count, 1);
-  XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypeButton);
-  XCTAssertTrue(matchingSnapshots.lastObject.isEnabled);
-  XCTAssertTrue(matchingSnapshots.lastObject.fb_isVisible);
-  XCTAssertEqualObjects(matchingSnapshots.lastObject.label, @"Alerts");
+  @try {
+    FBConfiguration.sharedInstance.showVisibilityAttributeForXML = YES;
+    NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton[@name='Alerts' and @enabled='true' and @visible='true']" shouldReturnAfterFirstMatch:NO];
+    XCTAssertEqual(matchingSnapshots.count, 1);
+    XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypeButton);
+    XCTAssertTrue(matchingSnapshots.lastObject.isEnabled);
+    XCTAssertTrue(matchingSnapshots.lastObject.fb_isVisible);
+    XCTAssertEqualObjects(matchingSnapshots.lastObject.label, @"Alerts");
+  } @finally {
+    FBConfiguration.sharedInstance.showVisibilityAttributeForXML = NO;
+  }
+}
+
+- (void)testVisibleDescendantWithXPathQueryAndAlternativeVisibilityDetection
+{
+  @try {
+    FBConfiguration.sharedInstance.useAlternativeVisibilityDetection = YES;
+    [self testVisibleDescendantWithXPathQuery];
+  } @finally {
+    FBConfiguration.sharedInstance.useAlternativeVisibilityDetection = NO;
+  }
 }
 
 - (void)disabled_testInvisibleDescendantWithXPathQuery

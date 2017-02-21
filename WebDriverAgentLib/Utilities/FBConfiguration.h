@@ -11,10 +11,48 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/*! Notification used to notify about unknown setting name */
+extern NSString *const FBUnknownSettingNameException;
+
 /**
  Accessors for Global Constants.
  */
 @interface FBConfiguration : NSObject
+
+/*! Whether to add @visible attribute to UI XML representation. Default value is NO */
+@property (atomic) BOOL showVisibilityAttributeForXML;
+
+/*! Whether to use alternative visibility detection. Default value is NO */
+@property (atomic) BOOL useAlternativeVisibilityDetection;
+
+/**
+ Returns a singleton object for the current class
+ */
++ (instancetype)sharedInstance;
+
+/**
+ Reset all setting properties to their default values.
+ This method is automatically invoked upon new session initialization,
+ so all the settings are always set to their default values for each testing session.
+ */
+- (void)resetSettings;
+
+/**
+ Change values of existing instance properties
+ 
+ @param newValues Dictionary containing new property values.
+                  Dictionary keys should be valid property names.
+ @throws FBUnknownSettingException If there is no such property with given name
+ */
+- (void)changeSettings:(NSDictionary<NSString *, id> *)newValues;
+
+/**
+ Returns values of existing instance properties
+ 
+ @return Dictionary containing valid property names as keys and
+         corresponding property values
+ */
+- (NSDictionary<NSString *, id> *)currentSettings;
 
 /**
  Switch for enabling/disabling reporting fake collection view cells by Accessibility framework.

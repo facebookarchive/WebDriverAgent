@@ -9,6 +9,7 @@
 
 #import "FBXPath.h"
 
+#import "FBConfiguration.h"
 #import "FBLogger.h"
 #import "XCAXClient_iOS.h"
 #import "XCTestDriver.h"
@@ -219,6 +220,13 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   if (element.wdLabel) {
     rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "label",
                                      [FBXPath xmlCharPtrForInput:[element.wdLabel cStringUsingEncoding:NSUTF8StringEncoding]]);
+    if (rc < 0) {
+      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+      return rc;
+    }
+  }
+  if (FBConfiguration.sharedInstance.showVisibilityAttributeForXML) {
+    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "visible", element.wdVisible ? BAD_CAST "true" : BAD_CAST "false");
     if (rc < 0) {
       [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
       return rc;

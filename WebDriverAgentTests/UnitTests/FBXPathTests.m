@@ -9,6 +9,7 @@
 
 #import <XCTest/XCTest.h>
 
+#import "FBConfiguration.h"
 #import "FBXPath.h"
 #import "FBXPath-Private.h"
 #import "XCUIElementDouble.h"
@@ -18,7 +19,7 @@
 
 @implementation FBXPathTests
 
-- (void)testInternalSnapshotXPathPresentation
+- (NSString *)uiTreeAsXML
 {
   xmlDocPtr doc;
 
@@ -35,11 +36,29 @@
   xmlFreeDoc(doc);
 
   XCTAssertEqual(rc, 0);
+  XCTAssertEqual(1, [elementStore count]);
 
-  NSString *resultXml = [NSString stringWithCString:(const char *)xmlbuff encoding:NSUTF8StringEncoding];
+  return [NSString stringWithCString:(const char *)xmlbuff encoding:NSUTF8StringEncoding];
+}
+
+- (void)testInternalSnapshotXPathPresentation
+{
+  NSString *resultXml = [self uiTreeAsXML];
   NSString *expectedXml = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<XCUIElementTypeOther type=\"XCUIElementTypeOther\" value=\"magicValue\" name=\"testName\" label=\"testLabel\" enabled=\"true\" x=\"0\" y=\"0\" width=\"0\" height=\"0\" private_indexPath=\"top\"/>\n";
   XCTAssertTrue([resultXml isEqualToString: expectedXml]);
-  XCTAssertEqual(1, [elementStore count]);
+}
+
+- (void)testInternalSnapshotXPathPresentationWithVisibility
+{
+  NSString *resultXml = @"";
+  @try {
+    FBConfiguration.sharedInstance.showVisibilityAttributeForXML = YES;
+    resultXml = [self uiTreeAsXML];
+  } @finally {
+    FBConfiguration.sharedInstance.showVisibilityAttributeForXML = NO;
+  }
+  NSString *expectedXml = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<XCUIElementTypeOther type=\"XCUIElementTypeOther\" value=\"magicValue\" name=\"testName\" label=\"testLabel\" visible=\"true\" enabled=\"true\" x=\"0\" y=\"0\" width=\"0\" height=\"0\" private_indexPath=\"top\"/>\n";
+  XCTAssertTrue([resultXml isEqualToString: expectedXml]);
 }
 
 - (void)testSnapshotXPathResultsMatching

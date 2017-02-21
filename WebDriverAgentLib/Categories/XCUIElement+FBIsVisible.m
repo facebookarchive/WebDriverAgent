@@ -9,6 +9,8 @@
 
 #import "XCUIElement+FBIsVisible.h"
 
+#import "FBConfiguration.h"
+#import "FBMathUtils.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCTestPrivateSymbols.h"
 
@@ -29,16 +31,11 @@
 - (BOOL)fb_isVisible
 {
   if (CGRectIsEmpty(self.frame) || CGRectIsEmpty(self.visibleFrame)) {
-    /*
-     It turns out, that XCTest triggers
-       Enqueue Failure: UI Testing Failure - Failure fetching attributes for element
-       <XCAccessibilityElement: 0x60000025f9e0> Device element: Error Domain=XCTestManagerErrorDomain Code=13
-       "Error copying attributes -25202" UserInfo={NSLocalizedDescription=Error copying attributes -25202} <unknown> 0 1
-     error in the log if we try to get visibility attribute for an element snapshot, which does not intersect with visible appication area
-     or if it has zero width/height. Also, XCTest waits for 15 seconds after this line appears in the log, which makes /source command
-     execution extremely slow for some applications.
-     */
     return NO;
+  }
+  if (FBConfiguration.sharedInstance.useAlternativeVisibilityDetection) {
+    CGSize screenSize = FBAdjustDimensionsForApplication(self.application.frame.size, self.application.interfaceOrientation);
+    return CGRectIntersectsRect(self.visibleFrame, CGRectMake(0, 0, screenSize.width, screenSize.height));
   }
   return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
 }

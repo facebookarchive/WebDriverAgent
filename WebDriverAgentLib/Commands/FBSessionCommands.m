@@ -10,6 +10,7 @@
 #import "FBSessionCommands.h"
 
 #import "FBApplication.h"
+#import "FBConfiguration.h"
 #import "FBRouteRequest.h"
 #import "FBSession.h"
 #import "FBApplication.h"
@@ -59,6 +60,7 @@
     return FBResponseWithErrorFormat(@"Failed to launch %@ application", bundleID);
   }
   [FBSession sessionWithApplication:app];
+  [FBConfiguration.sharedInstance resetSettings];
   return FBResponseWithObject(FBSessionCommands.sessionInformation);
 }
 
