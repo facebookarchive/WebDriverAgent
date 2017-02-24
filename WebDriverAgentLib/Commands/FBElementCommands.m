@@ -67,24 +67,6 @@
     [[FBRoute POST:@"/wda/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHoldCoordinate:)],
     [[FBRoute POST:@"/wda/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
     [[FBRoute POST:@"/wda/keys"] respondWithTarget:self action:@selector(handleKeys:)],
-
-    // TODO: This API call should be deprecated and replaced with the one above without the extra :uuid parameter
-    [[FBRoute GET:@"/window/:uuid/size"] respondWithTarget:self action:@selector(handleGetWindowSize:)],
-
-    // TODO: Those endpoints are deprecated and will die soon
-    [[FBRoute POST:@"/element/:uuid/pinch"] respondWithTarget:self action:@selector(handlePinch:)],
-    [[FBRoute GET:@"/element/:uuid/accessible"] respondWithTarget:self action:@selector(handleGetAccessible:)],
-    [[FBRoute GET:@"/element/:uuid/accessibilityContainer"] respondWithTarget:self action:@selector(handleGetIsAccessibilityContainer:)],
-    [[FBRoute POST:@"/uiaElement/:uuid/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTap:)],
-    [[FBRoute POST:@"/uiaElement/:uuid/twoFingerTap"] respondWithTarget:self action:@selector(handleTwoFingerTap:)],
-    [[FBRoute POST:@"/uiaElement/:uuid/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHold:)],
-    [[FBRoute POST:@"/uiaElement/:uuid/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
-    [[FBRoute POST:@"/uiaTarget/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
-    [[FBRoute POST:@"/tap/:uuid"] respondWithTarget:self action:@selector(handleTap:)],
-    [[FBRoute POST:@"/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHoldCoordinate:)],
-    [[FBRoute POST:@"/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
-    [[FBRoute POST:@"/keys"] respondWithTarget:self action:@selector(handleKeys:)],
-    [[FBRoute GET:@"/window/size"] respondWithTarget:self action:@selector(handleGetWindowSize:)],
   ];
 }
 
@@ -404,7 +386,7 @@
 
 /**
  Returns gesture coordinate for the application based on absolute coordinate
- 
+
  @param coordinate absolute screen coordinates
  @param application the instance of current application under test
  @shouldApplyOrientationWorkaround whether to apply orientation workaround. This is to

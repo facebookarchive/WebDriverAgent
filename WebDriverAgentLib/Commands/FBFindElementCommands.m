@@ -43,9 +43,6 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     [[FBRoute POST:@"/element/:uuid/element"] respondWithTarget:self action:@selector(handleFindSubElement:)],
     [[FBRoute POST:@"/element/:uuid/elements"] respondWithTarget:self action:@selector(handleFindSubElements:)],
     [[FBRoute GET:@"/wda/element/:uuid/getVisibleCells"] respondWithTarget:self action:@selector(handleFindVisibleCells:)],
-
-    // TODO: Those endpoints are deprecated and will die soon
-    [[FBRoute GET:@"/uiaElement/:uuid/getVisibleCells"] respondWithTarget:self action:@selector(handleFindVisibleCells:)],
   ];
 }
 

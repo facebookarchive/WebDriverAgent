@@ -27,10 +27,6 @@
     [[FBRoute GET:@"/source"].withoutSession respondWithTarget:self action:@selector(handleGetSourceCommand:)],
     [[FBRoute GET:@"/wda/accessibleSource"] respondWithTarget:self action:@selector(handleGetAccessibleSourceCommand:)],
     [[FBRoute GET:@"/wda/accessibleSource"].withoutSession respondWithTarget:self action:@selector(handleGetAccessibleSourceCommand:)],
-
-    // TODO: Those are DEPRECATED, will die soon
-    [[FBRoute POST:@"/source"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
-    [[FBRoute POST:@"/source"].withoutSession respondWithTarget:self action:@selector(handleGetTreeCommand:)],
   ];
 }
 
