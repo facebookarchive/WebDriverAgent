@@ -258,7 +258,7 @@ static NSNumberFormatter *numberFormatter = nil;
 
 + (NSError *)tokenizationErrorWithIndex:(NSUInteger)index originalQuery:(NSString *)originalQuery
 {
-  NSString *description = [NSString stringWithFormat:@"Cannot parse class chain query '%@'. Unexpected character detected at position %lu:\n'%@' <----", originalQuery, index + 1, [originalQuery substringToIndex:index + 1]];
+  NSString *description = [NSString stringWithFormat:@"Cannot parse class chain query '%@'. Unexpected character detected at position %@:\n'%@' <----", originalQuery, @(index + 1), [originalQuery substringToIndex:index + 1]];
   return [[FBErrorBuilder.builder withDescription:description] build];
 }
 
