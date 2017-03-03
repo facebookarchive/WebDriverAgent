@@ -95,9 +95,6 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   NSArray *foundElements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element
                          shouldReturnAfterFirstMatch:NO];
 
-  if (foundElements.count == 0) {
-    return FBNoSuchElementErrorResponseForRequest(request);
-  }
   return FBResponseWithCachedElements(foundElements, request.session.elementCache, NO);
 }
 
