@@ -25,8 +25,7 @@
     [[FBRoute GET:@"/alert/text"] respondWithTarget:self action:@selector(handleAlertTextCommand:)],
     [[FBRoute POST:@"/alert/accept"] respondWithTarget:self action:@selector(handleAlertAcceptCommand:)],
     [[FBRoute POST:@"/alert/dismiss"] respondWithTarget:self action:@selector(handleAlertDismissCommand:)],
-    [[FBRoute GET:@"/alert/buttons"] respondWithTarget:self action:@selector(handleGetAlertButtonsCommand:)],
-    [[FBRoute POST:@"/alert/click/:label"] respondWithTarget:self action:@selector(handleClickAlertButtonCommand:)],
+    [[FBRoute GET:@"/wda/alert/buttons"] respondWithTarget:self action:@selector(handleGetAlertButtonsCommand:)],
   ];
 }
 
@@ -46,7 +45,13 @@
 + (id<FBResponsePayload>)handleAlertAcceptCommand:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  if (![[FBAlert alertWithApplication:session.application] acceptWithError:nil]) {
+  NSString *name = request.parameters[@"name"];
+
+  if ([name length] != 0) {
+    if (![[FBAlert alertWithApplication:session.application] clickAlertButton:name withError:nil]) {
+      return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
+    }
+  } else if (![[FBAlert alertWithApplication:session.application] acceptWithError:nil]) {
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
   }
   return FBResponseWithOK();
@@ -55,7 +60,13 @@
 + (id<FBResponsePayload>)handleAlertDismissCommand:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  if (![[FBAlert alertWithApplication:session.application] dismissWithError:nil]) {
+  NSString *name = request.parameters[@"name"];
+
+  if ([name length] != 0) {
+    if (![[FBAlert alertWithApplication:session.application] clickAlertButton:name withError:nil]) {
+      return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
+    }
+  } else if (![[FBAlert alertWithApplication:session.application] dismissWithError:nil]) {
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
   }
   return FBResponseWithOK();
@@ -70,17 +81,5 @@
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
   }
   return FBResponseWithStatus(FBCommandStatusNoError, labels);
-}
-
-+ (id<FBResponsePayload>)handleClickAlertButtonCommand:(FBRouteRequest *)request {
-  FBSession *session = request.session;
-  NSString *label = request.parameters[@"label"];
-  
-  FBAlert *alert = [FBAlert alertWithApplication:session.application];
-  
-  if (![alert clickAlertButton:label withError:nil]) {
-    return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
-  }
-  return FBResponseWithOK();
 }
 @end
