@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param error If there is an error, upon return contains an NSError object that describes the problem.
  @return YES if the operation succeeds, otherwise NO.
  */
-- (BOOL)fb_typeText:(NSString *)text error:(NSError **)error;
+- (BOOL)fb_typeText:(NSString *)text simple:(bool)simple error:(NSError **)error;
 
 /**
  Clears text on element.
