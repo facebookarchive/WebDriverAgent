@@ -15,17 +15,24 @@
 
 @implementation XCUIElement (FBTyping)
 
-- (BOOL)fb_typeText:(NSString *)text simple:(bool)simple error:(NSError **)error
+- (BOOL)fb_typeText:(NSString *)text simple:(BOOL)simple error:(NSError **)error
 {
   if (!self.hasKeyboardFocus && ![self fb_tapWithError:error]) {
     return NO;
   }
+
   if (simple) {
-    [self typeText:text];
     [FBLogger logFmt:@"Typing text using simple method"];
+    @try {
+      [self typeText:text];
+    }
+    @catch (NSException *err) {
+      [FBLogger logFmt:@"Typing failed: %@", err.reason];
+      return NO;
+    }
   } else {
+    [FBLogger logFmt:@"Typing text using complex method"];
     if (![FBKeyboard typeText:text error:error]) {
-      [FBLogger logFmt:@"Typing text using complex method"];
       return NO;
     }
   }
