@@ -59,6 +59,25 @@
   XCTAssertTrue([alert.text containsString:@"Should read"]);
 }
 
+- (void)testAlertLabels
+{
+  FBAlert* alert = [FBAlert alertWithApplication:self.testedApplication];
+  XCTAssertNil(alert.labels);
+  [self showApplicationAlert];
+  XCTAssertNotNil(alert.labels);
+  XCTAssertEqual(1, alert.labels.count);
+  XCTAssertEqualObjects(@"Will do", alert.labels[0]);
+}
+
+- (void)testClickAlertButton
+{
+  FBAlert* alert = [FBAlert alertWithApplication:self.testedApplication];
+  XCTAssertFalse([alert clickAlertButton:@"Invalid" error:nil]);
+  [self showApplicationAlert];
+  XCTAssertFalse([alert clickAlertButton:@"Invalid" error:nil]);
+  XCTAssertTrue([alert clickAlertButton:@"Will do" error:nil]);
+}
+
 - (void)testAcceptingAlert
 {
   NSError *error;
