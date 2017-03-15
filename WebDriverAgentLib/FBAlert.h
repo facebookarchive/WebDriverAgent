@@ -40,7 +40,7 @@ extern NSString *const FBAlertObstructingElementException;
 /**
  Gets the labels of the buttons visible in the alert
  */
-- (nullable NSMutableArray *)labels;
+- (nullable NSArray *)labels;
 
 /**
  Returns alert's title and description separated by new lines
@@ -70,7 +70,7 @@ extern NSString *const FBAlertObstructingElementException;
  @param error If there is an error, upon return contains an NSError object that describes the problem.
  @return YES if the operation suceeds, otherwise NO.
  */
-- (BOOL)clickAlertButton:(NSString *)label withError:(NSError **)error;
+- (BOOL)clickAlertButton:(NSString *)label error:(NSError **)error;
 
 /**
  Filters out elements obstructed by alert

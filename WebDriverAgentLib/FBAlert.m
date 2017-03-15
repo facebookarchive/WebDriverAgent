@@ -109,21 +109,14 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
 - (NSMutableArray *) labels
 {
   NSMutableArray *value = [NSMutableArray array];
-  
   XCUIElement *alertElement = self.alertElement;
-  
   if (!alertElement) {
     return nil;
   }
-  
   NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
-  
-  for(XCUIElement *button in buttons)
-  {
-    
+  for(XCUIElement *button in buttons) {
     [value addObject:[button wdLabel]];
   }
-  
   return value;
 }
 
@@ -168,7 +161,7 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   return [cancelButton fb_tapWithError:error];
 }
 
-- (BOOL)clickAlertButton:(NSString *)label withError:(NSError **)error {
+- (BOOL)clickAlertButton:(NSString *)label error:(NSError **)error {
   
   XCUIElement *alertElement = self.alertElement;
   NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;

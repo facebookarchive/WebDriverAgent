@@ -48,7 +48,7 @@
   NSString *name = request.parameters[@"name"];
 
   if ([name length] != 0) {
-    if (![[FBAlert alertWithApplication:session.application] clickAlertButton:name withError:nil]) {
+    if (![[FBAlert alertWithApplication:session.application] clickAlertButton:name error:nil]) {
       return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
     }
   } else if (![[FBAlert alertWithApplication:session.application] acceptWithError:nil]) {
@@ -63,7 +63,7 @@
   NSString *name = request.parameters[@"name"];
 
   if ([name length] != 0) {
-    if (![[FBAlert alertWithApplication:session.application] clickAlertButton:name withError:nil]) {
+    if (![[FBAlert alertWithApplication:session.application] clickAlertButton:name error:nil]) {
       return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
     }
   } else if (![[FBAlert alertWithApplication:session.application] dismissWithError:nil]) {
@@ -75,7 +75,7 @@
 + (id<FBResponsePayload>)handleGetAlertButtonsCommand:(FBRouteRequest *)request {
   FBSession *session = request.session;
   FBAlert *alert = [FBAlert alertWithApplication:session.application];
-  NSMutableArray *labels = alert.labels;
+  NSArray *labels = alert.labels;
   
   if (!labels) {
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
