@@ -18,7 +18,7 @@
 #define FBTransferEmptyStringToNil(value) ([value isEqual:@""] ? nil : value)
 
 /*! Returns 'value1' or 'value2' if 'value1' is an empty string */
-#define FBFirstNonEmptyValue(value1, value2) ([value1 isEqual:@""] ? value2 : value1)
+#define FBFirstNonEmptyValue(value1, value2) (value1 == nil || [value1 isEqual:@""] ? value2 : value1)
 
 /*! Returns 'value' or NSNull if 'value' is nil */
 #define FBValueOrNull(value) ((value) ?: [NSNull null])
