@@ -18,6 +18,7 @@
 #import "XCElementSnapshot.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCTestDriver.h"
+#import "FBLogger.h"
 
 static const NSUInteger FBTypingFrequency = 60;
 
@@ -31,11 +32,23 @@ static const NSUInteger FBTypingFrequency = 60;
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    [[FBXCTestDaemonsProxy testRunnerProxy] _XCT_sendString:text maximumFrequency:FBTypingFrequency completion:^(NSError *typingError){
-      didSucceed = (typingError == nil);
-      innerError = typingError;
-      completion();
-    }];
+    if ([FBXCTestDaemonsProxy instancesRespondToSelector:@selector(_XCT_setAXTimeout:reply:)]) {
+      [[FBXCTestDaemonsProxy testRunnerProxy] _XCT_setAXTimeout:120000 reply:^(int res) {
+        [FBLogger logFmt:@"AX timeout set"];
+        [[FBXCTestDaemonsProxy testRunnerProxy] _XCT_sendString:text maximumFrequency:FBTypingFrequency completion:^(NSError *typingError){
+          didSucceed = (typingError == nil);
+          innerError = typingError;
+          completion();
+        }];
+      }];
+    } else {
+      [FBLogger logFmt:@"AX timeout not set"];
+      [[FBXCTestDaemonsProxy testRunnerProxy] _XCT_sendString:text maximumFrequency:FBTypingFrequency completion:^(NSError *typingError){
+        didSucceed = (typingError == nil);
+        innerError = typingError;
+        completion();
+      }];
+    }
   }];
   if (error) {
     *error = innerError;

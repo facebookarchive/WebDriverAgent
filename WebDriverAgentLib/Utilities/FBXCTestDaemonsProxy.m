@@ -26,7 +26,7 @@
     Class runnerClass = objc_lookUpClass("XCTRunnerDaemonSession");
     proxy = ((XCTRunnerDaemonSession *)[runnerClass sharedSession]).daemonProxy;
   });
-  NSAssert(proxy != NULL, @"Could not determin testRunnerProxy", proxy);
+  NSAssert(proxy != NULL, @"Could not determine testRunnerProxy", proxy);
   return proxy;
 }
 
