@@ -46,7 +46,7 @@
   for (NSUInteger i = 0 ; i < textLength ; i++) {
     [textToType appendString:@"\b\b"];
   }
-  if (![self fb_typeText:textToType simple:YES error:error]) {
+  if (![self fb_typeText:textToType simple:NO error:error]) {
     return NO;
   }
   return YES;
