@@ -33,9 +33,7 @@
   for (NSUInteger i = 0 ; i < textLength ; i++) {
     [textToType appendString:@"\b\b"];
   }
-  if (![self typeText:textToType]) {
-    return NO;
-  }
+  [self typeText:textToType];
   return YES;
 }
 
