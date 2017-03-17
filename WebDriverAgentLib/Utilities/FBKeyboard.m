@@ -20,7 +20,7 @@
 #import "XCTestDriver.h"
 #import "FBLogger.h"
 
-static const NSUInteger FBTypingFrequency = 60;
+static const NSUInteger FBTypingFrequency = 30;
 
 @implementation FBKeyboard
 

@@ -31,6 +31,7 @@
 #import "FBElementTypeTransformer.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
+#import "FBLogger.h"
 
 @interface FBElementCommands ()
 @end
@@ -163,12 +164,27 @@
   }
 
   BOOL simple = NO;
-  if (!request.parameters[@"simple"]) {
-    simple = ((NSString *)request.parameters[@"simple"]).boolValue;
+  if (request.arguments[@"simple"]) {
+    simple = ((NSString *)request.arguments[@"simple"]).boolValue;
+  }
+  BOOL oneByOne = NO;
+  if (request.arguments[@"oneByOne"]) {
+    oneByOne = ((NSString *)request.arguments[@"oneByOne"]).boolValue;
   }
   NSError *error = nil;
-  if (![element fb_typeText:textToType simple:simple error:&error]) {
-    return FBResponseWithError(error);
+  if (oneByOne) {
+    [FBLogger logFmt:@"Typing keys one-by-one. This will be slow"];
+    for (int i = 0; i < (int)[textToType length]; i++) {
+      NSString *ichar  = [NSString stringWithFormat:@"%c", [textToType characterAtIndex:i]];
+      if (![element fb_typeText:ichar simple:simple error:&error]) {
+        return FBResponseWithError(error);
+      }
+    }
+  } else {
+    [FBLogger logFmt:@"Typing keys all at once"];
+    if (![element fb_typeText:textToType simple:simple error:&error]) {
+      return FBResponseWithError(error);
+    }
   }
   return FBResponseWithElementUUID(elementUUID);
 }

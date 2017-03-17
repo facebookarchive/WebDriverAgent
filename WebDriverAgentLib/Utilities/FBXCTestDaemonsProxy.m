@@ -17,15 +17,14 @@
 + (id<XCTestManager_ManagerInterface>)testRunnerProxy
 {
   static id<XCTestManager_ManagerInterface> proxy = nil;
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    if ([[XCTestDriver sharedTestDriver] respondsToSelector:@selector(managerProxy)]) {
-      proxy = [XCTestDriver sharedTestDriver].managerProxy;
-      return;
-    }
+
+  if ([[XCTestDriver sharedTestDriver] respondsToSelector:@selector(managerProxy)]) {
+    proxy = [XCTestDriver sharedTestDriver].managerProxy;
+  } else {
     Class runnerClass = objc_lookUpClass("XCTRunnerDaemonSession");
     proxy = ((XCTRunnerDaemonSession *)[runnerClass sharedSession]).daemonProxy;
-  });
+  }
+
   NSAssert(proxy != NULL, @"Could not determine testRunnerProxy", proxy);
   return proxy;
 }
