@@ -31,9 +31,9 @@
   NSMutableString *textToType = @"".mutableCopy;
   const NSUInteger textLength = [self.value length];
   for (NSUInteger i = 0 ; i < textLength ; i++) {
-    [textToType appendString:@"\b"];
+    [textToType appendString:@"\b\b"];
   }
-  if (![self fb_typeText:textToType error:error]) {
+  if (![self typeText:textToType]) {
     return NO;
   }
   return YES;
