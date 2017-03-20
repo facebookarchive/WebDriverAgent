@@ -162,8 +162,13 @@
     return FBResponseWithOK();
   }
 
+  NSUInteger freq = 0;
+  if (request.arguments[@"maximumFrequency"]) {
+    freq = [request.arguments[@"maximumFrequency"] integerValue];
+  }
+
   NSError *error = nil;
-  if (![element fb_typeText:textToType error:&error]) {
+  if (![element fb_typeText:textToType maximumFrequency:freq error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithElementUUID(elementUUID);
@@ -353,8 +358,12 @@
 + (id<FBResponsePayload>)handleKeys:(FBRouteRequest *)request
 {
   NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
+  NSUInteger freq = 0;
+  if (request.arguments[@"maximumFrequency"]) {
+    freq = [request.arguments[@"maximumFrequency"] integerValue];
+  }
   NSError *error;
-  if (![FBKeyboard typeText:textToType error:&error]) {
+  if (![FBKeyboard typeText:textToType maximumFrequency:freq error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();

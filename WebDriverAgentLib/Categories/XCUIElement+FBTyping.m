@@ -14,13 +14,13 @@
 
 @implementation XCUIElement (FBTyping)
 
-- (BOOL)fb_typeText:(NSString *)text error:(NSError **)error
+- (BOOL)fb_typeText:(NSString *)text maximumFrequency:(NSUInteger)freq error:(NSError **)error
 {
   if (!self.hasKeyboardFocus && ![self fb_tapWithError:error]) {
     return NO;
   }
 
-  if (![FBKeyboard typeText:text error:error]) {
+  if (![FBKeyboard typeText:text maximumFrequency:freq error:error]) {
     return NO;
   }
   return YES;
@@ -31,9 +31,10 @@
   NSMutableString *textToType = @"".mutableCopy;
   const NSUInteger textLength = [self.value length];
   for (NSUInteger i = 0 ; i < textLength ; i++) {
-    [textToType appendString:@"\b\b"];
+    [textToType appendString:@"\b"];
   }
-  [self typeText:textToType];
+  [self fb_typeText:textToType maximumFrequency:30 error:&error]
+  // [self typeText:textToType];
   return YES;
 }
 
