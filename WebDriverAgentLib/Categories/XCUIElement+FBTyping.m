@@ -26,15 +26,14 @@
   return YES;
 }
 
-- (BOOL)fb_clearTextWithError:(NSError **)error
+- (BOOL)fb_clearTextWithError:(NSUInteger)freq error:(NSError **)error
 {
   NSMutableString *textToType = @"".mutableCopy;
   const NSUInteger textLength = [self.value length];
   for (NSUInteger i = 0 ; i < textLength ; i++) {
     [textToType appendString:@"\b"];
   }
-  [self fb_typeText:textToType maximumFrequency:30 error:error];
-  // [self typeText:textToType];
+  [self fb_typeText:textToType maximumFrequency:freq error:error];
   return YES;
 }
 

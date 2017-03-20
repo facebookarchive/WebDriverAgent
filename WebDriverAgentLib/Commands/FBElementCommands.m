@@ -191,8 +191,12 @@
   FBElementCache *elementCache = request.session.elementCache;
   NSString *elementUUID = request.parameters[@"uuid"];
   XCUIElement *element = [elementCache elementForUUID:elementUUID];
+  NSUInteger freq = 0;
+  if (request.arguments[@"maximumFrequency"]) {
+    freq = [request.arguments[@"maximumFrequency"] integerValue];
+  }
   NSError *error;
-  if (![element fb_clearTextWithError:&error]) {
+  if (![element fb_clearTextWithError:freq error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithElementUUID(elementUUID);
