@@ -33,7 +33,7 @@
   for (NSUInteger i = 0 ; i < textLength ; i++) {
     [textToType appendString:@"\b"];
   }
-  [self fb_typeText:textToType maximumFrequency:30 error:&error]
+  [self fb_typeText:textToType maximumFrequency:30 error:error];
   // [self typeText:textToType];
   return YES;
 }
