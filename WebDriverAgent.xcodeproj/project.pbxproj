@@ -25,17 +25,16 @@
 		71A224E51DE2F56600844D55 /* NSPredicate+FBFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 71A224E31DE2F56600844D55 /* NSPredicate+FBFormat.h */; };
 		71A224E61DE2F56600844D55 /* NSPredicate+FBFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A224E41DE2F56600844D55 /* NSPredicate+FBFormat.m */; };
 		71A224E81DE326C500844D55 /* NSPredicateFBFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A224E71DE326C500844D55 /* NSPredicateFBFormatTests.m */; };
-		71E504951DF59BAD0020C32A /* XCUIElementAttributesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E504941DF59BAD0020C32A /* XCUIElementAttributesTests.m */; };
 		71A7EAF51E20516B001DA4F2 /* XCUIElement+FBClassChain.h in Headers */ = {isa = PBXBuildFile; fileRef = 71A7EAF31E20516B001DA4F2 /* XCUIElement+FBClassChain.h */; };
 		71A7EAF61E20516B001DA4F2 /* XCUIElement+FBClassChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A7EAF41E20516B001DA4F2 /* XCUIElement+FBClassChain.m */; };
 		71A7EAF91E224648001DA4F2 /* FBClassChainQueryParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 71A7EAF71E224648001DA4F2 /* FBClassChainQueryParser.h */; };
 		71A7EAFA1E224648001DA4F2 /* FBClassChainQueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A7EAF81E224648001DA4F2 /* FBClassChainQueryParser.m */; };
 		71A7EAFC1E229302001DA4F2 /* FBClassChainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A7EAFB1E229302001DA4F2 /* FBClassChainTests.m */; };
+		71E504951DF59BAD0020C32A /* XCUIElementAttributesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E504941DF59BAD0020C32A /* XCUIElementAttributesTests.m */; };
 		71E95ADF1DC101BA002D0364 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7174AF031D9D39AF008C8AD5 /* libxml2.tbd */; };
 		AD35D01A1CF1418E00870A75 /* RoutingHTTPServer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD35D0641CF1C2C300870A75 /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; };
 		AD35D0661CF1C2CE00870A75 /* Peertalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD35D0651CF1C2CE00870A75 /* Peertalk.framework */; };
-		AD35D06A1CF1C30700870A75 /* Peertalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD35D0691CF1C30700870A75 /* Peertalk.framework */; };
 		AD35D06B1CF1C31B00870A75 /* Peertalk.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD35D0651CF1C2CE00870A75 /* Peertalk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD35D06C1CF1C35500870A75 /* WebDriverAgentLib.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = EE158A991CBD452B00A3E3F0 /* WebDriverAgentLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD6C26941CF2379700F8B5FF /* FBAlert.h in Headers */ = {isa = PBXBuildFile; fileRef = AD6C26921CF2379700F8B5FF /* FBAlert.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -91,8 +90,6 @@
 		EE158AD31CBD456F00A3E3F0 /* FBElementCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC088E41CB56AC000B65968 /* FBElementCache.m */; };
 		EE158AD41CBD456F00A3E3F0 /* FBExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC088E61CB56DA400B65968 /* FBExceptionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158AD51CBD456F00A3E3F0 /* FBExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC088E71CB56DA400B65968 /* FBExceptionHandler.m */; };
-		EE158AD61CBD456F00A3E3F0 /* FBHTTPOverUSBServer.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB77C1CAEDF0C008C271F /* FBHTTPOverUSBServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE158AD71CBD456F00A3E3F0 /* FBHTTPOverUSBServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB77D1CAEDF0C008C271F /* FBHTTPOverUSBServer.m */; };
 		EE158AD81CBD456F00A3E3F0 /* FBResponseFilePayload.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB77E1CAEDF0C008C271F /* FBResponseFilePayload.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158AD91CBD456F00A3E3F0 /* FBResponseFilePayload.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB77F1CAEDF0C008C271F /* FBResponseFilePayload.m */; };
 		EE158ADA1CBD456F00A3E3F0 /* FBResponseJSONPayload.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7801CAEDF0C008C271F /* FBResponseJSONPayload.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -242,8 +239,6 @@
 		EE3A18631CDE618F00DE4205 /* FBErrorBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A18611CDE618F00DE4205 /* FBErrorBuilder.m */; };
 		EE3A18661CDE734B00DE4205 /* FBKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3A18641CDE734B00DE4205 /* FBKeyboard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3A18671CDE734B00DE4205 /* FBKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A18651CDE734B00DE4205 /* FBKeyboard.m */; };
-		EE3A18771CDE886F00DE4205 /* FBHTTPOverUSBClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3A18751CDE886F00DE4205 /* FBHTTPOverUSBClient.h */; };
-		EE3A18781CDE886F00DE4205 /* FBHTTPOverUSBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A18761CDE886F00DE4205 /* FBHTTPOverUSBClient.m */; };
 		EE3F8CFE1D08AA17006F02CE /* FBRunLoopSpinnerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3F8CFD1D08AA17006F02CE /* FBRunLoopSpinnerTests.m */; };
 		EE3F8D001D08B05F006F02CE /* FBElementTypeTransformerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3F8CFF1D08B05F006F02CE /* FBElementTypeTransformerTests.m */; };
 		EE55B3251D1D5388003AAAEC /* FBTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55B3231D1D5388003AAAEC /* FBTableDataSource.m */; };
@@ -371,12 +366,12 @@
 		71A224E31DE2F56600844D55 /* NSPredicate+FBFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSPredicate+FBFormat.h"; path = "../Utilities/NSPredicate+FBFormat.h"; sourceTree = "<group>"; };
 		71A224E41DE2F56600844D55 /* NSPredicate+FBFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPredicate+FBFormat.m"; path = "../Utilities/NSPredicate+FBFormat.m"; sourceTree = "<group>"; };
 		71A224E71DE326C500844D55 /* NSPredicateFBFormatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPredicateFBFormatTests.m; sourceTree = "<group>"; };
-		71E504941DF59BAD0020C32A /* XCUIElementAttributesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIElementAttributesTests.m; sourceTree = "<group>"; };
 		71A7EAF31E20516B001DA4F2 /* XCUIElement+FBClassChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBClassChain.h"; sourceTree = "<group>"; };
 		71A7EAF41E20516B001DA4F2 /* XCUIElement+FBClassChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+FBClassChain.m"; sourceTree = "<group>"; };
 		71A7EAF71E224648001DA4F2 /* FBClassChainQueryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBClassChainQueryParser.h; sourceTree = "<group>"; };
 		71A7EAF81E224648001DA4F2 /* FBClassChainQueryParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBClassChainQueryParser.m; sourceTree = "<group>"; };
 		71A7EAFB1E229302001DA4F2 /* FBClassChainTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBClassChainTests.m; sourceTree = "<group>"; };
+		71E504941DF59BAD0020C32A /* XCUIElementAttributesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIElementAttributesTests.m; sourceTree = "<group>"; };
 		AD35D0651CF1C2CE00870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/iOS/Peertalk.framework; sourceTree = "<group>"; };
 		AD35D0691CF1C30700870A75 /* Peertalk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Peertalk.framework; path = Carthage/Build/Mac/Peertalk.framework; sourceTree = "<group>"; };
 		AD42DD2A1CF121E600806E5D /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
@@ -522,9 +517,6 @@
 		EE3A18611CDE618F00DE4205 /* FBErrorBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBErrorBuilder.m; sourceTree = "<group>"; };
 		EE3A18641CDE734B00DE4205 /* FBKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBKeyboard.h; path = WebDriverAgentLib/Utilities/FBKeyboard.h; sourceTree = SOURCE_ROOT; };
 		EE3A18651CDE734B00DE4205 /* FBKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBKeyboard.m; path = WebDriverAgentLib/Utilities/FBKeyboard.m; sourceTree = SOURCE_ROOT; };
-		EE3A186C1CDE884800DE4205 /* libWebDriverAgentUSBClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWebDriverAgentUSBClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE3A18751CDE886F00DE4205 /* FBHTTPOverUSBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBHTTPOverUSBClient.h; sourceTree = "<group>"; };
-		EE3A18761CDE886F00DE4205 /* FBHTTPOverUSBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBHTTPOverUSBClient.m; sourceTree = "<group>"; };
 		EE3F8CFD1D08AA17006F02CE /* FBRunLoopSpinnerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRunLoopSpinnerTests.m; sourceTree = "<group>"; };
 		EE3F8CFF1D08B05F006F02CE /* FBElementTypeTransformerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementTypeTransformerTests.m; sourceTree = "<group>"; };
 		EE55B3221D1D5388003AAAEC /* FBTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTableDataSource.h; sourceTree = "<group>"; };
@@ -586,8 +578,6 @@
 		EE9AB7761CAEDF0C008C271F /* FBCommandStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCommandStatus.h; sourceTree = "<group>"; };
 		EE9AB7791CAEDF0C008C271F /* FBElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBElement.h; sourceTree = "<group>"; };
 		EE9AB77B1CAEDF0C008C271F /* FBElementCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBElementCache.h; sourceTree = "<group>"; };
-		EE9AB77C1CAEDF0C008C271F /* FBHTTPOverUSBServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBHTTPOverUSBServer.h; sourceTree = "<group>"; };
-		EE9AB77D1CAEDF0C008C271F /* FBHTTPOverUSBServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBHTTPOverUSBServer.m; sourceTree = "<group>"; };
 		EE9AB77E1CAEDF0C008C271F /* FBResponseFilePayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBResponseFilePayload.h; sourceTree = "<group>"; };
 		EE9AB77F1CAEDF0C008C271F /* FBResponseFilePayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBResponseFilePayload.m; sourceTree = "<group>"; };
 		EE9AB7801CAEDF0C008C271F /* FBResponseJSONPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBResponseJSONPayload.h; sourceTree = "<group>"; };
@@ -671,14 +661,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EE3A18691CDE884800DE4205 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AD35D06A1CF1C30700870A75 /* Peertalk.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		EE836BFF1C0F118600D87246 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -733,7 +715,6 @@
 				EEC288F81BF0ED2500B4DC79 /* WebDriverAgentLib */,
 				EE9B75F91CF7964100275851 /* WebDriverAgentTests */,
 				EEF988341C486655005CA669 /* WebDriverAgentRunner */,
-				EE3A186D1CDE884800DE4205 /* WebDriverAgentUSBClient */,
 				EE9AB8021CAEE182008C271F /* Scripts */,
 				91F9DAEA1B99DBC2001349B2 /* Products */,
 				B6E83A410C45944B036B6B0F /* Frameworks */,
@@ -747,7 +728,6 @@
 				EE836C021C0F118600D87246 /* UnitTests.xctest */,
 				EEF9882A1C486603005CA669 /* WebDriverAgentRunner.xctest */,
 				EE158A991CBD452B00A3E3F0 /* WebDriverAgentLib.framework */,
-				EE3A186C1CDE884800DE4205 /* libWebDriverAgentUSBClient.a */,
 				EE9B75D41CF7956C00275851 /* IntegrationApp.app */,
 				EE9B75EC1CF7956C00275851 /* IntegrationTests.xctest */,
 			);
@@ -807,15 +787,6 @@
 				AD35D0681CF1C2EC00870A75 /* OSX */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		EE3A186D1CDE884800DE4205 /* WebDriverAgentUSBClient */ = {
-			isa = PBXGroup;
-			children = (
-				EE3A18751CDE886F00DE4205 /* FBHTTPOverUSBClient.h */,
-				EE3A18761CDE886F00DE4205 /* FBHTTPOverUSBClient.m */,
-			);
-			path = WebDriverAgentUSBClient;
 			sourceTree = "<group>";
 		};
 		EE9AB73E1CAEDF0C008C271F /* Categories */ = {
@@ -909,8 +880,6 @@
 				713C6DCE1DDC772A00285B92 /* FBElementUtils.m */,
 				EEC088E61CB56DA400B65968 /* FBExceptionHandler.h */,
 				EEC088E71CB56DA400B65968 /* FBExceptionHandler.m */,
-				EE9AB77C1CAEDF0C008C271F /* FBHTTPOverUSBServer.h */,
-				EE9AB77D1CAEDF0C008C271F /* FBHTTPOverUSBServer.m */,
 				EE9AB77E1CAEDF0C008C271F /* FBResponseFilePayload.h */,
 				EE9AB77F1CAEDF0C008C271F /* FBResponseFilePayload.m */,
 				EE9AB7801CAEDF0C008C271F /* FBResponseJSONPayload.h */,
@@ -935,8 +904,6 @@
 		EE9AB78E1CAEDF0C008C271F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				71A7EAF71E224648001DA4F2 /* FBClassChainQueryParser.h */,
-				71A7EAF81E224648001DA4F2 /* FBClassChainQueryParser.m */,
 				EE9B76A11CF7A43900275851 /* FBConfiguration.h */,
 				EE9B76A21CF7A43900275851 /* FBConfiguration.m */,
 				EE7E27181D06C69F001BEC7B /* FBDebugLogDelegateDecorator.h */,
@@ -1325,7 +1292,6 @@
 				EE158AD01CBD456F00A3E3F0 /* FBElement.h in Headers */,
 				EE35AD3E1E3B77D600A02D78 /* XCTAXClient-Protocol.h in Headers */,
 				EE158AD41CBD456F00A3E3F0 /* FBExceptionHandler.h in Headers */,
-				EE158AD61CBD456F00A3E3F0 /* FBHTTPOverUSBServer.h in Headers */,
 				EE158ADE1CBD456F00A3E3F0 /* FBRoute.h in Headers */,
 				EE35AD471E3B77D600A02D78 /* XCTestDriver.h in Headers */,
 				EE35AD121E3B77D600A02D78 /* _XCTNSNotificationExpectationImplementation.h in Headers */,
@@ -1412,14 +1378,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EE3A186A1CDE884800DE4205 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EE3A18771CDE886F00DE4205 /* FBHTTPOverUSBClient.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -1441,23 +1399,6 @@
 			productName = WebDriverAgentLib_;
 			productReference = EE158A991CBD452B00A3E3F0 /* WebDriverAgentLib.framework */;
 			productType = "com.apple.product-type.framework";
-		};
-		EE3A186B1CDE884800DE4205 /* WebDriverAgentUSBClient */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EE3A18721CDE884800DE4205 /* Build configuration list for PBXNativeTarget "WebDriverAgentUSBClient" */;
-			buildPhases = (
-				EE3A18681CDE884800DE4205 /* Sources */,
-				EE3A18691CDE884800DE4205 /* Frameworks */,
-				EE3A186A1CDE884800DE4205 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = WebDriverAgentUSBClient;
-			productName = WebDriverAgentUSBClient;
-			productReference = EE3A186C1CDE884800DE4205 /* libWebDriverAgentUSBClient.a */;
-			productType = "com.apple.product-type.library.static";
 		};
 		EE836C011C0F118600D87246 /* UnitTests */ = {
 			isa = PBXNativeTarget;
@@ -1545,9 +1486,6 @@
 					EE158A981CBD452B00A3E3F0 = {
 						CreatedOnToolsVersion = 7.3;
 					};
-					EE3A186B1CDE884800DE4205 = {
-						CreatedOnToolsVersion = 7.3;
-					};
 					EE836C011C0F118600D87246 = {
 						CreatedOnToolsVersion = 7.1.1;
 					};
@@ -1579,7 +1517,6 @@
 			targets = (
 				EE158A981CBD452B00A3E3F0 /* WebDriverAgentLib */,
 				EEF988291C486603005CA669 /* WebDriverAgentRunner */,
-				EE3A186B1CDE884800DE4205 /* WebDriverAgentUSBClient */,
 				EE836C011C0F118600D87246 /* UnitTests */,
 				EE9B75EB1CF7956C00275851 /* IntegrationTests */,
 				EE9B75D31CF7956C00275851 /* IntegrationApp */,
@@ -1638,7 +1575,6 @@
 				EE3A18631CDE618F00DE4205 /* FBErrorBuilder.m in Sources */,
 				71A7EAF61E20516B001DA4F2 /* XCUIElement+FBClassChain.m in Sources */,
 				71555A3E1DEC460A007D4A8B /* NSExpression+FBFormat.m in Sources */,
-				EE158AD71CBD456F00A3E3F0 /* FBHTTPOverUSBServer.m in Sources */,
 				EE158AF21CBD456F00A3E3F0 /* FBXPathCreator.m in Sources */,
 				AD6C269D1CF2494200F8B5FF /* XCUIApplication+FBHelpers.m in Sources */,
 				EE3A18671CDE734B00DE4205 /* FBKeyboard.m in Sources */,
@@ -1690,14 +1626,6 @@
 				EE35AD7C1E3B80C000A02D78 /* FBXCTestDaemonsProxy.m in Sources */,
 				EE158AB51CBD456F00A3E3F0 /* XCUIElement+FBTap.m in Sources */,
 				EE18883B1DA661C400307AA8 /* FBMathUtils.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EE3A18681CDE884800DE4205 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EE3A18781CDE886F00DE4205 /* FBHTTPOverUSBClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1966,39 +1894,6 @@
 			};
 			name = Release;
 		};
-		EE3A18731CDE884800DE4205 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				EXECUTABLE_PREFIX = lib;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		EE3A18741CDE884800DE4205 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				EXECUTABLE_PREFIX = lib;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
 		EE836C0B1C0F118600D87246 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2144,15 +2039,6 @@
 			buildConfigurations = (
 				EE158A9E1CBD452B00A3E3F0 /* Debug */,
 				EE158A9F1CBD452B00A3E3F0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EE3A18721CDE884800DE4205 /* Build configuration list for PBXNativeTarget "WebDriverAgentUSBClient" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EE3A18731CDE884800DE4205 /* Debug */,
-				EE3A18741CDE884800DE4205 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
