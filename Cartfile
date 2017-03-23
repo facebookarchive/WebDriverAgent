@@ -1,5 +1,2 @@
 # Used for HTTP routing
 github "marekcirkos/RoutingHTTPServer"
-
-# Used for USBOverHTTP
-github "marekcirkos/peertalk"
