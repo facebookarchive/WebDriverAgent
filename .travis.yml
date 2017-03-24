@@ -18,4 +18,3 @@ env:
 - TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION=test DESTINATION='iPhone SE' IOS='10.1'
 - TARGET=WebDriverAgentRunner SDK=iphonesimulator ACTION=build
 - TARGET=WebDriverAgentRunner SDK=iphoneos ACTION=build
-- TARGET=WebDriverAgentUSBClient SDK=macosx ACTION=build
