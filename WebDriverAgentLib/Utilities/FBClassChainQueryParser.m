@@ -11,14 +11,13 @@
 #import "FBClassChainQueryParser.h"
 #import "FBErrorBuilder.h"
 #import "FBElementTypeTransformer.h"
+#import "NSPredicate+FBFormat.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FBBaseClassChainToken : NSObject
 
 @property (nonatomic) NSString *asString;
-
-- (nullable instancetype)nextTokenWithCharacter:(unichar)character;
 
 @end
 
@@ -51,6 +50,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+@interface FBPredicateToken : FBBaseClassChainToken
+
+@property (nonatomic) BOOL isParsingCompleted;
+
+@end
 
 NS_ASSUME_NONNULL_END
 
@@ -98,20 +103,30 @@ NS_ASSUME_NONNULL_END
   return [self.allowedCharacters characterIsMember:character];
 }
 
-- (instancetype)nextTokenWithCharacter:(unichar)character
+- (void)appendChar:(unichar)character
 {
-  if ([self.class canConsumeCharacter:character] && self.asString.length < [self.class maxLength]) {
-    NSMutableString *value = [NSMutableString stringWithString:self.asString];
-    [value appendFormat:@"%C", character];
-    self.asString = value.copy;;
-    return self;
-  }
+  NSMutableString *value = [NSMutableString stringWithString:self.asString];
+  [value appendFormat:@"%C", character];
+  self.asString = value.copy;;
+}
+
+- (nullable instancetype)followingTokenBasedOn:(unichar)character
+{
   for (Class matchingTokenClass in self.followingTokens) {
     if ([matchingTokenClass canConsumeCharacter:character]) {
       return [[[matchingTokenClass alloc] init] nextTokenWithCharacter:character];
     }
   }
   return nil;
+}
+
+- (nullable instancetype)nextTokenWithCharacter:(unichar)character
+{
+  if ([self.class canConsumeCharacter:character] && self.asString.length < [self.class maxLength]) {
+    [self appendChar:character];
+    return self;
+  }
+  return [self followingTokenBasedOn:character];
 }
 
 @end
@@ -181,7 +196,7 @@ NS_ASSUME_NONNULL_END
 
 - (NSArray<Class> *)followingTokens
 {
-  return @[FBNumberToken.class];
+  return @[FBNumberToken.class, FBPredicateToken.class];
 }
 
 + (NSUInteger)maxLength
@@ -219,7 +234,7 @@ NS_ASSUME_NONNULL_END
 
 - (NSArray<Class> *)followingTokens
 {
-  return @[FBSplitterToken.class];
+  return @[FBSplitterToken.class, FBOpeningBracketToken.class];
 }
 
 + (NSUInteger)maxLength
@@ -230,14 +245,83 @@ NS_ASSUME_NONNULL_END
 @end
 
 
+@implementation FBPredicateToken
+
+static NSString* const ENCLOSING_MARKER = @"'";
+
+- (id)init
+{
+  self = [super init];
+  if (self) {
+    _isParsingCompleted = NO;
+  }
+  return self;
+}
+
++ (NSCharacterSet *)allowedCharacters
+{
+  return [NSCharacterSet illegalCharacterSet].invertedSet;
+}
+
+- (NSArray<Class> *)followingTokens
+{
+  return @[FBClosingBracketToken.class];
+}
+
++ (BOOL)canConsumeCharacter:(unichar)character
+{
+  return [[NSCharacterSet characterSetWithCharactersInString:ENCLOSING_MARKER] characterIsMember:character];
+}
+
+- (void)stripLastChar
+{
+  if (self.asString.length > 0) {
+    self.asString = [self.asString substringToIndex:self.asString.length - 1];
+  }
+}
+
+- (nullable instancetype)nextTokenWithCharacter:(unichar)character
+{
+  NSString *currentChar = [NSString stringWithFormat:@"%C", character];
+  if (!self.isParsingCompleted && [self.class.allowedCharacters characterIsMember:character]) {
+    if (0 == self.asString.length) {
+      if ([ENCLOSING_MARKER isEqualToString:currentChar]) {
+        // Do not include enclosing character
+        return self;
+      }
+    } else if ([ENCLOSING_MARKER isEqualToString:currentChar]) {
+      [self appendChar:character];
+      self.isParsingCompleted = YES;
+      return self;
+    }
+    [self appendChar:character];
+    return self;
+  }
+  if (self.isParsingCompleted) {
+    if ([currentChar isEqualToString:ENCLOSING_MARKER]) {
+      // Escaped enclosing character has been detected. Do not finish parsing
+      self.isParsingCompleted = NO;
+      return self;
+    } else {
+      // Do not include enclosing character
+      [self stripLastChar];
+    }
+  }
+  return [self followingTokenBasedOn:character];
+}
+
+@end
+
+
 @implementation FBClassChainElement
 
-- (instancetype)initWithType:(XCUIElementType)type position:(NSInteger)position
+- (instancetype)initWithType:(XCUIElementType)type position:(NSInteger)position predicate:(NSPredicate *)predicate
 {
   self = [super init];
   if (self) {
     _type = type;
     _position = position;
+    _predicate = predicate;
   }
   return self;
 }
@@ -258,7 +342,7 @@ static NSNumberFormatter *numberFormatter = nil;
 
 + (NSError *)tokenizationErrorWithIndex:(NSUInteger)index originalQuery:(NSString *)originalQuery
 {
-  NSString *description = [NSString stringWithFormat:@"Cannot parse class chain query '%@'. Unexpected character detected at position %@:\n'%@' <----", originalQuery, @(index + 1), [originalQuery substringToIndex:index + 1]];
+  NSString *description = [NSString stringWithFormat:@"Cannot parse class chain query '%@'. Unexpected character detected at position %@:\n%@ <----", originalQuery, @(index + 1), [originalQuery substringToIndex:index + 1]];
   return [[FBErrorBuilder.builder withDescription:description] build];
 }
 
@@ -319,6 +403,8 @@ static NSNumberFormatter *numberFormatter = nil;
   XCUIElementType chainElementType;
   int chainElementPosition = 1;
   BOOL isPositionSet = NO;
+  BOOL isPredicateSet = NO;
+  NSPredicate *predicate = nil;
   for (FBBaseClassChainToken *token in tokenizedQuery) {
     if ([token isKindOfClass:FBClassNameToken.class]) {
       @try {
@@ -331,6 +417,24 @@ static NSNumberFormatter *numberFormatter = nil;
         }
         @throw e;
       }
+    } else if ([token isKindOfClass:FBPredicateToken.class]) {
+      if (isPredicateSet) {
+        NSString *description = [NSString stringWithFormat:@"Predicate value '%@' is expected to be set only once.", token.asString];
+        *error = [self.class compilationErrorWithQuery:originalQuery description:description];
+        return nil;
+      }
+      if (isPositionSet) {
+        NSString *description = [NSString stringWithFormat:@"Predicate value '%@' must be set before position value.", token.asString];
+        *error = [self.class compilationErrorWithQuery:originalQuery description:description];
+        return nil;
+      }
+      if (!((FBPredicateToken *)token).isParsingCompleted) {
+        NSString *description = [NSString stringWithFormat:@"Cannot find the end of '%@' predicate value.", token.asString];
+        *error = [self.class compilationErrorWithQuery:originalQuery description:description];
+        return nil;
+      }
+      predicate = [NSPredicate fb_formatSearchPredicate:[NSPredicate predicateWithFormat:token.asString]];
+      isPredicateSet = YES;
     } else if ([token isKindOfClass:FBNumberToken.class]) {
       if (isPositionSet) {
         NSString *description = [NSString stringWithFormat:@"Position value '%@' is expected to be set only once.", token.asString];
@@ -349,15 +453,17 @@ static NSNumberFormatter *numberFormatter = nil;
       if (!isPositionSet) {
         chainElementPosition = 1;
       }
-      [result addObject:[[FBClassChainElement alloc] initWithType:chainElementType position:chainElementPosition]];
+      [result addObject:[[FBClassChainElement alloc] initWithType:chainElementType position:chainElementPosition predicate:predicate]];
       isPositionSet = NO;
+      isPredicateSet = NO;
+      predicate = nil;
     }
   }
   if (!isPositionSet) {
     // pick all siblings by default for the last item in the chain
     chainElementPosition = 0;
   }
-  [result addObject:[[FBClassChainElement alloc] initWithType:chainElementType position:chainElementPosition]];
+  [result addObject:[[FBClassChainElement alloc] initWithType:chainElementType position:chainElementPosition predicate:predicate]];
   return result.copy;
 }
 
