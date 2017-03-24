@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface FBConfiguration : NSObject
 
+/*! If set to YES will ask TestManagerDaemon for element visibility */
+@property (class, nonatomic, assign) BOOL shouldUseTestManagerForVisibilityDetection;
+
 /**
  Switch for enabling/disabling reporting fake collection view cells by Accessibility framework.
  If set to YES it will report also invisible cells.

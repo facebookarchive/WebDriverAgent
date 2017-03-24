@@ -10,6 +10,7 @@
 #import "FBSessionCommands.h"
 
 #import "FBApplication.h"
+#import "FBConfiguration.h"
 #import "FBRouteRequest.h"
 #import "FBSession.h"
 #import "FBApplication.h"
@@ -66,6 +67,8 @@
   if (!bundleID) {
     return FBResponseWithErrorFormat(@"'bundleId' desired capability not provided");
   }
+  [FBConfiguration setShouldUseTestManagerForVisibilityDetection:[requirements[@"shouldUseTestManagerForVisibilityDetection"] boolValue]];
+
   FBApplication *app = [[FBApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
   app.fb_shouldWaitForQuiescence = [requirements[@"shouldWaitForQuiescence"] boolValue];
   app.launchArguments = (NSArray<NSString *> *)requirements[@"arguments"] ?: @[];
