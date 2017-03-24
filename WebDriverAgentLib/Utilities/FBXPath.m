@@ -188,7 +188,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   int rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "type",
                                        [FBXPath xmlCharPtrForInput:[element.wdType cStringUsingEncoding:NSUTF8StringEncoding]]);
   if (rc < 0) {
-    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(type='%@'). Error code: %d", element.wdType, rc];
     return rc;
   }
   if (element.wdValue) {
@@ -204,7 +204,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "value",
                                      [FBXPath xmlCharPtrForInput:[stringValue cStringUsingEncoding:NSUTF8StringEncoding]]);
     if (rc < 0) {
-      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(value='%@'). Error code: %d", stringValue, rc];
       return rc;
     }
   }
@@ -212,7 +212,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "name",
                                      [FBXPath xmlCharPtrForInput:[element.wdName cStringUsingEncoding:NSUTF8StringEncoding]]);
     if (rc < 0) {
-      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(name='%@'). Error code: %d", element.wdName, rc];
       return rc;
     }
   }
@@ -220,20 +220,20 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "label",
                                      [FBXPath xmlCharPtrForInput:[element.wdLabel cStringUsingEncoding:NSUTF8StringEncoding]]);
     if (rc < 0) {
-      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(label='%@'). Error code: %d", element.wdLabel, rc];
       return rc;
     }
   }
   rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "enabled", element.wdEnabled ? BAD_CAST "true" : BAD_CAST "false");
   if (rc < 0) {
-    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(wdEnabled). Error code: %d", rc];
     return rc;
   }
   for (NSString *attrName in @[@"x", @"y", @"width", @"height"]) {
     rc = xmlTextWriterWriteAttribute(writer, [FBXPath xmlCharPtrForInput:[attrName cStringUsingEncoding:NSUTF8StringEncoding]],
                                      [FBXPath xmlCharPtrForInput:[[element.wdRect[attrName] stringValue] cStringUsingEncoding:NSUTF8StringEncoding]]);
     if (rc < 0) {
-      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(%@). Error code: %d", attrName, rc];
       return rc;
     }
   }
@@ -242,7 +242,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     rc = xmlTextWriterWriteAttribute(writer, [FBXPath xmlCharPtrForInput:[kXMLIndexPathKey cStringUsingEncoding:NSUTF8StringEncoding]],
                                      [FBXPath xmlCharPtrForInput:[indexPath cStringUsingEncoding:NSUTF8StringEncoding]]);
     if (rc < 0) {
-      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute. Error code: %d", rc];
+      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(indexPath='%@'). Error code: %d", indexPath, rc];
       return rc;
     }
   }

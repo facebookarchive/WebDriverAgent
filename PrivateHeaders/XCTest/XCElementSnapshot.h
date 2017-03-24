@@ -69,7 +69,7 @@
 - (id)_uniquelyIdentifyingSwiftCode;
 - (BOOL)_isAncestorOfElement:(id)arg1;
 - (BOOL)_isDescendantOfElement:(id)arg1;
-- (id)_rootElement;
+- (XCElementSnapshot *)_rootElement;
 - (BOOL)_frameFuzzyMatchesElement:(id)arg1;
 - (BOOL)_fuzzyMatchesElement:(id)arg1;
 - (BOOL)_matchesElement:(id)arg1;
