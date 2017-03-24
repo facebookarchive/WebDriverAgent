@@ -61,21 +61,28 @@
 + (id<FBResponsePayload>)handleCreateSession:(FBRouteRequest *)request
 {
   NSDictionary *requirements = request.arguments[@"desiredCapabilities"];
-  NSString *bundleID = requirements[@"bundleId"];
-  NSString *appPath = requirements[@"app"];
-  if (!bundleID) {
-    return FBResponseWithErrorFormat(@"'bundleId' desired capability not provided");
-  }
-  FBApplication *app = [[FBApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
-  app.fb_shouldWaitForQuiescence = [requirements[@"shouldWaitForQuiescence"] boolValue];
-  app.launchArguments = (NSArray<NSString *> *)requirements[@"arguments"] ?: @[];
-  app.launchEnvironment = (NSDictionary <NSString *, NSString *> *)requirements[@"environment"] ?: @{};
-  [app launch];
+  
+  if (requirements)
+  {
+    NSString *bundleID = requirements[@"bundleId"];
+    NSString *appPath = requirements[@"app"];
+    if (bundleID) {
+      FBApplication *app = [[FBApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
+      app.fb_shouldWaitForQuiescence = [requirements[@"shouldWaitForQuiescence"] boolValue];
+      app.launchArguments = (NSArray<NSString *> *)requirements[@"arguments"] ?: @[];
+      app.launchEnvironment = (NSDictionary <NSString *, NSString *> *)requirements[@"environment"] ?: @{};
+      [app launch];
 
-  if (app.processID == 0) {
-    return FBResponseWithErrorFormat(@"Failed to launch %@ application", bundleID);
+      if (app.processID == 0) {
+        return FBResponseWithErrorFormat(@"Failed to launch %@ application", @"0");
+      }
+        
+      [FBSession sessionWithApplication:app];
+    }
   }
-  [FBSession sessionWithApplication:app];
+  else {
+    [FBSession new];
+  }
   return FBResponseWithObject(FBSessionCommands.sessionInformation);
 }
 
