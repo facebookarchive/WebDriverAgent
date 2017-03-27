@@ -9,7 +9,6 @@
 
 #import "XCUIDevice+FBHealthCheck.h"
 
-#import "XCAXClient_iOS.h"
 #import "XCUIDevice+FBRotation.h"
 #import "XCUIApplication+FBHelpers.h"
 
@@ -21,9 +20,6 @@
     return NO;
   }
   if (![self fb_deviceInteractionCheck]) {
-    return NO;
-  }
-  if (![self fb_accessbilityCheck]) {
     return NO;
   }
   return YES;
@@ -47,11 +43,6 @@
 {
   [self pressButton:XCUIDeviceButtonHome];
   return YES;
-}
-
-- (BOOL)fb_accessbilityCheck
-{
-  return [[XCAXClient_iOS sharedClient] loadAccessibility:nil];
 }
 
 @end
