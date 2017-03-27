@@ -27,6 +27,10 @@
   if(!isWebDriverAttributesSelector) {
     return nil;
   }
+  if (!self.exists) {
+    return [XCElementSnapshot new];
+  }
+
   if (self.lastSnapshot) {
     return self.lastSnapshot;
   }
