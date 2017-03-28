@@ -27,11 +27,11 @@ extern NSString *const FBClassChainQueryParseException;
  XCUIElementTypeWindow[2]/XCUIElementTypeAny - select all the children of the second child window
  XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2] - select the second last child of the second child window
  One may use '*' (star) character to substitute the universal 'XCUIElementTypeAny' class name
- XCUIElementTypeWindow['name CONTAINS[cd] "blabla"'] - select all windows, where name attribute starts with "blabla" or "BlAbla"
- XCUIElementTypeWindow['label BEGINSWITH "blabla"'][-1] - select the last window, where label text begins with "blabla"
- XCUIElementTypeWindow/XCUIElementTypeAny['value == "bla1" OR label == "bla2"'] - select all children of the first window, where value is "bla1" or label is "bla2"
- XCUIElementTypeWindow['name == "you''re the winner"']/XCUIElementTypeAny['visible == 1'] - select all visible children of the first window named "you're the winner"
- Predicate string should be always enclosed in single quotes inside square brackets. Use '' (double single quote) to escape a single quote inside predicate expression.
+ XCUIElementTypeWindow[`name CONTAINS[cd] "blabla"`] - select all windows, where name attribute starts with "blabla" or "BlAbla"
+ XCUIElementTypeWindow[`label BEGINSWITH "blabla"`][-1] - select the last window, where label text begins with "blabla"
+ XCUIElementTypeWindow/XCUIElementTypeAny[`value == "bla1" OR label == "bla2"`] - select all children of the first window, where value is "bla1" or label is "bla2"
+ XCUIElementTypeWindow[`name == "you're the winner"`]/XCUIElementTypeAny[`visible == 1`] - select all visible children of the first window named "you're the winner"
+ Predicate string should be always enclosed into ` characters inside square brackets. Use `` to escape a single ` character inside predicate expression.
  Predicate expression should be always put before the index, but never after it.
 
  @param classChainQuery valid class chain query string

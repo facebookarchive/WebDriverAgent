@@ -201,7 +201,7 @@
 - (void)testDescendantsWithClassChainAndPredicates
 {
   NSArray<XCUIElement *> *matchingSnapshots;
-  matchingSnapshots = [self.testedApplication fb_descendantsMatchingClassChain:@"XCUIElementTypeWindow/*/*[2]/*/*/XCUIElementTypeButton['label BEGINSWITH \"A\"']" shouldReturnAfterFirstMatch:NO];
+  matchingSnapshots = [self.testedApplication fb_descendantsMatchingClassChain:@"XCUIElementTypeWindow/*/*[2]/*/*/XCUIElementTypeButton[`label BEGINSWITH 'A'`]" shouldReturnAfterFirstMatch:NO];
   XCTAssertEqual(matchingSnapshots.count, 2);
   XCTAssertEqualObjects([matchingSnapshots firstObject].label, @"Alerts");
   XCTAssertEqualObjects([matchingSnapshots lastObject].label, @"Attributes");
@@ -210,7 +210,7 @@
 - (void)testDescendantsWithClassChainAndPredicatesAndIndexes
 {
   NSArray<XCUIElement *> *matchingSnapshots;
-  matchingSnapshots = [self.testedApplication fb_descendantsMatchingClassChain:@"XCUIElementTypeWindow['name != \"bla\"']/*/*[2]/*/*/XCUIElementTypeButton['label BEGINSWITH \"A\"'][1]" shouldReturnAfterFirstMatch:NO];
+  matchingSnapshots = [self.testedApplication fb_descendantsMatchingClassChain:@"XCUIElementTypeWindow[`name != 'bla'`]/*/*[2]/*/*/XCUIElementTypeButton[`label BEGINSWITH \"A\"`][1]" shouldReturnAfterFirstMatch:NO];
   XCTAssertEqual(matchingSnapshots.count, 1);
   XCTAssertEqualObjects([matchingSnapshots firstObject].label, @"Alerts");
 }
@@ -244,7 +244,7 @@
 
 - (void)testClassChainWithInvalidPredicate
 {
-  XCTAssertThrowsSpecificNamed([self.testedApplication fb_descendantsMatchingClassChain:@"XCUIElementTypeWindow['bla != \"bla\"']" shouldReturnAfterFirstMatch:NO],
+  XCTAssertThrowsSpecificNamed([self.testedApplication fb_descendantsMatchingClassChain:@"XCUIElementTypeWindow[`bla != 'bla'`]" shouldReturnAfterFirstMatch:NO],
                                NSException, FBUnknownAttributeException);;
 }
 

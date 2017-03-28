@@ -247,7 +247,7 @@ NS_ASSUME_NONNULL_END
 
 @implementation FBPredicateToken
 
-static NSString* const ENCLOSING_MARKER = @"'";
+static NSString* const ENCLOSING_MARKER = @"`";
 
 - (id)init
 {

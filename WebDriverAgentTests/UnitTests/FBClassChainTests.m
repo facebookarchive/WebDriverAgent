@@ -92,7 +92,7 @@
 - (void)testValidChainWithSinglePredicate
 {
   NSError *error;
-  FBClassChain result = [FBClassChainQueryParser parseQuery:@"XCUIElementTypeWindow['name == \"blabla\"']/XCUIElementTypeButton" error:&error];
+  FBClassChain result = [FBClassChainQueryParser parseQuery:@"XCUIElementTypeWindow[`name == 'blabla'`]/XCUIElementTypeButton" error:&error];
   XCTAssertNotNil(result);
   XCTAssertEqual(result.count, 2);
   
@@ -110,7 +110,7 @@
 - (void)testValidChainWithMultiplePredicates
 {
   NSError *error;
-  FBClassChain result = [FBClassChainQueryParser parseQuery:@"XCUIElementTypeWindow['name == \"blabla\"']/XCUIElementTypeButton['value == \"blabla\"']" error:&error];
+  FBClassChain result = [FBClassChainQueryParser parseQuery:@"XCUIElementTypeWindow[`name == 'blabla'`]/XCUIElementTypeButton[`value == 'blabla'`]" error:&error];
   XCTAssertNotNil(result);
   XCTAssertEqual(result.count, 2);
   
@@ -128,7 +128,7 @@
 - (void)testValidChainWithMultiplePredicatesAndPositions
 {
   NSError *error;
-  FBClassChain result = [FBClassChainQueryParser parseQuery:@"*['name == \"к''ири''''лиця\"'][3]/XCUIElementTypeButton['value == \"blabla\"'][-1]" error:&error];
+  FBClassChain result = [FBClassChainQueryParser parseQuery:@"*[`name == \"к``ири````'лиця\"`][3]/XCUIElementTypeButton[`value == \"blabla\"`][-1]" error:&error];
   XCTAssertNotNil(result);
   XCTAssertEqual(result.count, 2);
   
@@ -161,14 +161,14 @@
     ,@"XCUIElementTypeWindow[2]]"
     ,@"XCUIElementType[Window[2]]"
     ,@"XCUIElementTypeWindow[visible = 1]"
-    ,@"XCUIElementTypeWindow[1]['visible = 1']"
-    ,@"XCUIElementTypeWindow[1] ['visible = 1']"
-    ,@"XCUIElementTypeWindow[ 'visible = 1']"
-    ,@"XCUIElementTypeWindow['visible = 1']['name = \"bla\"']"
-    ,@"XCUIElementTypeWindow['visible = 1]['name = \"bla\"']"
-    ,@"XCUIElementTypeWindow['visible = 1]"
-    ,@"XCUIElementTypeWindow['']"
-    ,@"XCUIElementTypeWindow['name = \"bla'''bla\"']"
+    ,@"XCUIElementTypeWindow[1][`visible = 1`]"
+    ,@"XCUIElementTypeWindow[1] [`visible = 1`]"
+    ,@"XCUIElementTypeWindow[ `visible = 1`]"
+    ,@"XCUIElementTypeWindow[`visible = 1`][`name = \"bla\"`]"
+    ,@"XCUIElementTypeWindow[`visible = 1][`name = \"bla\"`]"
+    ,@"XCUIElementTypeWindow[`visible = 1]"
+    ,@"XCUIElementTypeWindow[``]"
+    ,@"XCUIElementTypeWindow[`name = \"bla```bla\"`]"
   ];
   for (NSString *invalidQuery in invalidQueries) {
     NSError *error;
