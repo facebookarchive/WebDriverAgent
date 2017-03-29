@@ -106,7 +106,7 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   return mText.length > 0 ? mText.copy : [NSNull null];
 }
 
-- (NSMutableArray *) labels
+- (NSArray *) buttonLabels
 {
   NSMutableArray *value = [NSMutableArray array];
   XCUIElement *alertElement = self.alertElement;

@@ -40,7 +40,7 @@ extern NSString *const FBAlertObstructingElementException;
 /**
  Gets the labels of the buttons visible in the alert
  */
-- (nullable NSArray *)labels;
+- (nullable NSArray *)buttonLabels;
 
 /**
  Returns alert's title and description separated by new lines

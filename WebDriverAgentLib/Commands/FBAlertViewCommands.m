@@ -75,7 +75,7 @@
 + (id<FBResponsePayload>)handleGetAlertButtonsCommand:(FBRouteRequest *)request {
   FBSession *session = request.session;
   FBAlert *alert = [FBAlert alertWithApplication:session.application];
-  NSArray *labels = alert.labels;
+  NSArray *labels = alert.buttonLabels;
   
   if (!labels) {
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
