@@ -46,6 +46,7 @@
   if (!urlString) {
     return FBResponseWithStatus(FBCommandStatusInvalidArgument, @"URL is required");
   }
+  #pragma clang diagnostic ignored "-Wdeprecated-declarations"
   NSURL *url = [NSURL URLWithString:urlString];
   if (!url) {
     return FBResponseWithStatus(
