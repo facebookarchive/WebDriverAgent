@@ -19,26 +19,23 @@
 #import "XCUIElement+FBUtilities.h"
 #import "XCTestDriver.h"
 #import "FBLogger.h"
-
-static const NSUInteger FBTypingFrequency = 60;
+#import "FBConfiguration.h"
 
 @implementation FBKeyboard
 
-+ (BOOL)typeText:(NSString *)text maximumFrequency:(NSUInteger)freq error:(NSError **)error
++ (BOOL)typeText:(NSString *)text error:(NSError **)error
 {
   if (![FBKeyboard waitUntilVisibleWithError:error]) {
     return NO;
   }
-  if (!freq) {
-    freq = FBTypingFrequency;
-  }
 
-  [FBLogger logFmt:@"Typing with maximum frequency %lu", freq];
+  NSUInteger maxTypingFrequency = [FBConfiguration maxTypingFrequency];
+  [FBLogger logFmt:@"Typing with maximum frequency %lu", maxTypingFrequency];
 
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    [[FBXCTestDaemonsProxy testRunnerProxy] _XCT_sendString:text maximumFrequency:freq completion:^(NSError *typingError){
+    [[FBXCTestDaemonsProxy testRunnerProxy] _XCT_sendString:text maximumFrequency:maxTypingFrequency completion:^(NSError *typingError){
       didSucceed = (typingError == nil);
       innerError = typingError;
       completion();

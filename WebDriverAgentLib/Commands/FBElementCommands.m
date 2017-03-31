@@ -162,13 +162,8 @@
     return FBResponseWithOK();
   }
 
-  NSUInteger freq = 0;
-  if (request.arguments[@"maximumFrequency"]) {
-    freq = [request.arguments[@"maximumFrequency"] integerValue];
-  }
-
   NSError *error = nil;
-  if (![element fb_typeText:textToType maximumFrequency:freq error:&error]) {
+  if (![element fb_typeText:textToType error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithElementUUID(elementUUID);
@@ -191,12 +186,8 @@
   FBElementCache *elementCache = request.session.elementCache;
   NSString *elementUUID = request.parameters[@"uuid"];
   XCUIElement *element = [elementCache elementForUUID:elementUUID];
-  NSUInteger freq = 0;
-  if (request.arguments[@"maximumFrequency"]) {
-    freq = [request.arguments[@"maximumFrequency"] integerValue];
-  }
   NSError *error;
-  if (![element fb_clearTextWithError:freq error:&error]) {
+  if (![element fb_clearTextWithError:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithElementUUID(elementUUID);
@@ -362,12 +353,8 @@
 + (id<FBResponsePayload>)handleKeys:(FBRouteRequest *)request
 {
   NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
-  NSUInteger freq = 0;
-  if (request.arguments[@"maximumFrequency"]) {
-    freq = [request.arguments[@"maximumFrequency"] integerValue];
-  }
   NSError *error;
-  if (![FBKeyboard typeText:textToType maximumFrequency:freq error:&error]) {
+  if (![FBKeyboard typeText:textToType error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
