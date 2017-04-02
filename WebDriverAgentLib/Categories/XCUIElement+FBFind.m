@@ -117,27 +117,9 @@
   // Prefiltering elements speeds up search by XPath a lot, because [element resolve] is the most expensive operation here
   NSSet *byTypes = [FBElementUtils uniqueElementTypesWithElements:matchingSnapshots];
   NSDictionary *categorizedDescendants = [self fb_categorizeDescendants:byTypes];
-  NSArray *matchingElements = [self.class fb_filterElements:categorizedDescendants matchingSnapshots:matchingSnapshots useReversedOrder:[xpathQuery containsString:@"last()"]];
+  BOOL useReversedOrder = [xpathQuery.lowercaseString containsString:@"last()"];
+  NSArray *matchingElements = [self.class fb_filterElements:categorizedDescendants matchingSnapshots:matchingSnapshots useReversedOrder:useReversedOrder];
   return matchingElements;
-}
-
-+ (NSArray<XCUIElement *> *)fb_filterElements:(NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)elementsMap matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots useReversedOrder:(BOOL)useReversedOrder
-{
-  NSMutableArray *matchingElements = [NSMutableArray array];
-  [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
-    NSArray *elements = elementsMap[@(snapshot.elementType)];
-    NSEnumerator *elementsEnumerator = [elements objectEnumerator];
-    if (useReversedOrder) {
-      elementsEnumerator = [elements reverseObjectEnumerator];
-    }
-    for (XCUIElement *element in elementsEnumerator) {
-      if ([element.fb_lastSnapshot _matchesElement:snapshot]) {
-        [matchingElements addObject:element];
-        break;
-      }
-    };
-  }];
-  return matchingElements.copy;
 }
 
 

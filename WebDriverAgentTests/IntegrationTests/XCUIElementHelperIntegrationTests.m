@@ -71,4 +71,25 @@
   XCTAssertEqual([categorizedDescendants[@(XCUIElementTypeWindow)] count], [windows count]);
 }
 
+- (void)testDescendantsFiltering
+{
+  NSArray<XCUIElement *> *buttons = [self.testedApplication.buttons allElementsBoundByIndex];
+  XCTAssertTrue(buttons.count > 0);
+  NSArray<XCUIElement *> *windows = [self.testedApplication.windows allElementsBoundByIndex];
+  XCTAssertTrue(windows.count > 0);
+  
+  NSMutableArray<XCUIElement *> *allElements = [NSMutableArray array];
+  [allElements addObjectsFromArray:buttons];
+  [allElements addObjectsFromArray:windows];
+  
+  NSMutableArray<XCElementSnapshot *> *buttonSnapshots = [NSMutableArray array];
+  [buttonSnapshots addObject:[buttons.firstObject fb_lastSnapshot]];
+  
+  NSSet *byTypes = [FBElementUtils uniqueElementTypesWithElements:allElements.copy];
+  NSDictionary *categorizedDescendants = [self.testedApplication fb_categorizeDescendants:byTypes];
+  NSArray<XCUIElement *> *result = [XCUIElement fb_filterElements:categorizedDescendants matchingSnapshots:buttonSnapshots.copy useReversedOrder:NO];
+  XCTAssertEqual(1, result.count);
+  XCTAssertEqual([result.firstObject elementType], XCUIElementTypeButton);
+}
+
 @end
