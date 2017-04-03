@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic) NSInteger position;
 /*! Element's type */
 @property (readonly, nonatomic) XCUIElementType type;
+/*! Element's predicate */
+@property (nullable, readonly, nonatomic) NSPredicate *predicate;
 
 /**
  Instance constructor, which allows to set element type and position
@@ -27,9 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
    starts with 1. Zero value means that all sibling element should be selected.
    Negative value means that numeration starts from the last element, for example
    -1 is the last child element and -2 is the second last element
+ @param predicate valid predicate expession for element search. Can be nil
  @return FBClassChainElement instance
  */
-- (instancetype)initWithType:(XCUIElementType)type position:(NSInteger)position;
+- (instancetype)initWithType:(XCUIElementType)type position:(NSInteger)position predicate:(NSPredicate *)predicate;
 
 @end
 
@@ -47,6 +50,7 @@ typedef NSArray<FBClassChainElement *> * FBClassChain;
    there are query parsing errors
  @return list of parsed primitives packed to FBClassChainElement class or nil in case
    there was parsing error (the parameter will be initialized with detailed error description in such case)
+ @throws FBUnknownAttributeException if any of predicates in the chain contains unknown attribute 
  */
 + (nullable FBClassChain)parseQuery:(NSString*)classChainQuery error:(NSError **)error;
 

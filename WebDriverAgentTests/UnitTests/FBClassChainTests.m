@@ -89,6 +89,60 @@
   XCTAssertEqual(secondElement.position, -1);
 }
 
+- (void)testValidChainWithSinglePredicate
+{
+  NSError *error;
+  FBClassChain result = [FBClassChainQueryParser parseQuery:@"XCUIElementTypeWindow[`name == 'blabla'`]/XCUIElementTypeButton" error:&error];
+  XCTAssertNotNil(result);
+  XCTAssertEqual(result.count, 2);
+  
+  FBClassChainElement *firstElement = [result firstObject];
+  XCTAssertEqual(firstElement.type, XCUIElementTypeWindow);
+  XCTAssertEqual(firstElement.position, 1);
+  XCTAssertNotNil(firstElement.predicate);
+  
+  FBClassChainElement *secondElement = [result objectAtIndex:1];
+  XCTAssertEqual(secondElement.type, XCUIElementTypeButton);
+  XCTAssertEqual(secondElement.position, 0);
+  XCTAssertNil(secondElement.predicate);
+}
+
+- (void)testValidChainWithMultiplePredicates
+{
+  NSError *error;
+  FBClassChain result = [FBClassChainQueryParser parseQuery:@"XCUIElementTypeWindow[`name == 'blabla'`]/XCUIElementTypeButton[`value == 'blabla'`]" error:&error];
+  XCTAssertNotNil(result);
+  XCTAssertEqual(result.count, 2);
+  
+  FBClassChainElement *firstElement = [result firstObject];
+  XCTAssertEqual(firstElement.type, XCUIElementTypeWindow);
+  XCTAssertEqual(firstElement.position, 1);
+  XCTAssertNotNil(firstElement.predicate);
+  
+  FBClassChainElement *secondElement = [result objectAtIndex:1];
+  XCTAssertEqual(secondElement.type, XCUIElementTypeButton);
+  XCTAssertEqual(secondElement.position, 0);
+  XCTAssertNotNil(secondElement.predicate);
+}
+
+- (void)testValidChainWithMultiplePredicatesAndPositions
+{
+  NSError *error;
+  FBClassChain result = [FBClassChainQueryParser parseQuery:@"*[`name == \"к``ири````'лиця\"`][3]/XCUIElementTypeButton[`value == \"blabla\"`][-1]" error:&error];
+  XCTAssertNotNil(result);
+  XCTAssertEqual(result.count, 2);
+  
+  FBClassChainElement *firstElement = [result firstObject];
+  XCTAssertEqual(firstElement.type, XCUIElementTypeAny);
+  XCTAssertEqual(firstElement.position, 3);
+  XCTAssertNotNil(firstElement.predicate);
+  
+  FBClassChainElement *secondElement = [result objectAtIndex:1];
+  XCTAssertEqual(secondElement.type, XCUIElementTypeButton);
+  XCTAssertEqual(secondElement.position, -1);
+  XCTAssertNotNil(secondElement.predicate);
+}
+
 - (void)testInvalidChains
 {
   NSArray *invalidQueries = @[
@@ -98,6 +152,7 @@
     ,@"XCUIElementTypeWindow*/*"
     ,@"**"
     ,@"XCUIElementTypeWindow[0]"
+    ,@"XCUIElementTypeWindow[1][1]"
     ,@"blabla"
     ,@"XCUIElementTypeWindow/blabla"
     ,@" XCUIElementTypeWindow"
@@ -105,6 +160,15 @@
     ,@"XCUIElementTypeWindow[[2]"
     ,@"XCUIElementTypeWindow[2]]"
     ,@"XCUIElementType[Window[2]]"
+    ,@"XCUIElementTypeWindow[visible = 1]"
+    ,@"XCUIElementTypeWindow[1][`visible = 1`]"
+    ,@"XCUIElementTypeWindow[1] [`visible = 1`]"
+    ,@"XCUIElementTypeWindow[ `visible = 1`]"
+    ,@"XCUIElementTypeWindow[`visible = 1`][`name = \"bla\"`]"
+    ,@"XCUIElementTypeWindow[`visible = 1][`name = \"bla\"`]"
+    ,@"XCUIElementTypeWindow[`visible = 1]"
+    ,@"XCUIElementTypeWindow[``]"
+    ,@"XCUIElementTypeWindow[`name = \"bla```bla\"`]"
   ];
   for (NSString *invalidQuery in invalidQueries) {
     NSError *error;
