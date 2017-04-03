@@ -20,9 +20,19 @@ NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseExcept
 
 - (NSArray <XCUIElement *> *)fb_matchingElementsWithSnapshots:(NSArray<XCElementSnapshot *> *)snapshots usingChain:(FBClassChain)chain
 {
-  XCUIElementQuery *elementsQuery = [self childrenMatchingType:[chain firstObject].type];
+  XCUIElementQuery *elementsQuery;
+  if (nil == [chain firstObject].predicate) {
+    elementsQuery = [self childrenMatchingType:[chain firstObject].type];
+  } else {
+    elementsQuery = [[self childrenMatchingType:[chain firstObject].type] matchingPredicate:(NSPredicate  * _Nonnull)[chain firstObject].predicate];
+  }
   for (NSUInteger level = 1; level < chain.count; ++level) {
-    elementsQuery = [elementsQuery childrenMatchingType:[chain objectAtIndex:level].type];
+    FBClassChainElement *currentChainItem = [chain objectAtIndex:level];
+    if (nil == currentChainItem.predicate) {
+      elementsQuery = [elementsQuery childrenMatchingType:currentChainItem.type];
+    } else {
+      elementsQuery = [[elementsQuery childrenMatchingType:currentChainItem.type] matchingPredicate:(NSPredicate  * _Nonnull)currentChainItem.predicate];
+    }
   }
   NSMutableArray *candidateElements = [NSMutableArray arrayWithArray:elementsQuery.allElementsBoundByIndex];
   if ([chain lastObject].position < 0 && candidateElements.count > 1) {
@@ -78,23 +88,26 @@ NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseExcept
 
 + (NSArray<XCElementSnapshot *> *)fb_matchingChildrenWithSnapshot:(XCElementSnapshot *)root forChainElement:(FBClassChainElement *)chainElement
 {
-  NSArray *childrenMatchingByType = root.children;
-  if (0 == childrenMatchingByType.count) {
+  NSArray *childrenMatches = root.children;
+  if (0 == childrenMatches.count) {
     return @[];
   }
   if (XCUIElementTypeAny != chainElement.type) {
-    childrenMatchingByType = [childrenMatchingByType filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == %@", FBStringify(XCUIElement, elementType), @(chainElement.type)]];
+    childrenMatches = [childrenMatches filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == %@", FBStringify(XCUIElement, elementType), @(chainElement.type)]];
+  }
+  if (nil != chainElement.predicate) {
+    childrenMatches = [childrenMatches filteredArrayUsingPredicate:(NSPredicate  * _Nonnull)chainElement.predicate];
   }
   NSMutableArray *result = [NSMutableArray array];
   if (0 == chainElement.position) {
-    [result addObjectsFromArray:childrenMatchingByType];
+    [result addObjectsFromArray:childrenMatches];
   } else if (chainElement.position > 0) {
-    if ((NSUInteger)chainElement.position <= childrenMatchingByType.count) {
-      [result addObject:[childrenMatchingByType objectAtIndex:chainElement.position - 1]];
+    if ((NSUInteger)chainElement.position <= childrenMatches.count) {
+      [result addObject:[childrenMatches objectAtIndex:chainElement.position - 1]];
     }
   } else {
-    if ((NSUInteger)labs(chainElement.position) <= childrenMatchingByType.count) {
-      [result addObject:[childrenMatchingByType objectAtIndex:childrenMatchingByType.count + chainElement.position]];
+    if ((NSUInteger)labs(chainElement.position) <= childrenMatches.count) {
+      [result addObject:[childrenMatches objectAtIndex:childrenMatches.count + chainElement.position]];
     }
   }
   return result.copy;
