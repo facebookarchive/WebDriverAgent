@@ -30,7 +30,7 @@
   }
 
   NSUInteger maxTypingFrequency = [FBConfiguration maxTypingFrequency];
-  [FBLogger logFmt:@"Typing with maximum frequency %lu", maxTypingFrequency];
+  [FBLogger logFmt:@"Typing with maximum frequency %lu", (unsigned long)maxTypingFrequency];
 
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
