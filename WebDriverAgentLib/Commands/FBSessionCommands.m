@@ -68,6 +68,9 @@
     return FBResponseWithErrorFormat(@"'bundleId' desired capability not provided");
   }
   [FBConfiguration setShouldUseTestManagerForVisibilityDetection:[requirements[@"shouldUseTestManagerForVisibilityDetection"] boolValue]];
+  if (requirements[@"maxTypingFrequency"]) {
+    [FBConfiguration setMaxTypingFrequency:[requirements[@"maxTypingFrequency"] integerValue]];
+  }
 
   FBApplication *app = [[FBApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
   app.fb_shouldWaitForQuiescence = [requirements[@"shouldWaitForQuiescence"] boolValue];
