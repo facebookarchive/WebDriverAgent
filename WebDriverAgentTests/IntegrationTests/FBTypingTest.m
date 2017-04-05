@@ -33,16 +33,6 @@
   XCTAssertEqualObjects(textField.value, text);
 }
 
-- (void)testTextTypingSimple
-{
-  NSString *text = @"Happy typing";
-  XCUIElement *textField = self.testedApplication.textFields[@"aIdentifier"];
-  NSError *error;
-  XCTAssertTrue([textField fb_typeText:text simple:YES error:&error]);
-  XCTAssertNil(error);
-  XCTAssertEqualObjects(textField.value, text);
-}
-
 - (void)testTextTypingOnFocusedElement
 {
   NSString *text = @"Happy typing";
@@ -51,18 +41,6 @@
   XCTAssertTrue(textField.hasKeyboardFocus);
   NSError *error;
   XCTAssertTrue([textField fb_typeText:text simple:NO error:&error]);
-  XCTAssertNil(error);
-  XCTAssertEqualObjects(textField.value, text);
-}
-
-- (void)testTextTypingSimpleOnFocusedElement
-{
-  NSString *text = @"Happy typing";
-  XCUIElement *textField = self.testedApplication.textFields[@"aIdentifier"];
-  [textField tap];
-  XCTAssertTrue(textField.hasKeyboardFocus);
-  NSError *error;
-  XCTAssertTrue([textField fb_typeText:text simple:YES error:&error]);
   XCTAssertNil(error);
   XCTAssertEqualObjects(textField.value, text);
 }
