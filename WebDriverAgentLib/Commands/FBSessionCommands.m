@@ -72,6 +72,9 @@
   if (requirements[@"maxTypingFrequency"]) {
     [FBConfiguration setMaxTypingFrequency:[requirements[@"maxTypingFrequency"] integerValue]];
   }
+  if (requirements[@"shouldUseSingletonTestManager"]) {
+    [FBConfiguration setShouldUseSingletonTestManager:[requirements[@"shouldUseSingletonTestManager"] boolValue]];
+  }
 
   FBApplication *app = [[FBApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
   app.fb_shouldWaitForQuiescence = [requirements[@"shouldWaitForQuiescence"] boolValue];

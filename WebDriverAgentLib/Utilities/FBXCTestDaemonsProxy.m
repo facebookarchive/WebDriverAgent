@@ -10,6 +10,8 @@
 #import "FBXCTestDaemonsProxy.h"
 #import "XCTestDriver.h"
 #import "XCTRunnerDaemonSession.h"
+#import "FBConfiguration.h"
+#import "FBLogger.h"
 #import <objc/runtime.h>
 
 @implementation FBXCTestDaemonsProxy
@@ -17,17 +19,28 @@
 + (id<XCTestManager_ManagerInterface>)testRunnerProxy
 {
   static id<XCTestManager_ManagerInterface> proxy = nil;
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    if ([[XCTestDriver sharedTestDriver] respondsToSelector:@selector(managerProxy)]) {
-      proxy = [XCTestDriver sharedTestDriver].managerProxy;
-      return;
-    }
-    Class runnerClass = objc_lookUpClass("XCTRunnerDaemonSession");
-    proxy = ((XCTRunnerDaemonSession *)[runnerClass sharedSession]).daemonProxy;
-  });
-  NSAssert(proxy != NULL, @"Could not determin testRunnerProxy", proxy);
+  if ([FBConfiguration shouldUseSingletonTestManager]) {
+    [FBLogger logFmt:@"Using singleton test manager"];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+      proxy = [self.class retrieveTestRunnerProxy];
+    });
+  } else {
+    [FBLogger logFmt:@"Using general test manager"];
+    proxy = [self.class retrieveTestRunnerProxy];
+  }
+  NSAssert(proxy != NULL, @"Could not determine testRunnerProxy", proxy);
   return proxy;
+}
+
++ (id<XCTestManager_ManagerInterface>)retrieveTestRunnerProxy
+{
+  if ([[XCTestDriver sharedTestDriver] respondsToSelector:@selector(managerProxy)]) {
+    return [XCTestDriver sharedTestDriver].managerProxy;
+  } else {
+    Class runnerClass = objc_lookUpClass("XCTRunnerDaemonSession");
+    return ((XCTRunnerDaemonSession *)[runnerClass sharedSession]).daemonProxy;
+  }
 }
 
 @end

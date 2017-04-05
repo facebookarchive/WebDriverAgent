@@ -20,6 +20,7 @@ static NSUInteger const DefaultStartingPort = 8100;
 static NSUInteger const DefaultPortRange = 100;
 
 static BOOL FBShouldUseTestManagerForVisibilityDetection = NO;
+static BOOL FBShouldUseSingletonTestManager = YES;
 static NSUInteger FBMaxTypingFrequency = 60;
 
 @implementation FBConfiguration
@@ -69,6 +70,15 @@ static NSUInteger FBMaxTypingFrequency = 60;
 + (NSUInteger)maxTypingFrequency
 {
   return FBMaxTypingFrequency;
+}
+
++ (void)setShouldUseSingletonTestManager:(BOOL)value
+{
+  FBShouldUseSingletonTestManager = value;
+}
++ (BOOL)shouldUseSingletonTestManager
+{
+  return FBShouldUseSingletonTestManager;
 }
 
 #pragma mark Private

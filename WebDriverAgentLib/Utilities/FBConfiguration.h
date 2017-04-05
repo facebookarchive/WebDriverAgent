@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setMaxTypingFrequency:(NSUInteger)value;
 + (NSUInteger)maxTypingFrequency;
 
+/* Use singleton test manager proxy */
++ (void)setShouldUseSingletonTestManager:(BOOL)value;
++ (BOOL)shouldUseSingletonTestManager;
+
 /**
  Switch for enabling/disabling reporting fake collection view cells by Accessibility framework.
  If set to YES it will report also invisible cells.
