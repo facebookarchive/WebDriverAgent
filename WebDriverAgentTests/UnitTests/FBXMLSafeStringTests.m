@@ -20,12 +20,12 @@
   NSString *withInvalidChar = [NSString stringWithFormat:@"bla%@", @"\uFFFF"];
   NSString *withoutInvalidChar = @"bla";
   XCTAssertNotEqualObjects(withInvalidChar, withoutInvalidChar);
-  XCTAssertEqualObjects([withInvalidChar xmlSafeStringWithReplacement:@""], withoutInvalidChar);
+  XCTAssertEqualObjects([withInvalidChar fb_xmlSafeStringWithReplacement:@""], withoutInvalidChar);
 }
 
 - (void)testSafeXmlStringTransformationWithNonEmptyReplacement {
   NSString *withInvalidChar = [NSString stringWithFormat:@"bla%@", @"\uFFFF"];
-  XCTAssertEqualObjects([withInvalidChar xmlSafeStringWithReplacement:@"1"], @"bla1");
+  XCTAssertEqualObjects([withInvalidChar fb_xmlSafeStringWithReplacement:@"1"], @"bla1");
 }
 
 @end

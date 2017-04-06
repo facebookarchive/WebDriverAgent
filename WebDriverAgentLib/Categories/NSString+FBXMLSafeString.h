@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
          XML Character Range definition (http://www.w3.org/TR/2008/REC-xml-20081126/#charsets),
          are replaced
  */
-- (NSString *)xmlSafeStringWithReplacement:(NSString *)replacement;
+- (NSString *)fb_xmlSafeStringWithReplacement:(NSString *)replacement;
 
 @end
 

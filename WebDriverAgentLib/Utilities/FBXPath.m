@@ -190,7 +190,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     return NULL;
   }
   
-  NSString *safeString = [str xmlSafeStringWithReplacement:@""];
+  NSString *safeString = [str fb_xmlSafeStringWithReplacement:@""];
   return [self.class xmlCharPtrForInput:[safeString cStringUsingEncoding:NSUTF8StringEncoding]];
 }
 

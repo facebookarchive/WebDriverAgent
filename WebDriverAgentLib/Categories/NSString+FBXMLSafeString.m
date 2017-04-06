@@ -11,7 +11,7 @@
 
 @implementation NSString (FBXMLSafeString)
 
-- (NSString *)xmlSafeStringWithReplacement:(NSString *)replacement
+- (NSString *)fb_xmlSafeStringWithReplacement:(NSString *)replacement
 {
   static NSMutableCharacterSet *invalidSet;
   static dispatch_once_t onceToken;
