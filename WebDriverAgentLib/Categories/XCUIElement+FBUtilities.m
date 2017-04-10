@@ -73,4 +73,32 @@
   return result.copy;
 }
 
++ (NSArray<XCUIElement *> *)fb_filterElements:(NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)elementsMap matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots useReversedOrder:(BOOL)useReversedOrder
+{
+  NSMutableArray *matchingElements = [NSMutableArray array];
+  NSMutableDictionary<NSNumber *, NSMutableArray<XCUIElement *> *> *mutableElementsMap = [NSMutableDictionary dictionary];
+  [elementsMap enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSArray<XCUIElement *> *value, BOOL* stop) {
+    [mutableElementsMap setObject:value.mutableCopy forKey:key];
+  }];
+  [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
+    NSMutableArray *elements = mutableElementsMap[@(snapshot.elementType)];
+    NSEnumerator *elementsEnumerator = [elements objectEnumerator];
+    if (useReversedOrder) {
+      elementsEnumerator = [elements reverseObjectEnumerator];
+    }
+    XCUIElement *matchedElement = nil;
+    for (XCUIElement *element in elementsEnumerator) {
+      if ([element.fb_lastSnapshot _matchesElement:snapshot]) {
+        matchedElement = element;
+        break;
+      }
+    }
+    if (nil != matchedElement) {
+      [matchingElements addObject:matchedElement];
+      [elements removeObject:matchedElement];
+    }
+  }];
+  return matchingElements.copy;
+}
+
 @end
