@@ -62,11 +62,11 @@
 - (void)testAlertLabels
 {
   FBAlert* alert = [FBAlert alertWithApplication:self.testedApplication];
-  XCTAssertNil(alert.labels);
+  XCTAssertNil(alert.buttonLabels);
   [self showApplicationAlert];
-  XCTAssertNotNil(alert.labels);
-  XCTAssertEqual(1, alert.labels.count);
-  XCTAssertEqualObjects(@"Will do", alert.labels[0]);
+  XCTAssertNotNil(alert.buttonLabels);
+  XCTAssertEqual(1, alert.buttonLabels.count);
+  XCTAssertEqualObjects(@"Will do", alert.buttonLabels[0]);
 }
 
 - (void)testClickAlertButton
