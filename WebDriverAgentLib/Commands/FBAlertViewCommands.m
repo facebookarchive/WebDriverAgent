@@ -46,13 +46,17 @@
 {
   FBSession *session = request.session;
   NSString *name = request.parameters[@"name"];
+  FBAlert *alert = [FBAlert alertWithApplication:session.application];
+  NSError *error;
 
-  if ([name length] != 0) {
-    if (![[FBAlert alertWithApplication:session.application] clickAlertButton:name error:nil]) {
-      return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
-    }
-  } else if (![[FBAlert alertWithApplication:session.application] acceptWithError:nil]) {
+  if (!alert.isPresent) {
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
+  }
+  if ([name length] != 0) {    if (![alert clickAlertButton:name error:&error]) {
+      return FBResponseWithError(error);
+    }
+  } else if (![alert acceptWithError:nil]) {
+    return FBResponseWithError(error);
   }
   return FBResponseWithOK();
 }
@@ -61,13 +65,18 @@
 {
   FBSession *session = request.session;
   NSString *name = request.parameters[@"name"];
-
-  if ([name length] != 0) {
-    if (![[FBAlert alertWithApplication:session.application] clickAlertButton:name error:nil]) {
-      return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
-    }
-  } else if (![[FBAlert alertWithApplication:session.application] dismissWithError:nil]) {
+  FBAlert *alert = [FBAlert alertWithApplication:session.application];
+  NSError *error;
+    
+  if (!alert.isPresent) {
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
+  }
+  if ([name length] != 0) {
+    if (![alert clickAlertButton:name error:&error]) {
+      return FBResponseWithError(error);
+    }
+  } else if (![alert dismissWithError:nil]) {
+    return FBResponseWithError(error);
   }
   return FBResponseWithOK();
 }
