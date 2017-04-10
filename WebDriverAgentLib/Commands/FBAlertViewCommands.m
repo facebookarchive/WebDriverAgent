@@ -52,7 +52,8 @@
   if (!alert.isPresent) {
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
   }
-  if ([name length] != 0) {    if (![alert clickAlertButton:name error:&error]) {
+  if ([name length] != 0) {
+    if (![alert clickAlertButton:name error:&error]) {
       return FBResponseWithError(error);
     }
   } else if (![alert acceptWithError:nil]) {
