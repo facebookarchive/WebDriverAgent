@@ -25,6 +25,7 @@
     [[FBRoute GET:@"/alert/text"] respondWithTarget:self action:@selector(handleAlertTextCommand:)],
     [[FBRoute POST:@"/alert/accept"] respondWithTarget:self action:@selector(handleAlertAcceptCommand:)],
     [[FBRoute POST:@"/alert/dismiss"] respondWithTarget:self action:@selector(handleAlertDismissCommand:)],
+    [[FBRoute GET:@"/wda/alert/buttons"] respondWithTarget:self action:@selector(handleGetAlertButtonsCommand:)],
   ];
 }
 
@@ -44,8 +45,19 @@
 + (id<FBResponsePayload>)handleAlertAcceptCommand:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  if (![[FBAlert alertWithApplication:session.application] acceptWithError:nil]) {
+  NSString *name = request.parameters[@"name"];
+  FBAlert *alert = [FBAlert alertWithApplication:session.application];
+  NSError *error;
+
+  if (!alert.isPresent) {
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
+  }
+  if ([name length] != 0) {
+    if (![alert clickAlertButton:name error:&error]) {
+      return FBResponseWithError(error);
+    }
+  } else if (![alert acceptWithError:&error]) {
+    return FBResponseWithError(error);
   }
   return FBResponseWithOK();
 }
@@ -53,10 +65,31 @@
 + (id<FBResponsePayload>)handleAlertDismissCommand:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  if (![[FBAlert alertWithApplication:session.application] dismissWithError:nil]) {
+  NSString *name = request.parameters[@"name"];
+  FBAlert *alert = [FBAlert alertWithApplication:session.application];
+  NSError *error;
+    
+  if (!alert.isPresent) {
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
+  }
+  if ([name length] != 0) {
+    if (![alert clickAlertButton:name error:&error]) {
+      return FBResponseWithError(error);
+    }
+  } else if (![alert dismissWithError:&error]) {
+    return FBResponseWithError(error);
   }
   return FBResponseWithOK();
 }
 
++ (id<FBResponsePayload>)handleGetAlertButtonsCommand:(FBRouteRequest *)request {
+  FBSession *session = request.session;
+  FBAlert *alert = [FBAlert alertWithApplication:session.application];
+
+  if (!alert.isPresent) {
+    return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
+  }
+  NSArray *labels = alert.buttonLabels;
+  return FBResponseWithStatus(FBCommandStatusNoError, labels);
+}
 @end
