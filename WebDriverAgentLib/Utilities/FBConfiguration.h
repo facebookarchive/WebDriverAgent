@@ -17,10 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FBConfiguration : NSObject
 
 /*! If set to YES will ask TestManagerDaemon for element visibility */
-@property (class, nonatomic, assign) BOOL shouldUseTestManagerForVisibilityDetection;
++ (void)setShouldUseTestManagerForVisibilityDetection:(BOOL)value;
++ (BOOL)shouldUseTestManagerForVisibilityDetection;
 
 /* The maximum typing frequency for all typing activities */
-@property (class, nonatomic, assign) NSUInteger maxTypingFrequency;
++ (void)setMaxTypingFrequency:(NSUInteger)value;
++ (NSUInteger)maxTypingFrequency;
 
 /**
  Switch for enabling/disabling reporting fake collection view cells by Accessibility framework.
