@@ -34,38 +34,11 @@ NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseExcept
       elementsQuery = [[elementsQuery childrenMatchingType:currentChainItem.type] matchingPredicate:(NSPredicate  * _Nonnull)currentChainItem.predicate];
     }
   }
-  NSMutableArray *candidateElements = [NSMutableArray arrayWithArray:elementsQuery.allElementsBoundByIndex];
-  if ([chain lastObject].position < 0 && candidateElements.count > 1) {
-    // reverse candidates list if the expected element position is negative
-    // to speed up the lookup
-    candidateElements = [[candidateElements reverseObjectEnumerator] allObjects].mutableCopy;
-  }
-  NSMutableArray *result = [NSMutableArray array];
-  NSMutableArray *unmatchedSnapshots = snapshots.mutableCopy;
-  NSUInteger candidateElementIdx = 0;
-  while (candidateElementIdx < candidateElements.count) {
-    XCUIElement *candidateElement = [candidateElements objectAtIndex:candidateElementIdx];
-    NSUInteger snapshotIdx = 0;
-    BOOL isMatchFound = NO;
-    while (snapshotIdx < unmatchedSnapshots.count) {
-      if ([candidateElement.fb_lastSnapshot _matchesElement:[unmatchedSnapshots objectAtIndex:snapshotIdx]]) {
-        [result addObject:candidateElement];
-        [unmatchedSnapshots removeObjectAtIndex:snapshotIdx];
-        isMatchFound = YES;
-        break;
-      }
-      ++snapshotIdx;
-    }
-    if (0 == unmatchedSnapshots.count) {
-      break;
-    }
-    if (isMatchFound) {
-      [candidateElements removeObjectAtIndex:candidateElementIdx];
-    } else {
-      ++candidateElementIdx;
-    }
-  }
-  return result.copy;
+  NSArray *candidateElements = elementsQuery.allElementsBoundByIndex;
+  NSSet *byTypes = [FBElementUtils uniqueElementTypesWithElements:candidateElements];
+  NSDictionary *categorizedDescendants = [self fb_categorizeDescendants:byTypes];
+  BOOL useReversedOrder = [chain lastObject].position < 0 && candidateElements.count > 1;
+  return [self.class fb_filterElements:categorizedDescendants matchingSnapshots:snapshots useReversedOrder:useReversedOrder];
 }
 
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingClassChain:(NSString *)classChainQuery shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch

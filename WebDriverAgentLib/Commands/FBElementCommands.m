@@ -23,6 +23,7 @@
 #import "XCUICoordinate.h"
 #import "XCUIDevice.h"
 #import "XCUIElement+FBIsVisible.h"
+#import "XCUIElement+FBPickerWheel.h"
 #import "XCUIElement+FBScrolling.h"
 #import "XCUIElement+FBTap.h"
 #import "XCUIElement+FBTyping.h"
@@ -67,6 +68,7 @@
     [[FBRoute POST:@"/wda/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHoldCoordinate:)],
     [[FBRoute POST:@"/wda/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
     [[FBRoute POST:@"/wda/keys"] respondWithTarget:self action:@selector(handleKeys:)],
+    [[FBRoute POST:@"/wda/pickerwheel/:uuid/select"] respondWithTarget:self action:@selector(handleWheelSelect:)]
   ];
 }
 
@@ -370,6 +372,28 @@
   });
 }
 
++ (id<FBResponsePayload>)handleWheelSelect:(FBRouteRequest *)request
+{
+  FBElementCache *elementCache = request.session.elementCache;
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+  if (element.elementType != XCUIElementTypePickerWheel) {
+    return FBResponseWithErrorFormat(@"The element is expected to be a valid Picker Wheel control. '%@' was given instead", element.wdType);
+  }
+  NSString* order = [request.arguments[@"order"] lowercaseString];
+  BOOL isSuccessful = false;
+  NSError *error;
+  if ([order isEqualToString:@"next"]) {
+    isSuccessful = [element fb_selectNextOptionWithError:&error];
+  } else if ([order isEqualToString:@"previous"]) {
+    isSuccessful = [element fb_selectPreviousOptionWithError:&error];
+  } else {
+    return FBResponseWithErrorFormat(@"Only 'previous' and 'next' order values are supported. '%@' was given instead", request.arguments[@"order"]);
+  }
+  if (!isSuccessful) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithOK();
+}
 
 #pragma mark - Helpers
 
