@@ -56,7 +56,7 @@
     if (![alert clickAlertButton:name error:&error]) {
       return FBResponseWithError(error);
     }
-  } else if (![alert acceptWithError:nil]) {
+  } else if (![alert acceptWithError:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
@@ -76,7 +76,7 @@
     if (![alert clickAlertButton:name error:&error]) {
       return FBResponseWithError(error);
     }
-  } else if (![alert dismissWithError:nil]) {
+  } else if (![alert dismissWithError:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
@@ -85,11 +85,11 @@
 + (id<FBResponsePayload>)handleGetAlertButtonsCommand:(FBRouteRequest *)request {
   FBSession *session = request.session;
   FBAlert *alert = [FBAlert alertWithApplication:session.application];
-  NSArray *labels = alert.buttonLabels;
-  
-  if (!labels) {
+
+  if (!alert.isPresent) {
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
   }
+  NSArray *labels = alert.buttonLabels;
   return FBResponseWithStatus(FBCommandStatusNoError, labels);
 }
 @end
