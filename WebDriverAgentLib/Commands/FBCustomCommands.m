@@ -10,6 +10,7 @@
 #import "FBCustomCommands.h"
 
 #import <XCTest/XCUIDevice.h>
+#import <objc/runtime.h>
 
 #import "FBApplication.h"
 #import "FBConfiguration.h"
@@ -37,6 +38,7 @@
     [[FBRoute POST:@"/wda/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/wda/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/wda/keyboard/dismiss"] respondWithTarget:self action:@selector(handleDismissKeyboardCommand:)],
+    [[FBRoute GET:@"/applist"].withoutSession respondWithTarget:self action:@selector(handleAPPList:)],
   ];
 }
 
@@ -90,6 +92,31 @@
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleAPPList:(FBRouteRequest *)request
+{
+    Class LSApplicationWorkspace_class = objc_getClass("LSApplicationWorkspace");
+    NSObject* workspace = [LSApplicationWorkspace_class performSelector:@selector(defaultWorkspace)];
+    
+    NSArray *appList = [workspace performSelector:@selector(allApplications)];
+    Class LSApplicationProxy_class = object_getClass(@"LSApplicationProxy");
+    NSMutableArray *result = [NSMutableArray array];
+    for (LSApplicationProxy_class in appList)
+    {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        NSString *bundleID = [LSApplicationProxy_class performSelector:@selector(applicationIdentifier)] ?:@"";
+        NSString *version =  [LSApplicationProxy_class performSelector:@selector(bundleVersion)] ?:@"";
+        NSString *shortVersionString =  [LSApplicationProxy_class performSelector:@selector(shortVersionString)] ?:@"";
+        NSString *localizedName = [LSApplicationProxy_class performSelector:@selector(localizedName)];
+        NSLog(@"bundleID：%@ localizedName: %@, version： %@ ,shortVersionString:%@\n", bundleID,localizedName, version,shortVersionString);
+        [dic setObject:bundleID forKey:@"bundleID"];
+        [dic setObject:version forKey:@"version"];
+        [dic setObject:localizedName forKey:@"localizedName"];
+        [result addObject:dic];
+    }
+    
+    return FBResponseWithObject(result);
 }
 
 @end
