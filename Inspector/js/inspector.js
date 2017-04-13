@@ -69,7 +69,7 @@ class Inspector extends React.Component {
 }
 
 Inspector.propTypes = {
-  selectedNode: React.PropTypes.object,
+  selectedNode: PropTypes.object,
 };
 
 module.exports = Inspector;

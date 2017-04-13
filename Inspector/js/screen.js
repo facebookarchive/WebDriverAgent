@@ -90,8 +90,8 @@ class Screen extends React.Component {
 }
 
 Screen.propTypes = {
-  highlightedNode: React.PropTypes.object,
-  screenshot: React.PropTypes.object,
+  highlightedNode: PropTypes.object,
+  screenshot: PropTypes.object,
 };
 
 module.exports = Screen;

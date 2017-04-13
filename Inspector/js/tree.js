@@ -117,10 +117,10 @@ class Tree extends React.Component {
 }
 
 Tree.propTypes = {
-  onSelectedNodeChange: React.PropTypes.func,
-  onHighlightedNodeChange: React.PropTypes.func,
-  rootNode: React.PropTypes.object,
-  selectedNode: React.PropTypes.object,
+  onSelectedNodeChange: PropTypes.func,
+  onHighlightedNodeChange: PropTypes.func,
+  rootNode: PropTypes.object,
+  selectedNode: PropTypes.object,
 };
 
 module.exports = Tree;
