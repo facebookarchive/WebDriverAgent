@@ -327,15 +327,25 @@
 + (id<FBResponsePayload>)handleTap:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  CGPoint tapPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
+  NSNumber *xNumber = request.arguments[@"x"];
+  NSNumber *yNumber = request.arguments[@"y"];
+  CGPoint tapPoint = CGPointMake((CGFloat)[xNumber doubleValue], (CGFloat)[yNumber doubleValue]);
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   if (nil == element) {
+    NSParameterAssert(xNumber != nil && yNumber != nil);
     XCUICoordinate *tapCoordinate = [self.class gestureCoordinateWithCoordinate:tapPoint application:request.session.application shouldApplyOrientationWorkaround:YES];
     [tapCoordinate tap];
   } else {
-    NSError *error;
-    if (![element fb_tapCoordinate:tapPoint error:&error]) {
-      return FBResponseWithError(error);
+    if (xNumber != nil && yNumber != nil) {
+      NSError *error;
+      if (![element fb_tapCoordinate:tapPoint error:&error]) {
+        return FBResponseWithError(error);
+      }
+    } else {
+      NSError *error;
+      if (![element fb_tapWithError:&error]) {
+        return FBResponseWithError(error);
+      }
     }
   }
   return FBResponseWithOK();
