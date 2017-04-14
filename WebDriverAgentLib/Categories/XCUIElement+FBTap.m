@@ -30,18 +30,33 @@
 
 - (BOOL)fb_tapCoordinate:(CGPoint)relativeCoordinate error:(NSError **)error
 {
+  return [self fb_tapWithCoordinateBlock:^CGPoint {
+      CGPoint hitPoint = CGPointMake(self.frame.origin.x + relativeCoordinate.x, self.frame.origin.y + relativeCoordinate.y);
+      if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+        /*
+         Since iOS 10.0 XCTest has a bug when it always returns portrait coordinates for UI elements
+         even if the device is not in portait mode. That is why we need to recalculate them manually
+         based on the current orientation value
+         */
+        hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
+      }
+      return hitPoint;
+  } error:error];
+}
+
+- (BOOL)fb_tapScreenCoordinate:(CGPoint)absoluteCoordinate error:(NSError **)error
+{
+  return [self fb_tapWithCoordinateBlock:^CGPoint {
+      return absoluteCoordinate;
+  } error:error];
+}
+
+- (BOOL)fb_tapWithCoordinateBlock:(CGPoint (^)(void))coordinateBlock error:(NSError *__autoreleasing*)error
+{
   [self fb_waitUntilFrameIsStable];
   __block BOOL didSucceed;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    CGPoint hitPoint = CGPointMake(self.frame.origin.x + relativeCoordinate.x, self.frame.origin.y + relativeCoordinate.y);
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
-      /*
-       Since iOS 10.0 XCTest has a bug when it always returns portrait coordinates for UI elements
-       even if the device is not in portait mode. That is why we need to recalculate them manually
-       based on the current orientation value
-       */
-      hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
-    }
+    CGPoint hitPoint = coordinateBlock();
     XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
       if (commandError) {
         [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
