@@ -336,16 +336,15 @@
     XCUICoordinate *tapCoordinate = [self.class gestureCoordinateWithCoordinate:tapPoint application:request.session.application shouldApplyOrientationWorkaround:YES];
     [tapCoordinate tap];
   } else {
+    NSError *error;
+    BOOL didSucceed;
     if (xNumber != nil && yNumber != nil) {
-      NSError *error;
-      if (![element fb_tapCoordinate:tapPoint error:&error]) {
-        return FBResponseWithError(error);
-      }
+      didSucceed = [element fb_tapCoordinate:tapPoint error:&error];
     } else {
-      NSError *error;
-      if (![element fb_tapWithError:&error]) {
-        return FBResponseWithError(error);
-      }
+      didSucceed = [element fb_tapWithError:&error];
+    }
+    if (!didSucceed) {
+      return FBResponseWithError(error);
     }
   }
   return FBResponseWithOK();
