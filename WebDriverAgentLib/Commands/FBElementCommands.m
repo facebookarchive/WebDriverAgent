@@ -330,9 +330,12 @@
   NSNumber *xNumber = request.arguments[@"x"];
   NSNumber *yNumber = request.arguments[@"y"];
   CGPoint tapPoint = CGPointMake((CGFloat)[xNumber doubleValue], (CGFloat)[yNumber doubleValue]);
-  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+  NSString *uuid = request.parameters[@"uuid"];
+  XCUIElement *element = [elementCache elementForUUID:uuid];
   if (nil == element) {
-    NSParameterAssert(xNumber != nil && yNumber != nil);
+    if (xNumber == nil || yNumber == nil) {
+      return FBResponseWithErrorFormat(@"Could neither find element with 'uuid' %@, nor were 'x' and 'y' parameters provided", uuid);
+    }
     XCUICoordinate *tapCoordinate = [self.class gestureCoordinateWithCoordinate:tapPoint application:request.session.application shouldApplyOrientationWorkaround:YES];
     [tapCoordinate tap];
   } else {
