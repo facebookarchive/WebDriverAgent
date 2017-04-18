@@ -22,16 +22,15 @@
 - (BOOL)fb_tapWithError:(NSError **)error
 {
   NSValue *hitpointValue = self.lastSnapshot.suggestedHitpoints.firstObject;
-  if (hitpointValue != nil) {
-    CGPoint hitPoint = hitpointValue.CGPointValue;
-    hitPoint.x -= self.frame.origin.x;
-    hitPoint.y -= self.frame.origin.y;
-    return [self fb_tapCoordinate:hitPoint error:error];
-  } else {
+  if (nil == hitpointValue) {
     // hitPointCoordinate might not be the center of the element frame, it depends on the accessibilityActivationPoint
     CGPoint hitPoint = [self hitPointCoordinate].screenPoint;
     return [self fb_tapScreenCoordinate:hitPoint error:error];
   }
+  CGPoint hitPoint = hitpointValue.CGPointValue;
+  hitPoint.x -= self.frame.origin.x;
+  hitPoint.y -= self.frame.origin.y;
+  return [self fb_tapCoordinate:hitPoint error:error];
 }
 
 - (BOOL)fb_tapCoordinate:(CGPoint)relativeCoordinate error:(NSError **)error
