@@ -18,6 +18,8 @@
 
 @implementation FBPickerWheelSelectTests
 
+static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
+
 - (void)setUp
 {
   [super setUp];
@@ -31,7 +33,7 @@
   XCTAssertEqualObjects(element.wdType, @"XCUIElementTypePickerWheel");
   NSError *error;
   NSString *previousValue = element.wdValue;
-  XCTAssertTrue([element fb_selectNextOptionWithError:&error]);
+  XCTAssertTrue([element fb_selectNextOptionWithOffset:DEFAULT_OFFSET error:&error]);
   XCTAssertNotEqualObjects(previousValue, element.wdValue);
 }
 
@@ -42,7 +44,7 @@
   XCTAssertEqualObjects(element.wdType, @"XCUIElementTypePickerWheel");
   NSError *error;
   NSString *previousValue = element.wdValue;
-  XCTAssertTrue([element fb_selectPreviousOptionWithError:&error]);
+  XCTAssertTrue([element fb_selectPreviousOptionWithOffset:DEFAULT_OFFSET error:&error]);
   XCTAssertNotEqualObjects(previousValue, element.wdValue);
 }
 

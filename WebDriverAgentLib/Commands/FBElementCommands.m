@@ -379,12 +379,19 @@
     return FBResponseWithErrorFormat(@"The element is expected to be a valid Picker Wheel control. '%@' was given instead", element.wdType);
   }
   NSString* order = [request.arguments[@"order"] lowercaseString];
+  CGFloat offset = (CGFloat)0.2;
+  if (request.arguments[@"offset"]) {
+    offset = (CGFloat)[request.arguments[@"offset"] doubleValue];
+    if (offset <= 0.0 || offset > 0.5) {
+      return FBResponseWithErrorFormat(@"'offset' value is expected to be in range (0.0, 0.5]. '%@' was given instead", request.arguments[@"offset"]);
+    }
+  }
   BOOL isSuccessful = false;
   NSError *error;
   if ([order isEqualToString:@"next"]) {
-    isSuccessful = [element fb_selectNextOptionWithError:&error];
+    isSuccessful = [element fb_selectNextOptionWithOffset:offset error:&error];
   } else if ([order isEqualToString:@"previous"]) {
-    isSuccessful = [element fb_selectPreviousOptionWithError:&error];
+    isSuccessful = [element fb_selectPreviousOptionWithOffset:offset error:&error];
   } else {
     return FBResponseWithErrorFormat(@"Only 'previous' and 'next' order values are supported. '%@' was given instead", request.arguments[@"order"]);
   }

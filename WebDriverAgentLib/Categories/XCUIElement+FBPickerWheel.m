@@ -14,7 +14,6 @@
 
 @implementation XCUIElement (FBPickerWheel)
 
-static const CGFloat RELATIVE_OFFSET = (CGFloat)0.2;
 static const NSTimeInterval VALUE_CHANGE_TIMEOUT = 2;
 
 - (BOOL)fb_scrollWithOffset:(CGFloat)relativeHeightOffset error:(NSError **)error
@@ -33,14 +32,14 @@ static const NSTimeInterval VALUE_CHANGE_TIMEOUT = 2;
    error:error];
 }
 
-- (BOOL)fb_selectNextOptionWithError:(NSError **)error
+- (BOOL)fb_selectNextOptionWithOffset:(CGFloat)offset error:(NSError **)error
 {
-  return [self fb_scrollWithOffset:(CGFloat)RELATIVE_OFFSET error:error];
+  return [self fb_scrollWithOffset:offset error:error];
 }
 
-- (BOOL)fb_selectPreviousOptionWithError:(NSError **)error
+- (BOOL)fb_selectPreviousOptionWithOffset:(CGFloat)offset error:(NSError **)error
 {
-  return [self fb_scrollWithOffset:(CGFloat)-RELATIVE_OFFSET error:error];
+  return [self fb_scrollWithOffset:-offset error:error];
 }
 
 @end
