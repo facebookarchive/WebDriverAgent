@@ -236,6 +236,11 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(wdEnabled). Error code: %d", rc];
     return rc;
   }
+  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "shown", element.wdVisible ? BAD_CAST "true" : BAD_CAST "false");
+  if (rc < 0) {
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(wdVisible). Error code: %d", rc];
+    return rc;
+  }
   for (NSString *attrName in @[@"x", @"y", @"width", @"height"]) {
     rc = xmlTextWriterWriteAttribute(writer, [self.class safeXmlStringWithString:attrName],
                                      [self.class safeXmlStringWithString:[element.wdRect[attrName] stringValue]]);

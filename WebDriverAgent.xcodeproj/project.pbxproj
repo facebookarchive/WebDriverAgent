@@ -726,7 +726,10 @@
 				B6E83A410C45944B036B6B0F /* Frameworks */,
 				AD42DD291CF121E600806E5D /* Modules */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
 		};
 		91F9DAEA1B99DBC2001349B2 /* Products */ = {
 			isa = PBXGroup;
