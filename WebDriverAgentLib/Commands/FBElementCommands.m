@@ -371,6 +371,8 @@
   });
 }
 
+static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
+
 + (id<FBResponsePayload>)handleWheelSelect:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
@@ -379,9 +381,9 @@
     return FBResponseWithErrorFormat(@"The element is expected to be a valid Picker Wheel control. '%@' was given instead", element.wdType);
   }
   NSString* order = [request.arguments[@"order"] lowercaseString];
-  CGFloat offset = (CGFloat)0.2;
+  CGFloat offset = DEFAULT_OFFSET;
   if (request.arguments[@"offset"]) {
-    offset = (CGFloat)[request.arguments[@"offset"] doubleValue];
+    offset = [request.arguments[@"offset"] doubleValue];
     if (offset <= 0.0 || offset > 0.5) {
       return FBResponseWithErrorFormat(@"'offset' value is expected to be in range (0.0, 0.5]. '%@' was given instead", request.arguments[@"offset"]);
     }
