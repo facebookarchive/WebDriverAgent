@@ -76,6 +76,7 @@ static NSUInteger FBMaxTypingFrequency = 60;
 {
   FBShouldUseSingletonTestManager = value;
 }
+
 + (BOOL)shouldUseSingletonTestManager
 {
   return FBShouldUseSingletonTestManager;

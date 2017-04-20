@@ -7,6 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+import PropTypes from 'prop-types';
 import React from 'react';
 
 require('css/inspector.css');
@@ -69,7 +70,7 @@ class Inspector extends React.Component {
 }
 
 Inspector.propTypes = {
-  selectedNode: React.PropTypes.object,
+  selectedNode: PropTypes.object,
 };
 
 module.exports = Inspector;

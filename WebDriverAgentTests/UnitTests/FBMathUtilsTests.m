@@ -28,7 +28,7 @@
   XCTAssertTrue(FBFloatFuzzyEqualToFloat(0, 0, 0));
   XCTAssertTrue(FBFloatFuzzyEqualToFloat(0.5, 0.6, 0.2));
   XCTAssertTrue(FBFloatFuzzyEqualToFloat(0.6, 0.5, 0.2));
-  XCTAssertTrue(FBFloatFuzzyEqualToFloat(0.5, 0.6, 0.1));
+  XCTAssertTrue(FBFloatFuzzyEqualToFloat(0.5, 0.6, 0.10001));
 }
 
 - (void)testFuzzyNotEqualFloats
