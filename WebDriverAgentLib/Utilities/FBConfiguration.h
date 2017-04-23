@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setMaxTypingFrequency:(NSUInteger)value;
 + (NSUInteger)maxTypingFrequency;
 
+/* The maximum typing frequency for all typing activities */
+@property (class, nonatomic, assign) NSUInteger maxTypingFrequency;
+
 /**
  Switch for enabling/disabling reporting fake collection view cells by Accessibility framework.
  If set to YES it will report also invisible cells.
