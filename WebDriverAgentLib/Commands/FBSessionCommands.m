@@ -77,8 +77,8 @@
 
   FBApplication *app = [[FBApplication alloc] initPrivateWithPath:appPath bundleID:bundleID];
   app.fb_shouldWaitForQuiescence = [requirements[@"shouldWaitForQuiescence"] boolValue];
-  app.launchArguments = (NSArray<NSString *> *)requirements[@"arguments"] ?: @[];
-  app.launchEnvironment = (NSDictionary <NSString *, NSString *> *)requirements[@"environment"] ?: @{};
+  [app setLaunchArguments:(NSArray<NSString *> *)requirements[@"arguments"] ?: @[]];
+  [app setLaunchEnvironment:(NSDictionary <NSString *, NSString *> *)requirements[@"environment"] ?: @{}];
   [app launch];
 
   if (app.processID == 0) {
