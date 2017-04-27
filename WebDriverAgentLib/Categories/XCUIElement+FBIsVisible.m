@@ -11,6 +11,7 @@
 
 #import "FBApplication.h"
 #import "FBConfiguration.h"
+#import "FBLogger.h"
 #import "FBMathUtils.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCTestPrivateSymbols.h"
@@ -48,8 +49,9 @@
     return rectIntersects && isActionable;
   } @catch (NSException *e) {
     if ([e.reason containsString:@"attempt to insert nil object"]) {
-      // This is to workaround known XCTest issue https://github.com/facebook/WebDriverAgent/issues/542
-      return rectIntersects;
+      // This is to workaround a crash due known XCTest issue https://github.com/facebook/WebDriverAgent/issues/542
+      [FBLogger logFmt:@"Forcing visibility value of '%@' to NO because of '%@'", self.debugDescription, e.reason];
+      return NO;
     }
     @throw e;
   }
