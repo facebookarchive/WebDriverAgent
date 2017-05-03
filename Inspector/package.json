@@ -12,6 +12,7 @@
     "css-loader": "^0.16.0",
     "prop-types": "^15.5.8",
     "react": "^0.14.0",
+    "react-button": "^1.2.1",
     "react-treeview": "^0.4.0",
     "simple-ajax": "^2.1.0",
     "style-loader": "^0.12.3",

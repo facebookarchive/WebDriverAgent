@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nJd-IZ-bfU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nJd-IZ-bfU">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -233,6 +233,11 @@
                                     <constraint firstAttribute="height" constant="30" id="e1t-Kp-sno"/>
                                 </constraints>
                                 <state key="normal" title="not_accessible"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="point" keyPath="accessibilityActivationPoint">
+                                        <point key="value" x="200" y="220"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bQv-RY-wkj">
                                 <rect key="frame" x="124" y="288" width="20" height="20"/>
@@ -240,6 +245,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="GsS-jO-scK" firstAttribute="leading" secondItem="Ucg-Ag-VpP" secondAttribute="leadingMargin" constant="154" id="1RA-Fx-3Jh"/>
                             <constraint firstItem="SjL-dx-Zsi" firstAttribute="top" secondItem="U7D-NR-20N" secondAttribute="bottom" constant="8" id="3NW-Hc-tPr"/>
                             <constraint firstItem="mxs-lj-ChP" firstAttribute="top" secondItem="dDG-qA-kaN" secondAttribute="bottom" constant="11" id="4Fw-0B-UwC"/>
                             <constraint firstItem="GsS-jO-scK" firstAttribute="top" secondItem="vt6-b1-U0h" secondAttribute="bottom" constant="1" id="4cH-4W-5qo"/>
@@ -255,9 +261,9 @@
                             <constraint firstItem="vt6-b1-U0h" firstAttribute="top" secondItem="ucg-0s-c50" secondAttribute="bottom" constant="8" id="Kgr-uw-g1y"/>
                             <constraint firstItem="Rab-I8-2aU" firstAttribute="trailing" secondItem="Ucg-Ag-VpP" secondAttribute="trailingMargin" id="PhW-Vk-nlO"/>
                             <constraint firstItem="u8X-Wb-Od3" firstAttribute="top" secondItem="Wim-fT-xNl" secondAttribute="bottom" constant="16" id="RFW-ZE-Wxe"/>
+                            <constraint firstItem="GsS-jO-scK" firstAttribute="top" secondItem="Ucg-Ag-VpP" secondAttribute="topMargin" constant="216" id="Rpu-kq-6Rz"/>
                             <constraint firstItem="Wim-fT-xNl" firstAttribute="centerX" secondItem="Ucg-Ag-VpP" secondAttribute="centerX" constant="-77.5" id="Sd1-7h-RwK"/>
                             <constraint firstItem="Wim-fT-xNl" firstAttribute="top" secondItem="NJh-8E-4En" secondAttribute="bottom" constant="4" id="TXS-dN-R68"/>
-                            <constraint firstItem="GsS-jO-scK" firstAttribute="centerX" secondItem="Ucg-Ag-VpP" secondAttribute="centerX" constant="68.5" id="X1E-KN-W31"/>
                             <constraint firstItem="NJh-8E-4En" firstAttribute="centerX" secondItem="Ucg-Ag-VpP" secondAttribute="centerX" constant="-79.5" id="Xqj-5G-gWd"/>
                             <constraint firstItem="w6h-ic-qpa" firstAttribute="top" secondItem="SjL-dx-Zsi" secondAttribute="bottom" constant="8" id="YmL-M2-lGN"/>
                             <constraint firstItem="Exq-MB-zeu" firstAttribute="top" secondItem="Rab-I8-2aU" secondAttribute="bottom" constant="26" id="aLQ-Gz-cjx"/>

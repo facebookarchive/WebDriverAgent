@@ -175,7 +175,6 @@
     FBClassChain result = [FBClassChainQueryParser parseQuery:invalidQuery error:&error];
     XCTAssertNil(result);
     XCTAssertNotNil(error);
-    NSLog(@"%@", error.localizedDescription);
   }
 }
 

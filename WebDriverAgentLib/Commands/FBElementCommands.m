@@ -384,7 +384,7 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
   NSString* order = [request.arguments[@"order"] lowercaseString];
   CGFloat offset = DEFAULT_OFFSET;
   if (request.arguments[@"offset"]) {
-    offset = [request.arguments[@"offset"] doubleValue];
+    offset = (CGFloat)[request.arguments[@"offset"] doubleValue];
     if (offset <= 0.0 || offset > 0.5) {
       return FBResponseWithErrorFormat(@"'offset' value is expected to be in range (0.0, 0.5]. '%@' was given instead", request.arguments[@"offset"]);
     }

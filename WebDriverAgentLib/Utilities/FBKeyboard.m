@@ -28,18 +28,17 @@
   if (![FBKeyboard waitUntilVisibleWithError:error]) {
     return NO;
   }
-
-  NSUInteger maxTypingFrequency = [FBConfiguration maxTypingFrequency];
-  [FBLogger logFmt:@"Typing with maximum frequency %lu", (unsigned long)maxTypingFrequency];
-
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    [[FBXCTestDaemonsProxy testRunnerProxy] _XCT_sendString:text maximumFrequency:maxTypingFrequency completion:^(NSError *typingError){
-      didSucceed = (typingError == nil);
-      innerError = typingError;
-      completion();
-    }];
+    [[FBXCTestDaemonsProxy testRunnerProxy]
+     _XCT_sendString:text
+     maximumFrequency:[FBConfiguration maxTypingFrequency]
+     completion:^(NSError *typingError){
+       didSucceed = (typingError == nil);
+       innerError = typingError;
+       completion();
+     }];
   }];
   if (error) {
     *error = innerError;
