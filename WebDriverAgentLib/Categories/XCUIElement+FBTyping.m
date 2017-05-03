@@ -11,16 +11,23 @@
 
 #import "FBKeyboard.h"
 #import "XCUIElement+FBTap.h"
+#import "FBLogger.h"
 
 @implementation XCUIElement (FBTyping)
 
-- (BOOL)fb_typeText:(NSString *)text error:(NSError **)error
+- (BOOL)fb_typeText:(NSString *)text simple:(bool)simple error:(NSError **)error
 {
   if (!self.hasKeyboardFocus && ![self fb_tapWithError:error]) {
     return NO;
   }
-  if (![FBKeyboard typeText:text error:error]) {
-    return NO;
+  if (simple) {
+    [self typeText:text];
+    [FBLogger logFmt:@"Typing text using simple method"];
+  } else {
+    if (![FBKeyboard typeText:text error:error]) {
+      [FBLogger logFmt:@"Typing text using complex method"];
+      return NO;
+    }
   }
   return YES;
 }
@@ -30,9 +37,9 @@
   NSMutableString *textToType = @"".mutableCopy;
   const NSUInteger textLength = [self.value length];
   for (NSUInteger i = 0 ; i < textLength ; i++) {
-    [textToType appendString:@"\b"];
+    [textToType appendString:@"\b\b"];
   }
-  if (![self fb_typeText:textToType error:error]) {
+  if (![self fb_typeText:textToType simple:YES error:error]) {
     return NO;
   }
   return YES;

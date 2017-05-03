@@ -163,8 +163,9 @@
     [element adjustToNormalizedSliderPosition:sliderValue];
     return FBResponseWithOK();
   }
+  bool simple = request.parameters[@"simple"];
   NSError *error = nil;
-  if (![element fb_typeText:textToType error:&error]) {
+  if (![element fb_typeText:textToType simple:simple error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithElementUUID(elementUUID);
