@@ -11,6 +11,7 @@
 
 #import "FBApplication.h"
 #import "FBConfiguration.h"
+#import "FBLogger.h"
 #import "FBMathUtils.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCTestPrivateSymbols.h"
@@ -43,8 +44,17 @@
   CGSize screenSize = FBAdjustDimensionsForApplication(app.frame.size, (UIInterfaceOrientation)[XCUIDevice sharedDevice].orientation);
   CGRect screenFrame = CGRectMake(0, 0, screenSize.width, screenSize.height);
   BOOL rectIntersects = CGRectIntersectsRect(self.visibleFrame, screenFrame);
-  BOOL isActionable = CGRectContainsPoint(app.frame, self.hitPoint);
-  return rectIntersects && isActionable;
+  @try {
+    BOOL isActionable = CGRectContainsPoint(app.frame, self.hitPoint);
+    return rectIntersects && isActionable;
+  } @catch (NSException *e) {
+    if ([e.reason containsString:@"attempt to insert nil object"]) {
+      // This is to workaround a crash due known XCTest issue https://github.com/facebook/WebDriverAgent/issues/542
+      [FBLogger logFmt:@"Forcing visibility value of '%@' to NO because of '%@'", self.debugDescription, e.reason];
+      return NO;
+    }
+    @throw e;
+  }
 }
 
 @end
