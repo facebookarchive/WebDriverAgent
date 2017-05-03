@@ -327,14 +327,26 @@
 + (id<FBResponsePayload>)handleTap:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  CGPoint tapPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
-  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+  NSNumber *xNumber = request.arguments[@"x"];
+  NSNumber *yNumber = request.arguments[@"y"];
+  CGPoint tapPoint = CGPointMake((CGFloat)[xNumber doubleValue], (CGFloat)[yNumber doubleValue]);
+  NSString *uuid = request.parameters[@"uuid"];
+  XCUIElement *element = [elementCache elementForUUID:uuid];
   if (nil == element) {
+    if (xNumber == nil || yNumber == nil) {
+      return FBResponseWithErrorFormat(@"Could neither find element with 'uuid' %@, nor were 'x' and 'y' parameters provided", uuid);
+    }
     XCUICoordinate *tapCoordinate = [self.class gestureCoordinateWithCoordinate:tapPoint application:request.session.application shouldApplyOrientationWorkaround:YES];
     [tapCoordinate tap];
   } else {
     NSError *error;
-    if (![element fb_tapCoordinate:tapPoint error:&error]) {
+    BOOL didSucceed;
+    if (xNumber != nil && yNumber != nil) {
+      didSucceed = [element fb_tapCoordinate:tapPoint error:&error];
+    } else {
+      didSucceed = [element fb_tapWithError:&error];
+    }
+    if (!didSucceed) {
       return FBResponseWithError(error);
     }
   }
