@@ -16,32 +16,34 @@
 #import "XCUIElement+FBUtilities.h"
 #import "XCEventGenerator.h"
 #import "XCSynthesizedEventRecord.h"
+#import "XCElementSnapshot+FBHitPoint.h"
 
 @implementation XCUIElement (FBTap)
 
 - (BOOL)fb_tapWithError:(NSError **)error
 {
-  NSValue *hitpointValue = self.lastSnapshot.suggestedHitpoints.firstObject;
-  CGPoint hitPoint = hitpointValue ? hitpointValue.CGPointValue : [self coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)].screenPoint;
-  hitPoint.x -= self.frame.origin.x;
-  hitPoint.y -= self.frame.origin.y;
-  return [self fb_tapCoordinate:hitPoint error:error];
+  return [self fb_performTapAtPoint:self.fb_lastSnapshot.fb_hitPoint error:error];
 }
 
 - (BOOL)fb_tapCoordinate:(CGPoint)relativeCoordinate error:(NSError **)error
 {
+  CGPoint hitPoint = CGPointMake(self.frame.origin.x + relativeCoordinate.x, self.frame.origin.y + relativeCoordinate.y);
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+    /*
+     Since iOS 10.0 XCTest has a bug when it always returns portrait coordinates for UI elements
+     even if the device is not in portait mode. That is why we need to recalculate them manually
+     based on the current orientation value
+     */
+    hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
+  }
+  return [self fb_performTapAtPoint:hitPoint error:error];
+}
+
+- (BOOL)fb_performTapAtPoint:(CGPoint)hitPoint error:(NSError *__autoreleasing*)error
+{
   [self fb_waitUntilFrameIsStable];
   __block BOOL didSucceed;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    CGPoint hitPoint = CGPointMake(self.frame.origin.x + relativeCoordinate.x, self.frame.origin.y + relativeCoordinate.y);
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
-      /*
-       Since iOS 10.0 XCTest has a bug when it always returns portrait coordinates for UI elements
-       even if the device is not in portait mode. That is why we need to recalculate them manually
-       based on the current orientation value
-       */
-      hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
-    }
     XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
       if (commandError) {
         [FBLogger logFmt:@"Failed to perform tap: %@", commandError];

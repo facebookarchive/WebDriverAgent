@@ -56,6 +56,9 @@
 		ADDA07241D6BB2BF001700AC /* FBScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDA07231D6BB2BF001700AC /* FBScrollViewController.m */; };
 		ADEF63AD1D09DCCF0070A7E3 /* FBXPathCreatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */; };
 		ADEF63AF1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEF63AE1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m */; };
+		EE006EB01EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = EE006EAE1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.h */; };
+		EE006EB11EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = EE006EAF1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.m */; };
+		EE006EB31EBA1C7B006900A4 /* XCElementSnapshotHitPointTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE006EB21EBA1C7B006900A4 /* XCElementSnapshotHitPointTests.m */; };
 		EE05BAFA1D13003C00A3EB00 /* FBKeyboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05BAF91D13003C00A3EB00 /* FBKeyboardTests.m */; };
 		EE158AAE1CBD456F00A3E3F0 /* XCUIElement+FBAccessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7451CAEDF0C008C271F /* XCUIElement+FBAccessibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158AAF1CBD456F00A3E3F0 /* XCUIElement+FBAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7461CAEDF0C008C271F /* XCUIElement+FBAccessibility.m */; };
@@ -399,6 +402,9 @@
 		ADDA07231D6BB2BF001700AC /* FBScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBScrollViewController.m; sourceTree = "<group>"; };
 		ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathCreatorTests.m; sourceTree = "<group>"; };
 		ADEF63AE1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRuntimeUtilsTests.m; sourceTree = "<group>"; };
+		EE006EAE1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCElementSnapshot+FBHitPoint.h"; sourceTree = "<group>"; };
+		EE006EAF1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCElementSnapshot+FBHitPoint.m"; sourceTree = "<group>"; };
+		EE006EB21EBA1C7B006900A4 /* XCElementSnapshotHitPointTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCElementSnapshotHitPointTests.m; sourceTree = "<group>"; };
 		EE05BAF91D13003C00A3EB00 /* FBKeyboardTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKeyboardTests.m; sourceTree = "<group>"; };
 		EE158A991CBD452B00A3E3F0 /* WebDriverAgentLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WebDriverAgentLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE158B5D1CBD479000A3E3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = WebDriverAgentLib/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -799,6 +805,8 @@
 				716E0BCD1E917E810087A825 /* NSString+FBXMLSafeString.m */,
 				EEE3763B1D59F81400ED88DD /* XCElementSnapshot+FBHelpers.h */,
 				EEE3763C1D59F81400ED88DD /* XCElementSnapshot+FBHelpers.m */,
+				EE006EAE1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.h */,
+				EE006EAF1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.m */,
 				AD6C269A1CF2494200F8B5FF /* XCUIApplication+FBHelpers.h */,
 				AD6C269B1CF2494200F8B5FF /* XCUIApplication+FBHelpers.m */,
 				EEDFE11F1D9C06F800E6FFE5 /* XCUIDevice+FBHealthCheck.h */,
@@ -979,13 +987,14 @@
 				AD76723F1D6B826F00610457 /* FBTypingTest.m */,
 				714CA3C61DC23186000F12C9 /* FBXPathIntegrationTests.m */,
 				EEBBDB9A1D1032F0000738CD /* XCElementSnapshotHelperTests.m */,
+				EE006EB21EBA1C7B006900A4 /* XCElementSnapshotHitPointTests.m */,
 				EE1E06E31D18213F007CF043 /* XCUIApplicationHelperTests.m */,
 				EEDFE1231D9C08C700E6FFE5 /* XCUIDeviceHealthCheckTests.m */,
 				EE1E06DF1D181BB4007CF043 /* XCUIDeviceHelperTests.m */,
 				44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */,
+				71E504941DF59BAD0020C32A /* XCUIElementAttributesTests.m */,
 				EEBBD48D1D4785FC00656A81 /* XCUIElementFBFindTests.m */,
 				EE1E06E11D181CC9007CF043 /* XCUIElementHelperIntegrationTests.m */,
-				71E504941DF59BAD0020C32A /* XCUIElementAttributesTests.m */,
 			);
 			path = IntegrationTests;
 			sourceTree = "<group>";
@@ -1326,6 +1335,7 @@
 				EE158AB81CBD456F00A3E3F0 /* FBAlertViewCommands.h in Headers */,
 				EE35AD651E3B77D600A02D78 /* XCTWaiter.h in Headers */,
 				EE35AD681E3B77D600A02D78 /* XCTWaiterManagement-Protocol.h in Headers */,
+				EE006EB01EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.h in Headers */,
 				EE35AD451E3B77D600A02D78 /* XCTestContext.h in Headers */,
 				EE35AD661E3B77D600A02D78 /* XCTWaiterDelegate-Protocol.h in Headers */,
 				EE35AD0E1E3B77D600A02D78 /* _XCTestExpectationImplementation.h in Headers */,
@@ -1624,6 +1634,7 @@
 				EE158AB31CBD456F00A3E3F0 /* XCUIElement+FBScrolling.m in Sources */,
 				EE158AC91CBD456F00A3E3F0 /* FBSessionCommands.m in Sources */,
 				EE158AC31CBD456F00A3E3F0 /* FBInspectorCommands.m in Sources */,
+				EE006EB11EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.m in Sources */,
 				EE9B76A71CF7A43900275851 /* FBConfiguration.m in Sources */,
 				EE158AD31CBD456F00A3E3F0 /* FBElementCache.m in Sources */,
 				AD6C26951CF2379700F8B5FF /* FBAlert.m in Sources */,
@@ -1690,6 +1701,7 @@
 				EE05BAFA1D13003C00A3EB00 /* FBKeyboardTests.m in Sources */,
 				EE55B3271D1D54CF003AAAEC /* FBScrollingTests.m in Sources */,
 				EE6A89371D0B35920083E92B /* FBFailureProofTestCaseTests.m in Sources */,
+				EE006EB31EBA1C7B006900A4 /* XCElementSnapshotHitPointTests.m in Sources */,
 				EE1E06E41D18213F007CF043 /* XCUIApplicationHelperTests.m in Sources */,
 				EEBBDB9B1D1032F0000738CD /* XCElementSnapshotHelperTests.m in Sources */,
 				714CA3C71DC23186000F12C9 /* FBXPathIntegrationTests.m in Sources */,
