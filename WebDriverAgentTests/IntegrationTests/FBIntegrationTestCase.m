@@ -22,6 +22,7 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
 
 @interface FBIntegrationTestCase ()
 @property (nonatomic, strong) XCUIApplication *testedApplication;
+@property (nonatomic, strong) FBSpringboardApplication *springboard;
 @end
 
 @implementation FBIntegrationTestCase
@@ -30,6 +31,7 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
 {
   [super setUp];
   self.continueAfterFailure = NO;
+  self.springboard = [FBSpringboardApplication fb_springboard];
   self.testedApplication = [XCUIApplication new];
   [self.testedApplication launch];
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Alerts"].fb_isVisible);
@@ -61,6 +63,21 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
   FBAssertWaitTillBecomesTrue([FBSpringboardApplication fb_springboard].icons[@"Safari"].exists);
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
   FBAssertWaitTillBecomesTrue([FBSpringboardApplication fb_springboard].icons[@"Calendar"].fb_isVisible);
+}
+
+- (void)goToSpringBoardExtras
+{
+  [self goToSpringBoardFirstPage];
+  [self.springboard swipeLeft];
+  FBAssertWaitTillBecomesTrue(self.springboard.icons[@"Extras"].fb_isVisible);
+}
+
+- (void)goToSpringBoardDashboard
+{
+  [self goToSpringBoardFirstPage];
+  [self.springboard swipeRight];
+  FBAssertWaitTillBecomesTrue(self.springboard.buttons[@"Edit"].fb_isVisible);
+  FBAssertWaitTillBecomesTrue(!self.springboard.icons[@"Calendar"].fb_isVisible);
 }
 
 - (void)goToScrollPageWithCells:(BOOL)showCells

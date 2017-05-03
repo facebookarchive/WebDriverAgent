@@ -9,6 +9,8 @@
 
 #import <XCTest/XCTest.h>
 
+#import "FBSpringboardApplication.h"
+
 extern NSString *const FBShowAlertButtonName;
 extern NSString *const FBShowSheetAlertButtonName;
 
@@ -17,6 +19,7 @@ extern NSString *const FBShowSheetAlertButtonName;
  */
 @interface FBIntegrationTestCase : XCTestCase
 @property (nonatomic, strong, readonly) XCUIApplication *testedApplication;
+@property (nonatomic, strong, readonly) FBSpringboardApplication *springboard;
 
 /**
  Navigates integration app to attributes page
@@ -32,6 +35,16 @@ extern NSString *const FBShowSheetAlertButtonName;
  Navigates to SpringBoard first page
  */
 - (void)goToSpringBoardFirstPage;
+
+/**
+ Navigates to SpringBoard path with Extras folder
+ */
+- (void)goToSpringBoardExtras;
+
+/**
+ Navigates to SpringBoard's dashboard
+ */
+- (void)goToSpringBoardDashboard;
 
 /**
  Navigates integration app to scrolling page

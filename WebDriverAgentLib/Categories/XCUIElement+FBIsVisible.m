@@ -15,7 +15,7 @@
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCTestPrivateSymbols.h"
 #import <XCTest/XCUIDevice.h>
-
+#import "XCElementSnapshot+FBHitPoint.h"
 
 @implementation XCUIElement (FBIsVisible)
 
@@ -43,7 +43,7 @@
   CGSize screenSize = FBAdjustDimensionsForApplication(app.frame.size, (UIInterfaceOrientation)[XCUIDevice sharedDevice].orientation);
   CGRect screenFrame = CGRectMake(0, 0, screenSize.width, screenSize.height);
   BOOL rectIntersects = CGRectIntersectsRect(self.visibleFrame, screenFrame);
-  BOOL isActionable = CGRectContainsPoint(app.frame, self.hitPoint);
+  BOOL isActionable = CGRectContainsPoint(app.frame, self.fb_hitPoint);
   return rectIntersects && isActionable;
 }
 
