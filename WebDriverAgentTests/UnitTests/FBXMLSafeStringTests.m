@@ -28,4 +28,9 @@
   XCTAssertEqualObjects([withInvalidChar fb_xmlSafeStringWithReplacement:@"1"], @"bla1");
 }
 
+- (void)testSafeXmlStringTransformationWithSmileys {
+  NSString *validString = @"Yo👿";
+  XCTAssertEqualObjects([validString fb_xmlSafeStringWithReplacement:@""], validString);
+}
+
 @end

@@ -22,6 +22,7 @@
     [invalidSet addCharactersInRange:NSMakeRange(0xD, 1)];
     [invalidSet addCharactersInRange:NSMakeRange(0x20, 0xD7FF - 0x20 + 1)];
     [invalidSet addCharactersInRange:NSMakeRange(0xE000, 0xFFFD - 0xE000 + 1)];
+    [invalidSet addCharactersInRange:NSMakeRange(0x10000, 0x10FFFF - 0x10000 + 1)];
     [invalidSet invert];
   });
   return [[self componentsSeparatedByCharactersInSet:invalidSet] componentsJoinedByString:replacement];
