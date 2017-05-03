@@ -45,14 +45,14 @@
 + (id<FBResponsePayload>)handleAlertAcceptCommand:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  NSString *name = request.parameters[@"name"];
+  NSString *name = request.arguments[@"name"];
   FBAlert *alert = [FBAlert alertWithApplication:session.application];
   NSError *error;
 
   if (!alert.isPresent) {
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
   }
-  if ([name length] != 0) {
+  if (name) {
     if (![alert clickAlertButton:name error:&error]) {
       return FBResponseWithError(error);
     }
@@ -65,14 +65,14 @@
 + (id<FBResponsePayload>)handleAlertDismissCommand:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  NSString *name = request.parameters[@"name"];
+  NSString *name = request.arguments[@"name"];
   FBAlert *alert = [FBAlert alertWithApplication:session.application];
   NSError *error;
     
   if (!alert.isPresent) {
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
   }
-  if ([name length] != 0) {
+  if (name) {
     if (![alert clickAlertButton:name error:&error]) {
       return FBResponseWithError(error);
     }
