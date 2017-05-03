@@ -17,19 +17,20 @@ class Http {
     });
     ajax.on('success', event => {
       var response = JSON.parse(event.target.responseText);
-      callback(response.value);
+      callback(response);
     });
     ajax.send();
   }
 
-  static post(path, callback) {
+  static post(path, data, callback) {
     const ajax = new Ajax({
       url: path,
       method: 'POST',
+      data: data,
     });
     ajax.on('success', event => {
       var response = JSON.parse(event.target.responseText);
-      callback(response.value);
+      callback(response);
     });
     ajax.send();
   }
