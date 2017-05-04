@@ -15,6 +15,6 @@ branches:
 
 env:
 - TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION=test DESTINATION='iPad Air 2' IOS='10.3'
-- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION=test DESTINATION='iPhone 6s' IOS='10.3'
+- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION=test DESTINATION='iPhone 6s (10.3) + Apple Watch - 38mm' IOS='10.3'
 - TARGET=WebDriverAgentRunner SDK=iphonesimulator ACTION=build
 - TARGET=WebDriverAgentRunner SDK=iphoneos ACTION=build
