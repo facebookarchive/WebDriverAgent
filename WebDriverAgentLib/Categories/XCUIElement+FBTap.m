@@ -20,7 +20,7 @@
 #import "XCPointerEventPath.h"
 #import "XCTRunnerDaemonSession.h"
 
-const double FBTapDuration = 0.01;
+const CGFloat FBTapDuration = 0.01f;
 
 @implementation XCUIElement (FBTap)
 

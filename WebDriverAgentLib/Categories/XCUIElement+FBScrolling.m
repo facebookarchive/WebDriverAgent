@@ -273,7 +273,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
     return YES;
   }
 
-  double offset = 0.3; // Waiting before scrolling helps to make it more stable
+  CGFloat offset = 0.3f; // Waiting before scrolling helps to make it more stable
   double scrollingTime = MAX(fabs(vector.dx), fabs(vector.dy))/FBScrollVelocity;
   XCPointerEventPath *touchPath = [[XCPointerEventPath alloc] initForTouchAtPoint:startCoordinate.screenPoint offset:offset];
   offset += MAX(scrollingTime, FBMinimumTouchEventDelay); // Setting Minimum scrolling time to avoid testmanager complaining about timing
