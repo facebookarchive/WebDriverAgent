@@ -56,6 +56,8 @@
 		EE006EB01EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = EE006EAE1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.h */; };
 		EE006EB11EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = EE006EAF1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.m */; };
 		EE05BAFA1D13003C00A3EB00 /* FBKeyboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05BAF91D13003C00A3EB00 /* FBKeyboardTests.m */; };
+		EE0D1F611EBCDCF7006A3123 /* NSString+FBVisualLength.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0D1F5F1EBCDCF7006A3123 /* NSString+FBVisualLength.h */; };
+		EE0D1F621EBCDCF7006A3123 /* NSString+FBVisualLength.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0D1F601EBCDCF7006A3123 /* NSString+FBVisualLength.m */; };
 		EE158AAE1CBD456F00A3E3F0 /* XCUIElement+FBAccessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7451CAEDF0C008C271F /* XCUIElement+FBAccessibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158AAF1CBD456F00A3E3F0 /* XCUIElement+FBAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7461CAEDF0C008C271F /* XCUIElement+FBAccessibility.m */; };
 		EE158AB01CBD456F00A3E3F0 /* XCUIElement+FBIsVisible.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7471CAEDF0C008C271F /* XCUIElement+FBIsVisible.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -425,6 +427,8 @@
 		EE006EAF1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCElementSnapshot+FBHitPoint.m"; sourceTree = "<group>"; };
 		EE006EB21EBA1C7B006900A4 /* XCElementSnapshotHitPointTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCElementSnapshotHitPointTests.m; sourceTree = "<group>"; };
 		EE05BAF91D13003C00A3EB00 /* FBKeyboardTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKeyboardTests.m; sourceTree = "<group>"; };
+		EE0D1F5F1EBCDCF7006A3123 /* NSString+FBVisualLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FBVisualLength.h"; sourceTree = "<group>"; };
+		EE0D1F601EBCDCF7006A3123 /* NSString+FBVisualLength.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FBVisualLength.m"; sourceTree = "<group>"; };
 		EE158A991CBD452B00A3E3F0 /* WebDriverAgentLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WebDriverAgentLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE158B5D1CBD479000A3E3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = WebDriverAgentLib/Info.plist; sourceTree = SOURCE_ROOT; };
 		EE158B5E1CBD47A000A3E3F0 /* WebDriverAgentLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebDriverAgentLib.h; path = WebDriverAgentLib/WebDriverAgentLib.h; sourceTree = SOURCE_ROOT; };
@@ -831,6 +835,8 @@
 				71555A3C1DEC460A007D4A8B /* NSExpression+FBFormat.m */,
 				71A224E31DE2F56600844D55 /* NSPredicate+FBFormat.h */,
 				71A224E41DE2F56600844D55 /* NSPredicate+FBFormat.m */,
+				EE0D1F5F1EBCDCF7006A3123 /* NSString+FBVisualLength.h */,
+				EE0D1F601EBCDCF7006A3123 /* NSString+FBVisualLength.m */,
 				716E0BCC1E917E810087A825 /* NSString+FBXMLSafeString.h */,
 				716E0BCD1E917E810087A825 /* NSString+FBXMLSafeString.m */,
 				EEE3763B1D59F81400ED88DD /* XCElementSnapshot+FBHelpers.h */,
@@ -1289,6 +1295,7 @@
 				EE158AE61CBD456F00A3E3F0 /* FBWebServer.h in Headers */,
 				EE158AC61CBD456F00A3E3F0 /* FBScreenshotCommands.h in Headers */,
 				EE35AD0A1E3B77D600A02D78 /* _XCKVOExpectationImplementation.h in Headers */,
+				EE0D1F611EBCDCF7006A3123 /* NSString+FBVisualLength.h in Headers */,
 				EE35AD7B1E3B80C000A02D78 /* FBXCTestDaemonsProxy.h in Headers */,
 				EE35AD721E3B77D600A02D78 /* XCUIElementHitPointCoordinate.h in Headers */,
 				EE35AD3F1E3B77D600A02D78 /* XCTDarwinNotificationExpectation.h in Headers */,
@@ -1661,6 +1668,7 @@
 				EEBBD48C1D47746D00656A81 /* XCUIElement+FBFind.m in Sources */,
 				EE158ADD1CBD456F00A3E3F0 /* FBResponsePayload.m in Sources */,
 				EE158ADF1CBD456F00A3E3F0 /* FBRoute.m in Sources */,
+				EE0D1F621EBCDCF7006A3123 /* NSString+FBVisualLength.m in Sources */,
 				EEE9B4731CD02B88009D2030 /* FBRunLoopSpinner.m in Sources */,
 				71A7EAFA1E224648001DA4F2 /* FBClassChainQueryParser.m in Sources */,
 				71A224E61DE2F56600844D55 /* NSPredicate+FBFormat.m in Sources */,
