@@ -43,8 +43,18 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EE9B75EB1CF7956C00275851"
-               BuildableName = "IntegrationTests.xctest"
-               BlueprintName = "IntegrationTests"
+               BuildableName = "IntegrationTests_1.xctest"
+               BlueprintName = "IntegrationTests_1"
+               ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EE5095DD1EBCC9090028E2FE"
+               BuildableName = "IntegrationTests_2.xctest"
+               BlueprintName = "IntegrationTests_2"
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
             </BuildableReference>
          </TestableReference>
