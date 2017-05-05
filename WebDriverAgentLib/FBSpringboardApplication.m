@@ -61,7 +61,7 @@
            timeout:1]
           timeoutErrorMessage:errorDescription]
          spinUntilTrue:^BOOL{
-           return floor(appElement.frame.origin.x) != floor(startXOffset);
+           return fabs(appElement.frame.origin.x - startXOffset) > FLT_EPSILON;
          }
          error:error];
       if (!isSwipeSuccessful) {
