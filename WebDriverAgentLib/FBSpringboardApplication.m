@@ -10,6 +10,7 @@
 #import "FBSpringboardApplication.h"
 
 #import "FBErrorBuilder.h"
+#import "FBMathUtils.h"
 #import "FBRunLoopSpinner.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCElementSnapshot.h"
@@ -47,8 +48,8 @@
   // Select the most recent installed application if there are multiple matches
   XCUIElement *appElement = [matchedAppElements lastObject];
   if (!appElement.fb_isVisible) {
-    CGFloat startXOffset = appElement.frame.origin.x;
-    BOOL shouldSwipeToTheRight = startXOffset < 0;
+    CGRect startFrame = appElement.frame;
+    BOOL shouldSwipeToTheRight = startFrame.origin.x < 0;
     NSString *errorDescription = [NSString stringWithFormat:@"Cannot scroll to Springboard icon for '%@' application", identifier];
     do {
       if (shouldSwipeToTheRight) {
@@ -61,7 +62,7 @@
            timeout:1]
           timeoutErrorMessage:errorDescription]
          spinUntilTrue:^BOOL{
-           return fabs(appElement.frame.origin.x - startXOffset) > FLT_EPSILON;
+           return !FBRectFuzzyEqualToRect(startFrame, appElement.frame, FBDefaultFrameFuzzyThreshold);
          }
          error:error];
       if (!isSwipeSuccessful) {
