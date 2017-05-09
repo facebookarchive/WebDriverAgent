@@ -11,6 +11,7 @@
 
 #import "FBErrorBuilder.h"
 #import "FBKeyboard.h"
+#import "NSString+FBVisualLength.h"
 #import "XCUIElement+FBTap.h"
 
 @implementation XCUIElement (FBTyping)
@@ -29,16 +30,16 @@
 
 - (BOOL)fb_clearTextWithError:(NSError **)error
 {
-  while ([self.value length] > 0) {
+  while ([self.value fb_visualLength] > 0) {
     NSMutableString *textToType = @"".mutableCopy;
-    const NSUInteger textLength = [self.value length];
+    const NSUInteger textLength = [self.value fb_visualLength];
     for (NSUInteger i = 0 ; i < textLength ; i++) {
       [textToType appendString:@"\b"];
     }
     if (![self fb_typeText:textToType error:error]) {
       return NO;
     }
-    if ([self.value length] >= textLength) {
+    if ([self.value fb_visualLength] >= textLength) {
       return [[[FBErrorBuilder builder]
        withDescription:@"Failed to make any progress while clearing text"]
        buildError:error];

@@ -5,11 +5,12 @@
 //
 
 #import "XCTestManager_TestsInterface-Protocol.h"
+#import "XCEventGenerator.h"
 #import <WebDriverAgentLib/CDStructures.h>
 #import <UIKit/UIKit.h>
 
-@class NSMutableDictionary, NSXPCConnection;
-@protocol XCTUIApplicationMonitor, XCTAXClient;
+@class NSMutableDictionary, NSXPCConnection, XCSynthesizedEventRecord;
+@protocol XCTUIApplicationMonitor, XCTAXClient, XCTestManager_ManagerInterface;
 
 // iOS since 10.3
 @interface XCTRunnerDaemonSession : NSObject <XCTestManager_TestsInterface>
@@ -44,7 +45,7 @@
 - (void)sendString:(id)arg1 maximumFrequency:(unsigned long long)arg2 completion:(CDUnknownBlockType)arg3;
 - (void)updateDeviceOrientation:(long long)arg1 completion:(CDUnknownBlockType)arg2;
 - (void)performDeviceEvent:(id)arg1 completion:(CDUnknownBlockType)arg2;
-- (void)synthesizeEvent:(id)arg1 completion:(CDUnknownBlockType)arg2;
+- (void)synthesizeEvent:(XCSynthesizedEventRecord *)arg1 completion:(void (^)(NSError *))arg2;
 - (void)requestElementAtPoint:(CGPoint)arg1 reply:(CDUnknownBlockType)arg2;
 - (void)fetchParameterizedAttributeForElement:(id)arg1 attribute:(id)arg2 parameter:(id)arg3 reply:(CDUnknownBlockType)arg4;
 - (void)setAttribute:(id)arg1 value:(id)arg2 element:(id)arg3 reply:(CDUnknownBlockType)arg4;

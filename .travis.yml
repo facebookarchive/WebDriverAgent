@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode8.1
+osx_image: xcode8.3
 sudo: false
 
 cache:
@@ -14,7 +14,17 @@ branches:
     - master
 
 env:
-- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION=test DESTINATION='iPad Air 2' IOS='10.1'
-- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION=test DESTINATION='iPhone SE' IOS='10.1'
+#Builds
 - TARGET=WebDriverAgentRunner SDK=iphonesimulator ACTION=build
 - TARGET=WebDriverAgentRunner SDK=iphoneos ACTION=build
+
+# Unit tests
+- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:UnitTests' DESTINATION='iPhone SE' IOS='10.3'
+
+# Integration tests iPhone
+- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_1' DESTINATION='iPhone SE' IOS='10.3'
+- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_2' DESTINATION='iPhone SE' IOS='10.3'
+
+# Integration tests iPad
+- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_1' DESTINATION='iPad Air 2' IOS='10.3'
+- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_2' DESTINATION='iPad Air 2' IOS='10.3'
