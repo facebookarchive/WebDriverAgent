@@ -17,8 +17,6 @@
 #import "XCEventGenerator.h"
 #import "XCSynthesizedEventRecord.h"
 #import "XCElementSnapshot+FBHitPoint.h"
-#import "XCPointerEventPath.h"
-#import "XCTRunnerDaemonSession.h"
 
 const CGFloat FBTapDuration = 0.01f;
 
@@ -59,27 +57,15 @@ const CGFloat FBTapDuration = 0.01f;
       completion();
     };
 
-    XCSynthesizedEventRecord *event = [self fb_generateTapEvent:hitPoint orientation:self.interfaceOrientation];
-    [[XCTRunnerDaemonSession sharedSession] synthesizeEvent:event completion:^(NSError *invokeError){
-      handlerBlock(event, invokeError);
-    }];
+    // Xcode 10.2 and below
+    XCEventGenerator *eventGenerator = [XCEventGenerator sharedGenerator];
+    if ([eventGenerator respondsToSelector:@selector(tapAtTouchLocations:numberOfTaps:orientation:handler:)]) {
+      [eventGenerator tapAtTouchLocations:@[[NSValue valueWithCGPoint:hitPoint]] numberOfTaps:1 orientation:self.interfaceOrientation handler:handlerBlock];
+    } else {
+      [eventGenerator tapAtPoint:hitPoint orientation:self.interfaceOrientation handler:handlerBlock];
+    }
   }];
   return didSucceed;
-}
-
-- (XCSynthesizedEventRecord *)fb_generateTapEvent:(CGPoint)hitPoint orientation:(UIInterfaceOrientation)orientation
-{
-  XCPointerEventPath *eventPath = [[XCPointerEventPath alloc] initForTouchAtPoint:hitPoint offset:0.0];
-  [eventPath liftUpAtOffset:FBTapDuration];
-  if (![XCTRunnerDaemonSession sharedSession].useLegacyEventCoordinateTransformationPath) {
-    orientation = UIInterfaceOrientationPortrait;
-  }
-  XCSynthesizedEventRecord *event =
-  [[XCSynthesizedEventRecord alloc]
-   initWithName:[NSString stringWithFormat:@"Tap on %@", NSStringFromCGPoint(hitPoint)]
-   interfaceOrientation:orientation];
-  [event addPointerEventPath:eventPath];
-  return event;
 }
 
 @end
