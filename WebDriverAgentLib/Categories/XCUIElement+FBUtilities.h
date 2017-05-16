@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return YES if wait succeeded ortherwise NO if there is still some active animation in progress
 */
-- (BOOL)waitUntilSnapshotIsStable;
+- (BOOL)fb_waitUntilSnapshotIsStable;
 
 @end
 

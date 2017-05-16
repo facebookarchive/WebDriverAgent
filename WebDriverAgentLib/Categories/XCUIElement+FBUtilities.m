@@ -105,7 +105,7 @@ const NSTimeInterval ANIMATION_TIMEOUT = 5.0;
   return matchingElements.copy;
 }
 
-- (BOOL)waitUntilSnapshotIsStable
+- (BOOL)fb_waitUntilSnapshotIsStable
 {
   dispatch_semaphore_t sem = dispatch_semaphore_create(0);
   [[XCAXClient_iOS sharedClient] notifyWhenNoAnimationsAreActiveForApplication:self.application reply:^{dispatch_semaphore_signal(sem);}];

@@ -40,10 +40,10 @@
   NSString *sourceType = request.parameters[@"format"];
   id result;
   if (!sourceType || [sourceType caseInsensitiveCompare:@"xml"] == NSOrderedSame) {
-    [application waitUntilSnapshotIsStable];
+    [application fb_waitUntilSnapshotIsStable];
     result = [FBXPath xmlStringWithSnapshot:application.lastSnapshot];
   } else if ([sourceType caseInsensitiveCompare:@"json"] == NSOrderedSame) {
-    [application waitUntilSnapshotIsStable];
+    [application fb_waitUntilSnapshotIsStable];
     result = application.fb_tree;
   } else {
     return FBResponseWithStatus(
