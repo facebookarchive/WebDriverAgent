@@ -71,8 +71,7 @@
 {
   [self resolve];
   XCElementSnapshot *mainWindow = self.fb_mainWindowSnapshot;
-  // During application switch 'SBSwitcherWindow' becomes a main window, so we should wait till it is gone
-  return mainWindow.fb_isVisible && !self.windows[@"SBSwitcherWindow"].exists;
+  return mainWindow.fb_isVisible && self.otherElements[@"Dock"].fb_isVisible;
 }
 
 @end
