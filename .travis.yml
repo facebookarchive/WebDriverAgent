@@ -24,7 +24,9 @@ env:
 # Integration tests iPhone
 - TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_1' DESTINATION='iPhone SE' IOS='10.3'
 - TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_2' DESTINATION='iPhone SE' IOS='10.3'
+- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_3' DESTINATION='iPhone SE' IOS='10.3'
 
 # Integration tests iPad
 - TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_1' DESTINATION='iPad Air 2' IOS='10.3'
 - TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_2' DESTINATION='iPad Air 2' IOS='10.3'
+- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_3' DESTINATION='iPad Air 2' IOS='10.3'
