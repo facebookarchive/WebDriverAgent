@@ -22,6 +22,8 @@ CLANG_WARN_BOOL_CONVERSION = YES
 CLANG_WARN_CONSTANT_CONVERSION = YES
 CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES
 
+RUN_CLANG_STATIC_ANALYZER = YES
+
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited)
 
 WARNING_CFLAGS = $(inherited) -Weverything -Wno-objc-missing-property-synthesis -Wno-unused-macros -Wno-disabled-macro-expansion -Wno-gnu-statement-expression -Wno-language-extension-token -Wno-overriding-method-mismatch -Wno-missing-variable-declarations -Rno-module-build -Wno-auto-import -Wno-objc-interface-ivars -Wno-documentation-unknown-command -Wno-reserved-id-macro -Wno-unused-parameter -Wno-gnu-conditional-omitted-operand -Wno-explicit-ownership-type -Wno-date-time -Wno-cast-align -Wno-cstring-format-directive -Wno-double-promotion -Wno-partial-availability
