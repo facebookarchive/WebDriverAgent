@@ -18,7 +18,7 @@
 
 @implementation XCUIElement (FBUtilities)
 
-const NSTimeInterval ANIMATION_TIMEOUT = 5.0;
+static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
 
 - (BOOL)fb_waitUntilFrameIsStable
 {
@@ -109,10 +109,10 @@ const NSTimeInterval ANIMATION_TIMEOUT = 5.0;
 {
   dispatch_semaphore_t sem = dispatch_semaphore_create(0);
   [[XCAXClient_iOS sharedClient] notifyWhenNoAnimationsAreActiveForApplication:self.application reply:^{dispatch_semaphore_signal(sem);}];
-  dispatch_time_t timeout = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(ANIMATION_TIMEOUT * NSEC_PER_SEC));
+  dispatch_time_t timeout = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FBANIMATION_TIMEOUT * NSEC_PER_SEC));
   BOOL result = 0 == dispatch_semaphore_wait(sem, timeout);
   if (!result) {
-    [FBLogger logFmt:@"There are still some active animations in progress after %.2f seconds timeout. Visibility detection may cause unexpected delays.", ANIMATION_TIMEOUT];
+    [FBLogger logFmt:@"There are still some active animations in progress after %.2f seconds timeout. Visibility detection may cause unexpected delays.", FBANIMATION_TIMEOUT];
   }
   return result;
 }
