@@ -56,17 +56,6 @@
   }
 }
 
-- (void)testWindows
-{
-  [self goToSpringBoardDashboard];
-  XCTAssertTrue(self.springboard.windows.allElementsBoundByIndex[0].fb_isVisible); //Main window
-  XCTAssertFalse(self.springboard.windows.allElementsBoundByIndex[1].fb_isVisible); //Unknown window
-  XCTAssertFalse(self.springboard.windows.allElementsBoundByIndex[2].fb_isVisible); //App list
-  XCTAssertFalse(self.springboard.windows.allElementsBoundByIndex[3].fb_isVisible); //Unknown window
-  XCTAssertTrue(self.springboard.windows.allElementsBoundByIndex[4].fb_isVisible); //Status window
-}
-
-
 - (void)testIconsFromSearchDashboard
 {
   [self goToSpringBoardDashboard];
