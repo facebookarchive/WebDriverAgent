@@ -280,7 +280,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   for (NSUInteger i = 0; i < [children count]; i++) {
     XCElementSnapshot *childSnapshot = children[i];
     NSString *newIndexPath = (indexPath != nil) ? [indexPath stringByAppendingFormat:@",%lu", (unsigned long)i] : nil;
-    if (nil != elementStore) {
+    if (elementStore != nil && newIndexPath != nil) {
       elementStore[newIndexPath] = childSnapshot;
     }
     rc = [self generateXMLPresentation:childSnapshot indexPath:newIndexPath elementStore:elementStore writer:writer];
