@@ -22,7 +22,6 @@
 
 - (BOOL)fb_isVisible
 {
-  [self fb_waitUntilSnapshotIsStable];
   return self.fb_lastSnapshot.fb_isVisible;
 }
 
