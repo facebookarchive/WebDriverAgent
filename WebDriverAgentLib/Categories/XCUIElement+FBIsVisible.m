@@ -30,10 +30,19 @@
 @end
 
 @implementation XCElementSnapshot (FBIsVisible)
-
 - (BOOL)fb_isVisible
 {
-  if (CGRectIsEmpty(self.frame) || CGRectIsEmpty(self.visibleFrame)) {
+  return [self fb_isVisible:NO];
+}
+
+- (BOOL)fb_isVisible: (BOOL)useHeuristic
+{
+  CGRect frame = self.frame;
+  if (CGRectIsEmpty(frame)) {
+    return NO;
+  }
+  CGRect visibleFrame = useHeuristic ? frame : self.visibleFrame;
+  if (CGRectIsEmpty(visibleFrame)) {
     return NO;
   }
   if ([FBConfiguration shouldUseTestManagerForVisibilityDetection]) {
@@ -42,8 +51,8 @@
   XCElementSnapshot *app = [self _rootElement];
   CGSize screenSize = FBAdjustDimensionsForApplication(app.frame.size, (UIInterfaceOrientation)[XCUIDevice sharedDevice].orientation);
   CGRect screenFrame = CGRectMake(0, 0, screenSize.width, screenSize.height);
-  BOOL rectIntersects = CGRectIntersectsRect(self.visibleFrame, screenFrame);
-  BOOL isActionable = CGRectContainsPoint(app.frame, self.fb_hitPoint);
+  BOOL rectIntersects = CGRectIntersectsRect(visibleFrame, screenFrame);
+  BOOL isActionable = useHeuristic ? YES : CGRectContainsPoint(app.frame, self.fb_hitPoint);
   return rectIntersects && isActionable;
 }
 
