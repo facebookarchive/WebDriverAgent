@@ -224,14 +224,10 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
       return rc;
     }
   }
-  
-  NSNumber* classId = [NSNumber numberWithInt:5004];
-  NSString* className = [element.additionalAttributes objectForKey:classId];
-  
-  if (className) {
-    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "class", [self.class safeXmlStringWithString:className]);
+  if (element.wdClass) {
+    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "class", [self.class safeXmlStringWithString:element.wdClass]);
     if (rc < 0) {
-      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(class='%@'). Error code: %d", className, rc];
+      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(class='%@'). Error code: %d", element.wdClass, rc];
       return rc;
     }
   }
