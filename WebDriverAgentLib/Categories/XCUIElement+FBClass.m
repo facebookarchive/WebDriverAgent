@@ -30,7 +30,7 @@
   if([class isKindOfClass:[NSString class]]){
     return (NSString*)class;
   } else {
-    return nil;
+    return @"";
   }
 }
 
