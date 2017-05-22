@@ -11,29 +11,60 @@
 set -eu
 
 function prebootSimulator() {
-  if [ -z "${DESTINATION:-}" ]; then
+  if [ -z "${XC_DESTINATION:-}" ]; then
     return
   fi
-  xcrun instruments -t 'Blank' -l 1 -w "${DESTINATION} (${IOS})"
+  xcrun instruments -t 'Blank' -l 1 -w "${XC_DESTINATION} (${XC_IOS})"
 }
 
-function build() {
-  if [ ! -z "${DESTINATION:-}" ]; then
-    DESTINATION_CMD="-destination \"name=${DESTINATION},OS=${IOS}\""
+function define_xc_macros() {
+  XC_IOS="10.3"
+  XC_MACROS="CODE_SIGN_IDENTITY=\"\" CODE_SIGNING_REQUIRED=NO"
+
+  case "$TARGET" in
+    "lib" ) XC_TARGET="WebDriverAgentLib";;
+    "runner" ) XC_TARGET="WebDriverAgentRunner";;
+    *) echo "Unknown TARGET"; exit 1 ;;
+  esac
+
+  case "${DEST:-}" in
+    "iphone" ) XC_DESTINATION="iPhone SE";;
+    "ipad" ) XC_DESTINATION="iPad Air 2";;
+  esac
+
+  case "$ACTION" in
+    "build" ) XC_ACTION="build";;
+    "unit_test" ) XC_ACTION="test -only-testing:UnitTests";;
+    "int_test_1" ) XC_ACTION="test -only-testing:IntegrationTests_1";;
+    "int_test_2" ) XC_ACTION="test -only-testing:IntegrationTests_2";;
+    "int_test_3" ) XC_ACTION="test -only-testing:IntegrationTests_3";;
+    *) echo "Unknown ACTION"; exit 1 ;;
+  esac
+
+  case "$SDK" in
+    "sim" ) XC_SDK="iphonesimulator";;
+    "device" ) XC_SDK="iphoneos";;
+    *) echo "Unknown SDK"; exit 1 ;;
+  esac
+}
+
+function xcbuild() {
+  if [ ! -z "${XC_DESTINATION:-}" ]; then
+    XC_DESTINATION_CMD="-destination \"name=${XC_DESTINATION},OS=${XC_IOS}\""
   fi
   lines=(
     "xcodebuild"
     "-project WebDriverAgent.xcodeproj"
-    "-scheme ${TARGET=WebDriverAgentRunner}"
-    "-sdk ${SDK=iphoneos}"
-    "${DESTINATION_CMD-}"
-    "${ACTION-archive}"
-    "CODE_SIGN_IDENTITY=\"\""
-    "CODE_SIGNING_REQUIRED=NO"
+    "-scheme ${XC_TARGET}"
+    "-sdk ${XC_SDK}"
+    "${XC_DESTINATION_CMD-}"
+    "${XC_ACTION}"
+    "${XC_MACROS}"
   )
   eval "${lines[*]}" | xcpretty && exit ${PIPESTATUS[0]}
 }
 
 ./Scripts/bootstrap.sh
+define_xc_macros
 prebootSimulator
-build
+xcbuild

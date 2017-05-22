@@ -14,19 +14,20 @@ branches:
     - master
 
 env:
-#Builds
-- TARGET=WebDriverAgentRunner SDK=iphonesimulator ACTION=build
-- TARGET=WebDriverAgentRunner SDK=iphoneos ACTION=build
+# Builds
+- ACTION=build TARGET=runner SDK=sim
+- ACTION=build TARGET=runner SDK=device
 
 # Unit tests
-- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:UnitTests' DESTINATION='iPhone SE' IOS='10.3'
+- ACTION=unit_test DEST=iphone TARGET=lib SDK=sim
+- ACTION=unit_test DEST=ipad TARGET=lib SDK=sim
 
 # Integration tests iPhone
-- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_1' DESTINATION='iPhone SE' IOS='10.3'
-- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_2' DESTINATION='iPhone SE' IOS='10.3'
-- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_3' DESTINATION='iPhone SE' IOS='10.3'
+- ACTION=int_test_1 DEST=iphone TARGET=lib SDK=sim
+- ACTION=int_test_2 DEST=iphone TARGET=lib SDK=sim
+- ACTION=int_test_3 DEST=iphone TARGET=lib SDK=sim
 
 # Integration tests iPad
-- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_1' DESTINATION='iPad Air 2' IOS='10.3'
-- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_2' DESTINATION='iPad Air 2' IOS='10.3'
-- TARGET=WebDriverAgentLib SDK=iphonesimulator ACTION='test -only-testing:IntegrationTests_3' DESTINATION='iPad Air 2' IOS='10.3'
+- ACTION=int_test_1 DEST=ipad TARGET=lib SDK=sim
+- ACTION=int_test_2 DEST=ipad TARGET=lib SDK=sim
+- ACTION=int_test_3 DEST=ipad TARGET=lib SDK=sim
