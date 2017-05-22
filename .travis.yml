@@ -18,6 +18,10 @@ env:
 - ACTION=build TARGET=runner SDK=sim
 - ACTION=build TARGET=runner SDK=device
 
+# Analyze
+- ACTION=analyze TARGET=lib SDK=sim
+- ACTION=analyze TARGET=runner SDK=sim
+
 # Unit tests
 - ACTION=unit_test DEST=iphone TARGET=lib SDK=sim
 - ACTION=unit_test DEST=ipad TARGET=lib SDK=sim

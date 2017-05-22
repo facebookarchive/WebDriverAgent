@@ -34,6 +34,10 @@ function define_xc_macros() {
 
   case "$ACTION" in
     "build" ) XC_ACTION="build";;
+    "analyze" )
+      XC_ACTION="analyze"
+      XC_MACROS="${XC_MACROS} CLANG_ANALYZER_OUTPUT=plist-html CLANG_ANALYZER_OUTPUT_DIR=\"$(pwd)/clang\""
+    ;;
     "unit_test" ) XC_ACTION="test -only-testing:UnitTests";;
     "int_test_1" ) XC_ACTION="test -only-testing:IntegrationTests_1";;
     "int_test_2" ) XC_ACTION="test -only-testing:IntegrationTests_2";;
@@ -48,10 +52,21 @@ function define_xc_macros() {
   esac
 }
 
+function analyze() {
+  xcbuild
+  if [[ -z $(find clang -name "*.html") ]]; then
+    echo "Static Analyzer found no issues"
+  else
+    echo "Static Analyzer found some issues"
+    exit 1
+  fi
+}
+
 function xcbuild() {
   if [ ! -z "${XC_DESTINATION:-}" ]; then
     XC_DESTINATION_CMD="-destination \"name=${XC_DESTINATION},OS=${XC_IOS}\""
   fi
+
   lines=(
     "xcodebuild"
     "-project WebDriverAgent.xcodeproj"
@@ -66,5 +81,11 @@ function xcbuild() {
 
 ./Scripts/bootstrap.sh
 define_xc_macros
-prebootSimulator
-xcbuild
+case "$ACTION" in
+  "build" ) xcbuild ;;
+  "analyze" ) analyze ;;
+  *)
+    prebootSimulator
+    xcbuild
+  ;;
+esac
