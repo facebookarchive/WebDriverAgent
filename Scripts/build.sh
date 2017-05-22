@@ -10,15 +10,7 @@
 
 set -eu
 
-function prebootSimulator() {
-  if [ -z "${XC_DESTINATION:-}" ]; then
-    return
-  fi
-  xcrun instruments -t 'Blank' -l 1 -w "${XC_DESTINATION} (${XC_IOS})"
-}
-
 function define_xc_macros() {
-  XC_IOS="10.3"
   XC_MACROS="CODE_SIGN_IDENTITY=\"\" CODE_SIGNING_REQUIRED=NO"
 
   case "$TARGET" in
@@ -28,8 +20,8 @@ function define_xc_macros() {
   esac
 
   case "${DEST:-}" in
-    "iphone" ) XC_DESTINATION="iPhone SE";;
-    "ipad" ) XC_DESTINATION="iPad Air 2";;
+    "iphone" ) XC_DESTINATION="-destination \"name=iPhone SE,OS=10.3\"";;
+    "ipad" ) XC_DESTINATION="-destination \"name=iPad Air 2,OS=10.3\"";;
   esac
 
   case "$ACTION" in
@@ -63,16 +55,12 @@ function analyze() {
 }
 
 function xcbuild() {
-  if [ ! -z "${XC_DESTINATION:-}" ]; then
-    XC_DESTINATION_CMD="-destination \"name=${XC_DESTINATION},OS=${XC_IOS}\""
-  fi
-
   lines=(
     "xcodebuild"
     "-project WebDriverAgent.xcodeproj"
     "-scheme ${XC_TARGET}"
     "-sdk ${XC_SDK}"
-    "${XC_DESTINATION_CMD-}"
+    "${XC_DESTINATION-}"
     "${XC_ACTION}"
     "${XC_MACROS}"
   )
@@ -82,10 +70,6 @@ function xcbuild() {
 ./Scripts/bootstrap.sh
 define_xc_macros
 case "$ACTION" in
-  "build" ) xcbuild ;;
   "analyze" ) analyze ;;
-  *)
-    prebootSimulator
-    xcbuild
-  ;;
+  *) xcbuild ;;
 esac
