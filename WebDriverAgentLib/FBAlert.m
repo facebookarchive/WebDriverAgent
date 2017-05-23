@@ -93,17 +93,16 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
     return nil;
   }
   NSArray<XCUIElement *> *staticTextList = [alert descendantsMatchingType:XCUIElementTypeStaticText].allElementsBoundByIndex;
-  NSMutableString *mText = [NSMutableString string];
+  NSMutableArray<NSString *> *resultText = [NSMutableArray array];
   for (XCUIElement *staticText in staticTextList) {
     if (staticText.wdLabel && staticText.isWDVisible) {
-      [mText appendFormat:@"%@\n", staticText.wdLabel];
+      [resultText addObject:[NSString stringWithFormat:@"%@", staticText.wdLabel]];
     }
   }
-  // Removing last '\n'
-  if (mText.length > 0) {
-    [mText replaceCharactersInRange:NSMakeRange(mText.length - @"\n".length, @"\n".length) withString:@""];
+  if (resultText.count) {
+    return [resultText componentsJoinedByString:@"\n"];
   }
-  return mText.length > 0 ? mText.copy : [NSNull null];
+  return nil;
 }
 
 - (NSArray *)buttonLabels
