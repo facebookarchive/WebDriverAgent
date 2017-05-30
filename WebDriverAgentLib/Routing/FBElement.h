@@ -58,6 +58,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable id)fb_valueForWDAttributeName:(NSString *__nullable)name;
 
+- (BOOL) isWDVisible:(BOOL)useHeuristic;
+
 @end
 
 NS_ASSUME_NONNULL_END
