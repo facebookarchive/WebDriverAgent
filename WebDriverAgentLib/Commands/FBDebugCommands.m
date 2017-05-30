@@ -13,6 +13,7 @@
 #import "FBRouteRequest.h"
 #import "FBSession.h"
 #import "XCUIApplication+FBHelpers.h"
+#import "XCUIElement+FBUtilities.h"
 #import "FBXPath.h"
 
 @implementation FBDebugCommands
@@ -33,22 +34,13 @@
 
 #pragma mark - Commands
 
-+ (id<FBResponsePayload>)handleGetTreeCommand:(FBRouteRequest *)request
-{
-  FBApplication *application = request.session.application ?: [FBApplication fb_activeApplication];
-  if (!application) {
-    return FBResponseWithErrorFormat(@"There is no active application");
-  }
-  const BOOL accessibleTreeType = [request.arguments[@"accessible"] boolValue];
-  return FBResponseWithObject(@{ @"tree": (accessibleTreeType ? application.fb_accessibilityTree : application.fb_tree) ?: @{}});
-}
-
 + (id<FBResponsePayload>)handleGetSourceCommand:(FBRouteRequest *)request
 {
   FBApplication *application = request.session.application ?: [FBApplication fb_activeApplication];
   NSString *sourceType = request.parameters[@"format"];
   id result;
   if (!sourceType || [sourceType caseInsensitiveCompare:@"xml"] == NSOrderedSame) {
+    [application fb_waitUntilSnapshotIsStable];
     result = [FBXPath xmlStringWithSnapshot:application.lastSnapshot];
   } else if ([sourceType caseInsensitiveCompare:@"json"] == NSOrderedSame) {
     result = application.fb_tree;

@@ -13,6 +13,7 @@
 #import "FBConfiguration.h"
 #import "FBMathUtils.h"
 #import "XCElementSnapshot+FBHelpers.h"
+#import "XCUIElement+FBUtilities.h"
 #import "XCTestPrivateSymbols.h"
 #import <XCTest/XCUIDevice.h>
 #import "XCElementSnapshot+FBHitPoint.h"
@@ -21,10 +22,7 @@
 
 - (BOOL)fb_isVisible
 {
-  if (!self.lastSnapshot) {
-    [self resolve];
-  }
-  return self.lastSnapshot.fb_isVisible;
+  return self.fb_lastSnapshot.fb_isVisible;
 }
 
 @end

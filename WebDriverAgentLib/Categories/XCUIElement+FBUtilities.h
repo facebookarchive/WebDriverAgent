@@ -62,6 +62,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSArray<XCUIElement *> *)fb_filterElements:(NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)elementsMap matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots useReversedOrder:(BOOL)useReversedOrder;
 
+/**
+ Waits until element snapshot is stable to avoid "Error copying attributes -25202 error".
+ This error usually happens for testmanagerd if there is an active UI animation in progress and
+ causes 15-seconds delay while getting hitpoint value of element's snapshot.
+
+ @return YES if wait succeeded ortherwise NO if there is still some active animation in progress
+*/
+- (BOOL)fb_waitUntilSnapshotIsStable;
+
 @end
 
 NS_ASSUME_NONNULL_END
