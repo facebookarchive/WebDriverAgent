@@ -69,6 +69,9 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
 
 - (NSArray<XCUIElement *> *)fb_filterDescendantsWithSnapshots:(NSArray<XCElementSnapshot *> *)snapshots
 {
+  if (0 == snapshots.count) {
+    return @[];
+  }
   NSArray<NSNumber *> *matchedUids = [snapshots valueForKey:FBStringify(XCUIElement, wdUID)];
   XCUIElementType type = XCUIElementTypeAny;
   NSArray<NSNumber *> *uniqueTypes = [snapshots valueForKeyPath:[NSString stringWithFormat:@"@distinctUnionOfObjects.%@", FBStringify(XCUIElement, elementType)]];
