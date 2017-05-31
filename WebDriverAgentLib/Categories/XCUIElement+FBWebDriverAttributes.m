@@ -15,6 +15,7 @@
 #import "FBMacros.h"
 #import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
+#import "XCUIElement+FBUID.h"
 #import "XCUIElement.h"
 #import "FBElementUtils.h"
 
@@ -88,6 +89,11 @@
 - (NSString *)wdType
 {
   return [FBElementTypeTransformer stringWithElementType:self.elementType];
+}
+
+- (NSUInteger)wdUID
+{
+  return self.fb_uid;
 }
 
 - (CGRect)wdFrame

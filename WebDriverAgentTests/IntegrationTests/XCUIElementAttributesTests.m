@@ -94,6 +94,11 @@
   [self verifyGettingAttributeWithShortcut:@"accessible" expectedValue:[NSNumber numberWithBool:self.matchingElement.wdAccessible]];
 }
 
+- (void)testGetUidAttribute
+{
+  [self verifyGettingAttributeWithShortcut:@"UID" expectedValue:@(self.matchingElement.wdUID)];
+}
+
 - (void)testGetVisibleAttribute
 {
   [self verifyGettingAttributeWithShortcut:@"visible" expectedValue:[NSNumber numberWithBool:self.matchingElement.wdVisible]];
