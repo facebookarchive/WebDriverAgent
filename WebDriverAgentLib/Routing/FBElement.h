@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 /*! Element's type */
 @property (nonatomic, readonly, copy) NSString *wdType;
 
+/*! Element's class (UIView or derived) */
+@property (nonatomic, readonly, copy) NSString *wdClass;
+
 /*! Element's value */
 @property (nonatomic, readonly, strong, nullable) id wdValue;
 
