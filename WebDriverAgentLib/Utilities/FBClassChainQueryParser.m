@@ -356,7 +356,9 @@ static NSNumberFormatter *numberFormatter = nil;
   } else if ([FBStarToken canConsumeCharacter:firstCharacter]) {
     token = [[FBStarToken alloc] initWithStringValue:[NSString stringWithFormat:@"%C", firstCharacter]];
   } else {
-    *error = [self.class tokenizationErrorWithIndex:0 originalQuery:classChainQuery];
+    if (error) {
+      *error = [self.class tokenizationErrorWithIndex:0 originalQuery:classChainQuery];
+    }
     return nil;
   }
   NSMutableArray *result = [NSMutableArray array];
@@ -364,7 +366,9 @@ static NSNumberFormatter *numberFormatter = nil;
   for (NSUInteger charIdx = 1; charIdx < queryStringLength; ++charIdx) {
     nextToken = [token nextTokenWithCharacter:[classChainQuery characterAtIndex:charIdx]];
     if (nil == nextToken) {
-      *error = [self.class tokenizationErrorWithIndex:charIdx originalQuery:classChainQuery];
+      if (error) {
+        *error = [self.class tokenizationErrorWithIndex:charIdx originalQuery:classChainQuery];
+      }
       return nil;
     }
     if (nextToken != token) {
@@ -384,7 +388,9 @@ static NSNumberFormatter *numberFormatter = nil;
   
   FBBaseClassChainToken *lastToken = [result lastObject];
   if (!([lastToken isKindOfClass:FBClosingBracketToken.class] || [lastToken isKindOfClass:FBClassNameToken.class])) {
-    *error = [self.class tokenizationErrorWithIndex:queryStringLength - 1 originalQuery:classChainQuery];
+    if (error) {
+      *error = [self.class tokenizationErrorWithIndex:queryStringLength - 1 originalQuery:classChainQuery];
+    }
     return nil;
   }
   

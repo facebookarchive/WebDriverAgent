@@ -13,6 +13,7 @@
 #import "FBMacros.h"
 #import "XCElementSnapshot.h"
 #import "XCUIElement+FBUtilities.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 
 NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseException";
 
@@ -34,7 +35,7 @@ NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseExcept
       elementsQuery = [[elementsQuery childrenMatchingType:currentChainItem.type] matchingPredicate:(NSPredicate  * _Nonnull)currentChainItem.predicate];
     }
   }
-  NSArray *candidateElements = elementsQuery.allElementsBoundByIndex;
+  NSArray<XCUIElement<FBElement>*> *candidateElements = elementsQuery.allElementsBoundByIndex;
   NSSet *byTypes = [FBElementUtils uniqueElementTypesWithElements:candidateElements];
   NSDictionary *categorizedDescendants = [self fb_categorizeDescendants:byTypes];
   BOOL useReversedOrder = [chain lastObject].position < 0 && candidateElements.count > 1;

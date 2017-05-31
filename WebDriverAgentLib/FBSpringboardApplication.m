@@ -9,12 +9,14 @@
 
 #import "FBSpringboardApplication.h"
 
+#import "FBErrorBuilder.h"
+#import "FBMathUtils.h"
 #import "FBRunLoopSpinner.h"
-#import "FBMacros.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCElementSnapshot.h"
 #import "XCUIApplication+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
+#import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBTap.h"
 #import "XCUIElement+FBScrolling.h"
 #import "XCUIElement.h"
@@ -36,11 +38,37 @@
 
 - (BOOL)fb_tapApplicationWithIdentifier:(NSString *)identifier error:(NSError **)error
 {
-  XCUIElement *appElement = [[self descendantsMatchingType:XCUIElementTypeAny]
-                             elementMatchingPredicate:[NSPredicate predicateWithFormat:@"%K = %@", FBStringify(XCUIElement, identifier), identifier]
-                             ];
-  if (![appElement fb_scrollToVisibleWithNormalizedScrollDistance:1.0 scrollDirection:FBXCUIElementScrollDirectionHorizontal error:error]) {
-    return NO;
+  XCUIElementQuery *appElementsQuery = [[self descendantsMatchingType:XCUIElementTypeIcon] matchingIdentifier:identifier];
+  NSArray<XCUIElement *> *matchedAppElements = [appElementsQuery allElementsBoundByIndex];
+  if (0 == matchedAppElements.count) {
+    return [[[FBErrorBuilder builder]
+      withDescriptionFormat:@"Cannot locate Springboard icon for '%@' application", identifier]
+     buildError:error];
+  }
+  // Select the most recent installed application if there are multiple matches
+  XCUIElement *appElement = [matchedAppElements lastObject];
+  if (!appElement.fb_isVisible) {
+    CGRect startFrame = appElement.frame;
+    BOOL shouldSwipeToTheRight = startFrame.origin.x < 0;
+    NSString *errorDescription = [NSString stringWithFormat:@"Cannot scroll to Springboard icon for '%@' application", identifier];
+    do {
+      if (shouldSwipeToTheRight) {
+        [self swipeRight];
+      } else {
+        [self swipeLeft];
+      }
+      BOOL isSwipeSuccessful = [appElement fb_waitUntilFrameIsStable] &&
+        [[[[FBRunLoopSpinner new]
+           timeout:1]
+          timeoutErrorMessage:errorDescription]
+         spinUntilTrue:^BOOL{
+           return !FBRectFuzzyEqualToRect(startFrame, appElement.frame, FBDefaultFrameFuzzyThreshold);
+         }
+         error:error];
+      if (!isSwipeSuccessful) {
+        return NO;
+      }
+    } while (!appElement.fb_isVisible);
   }
   if (![appElement fb_tapWithError:error]) {
     return NO;
@@ -50,9 +78,10 @@
      interval:0.3]
     timeoutErrorMessage:@"Timeout waiting for application to activate"]
    spinUntilTrue:^BOOL{
-     return
-      [FBApplication fb_activeApplication].processID != self.processID &&
-      [FBApplication fb_activeApplication].fb_mainWindowSnapshot.fb_isVisible;
+     FBApplication *activeApp = [FBApplication fb_activeApplication];
+     return activeApp &&
+        activeApp.processID != self.processID &&
+        activeApp.fb_mainWindowSnapshot.fb_isVisible;
    } error:error];
 }
 
@@ -71,8 +100,7 @@
 {
   [self resolve];
   XCElementSnapshot *mainWindow = self.fb_mainWindowSnapshot;
-  // During application switch 'SBSwitcherWindow' becomes a main window, so we should wait till it is gone
-  return mainWindow.fb_isVisible && ![mainWindow.identifier isEqualToString:@"SBSwitcherWindow"];
+  return mainWindow.fb_isVisible && self.otherElements[@"Dock"].fb_isVisible;
 }
 
 @end

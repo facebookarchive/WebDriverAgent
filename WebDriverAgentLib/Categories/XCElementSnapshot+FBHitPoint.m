@@ -8,7 +8,6 @@
  */
 
 #import "XCElementSnapshot+FBHitPoint.h"
-
 #import "FBLogger.h"
 
 @implementation XCElementSnapshot (FBHitPoint)

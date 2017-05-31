@@ -13,6 +13,7 @@
 #import "FBConfiguration.h"
 #import "FBMathUtils.h"
 #import "XCElementSnapshot+FBHelpers.h"
+#import "XCUIElement+FBUtilities.h"
 #import "XCTestPrivateSymbols.h"
 #import <XCTest/XCUIDevice.h>
 #import "XCElementSnapshot+FBHitPoint.h"
@@ -21,10 +22,7 @@
 
 - (BOOL)fb_isVisible
 {
-  if (!self.lastSnapshot) {
-    [self resolve];
-  }
-  return self.lastSnapshot.fb_isVisible;
+  return self.fb_lastSnapshot.fb_isVisible;
 }
 
 @end
@@ -33,18 +31,23 @@
 
 - (BOOL)fb_isVisible
 {
-  if (CGRectIsEmpty(self.frame) || CGRectIsEmpty(self.visibleFrame)) {
+  if (CGRectIsEmpty(self.frame)) {
+    return NO;
+  }
+  CGRect visibleFrame = self.visibleFrame;
+  if (CGRectIsEmpty(visibleFrame)) {
     return NO;
   }
   if ([FBConfiguration shouldUseTestManagerForVisibilityDetection]) {
     return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
   }
-  XCElementSnapshot *app = [self _rootElement];
-  CGSize screenSize = FBAdjustDimensionsForApplication(app.frame.size, (UIInterfaceOrientation)[XCUIDevice sharedDevice].orientation);
+  CGRect appFrame = [self _rootElement].frame;
+  CGSize screenSize = FBAdjustDimensionsForApplication(appFrame.size, (UIInterfaceOrientation)[XCUIDevice sharedDevice].orientation);
   CGRect screenFrame = CGRectMake(0, 0, screenSize.width, screenSize.height);
-  BOOL rectIntersects = CGRectIntersectsRect(self.visibleFrame, screenFrame);
-  BOOL isActionable = CGRectContainsPoint(app.frame, self.fb_hitPoint);
-  return rectIntersects && isActionable;
+  if (!CGRectIntersectsRect(visibleFrame, screenFrame)) {
+    return NO;
+  }
+  return CGRectContainsPoint(appFrame, self.fb_hitPoint);
 }
 
 @end

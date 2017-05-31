@@ -76,7 +76,7 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
 {
   [self goToSpringBoardFirstPage];
   [self.springboard swipeRight];
-  FBAssertWaitTillBecomesTrue(self.springboard.buttons[@"Edit"].fb_isVisible);
+  FBAssertWaitTillBecomesTrue(self.springboard.navigationBars[@"SBSearchEtceteraIsolatedView"].fb_isVisible);
   FBAssertWaitTillBecomesTrue(!self.springboard.icons[@"Calendar"].fb_isVisible);
 }
 

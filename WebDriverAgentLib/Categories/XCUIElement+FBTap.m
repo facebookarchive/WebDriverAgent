@@ -24,7 +24,11 @@ const CGFloat FBTapDuration = 0.01f;
 
 - (BOOL)fb_tapWithError:(NSError **)error
 {
-  return [self fb_performTapAtPoint:self.fb_lastSnapshot.fb_hitPoint error:error];
+  CGPoint hitpoint = self.fb_lastSnapshot.fb_hitPoint;
+  if (CGPointEqualToPoint(hitpoint, CGPointMake(-1, -1))) {
+    hitpoint = [self.fb_lastSnapshot.suggestedHitpoints.lastObject CGPointValue];
+  }
+  return [self fb_performTapAtPoint:hitpoint error:error];
 }
 
 - (BOOL)fb_tapCoordinate:(CGPoint)relativeCoordinate error:(NSError **)error

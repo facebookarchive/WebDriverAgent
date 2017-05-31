@@ -30,19 +30,15 @@
 
 - (BOOL)fb_clearTextWithError:(NSError **)error
 {
-  while ([self.value fb_visualLength] > 0) {
+  NSUInteger preClearTextLength = 0;
+  while ([self.value fb_visualLength] != preClearTextLength) {
     NSMutableString *textToType = @"".mutableCopy;
-    const NSUInteger textLength = [self.value fb_visualLength];
-    for (NSUInteger i = 0 ; i < textLength ; i++) {
+    preClearTextLength = [self.value fb_visualLength];
+    for (NSUInteger i = 0 ; i < preClearTextLength ; i++) {
       [textToType appendString:@"\b"];
     }
     if (![self fb_typeText:textToType error:error]) {
       return NO;
-    }
-    if ([self.value fb_visualLength] >= textLength) {
-      return [[[FBErrorBuilder builder]
-       withDescription:@"Failed to make any progress while clearing text"]
-       buildError:error];
     }
   }
   return YES;
