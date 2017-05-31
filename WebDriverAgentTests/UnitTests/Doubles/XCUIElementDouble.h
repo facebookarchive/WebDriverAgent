@@ -18,6 +18,7 @@
 @property (nonatomic, assign) BOOL fb_isObstructedByAlert;
 @property (nonatomic, readwrite, copy, nonnull) NSDictionary *wdRect;
 @property (nonatomic, readwrite, assign) CGRect wdFrame;
+@property (nonatomic, readwrite, assign) NSUInteger wdUID;
 @property (nonatomic, copy, readwrite, nullable) NSString *wdName;
 @property (nonatomic, copy, readwrite, nullable) NSString *wdLabel;
 @property (nonatomic, copy, readwrite, nonnull) NSString *wdType;
