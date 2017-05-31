@@ -16,7 +16,7 @@
 
 BOOL _AXSAutomationSetFauxCollectionViewCellsEnabled(BOOL);
 
-static NSUInteger const DefaultStartingPort = 8100;
+//static NSUInteger const DefaultStartingPort = 8100;
 static NSUInteger const DefaultPortRange = 100;
 
 static BOOL FBShouldUseTestManagerForVisibilityDetection = NO;
@@ -33,6 +33,10 @@ static NSUInteger FBMaxTypingFrequency = 60;
 
 + (NSRange)bindingPortRange
 {
+    int lower = 8100;
+    int upper = 8200;
+    int DefaultRandomStartingPort = lower + arc4random() % (upper - lower);
+
   // 'WebDriverAgent --port 8080' can be passed via the arguments to the process
   if (self.bindingPortRangeFromArguments.location != NSNotFound) {
     return self.bindingPortRangeFromArguments;
@@ -43,7 +47,7 @@ static NSUInteger FBMaxTypingFrequency = 60;
     return NSMakeRange([NSProcessInfo.processInfo.environment[@"USE_PORT"] integerValue] , 1);
   }
 
-  return NSMakeRange(DefaultStartingPort, DefaultPortRange);
+  return NSMakeRange(DefaultRandomStartingPort, DefaultPortRange);
 }
 
 + (BOOL)verboseLoggingEnabled
