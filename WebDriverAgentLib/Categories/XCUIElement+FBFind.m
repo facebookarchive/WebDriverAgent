@@ -10,6 +10,7 @@
 
 #import "XCUIElement+FBFind.h"
 
+#import "FBMacros.h"
 #import "FBElementTypeTransformer.h"
 #import "NSPredicate+FBFormat.h"
 #import "XCElementSnapshot.h"
@@ -115,12 +116,7 @@
   if (shouldReturnAfterFirstMatch) {
     matchingSnapshots = @[[matchingSnapshots firstObject]];
   }
-  // Prefiltering elements speeds up search by XPath a lot, because [element resolve] is the most expensive operation here
-  NSSet *byTypes = [FBElementUtils uniqueElementTypesWithElements:matchingSnapshots];
-  NSDictionary *categorizedDescendants = [self fb_categorizeDescendants:byTypes];
-  BOOL useReversedOrder = [xpathQuery.lowercaseString containsString:@"last()"];
-  NSArray *matchingElements = [self.class fb_filterElements:categorizedDescendants matchingSnapshots:matchingSnapshots useReversedOrder:useReversedOrder];
-  return matchingElements;
+  return [self fb_filterDescendantsWithSnapshots:matchingSnapshots];
 }
 
 

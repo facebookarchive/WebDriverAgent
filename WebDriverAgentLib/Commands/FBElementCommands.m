@@ -20,6 +20,7 @@
 #import "FBApplication.h"
 #import "FBMacros.h"
 #import "FBMathUtils.h"
+#import "NSPredicate+FBFormat.h"
 #import "XCUICoordinate.h"
 #import "XCUIDevice.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -244,8 +245,10 @@
   // what ios-driver did and sadly, we must copy them.
   NSString *const name = request.arguments[@"name"];
   if (name) {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", FBStringify(XCUIElement, wdName), name];
-    XCUIElement *childElement = [[[[element descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate] allElementsBoundByIndex] lastObject];
+    XCUIElement *childElement = [[[[element descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:name] allElementsBoundByIndex] lastObject];
+    if (!childElement) {
+      return FBResponseWithErrorFormat(@"'%@' identifier didn't match any elements", name);
+    }
     return [self.class handleScrollElementToVisible:childElement withRequest:request];
   }
 
@@ -265,8 +268,11 @@
 
   NSString *const predicateString = request.arguments[@"predicateString"];
   if (predicateString) {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
-    XCUIElement *childElement = [[[[element descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate] allElementsBoundByIndex] lastObject];
+    NSPredicate *formattedPredicate = [NSPredicate fb_formatSearchPredicate:[NSPredicate predicateWithFormat:predicateString]];
+    XCUIElement *childElement = [[[[element descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:formattedPredicate] allElementsBoundByIndex] lastObject];
+    if (!childElement) {
+      return FBResponseWithErrorFormat(@"'%@' predicate didn't match any elements", predicateString);
+    }
     return [self.class handleScrollElementToVisible:childElement withRequest:request];
   }
 

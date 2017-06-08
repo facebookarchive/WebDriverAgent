@@ -87,9 +87,13 @@ static NSString *const OBJC_PROP_ATTRIBS_SEPARATOR = @",";
         aliasName = [NSString stringWithFormat:@"%@",
                         [propName substringWithRange:NSMakeRange(WD_PREFIX.length, 1)].lowercaseString];
       } else {
-        aliasName = [NSString stringWithFormat:@"%@%@",
-                        [propName substringWithRange:NSMakeRange(WD_PREFIX.length, 1)].lowercaseString,
-                        [propName substringFromIndex:WD_PREFIX.length + 1]];
+        NSString *propNameWithoutPrefix = [propName substringFromIndex:WD_PREFIX.length];
+        NSString *firstPropNameCharacter = [propNameWithoutPrefix substringWithRange:NSMakeRange(0, 1)];
+        if (![propNameWithoutPrefix isEqualToString:[propNameWithoutPrefix uppercaseString]]) {
+          // Lowercase the first character for the alias if the property name is not an uppercase abbreviation
+          firstPropNameCharacter = firstPropNameCharacter.lowercaseString;
+        }
+        aliasName = [NSString stringWithFormat:@"%@%@", firstPropNameCharacter, [propNameWithoutPrefix substringFromIndex:1]];
       }
       if ([[wdPropertyGettersMapping valueForKey:propName] isKindOfClass:NSNull.class]) {
         // no getter

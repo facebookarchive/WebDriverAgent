@@ -11,6 +11,7 @@
 
 #import "FBAlert.h"
 #import "FBLogger.h"
+#import "FBMacros.h"
 #import "FBMathUtils.h"
 #import "FBRunLoopSpinner.h"
 #import "XCAXClient_iOS.h"
@@ -66,43 +67,38 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   return self.lastSnapshot;
 }
 
-- (NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)fb_categorizeDescendants:(NSSet<NSNumber *> *)byTypes
+- (NSArray<XCUIElement *> *)fb_filterDescendantsWithSnapshots:(NSArray<XCElementSnapshot *> *)snapshots
 {
-  NSMutableDictionary *result = [NSMutableDictionary dictionary];
-  [byTypes enumerateObjectsUsingBlock:^(NSNumber *elementTypeAsNumber, BOOL *stopEnum) {
-    XCUIElementType elementType = (XCUIElementType)elementTypeAsNumber.unsignedIntegerValue;
-    NSArray *descendantsOfType = [[self descendantsMatchingType:elementType] allElementsBoundByIndex];
-    result[elementTypeAsNumber] = descendantsOfType;
-  }];
-  return result.copy;
-}
-
-+ (NSArray<XCUIElement *> *)fb_filterElements:(NSDictionary<NSNumber *, NSArray<XCUIElement *> *> *)elementsMap matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots useReversedOrder:(BOOL)useReversedOrder
-{
-  NSMutableArray *matchingElements = [NSMutableArray array];
-  NSMutableDictionary<NSNumber *, NSMutableArray<XCUIElement *> *> *mutableElementsMap = [NSMutableDictionary dictionary];
-  [elementsMap enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSArray<XCUIElement *> *value, BOOL* stop) {
-    [mutableElementsMap setObject:value.mutableCopy forKey:key];
-  }];
+  if (0 == snapshots.count) {
+    return @[];
+  }
+  NSArray<NSNumber *> *matchedUids = [snapshots valueForKey:FBStringify(XCUIElement, wdUID)];
+  XCUIElementType type = XCUIElementTypeAny;
+  NSArray<NSNumber *> *uniqueTypes = [snapshots valueForKeyPath:[NSString stringWithFormat:@"@distinctUnionOfObjects.%@", FBStringify(XCUIElement, elementType)]];
+  if (uniqueTypes && [uniqueTypes count] == 1) {
+    type = [uniqueTypes.firstObject intValue];
+  }
+  NSArray<XCUIElement *> *filteredElements = [[self descendantsMatchingType:type] matchingPredicate:[NSPredicate predicateWithFormat:@"%K IN %@", FBStringify(XCUIElement, wdUID), matchedUids]].allElementsBoundByIndex;
+  if (filteredElements.count <= 1) {
+    // There is no need to sort elements if count of matches is not greater than one
+    return filteredElements;
+  }
+  NSMutableArray<XCUIElement *> *sortedElements = [NSMutableArray array];
+  NSMutableArray<XCUIElement *> *unmatchedElements = [filteredElements mutableCopy];
   [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
-    NSMutableArray *elements = mutableElementsMap[@(snapshot.elementType)];
-    NSEnumerator *elementsEnumerator = [elements objectEnumerator];
-    if (useReversedOrder) {
-      elementsEnumerator = [elements reverseObjectEnumerator];
-    }
     XCUIElement *matchedElement = nil;
-    for (XCUIElement *element in elementsEnumerator) {
-      if ([element.fb_lastSnapshot _matchesElement:snapshot]) {
+    for (XCUIElement *element in unmatchedElements) {
+      if (element.wdUID == snapshot.wdUID) {
         matchedElement = element;
         break;
       }
     }
-    if (nil != matchedElement) {
-      [matchingElements addObject:matchedElement];
-      [elements removeObject:matchedElement];
+    if (matchedElement) {
+      [sortedElements addObject:matchedElement];
+      [unmatchedElements removeObject:matchedElement];
     }
   }];
-  return matchingElements.copy;
+  return sortedElements.copy;
 }
 
 - (BOOL)fb_waitUntilSnapshotIsStable

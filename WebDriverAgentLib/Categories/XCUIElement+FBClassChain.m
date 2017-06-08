@@ -8,6 +8,7 @@
  */
 
 #import "XCUIElement+FBClassChain.h"
+
 #import "FBClassChainQueryParser.h"
 #import "FBElementUtils.h"
 #import "FBMacros.h"
@@ -19,29 +20,6 @@ NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseExcept
 
 @implementation XCUIElement (FBClassChain)
 
-- (NSArray <XCUIElement *> *)fb_matchingElementsWithSnapshots:(NSArray<XCElementSnapshot *> *)snapshots usingChain:(FBClassChain)chain
-{
-  XCUIElementQuery *elementsQuery;
-  if (nil == [chain firstObject].predicate) {
-    elementsQuery = [self childrenMatchingType:[chain firstObject].type];
-  } else {
-    elementsQuery = [[self childrenMatchingType:[chain firstObject].type] matchingPredicate:(NSPredicate  * _Nonnull)[chain firstObject].predicate];
-  }
-  for (NSUInteger level = 1; level < chain.count; ++level) {
-    FBClassChainElement *currentChainItem = [chain objectAtIndex:level];
-    if (nil == currentChainItem.predicate) {
-      elementsQuery = [elementsQuery childrenMatchingType:currentChainItem.type];
-    } else {
-      elementsQuery = [[elementsQuery childrenMatchingType:currentChainItem.type] matchingPredicate:(NSPredicate  * _Nonnull)currentChainItem.predicate];
-    }
-  }
-  NSArray<XCUIElement<FBElement>*> *candidateElements = elementsQuery.allElementsBoundByIndex;
-  NSSet *byTypes = [FBElementUtils uniqueElementTypesWithElements:candidateElements];
-  NSDictionary *categorizedDescendants = [self fb_categorizeDescendants:byTypes];
-  BOOL useReversedOrder = [chain lastObject].position < 0 && candidateElements.count > 1;
-  return [self.class fb_filterElements:categorizedDescendants matchingSnapshots:snapshots useReversedOrder:useReversedOrder];
-}
-
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingClassChain:(NSString *)classChainQuery shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
   NSError *error;
@@ -50,14 +28,14 @@ NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseExcept
     @throw [NSException exceptionWithName:FBClassChainQueryParseException reason:error.localizedDescription userInfo:error.userInfo];
     return nil;
   }
-  NSMutableArray *unmatchedSnapshots = [self.class fb_lookupChain:parsedChain inSnapshot:self.fb_lastSnapshot].mutableCopy;
-  if (0 == unmatchedSnapshots.count) {
+  NSArray<XCElementSnapshot *> *snapshots = [self.class fb_lookupChain:parsedChain inSnapshot:self.fb_lastSnapshot];
+  if (0 == snapshots.count) {
     return @[];
   }
   if (shouldReturnAfterFirstMatch) {
-    [unmatchedSnapshots removeObjectsInRange:NSMakeRange(1, unmatchedSnapshots.count - 1)];
+    snapshots = @[[snapshots firstObject]];
   }
-  return [self fb_matchingElementsWithSnapshots:unmatchedSnapshots usingChain:parsedChain];
+  return [self fb_filterDescendantsWithSnapshots:snapshots];
 }
 
 + (NSArray<XCElementSnapshot *> *)fb_matchingChildrenWithSnapshot:(XCElementSnapshot *)root forChainElement:(FBClassChainElement *)chainElement

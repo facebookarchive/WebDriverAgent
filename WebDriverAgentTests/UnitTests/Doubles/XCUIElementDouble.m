@@ -35,6 +35,7 @@
     self.wdAccessibilityContainer = NO;
     self.elementType = XCUIElementTypeOther;
     self.wdType = @"XCUIElementTypeOther";
+    self.wdUID = 0;
   }
   return self;
 }
