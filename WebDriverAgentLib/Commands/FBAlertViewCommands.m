@@ -42,6 +42,7 @@
   return FBResponseWithStatus(FBCommandStatusNoError, alertText);
 }
 
+#if !TARGET_OS_TV
 + (id<FBResponsePayload>)handleAlertAcceptCommand:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
@@ -56,7 +57,8 @@
     if (![alert clickAlertButton:name error:&error]) {
       return FBResponseWithError(error);
     }
-  } else if (![alert acceptWithError:&error]) {
+  }
+  else if (![alert acceptWithError:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
@@ -76,11 +78,23 @@
     if (![alert clickAlertButton:name error:&error]) {
       return FBResponseWithError(error);
     }
-  } else if (![alert dismissWithError:&error]) {
+  }
+  else if (![alert dismissWithError:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
 }
+#else
++ (id<FBResponsePayload>)handleAlertAcceptCommand:(FBRouteRequest *)request
+{
+  return FBResponseWithStatus(FBCommandStatusUnsupported, @"Unsupported in tvOS");
+}
+
++ (id<FBResponsePayload>)handleAlertDismissCommand:(FBRouteRequest *)request
+{
+  return FBResponseWithStatus(FBCommandStatusUnsupported, @"Unsupported in tvOS");
+}
+#endif
 
 + (id<FBResponsePayload>)handleGetAlertButtonsCommand:(FBRouteRequest *)request {
   FBSession *session = request.session;

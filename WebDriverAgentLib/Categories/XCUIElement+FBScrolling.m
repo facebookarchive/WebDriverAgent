@@ -22,10 +22,13 @@
 #import "XCSynthesizedEventRecord.h"
 #import "XCTestDriver.h"
 #import "XCUIApplication.h"
-#import "XCUICoordinate.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
+
+#if !TARGET_OS_TV
+#import "XCUICoordinate.h"
+#endif
 
 const CGFloat FBFuzzyPointThreshold = 20.f; //Smallest determined value that is not interpreted as touch
 const CGFloat FBFullscreenNormalizedDistance = 1.0f;
@@ -261,6 +264,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
     );
 }
 
+#if !TARGET_OS_TV
 - (BOOL)fb_scrollAncestorScrollViewByVectorWithinScrollViewFrame:(CGVector)vector error:(NSError **)error
 {
   CGVector hitpointOffset = [self fb_hitPointOffsetForScrollingVector:vector];
@@ -301,5 +305,13 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBScrollCoolOffTime]];
   return didSucceed;
 }
+#else
+
+- (BOOL)fb_scrollAncestorScrollViewByVectorWithinScrollViewFrame:(CGVector)vector error:(NSError **)error {
+  return NO;
+}
+
+#endif
+
 
 @end

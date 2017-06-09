@@ -12,6 +12,7 @@
 
 @implementation XCElementSnapshot (FBHitPoint)
 
+#if !TARGET_OS_TV
 - (CGPoint)fb_hitPoint
 {
   @try {
@@ -21,5 +22,6 @@
     return CGPointMake(-1, -1); // Same what XCTest does
   }
 }
+#endif
 
 @end

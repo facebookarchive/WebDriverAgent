@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-
+#import <Foundation/Foundation.h>
 #import <WebDriverAgentLib/XCElementSnapshot.h>
 
 @interface XCElementSnapshot (FBHitPoint)
@@ -16,6 +16,9 @@
 
  @return Element's hitpoint if exists {-1, -1} otherwise
  */
+
+#if !TARGET_OS_TV
 - (CGPoint)fb_hitPoint;
+#endif
 
 @end

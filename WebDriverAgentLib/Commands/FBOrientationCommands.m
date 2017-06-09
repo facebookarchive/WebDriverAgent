@@ -47,6 +47,8 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
 
 #pragma mark - Commands
 
+#if !TARGET_OS_TV
+
 + (id<FBResponsePayload>)handleGetOrientation:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
@@ -77,6 +79,8 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
     }
     return FBResponseWithStatus(FBCommandStatusRotationNotAllowed, [NSString stringWithFormat:@"Rotation not supported: %@", request.arguments[@"rotation"]]);
 }
+
+
 
 
 #pragma mark - Helpers
@@ -122,5 +126,31 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
   });
   return orientationMap;
 }
+
+#else
+
++ (id<FBResponsePayload>)handleGetOrientation:(FBRouteRequest *)request
+{
+  return FBResponseWithStatus(FBCommandStatusUnsupported, @"Unsupported in tvOS");
+}
+
++ (id<FBResponsePayload>)handleSetOrientation:(FBRouteRequest *)request
+{
+  return FBResponseWithStatus(FBCommandStatusUnsupported, @"Unsupported in tvOS");
+}
+
++ (id<FBResponsePayload>)handleGetRotation:(FBRouteRequest *)request
+{
+  return FBResponseWithStatus(FBCommandStatusUnsupported, @"Unsupported in tvOS");
+}
+
++ (id<FBResponsePayload>)handleSetRotation:(FBRouteRequest *)request
+{
+  return FBResponseWithStatus(FBCommandStatusUnsupported, @"Unsupported in tvOS");
+}
+
+#endif
+
+
 
 @end

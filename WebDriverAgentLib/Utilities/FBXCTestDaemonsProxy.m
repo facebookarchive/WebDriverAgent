@@ -9,8 +9,13 @@
 
 #import "FBXCTestDaemonsProxy.h"
 #import "XCTestDriver.h"
-#import "XCTRunnerDaemonSession.h"
+
 #import <objc/runtime.h>
+
+
+#if !TARGET_OS_TV
+#import <WebDriverAgentLib/XCTRunnerDaemonSession.h>
+#endif
 
 @implementation FBXCTestDaemonsProxy
 
@@ -23,8 +28,10 @@
       proxy = [XCTestDriver sharedTestDriver].managerProxy;
       return;
     }
+#if !TARGET_OS_TV
     Class runnerClass = objc_lookUpClass("XCTRunnerDaemonSession");
     proxy = ((XCTRunnerDaemonSession *)[runnerClass sharedSession]).daemonProxy;
+#endif
   });
   NSAssert(proxy != NULL, @"Could not determin testRunnerProxy", proxy);
   return proxy;

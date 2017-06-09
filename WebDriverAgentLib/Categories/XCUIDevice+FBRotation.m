@@ -9,10 +9,14 @@
 
 #import "XCUIDevice+FBRotation.h"
 
+#if !TARGET_OS_TV
 static const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
 static const CGFloat FBRotationCoolOffTime = 1.f;
+#endif
 
 @implementation XCUIDevice (FBRotation)
+
+#if !TARGET_OS_TV
 
 - (BOOL)fb_setDeviceInterfaceOrientation:(UIDeviceOrientation)orientation
 {
@@ -20,6 +24,7 @@ static const CGFloat FBRotationCoolOffTime = 1.f;
   [XCUIDevice sharedDevice].orientation = orientation;
   return [self waitUntilInterfaceIsAtOrientation:orientation application:application];
 }
+
 
 - (BOOL)fb_setDeviceRotation:(NSDictionary *)rotationObj
 {
@@ -63,5 +68,7 @@ static const CGFloat FBRotationCoolOffTime = 1.f;
     });
     return rotationMap;
 }
+
+#endif
 
 @end

@@ -23,6 +23,7 @@
   [[XCUIApplication new] launch];
 }
 
+#if !TARGET_OS_TV
 - (void)testPreventElementSearchFailure
 {
   [[XCUIApplication new].buttons[@"kaboom"] tap];
@@ -38,5 +39,7 @@
 {
   XCTAssertNotNil(nil);
 }
+
+#endif
 
 @end

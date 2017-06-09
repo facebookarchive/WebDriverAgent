@@ -20,12 +20,15 @@
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCElementSnapshot.h"
 #import "XCTestManager_ManagerInterface-Protocol.h"
-#import "XCUICoordinate.h"
 #import "XCUIElement+FBTap.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
+
+#if !TARGET_OS_TV
+#import "XCUICoordinate.h"
+#endif
 
 NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElementException";
 
@@ -120,6 +123,7 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   return value;
 }
 
+#if !TARGET_OS_TV
 - (BOOL)acceptWithError:(NSError **)error
 {
   XCUIElement *alertElement = self.alertElement;
@@ -183,6 +187,8 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   
   return [requestedButton fb_tapWithError:error];
 }
+
+#endif
 
 + (BOOL)isElementObstructedByAlertView:(XCUIElement *)element alert:(XCUIElement *)alert
 {

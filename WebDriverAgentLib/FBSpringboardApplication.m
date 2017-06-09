@@ -46,6 +46,7 @@
      buildError:error];
   }
   // Select the most recent installed application if there are multiple matches
+#if !TARGET_OS_TV
   XCUIElement *appElement = [matchedAppElements lastObject];
   if (!appElement.fb_isVisible) {
     CGRect startFrame = appElement.frame;
@@ -73,6 +74,7 @@
   if (![appElement fb_tapWithError:error]) {
     return NO;
   }
+#endif
   return
   [[[[FBRunLoopSpinner new]
      interval:0.3]

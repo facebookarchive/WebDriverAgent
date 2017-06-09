@@ -31,7 +31,11 @@
     return;
   }
   if ([self.applicationProcess respondsToSelector:@selector(waitForQuiescenceIncludingAnimationsIdle:)]) {
+#if !TARGET_OS_TV
     [self.applicationProcess waitForQuiescenceIncludingAnimationsIdle:YES];
+#else
+    [self.applicationProcess waitForQuiescence];
+#endif
     return;
   }
   [self.applicationProcess waitForQuiescence];
@@ -42,7 +46,11 @@
   if (!self.shouldWaitForQuiescence) {
     return;
   }
+#if !TARGET_OS_TV
   [self.applicationProcess waitForQuiescenceIncludingAnimationsIdle:includeAnimations];
+#else
+  [self.applicationProcess waitForQuiescence];
+#endif
 }
 
 - (id)forwardingTargetForSelector:(SEL)aSelector

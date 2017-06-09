@@ -157,11 +157,20 @@
   FBApplication *application = [FBSession activeSession].application;
   return
   @{
-    @"device": ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ? @"ipad" : @"iphone",
+    @"device": [self.class currentDevice],
     @"sdkVersion": [[UIDevice currentDevice] systemVersion],
     @"browserName": application.label ?: [NSNull null],
     @"CFBundleIdentifier": application.bundleID ?: [NSNull null],
   };
+}
+
++ (NSString *)currentDevice
+{
+  if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomTV) {
+    return @"appletv";
+  }
+  
+  return ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ? @"ipad" : @"iphone";
 }
 
 @end
