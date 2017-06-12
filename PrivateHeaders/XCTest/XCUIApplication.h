@@ -34,7 +34,7 @@
 @property(readonly, nonatomic) UIInterfaceOrientation interfaceOrientation; //TODO tvos
 @property(readonly, nonatomic) BOOL running;
 @property(nonatomic) pid_t processID; // @synthesize processID=_processID;
-@property unsigned long long state; // @synthesize state=_state;
+@property(nonatomic, readonly) NSUInteger state; // @synthesize state=_state;
 @property(readonly) XCAccessibilityElement *accessibilityElement;
 
 + (instancetype)appWithPID:(pid_t)processID;
