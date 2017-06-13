@@ -48,7 +48,7 @@ static NSString *const OBJC_PROP_ATTRIBS_SEPARATOR = @",";
   dispatch_once(&onceToken, ^{
     NSMutableDictionary *wdPropertyGettersMapping = [NSMutableDictionary new];
     unsigned int propsCount = 0;
-    objc_property_t *properties = protocol_copyPropertyList(objc_getProtocol("FBElement"), &propsCount);
+    objc_property_t *properties = protocol_copyPropertyList((Protocol * _Nonnull)objc_getProtocol("FBElement"), &propsCount);
     for (unsigned int i = 0; i < propsCount; ++i) {
       objc_property_t property = properties[i];
       const char *name = property_getName(property);
@@ -72,7 +72,7 @@ static NSString *const OBJC_PROP_ATTRIBS_SEPARATOR = @",";
       }
     }
     free(properties);
-    
+
     NSMutableDictionary *resultCache = [NSMutableDictionary new];
     for (NSString *propName in wdPropertyGettersMapping) {
       if ([[wdPropertyGettersMapping valueForKey:propName] isKindOfClass:NSNull.class]) {
