@@ -63,10 +63,15 @@
   }
 
   if (![keyboard fb_waitUntilFrameIsStable]) {
-    return
-    [[[FBErrorBuilder builder]
-      withDescription:@"Timeout waiting for keybord to stop animating"]
-     buildError:error];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
+      // this always happens on iOS 11
+      return YES;
+    } else {
+      return
+      [[[FBErrorBuilder builder]
+        withDescription:@"Timeout waiting for keybord to stop animating"]
+       buildError:error];
+     }
   }
   return YES;
 }
