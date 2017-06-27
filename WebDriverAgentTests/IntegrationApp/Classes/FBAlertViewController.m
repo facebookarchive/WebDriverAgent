@@ -28,6 +28,8 @@
   [self presentViewController:alerController animated:YES completion:nil];
 }
 
+#if !TARGET_OS_TV
+
 - (IBAction)createAppSheet:(UIButton *)sender
 {
     UIAlertController *alerController =
@@ -56,5 +58,7 @@
   self.locationManager = [CLLocationManager new];
   [self.locationManager requestAlwaysAuthorization];
 }
+
+#endif
 
 @end

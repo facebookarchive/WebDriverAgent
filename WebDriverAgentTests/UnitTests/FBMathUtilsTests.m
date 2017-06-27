@@ -98,7 +98,7 @@
   XCTAssertFalse(FBRectFuzzyEqualToRect(referenceRect, CGRectMake(-1, -1, 1, 1), 1));
 }
 
-
+#if !TARGET_OS_TV
 - (void)testPointInvertion
 {
   const CGPoint testPoint = CGPointMake(1, 2);
@@ -122,5 +122,6 @@
   XCTAssertTrue(FBSizeFuzzyEqualToSize(screenSizeLandscape, FBAdjustDimensionsForApplication(screenSizeLandscape, UIInterfaceOrientationLandscapeLeft), t));
   XCTAssertTrue(FBSizeFuzzyEqualToSize(screenSizeLandscape, FBAdjustDimensionsForApplication(screenSizeLandscape, UIInterfaceOrientationLandscapeRight), t));
 }
+#endif
 
 @end

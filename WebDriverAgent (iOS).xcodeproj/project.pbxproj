@@ -1629,7 +1629,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 91F9DAE41B99DBC2001349B2 /* Build configuration list for PBXProject "WebDriverAgent" */;
+			buildConfigurationList = 91F9DAE41B99DBC2001349B2 /* Build configuration list for PBXProject "WebDriverAgent (iOS)" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2176,7 +2176,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				INFOPLIST_FILE = WebDriverAgentTests/IntegrationApp/Info.plist;
+				INFOPLIST_FILE = "WebDriverAgentTests/IntegrationApp/Info-iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.IntegrationApp;
@@ -2189,7 +2189,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
-				INFOPLIST_FILE = WebDriverAgentTests/IntegrationApp/Info.plist;
+				INFOPLIST_FILE = "WebDriverAgentTests/IntegrationApp/Info-iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.IntegrationApp;
@@ -2272,7 +2272,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		91F9DAE41B99DBC2001349B2 /* Build configuration list for PBXProject "WebDriverAgent" */ = {
+		91F9DAE41B99DBC2001349B2 /* Build configuration list for PBXProject "WebDriverAgent (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				91F9DB0A1B99DBC2001349B2 /* Debug */,
