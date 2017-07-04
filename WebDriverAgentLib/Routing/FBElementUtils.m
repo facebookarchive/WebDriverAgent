@@ -48,7 +48,8 @@ static NSString *const OBJC_PROP_ATTRIBS_SEPARATOR = @",";
   dispatch_once(&onceToken, ^{
     NSMutableDictionary *wdPropertyGettersMapping = [NSMutableDictionary new];
     unsigned int propsCount = 0;
-    objc_property_t *properties = protocol_copyPropertyList(objc_getProtocol("FBElement"), &propsCount);
+    Protocol * aProtocol = objc_getProtocol(protocol_getName(@protocol(FBElement)));
+    objc_property_t *properties = protocol_copyPropertyList(aProtocol, &propsCount);
     for (unsigned int i = 0; i < propsCount; ++i) {
       objc_property_t property = properties[i];
       const char *name = property_getName(property);
