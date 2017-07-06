@@ -75,6 +75,9 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   NSArray<NSNumber *> *matchedUids = [snapshots valueForKey:FBStringify(XCUIElement, wdUID)];
   NSMutableArray<XCUIElement *> *matchedElements = [NSMutableArray array];
   if ([matchedUids containsObject:@(self.wdUID)]) {
+    if (1 == snapshots.count) {
+      return @[self];
+    }
     [matchedElements addObject:self];
   }
   XCUIElementType type = XCUIElementTypeAny;
