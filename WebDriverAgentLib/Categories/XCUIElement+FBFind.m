@@ -114,7 +114,8 @@
     return @[];
   }
   if (shouldReturnAfterFirstMatch) {
-    matchingSnapshots = @[[matchingSnapshots firstObject]];
+    XCElementSnapshot *snapshot = matchingSnapshots.firstObject;
+    matchingSnapshots = @[snapshot];
   }
   return [self fb_filterDescendantsWithSnapshots:matchingSnapshots];
 }

@@ -23,8 +23,12 @@
 /*! Returns 'value' or NSNull if 'value' is nil */
 #define FBValueOrNull(value) ((value) ?: [NSNull null])
 
-/*! Returns name of class property as a string */
-#define FBStringify(class, property) ({if(NO){[class.new property];} @#property;})
+/*!
+  Returns name of class property as a string
+  previously used [class new] errors out on certain classes because new will be declared unavailable
+  Instead we are casting into a class to get compiler support with property name.
+*/
+#define FBStringify(class, property) ({if(NO){[((class *)nil) property];} @#property;})
 
 /*! Creates weak type for given 'arg' */
 #define FBWeakify(arg) typeof(arg) __weak wda_weak_##arg = arg

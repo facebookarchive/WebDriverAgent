@@ -23,12 +23,12 @@
 - (void)_addPointerEvent:(id)arg1;
 - (void)releaseButton:(unsigned long long)arg1 atOffset:(double)arg2;
 - (void)pressButton:(unsigned long long)arg1 atOffset:(double)arg2;
-- (void)liftUpAtOffset:(CGFloat)arg1;
+- (void)liftUpAtOffset:(double)arg1;
 - (void)moveToPoint:(struct CGPoint)arg1 atOffset:(double)arg2;
 - (void)pressDownWithPressure:(double)arg1 atOffset:(double)arg2;
 - (void)pressDownAtOffset:(double)arg1;
 - (id)initForMouseAtPoint:(struct CGPoint)arg1 offset:(double)arg2;
-- (id)initForTouchAtPoint:(CGPoint)arg1 offset:(CGFloat)arg2;
+- (id)initForTouchAtPoint:(CGPoint)arg1 offset:(double)arg2;
 - (id)init;
 
 @end

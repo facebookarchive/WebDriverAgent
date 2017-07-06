@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import HTTP from 'js/http';
+import GestureRecognizer from 'js/gesture_recognizer';
 
 var Button = require('react-button');
 
@@ -42,6 +43,20 @@ class Screen extends React.Component {
     );
   }
 
+  gestureRecognizer() {
+    if (!this._gestureRecognizer) {
+      this._gestureRecognizer = new GestureRecognizer({
+        onClick: (ev) => {
+          this.onScreenShotClick(ev);
+        },
+        onDrag: (params) => {
+          this.onScreenShotDrag(params);
+        },
+      });
+    }
+    return this._gestureRecognizer;
+  }
+
   styleWithScreenSize() {
     var screenshot = this.screenshot();
     return {
@@ -54,19 +69,48 @@ class Screen extends React.Component {
     return this.props.screenshot ? this.props.screenshot : {};
   }
 
-  onScreenShotClick(ev) {
-    var x = ev.pageX - document.getElementById('screenshot').offsetLeft;
-    var y = ev.pageY - document.getElementById('screenshot').offsetTop;
+  onScreenShotDrag(params) {
+    var fromX = params.origin.x - document.getElementById('screenshot').offsetLeft;
+    var fromY = params.origin.y - document.getElementById('screenshot').offsetTop;
+    var toX = params.end.x - document.getElementById('screenshot').offsetLeft;
+    var toY = params.end.y - document.getElementById('screenshot').offsetTop;
 
+    fromX = this.scaleCoord(fromX);
+    fromY = this.scaleCoord(fromY);
+    toX = this.scaleCoord(toX);
+    toY = this.scaleCoord(toY);
+
+    HTTP.get(
+      'status', (status_result) => {
+        var session_id = status_result.sessionId;
+        HTTP.post(
+          'session/' + session_id + '/wda/element/0/dragfromtoforduration',
+          JSON.stringify({
+            'fromX': fromX,
+            'fromY': fromY,
+            'toX': toX,
+            'toY': toY,
+            'duration': params.duration,
+          }),
+          (tap_result) => {
+            this.props.refreshApp();
+          },
+        );
+      },
+    );
+  }
+
+  scaleCoord(coord) {
     var screenshot = this.screenshot();
-
     var pxPtScale = screenshot.width / this.props.rootNode.rect.size.width;
+    return coord / screenshot.scale / pxPtScale;
+  }
 
-    x = x / screenshot.scale;
-    y = y / screenshot.scale;
-
-    x = x / pxPtScale;
-    y = y / pxPtScale;
+  onScreenShotClick(point) {
+    var x = point.x - document.getElementById('screenshot').offsetLeft;
+    var y = point.y - document.getElementById('screenshot').offsetTop;
+    x = this.scaleCoord(x);
+    y = this.scaleCoord(y);
 
     HTTP.get(
       'status', (status_result) => {
@@ -85,6 +129,18 @@ class Screen extends React.Component {
     );
   }
 
+  onMouseDown(ev) {
+    this.gestureRecognizer().onMouseDown(ev);
+  }
+
+  onMouseMove(ev) {
+    this.gestureRecognizer().onMouseMove(ev);
+  }
+
+  onMouseUp(ev) {
+    this.gestureRecognizer().onMouseUp(ev);
+  }
+
   home(ev) {
     HTTP.post(
       '/wda/homescreen',
@@ -101,7 +157,10 @@ class Screen extends React.Component {
         className="screen-screenshot"
         src={this.screenshot().source}
         style={this.styleWithScreenSize()}
-        onClick={(ev) => this.onScreenShotClick(ev)}
+        onMouseDown={(ev) => this.onMouseDown(ev)}
+        onMouseMove={(ev) => this.onMouseMove(ev)}
+        onMouseUp={(ev) => this.onMouseUp(ev)}
+        draggable="false"
         id="screenshot"
       />
     );
