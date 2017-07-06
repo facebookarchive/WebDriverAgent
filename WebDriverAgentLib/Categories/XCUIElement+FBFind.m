@@ -94,8 +94,7 @@
   NSPredicate *formattedPredicate = [NSPredicate fb_formatSearchPredicate:predicate];
   NSMutableArray<XCUIElement *> *result = [NSMutableArray array];
   // Include self element into predicate search
-  NSArray<XCElementSnapshot *> *selfMatch = [@[self.fb_lastSnapshot] filteredArrayUsingPredicate:formattedPredicate];
-  if (selfMatch.count == 1) {
+  if ([formattedPredicate evaluateWithObject:self.fb_lastSnapshot]) {
     if (shouldReturnAfterFirstMatch) {
       return @[self];
     }
