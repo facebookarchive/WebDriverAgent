@@ -16,6 +16,7 @@
 #import "XCUIElement+FBUtilities.h"
 #import "XCEventGenerator.h"
 #import "XCSynthesizedEventRecord.h"
+#import "XCElementSnapshot+FBHelpers.h"
 #import "XCElementSnapshot+FBHitPoint.h"
 #import "XCPointerEventPath.h"
 #import "XCTRunnerDaemonSession.h"
@@ -26,12 +27,34 @@ const CGFloat FBTapDuration = 0.01f;
 
 - (BOOL)fb_tapWithError:(NSError **)error
 {
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0") && [self fb_hasInvertedParentWindow]) {
+    // This indicates the fact, that the element is not affected by XCTest landscape bug and
+    // is properly clicked by calling the native tap selector
+    [self tap];
+    return YES;
+  }
   XCElementSnapshot *snapshot = self.fb_lastSnapshot;
   CGPoint hitpoint = snapshot.fb_hitPoint;
   if (CGPointEqualToPoint(hitpoint, CGPointMake(-1, -1))) {
     hitpoint = [snapshot.suggestedHitpoints.lastObject CGPointValue];
   }
   return [self fb_performTapAtPoint:hitpoint error:error];
+}
+
+- (BOOL)fb_hasInvertedParentWindow
+{
+  UIInterfaceOrientation orientation = self.application.interfaceOrientation;
+  if (orientation != UIInterfaceOrientationLandscapeLeft && orientation != UIInterfaceOrientationLandscapeRight) {
+    return NO;
+  }
+  XCElementSnapshot *selfSnapshot = self.fb_lastSnapshot;
+  XCElementSnapshot *parentWindow;
+  if ([selfSnapshot elementType] == XCUIElementTypeWindow) {
+    parentWindow = selfSnapshot;
+  } else {
+    parentWindow = [selfSnapshot fb_parentMatchingType:XCUIElementTypeWindow];
+  }
+  return nil != parentWindow && parentWindow.frame.size.height > parentWindow.frame.size.width;
 }
 
 - (BOOL)fb_tapCoordinate:(CGPoint)relativeCoordinate error:(NSError **)error
