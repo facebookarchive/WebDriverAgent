@@ -93,7 +93,17 @@
 {
   NSPredicate *formattedPredicate = [NSPredicate fb_formatSearchPredicate:predicate];
   XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:formattedPredicate];
-  return [self.class fb_extractMatchingElementsFromQuery:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch];
+  NSMutableArray<XCUIElement *> *result = [NSMutableArray array];
+  // Include self element into predicate search
+  NSArray<XCElementSnapshot *> *selfMatch = [@[self.fb_lastSnapshot] filteredArrayUsingPredicate:formattedPredicate].mutableCopy;
+  if (selfMatch.count == 1) {
+    if (shouldReturnAfterFirstMatch) {
+      return @[self];
+    }
+    [result addObject:self];
+  }
+  [result addObjectsFromArray:[self.class fb_extractMatchingElementsFromQuery:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch]];
+  return result.copy;
 }
 
 

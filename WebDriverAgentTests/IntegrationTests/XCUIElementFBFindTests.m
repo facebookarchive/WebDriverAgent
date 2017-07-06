@@ -162,6 +162,14 @@
   XCTAssertEqualObjects(matchingSnapshots.lastObject.label, @"Alerts");
 }
 
+- (void)testSelfWithPredicateString
+{
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type == 'XCUIElementTypeApplication'"];
+  NSArray<XCUIElement *> *matchingSnapshots = [self.testedApplication fb_descendantsMatchingPredicate:predicate shouldReturnAfterFirstMatch:NO];
+  XCTAssertEqual(matchingSnapshots.count, 1);
+  XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypeApplication);
+}
+
 - (void)testSingleDescendantWithPredicateString
 {
   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type = 'XCUIElementTypeButton'"];
