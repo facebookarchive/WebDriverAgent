@@ -10,7 +10,9 @@
 #import "XCUIElement+FBPickerWheel.h"
 
 #import "FBRunLoopSpinner.h"
-#import "XCUICoordinate.h"
+
+#if !TARGET_OS_TV
+#import <WebDriverAgentLib/XCUICoordinate.h>
 
 @implementation XCUIElement (FBPickerWheel)
 
@@ -43,3 +45,6 @@ static const NSTimeInterval VALUE_CHANGE_TIMEOUT = 2;
 }
 
 @end
+
+#endif
+

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yj9-xO-FTw">
+    <device id="appleTV" orientation="landscape">
+        <adaptation id="dark"/>
+    </device>
+    <dependencies>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="Mnw-dU-8GM">
+            <objects>
+                <viewController id="nue-5h-Qfe" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="H0J-Sj-AMp"/>
+                        <viewControllerLayoutGuide type="bottom" id="ee4-zu-d8h"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="S1P-ui-ORW">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nkp-w2-U4W">
+                                <rect key="frame" x="835" y="215" width="251" height="86"/>
+                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                <state key="normal" title="Attributes"/>
+                                <connections>
+                                    <segue destination="QuJ-bq-4n2" kind="show" id="6M6-Bs-8N8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WFj-jD-BXG">
+                                <rect key="frame" x="800" y="367" width="320" height="86"/>
+                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                <state key="normal" title="Deadlock App"/>
+                                <connections>
+                                    <action selector="deadlockApp:" destination="nue-5h-Qfe" eventType="primaryActionTriggered" id="mlO-nO-7nO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="nkp-w2-U4W" firstAttribute="centerX" secondItem="S1P-ui-ORW" secondAttribute="centerX" id="1KB-x6-dta"/>
+                            <constraint firstItem="WFj-jD-BXG" firstAttribute="top" secondItem="nkp-w2-U4W" secondAttribute="bottom" constant="66" id="Cpy-Js-4KN"/>
+                            <constraint firstItem="nkp-w2-U4W" firstAttribute="top" secondItem="H0J-Sj-AMp" secondAttribute="bottom" constant="70" id="jb8-Pc-pPk"/>
+                            <constraint firstItem="WFj-jD-BXG" firstAttribute="centerX" secondItem="S1P-ui-ORW" secondAttribute="centerX" id="q0d-5b-S62"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hS6-TA-UGT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pMk-6A-en4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-81" y="202"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="zfR-fR-ktT">
+            <objects>
+                <viewController id="QuJ-bq-4n2" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XfB-en-Sgl"/>
+                        <viewControllerLayoutGuide type="bottom" id="fXh-Pw-l2v"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7f1-zn-xjg">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L1C-YO-1t5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2278" y="202"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="oEd-K8-BWO">
+            <objects>
+                <navigationController id="yj9-xO-FTw" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rKJ-oB-x3S">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="145"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="nue-5h-Qfe" kind="relationship" relationship="rootViewController" id="njI-vQ-z8W"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0WU-HZ-gDU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2454" y="202"/>
+        </scene>
+    </scenes>
+</document>

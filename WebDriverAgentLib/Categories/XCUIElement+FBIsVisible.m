@@ -41,13 +41,23 @@
   if ([FBConfiguration shouldUseTestManagerForVisibilityDetection]) {
     return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
   }
+  
+#if !TARGET_OS_TV
   CGRect appFrame = [self _rootElement].frame;
   CGSize screenSize = FBAdjustDimensionsForApplication(appFrame.size, (UIInterfaceOrientation)[XCUIDevice sharedDevice].orientation);
+#else
+  CGRect appFrame = [self _rootElement].frame;
+  CGSize screenSize = appFrame.size;
+#endif
   CGRect screenFrame = CGRectMake(0, 0, screenSize.width, screenSize.height);
   if (!CGRectIntersectsRect(visibleFrame, screenFrame)) {
     return NO;
   }
+  #if !TARGET_OS_TV
   return CGRectContainsPoint(appFrame, self.fb_hitPoint);
+  #else
+  return NO;
+  #endif
 }
 
 @end

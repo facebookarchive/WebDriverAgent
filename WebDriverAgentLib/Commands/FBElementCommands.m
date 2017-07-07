@@ -21,7 +21,6 @@
 #import "FBMacros.h"
 #import "FBMathUtils.h"
 #import "NSPredicate+FBFormat.h"
-#import "XCUICoordinate.h"
 #import "XCUIDevice.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBPickerWheel.h"
@@ -34,6 +33,14 @@
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 
+// iOS Specific
+#if !TARGET_OS_TV
+#import "XCUICoordinate.h"
+#else
+#import "XCUIRemote.h"
+#endif
+
+
 @interface FBElementCommands ()
 @end
 
@@ -45,7 +52,31 @@
 {
   return
   @[
+    // iOS specific
+#if !TARGET_OS_TV
     [[FBRoute GET:@"/window/size"] respondWithTarget:self action:@selector(handleGetWindowSize:)],
+    [[FBRoute POST:@"/wda/element/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
+    [[FBRoute POST:@"/wda/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDragCoordinate:)],
+    [[FBRoute POST:@"/wda/tap/:uuid"] respondWithTarget:self action:@selector(handleTap:)],
+    [[FBRoute POST:@"/wda/element/:uuid/swipe"] respondWithTarget:self action:@selector(handleSwipe:)],
+    [[FBRoute POST:@"/wda/element/:uuid/pinch"] respondWithTarget:self action:@selector(handlePinch:)],
+    [[FBRoute POST:@"/wda/pickerwheel/:uuid/select"] respondWithTarget:self action:@selector(handleWheelSelect:)],
+    [[FBRoute POST:@"/element/:uuid/click"] respondWithTarget:self action:@selector(handleClick:)],
+    [[FBRoute POST:@"/wda/element/:uuid/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTap:)],
+    [[FBRoute POST:@"/wda/element/:uuid/twoFingerTap"] respondWithTarget:self action:@selector(handleTwoFingerTap:)],
+    [[FBRoute POST:@"/wda/element/:uuid/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHold:)],
+    [[FBRoute POST:@"/wda/element/:uuid/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
+    [[FBRoute POST:@"/wda/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHoldCoordinate:)],
+    [[FBRoute POST:@"/wda/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
+#else
+    [[FBRoute POST:@"/wda/element/remoteUp"] respondWithTarget:self action:@selector(handleRemoteUp:)],
+    [[FBRoute POST:@"/wda/element/remoteDown"] respondWithTarget:self action:@selector(handleRemoteDown:)],
+    [[FBRoute POST:@"/wda/element/remoteLeft"] respondWithTarget:self action:@selector(handleRemoteLeft:)],
+    [[FBRoute POST:@"/wda/element/remoteRight"] respondWithTarget:self action:@selector(handleRemoteRight:)],
+    [[FBRoute POST:@"/wda/element/remoteSelect"] respondWithTarget:self action:@selector(handleRemoteSelect:)],
+    [[FBRoute POST:@"/wda/element/remoteMenu"] respondWithTarget:self action:@selector(handleRemoteMenu:)],
+    [[FBRoute POST:@"/wda/element/remotePlayPause"] respondWithTarget:self action:@selector(handleRemotePlayPause:)],
+#endif
     [[FBRoute GET:@"/element/:uuid/enabled"] respondWithTarget:self action:@selector(handleGetEnabled:)],
     [[FBRoute GET:@"/element/:uuid/rect"] respondWithTarget:self action:@selector(handleGetRect:)],
     [[FBRoute GET:@"/element/:uuid/attribute/:name"] respondWithTarget:self action:@selector(handleGetAttribute:)],
@@ -53,23 +84,10 @@
     [[FBRoute GET:@"/element/:uuid/displayed"] respondWithTarget:self action:@selector(handleGetDisplayed:)],
     [[FBRoute GET:@"/element/:uuid/name"] respondWithTarget:self action:@selector(handleGetName:)],
     [[FBRoute POST:@"/element/:uuid/value"] respondWithTarget:self action:@selector(handleSetValue:)],
-    [[FBRoute POST:@"/element/:uuid/click"] respondWithTarget:self action:@selector(handleClick:)],
     [[FBRoute POST:@"/element/:uuid/clear"] respondWithTarget:self action:@selector(handleClear:)],
     [[FBRoute GET:@"/wda/element/:uuid/accessible"] respondWithTarget:self action:@selector(handleGetAccessible:)],
     [[FBRoute GET:@"/wda/element/:uuid/accessibilityContainer"] respondWithTarget:self action:@selector(handleGetIsAccessibilityContainer:)],
-    [[FBRoute POST:@"/wda/element/:uuid/swipe"] respondWithTarget:self action:@selector(handleSwipe:)],
-    [[FBRoute POST:@"/wda/element/:uuid/pinch"] respondWithTarget:self action:@selector(handlePinch:)],
-    [[FBRoute POST:@"/wda/element/:uuid/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTap:)],
-    [[FBRoute POST:@"/wda/element/:uuid/twoFingerTap"] respondWithTarget:self action:@selector(handleTwoFingerTap:)],
-    [[FBRoute POST:@"/wda/element/:uuid/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHold:)],
-    [[FBRoute POST:@"/wda/element/:uuid/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
-    [[FBRoute POST:@"/wda/element/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
-    [[FBRoute POST:@"/wda/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDragCoordinate:)],
-    [[FBRoute POST:@"/wda/tap/:uuid"] respondWithTarget:self action:@selector(handleTap:)],
-    [[FBRoute POST:@"/wda/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHoldCoordinate:)],
-    [[FBRoute POST:@"/wda/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
     [[FBRoute POST:@"/wda/keys"] respondWithTarget:self action:@selector(handleKeys:)],
-    [[FBRoute POST:@"/wda/pickerwheel/:uuid/select"] respondWithTarget:self action:@selector(handleWheelSelect:)]
   ];
 }
 
@@ -139,6 +157,64 @@
   return FBResponseWithStatus(FBCommandStatusNoError, type);
 }
 
+
+
++ (id<FBResponsePayload>)handleClear:(FBRouteRequest *)request
+{
+  FBElementCache *elementCache = request.session.elementCache;
+  NSString *elementUUID = request.parameters[@"uuid"];
+  XCUIElement *element = [elementCache elementForUUID:elementUUID];
+  NSError *error;
+  if (![element fb_clearTextWithError:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithElementUUID(elementUUID);
+}
+
+#if !TARGET_OS_TV
+
+static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
+
++ (id<FBResponsePayload>)handleDoubleTap:(FBRouteRequest *)request
+{
+  FBElementCache *elementCache = request.session.elementCache;
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+  [element doubleTap];
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleDoubleTapCoordinate:(FBRouteRequest *)request
+{
+  CGPoint doubleTapPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
+  XCUICoordinate *doubleTapCoordinate = [self.class gestureCoordinateWithCoordinate:doubleTapPoint application:request.session.application shouldApplyOrientationWorkaround:YES];
+  [doubleTapCoordinate doubleTap];
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleTwoFingerTap:(FBRouteRequest *)request
+{
+    FBElementCache *elementCache = request.session.elementCache;
+    XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+    [element twoFingerTap];
+    return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleTouchAndHold:(FBRouteRequest *)request
+{
+  FBElementCache *elementCache = request.session.elementCache;
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+  [element pressForDuration:[request.arguments[@"duration"] doubleValue]];
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleTouchAndHoldCoordinate:(FBRouteRequest *)request
+{
+  CGPoint touchPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
+  XCUICoordinate *pressCoordinate = [self.class gestureCoordinateWithCoordinate:touchPoint application:request.session.application shouldApplyOrientationWorkaround:YES];
+  [pressCoordinate pressForDuration:[request.arguments[@"duration"] doubleValue]];
+  return FBResponseWithOK();
+}
+
 + (id<FBResponsePayload>)handleSetValue:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
@@ -183,57 +259,74 @@
   return FBResponseWithElementUUID(elementUUID);
 }
 
-+ (id<FBResponsePayload>)handleClear:(FBRouteRequest *)request
-{
-  FBElementCache *elementCache = request.session.elementCache;
-  NSString *elementUUID = request.parameters[@"uuid"];
-  XCUIElement *element = [elementCache elementForUUID:elementUUID];
-  NSError *error;
-  if (![element fb_clearTextWithError:&error]) {
-    return FBResponseWithError(error);
-  }
-  return FBResponseWithElementUUID(elementUUID);
-}
+#else 
 
 + (id<FBResponsePayload>)handleDoubleTap:(FBRouteRequest *)request
 {
-  FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  [element doubleTap];
-  return FBResponseWithOK();
+  return FBResponseWithStatus(FBCommandStatusUnsupported, @"Not supported in tvOS");
 }
 
 + (id<FBResponsePayload>)handleDoubleTapCoordinate:(FBRouteRequest *)request
 {
-  CGPoint doubleTapPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
-  XCUICoordinate *doubleTapCoordinate = [self.class gestureCoordinateWithCoordinate:doubleTapPoint application:request.session.application shouldApplyOrientationWorkaround:YES];
-  [doubleTapCoordinate doubleTap];
-  return FBResponseWithOK();
+  return FBResponseWithStatus(FBCommandStatusUnsupported, @"Not supported in tvOS");
 }
 
 + (id<FBResponsePayload>)handleTwoFingerTap:(FBRouteRequest *)request
 {
-    FBElementCache *elementCache = request.session.elementCache;
-    XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-    [element twoFingerTap];
-    return FBResponseWithOK();
+  return FBResponseWithStatus(FBCommandStatusUnsupported, @"Not supported in tvOS");
 }
 
 + (id<FBResponsePayload>)handleTouchAndHold:(FBRouteRequest *)request
 {
-  FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  [element pressForDuration:[request.arguments[@"duration"] doubleValue]];
-  return FBResponseWithOK();
+  return FBResponseWithStatus(FBCommandStatusUnsupported, @"Not supported in tvOS");
 }
 
 + (id<FBResponsePayload>)handleTouchAndHoldCoordinate:(FBRouteRequest *)request
 {
-  CGPoint touchPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
-  XCUICoordinate *pressCoordinate = [self.class gestureCoordinateWithCoordinate:touchPoint application:request.session.application shouldApplyOrientationWorkaround:YES];
-  [pressCoordinate pressForDuration:[request.arguments[@"duration"] doubleValue]];
-  return FBResponseWithOK();
+  return FBResponseWithStatus(FBCommandStatusUnsupported, @"Not supported in tvOS");
 }
+
++ (id<FBResponsePayload>)handleSetValue:(FBRouteRequest *)request
+{
+  return FBResponseWithStatus(FBCommandStatusUnsupported, @"Not supported in tvOS");
+}
+
++ (id<FBResponsePayload>)handleRemoteUp: (FBRouteRequest *)request
+{
+  return [self.class handleRemoteButton:XCUIRemoteButtonUp withRequest:request];
+}
+
++ (id<FBResponsePayload>)handleRemoteDown: (FBRouteRequest *)request
+{
+  return [self.class handleRemoteButton:XCUIRemoteButtonDown withRequest:request];
+}
+
++ (id<FBResponsePayload>)handleRemoteLeft: (FBRouteRequest *)request
+{
+  return [self.class handleRemoteButton:XCUIRemoteButtonLeft withRequest:request];
+}
+
++ (id<FBResponsePayload>)handleRemoteRight: (FBRouteRequest *)request
+{
+  return [self.class handleRemoteButton:XCUIRemoteButtonRight withRequest:request];
+}
+
++ (id<FBResponsePayload>)handleRemoteSelect: (FBRouteRequest *)request
+{
+  return [self.class handleRemoteButton:XCUIRemoteButtonSelect withRequest:request];
+}
+
++ (id<FBResponsePayload>)handleRemoteMenu: (FBRouteRequest *)request
+{
+  return [self.class handleRemoteButton:XCUIRemoteButtonMenu withRequest:request];
+}
+
++ (id<FBResponsePayload>)handleRemotePlayPause: (FBRouteRequest *)request
+{
+  return [self.class handleRemoteButton:XCUIRemoteButtonPlayPause withRequest:request];
+}
+
+#endif
 
 + (id<FBResponsePayload>)handleScroll:(FBRouteRequest *)request
 {
@@ -283,6 +376,7 @@
   return FBResponseWithErrorFormat(@"Unsupported scroll type");
 }
 
+#if !TARGET_OS_TV
 + (id<FBResponsePayload>)handleDragCoordinate:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
@@ -359,16 +453,6 @@
   return FBResponseWithOK();
 }
 
-+ (id<FBResponsePayload>)handleKeys:(FBRouteRequest *)request
-{
-  NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
-  NSError *error;
-  if (![FBKeyboard typeText:textToType error:&error]) {
-    return FBResponseWithError(error);
-  }
-  return FBResponseWithOK();
-}
-
 + (id<FBResponsePayload>)handleGetWindowSize:(FBRouteRequest *)request
 {
   CGRect frame = request.session.application.wdFrame;
@@ -378,8 +462,6 @@
     @"height": @(screenSize.height),
   });
 }
-
-static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
 
 + (id<FBResponsePayload>)handleWheelSelect:(FBRouteRequest *)request
 {
@@ -411,23 +493,9 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
   return FBResponseWithOK();
 }
 
-#pragma mark - Helpers
-
-+ (id<FBResponsePayload>)handleScrollElementToVisible:(XCUIElement *)element withRequest:(FBRouteRequest *)request
-{
-  NSError *error;
-  if (!element.exists) {
-    return FBResponseWithErrorFormat(@"Can't scroll to element that does not exist");
-  }
-  if (![element fb_scrollToVisibleWithError:&error]) {
-    return FBResponseWithError(error);
-  }
-  return FBResponseWithOK();
-}
-
 /**
  Returns gesture coordinate for the application based on absolute coordinate
-
+ 
  @param coordinate absolute screen coordinates
  @param application the instance of current application under test
  @shouldApplyOrientationWorkaround whether to apply orientation workaround. This is to
@@ -447,5 +515,44 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
   XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:application normalizedOffset:CGVectorMake(0, 0)];
   return [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(point.x, point.y)];
 }
+
+#endif
+
++ (id<FBResponsePayload>)handleKeys:(FBRouteRequest *)request
+{
+  NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
+  NSError *error;
+  if (![FBKeyboard typeText:textToType error:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithOK();
+}
+
+
+#pragma mark - Helpers
+
+#if TARGET_OS_TV
++ (id<FBResponsePayload>)handleRemoteButton:(XCUIRemoteButton)button withRequest:(FBRouteRequest *)request
+{
+  NSNumber *requestedDuration = request.arguments[@"duration"];
+  NSTimeInterval duration = (requestedDuration ? requestedDuration.doubleValue : 0.);
+  [[XCUIRemote sharedRemote] pressButton:button forDuration:duration];
+  return FBResponseWithOK();
+}
+#endif
+
++ (id<FBResponsePayload>)handleScrollElementToVisible:(XCUIElement *)element withRequest:(FBRouteRequest *)request
+{
+  NSError *error;
+  if (!element.exists) {
+    return FBResponseWithErrorFormat(@"Can't scroll to element that does not exist");
+  }
+  if (![element fb_scrollToVisibleWithError:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithOK();
+}
+
+
 
 @end

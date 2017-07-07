@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "0830"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EEF988291C486603005CA669"
-               BuildableName = "WebDriverAgentRunner.xctest"
-               BlueprintName = "WebDriverAgentRunner"
-               ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+               BlueprintIdentifier = "EE158A981CBD452B00A3E3F0"
+               BuildableName = "WebDriverAgentLib.framework"
+               BlueprintName = "WebDriverAgentLib"
+               ReferencedContainer = "container:WebDriverAgent (iOS).xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,10 +35,29 @@
                BlueprintIdentifier = "EEF988291C486603005CA669"
                BuildableName = "WebDriverAgentRunner.xctest"
                BlueprintName = "WebDriverAgentRunner"
-               ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+               ReferencedContainer = "container:WebDriverAgent (iOS).xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EE836C011C0F118600D87246"
+               BuildableName = "UnitTests.xctest"
+               BlueprintName = "UnitTests"
+               ReferencedContainer = "container:WebDriverAgent (iOS).xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "EE158A981CBD452B00A3E3F0"
+            BuildableName = "WebDriverAgentLib.framework"
+            BlueprintName = "WebDriverAgentLib"
+            ReferencedContainer = "container:WebDriverAgent (iOS).xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -55,10 +74,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EEF988291C486603005CA669"
-            BuildableName = "WebDriverAgentRunner.xctest"
-            BlueprintName = "WebDriverAgentRunner"
-            ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+            BlueprintIdentifier = "EE158A981CBD452B00A3E3F0"
+            BuildableName = "WebDriverAgentLib.framework"
+            BlueprintName = "WebDriverAgentLib"
+            ReferencedContainer = "container:WebDriverAgent (iOS).xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -73,10 +92,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EEF988291C486603005CA669"
-            BuildableName = "WebDriverAgentRunner.xctest"
-            BlueprintName = "WebDriverAgentRunner"
-            ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+            BlueprintIdentifier = "EE158A981CBD452B00A3E3F0"
+            BuildableName = "WebDriverAgentLib.framework"
+            BlueprintName = "WebDriverAgentLib"
+            ReferencedContainer = "container:WebDriverAgent (iOS).xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

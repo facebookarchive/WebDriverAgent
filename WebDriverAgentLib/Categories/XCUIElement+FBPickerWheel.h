@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface XCUIElement (FBPickerWheel)
 
+#if !TARGET_OS_TV
+
 /**
  Selects the next available option in Picker Wheel
  
@@ -40,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
  @return YES if the current option has been successfully switched. Otherwise NO
  */
 - (BOOL)fb_selectPreviousOptionWithOffset:(CGFloat)offset error:(NSError **)error;
+
+#endif
 
 @end
 

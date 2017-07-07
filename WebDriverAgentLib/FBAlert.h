@@ -47,6 +47,7 @@ extern NSString *const FBAlertObstructingElementException;
  */
 - (nullable NSString *)text;
 
+#if !TARGET_OS_TV
 /**
  Accepts alert, if present
 
@@ -63,6 +64,8 @@ extern NSString *const FBAlertObstructingElementException;
  */
 - (BOOL)dismissWithError:(NSError **)error;
 
+
+
 /**
  Clicks on an alert button, if present
  
@@ -71,6 +74,8 @@ extern NSString *const FBAlertObstructingElementException;
  @return YES if the operation suceeds, otherwise NO.
  */
 - (BOOL)clickAlertButton:(NSString *)label error:(NSError **)error;
+
+#endif
 
 /**
  Filters out elements obstructed by alert

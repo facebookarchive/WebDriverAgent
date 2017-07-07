@@ -22,6 +22,13 @@ function define_xc_macros() {
   case "${DEST:-}" in
     "iphone" ) XC_DESTINATION="-destination \"name=iPhone SE,OS=10.3.1\"";;
     "ipad" ) XC_DESTINATION="-destination \"name=iPad Air 2,OS=10.3.1\"";;
+    "tvos" ) XC_DESTINATION="-destination \"name=Apple TV 1080p,OS=10.2\"";;
+  esac
+
+  case "${DEST:-}" in
+    "iphone" ) XC_PROJECT="WebDriverAgent (iOS).xcodeproj";;
+    "ipad" ) XC_PROJECT="WebDriverAgent (iOS).xcodeproj";;
+    "tvos" ) XC_PROJECT="WebDriverAgent (tvOS).xcodeproj";;
   esac
 
   case "$ACTION" in
@@ -57,7 +64,7 @@ function analyze() {
 function xcbuild() {
   lines=(
     "xcodebuild"
-    "-project WebDriverAgent.xcodeproj"
+    "-project ${XC_PROJECT}"
     "-scheme ${XC_TARGET}"
     "-sdk ${XC_SDK}"
     "${XC_DESTINATION-}"

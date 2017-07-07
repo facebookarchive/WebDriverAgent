@@ -18,11 +18,16 @@
 #import "XCSynthesizedEventRecord.h"
 #import "XCElementSnapshot+FBHitPoint.h"
 #import "XCPointerEventPath.h"
+
+#if !TARGET_OS_TV
 #import "XCTRunnerDaemonSession.h"
+#endif
 
 const CGFloat FBTapDuration = 0.01f;
 
 @implementation XCUIElement (FBTap)
+
+#if !TARGET_OS_TV
 
 - (BOOL)fb_tapWithError:(NSError **)error
 {
@@ -85,5 +90,7 @@ const CGFloat FBTapDuration = 0.01f;
   [event addPointerEventPath:eventPath];
   return event;
 }
+
+#endif
 
 @end

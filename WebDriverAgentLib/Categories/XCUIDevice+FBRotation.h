@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface XCUIDevice (FBRotation)
 
+#if !TARGET_OS_TV
+
 /**
  Sets requested device interface orientation.
 
@@ -32,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*! The UIDeviceOrientation to rotation mappings */
 @property (strong, nonatomic, readonly) NSDictionary *fb_rotationMapping;
+
+#endif
 
 @end
 

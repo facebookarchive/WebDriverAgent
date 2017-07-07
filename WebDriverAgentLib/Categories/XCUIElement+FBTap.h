@@ -6,13 +6,13 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-
+#import <Foundation/Foundation.h>
 #import <WebDriverAgentLib/XCUIElement.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface XCUIElement (FBTap)
-
+#if !TARGET_OS_TV
 /**
  Waits for element to become stable (not move) and performs sync tap on element
 
@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
  @return YES if the operation succeeds, otherwise NO.
  */
 - (BOOL)fb_tapCoordinate:(CGPoint)relativeCoordinate error:(NSError **)error;
+
+#endif
 
 @end
 
