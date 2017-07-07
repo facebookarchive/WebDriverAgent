@@ -28,7 +28,6 @@
 #import "XCUIElement+FBWebDriverAttributes.h"
 
 const CGFloat FBFuzzyPointThreshold = 20.f; //Smallest determined value that is not interpreted as touch
-const CGFloat FBFullscreenNormalizedDistance = 1.0f;
 const CGFloat FBScrollToVisibleNormalizedDistance = .5f;
 const CGFloat FBScrollVelocity = 200.f;
 const CGFloat FBScrollBoundingVelocityPadding = 0.0f;
@@ -49,24 +48,24 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
 @implementation XCUIElement (FBScrolling)
 
-- (void)fb_scrollUp
+- (void)fb_scrollUpByNormalizedDistance:(CGFloat)distance
 {
-  [self.lastSnapshot fb_scrollUpByNormalizedDistance:FBFullscreenNormalizedDistance];
+  [self.lastSnapshot fb_scrollUpByNormalizedDistance:distance];
 }
 
-- (void)fb_scrollDown
+- (void)fb_scrollDownByNormalizedDistance:(CGFloat)distance
 {
-  [self.lastSnapshot fb_scrollDownByNormalizedDistance:FBFullscreenNormalizedDistance];
+  [self.lastSnapshot fb_scrollDownByNormalizedDistance:distance];
 }
 
-- (void)fb_scrollLeft
+- (void)fb_scrollLeftByNormalizedDistance:(CGFloat)distance
 {
-  [self.lastSnapshot fb_scrollLeftByNormalizedDistance:FBFullscreenNormalizedDistance];
+  [self.lastSnapshot fb_scrollLeftByNormalizedDistance:distance];
 }
 
-- (void)fb_scrollRight
+- (void)fb_scrollRightByNormalizedDistance:(CGFloat)distance
 {
-  [self.lastSnapshot fb_scrollRightByNormalizedDistance:FBFullscreenNormalizedDistance];
+  [self.lastSnapshot fb_scrollRightByNormalizedDistance:distance];
 }
 
 - (BOOL)fb_scrollToVisibleWithError:(NSError **)error

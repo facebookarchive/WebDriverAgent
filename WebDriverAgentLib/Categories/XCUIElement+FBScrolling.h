@@ -24,23 +24,31 @@ typedef NS_ENUM(NSUInteger, FBXCUIElementScrollDirection) {
 
 /**
  Scrolls receiver up by one screen height
+
+ @param distance Normalized <0.0 - 1.0> scroll distance distance
  */
-- (void)fb_scrollUp;
+- (void)fb_scrollUpByNormalizedDistance:(CGFloat)distance;
 
 /**
  Scrolls receiver down by one screen height
+
+ @param distance Normalized <0.0 - 1.0> scroll distance distance
  */
-- (void)fb_scrollDown;
+- (void)fb_scrollDownByNormalizedDistance:(CGFloat)distance;
 
 /**
  Scrolls receiver left by one screen width
+
+ @param distance Normalized <0.0 - 1.0> scroll distance distance
  */
-- (void)fb_scrollLeft;
+- (void)fb_scrollLeftByNormalizedDistance:(CGFloat)distance;
 
 /**
  Scrolls receiver right by one screen width
+
+ @param distance Normalized <0.0 - 1.0> scroll distance distance
  */
-- (void)fb_scrollRight;
+- (void)fb_scrollRightByNormalizedDistance:(CGFloat)distance;
 
 /**
  Scrolls parent scroll view till receiver is visible.
