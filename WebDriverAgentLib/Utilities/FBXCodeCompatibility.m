@@ -43,3 +43,28 @@ static dispatch_once_t onceAppWithPIDToken;
 
 @end
 
+static BOOL FBShouldUseFirstMatchSelector = NO;
+static dispatch_once_t onceFirstMatchToken;
+@implementation XCUIElementQuery (FBCompatibility)
+
+- (XCUIElement *)fb_firstMatch
+{
+  SEL firstMatchSelector = NSSelectorFromString(@"firstMatch");
+  dispatch_once(&onceFirstMatchToken, ^{
+    FBShouldUseFirstMatchSelector = [self respondsToSelector:firstMatchSelector];
+  });
+  if (FBShouldUseFirstMatchSelector) {
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    XCUIElement* result = [self performSelector:firstMatchSelector];
+    #pragma clang diagnostic pop
+    return result.exists ? result : nil;
+  }
+  if (!self.element.exists) {
+    return nil;
+  }
+  return [self elementBoundByIndex:0];
+}
+
+@end
+

@@ -15,12 +15,19 @@
  */
 @interface XCElementSnapshot (FBCompatibility)
 
-- (XCElementSnapshot *)fb_rootElement;
+- (nullable XCElementSnapshot *)fb_rootElement;
 
 @end
 
 @interface XCUIApplication (FBCompatibility)
 
-+ (instancetype)fb_applicationWithPID:(pid_t)processID;
++ (nullable instancetype)fb_applicationWithPID:(pid_t)processID;
+
+@end
+
+@interface XCUIElementQuery (FBCompatibility)
+
+/* Performs short-circuit UI tree traversion in iOS 11+ to get the first element matched by the query. Equals to nil if no matching elements are found */
+@property(nullable, readonly) XCUIElement *fb_firstMatch;
 
 @end
