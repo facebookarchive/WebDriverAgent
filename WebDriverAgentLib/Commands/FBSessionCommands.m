@@ -70,7 +70,6 @@
   if (!bundleID) {
     return FBResponseWithErrorFormat(@"'bundleId' desired capability not provided");
   }
-  [FBConfiguration setShouldUseTestManagerForVisibilityDetection:[requirements[@"shouldUseTestManagerForVisibilityDetection"] boolValue]];
   if (requirements[@"maxTypingFrequency"]) {
     [FBConfiguration setMaxTypingFrequency:[requirements[@"maxTypingFrequency"] integerValue]];
   }

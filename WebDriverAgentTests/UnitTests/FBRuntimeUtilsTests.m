@@ -39,7 +39,6 @@ const NSString *FBRuntimeUtilsTestsConstString = @"FBRuntimeUtilsTestsConstStrin
 {
   XCTAssertTrue(XCDebugLogger != NULL);
   XCTAssertTrue(XCSetDebugLogger != NULL);
-  XCTAssertNotNil(FB_XCAXAIsVisibleAttribute);
   XCTAssertNotNil(FB_XCAXAIsElementAttribute);
 }
 

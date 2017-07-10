@@ -11,9 +11,6 @@
 
 @protocol XCDebugLogDelegate;
 
-/*! Accessibility identifier for is visible attribute */
-extern NSNumber *FB_XCAXAIsVisibleAttribute;
-
 /*! Accessibility identifier for is accessible attribute */
 extern NSNumber *FB_XCAXAIsElementAttribute;
 
