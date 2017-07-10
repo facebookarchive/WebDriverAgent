@@ -69,7 +69,6 @@
 - (id)_uniquelyIdentifyingSwiftCode;
 - (BOOL)_isAncestorOfElement:(id)arg1;
 - (BOOL)_isDescendantOfElement:(id)arg1;
-- (XCElementSnapshot *)_rootElement;
 - (BOOL)_frameFuzzyMatchesElement:(id)arg1;
 - (BOOL)_fuzzyMatchesElement:(id)arg1;
 - (BOOL)_matchesElement:(id)arg1;
@@ -86,5 +85,10 @@
 - (struct CGPoint)hostingAndOrientationTransformedPoint:(struct CGPoint)arg1;
 - (struct CGPoint)_transformPoint:(struct CGPoint)arg1 windowContextID:(id)arg2 windowDisplayID:(id)arg3;
 - (id)hitTest:(struct CGPoint)arg1;
+
+/*! DO NOT USE DIRECTLY! Please use fb_rootElement instead */
+- (XCElementSnapshot *)_rootElement;
+/*! DO NOT USE DIRECTLY! Please use fb_rootElement instead */
+- (XCElementSnapshot *)rootElement;
 
 @end

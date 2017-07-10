@@ -12,6 +12,7 @@
 #import "FBApplication.h"
 #import "FBConfiguration.h"
 #import "FBMathUtils.h"
+#import "FBXCodeCompatibility.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCTestPrivateSymbols.h"
@@ -41,7 +42,7 @@
   if ([FBConfiguration shouldUseTestManagerForVisibilityDetection]) {
     return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
   }
-  CGRect appFrame = [self _rootElement].frame;
+  CGRect appFrame = [self fb_rootElement].frame;
   CGSize screenSize = FBAdjustDimensionsForApplication(appFrame.size, (UIInterfaceOrientation)[XCUIDevice sharedDevice].orientation);
   CGRect screenFrame = CGRectMake(0, 0, screenSize.width, screenSize.height);
   if (!CGRectIntersectsRect(visibleFrame, screenFrame)) {
