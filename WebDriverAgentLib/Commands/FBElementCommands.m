@@ -254,14 +254,16 @@
 
   NSString *const direction = request.arguments[@"direction"];
   if (direction) {
+    NSString *const distanceString = request.arguments[@"distance"] ?: @"1.0";
+    CGFloat distance = (CGFloat)distanceString.doubleValue;
     if ([direction isEqualToString:@"up"]) {
-      [element fb_scrollUp];
+      [element fb_scrollUpByNormalizedDistance:distance];
     } else if ([direction isEqualToString:@"down"]) {
-      [element fb_scrollDown];
+      [element fb_scrollDownByNormalizedDistance:distance];
     } else if ([direction isEqualToString:@"left"]) {
-      [element fb_scrollLeft];
+      [element fb_scrollLeftByNormalizedDistance:distance];
     } else if ([direction isEqualToString:@"right"]) {
-      [element fb_scrollRight];
+      [element fb_scrollRightByNormalizedDistance:distance];
     }
     return FBResponseWithOK();
   }

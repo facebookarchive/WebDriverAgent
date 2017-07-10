@@ -39,7 +39,10 @@
 #endif
 @property(readonly) XCAccessibilityElement *accessibilityElement;
 
+/*! DO NOT USE DIRECTLY! Please use fb_applicationWithPID instead */
 + (instancetype)appWithPID:(pid_t)processID;
+/*! DO NOT USE DIRECTLY! Please use fb_applicationWithPID instead */
++ (instancetype)applicationWithPID:(pid_t)processID;
 
 - (void)dismissKeyboard;
 - (BOOL)setFauxCollectionViewCellsEnabled:(BOOL)arg1 error:(id *)arg2;
