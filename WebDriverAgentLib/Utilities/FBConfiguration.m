@@ -18,8 +18,6 @@ BOOL _AXSAutomationSetFauxCollectionViewCellsEnabled(BOOL);
 
 static NSUInteger const DefaultStartingPort = 8100;
 static NSUInteger const DefaultPortRange = 100;
-
-static BOOL FBShouldUseTestManagerForVisibilityDetection = NO;
 static NSUInteger FBMaxTypingFrequency = 60;
 
 @implementation FBConfiguration
@@ -49,16 +47,6 @@ static NSUInteger FBMaxTypingFrequency = 60;
 + (BOOL)verboseLoggingEnabled
 {
   return [NSProcessInfo.processInfo.environment[@"VERBOSE_LOGGING"] boolValue];
-}
-
-+ (void)setShouldUseTestManagerForVisibilityDetection:(BOOL)value
-{
-  FBShouldUseTestManagerForVisibilityDetection = value;
-}
-
-+ (BOOL)shouldUseTestManagerForVisibilityDetection
-{
-  return FBShouldUseTestManagerForVisibilityDetection;
 }
 
 + (void)setMaxTypingFrequency:(NSUInteger)value

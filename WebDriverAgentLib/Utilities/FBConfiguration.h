@@ -16,10 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface FBConfiguration : NSObject
 
-/*! If set to YES will ask TestManagerDaemon for element visibility */
-+ (void)setShouldUseTestManagerForVisibilityDetection:(BOOL)value;
-+ (BOOL)shouldUseTestManagerForVisibilityDetection;
-
 /* The maximum typing frequency for all typing activities */
 + (void)setMaxTypingFrequency:(NSUInteger)value;
 + (NSUInteger)maxTypingFrequency;

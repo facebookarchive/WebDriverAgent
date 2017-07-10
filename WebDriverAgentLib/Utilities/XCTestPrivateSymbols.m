@@ -11,7 +11,6 @@
 
 #import "FBRuntimeUtils.h"
 
-NSNumber *FB_XCAXAIsVisibleAttribute;
 NSNumber *FB_XCAXAIsElementAttribute;
 
 void (*XCSetDebugLogger)(id <XCDebugLogDelegate>);
@@ -19,7 +18,6 @@ id<XCDebugLogDelegate> (*XCDebugLogger)();
 
 __attribute__((constructor)) void FBLoadXCTestSymbols(void)
 {
-  NSString *XC_kAXXCAttributeIsVisible = *(NSString*__autoreleasing*)FBRetrieveXCTestSymbol("XC_kAXXCAttributeIsVisible");
   NSString *XC_kAXXCAttributeIsElement = *(NSString*__autoreleasing*)FBRetrieveXCTestSymbol("XC_kAXXCAttributeIsElement");
 
   NSArray *(*XCAXAccessibilityAttributesForStringAttributes)(NSArray *list) =
@@ -28,11 +26,9 @@ __attribute__((constructor)) void FBLoadXCTestSymbols(void)
   XCSetDebugLogger = (void (*)(id <XCDebugLogDelegate>))FBRetrieveXCTestSymbol("XCSetDebugLogger");
   XCDebugLogger = (id<XCDebugLogDelegate>(*)(void))FBRetrieveXCTestSymbol("XCDebugLogger");
 
-  NSArray<NSNumber *> *accessibilityAttributes = XCAXAccessibilityAttributesForStringAttributes(@[XC_kAXXCAttributeIsVisible, XC_kAXXCAttributeIsElement]);
-  FB_XCAXAIsVisibleAttribute = accessibilityAttributes[0];
+  NSArray<NSNumber *> *accessibilityAttributes = XCAXAccessibilityAttributesForStringAttributes(@[XC_kAXXCAttributeIsElement]);
   FB_XCAXAIsElementAttribute = accessibilityAttributes[1];
 
-  NSCAssert(FB_XCAXAIsVisibleAttribute != nil , @"Failed to retrieve FB_XCAXAIsVisibleAttribute", FB_XCAXAIsVisibleAttribute);
   NSCAssert(FB_XCAXAIsElementAttribute != nil , @"Failed to retrieve FB_XCAXAIsElementAttribute", FB_XCAXAIsElementAttribute);
 }
 
