@@ -37,6 +37,7 @@
     [[FBRoute POST:@"/wda/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/wda/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/wda/keyboard/dismiss"] respondWithTarget:self action:@selector(handleDismissKeyboardCommand:)],
+    [[FBRoute GET:@"/lock"].withoutSession respondWithTarget:self action:@selector(handleLock:)]
   ];
 }
 
@@ -89,6 +90,20 @@
   if (!isKeyboardNotPresent) {
     return FBResponseWithError(error);
   }
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleLock:(FBRouteRequest *)request
+{
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    @try{
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+      [[XCUIDevice sharedDevice] performSelector:NSSelectorFromString(@"pressLockButton")];
+    }@catch(NSException *exception){
+      NSLog(@"Exception cought in the main thread %@",exception);
+    }
+  });
   return FBResponseWithOK();
 }
 
