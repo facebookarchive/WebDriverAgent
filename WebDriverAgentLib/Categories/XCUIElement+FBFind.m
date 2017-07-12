@@ -18,6 +18,7 @@
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "FBElementUtils.h"
+#import "FBXPath.h"
 
 @implementation XCUIElement (FBFind)
 
@@ -108,25 +109,28 @@
 
 #pragma mark - Search by xpath
 
-- (NSArray<XCElementSnapshot *> *)getMatchedSnapshotsByXPathQuery:(NSString *)xpathQuery
+- (NSArray<id<FBElement>> *)getMatchedElementsByXPathQuery:(NSString *)xpathQuery
 {
   // XPath will try to match elements only class name, so requesting elements by XCUIElementTypeAny will not work. We should use '*' instead.
   xpathQuery = [xpathQuery stringByReplacingOccurrencesOfString:@"XCUIElementTypeAny" withString:@"*"];
-  [self fb_waitUntilSnapshotIsStable];
-  return [self.fb_lastSnapshot fb_descendantsMatchingXPathQuery:xpathQuery];
+  if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+    [self fb_waitUntilSnapshotIsStable];
+    return [self.fb_lastSnapshot fb_descendantsMatchingXPathQuery:xpathQuery];
+  }
+  return [FBXPath findMatchesIn:self xpathQuery:xpathQuery];
 }
 
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
-  NSArray *matchingSnapshots = [self getMatchedSnapshotsByXPathQuery:xpathQuery];
-  if (0 == [matchingSnapshots count]) {
+  NSArray *matchedElements = [self getMatchedElementsByXPathQuery:xpathQuery];
+  if (0 == [matchedElements count]) {
     return @[];
   }
   if (shouldReturnAfterFirstMatch) {
-    XCElementSnapshot *snapshot = matchingSnapshots.firstObject;
-    matchingSnapshots = @[snapshot];
+    XCUIElement *match = matchedElements.firstObject;
+    matchedElements = @[match];
   }
-  return [self fb_filterDescendantsWithSnapshots:matchingSnapshots];
+  return matchedElements;
 }
 
 

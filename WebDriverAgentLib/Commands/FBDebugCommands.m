@@ -9,6 +9,7 @@
 
 #import "FBDebugCommands.h"
 
+#import "FBMacros.h"
 #import "FBApplication.h"
 #import "FBRouteRequest.h"
 #import "FBSession.h"
@@ -40,8 +41,12 @@
   NSString *sourceType = request.parameters[@"format"];
   id result;
   if (!sourceType || [sourceType caseInsensitiveCompare:@"xml"] == NSOrderedSame) {
-    [application fb_waitUntilSnapshotIsStable];
-    result = [FBXPath xmlStringWithSnapshot:application.fb_lastSnapshot];
+    if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+      [application fb_waitUntilSnapshotIsStable];
+      result = [FBXPath xmlStringWithElement:(id<FBElement>)application.fb_lastSnapshot];
+    } else {
+      result = [FBXPath xmlStringWithElement:(id<FBElement>)application];
+    }
   } else if ([sourceType caseInsensitiveCompare:@"json"] == NSOrderedSame) {
     result = application.fb_tree;
   } else {

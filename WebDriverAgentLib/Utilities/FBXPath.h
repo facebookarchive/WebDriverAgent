@@ -48,7 +48,7 @@ extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
  @param xpathQuery requested xpath query
  @return an array of descendants matching given xpath query
  */
-+ (nullable NSArray<XCElementSnapshot *> *)findMatchesIn:(XCElementSnapshot *)root xpathQuery:(NSString *)xpathQuery;
++ (nullable NSArray<id<FBElement>> *)findMatchesIn:(id<FBElement>)root xpathQuery:(NSString *)xpathQuery;
 
 /**
  Gets XML representation of XCElementSnapshot with all its descendants. This method generates the same
@@ -57,7 +57,7 @@ extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
  @param root the root element
  @return valid XML document as string or nil in case of failure
  */
-+ (nullable NSString *)xmlStringWithSnapshot:(XCElementSnapshot *)root;
++ (nullable NSString *)xmlStringWithElement:(id<FBElement>)root;
 
 @end
 
