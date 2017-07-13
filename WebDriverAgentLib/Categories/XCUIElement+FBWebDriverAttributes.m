@@ -17,6 +17,7 @@
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBUID.h"
 #import "XCUIElement.h"
+#import "XCUIElement+FBUtilities.h"
 #import "FBElementUtils.h"
 
 @implementation XCUIElement (WebDriverAttributesForwarding)
@@ -32,15 +33,9 @@
     return [XCElementSnapshot new];
   }
 
-  if (self.lastSnapshot) {
-    return self.lastSnapshot;
-  }
-  // If lastSnapshot is missing, trying to resolve it.
-  [self resolve];
-
   // If lastSnapshot is still missing aplication is probably not active. Returning empty element instead of crashing.
   // This will work well, if element search is requested (will not match anything) and reqesting properties values (will return nils).
-  return self.lastSnapshot ?: [XCElementSnapshot new];
+  return self.fb_lastSnapshot ?: [XCElementSnapshot new];
 }
 
 @end
@@ -53,7 +48,7 @@
   return [self valueForKey:[FBElementUtils wdAttributeNameForAttributeName:name]];
 }
 
-- (id)wdValue
+- (NSString *)wdValue
 {
   id value = self.value;
   if (self.elementType == XCUIElementTypeStaticText) {
@@ -70,7 +65,11 @@
       self.elementType == XCUIElementTypeSecureTextField) {
     value = FBFirstNonEmptyValue(self.value, self.placeholderValue);
   }
-  return FBTransferEmptyStringToNil(value);
+  value = FBTransferEmptyStringToNil(value);
+  if (value) {
+    value = [NSString stringWithFormat:@"%@", value];
+  }
+  return value;
 }
 
 - (NSString *)wdName

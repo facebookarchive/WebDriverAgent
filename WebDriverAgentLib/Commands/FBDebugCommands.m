@@ -41,7 +41,7 @@
   id result;
   if (!sourceType || [sourceType caseInsensitiveCompare:@"xml"] == NSOrderedSame) {
     [application fb_waitUntilSnapshotIsStable];
-    result = [FBXPath xmlStringWithSnapshot:application.lastSnapshot];
+    result = [FBXPath xmlStringWithSnapshot:application.fb_lastSnapshot];
   } else if ([sourceType caseInsensitiveCompare:@"json"] == NSOrderedSame) {
     result = application.fb_tree;
   } else {

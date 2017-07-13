@@ -25,6 +25,7 @@
 #import "XCUICoordinate.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
+#import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 
 const CGFloat FBFuzzyPointThreshold = 20.f; //Smallest determined value that is not interpreted as touch
@@ -50,22 +51,22 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
 - (void)fb_scrollUpByNormalizedDistance:(CGFloat)distance
 {
-  [self.lastSnapshot fb_scrollUpByNormalizedDistance:distance];
+  [self.fb_lastSnapshot fb_scrollUpByNormalizedDistance:distance];
 }
 
 - (void)fb_scrollDownByNormalizedDistance:(CGFloat)distance
 {
-  [self.lastSnapshot fb_scrollDownByNormalizedDistance:distance];
+  [self.fb_lastSnapshot fb_scrollDownByNormalizedDistance:distance];
 }
 
 - (void)fb_scrollLeftByNormalizedDistance:(CGFloat)distance
 {
-  [self.lastSnapshot fb_scrollLeftByNormalizedDistance:distance];
+  [self.fb_lastSnapshot fb_scrollLeftByNormalizedDistance:distance];
 }
 
 - (void)fb_scrollRightByNormalizedDistance:(CGFloat)distance
 {
-  [self.lastSnapshot fb_scrollRightByNormalizedDistance:distance];
+  [self.fb_lastSnapshot fb_scrollRightByNormalizedDistance:distance];
 }
 
 - (BOOL)fb_scrollToVisibleWithError:(NSError **)error
@@ -94,8 +95,8 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
                                @(XCUIElementTypeTable),
                                @(XCUIElementTypeWebView),
                                ];
-
-  XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingOneOfTypes:acceptedParents
+  XCElementSnapshot *elementSnapshot = self.fb_lastSnapshot;
+  XCElementSnapshot *scrollView = [elementSnapshot fb_parentMatchingOneOfTypes:acceptedParents
       filter:^(XCElementSnapshot *snapshot) {
 
          if (![snapshot isWDVisible]) {
@@ -119,7 +120,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
      buildError:error];
   }
 
-  XCElementSnapshot *targetCellSnapshot = [self.lastSnapshot fb_parentCellSnapshot];
+  XCElementSnapshot *targetCellSnapshot = [elementSnapshot fb_parentCellSnapshot];
 
   XCElementSnapshot *lastSnapshot = visibleCellSnapshots.lastObject;
   // Can't just do indexOfObject, because targetCellSnapshot may represent the same object represented by a member of cellSnapshots, yet be a different object
@@ -147,7 +148,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   const NSUInteger maxScrollCount = 25;
   NSUInteger scrollCount = 0;
 
-  XCElementSnapshot *prescrollSnapshot = self.lastSnapshot;
+  XCElementSnapshot *prescrollSnapshot = self.fb_lastSnapshot;
   // Scrolling till cell is visible and get current value of frames
   while (![self fb_isEquivalentElementSnapshotVisible:prescrollSnapshot] && scrollCount < maxScrollCount) {
     if (targetCellIndex < visibleCellIndex) {
@@ -170,7 +171,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   }
 
   // Cell is now visible, but it might be only partialy visible, scrolling till whole frame is visible
-  targetCellSnapshot = [self.lastSnapshot fb_parentCellSnapshot];
+  targetCellSnapshot = [self.fb_lastSnapshot fb_parentCellSnapshot];
   CGVector scrollVector = CGVectorMake(targetCellSnapshot.visibleFrame.size.width - targetCellSnapshot.frame.size.width,
                                        targetCellSnapshot.visibleFrame.size.height - targetCellSnapshot.frame.size.height
                                        );
@@ -185,8 +186,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   if (self.fb_isVisible) {
     return YES;
   }
-  [self.application resolve];
-  for (XCElementSnapshot *elementSnapshot in self.application.lastSnapshot._allDescendants.copy) {
+  for (XCElementSnapshot *elementSnapshot in self.application.fb_lastSnapshot._allDescendants.copy) {
     // We are comparing pre-scroll snapshot so frames are irrelevant.
     if ([snapshot fb_framelessFuzzyMatchesElement:elementSnapshot] && elementSnapshot.fb_isVisible) {
       return YES;
