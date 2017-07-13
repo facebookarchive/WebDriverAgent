@@ -26,7 +26,10 @@
 
 - (NSUInteger)fb_uid
 {
-  return [[self.accessibilityElement.payload objectForKey:@"uid.elementID"] intValue];
+  if ([self.accessibilityElement respondsToSelector:@selector(payload)]) {
+    return [[self.accessibilityElement.payload objectForKey:@"uid.elementID"] intValue];
+  }
+  return [[self.accessibilityElement valueForKey:@"_elementID"] intValue];
 }
 
 @end
