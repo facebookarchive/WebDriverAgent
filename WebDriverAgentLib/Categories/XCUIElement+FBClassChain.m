@@ -30,7 +30,7 @@ NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseExcept
   [lookupChain removeObjectAtIndex:0];
   while (lookupChain.count > 0) {
     BOOL isRootChanged = NO;
-    if (chainItem.position > 1) {
+    if (chainItem.position < 0 || chainItem.position > 1) {
       // It is necessary to resolve the query if intermediate element index is greater than 1
       // because predicates don't support search by indexes
       NSArray<XCUIElement *> *currentRootMatch = [self.class fb_matchingElementsWithItem:chainItem query:query shouldReturnAfterFirstMatch:NO];
