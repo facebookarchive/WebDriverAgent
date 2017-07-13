@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FBClassChainElement : NSObject
+@interface FBClassChainItem : NSObject
 
 /*! Element's position */
 @property (readonly, nonatomic) NSInteger position;
@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic) XCUIElementType type;
 /*! Element's predicate */
 @property (nullable, readonly, nonatomic) NSPredicate *predicate;
+/*! Whether an element is a descendant of the previos element */
+@property (readonly, nonatomic) BOOL isDescendant;
 
 /**
  Instance constructor, which allows to set element type and position
@@ -30,14 +32,29 @@ NS_ASSUME_NONNULL_BEGIN
    Negative value means that numeration starts from the last element, for example
    -1 is the last child element and -2 is the second last element
  @param predicate valid predicate expession for element search. Can be nil
+ @param isDescendant equals to YES if the element is a descendantt element of
+   the previous element in the chain. NO value maens the element is the direct
+   child of the previous element
  @return FBClassChainElement instance
  */
-- (instancetype)initWithType:(XCUIElementType)type position:(NSInteger)position predicate:(NSPredicate *)predicate;
+- (instancetype)initWithType:(XCUIElementType)type position:(NSInteger)position predicate:(NSPredicate *)predicate isDescendant:(BOOL)isDescendant;
 
 @end
 
-/*! Type alias for the product of class chain query parsing */
-typedef NSArray<FBClassChainElement *> * FBClassChain;
+@interface FBClassChain : NSObject
+
+/*! Array of parsed chain items */
+@property (readonly, nonatomic, copy) NSArray<FBClassChainItem *> *elements;
+
+/**
+ Instance constructor for parsed class chain instance
+ 
+ @param elements an array of parsed chains elements
+ @return FBClassChain instance
+ */
+- (instancetype)initWithElements:(NSArray<FBClassChainItem *> *)elements;
+
+@end
 
 @interface FBClassChainQueryParser : NSObject
 
@@ -52,7 +69,7 @@ typedef NSArray<FBClassChainElement *> * FBClassChain;
    there was parsing error (the parameter will be initialized with detailed error description in such case)
  @throws FBUnknownAttributeException if any of predicates in the chain contains unknown attribute 
  */
-+ (nullable FBClassChain)parseQuery:(NSString*)classChainQuery error:(NSError **)error;
++ (nullable FBClassChain*)parseQuery:(NSString*)classChainQuery error:(NSError **)error;
 
 @end
 
