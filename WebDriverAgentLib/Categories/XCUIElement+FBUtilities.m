@@ -73,21 +73,27 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
     return @[];
   }
   NSArray<NSNumber *> *matchedUids = [snapshots valueForKey:FBStringify(XCUIElement, wdUID)];
+  NSMutableArray<XCUIElement *> *matchedElements = [NSMutableArray array];
+  if ([matchedUids containsObject:@(self.wdUID)]) {
+    if (1 == snapshots.count) {
+      return @[self];
+    }
+    [matchedElements addObject:self];
+  }
   XCUIElementType type = XCUIElementTypeAny;
   NSArray<NSNumber *> *uniqueTypes = [snapshots valueForKeyPath:[NSString stringWithFormat:@"@distinctUnionOfObjects.%@", FBStringify(XCUIElement, elementType)]];
   if (uniqueTypes && [uniqueTypes count] == 1) {
     type = [uniqueTypes.firstObject intValue];
   }
-  NSArray<XCUIElement *> *filteredElements = [[self descendantsMatchingType:type] matchingPredicate:[NSPredicate predicateWithFormat:@"%K IN %@", FBStringify(XCUIElement, wdUID), matchedUids]].allElementsBoundByIndex;
-  if (filteredElements.count <= 1) {
+  [matchedElements addObjectsFromArray:[[self descendantsMatchingType:type] matchingPredicate:[NSPredicate predicateWithFormat:@"%K IN %@", FBStringify(XCUIElement, wdUID), matchedUids]].allElementsBoundByIndex];
+  if (matchedElements.count <= 1) {
     // There is no need to sort elements if count of matches is not greater than one
-    return filteredElements;
+    return matchedElements;
   }
   NSMutableArray<XCUIElement *> *sortedElements = [NSMutableArray array];
-  NSMutableArray<XCUIElement *> *unmatchedElements = [filteredElements mutableCopy];
   [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
     XCUIElement *matchedElement = nil;
-    for (XCUIElement *element in unmatchedElements) {
+    for (XCUIElement *element in matchedElements) {
       if (element.wdUID == snapshot.wdUID) {
         matchedElement = element;
         break;
@@ -95,7 +101,7 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
     }
     if (matchedElement) {
       [sortedElements addObject:matchedElement];
-      [unmatchedElements removeObject:matchedElement];
+      [matchedElements removeObject:matchedElement];
     }
   }];
   return sortedElements.copy;
