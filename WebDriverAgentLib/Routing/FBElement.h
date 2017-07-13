@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy) NSString *wdType;
 
 /*! Element's value */
-@property (nonatomic, readonly, strong, nullable) id wdValue;
+@property (nonatomic, readonly, strong, nullable) NSString *wdValue;
 
 /*! Element's unique identifier */
 @property (nonatomic, readonly) NSUInteger wdUID;

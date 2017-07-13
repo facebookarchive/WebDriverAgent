@@ -48,7 +48,7 @@
   return [self valueForKey:[FBElementUtils wdAttributeNameForAttributeName:name]];
 }
 
-- (id)wdValue
+- (NSString *)wdValue
 {
   id value = self.value;
   if (self.elementType == XCUIElementTypeStaticText) {
@@ -65,7 +65,11 @@
       self.elementType == XCUIElementTypeSecureTextField) {
     value = FBFirstNonEmptyValue(self.value, self.placeholderValue);
   }
-  return FBTransferEmptyStringToNil(value);
+  value = FBTransferEmptyStringToNil(value);
+  if (value) {
+    value = [NSString stringWithFormat:@"%@", value];
+  }
+  return value;
 }
 
 - (NSString *)wdName
