@@ -47,12 +47,12 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   if (!self.exists) {
     return NO;
   }
-  [self resolve];
-  [element resolve];
-  if ([self.lastSnapshot _isAncestorOfElement:element.lastSnapshot]) {
+  XCElementSnapshot *snapshot = self.fb_lastSnapshot;
+  XCElementSnapshot *elementSnapshot = element.fb_lastSnapshot;
+  if ([snapshot _isAncestorOfElement:elementSnapshot]) {
     return NO;
   }
-  if ([self.lastSnapshot _matchesElement:element.lastSnapshot]) {
+  if ([snapshot _matchesElement:elementSnapshot]) {
     return NO;
   }
   return YES;

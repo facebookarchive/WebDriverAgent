@@ -113,7 +113,7 @@
   // XPath will try to match elements only class name, so requesting elements by XCUIElementTypeAny will not work. We should use '*' instead.
   xpathQuery = [xpathQuery stringByReplacingOccurrencesOfString:@"XCUIElementTypeAny" withString:@"*"];
   [self fb_waitUntilSnapshotIsStable];
-  return [self.lastSnapshot fb_descendantsMatchingXPathQuery:xpathQuery];
+  return [self.fb_lastSnapshot fb_descendantsMatchingXPathQuery:xpathQuery];
 }
 
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch

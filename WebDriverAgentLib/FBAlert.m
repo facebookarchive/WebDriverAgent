@@ -189,12 +189,12 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   if (!alert.exists) {
     return NO;
   }
-  [alert resolve];
-  [element resolve];
-  if ([alert.lastSnapshot _isAncestorOfElement:element.lastSnapshot]) {
+  XCElementSnapshot *alertSnapshot = alert.fb_lastSnapshot;
+  XCElementSnapshot *elementSnapshot = element.fb_lastSnapshot;
+  if ([alertSnapshot _isAncestorOfElement:elementSnapshot]) {
     return NO;
   }
-  if ([alert.lastSnapshot _matchesElement:element.lastSnapshot]) {
+  if ([alertSnapshot _matchesElement:elementSnapshot]) {
     return NO;
   }
   return YES;

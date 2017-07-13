@@ -11,15 +11,13 @@
 
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCTestPrivateSymbols.h"
+#import "XCUIElement+FBUtilities.h"
 
 @implementation XCUIElement (FBAccessibility)
 
 - (BOOL)fb_isAccessibilityElement
 {
-  if (!self.lastSnapshot) {
-    [self resolve];
-  }
-  return self.lastSnapshot.fb_isAccessibilityElement;
+  return self.fb_lastSnapshot.fb_isAccessibilityElement;
 }
 
 @end

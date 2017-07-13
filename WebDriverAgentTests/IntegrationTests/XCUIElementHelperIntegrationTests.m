@@ -13,8 +13,8 @@
 #import "FBIntegrationTestCase.h"
 #import "FBTestMacros.h"
 #import "FBElement.h"
-#import "XCUIElement+FBUtilities.h"
 #import "FBElementUtils.h"
+#import "XCUIElement+FBUtilities.h"
 
 @interface XCUIElementHelperIntegrationTests : FBIntegrationTestCase
 @end
