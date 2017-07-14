@@ -22,6 +22,11 @@ extern NSString *const FBShowSheetAlertButtonName;
 @property (nonatomic, strong, readonly) FBSpringboardApplication *springboard;
 
 /**
+ Launches application and resets side effects of testing like orientation etc.
+ */
+- (void)launchApplication;
+
+/**
  Navigates integration app to attributes page
  */
 - (void)goToAttributesPage;

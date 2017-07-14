@@ -21,6 +21,12 @@
 
 @implementation XCUIApplicationHelperTests
 
+- (void)setUp
+{
+  [super setUp];
+  [self launchApplication];
+}
+
 - (void)testQueringSpringboard
 {
   [self goToSpringBoardFirstPage];

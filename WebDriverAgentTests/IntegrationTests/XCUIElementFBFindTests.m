@@ -27,6 +27,10 @@
 - (void)setUp
 {
   [super setUp];
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [self launchApplication];
+  });
   self.testedView = self.testedApplication.otherElements[@"MainView"];
   XCTAssertTrue(self.testedView.exists);
   [self.testedView resolve];
@@ -125,8 +129,8 @@
 
 - (void)testDescendantsWithComplexXPathQuery
 {
-    NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//*[@label='Scrolling']/preceding::*[boolean(string(@label))]" shouldReturnAfterFirstMatch:NO];
-    XCTAssertEqual(matchingSnapshots.count, 3);
+  NSArray<XCUIElement *> *matchingSnapshots = [self.testedView fb_descendantsMatchingXPathQuery:@"//*[@label='Scrolling']/preceding::*[boolean(string(@label))]" shouldReturnAfterFirstMatch:NO];
+  XCTAssertEqual(matchingSnapshots.count, 3);
 }
 
 - (void)testDescendantsWithWrongXPathQuery
@@ -149,15 +153,6 @@
   XCTAssertTrue(matchingSnapshots.lastObject.isEnabled);
   XCTAssertTrue(matchingSnapshots.lastObject.fb_isVisible);
   XCTAssertEqualObjects(matchingSnapshots.lastObject.label, @"Alerts");
-}
-
-- (void)testInvisibleDescendantWithXPathQuery
-{
-  [self goToAttributesPage];
-  NSArray<XCUIElement *> *matchingSnapshots = [self.testedApplication fb_descendantsMatchingXPathQuery:@"//XCUIElementTypePageIndicator[@visible='false']" shouldReturnAfterFirstMatch:NO];
-  XCTAssertEqual(matchingSnapshots.count, 1);
-  XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypePageIndicator);
-  XCTAssertFalse(matchingSnapshots.lastObject.fb_isVisible);
 }
 
 - (void)testDescendantsWithPredicateString
@@ -261,6 +256,32 @@
 {
   XCTAssertThrowsSpecificNamed([self.testedApplication fb_descendantsMatchingClassChain:@"XCUIElementTypeWindow[`bla != 'bla'`]" shouldReturnAfterFirstMatch:NO],
                                NSException, FBUnknownAttributeException);;
+}
+
+@end
+
+@interface XCUIElementFBFindTests_AttributesPage : FBIntegrationTestCase
+@end
+
+
+@implementation XCUIElementFBFindTests_AttributesPage
+
+- (void)setUp
+{
+  [super setUp];
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [self launchApplication];
+    [self goToAttributesPage];
+  });
+}
+
+- (void)testInvisibleDescendantWithXPathQuery
+{
+  NSArray<XCUIElement *> *matchingSnapshots = [self.testedApplication fb_descendantsMatchingXPathQuery:@"//XCUIElementTypePageIndicator[@visible='false']" shouldReturnAfterFirstMatch:NO];
+  XCTAssertEqual(matchingSnapshots.count, 1);
+  XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypePageIndicator);
+  XCTAssertFalse(matchingSnapshots.lastObject.fb_isVisible);
 }
 
 @end

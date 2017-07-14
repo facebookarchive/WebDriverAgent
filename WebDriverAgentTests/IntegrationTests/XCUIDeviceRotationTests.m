@@ -17,6 +17,12 @@
 
 @implementation XCUIDeviceRotationTests
 
+- (void)setUp
+{
+  [super setUp];
+  [self launchApplication];
+}
+
 - (void)testLandscapeRightOrientation
 {
   BOOL success = [[XCUIDevice sharedDevice] fb_setDeviceInterfaceOrientation:UIDeviceOrientationLandscapeRight];

@@ -26,6 +26,10 @@
 - (void)setUp
 {
   [super setUp];
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [self launchApplication];
+  });
   self.testedView = self.testedApplication.otherElements[@"MainView"];
   XCTAssertTrue(self.testedView.exists);
   [self.testedView resolve];
@@ -67,9 +71,25 @@
   XCTAssertEqual(windowSnapshot.elementType, XCUIElementTypeWindow);
 }
 
+@end
+
+@interface XCElementSnapshotHelperTests_AttributePage : FBIntegrationTestCase
+@end
+
+@implementation XCElementSnapshotHelperTests_AttributePage
+
+- (void)setUp
+{
+  [super setUp];
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [self launchApplication];
+    [self goToAttributesPage];
+  });
+}
+
 - (void)testParentMatchingOneOfTypes
 {
-  [self goToAttributesPage];
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
   XCTAssertTrue(todayPickerWheel.exists);
   [todayPickerWheel resolve];
@@ -80,7 +100,6 @@
 
 - (void)testParentMatchingOneOfTypesWithXCUIElementTypeAny
 {
-  [self goToAttributesPage];
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
   XCTAssertTrue(todayPickerWheel.exists);
   [todayPickerWheel resolve];
@@ -91,7 +110,6 @@
 
 - (void)testParentMatchingOneOfTypesWithAbsentParents
 {
-  [self goToAttributesPage];
   XCUIElement *todayPickerWheel = self.testedApplication.pickerWheels[@"Today"];
   XCTAssertTrue(todayPickerWheel.exists);
   [todayPickerWheel resolve];
@@ -99,9 +117,25 @@
   XCTAssertNil(otherSnapshot);
 }
 
+@end
+
+@interface XCElementSnapshotHelperTests_ScrollView : FBIntegrationTestCase
+@end
+
+@implementation XCElementSnapshotHelperTests_ScrollView
+
+- (void)setUp
+{
+  [super setUp];
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [self launchApplication];
+    [self goToScrollPageWithCells:false];
+  });
+}
+
 - (void)testParentMatchingOneOfTypesWithFilter
 {
-  [self goToScrollPageWithCells:false];
   XCUIElement *threeStaticText = self.testedApplication.staticTexts[@"3"];
   [threeStaticText resolve];
   NSArray *acceptedParents = @[
@@ -110,15 +144,14 @@
                                @(XCUIElementTypeTable),
                                ];
   XCElementSnapshot *scrollView = [threeStaticText.fb_lastSnapshot fb_parentMatchingOneOfTypes:acceptedParents
-    filter:^(XCElementSnapshot *snapshot) {
-        return [snapshot isWDVisible];
-     }];
+                                                                                        filter:^(XCElementSnapshot *snapshot) {
+                                                                                          return [snapshot isWDVisible];
+                                                                                        }];
   XCTAssertEqualObjects(scrollView.identifier, @"scrollView");
 }
 
 - (void)testParentMatchingOneOfTypesWithFilterRetruningNo
 {
-  [self goToScrollPageWithCells:false];
   XCUIElement *threeStaticText = self.testedApplication.staticTexts[@"3"];
   [threeStaticText resolve];
   NSArray *acceptedParents = @[
@@ -127,15 +160,14 @@
                                @(XCUIElementTypeTable),
                                ];
   XCElementSnapshot *scrollView = [threeStaticText.fb_lastSnapshot fb_parentMatchingOneOfTypes:acceptedParents
-    filter:^(XCElementSnapshot *snapshot) {
-        return NO;
-    }];
+                                                                                        filter:^(XCElementSnapshot *snapshot) {
+                                                                                          return NO;
+                                                                                        }];
   XCTAssertNil(scrollView);
 }
 
 - (void)testDescendantsCellSnapshots
 {
-  [self goToScrollPageWithCells:false];
   XCUIElement *scrollView = self.testedApplication.scrollViews[@"scrollView"];
   [scrollView resolve];
   FBAssertWaitTillBecomesTrue(self.testedApplication.staticTexts[@"3"].fb_isVisible);
@@ -145,9 +177,25 @@
   XCTAssertEqualObjects(element.label, @"0");
 }
 
+@end
+
+@interface XCElementSnapshotHelperTests_ScrollViewCells : FBIntegrationTestCase
+@end
+
+@implementation XCElementSnapshotHelperTests_ScrollViewCells
+
+- (void)setUp
+{
+  [super setUp];
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [self launchApplication];
+    [self goToScrollPageWithCells:true];
+  });
+}
+
 - (void)testParentCellSnapshot
 {
-  [self goToScrollPageWithCells:true];
   FBAssertWaitTillBecomesTrue(self.testedApplication.staticTexts[@"3"].fb_isVisible);
   XCUIElement *threeStaticText = self.testedApplication.staticTexts[@"3"];
   [threeStaticText resolve];
