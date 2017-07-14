@@ -21,6 +21,7 @@
 - (void)setUp
 {
   [super setUp];
+  [self launchApplication];
   [self goToAttributesPage];
 }
 

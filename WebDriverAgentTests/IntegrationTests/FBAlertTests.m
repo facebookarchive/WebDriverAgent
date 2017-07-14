@@ -22,7 +22,17 @@
 - (void)setUp
 {
   [super setUp];
-  [self goToAlertsPage];
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [self launchApplication];
+    [self goToAlertsPage];
+  });
+}
+
+- (void)tearDown
+{
+  [super tearDown];
+  [[FBAlert alertWithApplication:self.testedApplication] dismissWithError:nil];
 }
 
 - (void)showApplicationAlert

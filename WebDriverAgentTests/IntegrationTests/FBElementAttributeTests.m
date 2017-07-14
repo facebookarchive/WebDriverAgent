@@ -23,7 +23,11 @@
 - (void)setUp
 {
   [super setUp];
-  [self goToAttributesPage];
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [self launchApplication];
+    [self goToAttributesPage];
+  });
 }
 
 - (void)testElementAccessibilityAttributes

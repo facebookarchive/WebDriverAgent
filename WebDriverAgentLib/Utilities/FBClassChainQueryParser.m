@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FBBaseClassChainToken : NSObject
 
 @property (nonatomic) NSString *asString;
+@property (nonatomic) NSUInteger previousItemsCountToOverride;
 
 @end
 
@@ -30,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface FBDescendantMarkerToken : FBBaseClassChainToken
+
+@end
 
 @interface FBSplitterToken : FBBaseClassChainToken
 
@@ -44,7 +48,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FBClosingBracketToken : FBBaseClassChainToken
 
 @end
-
 
 @interface FBNumberToken : FBBaseClassChainToken
 
@@ -67,6 +70,7 @@ NS_ASSUME_NONNULL_END
   self = [super init];
   if (self) {
     _asString = @"";
+    _previousItemsCountToOverride = 0;
   }
   return self;
 }
@@ -110,7 +114,7 @@ NS_ASSUME_NONNULL_END
   self.asString = value.copy;;
 }
 
-- (nullable instancetype)followingTokenBasedOn:(unichar)character
+- (nullable FBBaseClassChainToken*)followingTokenBasedOn:(unichar)character
 {
   for (Class matchingTokenClass in self.followingTokens) {
     if ([matchingTokenClass canConsumeCharacter:character]) {
@@ -120,7 +124,7 @@ NS_ASSUME_NONNULL_END
   return nil;
 }
 
-- (nullable instancetype)nextTokenWithCharacter:(unichar)character
+- (nullable FBBaseClassChainToken*)nextTokenWithCharacter:(unichar)character
 {
   if ([self.class canConsumeCharacter:character] && self.asString.length < [self.class maxLength]) {
     [self appendChar:character];
@@ -146,12 +150,12 @@ NS_ASSUME_NONNULL_END
 
 @end
 
-
+static NSString *const STAR_TOKEN = @"*";
 @implementation FBStarToken
 
 + (NSCharacterSet *)allowedCharacters
 {
-  return [NSCharacterSet characterSetWithCharactersInString:@"*"];
+  return [NSCharacterSet characterSetWithCharactersInString:STAR_TOKEN];
 }
 
 - (NSArray<Class> *)followingTokens
@@ -159,9 +163,53 @@ NS_ASSUME_NONNULL_END
   return @[FBSplitterToken.class, FBOpeningBracketToken.class];
 }
 
+- (nullable FBBaseClassChainToken*)nextTokenWithCharacter:(unichar)character
+{
+  if ([self.class.allowedCharacters characterIsMember:character]) {
+    if (self.asString.length >= 1) {
+      FBDescendantMarkerToken *nextToken = [[FBDescendantMarkerToken alloc] initWithStringValue:STAR_TOKEN];
+      nextToken.previousItemsCountToOverride = 1;
+      return nextToken;
+    }
+    [self appendChar:character];
+    return self;
+  }
+  return [self followingTokenBasedOn:character];
+}
+
+@end
+
+
+static NSString *const DESCENDANT_MARKER = @"**/";
+@implementation FBDescendantMarkerToken
+
++ (NSCharacterSet *)allowedCharacters
+{
+  return [NSCharacterSet characterSetWithCharactersInString:@"*/"];
+}
+
+- (NSArray<Class> *)followingTokens
+{
+  return @[FBClassNameToken.class, FBStarToken.class];
+}
+
 + (NSUInteger)maxLength
 {
-  return 1;
+  return 3;
+}
+
+- (nullable FBBaseClassChainToken*)nextTokenWithCharacter:(unichar)character
+{
+  if ([self.class.allowedCharacters characterIsMember:character] && self.asString.length <= self.class.maxLength) {
+    if (self.asString.length > 0 && ![DESCENDANT_MARKER hasPrefix:self.asString]) {
+      return nil;
+    }
+    if (self.asString.length < self.class.maxLength) {
+      [self appendChar:character];
+      return self;
+    }
+  }
+  return [self followingTokenBasedOn:character];
 }
 
 @end
@@ -280,7 +328,7 @@ static NSString* const ENCLOSING_MARKER = @"`";
   }
 }
 
-- (nullable instancetype)nextTokenWithCharacter:(unichar)character
+- (nullable FBBaseClassChainToken*)nextTokenWithCharacter:(unichar)character
 {
   NSString *currentChar = [NSString stringWithFormat:@"%C", character];
   if (!self.isParsingCompleted && [self.class.allowedCharacters characterIsMember:character]) {
@@ -313,15 +361,30 @@ static NSString* const ENCLOSING_MARKER = @"`";
 @end
 
 
-@implementation FBClassChainElement
+@implementation FBClassChainItem
 
-- (instancetype)initWithType:(XCUIElementType)type position:(NSInteger)position predicate:(NSPredicate *)predicate
+- (instancetype)initWithType:(XCUIElementType)type position:(NSInteger)position predicate:(NSPredicate *)predicate isDescendant:(BOOL)isDescendant
 {
   self = [super init];
   if (self) {
     _type = type;
     _position = position;
     _predicate = predicate;
+    _isDescendant = isDescendant;
+  }
+  return self;
+}
+
+@end
+
+
+@implementation FBClassChain
+
+- (instancetype)initWithElements:(NSArray<FBClassChainItem *> *)elements
+{
+  self = [super init];
+  if (self) {
+    _elements = elements;
   }
   return self;
 }
@@ -351,7 +414,9 @@ static NSNumberFormatter *numberFormatter = nil;
   NSUInteger queryStringLength = classChainQuery.length;
   FBBaseClassChainToken *token;
   unichar firstCharacter = [classChainQuery characterAtIndex:0];
-  if ([FBClassNameToken canConsumeCharacter:firstCharacter]) {
+  if ([classChainQuery hasPrefix:DESCENDANT_MARKER]) {
+    token = [[FBDescendantMarkerToken alloc] initWithStringValue:DESCENDANT_MARKER];
+  } else if ([FBClassNameToken canConsumeCharacter:firstCharacter]) {
     token = [[FBClassNameToken alloc] initWithStringValue:[NSString stringWithFormat:@"%C", firstCharacter]];
   } else if ([FBStarToken canConsumeCharacter:firstCharacter]) {
     token = [[FBStarToken alloc] initWithStringValue:[NSString stringWithFormat:@"%C", firstCharacter]];
@@ -363,7 +428,7 @@ static NSNumberFormatter *numberFormatter = nil;
   }
   NSMutableArray *result = [NSMutableArray array];
   FBBaseClassChainToken *nextToken = token;
-  for (NSUInteger charIdx = 1; charIdx < queryStringLength; ++charIdx) {
+  for (NSUInteger charIdx = token.asString.length; charIdx < queryStringLength; ++charIdx) {
     nextToken = [token nextTokenWithCharacter:[classChainQuery characterAtIndex:charIdx]];
     if (nil == nextToken) {
       if (error) {
@@ -373,21 +438,25 @@ static NSNumberFormatter *numberFormatter = nil;
     }
     if (nextToken != token) {
       [result addObject:token];
+      if (nextToken.previousItemsCountToOverride > 0 && result.count > 0) {
+        NSUInteger itemsCountToOverride = nextToken.previousItemsCountToOverride <= result.count ? nextToken.previousItemsCountToOverride : result.count;
+        [result removeObjectsInRange:NSMakeRange(result.count - itemsCountToOverride, itemsCountToOverride)];
+      }
       token = nextToken;
     }
   }
-  if (nil != nextToken) {
+  if (nextToken) {
+    if (nextToken.previousItemsCountToOverride > 0 && result.count > 0) {
+      NSUInteger itemsCountToOverride = nextToken.previousItemsCountToOverride <= result.count ? nextToken.previousItemsCountToOverride : result.count;
+      [result removeObjectsInRange:NSMakeRange(result.count - itemsCountToOverride, itemsCountToOverride)];
+    }
     [result addObject:nextToken];
   }
   
-  for (NSUInteger tokenIdx = 0; tokenIdx < result.count; ++tokenIdx) {
-    if ([[result objectAtIndex:tokenIdx] isKindOfClass:FBStarToken.class]) {
-      [result replaceObjectAtIndex:tokenIdx withObject:[[FBClassNameToken alloc] initWithStringValue:[FBElementTypeTransformer stringWithElementType:XCUIElementTypeAny]]];
-    }
-  }
-  
   FBBaseClassChainToken *lastToken = [result lastObject];
-  if (!([lastToken isKindOfClass:FBClosingBracketToken.class] || [lastToken isKindOfClass:FBClassNameToken.class])) {
+  if (!([lastToken isKindOfClass:FBClosingBracketToken.class] ||
+        [lastToken isKindOfClass:FBClassNameToken.class] ||
+        [lastToken isKindOfClass:FBStarToken.class])) {
     if (error) {
       *error = [self.class tokenizationErrorWithIndex:queryStringLength - 1 originalQuery:classChainQuery];
     }
@@ -403,18 +472,26 @@ static NSNumberFormatter *numberFormatter = nil;
   return [[FBErrorBuilder.builder withDescription:fullDescription] build];
 }
 
-+ (nullable FBClassChain)compiledQueryWithTokenizedQuery:(NSArray<FBBaseClassChainToken *> *)tokenizedQuery originalQuery:(NSString *)originalQuery error:(NSError **)error
++ (nullable FBClassChain*)compiledQueryWithTokenizedQuery:(NSArray<FBBaseClassChainToken *> *)tokenizedQuery originalQuery:(NSString *)originalQuery error:(NSError **)error
 {
   NSMutableArray *result = [NSMutableArray array];
-  XCUIElementType chainElementType;
+  XCUIElementType chainElementType = XCUIElementTypeAny;
   int chainElementPosition = 1;
+  BOOL isTypeSet = NO;
   BOOL isPositionSet = NO;
+  BOOL isDescendantSet = NO;
   BOOL isPredicateSet = NO;
   NSPredicate *predicate = nil;
   for (FBBaseClassChainToken *token in tokenizedQuery) {
     if ([token isKindOfClass:FBClassNameToken.class]) {
+      if (isTypeSet) {
+        NSString *description = [NSString stringWithFormat:@"Unexpected token '%@'. The type name can be set only once.", token.asString];
+        *error = [self.class compilationErrorWithQuery:originalQuery description:description];
+        return nil;
+      }
       @try {
         chainElementType = [FBElementTypeTransformer elementTypeWithTypeName:token.asString];
+        isTypeSet = YES;
       } @catch (NSException *e) {
         if ([e.name isEqualToString:FBInvalidArgumentException]) {
           NSString *description = [NSString stringWithFormat:@"'%@' class name is unknown to WDA", token.asString];
@@ -423,6 +500,25 @@ static NSNumberFormatter *numberFormatter = nil;
         }
         @throw e;
       }
+    } else if ([token isKindOfClass:FBStarToken.class]) {
+      if (isTypeSet) {
+        NSString *description = [NSString stringWithFormat:@"Unexpected token '%@'. The type name can be set only once.", token.asString];
+        *error = [self.class compilationErrorWithQuery:originalQuery description:description];
+        return nil;
+      }
+      chainElementType = XCUIElementTypeAny;
+      isTypeSet = YES;
+    } else if ([token isKindOfClass:FBDescendantMarkerToken.class]) {
+      if (isDescendantSet) {
+        NSString *description = [NSString stringWithFormat:@"Unexpected token '%@'. Descendant markers cannot be duplicated.", token.asString];
+        *error = [self.class compilationErrorWithQuery:originalQuery description:description];
+        return nil;
+      }
+      isTypeSet = NO;
+      isPositionSet = NO;
+      isPredicateSet = NO;
+      predicate = nil;
+      isDescendantSet = YES;
     } else if ([token isKindOfClass:FBPredicateToken.class]) {
       if (isPredicateSet) {
         NSString *description = [NSString stringWithFormat:@"Predicate value '%@' is expected to be set only once.", token.asString];
@@ -459,7 +555,15 @@ static NSNumberFormatter *numberFormatter = nil;
       if (!isPositionSet) {
         chainElementPosition = 1;
       }
-      [result addObject:[[FBClassChainElement alloc] initWithType:chainElementType position:chainElementPosition predicate:predicate]];
+      if (isDescendantSet) {
+        if (isTypeSet) {
+          [result addObject:[[FBClassChainItem alloc] initWithType:chainElementType position:chainElementPosition predicate:predicate isDescendant:YES]];
+          isDescendantSet = NO;
+        }
+      } else {
+        [result addObject:[[FBClassChainItem alloc] initWithType:chainElementType position:chainElementPosition predicate:predicate isDescendant:NO]];
+      }
+      isTypeSet = NO;
       isPositionSet = NO;
       isPredicateSet = NO;
       predicate = nil;
@@ -469,22 +573,28 @@ static NSNumberFormatter *numberFormatter = nil;
     // pick all siblings by default for the last item in the chain
     chainElementPosition = 0;
   }
-  [result addObject:[[FBClassChainElement alloc] initWithType:chainElementType position:chainElementPosition predicate:predicate]];
-  return result.copy;
+  if (isDescendantSet) {
+    if (isTypeSet) {
+      [result addObject:[[FBClassChainItem alloc] initWithType:chainElementType position:chainElementPosition predicate:predicate isDescendant:YES]];
+    } else {
+      NSString *description = @"Descendants lookup modifier '**/' should be followed with the actual element type";
+      *error = [self.class compilationErrorWithQuery:originalQuery description:description];
+      return nil;
+    }
+  } else {
+    [result addObject:[[FBClassChainItem alloc] initWithType:chainElementType position:chainElementPosition predicate:predicate isDescendant:NO]];
+  }
+  return [[FBClassChain alloc] initWithElements:result.copy];
 }
 
-+ (FBClassChain)parseQuery:(NSString*)classChainQuery error:(NSError **)error
++ (FBClassChain *)parseQuery:(NSString*)classChainQuery error:(NSError **)error
 {
   NSAssert(classChainQuery.length > 0, @"Query length should be greater than zero", nil);
   NSArray *tokenizedQuery = [self.class tokenizedQueryWithQuery:classChainQuery error:error];
   if (nil == tokenizedQuery) {
     return nil;
   }
-  NSArray *compiledQuery = [self.class compiledQueryWithTokenizedQuery:tokenizedQuery originalQuery:classChainQuery error:error];
-  if (nil == compiledQuery) {
-    return nil;
-  }
-  return compiledQuery.copy;
+  return [self.class compiledQueryWithTokenizedQuery:tokenizedQuery originalQuery:classChainQuery error:error];
 }
 
 @end

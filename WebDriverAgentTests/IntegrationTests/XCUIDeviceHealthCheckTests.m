@@ -20,6 +20,7 @@
 
 - (void)testHealthCheck
 {
+  [self launchApplication];
   XCTAssertTrue(self.testedApplication.exists);
   XCTAssertTrue([[XCUIDevice sharedDevice] fb_healthCheckWithApplication:self.testedApplication]);
 }

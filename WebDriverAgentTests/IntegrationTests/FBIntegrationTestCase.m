@@ -33,6 +33,10 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
   self.continueAfterFailure = NO;
   self.springboard = [FBSpringboardApplication fb_springboard];
   self.testedApplication = [XCUIApplication new];
+}
+
+- (void)launchApplication
+{
   [self.testedApplication launch];
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Alerts"].fb_isVisible);
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
