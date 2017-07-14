@@ -21,12 +21,19 @@
 
 @end
 
-
+static BOOL FBShouldUsePayloadForUIDExtraction = YES;
+static dispatch_once_t oncePayloadToken;
 @implementation XCElementSnapshot (FBUID)
 
 - (NSUInteger)fb_uid
 {
-  return [[self.accessibilityElement.payload objectForKey:@"uid.elementID"] intValue];
+  dispatch_once(&oncePayloadToken, ^{
+    FBShouldUsePayloadForUIDExtraction = [self.accessibilityElement respondsToSelector:@selector(payload)];
+  });
+  if (FBShouldUsePayloadForUIDExtraction) {
+    return [[self.accessibilityElement.payload objectForKey:@"uid.elementID"] intValue];
+  }
+  return [[self.accessibilityElement valueForKey:@"_elementID"] intValue];
 }
 
 @end
