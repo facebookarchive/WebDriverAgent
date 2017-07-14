@@ -20,22 +20,125 @@
 #import "XCUIElement+FBUtilities.h"
 #import "FBElementUtils.h"
 
-@implementation XCUIElement (WebDriverAttributesForwarding)
 
-- (id)forwardingTargetForSelector:(SEL)aSelector
+NSString *wdValue(id<XCUIElementAttributes> self) {
+  id value = self.value;
+  XCUIElementType elementType = self.elementType;
+  if (elementType == XCUIElementTypeStaticText) {
+    value = FBFirstNonEmptyValue(value, self.label);
+  }
+  if (elementType == XCUIElementTypeButton) {
+    value = FBFirstNonEmptyValue(value, (self.isSelected ? @YES : nil));
+  }
+  if (elementType == XCUIElementTypeSwitch) {
+    value = @([value boolValue]);
+  }
+  if (elementType == XCUIElementTypeTextView ||
+      elementType == XCUIElementTypeTextField ||
+      elementType == XCUIElementTypeSecureTextField) {
+    value = FBFirstNonEmptyValue(value, self.placeholderValue);
+  }
+  value = FBTransferEmptyStringToNil(value);
+  if (value) {
+    value = [NSString stringWithFormat:@"%@", value];
+  }
+  return value;
+}
+
+NSString *wdName(id<XCUIElementAttributes> self) {
+  return FBTransferEmptyStringToNil(FBFirstNonEmptyValue(self.identifier, self.label));
+}
+
+NSString *wdLabel(id<XCUIElementAttributes> self) {
+  if (self.elementType == XCUIElementTypeTextField) {
+    return self.label;
+  }
+  return FBTransferEmptyStringToNil(self.label);
+}
+
+NSString *wdType(id<XCUIElementAttributes> self) {
+  return [FBElementTypeTransformer stringWithElementType:self.elementType];
+}
+
+CGRect wdFrame(id<XCUIElementAttributes> self) {
+  return CGRectIntegral(self.frame);
+}
+
+NSDictionary *wdRect(id<XCUIElementAttributes> self) {
+  CGRect frame = wdFrame(self);
+  return @{
+           @"x": @(CGRectGetMinX(frame)),
+           @"y": @(CGRectGetMinY(frame)),
+           @"width": @(CGRectGetWidth(frame)),
+           @"height": @(CGRectGetHeight(frame)),
+           };
+}
+
+BOOL isWDEnabled(id<XCUIElementAttributes> self) {
+  return self.isEnabled;
+}
+
+
+@implementation XCUIElement (WebDriverAttributes)
+
+- (id)fb_valueForWDAttributeName:(NSString *)name
 {
-  struct objc_method_description descr = protocol_getMethodDescription(@protocol(FBElement), aSelector, YES, YES);
-  BOOL isWebDriverAttributesSelector = descr.name != nil;
-  if(!isWebDriverAttributesSelector) {
-    return nil;
-  }
-  if (!self.exists) {
-    return [XCElementSnapshot new];
-  }
+  return [self valueForKey:[FBElementUtils wdAttributeNameForAttributeName:name]];
+}
 
-  // If lastSnapshot is still missing aplication is probably not active. Returning empty element instead of crashing.
-  // This will work well, if element search is requested (will not match anything) and reqesting properties values (will return nils).
-  return self.fb_lastSnapshot ?: [XCElementSnapshot new];
+- (NSString *)wdValue
+{
+  return wdValue(self);
+}
+
+- (NSString *)wdName
+{
+  return wdName(self);
+}
+
+- (NSString *)wdLabel
+{
+  return wdLabel(self);
+}
+
+- (NSString *)wdType
+{
+  return wdType(self);
+}
+
+- (NSUInteger)wdUID
+{
+  return self.fb_uid;
+}
+
+- (CGRect)wdFrame
+{
+  return wdFrame(self);
+}
+
+- (BOOL)isWDVisible
+{
+  return self.fb_isVisible;
+}
+
+- (BOOL)isWDAccessible
+{
+  return self.fb_lastSnapshot.isWDAccessible;
+}
+
+- (BOOL)isWDAccessibilityContainer
+{
+  return self.fb_lastSnapshot.isWDAccessibilityContainer;
+}
+
+- (BOOL)isWDEnabled
+{
+  return isWDEnabled(self);
+}
+
+- (NSDictionary *)wdRect
+{
+  return wdRect(self);
 }
 
 @end
@@ -50,44 +153,22 @@
 
 - (NSString *)wdValue
 {
-  id value = self.value;
-  if (self.elementType == XCUIElementTypeStaticText) {
-    value = FBFirstNonEmptyValue(self.value, self.label);
-  }
-  if (self.elementType == XCUIElementTypeButton) {
-    value = FBFirstNonEmptyValue(self.value, (self.isSelected ? @YES : nil));
-  }
-  if (self.elementType == XCUIElementTypeSwitch) {
-    value = @([self.value boolValue]);
-  }
-  if (self.elementType == XCUIElementTypeTextView ||
-      self.elementType == XCUIElementTypeTextField ||
-      self.elementType == XCUIElementTypeSecureTextField) {
-    value = FBFirstNonEmptyValue(self.value, self.placeholderValue);
-  }
-  value = FBTransferEmptyStringToNil(value);
-  if (value) {
-    value = [NSString stringWithFormat:@"%@", value];
-  }
-  return value;
+  return wdValue(self);
 }
 
 - (NSString *)wdName
 {
-  return FBTransferEmptyStringToNil(FBFirstNonEmptyValue(self.identifier, self.label));
+  return wdName(self);
 }
 
 - (NSString *)wdLabel
 {
-  if (self.elementType == XCUIElementTypeTextField) {
-    return self.label;
-  }
-  return FBTransferEmptyStringToNil(self.label);
+  return wdLabel(self);
 }
 
 - (NSString *)wdType
 {
-  return [FBElementTypeTransformer stringWithElementType:self.elementType];
+  return wdType(self);
 }
 
 - (NSUInteger)wdUID
@@ -97,7 +178,7 @@
 
 - (CGRect)wdFrame
 {
-  return CGRectIntegral(self.frame);
+  return wdFrame(self);
 }
 
 - (BOOL)isWDVisible
@@ -107,6 +188,10 @@
 
 - (BOOL)isWDAccessible
 {
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
+    // Snapshots support in iOS 11+ is limited
+    return NO;
+  }
   // Special cases:
   // Table view cell: we consider it accessible if it's container is accessible
   // Text fields: actual accessible element isn't text field itself, but nested element
@@ -137,6 +222,10 @@
 
 - (BOOL)isWDAccessibilityContainer
 {
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
+    // Snapshots support in iOS 11+ is limited
+    return NO;
+  }
   for (XCElementSnapshot *child in self.children) {
     if (child.isWDAccessibilityContainer || child.fb_isAccessibilityElement) {
       return YES;
@@ -147,18 +236,12 @@
 
 - (BOOL)isWDEnabled
 {
-  return self.isEnabled;
+  return isWDEnabled(self);
 }
 
 - (NSDictionary *)wdRect
 {
-  CGRect frame = self.wdFrame;
-  return @{
-    @"x": @(CGRectGetMinX(frame)),
-    @"y": @(CGRectGetMinY(frame)),
-    @"width": @(CGRectGetWidth(frame)),
-    @"height": @(CGRectGetHeight(frame)),
-  };
+  return wdRect(self);
 }
 
 @end

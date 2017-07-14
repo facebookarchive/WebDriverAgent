@@ -119,8 +119,8 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   if ([root respondsToSelector:@selector(children)]) {
     rc = [self.class recursiveXMLRepresentationWithSnapshot:(XCElementSnapshot *)root elementStore:elementStore writer:writer];
   } else {
-    NSArray<XCUIElement *> *elementsTree = [(XCUIElement *)root descendantsMatchingType:XCUIElementTypeAny].allElementsBoundByIndex;
-    rc = [self.class recursiveXMLRepresentationWithElement:(XCUIElement *)root flatElementsTree:elementsTree elementStore:elementStore writer:writer];
+    NSArray<XCUIElement *> *flatElementsTree = [(XCUIElement *)root descendantsMatchingType:XCUIElementTypeAny].allElementsBoundByIndex;
+    rc = [self.class recursiveXMLRepresentationWithElement:(XCUIElement *)root flatElementsTree:flatElementsTree elementStore:elementStore writer:writer];
   }
   if (rc < 0) {
     [FBLogger log:@"Failed to generate XML presentation of a screen element"];
