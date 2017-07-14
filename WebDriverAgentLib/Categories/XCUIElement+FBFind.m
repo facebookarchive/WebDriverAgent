@@ -109,20 +109,21 @@
 
 #pragma mark - Search by xpath
 
-- (NSArray<id<FBElement>> *)getMatchedElementsByXPathQuery:(NSString *)xpathQuery
+- (NSArray<XCUIElement *> *)getMatchedElementsByXPathQuery:(NSString *)xpathQuery
 {
   // XPath will try to match elements only class name, so requesting elements by XCUIElementTypeAny will not work. We should use '*' instead.
   xpathQuery = [xpathQuery stringByReplacingOccurrencesOfString:@"XCUIElementTypeAny" withString:@"*"];
   if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
     [self fb_waitUntilSnapshotIsStable];
-    return [self.fb_lastSnapshot fb_descendantsMatchingXPathQuery:xpathQuery];
+    NSArray<XCElementSnapshot *> *descendantSnapshots = [self.fb_lastSnapshot fb_descendantsMatchingXPathQuery:xpathQuery];
+    return [self fb_filterDescendantsWithSnapshots:descendantSnapshots];
   }
-  return [FBXPath findMatchesIn:self xpathQuery:xpathQuery];
+  return (NSArray<XCUIElement *> *)[FBXPath findMatchesIn:self xpathQuery:xpathQuery];
 }
 
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
-  NSArray *matchedElements = [self getMatchedElementsByXPathQuery:xpathQuery];
+  NSArray<XCUIElement *> *matchedElements = [self getMatchedElementsByXPathQuery:xpathQuery];
   if (0 == [matchedElements count]) {
     return @[];
   }

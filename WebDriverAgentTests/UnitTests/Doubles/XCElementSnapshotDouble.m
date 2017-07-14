@@ -7,13 +7,13 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "XCUIElementDouble.h"
+#import "XCElementSnapshotDouble.h"
 
-@interface XCUIElementDouble ()
+@interface XCElementSnapshotDouble ()
 @property (nonatomic, assign, readwrite) BOOL didResolve;
 @end
 
-@implementation XCUIElementDouble
+@implementation XCElementSnapshotDouble
 
 - (id)init
 {

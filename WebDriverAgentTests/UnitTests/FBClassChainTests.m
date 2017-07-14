@@ -9,7 +9,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import "XCUIElementDouble.h"
+#import "XCElementSnapshotDouble.h"
 #import "FBClassChainQueryParser.h"
 
 @interface FBClassChainTests : XCTestCase
