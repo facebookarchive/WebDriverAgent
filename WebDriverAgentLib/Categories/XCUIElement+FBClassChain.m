@@ -10,11 +10,6 @@
 #import "XCUIElement+FBClassChain.h"
 
 #import "FBClassChainQueryParser.h"
-#import "FBElementUtils.h"
-#import "FBMacros.h"
-#import "XCElementSnapshot.h"
-#import "XCUIElement+FBUtilities.h"
-#import "XCUIElement+FBWebDriverAttributes.h"
 
 NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseException";
 
@@ -23,64 +18,76 @@ NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseExcept
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingClassChain:(NSString *)classChainQuery shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
   NSError *error;
-  FBClassChain parsedChain = [FBClassChainQueryParser parseQuery:classChainQuery error:&error];
+  FBClassChain *parsedChain = [FBClassChainQueryParser parseQuery:classChainQuery error:&error];
   if (nil == parsedChain) {
     @throw [NSException exceptionWithName:FBClassChainQueryParseException reason:error.localizedDescription userInfo:error.userInfo];
     return nil;
   }
-  NSArray<XCElementSnapshot *> *snapshots = [self.class fb_lookupChain:parsedChain inSnapshot:self.fb_lastSnapshot];
-  if (0 == snapshots.count) {
-    return @[];
+  NSMutableArray<FBClassChainItem *> *lookupChain = parsedChain.elements.mutableCopy;
+  FBClassChainItem *chainItem = lookupChain.firstObject;
+  XCUIElement *currentRoot = self;
+  XCUIElementQuery *query = [currentRoot fb_queryWithChainItem:chainItem query:nil];
+  [lookupChain removeObjectAtIndex:0];
+  while (lookupChain.count > 0) {
+    BOOL isRootChanged = NO;
+    if (chainItem.position < 0 || chainItem.position > 1) {
+      // It is necessary to resolve the query if intermediate element index is not zero or one,
+      // because predicates don't support search by indexes
+      NSArray<XCUIElement *> *currentRootMatch = [self.class fb_matchingElementsWithItem:chainItem query:query shouldReturnAfterFirstMatch:NO];
+      if (0 == currentRootMatch.count) {
+        return @[];
+      }
+      currentRoot = currentRootMatch.firstObject;
+      isRootChanged = YES;
+    }
+    chainItem = [lookupChain firstObject];
+    query = [currentRoot fb_queryWithChainItem:chainItem query:isRootChanged ? nil : query];
+    [lookupChain removeObjectAtIndex:0];
   }
-  if (shouldReturnAfterFirstMatch) {
-    XCElementSnapshot *snapshot = snapshots.firstObject;
-    snapshots = @[snapshot];
-  }
-  return [self fb_filterDescendantsWithSnapshots:snapshots];
+  return [self.class fb_matchingElementsWithItem:chainItem query:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch];
 }
 
-+ (NSArray<XCElementSnapshot *> *)fb_matchingChildrenWithSnapshot:(XCElementSnapshot *)root forChainElement:(FBClassChainElement *)chainElement
+- (XCUIElementQuery *)fb_queryWithChainItem:(FBClassChainItem *)item query:(nullable XCUIElementQuery *)query
 {
-  NSArray *childrenMatches = root.children;
-  if (0 == childrenMatches.count) {
-    return @[];
-  }
-  if (XCUIElementTypeAny != chainElement.type) {
-    childrenMatches = [childrenMatches filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == %@", FBStringify(XCUIElement, elementType), @(chainElement.type)]];
-  }
-  if (nil != chainElement.predicate) {
-    childrenMatches = [childrenMatches filteredArrayUsingPredicate:(NSPredicate  * _Nonnull)chainElement.predicate];
-  }
-  NSMutableArray *result = [NSMutableArray array];
-  if (0 == chainElement.position) {
-    [result addObjectsFromArray:childrenMatches];
-  } else if (chainElement.position > 0) {
-    if ((NSUInteger)chainElement.position <= childrenMatches.count) {
-      [result addObject:[childrenMatches objectAtIndex:chainElement.position - 1]];
+  if (item.isDescendant) {
+    if (query) {
+      query = [query descendantsMatchingType:item.type];
+    } else {
+      query = [self descendantsMatchingType:item.type];
     }
   } else {
-    if ((NSUInteger)labs(chainElement.position) <= childrenMatches.count) {
-      [result addObject:[childrenMatches objectAtIndex:childrenMatches.count + chainElement.position]];
+    if (query) {
+      query = [query childrenMatchingType:item.type];
+    } else {
+      query = [self childrenMatchingType:item.type];
     }
   }
-  return result.copy;
+  if (item.predicate) {
+    query = [query matchingPredicate:(id)item.predicate];
+  }
+  return query;
 }
 
-+ (NSArray<XCElementSnapshot *> *)fb_lookupChain:(FBClassChain)query inSnapshot:(XCElementSnapshot *)root
++ (NSArray<XCUIElement *> *)fb_matchingElementsWithItem:(FBClassChainItem *)item query:(XCUIElementQuery *)query shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
-  NSArray *matchingChildren = [self.class fb_matchingChildrenWithSnapshot:root forChainElement:[query firstObject]];
-  if (0 == matchingChildren.count) {
-    return @[];
-  }
-  NSMutableArray *result = [NSMutableArray array];
-  if (query.count > 1) {
-    for (XCElementSnapshot *matchedChild in matchingChildren) {
-      [result addObjectsFromArray:[self.class fb_lookupChain:[query subarrayWithRange:NSMakeRange(1, query.count - 1)] inSnapshot:matchedChild]];
+  if (shouldReturnAfterFirstMatch && (item.position == 0 || item.position == 1)) {
+    // TODO: Add support for the iOS 11+ short-circuit first match
+    if (!query.element.exists) {
+      return @[];
     }
-  } else {
-    [result addObjectsFromArray:matchingChildren];
+    return @[[query elementBoundByIndex:0]];
   }
-  return result.copy;
+  NSArray<XCUIElement *> *allMatches = query.allElementsBoundByIndex;
+  if (0 == item.position) {
+    return allMatches;
+  }
+  if (item.position > 0 && allMatches.count >= (NSUInteger)ABS(item.position)) {
+    return @[[allMatches objectAtIndex:item.position - 1]];
+  }
+  if (item.position < 0 && allMatches.count >= (NSUInteger)ABS(item.position)) {
+    return @[[allMatches objectAtIndex:allMatches.count + item.position]];
+  }
+  return @[];
 }
 
 @end

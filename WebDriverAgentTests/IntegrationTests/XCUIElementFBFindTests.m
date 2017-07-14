@@ -11,6 +11,7 @@
 
 #import "FBIntegrationTestCase.h"
 #import "FBElementUtils.h"
+#import "FBTestMacros.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBFind.h"
 #import "XCElementSnapshot+FBHelpers.h"
@@ -208,6 +209,16 @@
   }
 }
 
+- (void)testNestedQueryWithClassChain
+{
+  [self.testedApplication.buttons[@"Attributes"] tap];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Button"].fb_isVisible);
+  XCUIElement *datePicker = [[self.testedApplication descendantsMatchingType:XCUIElementTypeDatePicker].allElementsBoundByIndex firstObject];
+  NSArray<XCUIElement *> *matches = [datePicker fb_descendantsMatchingClassChain:@"XCUIElementTypeOther" shouldReturnAfterFirstMatch:NO];
+  XCTAssertEqual(matches.count, 1);
+  XCTAssertEqual([matches firstObject].elementType, XCUIElementTypeOther);
+}
+
 - (void)testDescendantsWithClassChainAndPredicates
 {
   NSArray<XCUIElement *> *matchingSnapshots;
@@ -215,6 +226,29 @@
   XCTAssertEqual(matchingSnapshots.count, 2);
   XCTAssertEqualObjects([matchingSnapshots firstObject].label, @"Alerts");
   XCTAssertEqualObjects([matchingSnapshots lastObject].label, @"Attributes");
+}
+
+- (void)testDescendantsWithIndirectClassChainAndPredicates
+{
+  NSArray<XCUIElement *> *simpleQueryMatches = [self.testedApplication fb_descendantsMatchingClassChain:@"XCUIElementTypeWindow/*/*[2]/*/*/XCUIElementTypeButton[`label BEGINSWITH 'A'`]" shouldReturnAfterFirstMatch:NO];
+  NSArray<XCUIElement *> *deepQueryMatches = [self.testedApplication fb_descendantsMatchingClassChain:@"XCUIElementTypeWindow/**/XCUIElementTypeButton[`label BEGINSWITH 'A'`]" shouldReturnAfterFirstMatch:NO];
+  XCTAssertEqual(simpleQueryMatches.count, deepQueryMatches.count);
+  XCTAssertEqualObjects([simpleQueryMatches firstObject].label, [deepQueryMatches firstObject].label);
+  XCTAssertEqualObjects([simpleQueryMatches lastObject].label, [deepQueryMatches lastObject].label);
+}
+
+- (void)testSingleDescendantWithComplexIndirectClassChain
+{
+  NSArray<XCUIElement *> *queryMatches = [self.testedApplication fb_descendantsMatchingClassChain:@"**/*/XCUIElementTypeButton[2]" shouldReturnAfterFirstMatch:NO];
+  XCTAssertEqual(queryMatches.count, 1);
+  XCTAssertEqual(queryMatches.lastObject.elementType, XCUIElementTypeButton);
+  XCTAssertEqualObjects(queryMatches.lastObject.label, @"Deadlock app");
+}
+
+- (void)testSingleDescendantWithComplexIndirectClassChainAndZeroMatches
+{
+  NSArray<XCUIElement *> *queryMatches = [self.testedApplication fb_descendantsMatchingClassChain:@"**/*/XCUIElementTypeWindow" shouldReturnAfterFirstMatch:NO];
+  XCTAssertEqual(queryMatches.count, 0);
 }
 
 - (void)testDescendantsWithClassChainAndPredicatesAndIndexes
