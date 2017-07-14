@@ -123,7 +123,8 @@
     return @[];
   }
   if (shouldReturnAfterFirstMatch) {
-    matchingSnapshots = @[(XCUIElement * _Nonnull)[matchingSnapshots firstObject]];
+    XCElementSnapshot *snapshot = matchingSnapshots.firstObject;
+    matchingSnapshots = @[snapshot];
   }
   return [self fb_filterDescendantsWithSnapshots:matchingSnapshots];
 }

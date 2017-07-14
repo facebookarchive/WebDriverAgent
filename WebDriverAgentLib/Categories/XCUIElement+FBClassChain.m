@@ -33,7 +33,8 @@ NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseExcept
     return @[];
   }
   if (shouldReturnAfterFirstMatch) {
-    snapshots = @[(XCElementSnapshot * _Nonnull)[snapshots firstObject]];
+    XCElementSnapshot *snapshot = snapshots.firstObject;
+    snapshots = @[snapshot];
   }
   return [self fb_filterDescendantsWithSnapshots:snapshots];
 }
