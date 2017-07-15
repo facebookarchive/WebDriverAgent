@@ -9,8 +9,6 @@
 
 #import "XCUIElement+FBWebDriverAttributes.h"
 
-#import <objc/runtime.h>
-
 #import "FBElementTypeTransformer.h"
 #import "FBMacros.h"
 #import "XCUIElement+FBAccessibility.h"
@@ -78,31 +76,47 @@ BOOL isWDEnabled(id<XCUIElementAttributes> self) {
   return self.isEnabled;
 }
 
+id valueForWDAttributeName(NSObject *self, NSString *name) {
+  return [self valueForKey:[FBElementUtils wdAttributeNameForAttributeName:name]];
+}
+
 
 @implementation XCUIElement (WebDriverAttributes)
 
 - (id)fb_valueForWDAttributeName:(NSString *)name
 {
-  return [self valueForKey:[FBElementUtils wdAttributeNameForAttributeName:name]];
+  return valueForWDAttributeName(self, name);
 }
 
 - (NSString *)wdValue
 {
+  if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+    return self.fb_lastSnapshot.wdValue;
+  }
   return wdValue(self);
 }
 
 - (NSString *)wdName
 {
+  if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+    return self.fb_lastSnapshot.wdName;
+  }
   return wdName(self);
 }
 
 - (NSString *)wdLabel
 {
+  if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+    return self.fb_lastSnapshot.wdLabel;
+  }
   return wdLabel(self);
 }
 
 - (NSString *)wdType
 {
+  if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+    return self.fb_lastSnapshot.wdType;
+  }
   return wdType(self);
 }
 
@@ -113,6 +127,9 @@ BOOL isWDEnabled(id<XCUIElementAttributes> self) {
 
 - (CGRect)wdFrame
 {
+  if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+    return self.fb_lastSnapshot.wdFrame;
+  }
   return wdFrame(self);
 }
 
@@ -133,11 +150,17 @@ BOOL isWDEnabled(id<XCUIElementAttributes> self) {
 
 - (BOOL)isWDEnabled
 {
+  if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+    return self.fb_lastSnapshot.isWDEnabled;
+  }
   return isWDEnabled(self);
 }
 
 - (NSDictionary *)wdRect
 {
+  if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+    return self.fb_lastSnapshot.wdRect;
+  }
   return wdRect(self);
 }
 
@@ -148,7 +171,7 @@ BOOL isWDEnabled(id<XCUIElementAttributes> self) {
 
 - (id)fb_valueForWDAttributeName:(NSString *)name
 {
-  return [self valueForKey:[FBElementUtils wdAttributeNameForAttributeName:name]];
+  return valueForWDAttributeName(self, name);
 }
 
 - (NSString *)wdValue

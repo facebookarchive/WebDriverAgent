@@ -44,9 +44,9 @@ extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
 /**
  Returns an array of descendants matching given xpath query
  
- @param root the root element to execute XPath query for. Can be an instance of XCUIElement or XCElementSnapshot interfaces
+ @param root the root element to execute XPath query for. Can be an instance of XCUIElement or XCElementSnapshot (faster, but does not work under iOS 11+) interfaces
  @param xpathQuery requested xpath query
- @return an array of descendants matching given xpath query. The actual type of returned descendants relies on the type of the root argument. If the root argument is an instance of XCUIElement then array of matching XCUIElement instances is going to be returned otherwise the array of XCElementSnapshot instances is returned. The lookup performance in case the root element is set to XCUIElement instance is slower, but this is the only available option under iOS 11+, where snapshots features have been slightly limited
+ @return an array of descendants matching given xpath query. The actual type of returned descendants relies on the type of the root argument. If the root argument is an instance of XCUIElement then array of matching XCUIElement instances is going to be returned otherwise the array of XCElementSnapshot instances is returned. The lookup performance in case the root element is set to XCUIElement instance is lower, but this is the only available option under iOS 11+, where snapshotting feature has been slightly limited
  */
 + (nullable NSArray<id<FBElement>> *)findMatchesIn:(id<FBElement>)root xpathQuery:(NSString *)xpathQuery;
 
@@ -54,7 +54,7 @@ extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
  Gets XML representation of XCElementSnapshot with all its descendants. This method generates the same
  representation, which is used for XPath search
  
- @param root the root element. Can be an instance of XCUIElement or XCElementSnapshot interfaces
+ @param root the root element. Can be an instance of XCUIElement or XCElementSnapshot (faster, but does not work under iOS 11+) interfaces
  @return valid XML document as string or nil in case of failure
  */
 + (nullable NSString *)xmlStringWithElement:(id<FBElement>)root;

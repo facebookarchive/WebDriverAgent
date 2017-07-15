@@ -51,10 +51,10 @@ static NSString *const kXMLValueAttribute = @"value";
 static NSString *const kXMLLabelAttribute = @"label";
 static NSString *const kXMLEnabledAttribute = @"enabled";
 static NSString *const kXMLVisibleAttribute = @"visible";
-static NSString *const kXMLRectXAttributeName = @"x";
-static NSString *const kXMLRectYAttributeName = @"y";
-static NSString *const kXMLRectWidthAttributeName = @"width";
-static NSString *const kXMLRectHeightAttributeName = @"height";
+static NSString *const kXMLRectXAttribute = @"x";
+static NSString *const kXMLRectYAttribute = @"y";
+static NSString *const kXMLRectWidthAttribute = @"width";
+static NSString *const kXMLRectHeightAttribute = @"height";
 
 NSString *const XCElementSnapshotInvalidXPathException = @"XCElementSnapshotInvalidXPathException";
 NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnapshotXPathQueryEvaluationException";
@@ -71,7 +71,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 {
   xmlDocPtr doc;
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
-  int rc = [self.class xmlRepresentationWithElement:root writer:writer elementStore:nil];
+  int rc = [self.class xmlRepresentationWithElement:root writer:writer elementStore:nil xpathQuery:nil];
   if (rc < 0) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
@@ -96,7 +96,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     return nil;
   }
   NSMutableDictionary<NSString *, id<FBElement>> *elementStore = [NSMutableDictionary dictionary];
-  int rc = [self.class xmlRepresentationWithElement:root writer:writer elementStore:elementStore];
+  int rc = [self.class xmlRepresentationWithElement:root writer:writer elementStore:elementStore xpathQuery:xpathQuery];
   if (rc < 0) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
@@ -144,11 +144,17 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   return result.copy;
 }
 
-+ (void)buildElementsTreeWithFlatElements:(NSArray<XCUIElement *> *)flatElements attributesMapping:(NSDictionary<NSString *, NSArray<FBXmlAttributeRecord *> *> *)attributesMapping elementsTree:(NSDictionary<NSString *, NSArray<XCUIElement *> *> *)elementsTree
++ (void)buildElementsTreeWithFlatElements:(NSArray<XCUIElement *> *)flatElements attributesMapping:(NSDictionary<NSString *, NSArray<FBXmlAttributeRecord *> *> *)attributesMapping elementsTree:(NSDictionary<NSString *, NSArray<XCUIElement *> *> *)elementsTree xpathQuery:(nullable NSString *)xpathQuery
 {
   for (XCUIElement *node in flatElements) {
     NSString *nodeUID = [NSString stringWithFormat:@"%@", @(node.wdUID)];
-    [attributesMapping setValue:[self.class elementAttributesWithElement:node uid:nodeUID] forKey:nodeUID];
+    NSArray<FBXmlAttributeRecord *> *elementAttributes;
+    if (xpathQuery) {
+      elementAttributes = [self.class elementAttributesWithElement:node applyFilter:[self.class attributeNamesWithXPathQuery:xpathQuery] uid:nodeUID];
+    } else {
+      elementAttributes = [self.class elementAttributesWithElement:node applyFilter:nil uid:nodeUID];
+    }
+    [attributesMapping setValue:elementAttributes forKey:nodeUID];
     XCElementSnapshot *nodeSnapshot = node.fb_lastSnapshot;
     if (nil == nodeSnapshot.parent) {
       continue;
@@ -166,7 +172,30 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   }
 }
 
-+ (int)xmlRepresentationWithElement:(id<FBElement>)root writer:(xmlTextWriterPtr)writer elementStore:(nullable NSDictionary<NSString *, id<FBElement>> *)elementStore
++ (NSSet<NSString *> *)attributeNamesWithXPathQuery:(NSString *)xpathQuery
+{
+  NSMutableSet<NSString *> *result = [NSMutableSet set];
+  // element type and uid are always included
+  [result addObject:kXMLTypeAttribute];
+  [result addObject:kXMLUIDAttribute];
+  for (NSString *attributeName in @[kXMLNameAttribute,
+                                    kXMLValueAttribute,
+                                    kXMLLabelAttribute,
+                                    kXMLVisibleAttribute,
+                                    kXMLEnabledAttribute,
+                                    kXMLVisibleAttribute,
+                                    kXMLRectXAttribute,
+                                    kXMLRectYAttribute,
+                                    kXMLRectWidthAttribute,
+                                    kXMLRectHeightAttribute]) {
+    if ([xpathQuery rangeOfString:[NSString stringWithFormat:@"@%@\\b", attributeName] options:NSRegularExpressionSearch].location != NSNotFound) {
+      [result addObject:attributeName];
+    }
+  }
+  return result.copy;
+}
+
++ (int)xmlRepresentationWithElement:(id<FBElement>)root writer:(xmlTextWriterPtr)writer elementStore:(nullable NSDictionary<NSString *, id<FBElement>> *)elementStore xpathQuery:(nullable NSString *)xpathQuery
 {
   int rc = xmlTextWriterStartDocument(writer, NULL, _UTF8Encoding, NULL);
   if (rc < 0) {
@@ -180,8 +209,13 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     NSArray<XCUIElement *> *flatElements = [(XCUIElement *)root descendantsMatchingType:XCUIElementTypeAny].allElementsBoundByIndex;
     NSMutableDictionary<NSString *, NSArray<XCUIElement *> *> *elementsTree = [NSMutableDictionary dictionary];
     NSMutableDictionary<NSString *, NSArray<FBXmlAttributeRecord *> *> *attributesMapping = [NSMutableDictionary dictionary];
-    [self.class buildElementsTreeWithFlatElements:flatElements attributesMapping:attributesMapping elementsTree:elementsTree];
-    [attributesMapping setValue:[self.class elementAttributesWithElement:root uid:rootUID] forKey:rootUID];
+    [self.class buildElementsTreeWithFlatElements:flatElements attributesMapping:attributesMapping elementsTree:elementsTree xpathQuery:xpathQuery];
+    NSSet<NSString *> *attributeNames = nil;
+    if (xpathQuery) {
+      // Speed up xpath lookup by excluding unnecessary attributes from the tree
+      attributeNames = [self.class attributeNamesWithXPathQuery:xpathQuery];
+    }
+    [attributesMapping setValue:[self.class elementAttributesWithElement:root applyFilter:attributeNames uid:rootUID] forKey:rootUID];
     rc = [self.class recursiveXMLRepresentationWithElementUID:rootUID elementsTree:elementsTree.copy elementStore:elementStore attributesMapping:attributesMapping.copy writer:writer];
   }
   if (rc < 0) {
@@ -275,33 +309,49 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   return 0;
 }
 
-+ (NSArray<FBXmlAttributeRecord *> *)elementAttributesWithElement:(id<FBElement>)element uid:(NSString *)uid
++ (NSArray<FBXmlAttributeRecord *> *)elementAttributesWithElement:(id<FBElement>)element applyFilter:(nullable NSSet<NSString *> *)namesFilter uid:(NSString *)uid
 {
   // Each invokation of XCUIElement property causes an extra call to the UI structure and thus is expensive
   // So we are trying to cache the actual values where possible
   NSMutableArray<FBXmlAttributeRecord *> *result = [NSMutableArray array];
-  [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLTypeAttribute value:element.wdType]];
-  NSString *value = element.wdValue;
-  if (value) {
-    [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLValueAttribute value:value]];
+  if (!namesFilter || [namesFilter containsObject:kXMLTypeAttribute]) {
+    [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLTypeAttribute value:element.wdType]];
   }
-  NSString *name = element.wdName;
-  if (name) {
-    [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLNameAttribute value:name]];
+  if (!namesFilter || [namesFilter containsObject:kXMLValueAttribute]) {
+    NSString *value = element.wdValue;
+    if (value) {
+      [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLValueAttribute value:value]];
+    }
   }
-  NSString *label = element.wdLabel;
-  if (label) {
-    [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLLabelAttribute value:label]];
+  if (!namesFilter || [namesFilter containsObject:kXMLNameAttribute]) {
+    NSString *name = element.wdName;
+    if (name) {
+      [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLNameAttribute value:name]];
+    }
   }
-  [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLEnabledAttribute value:element.wdEnabled ? @"true" : @"false"]];
-  [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLVisibleAttribute value:element.wdVisible ? @"true" : @"false"]];
-  for (NSString *attrName in @[kXMLRectXAttributeName,
-                               kXMLRectYAttributeName,
-                               kXMLRectWidthAttributeName,
-                               kXMLRectHeightAttributeName]) {
+  if (!namesFilter || [namesFilter containsObject:kXMLLabelAttribute]) {
+    NSString *label = element.wdLabel;
+    if (label) {
+      [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLLabelAttribute value:label]];
+    }
+  }
+  if (!namesFilter || [namesFilter containsObject:kXMLEnabledAttribute]) {
+    [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLEnabledAttribute value:element.wdEnabled ? @"true" : @"false"]];
+  }
+  if (!namesFilter || [namesFilter containsObject:kXMLVisibleAttribute]) {
+    [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLVisibleAttribute value:element.wdVisible ? @"true" : @"false"]];
+  }
+  for (NSString *attrName in @[kXMLRectXAttribute,
+                               kXMLRectYAttribute,
+                               kXMLRectWidthAttribute,
+                               kXMLRectHeightAttribute]) {
+    if (!namesFilter || [namesFilter containsObject:attrName]) {
       [result addObject:[[FBXmlAttributeRecord alloc] initWithName:attrName value:[element.wdRect[attrName] stringValue]]];
+    }
   }
-  [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLUIDAttribute value:uid]];
+  if (!namesFilter || [namesFilter containsObject:kXMLUIDAttribute]) {
+    [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLUIDAttribute value:uid]];
+  }
   return result.copy;
 }
 
@@ -323,7 +373,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     return rc;
   }
   
-  NSArray<FBXmlAttributeRecord *> *attributes = [self.class elementAttributesWithElement:root uid:[NSString stringWithFormat:@"%@", @(root.wdUID)]];
+  NSArray<FBXmlAttributeRecord *> *attributes = [self.class elementAttributesWithElement:root applyFilter:nil uid:[NSString stringWithFormat:@"%@", @(root.wdUID)]];
   rc = [self.class recordElementWithAttributes:attributes includeIndex:elementStore != nil writer:writer];
   if (rc < 0) {
     return rc;
@@ -351,7 +401,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 {
   NSArray<FBXmlAttributeRecord *> *rootAttributes = [attributesMapping objectForKey:rootUID];
   if (nil == rootAttributes) {
-    [FBLogger logFmt:@"Cannot extract attributes list for the node with UID %@", rootUID];
+    [FBLogger logFmt:@"Cannot extract attributes list for the element with UID %@", rootUID];
     return -1;
   }
   int rc = xmlTextWriterStartElement(writer, [self.class safeXmlStringWithString:[self.class attributeValueWithName:kXMLTypeAttribute attributes:rootAttributes]]);

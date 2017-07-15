@@ -19,9 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
  @param root the root element to execute XPath query for. Can be either XCUIElement or XCElementSnapshot instance
  @param writer the correspondig libxml2 writer object
  @param elementStore an empty dictionary to store indexes mapping or nil if no mappings should be stored
+ @param xpathQuery the actual xpath query. This argument is needed to optimize lookup performance. Can be equal to nil
  @return zero if the method has completed successfully
  */
-+ (int)xmlRepresentationWithElement:(id<FBElement>)root writer:(xmlTextWriterPtr)writer elementStore:(nullable NSDictionary<NSString *, id<FBElement>> *)elementStore;
++ (int)xmlRepresentationWithElement:(id<FBElement>)root writer:(xmlTextWriterPtr)writer elementStore:(nullable NSDictionary<NSString *, id<FBElement>> *)elementStore xpathQuery:(nullable NSString *)xpathQuery;
 
 /**
  Gets the list of matched snapshots from xmllib2-compatible xmlNodeSetPtr structure
