@@ -14,14 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FBXPath ()
 
 /**
- Gets xmllib2-compatible XML representation of n XCElementSnapshot instance
+ Gets xmllib2-compatible XML representation of XCElementSnapshot instance
  
- @param root the root element to execute XPath query for
+ @param root the root element to execute XPath query for. Can be either XCUIElement or XCElementSnapshot instance
  @param writer the correspondig libxml2 writer object
  @param elementStore an empty dictionary to store indexes mapping or nil if no mappings should be stored
+ @param xpathQuery the actual xpath query. This argument is needed to optimize lookup performance. Can be equal to nil
  @return zero if the method has completed successfully
  */
-+ (int)getSnapshotAsXML:(XCElementSnapshot *)root writer:(xmlTextWriterPtr)writer elementStore:(nullable NSMutableDictionary *)elementStore;
++ (int)xmlRepresentationWithElement:(id<FBElement>)root writer:(xmlTextWriterPtr)writer elementStore:(nullable NSDictionary<NSString *, id<FBElement>> *)elementStore xpathQuery:(nullable NSString *)xpathQuery;
 
 /**
  Gets the list of matched snapshots from xmllib2-compatible xmlNodeSetPtr structure
@@ -30,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param elementStore dictionary containing index->snapshot mapping
  @return array of filtered elements or nil in case of failure. Can be empty array as well
  */
-+ (NSArray *)collectMatchingSnapshots:(xmlNodeSetPtr)nodeSet elementStore:(NSMutableDictionary *)elementStore;
++ (NSArray<id<FBElement>> *)collectMatchingElements:(xmlNodeSetPtr)nodeSet elementStore:(NSDictionary<NSString *, id<FBElement>> *)elementStore;
 
 /**
  Gets the list of matched XPath nodes from xmllib2-compatible XML document
@@ -39,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param document libxml2-compatible document pointer
  @return pointer to a libxml2-compatible structure with set of matched nodes or NULL in case of failure
  */
-+ (xmlXPathObjectPtr)evaluate:(NSString *)xpathQuery document:(xmlDocPtr)doc;
++ (xmlXPathObjectPtr)evaluateXPathWithQuery:(NSString *)xpathQuery document:(xmlDocPtr)doc;
 
 @end
 

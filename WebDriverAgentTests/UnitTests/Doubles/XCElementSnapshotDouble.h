@@ -13,7 +13,7 @@
 
 @class XCUIApplication;
 
-@interface XCUIElementDouble : NSObject<FBElement>
+@interface XCElementSnapshotDouble : NSObject<FBElement>
 @property (nonatomic, strong, nonnull) XCUIApplication *application;
 @property (nonatomic, assign) BOOL fb_isObstructedByAlert;
 @property (nonatomic, readwrite, copy, nonnull) NSDictionary *wdRect;

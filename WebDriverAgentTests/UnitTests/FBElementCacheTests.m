@@ -10,7 +10,7 @@
 #import <XCTest/XCTest.h>
 
 #import "FBElementCache.h"
-#import "XCUIElementDouble.h"
+#import "XCElementSnapshotDouble.h"
 
 @interface FBElementCacheTests : XCTestCase
 @property (nonatomic, strong) FBElementCache *cache;
@@ -26,8 +26,8 @@
 
 - (void)testStoringElement
 {
-  NSString *firstUUID = [self.cache storeElement:(XCUIElement *)XCUIElementDouble.new];
-  NSString *secondUUID = [self.cache storeElement:(XCUIElement *)XCUIElementDouble.new];
+  NSString *firstUUID = [self.cache storeElement:(XCUIElement *)XCElementSnapshotDouble.new];
+  NSString *secondUUID = [self.cache storeElement:(XCUIElement *)XCElementSnapshotDouble.new];
   XCTAssertNotNil(firstUUID, @"Stored index should be higher than 0");
   XCTAssertNotNil(secondUUID, @"Stored index should be higher than 0");
   XCTAssertNotEqualObjects(firstUUID, secondUUID, @"Stored indexes should be different");
@@ -35,7 +35,7 @@
 
 - (void)testFetchingElement
 {
-  XCUIElement *element = (XCUIElement *)XCUIElementDouble.new;
+  XCUIElement *element = (XCUIElement *)XCElementSnapshotDouble.new;
   NSString *uuid = [self.cache storeElement:element];
   XCTAssertNotNil(uuid, @"Stored index should be higher than 0");
   XCTAssertEqual(element, [self.cache elementForUUID:uuid]);
@@ -48,14 +48,14 @@
 
 - (void)testResolvingFetchedElement
 {
-  NSString *uuid = [self.cache storeElement:(XCUIElement *)XCUIElementDouble.new];
-  XCUIElementDouble *element = (XCUIElementDouble *)[self.cache elementForUUID:uuid];
+  NSString *uuid = [self.cache storeElement:(XCUIElement *)XCElementSnapshotDouble.new];
+  XCElementSnapshotDouble *element = (XCElementSnapshotDouble *)[self.cache elementForUUID:uuid];
   XCTAssertTrue(element.didResolve);
 }
 
 - (void)testAlertObstructionCheckWhenFetchingElement
 {
-  XCUIElementDouble *elementDouble = XCUIElementDouble.new;
+  XCElementSnapshotDouble *elementDouble = XCElementSnapshotDouble.new;
   elementDouble.fb_isObstructedByAlert = YES;
   NSString *uuid = [self.cache storeElement:(XCUIElement *)elementDouble];
   XCTAssertThrows([self.cache elementForUUID:uuid]);

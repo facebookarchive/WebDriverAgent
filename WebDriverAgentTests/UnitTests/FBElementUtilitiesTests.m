@@ -11,7 +11,7 @@
 #import <XCTest/XCTest.h>
 
 #import "FBElement.h"
-#import "XCUIElementDouble.h"
+#import "XCElementSnapshotDouble.h"
 #import "FBElementUtils.h"
 
 @interface FBElementUtilitiesTests : XCTestCase
@@ -21,13 +21,13 @@
 
 - (void)testTypesFiltering {
   NSMutableArray *elements = [NSMutableArray new];
-  XCUIElementDouble *el1 = [XCUIElementDouble new];
+  XCElementSnapshotDouble *el1 = [XCElementSnapshotDouble new];
   [elements addObject:el1];
-  XCUIElementDouble *el2 = [XCUIElementDouble new];
+  XCElementSnapshotDouble *el2 = [XCElementSnapshotDouble new];
   el2.elementType = XCUIElementTypeAlert;
   el2.wdType = @"XCUIElementTypeAlert";
   [elements addObject:el2];
-  XCUIElementDouble *el3 = [XCUIElementDouble new];
+  XCElementSnapshotDouble *el3 = [XCElementSnapshotDouble new];
   [elements addObject:el3];
   
   NSSet *result = [FBElementUtils uniqueElementTypesWithElements:elements];
