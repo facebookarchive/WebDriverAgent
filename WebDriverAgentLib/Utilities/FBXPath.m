@@ -341,12 +341,16 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   if (!namesFilter || [namesFilter containsObject:kXMLVisibleAttribute]) {
     [result addObject:[[FBXmlAttributeRecord alloc] initWithName:kXMLVisibleAttribute value:element.wdVisible ? @"true" : @"false"]];
   }
+  NSDictionary *rect = nil;
   for (NSString *attrName in @[kXMLRectXAttribute,
                                kXMLRectYAttribute,
                                kXMLRectWidthAttribute,
                                kXMLRectHeightAttribute]) {
     if (!namesFilter || [namesFilter containsObject:attrName]) {
-      [result addObject:[[FBXmlAttributeRecord alloc] initWithName:attrName value:[element.wdRect[attrName] stringValue]]];
+      if (!rect) {
+        rect = element.wdRect;
+      }
+      [result addObject:[[FBXmlAttributeRecord alloc] initWithName:attrName value:[rect[attrName] stringValue]]];
     }
   }
   if (!namesFilter || [namesFilter containsObject:kXMLUIDAttribute]) {
