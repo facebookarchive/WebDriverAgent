@@ -95,8 +95,9 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   NSArray<XCUIElement *> *staticTextList = [alert descendantsMatchingType:XCUIElementTypeStaticText].allElementsBoundByIndex;
   NSMutableArray<NSString *> *resultText = [NSMutableArray array];
   for (XCUIElement *staticText in staticTextList) {
-    if (staticText.wdLabel && staticText.isWDVisible) {
-      [resultText addObject:[NSString stringWithFormat:@"%@", staticText.wdLabel]];
+    NSString *label = staticText.wdLabel;
+    if (label && staticText.isWDVisible) {
+      [resultText addObject:[NSString stringWithFormat:@"%@", label]];
     }
   }
   if (resultText.count) {
