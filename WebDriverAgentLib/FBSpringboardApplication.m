@@ -81,7 +81,7 @@
      FBApplication *activeApp = [FBApplication fb_activeApplication];
      return activeApp &&
         activeApp.processID != self.processID &&
-        activeApp.fb_mainWindowSnapshot.fb_isVisible;
+     activeApp.fb_isVisible;
    } error:error];
 }
 

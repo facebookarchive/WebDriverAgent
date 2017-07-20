@@ -36,14 +36,6 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
   return YES;
 }
 
-- (XCElementSnapshot *)fb_mainWindowSnapshot
-{
-  NSArray<XCElementSnapshot *> *mainWindows = [self.fb_lastSnapshot descendantsByFilteringWithBlock:^BOOL(XCElementSnapshot *snapshot) {
-    return snapshot.isMainWindow;
-  }];
-  return mainWindows.lastObject;
-}
-
 - (NSDictionary *)fb_tree
 {
   [self fb_waitUntilSnapshotIsStable];
@@ -54,7 +46,7 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
 {
   [self fb_waitUntilSnapshotIsStable];
   // We ignore all elements except for the main window for accessibility tree
-  return [self.class accessibilityInfoForElement:self.fb_mainWindowSnapshot];
+  return [self.class accessibilityInfoForElement:self.fb_lastSnapshot];
 }
 
 + (NSDictionary *)dictionaryForElement:(XCElementSnapshot *)snapshot

@@ -25,11 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)fb_deactivateWithDuration:(NSTimeInterval)duration error:(NSError **)error;
 
 /**
- Returns snapshot element of main window
- */
-- (nullable XCElementSnapshot *)fb_mainWindowSnapshot;
-
-/**
  Return application elements tree in form of nested dictionaries
  */
 - (NSDictionary *)fb_tree;
