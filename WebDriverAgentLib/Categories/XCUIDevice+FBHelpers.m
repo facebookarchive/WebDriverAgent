@@ -15,6 +15,7 @@
 
 #import "FBSpringboardApplication.h"
 
+#import "FBMacros.h"
 #import "XCAXClient_iOS.h"
 #if defined(__has_include)
   #if __has_include("XCTest/XCUIScreen.h")
@@ -46,7 +47,9 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   NSData *result = nil;
   #if defined(__has_include)
     #if __has_include("XCTest/XCUIScreen.h")
-  result = XCUIScreen.mainScreen.screenshot.PNGRepresentation;
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
+    result = [[[XCUIScreen mainScreen] screenshot] PNGRepresentation];
+  }
     #endif
   #endif
   if (result) {
