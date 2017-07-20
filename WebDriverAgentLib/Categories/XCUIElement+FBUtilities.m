@@ -60,9 +60,6 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
 
 - (XCElementSnapshot *)fb_lastSnapshot
 {
-  if (self.lastSnapshot) {
-    return self.lastSnapshot;
-  }
   [self resolve];
   return self.lastSnapshot;
 }
