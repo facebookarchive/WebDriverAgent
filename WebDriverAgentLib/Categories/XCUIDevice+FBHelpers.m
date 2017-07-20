@@ -16,6 +16,11 @@
 #import "FBSpringboardApplication.h"
 
 #import "XCAXClient_iOS.h"
+#if defined(__has_include)
+  #if __has_include("XCTest/XCUIScreen.h")
+    #import "XCTest/XCUIScreen.h"
+  #endif
+#endif
 
 static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
 
@@ -38,6 +43,15 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
 
 - (NSData *)fb_screenshot
 {
+  NSData *result = nil;
+  #if defined(__has_include)
+    #if __has_include("XCTest/XCUIScreen.h")
+  result = XCUIScreen.mainScreen.screenshot.PNGRepresentation;
+    #endif
+  #endif
+  if (result) {
+    return result;
+  }
   return [[XCAXClient_iOS sharedClient] screenshotData];
 }
 
