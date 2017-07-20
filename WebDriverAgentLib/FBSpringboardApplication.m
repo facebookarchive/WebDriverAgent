@@ -99,8 +99,7 @@
 - (BOOL)fb_isApplicationBoardVisible
 {
   [self resolve];
-  XCElementSnapshot *mainWindow = self.fb_mainWindowSnapshot;
-  return mainWindow.fb_isVisible && self.otherElements[@"Dock"].fb_isVisible;
+  return self.otherElements[@"Dock"].fb_isVisible;
 }
 
 @end
