@@ -30,7 +30,6 @@
   XCTAssertTrue(self.springboard.icons[@"Reminders"].fb_isVisible);
 
   // Check Icons on second screen screen
-  XCTAssertFalse(self.springboard.icons[@"iCloud Drive"].fb_isVisible);
   XCTAssertFalse(self.springboard.icons[@"IntegrationApp"].fb_isVisible);
 }
 
@@ -64,7 +63,6 @@
   [self launchApplication];
   [self goToSpringBoardDashboard];
   XCTAssertFalse(self.springboard.icons[@"Reminders"].fb_isVisible);
-  XCTAssertFalse(self.springboard.icons[@"iCloud Drive"].fb_isVisible);
   XCTAssertFalse(self.springboard.icons[@"IntegrationApp"].fb_isVisible);
 }
 

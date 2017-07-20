@@ -12,6 +12,7 @@
 #import "FBSpringboardApplication.h"
 #import "FBTestMacros.h"
 #import "FBIntegrationTestCase.h"
+#import "FBMacros.h"
 #import "FBRunLoopSpinner.h"
 #import "XCUIDevice+FBRotation.h"
 #import "XCUIElement.h"
@@ -80,7 +81,13 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
 {
   [self goToSpringBoardFirstPage];
   [self.springboard swipeRight];
-  FBAssertWaitTillBecomesTrue(self.springboard.navigationBars[@"SBSearchEtceteraIsolatedView"].fb_isVisible);
+  NSPredicate *predicate =
+    [NSPredicate predicateWithFormat:
+     @"%K IN %@",
+     FBStringify(XCUIElement, identifier),
+     @[@"SBSearchEtceteraIsolatedView", @"SpotlightSearchField"]
+   ];
+  FBAssertWaitTillBecomesTrue([[self.springboard descendantsMatchingType:XCUIElementTypeAny] elementMatchingPredicate:predicate].fb_isVisible);
   FBAssertWaitTillBecomesTrue(!self.springboard.icons[@"Calendar"].fb_isVisible);
 }
 
