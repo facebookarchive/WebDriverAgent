@@ -12,6 +12,7 @@
 #import "FBSpringboardApplication.h"
 #import "FBTestMacros.h"
 #import "FBIntegrationTestCase.h"
+#import "FBConfiguration.h"
 #import "FBMacros.h"
 #import "FBRunLoopSpinner.h"
 #import "XCUIDevice+FBRotation.h"
@@ -31,6 +32,7 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
 - (void)setUp
 {
   [super setUp];
+  [FBConfiguration disableRemoteQueryEvaluation];
   self.continueAfterFailure = NO;
   self.springboard = [FBSpringboardApplication fb_springboard];
   self.testedApplication = [XCUIApplication new];
