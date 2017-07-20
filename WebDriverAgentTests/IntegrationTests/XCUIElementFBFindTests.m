@@ -209,16 +209,6 @@
   }
 }
 
-- (void)testNestedQueryWithClassChain
-{
-  [self.testedApplication.buttons[@"Attributes"] tap];
-  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Button"].fb_isVisible);
-  XCUIElement *datePicker = [[self.testedApplication descendantsMatchingType:XCUIElementTypeDatePicker].allElementsBoundByIndex firstObject];
-  NSArray<XCUIElement *> *matches = [datePicker fb_descendantsMatchingClassChain:@"XCUIElementTypeOther" shouldReturnAfterFirstMatch:NO];
-  XCTAssertEqual(matches.count, 1);
-  XCTAssertEqual([matches firstObject].elementType, XCUIElementTypeOther);
-}
-
 - (void)testDescendantsWithClassChainAndPredicates
 {
   NSArray<XCUIElement *> *matchingSnapshots;
@@ -316,6 +306,15 @@
   XCTAssertEqual(matchingSnapshots.count, 1);
   XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypePageIndicator);
   XCTAssertFalse(matchingSnapshots.lastObject.fb_isVisible);
+}
+
+- (void)testNestedQueryWithClassChain
+{
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Button"].fb_isVisible);
+  XCUIElement *datePicker = [[self.testedApplication descendantsMatchingType:XCUIElementTypeDatePicker].allElementsBoundByIndex firstObject];
+  NSArray<XCUIElement *> *matches = [datePicker fb_descendantsMatchingClassChain:@"XCUIElementTypeOther" shouldReturnAfterFirstMatch:NO];
+  XCTAssertEqual(matches.count, 1);
+  XCTAssertEqual([matches firstObject].elementType, XCUIElementTypeOther);
 }
 
 @end
