@@ -15,6 +15,7 @@
 #import "FBRouteRequest.h"
 #import "FBMacros.h"
 #import "FBElementCache.h"
+#import "FBPredicate.h"
 #import "FBSession.h"
 #import "FBApplication.h"
 #import "XCUIElement+FBFind.h"
@@ -72,7 +73,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *collection = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)];
+  NSPredicate *predicate = [FBPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)];
   NSArray *elements = [collection.cells matchingPredicate:predicate].allElementsBoundByIndex;
   return FBResponseWithCachedElements(elements, request.session.elementCache, YES);
 }
@@ -123,7 +124,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   } else if ([usingText isEqualToString:@"xpath"]) {
     elements = [element fb_descendantsMatchingXPathQuery:value shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch];
   } else if ([usingText isEqualToString:@"predicate string"]) {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:value];
+    NSPredicate *predicate = [FBPredicate predicateWithFormat:value];
     elements = [element fb_descendantsMatchingPredicate:predicate shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch];
   } else if (isSearchByIdentifier) {
     elements = [element fb_descendantsMatchingIdentifier:value shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch];

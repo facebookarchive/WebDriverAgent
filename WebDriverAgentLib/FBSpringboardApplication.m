@@ -81,7 +81,7 @@
      FBApplication *activeApp = [FBApplication fb_activeApplication];
      return activeApp &&
         activeApp.processID != self.processID &&
-        activeApp.fb_mainWindowSnapshot.fb_isVisible;
+     activeApp.fb_isVisible;
    } error:error];
 }
 
@@ -99,8 +99,7 @@
 - (BOOL)fb_isApplicationBoardVisible
 {
   [self resolve];
-  XCElementSnapshot *mainWindow = self.fb_mainWindowSnapshot;
-  return mainWindow.fb_isVisible && self.otherElements[@"Dock"].fb_isVisible;
+  return self.otherElements[@"Dock"].fb_isVisible;
 }
 
 @end

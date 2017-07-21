@@ -23,6 +23,7 @@
 + (void)setUp
 {
   [FBDebugLogDelegateDecorator decorateXCTestLogger];
+  [FBConfiguration disableRemoteQueryEvaluation];
   [super setUp];
 }
 

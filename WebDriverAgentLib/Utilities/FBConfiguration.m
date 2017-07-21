@@ -32,6 +32,11 @@ static NSUInteger FBMaxTypingFrequency = 60;
   _AXSAutomationSetFauxCollectionViewCellsEnabled(showFakeCells);
 }
 
++ (void)disableRemoteQueryEvaluation
+{
+  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"XCTDisableRemoteQueryEvaluation"];
+}
+
 + (NSRange)bindingPortRange
 {
   // 'WebDriverAgent --port 8080' can be passed via the arguments to the process

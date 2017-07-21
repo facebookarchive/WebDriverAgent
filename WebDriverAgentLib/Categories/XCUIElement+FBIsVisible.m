@@ -42,12 +42,7 @@
   if ([FBConfiguration shouldUseTestManagerForVisibilityDetection]) {
     return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
   }
-  CGRect appFrame;
-  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
-    appFrame = self.application.frame;
-  } else {
-    appFrame = [self fb_rootElement].frame;
-  }
+  CGRect appFrame = [self fb_rootElement].frame;
   CGSize screenSize = FBAdjustDimensionsForApplication(appFrame.size, (UIInterfaceOrientation)[XCUIDevice sharedDevice].orientation);
   CGRect screenFrame = CGRectMake(0, 0, screenSize.width, screenSize.height);
   if (!CGRectIntersectsRect(visibleFrame, screenFrame)) {
