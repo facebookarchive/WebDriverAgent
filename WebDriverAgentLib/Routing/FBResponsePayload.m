@@ -14,6 +14,7 @@
 #import "FBResponseJSONPayload.h"
 #import "FBSession.h"
 
+#import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 
 inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSString *elementUUID, BOOL compact);
@@ -88,8 +89,9 @@ inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element
   NSMutableDictionary *dictionary = [NSMutableDictionary new];
   dictionary[@"ELEMENT"] = elementUUID;
   if (!compact) {
-    dictionary[@"type"] = element.wdType;
-    dictionary[@"label"] = element.wdLabel ?: [NSNull null];
+    XCElementSnapshot *snapshot = element.fb_lastSnapshot;
+    dictionary[@"type"] = snapshot.wdType;
+    dictionary[@"label"] = snapshot.wdLabel ?: [NSNull null];
   }
   return dictionary.copy;
 }
