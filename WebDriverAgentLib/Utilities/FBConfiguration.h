@@ -32,12 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSUInteger)maxTypingFrequency;
 
 /**
- Switch for enabling/disabling reporting fake collection view cells by Accessibility framework.
- If set to YES it will report also invisible cells.
- */
-+ (void)shouldShowFakeCollectionViewCells:(BOOL)showFakeCells;
-
-/**
  The range of ports that the HTTP Server should attempt to bind on launch
  */
 + (NSRange)bindingPortRange;
