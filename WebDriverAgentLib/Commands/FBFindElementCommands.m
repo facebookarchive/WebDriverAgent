@@ -10,6 +10,7 @@
 #import "FBFindElementCommands.h"
 
 #import "FBAlert.h"
+#import "FBConfiguration.h"
 #import "FBElementCache.h"
 #import "FBExceptionHandler.h"
 #import "FBRouteRequest.h"
@@ -58,7 +59,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   if (!element) {
     return FBNoSuchElementErrorResponseForRequest(request);
   }
-  return FBResponseWithCachedElement(element, request.session.elementCache);
+  return FBResponseWithCachedElement(element, request.session.elementCache, FBConfiguration.shouldUseCompactResponses);
 }
 
 + (id<FBResponsePayload>)handleFindElements:(FBRouteRequest *)request
@@ -66,7 +67,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   FBSession *session = request.session;
   NSArray *elements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:session.application
                     shouldReturnAfterFirstMatch:NO];
-  return FBResponseWithCachedElements(elements, request.session.elementCache, NO);
+  return FBResponseWithCachedElements(elements, request.session.elementCache, FBConfiguration.shouldUseCompactResponses);
 }
 
 + (id<FBResponsePayload>)handleFindVisibleCells:(FBRouteRequest *)request
@@ -75,7 +76,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   XCUIElement *collection = [elementCache elementForUUID:request.parameters[@"uuid"]];
   NSPredicate *predicate = [FBPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)];
   NSArray *elements = [collection.cells matchingPredicate:predicate].allElementsBoundByIndex;
-  return FBResponseWithCachedElements(elements, request.session.elementCache, YES);
+  return FBResponseWithCachedElements(elements, request.session.elementCache, FBConfiguration.shouldUseCompactResponses);
 }
 
 + (id<FBResponsePayload>)handleFindSubElement:(FBRouteRequest *)request
@@ -86,7 +87,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   if (!foundElement) {
     return FBNoSuchElementErrorResponseForRequest(request);
   }
-  return FBResponseWithCachedElement(foundElement, request.session.elementCache);
+  return FBResponseWithCachedElement(foundElement, request.session.elementCache, FBConfiguration.shouldUseCompactResponses);
 }
 
 + (id<FBResponsePayload>)handleFindSubElements:(FBRouteRequest *)request
@@ -96,7 +97,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   NSArray *foundElements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element
                          shouldReturnAfterFirstMatch:NO];
 
-  return FBResponseWithCachedElements(foundElements, request.session.elementCache, NO);
+  return FBResponseWithCachedElements(foundElements, request.session.elementCache, FBConfiguration.shouldUseCompactResponses);
 }
 
 
