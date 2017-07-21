@@ -15,6 +15,7 @@
 #import "FBLogger.h"
 #import "FBMacros.h"
 #import "FBMathUtils.h"
+#import "FBPredicate.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCElementSnapshot.h"
 #import "XCEventGenerator.h"
@@ -105,7 +106,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
          cellSnapshots = [snapshot fb_descendantsCellSnapshots];
 
-         visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)]];
+         visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[FBPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)]];
 
          if (visibleCellSnapshots.count > 1) {
            return YES;

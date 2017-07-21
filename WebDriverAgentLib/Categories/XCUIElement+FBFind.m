@@ -12,6 +12,7 @@
 
 #import "FBMacros.h"
 #import "FBElementTypeTransformer.h"
+#import "FBPredicate.h"
 #import "NSPredicate+FBFormat.h"
 #import "XCElementSnapshot.h"
 #import "XCElementSnapshot+FBHelpers.h"
@@ -80,7 +81,8 @@
   NSString *operation = partialSearch ?
   [NSString stringWithFormat:@"%@ like '*%@*'", property, value] :
   [NSString stringWithFormat:@"%@ == '%@'", property, value];
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:operation];
+
+  NSPredicate *predicate = [FBPredicate predicateWithFormat:operation];
   XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate];
   NSArray *childElements = [query allElementsBoundByIndex];
   [results addObjectsFromArray:childElements];
