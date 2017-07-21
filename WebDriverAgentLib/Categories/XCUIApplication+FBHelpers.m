@@ -53,7 +53,8 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
 {
   NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
   info[@"type"] = [FBElementTypeTransformer shortStringWithElementType:snapshot.elementType];
-  info[@"rawIdentifier"] = FBValueOrNull([snapshot.identifier isEqual:@""] ? nil : snapshot.identifier);
+  NSString *identifier = snapshot.identifier;
+  info[@"rawIdentifier"] = FBValueOrNull([identifier isEqual:@""] ? nil : identifier);
   info[@"name"] = FBValueOrNull(snapshot.wdName);
   info[@"value"] = FBValueOrNull(snapshot.wdValue);
   info[@"label"] = FBValueOrNull(snapshot.wdLabel);
@@ -98,7 +99,8 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
   }
   if ([info count]) {
     info[@"type"] = [FBElementTypeTransformer shortStringWithElementType:snapshot.elementType];
-    info[@"rawIdentifier"] = FBValueOrNull([snapshot.identifier isEqual:@""] ? nil : snapshot.identifier);
+    NSString *identifier = snapshot.identifier;
+    info[@"rawIdentifier"] = FBValueOrNull([identifier isEqual:@""] ? nil : identifier);
     info[@"name"] = FBValueOrNull(snapshot.wdName);
   } else {
     return nil;

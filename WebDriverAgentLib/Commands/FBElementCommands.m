@@ -152,11 +152,12 @@
   if ([value isKindOfClass:[NSArray class]]) {
     textToType = [value componentsJoinedByString:@""];
   }
-  if (element.elementType == XCUIElementTypePickerWheel) {
+  XCUIElementType elementType = element.elementType;
+  if (elementType == XCUIElementTypePickerWheel) {
     [element adjustToPickerWheelValue:textToType];
     return FBResponseWithOK();
   }
-  if (element.elementType == XCUIElementTypeSlider) {
+  if (elementType == XCUIElementTypeSlider) {
     CGFloat sliderValue = textToType.floatValue;
     if (sliderValue < 0.0 || sliderValue > 1.0 ) {
       return FBResponseWithErrorFormat(@"Value of slider should be in 0..1 range");
@@ -300,8 +301,9 @@
   FBSession *session = request.session;
   FBElementCache *elementCache = session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  CGPoint startPoint = CGPointMake((CGFloat)(element.frame.origin.x + [request.arguments[@"fromX"] doubleValue]), (CGFloat)(element.frame.origin.y + [request.arguments[@"fromY"] doubleValue]));
-  CGPoint endPoint = CGPointMake((CGFloat)(element.frame.origin.x + [request.arguments[@"toX"] doubleValue]), (CGFloat)(element.frame.origin.y + [request.arguments[@"toY"] doubleValue]));
+  CGPoint selfFrameOrigin = element.frame.origin;
+  CGPoint startPoint = CGPointMake((CGFloat)(selfFrameOrigin.x + [request.arguments[@"fromX"] doubleValue]), (CGFloat)(selfFrameOrigin.y + [request.arguments[@"fromY"] doubleValue]));
+  CGPoint endPoint = CGPointMake((CGFloat)(selfFrameOrigin.x + [request.arguments[@"toX"] doubleValue]), (CGFloat)(selfFrameOrigin.y + [request.arguments[@"toY"] doubleValue]));
   NSTimeInterval duration = [request.arguments[@"duration"] doubleValue];
   BOOL shouldApplyOrientationWorkaround = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0");
   XCUICoordinate *endCoordinate = [self.class gestureCoordinateWithCoordinate:endPoint application:session.application shouldApplyOrientationWorkaround:shouldApplyOrientationWorkaround];
