@@ -20,6 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setShouldUseTestManagerForVisibilityDetection:(BOOL)value;
 + (BOOL)shouldUseTestManagerForVisibilityDetection;
 
+/*! If set to YES will use compact & faster responses */
++ (void)setShouldUseCompactResponses:(BOOL)value;
++ (BOOL)shouldUseCompactResponses;
+
 /*! Disables remote query evaluation making Xcode 9.x tests behave same as Xcode 8.x test */
 + (void)disableRemoteQueryEvaluation;
 

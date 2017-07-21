@@ -71,6 +71,9 @@
     return FBResponseWithErrorFormat(@"'bundleId' desired capability not provided");
   }
   [FBConfiguration setShouldUseTestManagerForVisibilityDetection:[requirements[@"shouldUseTestManagerForVisibilityDetection"] boolValue]];
+  if (requirements[@"shouldUseCompactResponses"]) {
+    [FBConfiguration setShouldUseCompactResponses:[requirements[@"shouldUseCompactResponses"] boolValue]];
+  }
   if (requirements[@"maxTypingFrequency"]) {
     [FBConfiguration setMaxTypingFrequency:[requirements[@"maxTypingFrequency"] integerValue]];
   }

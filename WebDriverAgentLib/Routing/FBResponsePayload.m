@@ -29,10 +29,10 @@ id<FBResponsePayload> FBResponseWithObject(id object)
   return FBResponseWithStatus(FBCommandStatusNoError, object);
 }
 
-id<FBResponsePayload> FBResponseWithCachedElement(XCUIElement *element, FBElementCache *elementCache)
+id<FBResponsePayload> FBResponseWithCachedElement(XCUIElement *element, FBElementCache *elementCache, BOOL compact)
 {
   NSString *elementUUID = [elementCache storeElement:element];
-  return FBResponseWithStatus(FBCommandStatusNoError, FBDictionaryResponseWithElement(element, elementUUID, NO));
+  return FBResponseWithStatus(FBCommandStatusNoError, FBDictionaryResponseWithElement(element, elementUUID, compact));
 }
 
 id<FBResponsePayload> FBResponseWithCachedElements(NSArray<XCUIElement *> *elements, FBElementCache *elementCache, BOOL compact)

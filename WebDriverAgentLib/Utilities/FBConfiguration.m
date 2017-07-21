@@ -20,6 +20,7 @@ static NSUInteger const DefaultStartingPort = 8100;
 static NSUInteger const DefaultPortRange = 100;
 
 static BOOL FBShouldUseTestManagerForVisibilityDetection = NO;
+static BOOL FBShouldUseCompactResponses = YES;
 static NSUInteger FBMaxTypingFrequency = 60;
 
 @implementation FBConfiguration
@@ -64,6 +65,16 @@ static NSUInteger FBMaxTypingFrequency = 60;
 + (BOOL)shouldUseTestManagerForVisibilityDetection
 {
   return FBShouldUseTestManagerForVisibilityDetection;
+}
+
++ (void)setShouldUseCompactResponses:(BOOL)value
+{
+  FBShouldUseCompactResponses = value;
+}
+
++ (BOOL)shouldUseCompactResponses
+{
+  return FBShouldUseCompactResponses;
 }
 
 + (void)setMaxTypingFrequency:(NSUInteger)value
