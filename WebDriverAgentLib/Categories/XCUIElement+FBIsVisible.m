@@ -9,6 +9,7 @@
 
 #import "XCUIElement+FBIsVisible.h"
 
+#import "FBMacros.h"
 #import "FBApplication.h"
 #import "FBConfiguration.h"
 #import "FBMathUtils.h"
@@ -23,7 +24,10 @@
 
 - (BOOL)fb_isVisible
 {
-  return self.fb_lastSnapshot.fb_isVisible;
+  if (SYSTEM_VERSION_LESS_THAN(@"11.0") || [FBConfiguration shouldUseTestManagerForVisibilityDetection]) {
+    return self.fb_lastSnapshot.fb_isVisible;
+  }
+  return self.exists && self.hittable;
 }
 
 @end
