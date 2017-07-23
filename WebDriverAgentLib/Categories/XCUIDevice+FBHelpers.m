@@ -15,7 +15,14 @@
 
 #import "FBSpringboardApplication.h"
 
+#import "FBMacros.h"
 #import "XCAXClient_iOS.h"
+#if defined(__has_include)
+  #if __has_include("XCTest/XCUIScreen.h")
+    #import "XCTest/XCUIScreen.h"
+    #define FB_USE_MODERN_SCREENSHOTS 1
+  #endif
+#endif
 
 static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
 
@@ -38,7 +45,11 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
 
 - (NSData *)fb_screenshot
 {
+#ifdef FB_USE_MODERN_SCREENSHOTS
+  return [[[XCUIScreen mainScreen] screenshot] PNGRepresentation];
+#else
   return [[XCAXClient_iOS sharedClient] screenshotData];
+#endif
 }
 
 - (BOOL)fb_fingerTouchShouldMatch:(BOOL)shouldMatch
