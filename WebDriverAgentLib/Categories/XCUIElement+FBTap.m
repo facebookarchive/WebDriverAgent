@@ -19,6 +19,7 @@
 #import "XCElementSnapshot+FBHitPoint.h"
 #import "XCPointerEventPath.h"
 #import "XCTRunnerDaemonSession.h"
+#import "XCUICoordinate.h"
 
 const CGFloat FBTapDuration = 0.01f;
 
@@ -26,6 +27,10 @@ const CGFloat FBTapDuration = 0.01f;
 
 - (BOOL)fb_tapWithError:(NSError **)error
 {
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
+    [self tap];
+    return YES;
+  }
   XCElementSnapshot *snapshot = self.fb_lastSnapshot;
   CGPoint hitpoint = snapshot.fb_hitPoint;
   if (CGPointEqualToPoint(hitpoint, CGPointMake(-1, -1))) {
@@ -36,6 +41,11 @@ const CGFloat FBTapDuration = 0.01f;
 
 - (BOOL)fb_tapCoordinate:(CGPoint)relativeCoordinate error:(NSError **)error
 {
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
+    XCUICoordinate *tapCoordinate = [[XCUICoordinate alloc] initWithElement:self normalizedOffset:CGVectorMake(relativeCoordinate.x, relativeCoordinate.y)];
+    [tapCoordinate tap];
+    return YES;
+  }
   CGPoint hitPoint = CGPointMake(self.frame.origin.x + relativeCoordinate.x, self.frame.origin.y + relativeCoordinate.y);
   if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
     /*

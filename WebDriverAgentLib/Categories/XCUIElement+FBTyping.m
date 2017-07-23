@@ -9,6 +9,7 @@
 
 #import "XCUIElement+FBTyping.h"
 
+#import "FBMacros.h"
 #import "FBErrorBuilder.h"
 #import "FBKeyboard.h"
 #import "NSString+FBVisualLength.h"
@@ -20,6 +21,10 @@
 {
   if (!self.hasKeyboardFocus && ![self fb_tapWithError:error]) {
     return NO;
+  }
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
+    [self typeText:text];
+    return YES;
   }
   if (![FBKeyboard typeText:text error:error]) {
     return NO;
