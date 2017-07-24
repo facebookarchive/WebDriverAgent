@@ -9,6 +9,7 @@
 
 #import <XCTest/XCTest.h>
 
+#import "FBPredicate.h"
 #import "NSPredicate+FBFormat.h"
 
 @interface NSPredicateFBFormatTests : XCTestCase
@@ -62,6 +63,12 @@
 {
   NSPredicate *expr = [NSPredicate predicateWithFormat:@"title == 'blabla'"];
   XCTAssertThrows([NSPredicate fb_formatSearchPredicate:expr]);
+}
+
+- (void)testFormattingFBPredicate
+{
+  NSPredicate *predicate = [FBPredicate predicateWithFormat:@"visible == 1"];
+  XCTAssertNotNil([NSPredicate fb_formatSearchPredicate:predicate]);
 }
 
 @end

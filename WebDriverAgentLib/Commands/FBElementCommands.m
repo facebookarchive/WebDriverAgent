@@ -11,6 +11,7 @@
 
 #import "FBApplication.h"
 #import "FBKeyboard.h"
+#import "FBPredicate.h"
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
 #import "FBRunLoopSpinner.h"
@@ -269,7 +270,7 @@
 
   NSString *const predicateString = request.arguments[@"predicateString"];
   if (predicateString) {
-    NSPredicate *formattedPredicate = [NSPredicate fb_formatSearchPredicate:[NSPredicate predicateWithFormat:predicateString]];
+    NSPredicate *formattedPredicate = [NSPredicate fb_formatSearchPredicate:[FBPredicate predicateWithFormat:predicateString]];
     XCUIElement *childElement = [[[[element descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:formattedPredicate] allElementsBoundByIndex] lastObject];
     if (!childElement) {
       return FBResponseWithErrorFormat(@"'%@' predicate didn't match any elements", predicateString);
