@@ -14,8 +14,6 @@
 #include "TargetConditionals.h"
 #import "XCTestPrivateSymbols.h"
 
-BOOL _AXSAutomationSetFauxCollectionViewCellsEnabled(BOOL);
-
 static NSUInteger const DefaultStartingPort = 8100;
 static NSUInteger const DefaultPortRange = 100;
 
@@ -27,11 +25,6 @@ static NSUInteger FBMaxTypingFrequency = 60;
 @implementation FBConfiguration
 
 #pragma mark Public
-
-+ (void)shouldShowFakeCollectionViewCells:(BOOL)showFakeCells
-{
-  _AXSAutomationSetFauxCollectionViewCellsEnabled(showFakeCells);
-}
 
 + (void)disableRemoteQueryEvaluation
 {

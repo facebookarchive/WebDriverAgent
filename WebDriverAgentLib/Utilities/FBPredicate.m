@@ -16,8 +16,13 @@
   va_list args;
   va_start(args, predicateFormat);
   NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormat arguments:args];
-  NSPredicate *hackPredicate = [NSPredicate predicateWithFormat:@"( 1 == 1 or identifier == 0 or frame == 0 or value == 0 or title == 0 or label == 0 or elementType = 0 or enabled = 0 or placeholderValue = 0)"];
+  NSPredicate *hackPredicate = [NSPredicate predicateWithFormat:self.forceResolvePredicateString];
   return [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, hackPredicate]];
+}
+
++ (NSString *)forceResolvePredicateString
+{
+  return @"1 == 1 or identifier == 0 or frame == 0 or value == 0 or title == 0 or label == 0 or elementType == 0 or enabled == 0 or placeholderValue == 0";
 }
 
 @end

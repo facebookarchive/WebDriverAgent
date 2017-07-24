@@ -286,7 +286,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
-  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
+  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
     [[FBXCTestDaemonsProxy testRunnerProxy] _XCT_synthesizeEvent:event completion:^(NSError *scrollingError) {
       innerError = scrollingError;
       didSucceed = (scrollingError == nil);

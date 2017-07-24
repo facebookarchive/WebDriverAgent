@@ -50,7 +50,7 @@ const CGFloat FBTapDuration = 0.01f;
 {
   [self fb_waitUntilFrameIsStable];
   __block BOOL didSucceed;
-  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
+  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
     XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
       if (commandError) {
         [FBLogger logFmt:@"Failed to perform tap: %@", commandError];

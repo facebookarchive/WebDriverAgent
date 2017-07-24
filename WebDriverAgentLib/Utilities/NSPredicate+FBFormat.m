@@ -8,6 +8,8 @@
  */
 
 #import "NSPredicate+FBFormat.h"
+
+#import "FBPredicate.h"
 #import "NSExpression+FBFormat.h"
 
 @implementation NSPredicate (FBFormat)
@@ -18,6 +20,11 @@
     NSCompoundPredicate *compPred = (NSCompoundPredicate *)original;
     NSMutableArray *predicates = [NSMutableArray array];
     for (NSPredicate *predicate in [compPred subpredicates]) {
+      if ([predicate.predicateFormat.lowercaseString isEqualToString:FBPredicate.forceResolvePredicateString.lowercaseString]) {
+        // Do not translete this predicate
+        [predicates addObject:predicate];
+        continue;
+      }
       NSPredicate *newPredicate = [self.class fb_predicateWithPredicate:predicate comparisonModifier:comparisonModifier];
       if (nil != newPredicate) {
         [predicates addObject:newPredicate];

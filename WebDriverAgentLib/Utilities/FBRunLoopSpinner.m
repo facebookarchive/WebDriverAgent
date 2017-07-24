@@ -23,7 +23,7 @@ static const NSTimeInterval FBWaitInterval = 0.1;
 
 @implementation FBRunLoopSpinner
 
-+ (void)spinUntilCompletion:(void (^)(void(^completion)()))block
++ (void)spinUntilCompletion:(void (^)(void(^completion)(void)))block
 {
   __block volatile atomic_bool didFinish = false;
   block(^{

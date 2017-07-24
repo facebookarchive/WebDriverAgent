@@ -15,7 +15,7 @@ NSNumber *FB_XCAXAIsVisibleAttribute;
 NSNumber *FB_XCAXAIsElementAttribute;
 
 void (*XCSetDebugLogger)(id <XCDebugLogDelegate>);
-id<XCDebugLogDelegate> (*XCDebugLogger)();
+id<XCDebugLogDelegate> (*XCDebugLogger)(void);
 
 __attribute__((constructor)) void FBLoadXCTestSymbols(void)
 {

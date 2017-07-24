@@ -18,7 +18,7 @@ extern NSNumber *FB_XCAXAIsVisibleAttribute;
 extern NSNumber *FB_XCAXAIsElementAttribute;
 
 /*! Getter for  XCTest logger */
-extern id<XCDebugLogDelegate> (*XCDebugLogger)();
+extern id<XCDebugLogDelegate> (*XCDebugLogger)(void);
 
 /*! Setter for  XCTest logger */
 extern void (*XCSetDebugLogger)(id <XCDebugLogDelegate>);

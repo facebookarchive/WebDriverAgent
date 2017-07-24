@@ -30,7 +30,7 @@
   }
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
-  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
+  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
     [[FBXCTestDaemonsProxy testRunnerProxy]
      _XCT_sendString:text
      maximumFrequency:[FBConfiguration maxTypingFrequency]

@@ -8,6 +8,7 @@
  */
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import HTTP from 'js/http';
 import Screen from 'js/screen';
@@ -90,4 +91,4 @@ class App extends React.Component {
   }
 }
 
-React.render(<App />, document.body);
+ReactDOM.render(<App />, document.body);

@@ -11,6 +11,7 @@
 #import "FBClassChainQueryParser.h"
 #import "FBErrorBuilder.h"
 #import "FBElementTypeTransformer.h"
+#import "FBPredicate.h"
 #import "NSPredicate+FBFormat.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -535,7 +536,7 @@ static NSNumberFormatter *numberFormatter = nil;
         *error = [self.class compilationErrorWithQuery:originalQuery description:description];
         return nil;
       }
-      predicate = [NSPredicate fb_formatSearchPredicate:[NSPredicate predicateWithFormat:token.asString]];
+      predicate = [NSPredicate fb_formatSearchPredicate:[FBPredicate predicateWithFormat:token.asString]];
       isPredicateSet = YES;
     } else if ([token isKindOfClass:FBNumberToken.class]) {
       if (isPositionSet) {

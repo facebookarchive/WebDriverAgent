@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSPredicate *)predicateWithFormat:(NSString *)predicateFormat,  ...;
 
+/*! Predicate string attached to original predicate to force resolve it in XCTest */
++ (NSString *)forceResolvePredicateString;
+
 @end
 
 NS_ASSUME_NONNULL_END
