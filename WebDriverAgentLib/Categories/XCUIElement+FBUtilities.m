@@ -90,10 +90,10 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
     XCUIElement *result = query.fb_firstMatch;
     return result ? @[result] : @[];
   }
-  NSArray<XCUIElement *> *filteredElements = query.allElementsBoundByIndex;
-  if (filteredElements.count <= 1) {
+  [matchedElements addObjectsFromArray:query.allElementsBoundByIndex];
+  if (matchedElements.count <= 1) {
     // There is no need to sort elements if count of matches is not greater than one
-    return matchedElements;
+    return matchedElements.copy;
   }
   NSMutableArray<XCUIElement *> *sortedElements = [NSMutableArray array];
   [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
