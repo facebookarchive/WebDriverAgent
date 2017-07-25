@@ -15,6 +15,7 @@
 #import "FBSpringboardApplication.h"
 #import "XCUIApplication+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
+#import "XCUIDevice+FBRotation.h"
 
 @interface XCUIApplicationHelperTests : FBIntegrationTestCase
 @end
@@ -37,6 +38,19 @@
 - (void)testTappingAppOnSpringboard
 {
   [self goToSpringBoardFirstPage];
+  NSError *error;
+  XCTAssertTrue([[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:@"Safari" error:&error]);
+  XCTAssertNil(error);
+  XCTAssertTrue([FBApplication fb_activeApplication].buttons[@"URL"].exists);
+}
+
+- (void)testTappingAppOnSpringboardInLandscape
+{
+  if ([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad) {
+    return;
+  }
+  [self goToSpringBoardFirstPage];
+  [[XCUIDevice sharedDevice] fb_setDeviceInterfaceOrientation:UIDeviceOrientationLandscapeRight];
   NSError *error;
   XCTAssertTrue([[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:@"Safari" error:&error]);
   XCTAssertNil(error);
