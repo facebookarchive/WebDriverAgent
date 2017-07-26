@@ -9,6 +9,8 @@
 
 #import "FBXCodeCompatibility.h"
 
+#import "XCUIElementQuery.h"
+
 static BOOL FBShouldUseOldElementRootSelector = NO;
 static dispatch_once_t onceRootElementToken;
 @implementation XCElementSnapshot (FBCompatibility)
@@ -49,15 +51,11 @@ static dispatch_once_t onceFirstMatchToken;
 
 - (XCUIElement *)fb_firstMatch
 {
-  SEL firstMatchSelector = NSSelectorFromString(@"firstMatch");
   dispatch_once(&onceFirstMatchToken, ^{
-    FBShouldUseFirstMatchSelector = [self respondsToSelector:firstMatchSelector];
+    FBShouldUseFirstMatchSelector = [self respondsToSelector:@selector(firstMatch)];
   });
   if (FBShouldUseFirstMatchSelector) {
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    XCUIElement* result = [self performSelector:firstMatchSelector];
-    #pragma clang diagnostic pop
+    XCUIElement* result = self.firstMatch;
     return result.exists ? result : nil;
   }
   if (!self.element.exists) {

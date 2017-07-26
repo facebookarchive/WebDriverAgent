@@ -48,4 +48,7 @@
 - (unsigned long long)_derivedExpressedType;
 - (id)initWithInputQuery:(id)arg1 queryDescription:(id)arg2 filter:(CDUnknownBlockType)arg3;
 
+/*! DO NOT USE DIRECTLY! Please use fb_firstMatch instead */
+- (XCUIElement *)firstMatch;
+
 @end
