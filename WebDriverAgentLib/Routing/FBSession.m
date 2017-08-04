@@ -23,6 +23,7 @@
 NSString *const FBApplicationCrashedException = @"FBApplicationCrashedException";
 
 @interface FBSession ()
+@property (class, nonatomic, strong, readonly) NSMutableSet<FBSession *> *sessions;
 @property (nonatomic, strong, readwrite) FBApplication *testedApplication;
 @end
 
@@ -34,9 +35,29 @@ static FBSession *_activeSession;
   return _activeSession ?: [FBSession sessionWithApplication:nil];
 }
 
++ (void)killAll
+{
+  while (self.sessions.count > 0) {
+    FBSession *session = [self.sessions anyObject];
+    [session kill];
+  }
+}
+
 + (void)markSessionActive:(FBSession *)session
 {
   _activeSession = session;
+}
+
++ (NSMutableSet<FBSession *> *)sessions
+{
+  static NSMutableSet<FBSession *> *_sessions;
+
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    _sessions = [[NSMutableSet<FBSession *> alloc] init];
+  });
+
+  return _sessions;
 }
 
 + (instancetype)sessionWithIdentifier:(NSString *)identifier
@@ -56,6 +77,7 @@ static FBSession *_activeSession;
   session.identifier = [[NSUUID UUID] UUIDString];
   session.testedApplication = application;
   session.elementCache = [FBElementCache new];
+  [FBSession.sessions addObject:session];
   [FBSession markSessionActive:session];
   return session;
 }
@@ -63,7 +85,11 @@ static FBSession *_activeSession;
 - (void)kill
 {
   [self.testedApplication terminate];
-  _activeSession = nil;
+  [FBSession.sessions removeObject:self];
+
+  if ([self isEqual:_activeSession]) {
+    _activeSession = nil;
+  }
 }
 
 - (FBApplication *)application

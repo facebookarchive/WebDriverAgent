@@ -44,6 +44,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 @interface FBWebServer ()
 @property (nonatomic, strong) FBExceptionHandler *exceptionHandler;
 @property (nonatomic, strong) RoutingHTTPServer *server;
+@property (atomic, assign) BOOL keepAlive;
 @end
 
 @implementation FBWebServer
@@ -68,7 +69,11 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   [FBLogger logFmt:@"Built at %s %s", __DATE__, __TIME__];
   self.exceptionHandler = [FBExceptionHandler new];
   [self startHTTPServer];
-  [[NSRunLoop mainRunLoop] run];
+
+  self.keepAlive = YES;
+  NSRunLoop *runLoop = [NSRunLoop mainRunLoop];
+  while (self.keepAlive &&
+         [runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
 }
 
 - (void)startHTTPServer
@@ -102,6 +107,16 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     abort();
   }
   [FBLogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [XCUIDevice sharedDevice].fb_wifiIPAddress ?: @"localhost", [self.server port], FBServerURLEndMarker];
+}
+
+- (void)stopServing
+{
+  [FBSession  killAll];
+  if (self.server.isRunning) {
+    [self.server stop:NO];
+  }
+
+  self.keepAlive = NO;
 }
 
 - (BOOL)attemptToStartServer:(RoutingHTTPServer *)server onPort:(NSInteger)port withError:(NSError **)error
@@ -167,6 +182,12 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   [self.server get:@"/health" withBlock:^(RouteRequest *request, RouteResponse *response) {
     [response respondWithString:@"I-AM-ALIVE"];
   }];
+
+  [self.server get:@"/wda/shutdown" withBlock:^(RouteRequest *request, RouteResponse *response) {
+    [response respondWithString:@"Shutting down"];
+    [self.delegate webServerDidRequestShutdown:self];
+  }];
+
   [self registerRouteHandlers:@[FBUnknownCommands.class]];
 }
 
