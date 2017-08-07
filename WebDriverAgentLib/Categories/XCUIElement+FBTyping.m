@@ -31,11 +31,13 @@
 - (BOOL)fb_clearTextWithError:(NSError **)error
 {
   NSUInteger preClearTextLength = 0;
+  NSData *encodedSequence = [@"\\u0008\\u007F" dataUsingEncoding:NSASCIIStringEncoding];
+  NSString *backspaceDeleteSequence = [[NSString alloc] initWithData:encodedSequence encoding:NSNonLossyASCIIStringEncoding];
   while ([self.value fb_visualLength] != preClearTextLength) {
     NSMutableString *textToType = @"".mutableCopy;
     preClearTextLength = [self.value fb_visualLength];
     for (NSUInteger i = 0 ; i < preClearTextLength ; i++) {
-      [textToType appendString:@"\b"];
+      [textToType appendString:backspaceDeleteSequence];
     }
     if (![self fb_typeText:textToType error:error]) {
       return NO;

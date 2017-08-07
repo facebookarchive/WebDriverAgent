@@ -299,11 +299,11 @@
 		EEE16E991D33A59900172525 /* libAccessibility.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7E27211D06CA91001BEC7B /* libAccessibility.tbd */; };
 		EEE376411D59F81400ED88DD /* XCElementSnapshot+FBHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE3763B1D59F81400ED88DD /* XCElementSnapshot+FBHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEE376421D59F81400ED88DD /* XCElementSnapshot+FBHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE3763C1D59F81400ED88DD /* XCElementSnapshot+FBHelpers.m */; };
-		EEE376431D59F81400ED88DD /* XCUIDevice+FBRotation.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE3763D1D59F81400ED88DD /* XCUIDevice+FBRotation.h */; };
+		EEE376431D59F81400ED88DD /* XCUIDevice+FBRotation.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE3763D1D59F81400ED88DD /* XCUIDevice+FBRotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEE376441D59F81400ED88DD /* XCUIDevice+FBRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE3763E1D59F81400ED88DD /* XCUIDevice+FBRotation.m */; };
-		EEE376451D59F81400ED88DD /* XCUIElement+FBUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE3763F1D59F81400ED88DD /* XCUIElement+FBUtilities.h */; };
+		EEE376451D59F81400ED88DD /* XCUIElement+FBUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE3763F1D59F81400ED88DD /* XCUIElement+FBUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEE376461D59F81400ED88DD /* XCUIElement+FBUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE376401D59F81400ED88DD /* XCUIElement+FBUtilities.m */; };
-		EEE376491D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE376471D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.h */; };
+		EEE376491D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE376471D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEE3764A1D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE376481D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.m */; };
 		EEE9B4721CD02B88009D2030 /* FBRunLoopSpinner.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE9B4701CD02B88009D2030 /* FBRunLoopSpinner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEE9B4731CD02B88009D2030 /* FBRunLoopSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */; };
@@ -1302,14 +1302,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEE376491D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.h in Headers */,
 				EE6B64FD1D0F86EF00E85F5D /* XCTestPrivateSymbols.h in Headers */,
-				EEE376451D59F81400ED88DD /* XCUIElement+FBUtilities.h in Headers */,
 				AD76723D1D6B7CC000610457 /* XCUIElement+FBTyping.h in Headers */,
+				EEE376451D59F81400ED88DD /* XCUIElement+FBUtilities.h in Headers */,
 				EE158AB21CBD456F00A3E3F0 /* XCUIElement+FBScrolling.h in Headers */,
 				EE35AD361E3B77D600A02D78 /* XCSourceCodeTreeNode.h in Headers */,
 				EE35AD341E3B77D600A02D78 /* XCPointerEventPath.h in Headers */,
 				EE158AE11CBD456F00A3E3F0 /* FBRouteRequest.h in Headers */,
-				EEE376431D59F81400ED88DD /* XCUIDevice+FBRotation.h in Headers */,
 				EE35AD401E3B77D600A02D78 /* XCTest.h in Headers */,
 				EE35AD241E3B77D600A02D78 /* XCAccessibilityElement.h in Headers */,
 				EE158AE41CBD456F00A3E3F0 /* FBSession.h in Headers */,
@@ -1365,7 +1365,6 @@
 				713C6DCF1DDC772A00285B92 /* FBElementUtils.h in Headers */,
 				EE158ABC1CBD456F00A3E3F0 /* FBDebugCommands.h in Headers */,
 				EE35AD561E3B77D600A02D78 /* XCTestSuite.h in Headers */,
-				EEE376491D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.h in Headers */,
 				EE35AD6D1E3B77D600A02D78 /* XCUICoordinate.h in Headers */,
 				EE35AD5C1E3B77D600A02D78 /* XCTNSPredicateExpectation.h in Headers */,
 				EE35AD521E3B77D600A02D78 /* XCTestObservationCenter.h in Headers */,
@@ -1443,6 +1442,7 @@
 				EE35AD641E3B77D600A02D78 /* XCTUIApplicationMonitor-Protocol.h in Headers */,
 				EEE376411D59F81400ED88DD /* XCElementSnapshot+FBHelpers.h in Headers */,
 				EE35AD591E3B77D600A02D78 /* XCTKVOExpectation.h in Headers */,
+				EEE376431D59F81400ED88DD /* XCUIDevice+FBRotation.h in Headers */,
 				EE35AD2E1E3B77D600A02D78 /* XCEventGenerator.h in Headers */,
 				EE9B76A61CF7A43900275851 /* FBConfiguration.h in Headers */,
 				EE35AD571E3B77D600A02D78 /* XCTestSuiteRun.h in Headers */,
