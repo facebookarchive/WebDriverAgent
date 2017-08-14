@@ -13,6 +13,7 @@
 #import "XCElementSnapshot.h"
 #import "FBElementTypeTransformer.h"
 #import "FBMacros.h"
+#import "FBXCodeCompatibility.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIDevice+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -25,18 +26,20 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
 
 - (BOOL)fb_deactivateWithDuration:(NSTimeInterval)duration error:(NSError **)error
 {
-  NSString *applicationIdentifier = self.label;
-  XCUIApplication *previousApplication = self;
-  if(![[XCUIDevice sharedDevice] fb_goToHomescreenWithError:error]) {
-    return NO;
-  }
-  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:MAX(duration, FBMinimumAppSwitchWait)]];
-  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
-    [previousApplication activate];
-    return YES;
-  }
-  if (![[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:error]) {
-    return NO;
+  if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+    NSString *applicationIdentifier = self.label;
+    if(![[XCUIDevice sharedDevice] fb_goToHomescreenWithError:error]) {
+      return NO;
+    }
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:MAX(duration, FBMinimumAppSwitchWait)]];
+    if (![[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:error]) {
+      return NO;
+    }
+  } else {
+    XCUIApplication *previousApplication = self;
+    [[[XCUIApplication alloc] initPrivateWithPath:nil bundleID:@"com.apple.springboard"] fb_activate];
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:MAX(duration, FBMinimumAppSwitchWait)]];
+    [previousApplication fb_activate];
   }
   return YES;
 }
