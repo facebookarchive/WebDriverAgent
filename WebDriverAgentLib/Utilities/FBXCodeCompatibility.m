@@ -33,8 +33,6 @@ static BOOL FBShouldUseOldAppWithPIDSelector = NO;
 static dispatch_once_t onceAppWithPIDToken;
 static BOOL FBCanUseActivate = NO;
 static dispatch_once_t onceActivate;
-static BOOL FBCanUseState = NO;
-static dispatch_once_t onceState;
 @implementation XCUIApplication (FBCompatibility)
 
 + (instancetype)fb_applicationWithPID:(pid_t)processID
@@ -61,17 +59,11 @@ static dispatch_once_t onceState;
 
 - (NSUInteger)fb_state
 {
-  SEL stateSelector = NSSelectorFromString(@"state");
-  dispatch_once(&onceState, ^{
-    FBCanUseState = [self respondsToSelector:stateSelector];
-  });
-  if (!FBCanUseState) {
+  id state = [self valueForKey:@"state"];
+  if (!state) {
     [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'state' method is only supported since iOS 11" userInfo:@{}] raise];
   }
-  #pragma clang diagnostic push
-  #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-  return [[self performSelector:stateSelector] intValue];
-  #pragma clang diagnostic pop
+  return [state intValue];
 }
 
 @end
