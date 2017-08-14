@@ -26,10 +26,15 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
 - (BOOL)fb_deactivateWithDuration:(NSTimeInterval)duration error:(NSError **)error
 {
   NSString *applicationIdentifier = self.label;
+  XCUIApplication *previousApplication = self;
   if(![[XCUIDevice sharedDevice] fb_goToHomescreenWithError:error]) {
     return NO;
   }
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:MAX(duration, FBMinimumAppSwitchWait)]];
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
+    [previousApplication activate];
+    return YES;
+  }
   if (![[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:error]) {
     return NO;
   }

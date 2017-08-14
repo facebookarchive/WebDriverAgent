@@ -19,8 +19,18 @@
 
 @end
 
+/**
+ The exception happends if one tries to call application method,
+ which is not supported in the current iOS version
+ */
+extern NSString *const FBApplicationMethodNotSupportedException;
+
 @interface XCUIApplication (FBCompatibility)
 
 + (instancetype)fb_applicationWithPID:(pid_t)processID;
+
+- (NSUInteger)fb_state;
+
+- (void)fb_activate;
 
 @end

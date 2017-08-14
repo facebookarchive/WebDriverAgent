@@ -50,13 +50,13 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
 + (id<FBResponsePayload>)handleGetOrientation:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  return FBResponseWithStatus(FBCommandStatusNoError, [self.class interfaceOrientationForApplication:session.application]);
+  return FBResponseWithStatus(FBCommandStatusNoError, [self.class interfaceOrientationForApplication:session.activeApplication]);
 }
 
 + (id<FBResponsePayload>)handleSetOrientation:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  if ([self.class setDeviceOrientation:request.arguments[@"orientation"] forApplication:session.application]) {
+  if ([self.class setDeviceOrientation:request.arguments[@"orientation"] forApplication:session.activeApplication]) {
     return FBResponseWithOK();
   }
   return FBResponseWithStatus(FBCommandStatusRotationNotAllowed, @"Unable To Rotate Device");
@@ -72,7 +72,7 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
 + (id<FBResponsePayload>)handleSetRotation:(FBRouteRequest *)request
 {
     FBSession *session = request.session;
-    if ([self.class setDeviceRotation:request.arguments forApplication:session.application]) {
+    if ([self.class setDeviceRotation:request.arguments forApplication:session.activeApplication]) {
         return FBResponseWithOK();
     }
     return FBResponseWithStatus(FBCommandStatusRotationNotAllowed, [NSString stringWithFormat:@"Rotation not supported: %@", request.arguments[@"rotation"]]);

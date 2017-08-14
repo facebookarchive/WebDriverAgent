@@ -36,7 +36,7 @@
 
 + (id<FBResponsePayload>)handleGetSourceCommand:(FBRouteRequest *)request
 {
-  FBApplication *application = request.session.application ?: [FBApplication fb_activeApplication];
+  FBApplication *application = request.session.activeApplication ?: [FBApplication fb_activeApplication];
   NSString *sourceType = request.parameters[@"format"];
   id result;
   if (!sourceType || [sourceType caseInsensitiveCompare:@"xml"] == NSOrderedSame) {
@@ -58,7 +58,7 @@
 
 + (id<FBResponsePayload>)handleGetAccessibleSourceCommand:(FBRouteRequest *)request
 {
-  FBApplication *application = request.session.application ?: [FBApplication fb_activeApplication];
+  FBApplication *application = request.session.activeApplication ?: [FBApplication fb_activeApplication];
   return FBResponseWithObject(application.fb_accessibilityTree ?: @{});
 }
 

@@ -8,6 +8,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "XCUIApplication.h"
 
 @class FBApplication;
 @class FBElementCache;
@@ -23,7 +24,7 @@ extern NSString *const FBApplicationCrashedException;
 @interface FBSession : NSObject
 
 /*! Application tested during that session */
-@property (nonatomic, strong, readonly) FBApplication *application;
+@property (nonatomic, strong, readonly) FBApplication *activeApplication;
 
 /*! Session's identifier */
 @property (nonatomic, copy, readonly) NSString *identifier;
@@ -59,6 +60,43 @@ extern NSString *const FBApplicationCrashedException;
  Kills application associated with that session and removes session
  */
 - (void)kill;
+
+/**
+ Launch an application with given bundle identifier in scope of current session.
+ !This method is only available since iOS 11
+ 
+ @param bundleIdentifier Valid bundle identifier of the application to be launched
+ */
+- (void)launchApplicationWithBundleId:(NSString *)bundleIdentifier;
+
+/**
+ Activate an application with given bundle identifier in scope of current session.
+ !This method is only available since iOS 11
+ 
+ @param bundleIdentifier Valid bundle identifier of the application to be activated
+ */
+- (void)activateApplicationWithBundleId:(NSString *)bundleIdentifier;
+
+/**
+ Terminate an application with the given bundle id. The application should be previously
+ executed by launchApplicationWithBundleId method or passed to the init method.
+ !This method is only available since iOS 11
+ 
+ @param bundleIdentifier Valid bundle identifier of the application to be terminated
+ @return Either YES if the app has been successfully terminated or NO if it was not running
+ */
+- (BOOL)terminateApplicationWithBundleId:(NSString *)bundleIdentifier;
+
+/**
+ Get the state of the particular application in scope of the current session.
+ !This method is only available since iOS 11
+ 
+ @param bundleIdentifier Valid bundle identifier of the application to get the state from
+ @return Application state as integer number. See
+         https://developer.apple.com/documentation/xctest/xcuiapplicationstate?language=objc
+         for more details on possible enum values
+ */
+- (NSUInteger)applicationStateWithBundleId:(NSString *)bundleIdentifier;
 
 @end
 

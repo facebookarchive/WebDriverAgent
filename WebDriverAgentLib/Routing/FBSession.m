@@ -16,6 +16,7 @@
 #import "FBElementCache.h"
 #import "FBMacros.h"
 #import "FBSpringboardApplication.h"
+#import "FBXCodeCompatibility.h"
 #import "XCAccessibilityElement.h"
 #import "XCAXClient_iOS.h"
 #import "XCUIElement.h"
@@ -24,7 +25,8 @@ NSString *const FBApplicationCrashedException = @"FBApplicationCrashedException"
 
 @interface FBSession ()
 @property (class, nonatomic, strong, readonly) NSMutableSet<FBSession *> *sessions;
-@property (nonatomic, strong, readwrite) FBApplication *testedApplication;
+@property (nonatomic) NSString *testedApplicationBundleId;
+@property (nonatomic) NSDictionary<NSString *, XCUIApplication *> *applications;
 @end
 
 @implementation FBSession
@@ -75,7 +77,12 @@ static FBSession *_activeSession;
 {
   FBSession *session = [FBSession new];
   session.identifier = [[NSUUID UUID] UUIDString];
-  session.testedApplication = application;
+  session.testedApplicationBundleId = [application bundleID];
+  NSMutableDictionary *apps = [NSMutableDictionary dictionary];
+  if (application) {
+    [apps setObject:application forKey:application.bundleID];
+  }
+  session.applications = apps.copy;
   session.elementCache = [FBElementCache new];
   [FBSession.sessions addObject:session];
   [FBSession markSessionActive:session];
@@ -84,7 +91,9 @@ static FBSession *_activeSession;
 
 - (void)kill
 {
-  [self.testedApplication terminate];
+  if (self.testedApplicationBundleId) {
+    [[self.applications objectForKey:self.testedApplicationBundleId] terminate];
+  }
   [FBSession.sessions removeObject:self];
 
   if ([self isEqual:_activeSession]) {
@@ -92,16 +101,82 @@ static FBSession *_activeSession;
   }
 }
 
-- (FBApplication *)application
+- (FBApplication *)activeApplication
 {
   FBApplication *application = [FBApplication fb_activeApplication];
-  const BOOL testedApplicationIsActiveAndNotRunning = (application.processID == self.testedApplication.processID && !application.running);
-  if (testedApplicationIsActiveAndNotRunning) {
-    [[NSException exceptionWithName:FBApplicationCrashedException reason:@"Application is not running, possibly crashed" userInfo:nil] raise];
+  XCUIApplication *testedApplication = nil;
+  if (self.testedApplicationBundleId) {
+    testedApplication = [self.applications objectForKey:self.testedApplicationBundleId];
+  }
+  if (testedApplication) {
+    const BOOL testedApplicationIsActiveAndNotRunning = (application.processID == testedApplication.processID && !application.running);
+    if (testedApplicationIsActiveAndNotRunning && ![self.applications objectForKey:application.bundleID]) {
+      [[NSException exceptionWithName:FBApplicationCrashedException reason:@"Application is not running, possibly crashed" userInfo:nil] raise];
+    }
   }
   [application query];
   [application resolve];
   return application;
+}
+
+- (XCUIApplication *)registerApplicationWithBundleId:(NSString *)bundleIdentifier
+{
+  XCUIApplication *app = [self.applications objectForKey:bundleIdentifier];
+  if (!app) {
+    app = [[XCUIApplication alloc] initPrivateWithPath:nil bundleID:bundleIdentifier];
+    NSMutableDictionary *apps = self.applications.mutableCopy;
+    [apps setObject:app forKey:bundleIdentifier];
+    self.applications = apps.copy;
+  }
+  return app;
+}
+
+- (BOOL)unregisterApplicationWithBundleId:(NSString *)bundleIdentifier
+{
+  XCUIApplication *app = [self.applications objectForKey:bundleIdentifier];
+  if (app) {
+    NSMutableDictionary *apps = self.applications.mutableCopy;
+    [apps removeObjectForKey:bundleIdentifier];
+    self.applications = apps.copy;
+    return YES;
+  }
+  return NO;
+}
+
+- (void)launchApplicationWithBundleId:(NSString *)bundleIdentifier
+{
+  XCUIApplication *app = [self registerApplicationWithBundleId:bundleIdentifier];
+  if (!app.running) {
+    [app launch];
+  }
+  [app fb_activate];
+}
+
+- (void)activateApplicationWithBundleId:(NSString *)bundleIdentifier
+{
+  XCUIApplication *app = [self registerApplicationWithBundleId:bundleIdentifier];
+  [app fb_activate];
+}
+
+- (BOOL)terminateApplicationWithBundleId:(NSString *)bundleIdentifier
+{
+  XCUIApplication *app = [self registerApplicationWithBundleId:bundleIdentifier];
+  BOOL result = NO;
+  if (app.running) {
+    [app terminate];
+    result = YES;
+  }
+  [self unregisterApplicationWithBundleId:bundleIdentifier];
+  return result;
+}
+
+- (NSUInteger)applicationStateWithBundleId:(NSString *)bundleIdentifier
+{
+  XCUIApplication *app = [self.applications objectForKey:bundleIdentifier];
+  if (!app) {
+    app = [[XCUIApplication alloc] initPrivateWithPath:nil bundleID:bundleIdentifier];
+  }
+  return app.fb_state;
 }
 
 @end
