@@ -29,7 +29,7 @@
   static FBSpringboardApplication *_springboardApp;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    _springboardApp = [[FBSpringboardApplication alloc] initPrivateWithPath:nil bundleID:@"com.apple.springboard"];
+    _springboardApp = [[FBSpringboardApplication alloc] initPrivateWithPath:nil bundleID:SPRINGBOARD_BUNDLE_ID];
   });
   [_springboardApp query];
   [_springboardApp resolve];

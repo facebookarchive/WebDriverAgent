@@ -15,6 +15,15 @@
 
 @implementation FBApplicationDouble
 
+- (instancetype)init
+{
+  self = [super init];
+  if (self) {
+    self.bundleID = @"some.bundle.identifier";
+  }
+  return self;
+}
+
 - (void)terminate
 {
   self.didTerminate = YES;

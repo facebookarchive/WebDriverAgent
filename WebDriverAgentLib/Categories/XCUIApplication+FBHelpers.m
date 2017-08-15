@@ -26,20 +26,17 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
 
 - (BOOL)fb_deactivateWithDuration:(NSTimeInterval)duration error:(NSError **)error
 {
+  NSString *applicationIdentifier = self.label;
+  if(![[XCUIDevice sharedDevice] fb_goToHomescreenWithError:error]) {
+    return NO;
+  }
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:MAX(duration, FBMinimumAppSwitchWait)]];
   if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
-    NSString *applicationIdentifier = self.label;
-    if(![[XCUIDevice sharedDevice] fb_goToHomescreenWithError:error]) {
-      return NO;
-    }
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:MAX(duration, FBMinimumAppSwitchWait)]];
     if (![[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:error]) {
       return NO;
     }
   } else {
-    XCUIApplication *previousApplication = self;
-    [[[XCUIApplication alloc] initPrivateWithPath:nil bundleID:@"com.apple.springboard"] fb_activate];
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:MAX(duration, FBMinimumAppSwitchWait)]];
-    [previousApplication fb_activate];
+    [self fb_activate];
   }
   return YES;
 }
