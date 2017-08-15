@@ -52,18 +52,22 @@ static dispatch_once_t onceActivate;
     FBCanUseActivate = [self respondsToSelector:@selector(activate)];
   });
   if (!FBCanUseActivate) {
-    [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'activate' method is only supported since iOS 11" userInfo:@{}] raise];
+    [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'activate' method is not supported by the current iOS SDK" userInfo:@{}] raise];
   }
   [self activate];
 }
 
 - (NSUInteger)fb_state
 {
-  id state = [self valueForKey:@"state"];
-  if (!state) {
-    [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'state' method is only supported since iOS 11" userInfo:@{}] raise];
-  }
-  return [state intValue];
+  return [[self valueForKey:@"state"] intValue];
+}
+
++ (BOOL)fb_hasMultiAppSupport
+{
+  dispatch_once(&onceActivate, ^{
+    FBCanUseActivate = [self respondsToSelector:@selector(activate)];
+  });
+  return FBCanUseActivate;
 }
 
 @end

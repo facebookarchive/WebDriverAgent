@@ -33,4 +33,6 @@ extern NSString *const FBApplicationMethodNotSupportedException;
 
 - (void)fb_activate;
 
++ (BOOL)fb_hasMultiAppSupport;
+
 @end

@@ -146,6 +146,9 @@ static FBSession *_activeSession;
 
 - (void)launchApplicationWithBundleId:(NSString *)bundleIdentifier
 {
+  if (!self.class.hasMultiAppSupport) {
+    [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'launch' method is not supported by the current iOS SDK" userInfo:@{}] raise];
+  }
   XCUIApplication *app = [self registerApplicationWithBundleId:bundleIdentifier];
   if (!app.running) {
     [app launch];
@@ -155,12 +158,18 @@ static FBSession *_activeSession;
 
 - (void)activateApplicationWithBundleId:(NSString *)bundleIdentifier
 {
+  if (!self.class.hasMultiAppSupport) {
+    [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'activate' method is not supported by the current iOS SDK" userInfo:@{}] raise];
+  }
   XCUIApplication *app = [self registerApplicationWithBundleId:bundleIdentifier];
   [app fb_activate];
 }
 
 - (BOOL)terminateApplicationWithBundleId:(NSString *)bundleIdentifier
 {
+  if (!self.class.hasMultiAppSupport) {
+    [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'terminate' method is not supported by the current iOS SDK" userInfo:@{}] raise];
+  }
   XCUIApplication *app = [self registerApplicationWithBundleId:bundleIdentifier];
   BOOL result = NO;
   if (app.running) {
@@ -173,11 +182,19 @@ static FBSession *_activeSession;
 
 - (NSUInteger)applicationStateWithBundleId:(NSString *)bundleIdentifier
 {
+  if (!self.class.hasMultiAppSupport) {
+    [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'state' method is not supported by the current iOS SDK" userInfo:@{}] raise];
+  }
   XCUIApplication *app = [self.applications objectForKey:bundleIdentifier];
   if (!app) {
     app = [[XCUIApplication alloc] initPrivateWithPath:nil bundleID:bundleIdentifier];
   }
   return app.fb_state;
+}
+
++ (BOOL)hasMultiAppSupport
+{
+  return FBApplication.fb_hasMultiAppSupport;
 }
 
 @end

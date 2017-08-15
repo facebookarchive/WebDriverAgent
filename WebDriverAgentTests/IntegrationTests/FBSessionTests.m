@@ -29,15 +29,14 @@ static NSString *const SETTINGS_BUNDLE_ID = @"com.apple.Preferences";
 {
   [super setUp];
   [self launchApplication];
-  
+
   self.session = [FBSession sessionWithApplication:FBApplication.fb_activeApplication];
 }
 
 - (void)testSettingsAppCanBeOpenedInScopeOfTheCurrentSession
 {
-  FBApplication *testedApp = self.session.activeApplication;
+  FBApplication *testedApp = FBApplication.fb_activeApplication;
   @try {
-    XCTAssertEqualObjects(testedApp.bundleID, self.session.activeApplication.bundleID);
     [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID];
     XCTAssertEqualObjects(SETTINGS_BUNDLE_ID, self.session.activeApplication.bundleID);
     XCTAssertEqual([self.session applicationStateWithBundleId:SETTINGS_BUNDLE_ID], 4);
@@ -45,62 +44,54 @@ static NSString *const SETTINGS_BUNDLE_ID = @"com.apple.Preferences";
     XCTAssertEqualObjects(testedApp.bundleID, self.session.activeApplication.bundleID);
     XCTAssertEqual([self.session applicationStateWithBundleId:testedApp.bundleID], 4);
   } @catch (NSException *e) {
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
+    if (![e.name isEqualToString:FBApplicationMethodNotSupportedException]) {
       @throw e;
     }
-    XCTAssertEqualObjects(e.name, FBApplicationMethodNotSupportedException);
   }
 }
 
 - (void)testSettingsAppCanBeReopenedInScopeOfTheCurrentSession
 {
   @try {
-    FBApplication *testedApp = self.session.activeApplication;
-    XCTAssertEqualObjects(testedApp.bundleID, self.session.activeApplication.bundleID);
     [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID];
     [self.session terminateApplicationWithBundleId:SETTINGS_BUNDLE_ID];
     XCTAssertEqualObjects(SPRINGBOARD_BUNDLE_ID, self.session.activeApplication.bundleID);
     [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID];
     XCTAssertEqualObjects(SETTINGS_BUNDLE_ID, self.session.activeApplication.bundleID);
   } @catch (NSException *e) {
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
+    if (![e.name isEqualToString:FBApplicationMethodNotSupportedException]) {
       @throw e;
     }
-    XCTAssertEqualObjects(e.name, FBApplicationMethodNotSupportedException);
   }
 }
 
 - (void)testMainAppCanBeReactivatedInScopeOfTheCurrentSession
 {
+  FBApplication *testedApp = FBApplication.fb_activeApplication;
   @try {
-    FBApplication *testedApp = self.session.activeApplication;
-    XCTAssertEqualObjects(testedApp.bundleID, self.session.activeApplication.bundleID);
     [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID];
     XCTAssertEqualObjects(SETTINGS_BUNDLE_ID, self.session.activeApplication.bundleID);
     [self.session activateApplicationWithBundleId:testedApp.bundleID];
     XCTAssertEqualObjects(testedApp.bundleID, self.session.activeApplication.bundleID);
   } @catch (NSException *e) {
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
+    if (![e.name isEqualToString:FBApplicationMethodNotSupportedException]) {
       @throw e;
     }
-    XCTAssertEqualObjects(e.name, FBApplicationMethodNotSupportedException);
   }
 }
 
 - (void)testMainAppCanBeRestartedInScopeOfTheCurrentSession
 {
+  FBApplication *testedApp = FBApplication.fb_activeApplication;
   @try {
-    FBApplication *testedApp = self.session.activeApplication;
-    XCTAssertEqualObjects(testedApp.bundleID, self.session.activeApplication.bundleID);
     [self.session terminateApplicationWithBundleId:testedApp.bundleID];
     XCTAssertEqualObjects(SPRINGBOARD_BUNDLE_ID, self.session.activeApplication.bundleID);
     [self.session launchApplicationWithBundleId:testedApp.bundleID];
     XCTAssertEqualObjects(testedApp.bundleID, self.session.activeApplication.bundleID);
   } @catch (NSException *e) {
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
+    if (![e.name isEqualToString:FBApplicationMethodNotSupportedException]) {
       @throw e;
     }
-    XCTAssertEqualObjects(e.name, FBApplicationMethodNotSupportedException);
   }
 }
 
