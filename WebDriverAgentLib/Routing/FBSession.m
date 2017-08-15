@@ -77,10 +77,11 @@ static FBSession *_activeSession;
 {
   FBSession *session = [FBSession new];
   session.identifier = [[NSUUID UUID] UUIDString];
-  session.testedApplicationBundleId = [application bundleID];
+  session.testedApplicationBundleId = nil;
   NSMutableDictionary *apps = [NSMutableDictionary dictionary];
   if (application) {
     [apps setObject:application forKey:application.bundleID];
+    session.testedApplicationBundleId = application.bundleID;
   }
   session.applications = apps.copy;
   session.elementCache = [FBElementCache new];
@@ -110,7 +111,7 @@ static FBSession *_activeSession;
   }
   if (testedApplication) {
     const BOOL testedApplicationIsActiveAndNotRunning = (application.processID == testedApplication.processID && !application.running);
-    if (testedApplicationIsActiveAndNotRunning && ![self.applications objectForKey:application.bundleID]) {
+    if (testedApplicationIsActiveAndNotRunning) {
       [[NSException exceptionWithName:FBApplicationCrashedException reason:@"Application is not running, possibly crashed" userInfo:nil] raise];
     }
   }
