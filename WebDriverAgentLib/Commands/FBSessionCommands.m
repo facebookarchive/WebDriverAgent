@@ -54,14 +54,15 @@
     );
   }
   if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+    NSString *timeoutArgument = request.arguments[@"timeout"];
     dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+    __block BOOL isCompletedSuccessfully = NO;
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
-      if (success) {
-        dispatch_semaphore_signal(sem);
-      }
+      isCompletedSuccessfully = success;
+      dispatch_semaphore_signal(sem);
     }];
-    dispatch_time_t timeout = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC));
-    if (0 == dispatch_semaphore_wait(sem, timeout)) {
+    dispatch_time_t timeout = dispatch_time(DISPATCH_TIME_NOW, (int64_t)((timeoutArgument ? [timeoutArgument doubleValue] : 5.0) * NSEC_PER_SEC));
+    if (0 == dispatch_semaphore_wait(sem, timeout) && isCompletedSuccessfully) {
       return FBResponseWithOK();
     }
     return FBResponseWithErrorFormat(@"Failed to open %@", url);
