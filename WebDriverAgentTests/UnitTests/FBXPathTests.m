@@ -27,7 +27,7 @@
   XCUIElementDouble *root = [XCUIElementDouble new];
   int buffersize;
   xmlChar *xmlbuff;
-  int rc = [FBXPath getSnapshotAsXML:(XCElementSnapshot *)root writer:writer elementStore:elementStore];
+  int rc = [FBXPath getSnapshotAsXML:(XCElementSnapshot *)root writer:writer elementStore:elementStore query:nil];
   if (0 == rc) {
     xmlDocDumpFormatMemory(doc, &xmlbuff, &buffersize, 1);
   }
@@ -49,14 +49,15 @@
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
   XCUIElementDouble *root = [XCUIElementDouble new];
-  int rc = [FBXPath getSnapshotAsXML:(XCElementSnapshot *)root writer:writer elementStore:elementStore];
+  NSString *query = [NSString stringWithFormat:@"//%@", root.wdType];
+  int rc = [FBXPath getSnapshotAsXML:(XCElementSnapshot *)root writer:writer elementStore:elementStore query:query];
   if (rc < 0) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
     XCTAssertEqual(rc, 0);
   }
 
-  xmlXPathObjectPtr queryResult = [FBXPath evaluate:@"//XCUIElementTypeOther" document:doc];
+  xmlXPathObjectPtr queryResult = [FBXPath evaluate:query document:doc];
   if (NULL == queryResult) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
