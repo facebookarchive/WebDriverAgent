@@ -18,7 +18,7 @@
 #import "NSString+FBXMLSafeString.h"
 
 
-@interface ElementAttribute : NSObject
+@interface FBElementAttribute : NSObject
 
 @property (nonatomic, readonly) id<FBElement> element;
 
@@ -32,51 +32,51 @@
 
 @end
 
-@interface TypeAttribute : ElementAttribute
+@interface FBTypeAttribute : FBElementAttribute
 
 @end
 
-@interface ValueAttribute : ElementAttribute
+@interface FBValueAttribute : FBElementAttribute
 
 @end
 
-@interface NameAttribute : ElementAttribute
+@interface FBNameAttribute : FBElementAttribute
 
 @end
 
-@interface LabelAttribute : ElementAttribute
+@interface FBLabelAttribute : FBElementAttribute
 
 @end
 
-@interface EnabledAttribute : ElementAttribute
+@interface FBEnabledAttribute : FBElementAttribute
 
 @end
 
-@interface VisibleAttribute : ElementAttribute
+@interface FBVisibleAttribute : FBElementAttribute
 
 @end
 
-@interface DimensionAttribute : ElementAttribute
+@interface FBDimensionAttribute : FBElementAttribute
 
 @end
 
-@interface XAttribute : DimensionAttribute
+@interface FBXAttribute : FBDimensionAttribute
 
 @end
 
-@interface YAttribute : DimensionAttribute
+@interface FBYAttribute : FBDimensionAttribute
 
 @end
 
-@interface WidthAttribute : DimensionAttribute
+@interface FBWidthAttribute : FBDimensionAttribute
 
 @end
 
-@interface HeigthAttribute : DimensionAttribute
+@interface FBHeightAttribute : FBDimensionAttribute
 
 @end
 
-@interface IndexAttribute : ElementAttribute
+@interface FBIndexAttribute : FBElementAttribute
 
 @property (nonatomic, nonnull, readonly) NSString* indexValue;
 
@@ -182,10 +182,10 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 {
   if ([query rangeOfString:@"[^\\w@]@\\*[^\\w]" options:NSRegularExpressionSearch].location != NSNotFound) {
     // read all element attributes if 'star' attribute name pattern is used in xpath query
-    return [NSSet setWithArray:ElementAttribute.supportedAttributes];
+    return [NSSet setWithArray:FBElementAttribute.supportedAttributes];
   }
   NSMutableSet<Class> *result = [NSMutableSet set];
-  for (Class attributeCls in ElementAttribute.supportedAttributes) {
+  for (Class attributeCls in FBElementAttribute.supportedAttributes) {
     if ([query rangeOfString:[NSString stringWithFormat:@"[^\\w@]@%@[^\\w]", [attributeCls name]] options:NSRegularExpressionSearch].location != NSNotFound) {
       [result addObject:attributeCls];
     }
@@ -281,7 +281,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 + (int)recordElementAttributes:(xmlTextWriterPtr)writer forElement:(XCElementSnapshot *)element indexPath:(nullable NSString *)indexPath includedAttributes:(nullable NSSet<Class> *)includedAttributes
 {
-  for (Class attributeCls in ElementAttribute.supportedAttributes) {
+  for (Class attributeCls in FBElementAttribute.supportedAttributes) {
     // include all supported attributes by default unless enumerated explicitly
     if (includedAttributes && ![includedAttributes containsObject:attributeCls]) {
       continue;
@@ -294,7 +294,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
   if (nil != indexPath) {
     // index path is the special case
-    return [[[IndexAttribute alloc] initWithValue:indexPath] recordWithWriter:writer];
+    return [[[FBIndexAttribute alloc] initWithValue:indexPath] recordWithWriter:writer];
   }
   return 0;
 }
@@ -338,7 +338,9 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 @end
 
 
-@implementation ElementAttribute
+static NSString *const FBAbstractMethodInvocationException = @"AbstractMethodInvocationException";
+
+@implementation FBElementAttribute
 
 - (instancetype)initWithElement:(id<FBElement>)element
 {
@@ -351,14 +353,14 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 + (NSString *)name
 {
-  // Override this method in subclasses
-  return @"";
+  NSString *errMsg = [NSString stringWithFormat:@"The asbtract method +(NSString *)name is expected to be overriden by %@", NSStringFromClass(self.class)];
+  @throw [NSException exceptionWithName:FBAbstractMethodInvocationException reason:errMsg userInfo:nil];
 }
 
 - (NSString *)value
 {
-  // Override this method in subclasses
-  return nil;
+  NSString *errMsg = [NSString stringWithFormat:@"The asbtract method -(NSString *)value is expected to be overriden by %@", NSStringFromClass(self.class)];
+  @throw [NSException exceptionWithName:FBAbstractMethodInvocationException reason:errMsg userInfo:nil];
 }
 
 - (int)recordWithWriter:(xmlTextWriterPtr)writer
@@ -378,21 +380,21 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 {
   // The list of attributes to be written for each XML node
   // The enumeration order does matter here
-  return @[TypeAttribute.class,
-           ValueAttribute.class,
-           NameAttribute.class,
-           LabelAttribute.class,
-           EnabledAttribute.class,
-           VisibleAttribute.class,
-           XAttribute.class,
-           YAttribute.class,
-           WidthAttribute.class,
-           HeigthAttribute.class];
+  return @[FBTypeAttribute.class,
+           FBValueAttribute.class,
+           FBNameAttribute.class,
+           FBLabelAttribute.class,
+           FBEnabledAttribute.class,
+           FBVisibleAttribute.class,
+           FBXAttribute.class,
+           FBYAttribute.class,
+           FBWidthAttribute.class,
+           FBHeightAttribute.class];
 }
 
 @end
 
-@implementation TypeAttribute
+@implementation FBTypeAttribute
 
 + (NSString *)name
 {
@@ -406,7 +408,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 @end
 
-@implementation ValueAttribute : ElementAttribute
+@implementation FBValueAttribute
 
 + (NSString *)name
 {
@@ -426,7 +428,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 @end
 
-@implementation NameAttribute : ElementAttribute
+@implementation FBNameAttribute
 
 + (NSString *)name
 {
@@ -440,7 +442,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 @end
 
-@implementation LabelAttribute : ElementAttribute
+@implementation FBLabelAttribute
 
 + (NSString *)name
 {
@@ -454,7 +456,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 @end
 
-@implementation EnabledAttribute : ElementAttribute
+@implementation FBEnabledAttribute
 
 + (NSString *)name
 {
@@ -468,7 +470,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 @end
 
-@implementation VisibleAttribute : ElementAttribute
+@implementation FBVisibleAttribute
 
 + (NSString *)name
 {
@@ -482,7 +484,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 @end
 
-@implementation DimensionAttribute : ElementAttribute
+@implementation FBDimensionAttribute
 
 - (NSString *)value
 {
@@ -491,7 +493,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 @end
 
-@implementation XAttribute : DimensionAttribute
+@implementation FBXAttribute
 
 + (NSString *)name
 {
@@ -500,7 +502,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 @end
 
-@implementation YAttribute : DimensionAttribute
+@implementation FBYAttribute
 
 + (NSString *)name
 {
@@ -509,7 +511,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 @end
 
-@implementation WidthAttribute : DimensionAttribute
+@implementation FBWidthAttribute
 
 + (NSString *)name
 {
@@ -518,7 +520,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 @end
 
-@implementation HeigthAttribute : DimensionAttribute
+@implementation FBHeightAttribute
 
 + (NSString *)name
 {
@@ -527,7 +529,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 @end
 
-@implementation IndexAttribute : ElementAttribute
+@implementation FBIndexAttribute
 
 - (instancetype)initWithValue:(NSString *)value
 {
