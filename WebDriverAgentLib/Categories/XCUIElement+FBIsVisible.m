@@ -48,7 +48,15 @@
   if (!CGRectIntersectsRect(visibleFrame, screenFrame)) {
     return NO;
   }
-  return CGRectContainsPoint(appFrame, self.fb_hitPoint);
+  if (CGRectContainsPoint(appFrame, self.fb_hitPoint)) {
+    return YES;
+  }
+  for (XCElementSnapshot *elementSnapshot in self._allDescendants.copy) {
+    if (CGRectContainsPoint(appFrame, elementSnapshot.fb_hitPoint)) {
+      return YES;
+    }
+  }
+  return NO;
 }
 
 @end
