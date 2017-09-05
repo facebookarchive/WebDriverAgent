@@ -180,13 +180,13 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
 + (NSSet<Class> *)elementAttributesWithXPathQuery:(NSString *)query
 {
-  if ([query rangeOfString:@"@\\*\\b" options:NSRegularExpressionSearch].location != NSNotFound) {
+  if ([query rangeOfString:@"[^\\w@]@\\*[^\\w]" options:NSRegularExpressionSearch].location != NSNotFound) {
     // read all element attributes if 'star' attribute name pattern is used in xpath query
     return [NSSet setWithArray:ElementAttribute.supportedAttributes];
   }
   NSMutableSet<Class> *result = [NSMutableSet set];
   for (Class attributeCls in ElementAttribute.supportedAttributes) {
-    if ([query rangeOfString:[NSString stringWithFormat:@"@%@\\b", [attributeCls name]] options:NSRegularExpressionSearch].location != NSNotFound) {
+    if ([query rangeOfString:[NSString stringWithFormat:@"[^\\w@]@%@[^\\w]", [attributeCls name]] options:NSRegularExpressionSearch].location != NSNotFound) {
       [result addObject:attributeCls];
     }
   }
