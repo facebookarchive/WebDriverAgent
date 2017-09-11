@@ -23,11 +23,12 @@
 NSString *const FBApplicationCrashedException = @"FBApplicationCrashedException";
 
 @interface FBSession ()
-@property (class, nonatomic, strong, readonly) NSMutableSet<FBSession *> *sessions;
 @property (nonatomic, strong, readwrite) FBApplication *testedApplication;
 @end
 
 @implementation FBSession
+
+static NSMutableSet<FBSession *> *sessions;
 
 static FBSession *_activeSession;
 + (instancetype)activeSession
