@@ -44,9 +44,6 @@
   }
   XCUIElement *element = self.elementCache[uuid];
   [element resolve];
-  if (element.fb_isObstructedByAlert) {
-    [FBAlert throwRequestedItemObstructedByAlertException];
-  }
   return element;
 }
 
