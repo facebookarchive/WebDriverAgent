@@ -38,7 +38,7 @@ const CGFloat FBTapDuration = 0.01f;
 - (BOOL)fb_tapCoordinate:(CGPoint)relativeCoordinate error:(NSError **)error
 {
   CGPoint hitPoint = CGPointMake(self.frame.origin.x + relativeCoordinate.x, self.frame.origin.y + relativeCoordinate.y);
-  if (isSDKVersionGreaterThanOrEqualTo(@"10.0")) {
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
     /*
      Since iOS 10.0 XCTest has a bug when it always returns portrait coordinates for UI elements
      even if the device is not in portait mode. That is why we need to recalculate them manually
