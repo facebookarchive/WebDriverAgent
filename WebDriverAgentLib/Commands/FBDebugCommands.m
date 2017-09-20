@@ -37,9 +37,9 @@
 + (id<FBResponsePayload>)handleGetSourceCommand:(FBRouteRequest *)request
 {
   FBApplication *application = request.session.application ?: [FBApplication fb_activeApplication];
-  NSString *sourceType = request.parameters[@"format"];
+  NSString *sourceType = request.parameters[@"format"] ?: @"xml";
   id result;
-  if (!sourceType || [sourceType caseInsensitiveCompare:@"xml"] == NSOrderedSame) {
+  if ([sourceType caseInsensitiveCompare:@"xml"] == NSOrderedSame) {
     [application fb_waitUntilSnapshotIsStable];
     result = [FBXPath xmlStringWithSnapshot:application.fb_lastSnapshot];
   } else if ([sourceType caseInsensitiveCompare:@"json"] == NSOrderedSame) {
