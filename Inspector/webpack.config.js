@@ -7,14 +7,15 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-var path = require('path');  
-var webpack = require('webpack');  
+var fs = require('fs');
+var path = require('path');
+var webpack = require('webpack');
 
 function buildOutputDir() {
   return (process.env.BUILD_OUTPUT_DIR != null ? process.env.BUILD_OUTPUT_DIR : __dirname);
 }
 
-module.exports = {  
+module.exports = {
   entry: [
     "./js/app.js"
   ],
@@ -30,6 +31,10 @@ module.exports = {
   },
   resolve: {
     root: path.resolve(__dirname, ''),
+    fallback: path.resolve(fs.realpathSync(__dirname), 'node_modules'),
+  },
+  resolveLoader: {
+    modulesDirectories: [path.resolve(fs.realpathSync(__dirname), 'node_modules')],
   },
   plugins: [
     new webpack.NoErrorsPlugin()
