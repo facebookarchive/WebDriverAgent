@@ -44,6 +44,8 @@
     result = [FBXPath xmlStringWithSnapshot:application.fb_lastSnapshot];
   } else if ([sourceType caseInsensitiveCompare:@"json"] == NSOrderedSame) {
     result = application.fb_tree;
+  } else if ([sourceType caseInsensitiveCompare:@"description"] == NSOrderedSame) {
+    result = application.debugDescription;
   } else {
     return FBResponseWithStatus(
       FBCommandStatusUnsupported,
