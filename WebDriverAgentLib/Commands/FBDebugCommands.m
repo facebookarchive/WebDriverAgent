@@ -54,7 +54,7 @@ static NSString *const SOURCE_FORMAT_DESCRIPTION = @"description";
     return FBResponseWithStatus(
       FBCommandStatusUnsupported,
       [NSString stringWithFormat:@"Unknown source format '%@'. Only %@ source formats are supported.",
-       @[SOURCE_FORMAT_XML, SOURCE_FORMAT_JSON, SOURCE_FORMAT_DESCRIPTION], sourceType]
+       sourceType, @[SOURCE_FORMAT_XML, SOURCE_FORMAT_JSON, SOURCE_FORMAT_DESCRIPTION]]
     );
   }
   if (nil == result) {
