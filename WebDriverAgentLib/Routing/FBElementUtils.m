@@ -73,7 +73,7 @@ static NSString *const OBJC_PROP_ATTRIBS_SEPARATOR = @",";
       }
     }
     free(properties);
-    
+
     NSMutableDictionary *resultCache = [NSMutableDictionary new];
     for (NSString *propName in wdPropertyGettersMapping) {
       if ([[wdPropertyGettersMapping valueForKey:propName] isKindOfClass:NSNull.class]) {

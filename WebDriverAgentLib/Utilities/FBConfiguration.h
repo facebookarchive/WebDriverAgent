@@ -31,6 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setMaxTypingFrequency:(NSUInteger)value;
 + (NSUInteger)maxTypingFrequency;
 
+/* Use singleton test manager proxy */
++ (void)setShouldUseSingletonTestManager:(BOOL)value;
++ (BOOL)shouldUseSingletonTestManager;
+
 /**
  The range of ports that the HTTP Server should attempt to bind on launch
  */

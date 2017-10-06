@@ -165,6 +165,7 @@
     [element adjustToNormalizedSliderPosition:sliderValue];
     return FBResponseWithOK();
   }
+
   NSError *error = nil;
   if (![element fb_typeText:textToType error:&error]) {
     return FBResponseWithError(error);

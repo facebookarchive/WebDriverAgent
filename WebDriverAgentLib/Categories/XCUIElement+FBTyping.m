@@ -21,6 +21,7 @@
   if (!self.hasKeyboardFocus && ![self fb_tapWithError:error]) {
     return NO;
   }
+
   if (![FBKeyboard typeText:text error:error]) {
     return NO;
   }
