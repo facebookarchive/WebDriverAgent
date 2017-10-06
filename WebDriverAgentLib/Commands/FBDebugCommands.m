@@ -34,20 +34,27 @@
 
 #pragma mark - Commands
 
+static NSString *const SOURCE_FORMAT_XML = @"xml";
+static NSString *const SOURCE_FORMAT_JSON = @"json";
+static NSString *const SOURCE_FORMAT_DESCRIPTION = @"description";
+
 + (id<FBResponsePayload>)handleGetSourceCommand:(FBRouteRequest *)request
 {
   FBApplication *application = request.session.application ?: [FBApplication fb_activeApplication];
-  NSString *sourceType = request.parameters[@"format"];
+  NSString *sourceType = request.parameters[@"format"] ?: SOURCE_FORMAT_XML;
   id result;
-  if (!sourceType || [sourceType caseInsensitiveCompare:@"xml"] == NSOrderedSame) {
+  if ([sourceType caseInsensitiveCompare:SOURCE_FORMAT_XML] == NSOrderedSame) {
     [application fb_waitUntilSnapshotIsStable];
     result = [FBXPath xmlStringWithSnapshot:application.fb_lastSnapshot];
-  } else if ([sourceType caseInsensitiveCompare:@"json"] == NSOrderedSame) {
+  } else if ([sourceType caseInsensitiveCompare:SOURCE_FORMAT_JSON] == NSOrderedSame) {
     result = application.fb_tree;
+  } else if ([sourceType caseInsensitiveCompare:SOURCE_FORMAT_DESCRIPTION] == NSOrderedSame) {
+    result = application.debugDescription;
   } else {
     return FBResponseWithStatus(
       FBCommandStatusUnsupported,
-      [NSString stringWithFormat:@"Unknown source type '%@'. Only 'xml' and 'json' source types are supported.", sourceType]
+      [NSString stringWithFormat:@"Unknown source format '%@'. Only %@ source formats are supported.",
+       sourceType, @[SOURCE_FORMAT_XML, SOURCE_FORMAT_JSON, SOURCE_FORMAT_DESCRIPTION]]
     );
   }
   if (nil == result) {
