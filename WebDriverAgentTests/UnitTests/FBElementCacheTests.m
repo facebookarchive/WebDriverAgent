@@ -53,12 +53,4 @@
   XCTAssertTrue(element.didResolve);
 }
 
-- (void)testAlertObstructionCheckWhenFetchingElement
-{
-  XCUIElementDouble *elementDouble = XCUIElementDouble.new;
-  elementDouble.fb_isObstructedByAlert = YES;
-  NSString *uuid = [self.cache storeElement:(XCUIElement *)elementDouble];
-  XCTAssertThrows([self.cache elementForUUID:uuid]);
-}
-
 @end
