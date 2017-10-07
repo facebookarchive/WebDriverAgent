@@ -33,10 +33,10 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:MAX(duration, FBMinimumAppSwitchWait)]];
   if (self.class.fb_isActivateSupported) {
     [self fb_activate];
-  } else if (![[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:error]) {
-    return NO;
+    return YES;
   }
-  return YES;
+  
+  return [[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:error];
 }
 
 - (NSDictionary *)fb_tree
