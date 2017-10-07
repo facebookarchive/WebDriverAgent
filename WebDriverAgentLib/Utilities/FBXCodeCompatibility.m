@@ -26,8 +26,13 @@ static dispatch_once_t onceRootElementToken;
 
 @end
 
+
+NSString *const FBApplicationMethodNotSupportedException = @"FBApplicationMethodNotSupportedException";
+
 static BOOL FBShouldUseOldAppWithPIDSelector = NO;
 static dispatch_once_t onceAppWithPIDToken;
+static BOOL FBCanUseActivate = NO;
+static dispatch_once_t onceActivate;
 @implementation XCUIApplication (FBCompatibility)
 
 + (instancetype)fb_applicationWithPID:(pid_t)processID
@@ -39,6 +44,30 @@ static dispatch_once_t onceAppWithPIDToken;
     return [self appWithPID:processID];
   }
   return [self applicationWithPID:processID];
+}
+
+- (void)fb_activate
+{
+  dispatch_once(&onceActivate, ^{
+    FBCanUseActivate = [self respondsToSelector:@selector(activate)];
+  });
+  if (!FBCanUseActivate) {
+    [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'activate' method is not supported by the current iOS SDK" userInfo:@{}] raise];
+  }
+  [self activate];
+}
+
+- (NSUInteger)fb_state
+{
+  return [[self valueForKey:@"state"] intValue];
+}
+
++ (BOOL)fb_hasMultiAppSupport
+{
+  dispatch_once(&onceActivate, ^{
+    FBCanUseActivate = [self respondsToSelector:@selector(activate)];
+  });
+  return FBCanUseActivate;
 }
 
 @end
