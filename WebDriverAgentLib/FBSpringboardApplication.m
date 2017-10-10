@@ -99,7 +99,9 @@
 - (BOOL)fb_isApplicationBoardVisible
 {
   [self resolve];
-  return self.otherElements[@"Dock"].fb_isVisible;
+  // the dock (and other icons) don't seem to be consistently reported as
+  // visible. esp on iOS 11 but also on 10.3.3
+  return self.otherElements[@"Dock"].isEnabled;
 }
 
 @end

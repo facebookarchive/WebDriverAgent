@@ -132,7 +132,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   } else {
     [[NSException exceptionWithName:FBElementAttributeUnknownException reason:[NSString stringWithFormat:@"Invalid locator requested: %@", usingText] userInfo:nil] raise];
   }
-  return [[FBAlert alertWithApplication:element.application] filterObstructedElements:elements];
+  return elements;
 }
 
 @end

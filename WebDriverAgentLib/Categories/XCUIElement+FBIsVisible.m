@@ -32,11 +32,8 @@
 
 - (BOOL)fb_isVisible
 {
-  if (CGRectIsEmpty(self.frame)) {
-    return NO;
-  }
-  CGRect visibleFrame = self.visibleFrame;
-  if (CGRectIsEmpty(visibleFrame)) {
+  CGRect frame = self.frame;
+  if (CGRectIsEmpty(frame)) {
     return NO;
   }
   if ([FBConfiguration shouldUseTestManagerForVisibilityDetection]) {
@@ -45,10 +42,18 @@
   CGRect appFrame = [self fb_rootElement].frame;
   CGSize screenSize = FBAdjustDimensionsForApplication(appFrame.size, (UIInterfaceOrientation)[XCUIDevice sharedDevice].orientation);
   CGRect screenFrame = CGRectMake(0, 0, screenSize.width, screenSize.height);
-  if (!CGRectIntersectsRect(visibleFrame, screenFrame)) {
+  if (!CGRectIntersectsRect(frame, screenFrame)) {
     return NO;
   }
-  return CGRectContainsPoint(appFrame, self.fb_hitPoint);
+  if (CGRectContainsPoint(appFrame, self.fb_hitPoint)) {
+    return YES;
+  }
+  for (XCElementSnapshot *elementSnapshot in self._allDescendants.copy) {
+    if (CGRectContainsPoint(appFrame, elementSnapshot.fb_hitPoint)) {
+      return YES;
+    }
+  }
+  return NO;
 }
 
 @end
