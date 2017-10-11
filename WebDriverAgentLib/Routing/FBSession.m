@@ -15,6 +15,7 @@
 #import "FBApplication.h"
 #import "FBElementCache.h"
 #import "FBMacros.h"
+#import "FBSpringboardApplication.h"
 #import "XCAccessibilityElement.h"
 #import "XCAXClient_iOS.h"
 #import "XCUIElement.h"
@@ -22,6 +23,7 @@
 NSString *const FBApplicationCrashedException = @"FBApplicationCrashedException";
 
 @interface FBSession ()
+@property (class, nonatomic, strong, readonly) NSMutableSet<FBSession *> *sessions;
 @property (nonatomic, strong, readwrite) FBApplication *testedApplication;
 @end
 
@@ -30,12 +32,32 @@ NSString *const FBApplicationCrashedException = @"FBApplicationCrashedException"
 static FBSession *_activeSession;
 + (instancetype)activeSession
 {
-  return _activeSession;
+  return _activeSession ?: [FBSession sessionWithApplication:nil];
+}
+
++ (void)killAll
+{
+  while (self.sessions.count > 0) {
+    FBSession *session = [self.sessions anyObject];
+    [session kill];
+  }
 }
 
 + (void)markSessionActive:(FBSession *)session
 {
   _activeSession = session;
+}
+
++ (NSMutableSet<FBSession *> *)sessions
+{
+  static NSMutableSet<FBSession *> *_sessions;
+
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    _sessions = [[NSMutableSet<FBSession *> alloc] init];
+  });
+
+  return _sessions;
 }
 
 + (instancetype)sessionWithIdentifier:(NSString *)identifier
@@ -55,6 +77,7 @@ static FBSession *_activeSession;
   session.identifier = [[NSUUID UUID] UUIDString];
   session.testedApplication = application;
   session.elementCache = [FBElementCache new];
+  [FBSession.sessions addObject:session];
   [FBSession markSessionActive:session];
   return session;
 }
@@ -62,19 +85,18 @@ static FBSession *_activeSession;
 - (void)kill
 {
   [self.testedApplication terminate];
-  _activeSession = nil;
+  [FBSession.sessions removeObject:self];
+
+  if ([self isEqual:_activeSession]) {
+    _activeSession = nil;
+  }
 }
 
 - (FBApplication *)application
 {
-  FBApplication *application = self.testedApplication;
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K != %d", FBStringify(XCAccessibilityElement, processIdentifier), self.testedApplication.processID];
-  XCAccessibilityElement *anotherActiveApplication = [[[[XCAXClient_iOS sharedClient] activeApplications] filteredArrayUsingPredicate:predicate] firstObject];
-  if (anotherActiveApplication) {
-    // If different active app is detected, using it instead of tested one
-    application = [FBApplication appWithPID:anotherActiveApplication.processIdentifier];
-  }
-  else if (!application.running) {
+  FBApplication *application = [FBApplication fb_activeApplication];
+  const BOOL testedApplicationIsActiveAndNotRunning = (application.processID == self.testedApplication.processID && !application.running);
+  if (testedApplicationIsActiveAndNotRunning) {
     [[NSException exceptionWithName:FBApplicationCrashedException reason:@"Application is not running, possibly crashed" userInfo:nil] raise];
   }
   [application query];

@@ -38,6 +38,11 @@ extern NSString *const FBAlertObstructingElementException;
 - (BOOL)isPresent;
 
 /**
+ Gets the labels of the buttons visible in the alert
+ */
+- (nullable NSArray *)buttonLabels;
+
+/**
  Returns alert's title and description separated by new lines
  */
 - (nullable NSString *)text;
@@ -57,6 +62,15 @@ extern NSString *const FBAlertObstructingElementException;
  @return YES if the operation succeeds, otherwise NO.
  */
 - (BOOL)dismissWithError:(NSError **)error;
+
+/**
+ Clicks on an alert button, if present
+ 
+ @param label The label of the button on which to click.
+ @param error If there is an error, upon return contains an NSError object that describes the problem.
+ @return YES if the operation suceeds, otherwise NO.
+ */
+- (BOOL)clickAlertButton:(NSString *)label error:(NSError **)error;
 
 /**
  Filters out elements obstructed by alert

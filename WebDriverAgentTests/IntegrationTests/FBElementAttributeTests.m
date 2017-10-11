@@ -13,7 +13,7 @@
 #import "FBFindElementCommands.h"
 #import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
-#import "XCUIElement+WebDriverAttributes.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 
 @interface FBElementAttributeTests : FBIntegrationTestCase
 @end
@@ -23,28 +23,38 @@
 - (void)setUp
 {
   [super setUp];
-  [self goToAttributesPage];
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [self launchApplication];
+    [self goToAttributesPage];
+  });
 }
 
-- (void)testIsVisible
+- (void)testElementAccessibilityAttributes
 {
-  XCTAssertTrue(self.testedApplication.buttons[@"Button"].exists);
-  XCTAssertTrue(self.testedApplication.buttons[@"Button"].fb_isVisible);
-
-  XCTAssertTrue(self.testedApplication.staticTexts[@"alpha_invisible"].exists);
-  XCTAssertFalse(self.testedApplication.staticTexts[@"alpha_invisible"].fb_isVisible);
-
-  XCTAssertTrue(self.testedApplication.staticTexts[@"hidden_invisible"].exists);
-  XCTAssertFalse(self.testedApplication.staticTexts[@"hidden_invisible"].fb_isVisible);
+  // "Button" is accessibility element, and therefore isn't accessibility container
+  XCUIElement *buttonElement = self.testedApplication.buttons[@"Button"];
+  XCTAssertTrue(buttonElement.exists);
+  XCTAssertTrue(buttonElement.fb_isAccessibilityElement);
+  XCTAssertFalse(buttonElement.isWDAccessibilityContainer);
 }
 
-- (void)testIsAccessible
+- (void)testContainerAccessibilityAttributes
 {
-  XCTAssertTrue(self.testedApplication.buttons[@"Button"].exists);
-  XCTAssertTrue(self.testedApplication.buttons[@"Button"].fb_isAccessibilityElement);
+  // "not_accessible" isn't accessibility element, but contains accessibility elements, so it is accessibility container
+  XCUIElement *inaccessibleButtonElement = self.testedApplication.buttons[@"not_accessible"];
+  XCTAssertTrue(inaccessibleButtonElement.exists);
+  XCTAssertFalse(inaccessibleButtonElement.fb_isAccessibilityElement);
+  XCTAssertTrue(inaccessibleButtonElement.isWDAccessibilityContainer);
+}
 
-  XCTAssertTrue(self.testedApplication.buttons[@"not_accessible"].exists);
-  XCTAssertFalse(self.testedApplication.buttons[@"not_accessible"].fb_isAccessibilityElement);
+- (void)testIgnoredAccessibilityAttributes
+{
+  // Images are neither accessibility elements nor contain them, so both checks should fail
+  XCUIElement *imageElement = [self.testedApplication.images elementBoundByIndex:0];
+  XCTAssertTrue(imageElement.exists);
+  XCTAssertFalse(imageElement.fb_isAccessibilityElement);
+  XCTAssertFalse(imageElement.isWDAccessibilityContainer);
 }
 
 - (void)testButtonAttributes
@@ -57,7 +67,7 @@
   XCTAssertNil(element.wdValue);
   [element tap];
   [element resolve];
-  XCTAssertEqualObjects(element.wdValue, @YES);
+  XCTAssertEqual(element.wdValue.boolValue, YES);
 }
 
 - (void)testLabelAttributes
@@ -127,10 +137,10 @@
   XCTAssertEqualObjects(element.wdType, @"XCUIElementTypeSwitch");
   XCTAssertNil(element.wdName);
   XCTAssertNil(element.wdLabel);
-  XCTAssertEqualObjects(element.wdValue, @1);
+  XCTAssertEqualObjects(element.wdValue, @"1");
   [element tap];
   [element resolve];
-  XCTAssertEqualObjects(element.wdValue, @0);
+  XCTAssertEqualObjects(element.wdValue, @"0");
 }
 
 - (void)testPickerWheelAttributes

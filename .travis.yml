@@ -1,8 +1,11 @@
 language: objective-c
-osx_image: xcode7.3
+osx_image: xcode8.3
 sudo: false
-before_install:
-  brew install carthage
+
+cache:
+  directories:
+  - Carthage
+  - Inspector/node_modules
 
 script: ./Scripts/build.sh
 
@@ -11,8 +14,24 @@ branches:
     - master
 
 env:
-- TARGET=WebDriverAgentLib SDK=iphonesimulator DESTINATION='iPad Air' ACTION=test
-- TARGET=WebDriverAgentLib SDK=iphonesimulator DESTINATION='iPhone 6' ACTION=test
-- TARGET=WebDriverAgentRunner SDK=iphonesimulator ACTION=build
-- TARGET=WebDriverAgentRunner SDK=iphoneos ACTION=build
-- TARGET=WebDriverAgentUSBClient SDK=macosx ACTION=build
+# Builds
+- ACTION=build TARGET=runner SDK=sim
+- ACTION=build TARGET=runner SDK=device
+
+# Analyze
+- ACTION=analyze TARGET=lib SDK=sim
+- ACTION=analyze TARGET=runner SDK=sim
+
+# Unit tests
+- ACTION=unit_test DEST=iphone TARGET=lib SDK=sim
+- ACTION=unit_test DEST=ipad TARGET=lib SDK=sim
+
+# Integration tests iPhone
+- ACTION=int_test_1 DEST=iphone TARGET=lib SDK=sim
+- ACTION=int_test_2 DEST=iphone TARGET=lib SDK=sim
+- ACTION=int_test_3 DEST=iphone TARGET=lib SDK=sim
+
+# Integration tests iPad
+- ACTION=int_test_1 DEST=ipad TARGET=lib SDK=sim
+- ACTION=int_test_2 DEST=ipad TARGET=lib SDK=sim
+- ACTION=int_test_3 DEST=ipad TARGET=lib SDK=sim

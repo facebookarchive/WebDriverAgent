@@ -9,6 +9,8 @@
 
 #import <XCTest/XCTest.h>
 
+#import "FBSpringboardApplication.h"
+
 extern NSString *const FBShowAlertButtonName;
 extern NSString *const FBShowSheetAlertButtonName;
 
@@ -17,6 +19,12 @@ extern NSString *const FBShowSheetAlertButtonName;
  */
 @interface FBIntegrationTestCase : XCTestCase
 @property (nonatomic, strong, readonly) XCUIApplication *testedApplication;
+@property (nonatomic, strong, readonly) FBSpringboardApplication *springboard;
+
+/**
+ Launches application and resets side effects of testing like orientation etc.
+ */
+- (void)launchApplication;
 
 /**
  Navigates integration app to attributes page
@@ -29,19 +37,24 @@ extern NSString *const FBShowSheetAlertButtonName;
 - (void)goToAlertsPage;
 
 /**
- Navigates integration app to contacts page
- */
-- (void)goToContacts;
-
-/**
  Navigates to SpringBoard first page
  */
 - (void)goToSpringBoardFirstPage;
 
 /**
- Navigates integration app to scrolling page
- @param accessibilityStrippedCells whether should navigate to tableview with accessibility stripped cell
+ Navigates to SpringBoard path with Extras folder
  */
-- (void)gotToScrollsWithAccessibilityStrippedCells:(BOOL)accessibilityStrippedCells;
+- (void)goToSpringBoardExtras;
+
+/**
+ Navigates to SpringBoard's dashboard
+ */
+- (void)goToSpringBoardDashboard;
+
+/**
+ Navigates integration app to scrolling page
+ @param showCells whether should navigate to view with cell or plain scrollview
+ */
+- (void)goToScrollPageWithCells:(BOOL)showCells;
 
 @end

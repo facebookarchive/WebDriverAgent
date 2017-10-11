@@ -11,18 +11,23 @@
 
 #import <UIKit/UIKit.h>
 
-BOOL _AXSAutomationSetFauxCollectionViewCellsEnabled(BOOL);
+#include "TargetConditionals.h"
+#import "XCTestPrivateSymbols.h"
 
 static NSUInteger const DefaultStartingPort = 8100;
 static NSUInteger const DefaultPortRange = 100;
+
+static BOOL FBShouldUseTestManagerForVisibilityDetection = NO;
+static BOOL FBShouldUseCompactResponses = YES;
+static NSUInteger FBMaxTypingFrequency = 60;
 
 @implementation FBConfiguration
 
 #pragma mark Public
 
-+ (void)shouldShowFakeCollectionViewCells:(BOOL)showFakeCells
++ (void)disableRemoteQueryEvaluation
 {
-  _AXSAutomationSetFauxCollectionViewCellsEnabled(showFakeCells);
+  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"XCTDisableRemoteQueryEvaluation"];
 }
 
 + (NSRange)bindingPortRange
@@ -43,6 +48,36 @@ static NSUInteger const DefaultPortRange = 100;
 + (BOOL)verboseLoggingEnabled
 {
   return [NSProcessInfo.processInfo.environment[@"VERBOSE_LOGGING"] boolValue];
+}
+
++ (void)setShouldUseTestManagerForVisibilityDetection:(BOOL)value
+{
+  FBShouldUseTestManagerForVisibilityDetection = value;
+}
+
++ (BOOL)shouldUseTestManagerForVisibilityDetection
+{
+  return FBShouldUseTestManagerForVisibilityDetection;
+}
+
++ (void)setShouldUseCompactResponses:(BOOL)value
+{
+  FBShouldUseCompactResponses = value;
+}
+
++ (BOOL)shouldUseCompactResponses
+{
+  return FBShouldUseCompactResponses;
+}
+
++ (void)setMaxTypingFrequency:(NSUInteger)value
+{
+  FBMaxTypingFrequency = value;
+}
+
++ (NSUInteger)maxTypingFrequency
+{
+  return FBMaxTypingFrequency;
 }
 
 #pragma mark Private

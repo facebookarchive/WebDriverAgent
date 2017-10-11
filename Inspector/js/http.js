@@ -11,25 +11,26 @@ import Ajax from 'simple-ajax';
 
 class Http {
   static get(path, callback) {
-    let ajax = new Ajax({
+    const ajax = new Ajax({
       url: path,
       method: 'GET',
     });
     ajax.on('success', event => {
       var response = JSON.parse(event.target.responseText);
-      callback(response.value);
+      callback(response);
     });
     ajax.send();
   }
 
-  static post(path, callback) {
-    let ajax = new Ajax({
+  static post(path, data, callback) {
+    const ajax = new Ajax({
       url: path,
       method: 'POST',
+      data: data,
     });
     ajax.on('success', event => {
       var response = JSON.parse(event.target.responseText);
-      callback(response.value);
+      callback(response);
     });
     ajax.send();
   }

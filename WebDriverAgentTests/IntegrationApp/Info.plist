@@ -26,6 +26,8 @@
 	<string>Yo Yo</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Yo Yo</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Yo Yo</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Yo Yo</string>
 	<key>UILaunchStoryboardName</key>
@@ -41,6 +43,7 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>

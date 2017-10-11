@@ -1,9 +1,13 @@
+# OS X
+.DS_Store
+
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## Build generated
 build/
+clang/
 DerivedData
 
 ## Various settings
@@ -33,6 +37,10 @@ xcuserdata
 # Carthage
 Carthage/Build
 Carthage/Checkouts
+Carthage/Cartfile.resolved
+
+# Inspector files
+Inspector/node_modules
 
 # Resource bundle recreated on each build
 Resources/WebDriverAgent.bundle
@@ -40,3 +48,5 @@ Resources/WebDriverAgent.bundle
 # Modules map recreated on each build
 Modules/module.modulemap
 
+# test run
+*.trace

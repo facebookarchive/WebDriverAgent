@@ -21,6 +21,12 @@
 
 @implementation XCUIApplicationHelperTests
 
+- (void)setUp
+{
+  [super setUp];
+  [self launchApplication];
+}
+
 - (void)testQueringSpringboard
 {
   [self goToSpringBoardFirstPage];
@@ -34,7 +40,7 @@
   NSError *error;
   XCTAssertTrue([[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:@"Safari" error:&error]);
   XCTAssertNil(error);
-  FBAssertWaitTillBecomesTrue([FBApplication fb_activeApplication].buttons[@"URL"].exists);
+  XCTAssertTrue([FBApplication fb_activeApplication].buttons[@"URL"].exists);
 }
 
 - (void)testWaitingForSpringboard
@@ -61,7 +67,8 @@
   NSError *error;
   XCTAssertTrue([self.testedApplication fb_deactivateWithDuration:1 error:&error]);
   XCTAssertNil(error);
-  XCTAssertTrue(self.testedApplication.buttons[@"Alerts"].fb_isVisible);
+  XCTAssertTrue(self.testedApplication.buttons[@"Alerts"].exists);
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Alerts"].fb_isVisible);
 }
 
 - (void)testActiveApplication
@@ -69,14 +76,6 @@
   XCTAssertTrue([FBApplication fb_activeApplication].buttons[@"Alerts"].fb_isVisible);
   [self goToSpringBoardFirstPage];
   XCTAssertTrue([FBApplication fb_activeApplication].icons[@"Safari"].fb_isVisible);
-}
-
-- (void)testMainWindow
-{
-  [self.testedApplication query];
-  [self.testedApplication resolve];
-  XCTAssertNotNil(self.testedApplication.fb_mainWindowSnapshot);
-  XCTAssertTrue(self.testedApplication.fb_mainWindowSnapshot.isMainWindow);
 }
 
 @end

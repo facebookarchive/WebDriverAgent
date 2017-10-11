@@ -9,7 +9,7 @@
 
 #import "FBRunLoopSpinner.h"
 
-#import <libkern/OSAtomic.h>
+#import <stdatomic.h>
 
 #import "FBErrorBuilder.h"
 
@@ -23,13 +23,13 @@ static const NSTimeInterval FBWaitInterval = 0.1;
 
 @implementation FBRunLoopSpinner
 
-+ (void)spinUntilCompletion:(void (^)(void(^completion)()))block
++ (void)spinUntilCompletion:(void (^)(void(^completion)(void)))block
 {
-  __block volatile uint32_t didFinish = 0;
+  __block volatile atomic_bool didFinish = false;
   block(^{
-    OSAtomicOr32Barrier(1, &didFinish);
+    atomic_fetch_or(&didFinish, true);
   });
-  while (!didFinish) {
+  while (!atomic_fetch_and(&didFinish, false)) {
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBWaitInterval]];
   }
 }

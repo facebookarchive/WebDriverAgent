@@ -15,7 +15,6 @@
 #import "FBCommandHandler.h"
 #import "FBErrorBuilder.h"
 #import "FBExceptionHandler.h"
-#import "FBHTTPOverUSBServer.h"
 #import "FBRouteRequest.h"
 #import "FBRuntimeUtils.h"
 #import "FBSession.h"
@@ -45,7 +44,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 @interface FBWebServer ()
 @property (nonatomic, strong) FBExceptionHandler *exceptionHandler;
 @property (nonatomic, strong) RoutingHTTPServer *server;
-@property (nonatomic, strong) FBHTTPOverUSBServer *USBServer;
+@property (atomic, assign) BOOL keepAlive;
 @end
 
 @implementation FBWebServer
@@ -70,8 +69,11 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   [FBLogger logFmt:@"Built at %s %s", __DATE__, __TIME__];
   self.exceptionHandler = [FBExceptionHandler new];
   [self startHTTPServer];
-  [self startUSBServer];
-  [[NSRunLoop mainRunLoop] run];
+
+  self.keepAlive = YES;
+  NSRunLoop *runLoop = [NSRunLoop mainRunLoop];
+  while (self.keepAlive &&
+         [runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
 }
 
 - (void)startHTTPServer
@@ -104,13 +106,17 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     [FBLogger logFmt:@"Last attempt to start web server failed with error %@", [error description]];
     abort();
   }
-  [FBLogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [XCUIDevice sharedDevice].fb_wifiIPAddress, [self.server port], FBServerURLEndMarker];
+  [FBLogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [XCUIDevice sharedDevice].fb_wifiIPAddress ?: @"localhost", [self.server port], FBServerURLEndMarker];
 }
 
-- (void)startUSBServer
+- (void)stopServing
 {
-  self.USBServer = [[FBHTTPOverUSBServer alloc] initWithRoutingServer:self.server];
-  [self.USBServer startServing];
+  [FBSession  killAll];
+  if (self.server.isRunning) {
+    [self.server stop:NO];
+  }
+
+  self.keepAlive = NO;
 }
 
 - (BOOL)attemptToStartServer:(RoutingHTTPServer *)server onPort:(NSInteger)port withError:(NSError **)error
@@ -176,6 +182,12 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   [self.server get:@"/health" withBlock:^(RouteRequest *request, RouteResponse *response) {
     [response respondWithString:@"I-AM-ALIVE"];
   }];
+
+  [self.server get:@"/wda/shutdown" withBlock:^(RouteRequest *request, RouteResponse *response) {
+    [response respondWithString:@"Shutting down"];
+    [self.delegate webServerDidRequestShutdown:self];
+  }];
+
   [self registerRouteHandlers:@[FBUnknownCommands.class]];
 }
 

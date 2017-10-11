@@ -34,6 +34,11 @@ extern NSString *const FBApplicationCrashedException;
 + (nullable instancetype)activeSession;
 
 /**
+ Kills application associated with all sessions and removes all sessions.
+ */
++ (void)killAll;
+
+/**
  Fetches session for given identifier.
  If identifier doesn't match activeSession identifier, will return nil.
 
@@ -48,7 +53,7 @@ extern NSString *const FBApplicationCrashedException;
  @param application The application that we want to create session for
  @return new session
  */
-+ (instancetype)sessionWithApplication:(FBApplication *)application;
++ (instancetype)sessionWithApplication:(nullable FBApplication *)application;
 
 /**
  Kills application associated with that session and removes session

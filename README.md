@@ -1,10 +1,11 @@
 # WebDriverAgent [![GitHub license](https://img.shields.io/badge/license-BSD-lightgrey.svg)](LICENSE) [![Build Status](https://travis-ci.org/facebook/WebDriverAgent.svg?branch=master)](https://travis-ci.org/facebook/WebDriverAgent) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-WebDriverAgent is a [WebDriver server](https://w3c.github.io/webdriver/webdriver-spec.html) implementation for iOS that can be used to remote control iOS devices. It allows you to launch & kill applications, tap & scroll views or confirm view presence on a screen. This makes it a perfect tool for application end-to-end testing or general purpose device automation. It works by linking `XCTest.framework` and calling Apple's API to execute commands directly on a device. WebDriverAgent is developed and used at Facebook for end-to-end testing and is successfully adopted by [Appium](http://appium.io). It is currently maintained by [Marek Cirkos](https://github.com/marekcirkos) and [Mehdi Mulani](https://github.com/mmmulani).
+WebDriverAgent is a [WebDriver server](https://w3c.github.io/webdriver/webdriver-spec.html) implementation for iOS that can be used to remote control iOS devices. It allows you to launch & kill applications, tap & scroll views or confirm view presence on a screen. This makes it a perfect tool for application end-to-end testing or general purpose device automation. It works by linking `XCTest.framework` and calling Apple's API to execute commands directly on a device. WebDriverAgent is developed and used at Facebook for end-to-end testing and is successfully adopted by [Appium](http://appium.io).
 
 ## Features
  * Works with device & simulator
- * Implements most of [WebDriver spec](https://w3c.github.io/webdriver/webdriver-spec.html)
+ * Implements most of [WebDriver Spec](https://w3c.github.io/webdriver/webdriver-spec.html)
+ * Implements part of [Mobile JSON Wire Protocol Spec](https://github.com/SeleniumHQ/mobile-spec/blob/master/spec-draft.md)
  * [USB support](https://github.com/facebook/WebDriverAgent/wiki/USB-support) for devices
  * Inspector [endpoint](http://localhost:8100/inspector) with friendly user interface to inspect current device state
  * Easy development cycle as it can be launched & debugged directly via Xcode

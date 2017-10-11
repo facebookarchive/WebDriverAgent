@@ -15,7 +15,7 @@
 #import <WebDriverAgentLib/FBWebServer.h>
 #import <WebDriverAgentLib/XCTestCase.h>
 
-@interface UITestingUITests : FBFailureProofTestCase
+@interface UITestingUITests : FBFailureProofTestCase <FBWebServerDelegate>
 @end
 
 @implementation UITestingUITests
@@ -23,6 +23,7 @@
 + (void)setUp
 {
   [FBDebugLogDelegateDecorator decorateXCTestLogger];
+  [FBConfiguration disableRemoteQueryEvaluation];
   [super setUp];
 }
 
@@ -31,8 +32,16 @@
  */
 - (void)testRunner
 {
-  [FBConfiguration shouldShowFakeCollectionViewCells:YES];
-  [[FBWebServer new] startServing];
+  FBWebServer *webServer = [[FBWebServer alloc] init];
+  webServer.delegate = self;
+  [webServer startServing];
+}
+
+#pragma mark - FBWebServerDelegate
+
+- (void)webServerDidRequestShutdown:(FBWebServer *)webServer
+{
+  [webServer stopServing];
 }
 
 @end

@@ -8,6 +8,7 @@
  */
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import HTTP from 'js/http';
 import Screen from 'js/screen';
@@ -17,10 +18,10 @@ import TreeNode from 'js/tree_node';
 import TreeContext from 'js/tree_context';
 import Inspector from 'js/inspector';
 
-require('css/app.css')
+require('css/app.css');
 
 const SCREENSHOT_ENDPOINT = 'screenshot';
-const TREE_ENDPOINT = 'source';
+const TREE_ENDPOINT = 'source?format=json';
 const ORIENTATION_ENDPOINT = 'orientation';
 
 class App extends React.Component {
@@ -29,14 +30,20 @@ class App extends React.Component {
     this.state = {};
   }
 
-  componentDidMount() {
+  refreshApp() {
     this.fetchScreenshot();
     this.fetchTree();
   }
 
+  componentDidMount() {
+    this.refreshApp();
+  }
+
   fetchScreenshot() {
     HTTP.get(ORIENTATION_ENDPOINT, (orientation) => {
+      orientation = orientation.value;
       HTTP.get(SCREENSHOT_ENDPOINT, (base64EncodedImage) => {
+        base64EncodedImage = base64EncodedImage.value;
         ScreenshotFactory.createScreenshot(orientation, base64EncodedImage, (screenshot) => {
           this.setState({
             screenshot: screenshot,
@@ -48,20 +55,22 @@ class App extends React.Component {
 
   fetchTree() {
     HTTP.get(TREE_ENDPOINT, (treeInfo) => {
+      treeInfo = treeInfo.value;
       this.setState({
-        rootNode: TreeNode.buildNode(treeInfo.tree, new TreeContext()),
+        rootNode: TreeNode.buildNode(treeInfo, new TreeContext()),
       });
     });
   }
 
   render() {
     return (
-  		<div id="app">
-  			<Screen
+      <div id="app">
+        <Screen
           highlightedNode={this.state.highlightedNode}
           screenshot={this.state.screenshot}
-          rootNode={this.state.rootNode} />
-  			<Tree
+          rootNode={this.state.rootNode}
+          refreshApp={() => { this.refreshApp(); }} />
+        <Tree
           onHighlightedNodeChange={(node) => {
             this.setState({
               highlightedNode: node,
@@ -74,10 +83,12 @@ class App extends React.Component {
           }}
           rootNode={this.state.rootNode}
           selectedNode={this.state.selectedNode} />
-  			<Inspector selectedNode={this.state.selectedNode} />
-  		</div>
+        <Inspector
+          selectedNode={this.state.selectedNode}
+          refreshApp={() => { this.refreshApp(); }} />
+      </div>
     );
   }
 }
 
-React.render(<App />, document.body);
+ReactDOM.render(<App />, document.body);

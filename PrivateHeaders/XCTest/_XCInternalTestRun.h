@@ -16,8 +16,14 @@
     unsigned long long _unexpectedExceptionCount;
     BOOL _hasStarted;
     BOOL _hasStopped;
+    unsigned long long _executionCountBeforeCrash;
+    unsigned long long _failureCountBeforeCrash;
+    unsigned long long _unexpectedExceptionCountBeforeCrash;
 }
 
+@property unsigned long long unexpectedExceptionCountBeforeCrash; // @synthesize unexpectedExceptionCountBeforeCrash=_unexpectedExceptionCountBeforeCrash;
+@property unsigned long long failureCountBeforeCrash; // @synthesize failureCountBeforeCrash=_failureCountBeforeCrash;
+@property unsigned long long executionCountBeforeCrash; // @synthesize executionCountBeforeCrash=_executionCountBeforeCrash;
 @property(readonly) BOOL hasStopped; // @synthesize hasStopped=_hasStopped;
 @property(readonly) XCTest *test; // @synthesize test=_test;
 @property(readonly) unsigned long long testCaseCount;

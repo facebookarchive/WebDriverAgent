@@ -13,11 +13,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- Function that returns property name defined by this protocol for given WebDriver Spec property name
- */
-NSString *wdAttributeNameForAttributeName(NSString *name);
-
-/**
  Protocol that should be implemented by class that can return element properties defined in WebDriver Spec
  */
 @protocol FBElement <NSObject>
@@ -27,12 +22,6 @@ NSString *wdAttributeNameForAttributeName(NSString *name);
 
 /*! Element's frame in NSDictionary format */
 @property (nonatomic, readonly, copy) NSDictionary *wdRect;
-
-/*! Element's size */
-@property (nonatomic, readonly, copy) NSDictionary *wdSize;
-
-/*! Element's origin */
-@property (nonatomic, readonly, copy) NSDictionary *wdLocation;
 
 /*! Element's name */
 @property (nonatomic, readonly, copy) NSString *wdName;
@@ -44,7 +33,10 @@ NSString *wdAttributeNameForAttributeName(NSString *name);
 @property (nonatomic, readonly, copy) NSString *wdType;
 
 /*! Element's value */
-@property (nonatomic, readonly, strong, nullable) id wdValue;
+@property (nonatomic, readonly, strong, nullable) NSString *wdValue;
+
+/*! Element's unique identifier */
+@property (nonatomic, readonly) NSUInteger wdUID;
 
 /*! Whether element is enabled */
 @property (nonatomic, readonly, getter = isWDEnabled) BOOL wdEnabled;
@@ -55,10 +47,17 @@ NSString *wdAttributeNameForAttributeName(NSString *name);
 /*! Whether element is accessible */
 @property (nonatomic, readonly, getter = isWDAccessible) BOOL wdAccessible;
 
+/*! Whether element is an accessibility container (contains children of any depth that are accessible) */
+@property (nonatomic, readonly, getter = isWDAccessibilityContainer) BOOL wdAccessibilityContainer;
+
 /**
  Returns value of given property specified in WebDriver Spec
-
- @param name name of property defined in WebDriver Spec
+ Check the FBElement protocol to get list of supported attributes.
+ This method also supports shortcuts, like wdName == name, wdValue == value.
+ 
+ @param name WebDriver Spec property name
+ @return the corresponding property value
+ @throws FBUnknownAttributeException if there is no matching attribute defined in FBElement protocol
  */
 - (nullable id)fb_valueForWDAttributeName:(NSString *__nullable)name;
 

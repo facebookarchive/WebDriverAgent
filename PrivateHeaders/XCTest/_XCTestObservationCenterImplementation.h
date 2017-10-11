@@ -8,12 +8,12 @@
 
 @interface _XCTestObservationCenterImplementation : NSObject
 {
-    NSMutableSet *_observers;
+    NSMutableArray *_observers;
     BOOL _suspended;
 }
-@property BOOL suspended; // @synthesize suspended=_suspended;
-@property(retain) NSMutableSet *observers; // @synthesize observers=_observers;
 
+@property BOOL suspended; // @synthesize suspended=_suspended;
+@property(retain) NSMutableArray *observers; // @synthesize observers=_observers;
 - (id)init;
 
 @end

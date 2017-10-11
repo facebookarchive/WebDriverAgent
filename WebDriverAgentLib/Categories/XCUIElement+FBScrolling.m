@@ -9,12 +9,14 @@
 
 #import "XCUIElement+FBScrolling.h"
 
+#import "FBXCTestDaemonsProxy.h"
 #import "FBErrorBuilder.h"
 #import "FBRunLoopSpinner.h"
 #import "FBLogger.h"
 #import "FBMacros.h"
-#import "XCElementSnapshot+Helpers.h"
-#import "XCElementSnapshot-Hitpoint.h"
+#import "FBMathUtils.h"
+#import "FBPredicate.h"
+#import "XCElementSnapshot+FBHelpers.h"
 #import "XCElementSnapshot.h"
 #import "XCEventGenerator.h"
 #import "XCPointerEventPath.h"
@@ -24,11 +26,10 @@
 #import "XCUICoordinate.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
-
-#define FBPointFuzzyEqualToPoint(point1, point2, threshold) ((fabs(point1.x - point2.x) < threshold) && (fabs(point1.y - point2.y) < threshold))
+#import "XCUIElement+FBUtilities.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 
 const CGFloat FBFuzzyPointThreshold = 20.f; //Smallest determined value that is not interpreted as touch
-const CGFloat FBFullscreenNormalizedDistance = 1.0f;
 const CGFloat FBScrollToVisibleNormalizedDistance = .5f;
 const CGFloat FBScrollVelocity = 200.f;
 const CGFloat FBScrollBoundingVelocityPadding = 0.0f;
@@ -49,24 +50,24 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
 @implementation XCUIElement (FBScrolling)
 
-- (void)fb_scrollUp
+- (void)fb_scrollUpByNormalizedDistance:(CGFloat)distance
 {
-  [self.lastSnapshot fb_scrollUpByNormalizedDistance:FBFullscreenNormalizedDistance];
+  [self.fb_lastSnapshot fb_scrollUpByNormalizedDistance:distance];
 }
 
-- (void)fb_scrollDown
+- (void)fb_scrollDownByNormalizedDistance:(CGFloat)distance
 {
-  [self.lastSnapshot fb_scrollDownByNormalizedDistance:FBFullscreenNormalizedDistance];
+  [self.fb_lastSnapshot fb_scrollDownByNormalizedDistance:distance];
 }
 
-- (void)fb_scrollLeft
+- (void)fb_scrollLeftByNormalizedDistance:(CGFloat)distance
 {
-  [self.lastSnapshot fb_scrollLeftByNormalizedDistance:FBFullscreenNormalizedDistance];
+  [self.fb_lastSnapshot fb_scrollLeftByNormalizedDistance:distance];
 }
 
-- (void)fb_scrollRight
+- (void)fb_scrollRightByNormalizedDistance:(CGFloat)distance
 {
-  [self.lastSnapshot fb_scrollRightByNormalizedDistance:FBFullscreenNormalizedDistance];
+  [self.fb_lastSnapshot fb_scrollRightByNormalizedDistance:distance];
 }
 
 - (BOOL)fb_scrollToVisibleWithError:(NSError **)error
@@ -76,51 +77,88 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
 - (BOOL)fb_scrollToVisibleWithNormalizedScrollDistance:(CGFloat)normalizedScrollDistance error:(NSError **)error
 {
+  return [self fb_scrollToVisibleWithNormalizedScrollDistance:normalizedScrollDistance
+                                              scrollDirection:FBXCUIElementScrollDirectionUnknown
+                                                        error:error];
+}
+
+- (BOOL)fb_scrollToVisibleWithNormalizedScrollDistance:(CGFloat)normalizedScrollDistance scrollDirection:(FBXCUIElementScrollDirection)scrollDirection error:(NSError **)error
+{
   [self resolve];
   if (self.fb_isVisible) {
     return YES;
   }
-  XCElementSnapshot *scrollView = [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeScrollView];
-  scrollView = scrollView ?: [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeTable];
-  scrollView = scrollView ?: [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeCollectionView];
+  __block NSArray<XCElementSnapshot *> *cellSnapshots, *visibleCellSnapshots;
 
-  XCElementSnapshot *targetCellSnapshot = self.fb_parentCellSnapshot;
-  NSArray<XCElementSnapshot *> *cellSnapshots = [scrollView fb_descendantsMatchingType:XCUIElementTypeCell];
-  if (cellSnapshots.count == 0) {
-    // In some cases XCTest will not report Cell Views. In that case grabbing descendants and trying to figure out scroll directon from them.
-    cellSnapshots = scrollView._allDescendants;
-  }
-  NSArray<XCElementSnapshot *> *visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)]];
+  NSArray *acceptedParents = @[
+                               @(XCUIElementTypeScrollView),
+                               @(XCUIElementTypeCollectionView),
+                               @(XCUIElementTypeTable),
+                               @(XCUIElementTypeWebView),
+                               ];
+  XCElementSnapshot *elementSnapshot = self.fb_lastSnapshot;
+  XCElementSnapshot *scrollView = [elementSnapshot fb_parentMatchingOneOfTypes:acceptedParents
+      filter:^(XCElementSnapshot *snapshot) {
 
-  if (visibleCellSnapshots.count < 2) {
+         if (![snapshot isWDVisible]) {
+           return NO;
+         }
+
+         cellSnapshots = [snapshot fb_descendantsCellSnapshots];
+
+         visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[FBPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)]];
+
+         if (visibleCellSnapshots.count > 1) {
+           return YES;
+         }
+         return NO;
+      }];
+
+  if (scrollView == nil) {
     return
     [[[FBErrorBuilder builder]
-      withDescriptionFormat:@"Failed to perform scroll with visible cell count %lu", (unsigned long)visibleCellSnapshots.count]
+      withDescriptionFormat:@"Failed to find scrollable visible parent with 2 visible children"]
      buildError:error];
   }
+
+  XCElementSnapshot *targetCellSnapshot = [elementSnapshot fb_parentCellSnapshot];
+
   XCElementSnapshot *lastSnapshot = visibleCellSnapshots.lastObject;
-  NSUInteger targetCellIndex = [cellSnapshots indexOfObject:targetCellSnapshot];
+  // Can't just do indexOfObject, because targetCellSnapshot may represent the same object represented by a member of cellSnapshots, yet be a different object
+  // than that member. This reflects the fact that targetCellSnapshot came out of self.fb_parentCellSnapshot, not out of cellSnapshots directly.
+  // If the result is NSNotFound, we'll just proceed by scrolling downward/rightward, since NSNotFound will always be larger than the current index.
+  NSUInteger targetCellIndex = [cellSnapshots indexOfObjectPassingTest:^BOOL(XCElementSnapshot *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+    return [obj _matchesElement:targetCellSnapshot];
+  }];
   NSUInteger visibleCellIndex = [cellSnapshots indexOfObject:lastSnapshot];
 
-  XCElementSnapshot *firsVisibleCell = visibleCellSnapshots.firstObject;
-  XCElementSnapshot *lastVisibleCell = visibleCellSnapshots.lastObject;
-  CGVector cellGrowthVector = CGVectorMake(firsVisibleCell.frame.origin.x - lastVisibleCell.frame.origin.x,
-                                       firsVisibleCell.frame.origin.y - lastVisibleCell.frame.origin.y
-                                       );
-
-  const BOOL isVerticalScroll = (ABS(cellGrowthVector.dy) > ABS(cellGrowthVector.dx));
+  if (scrollDirection == FBXCUIElementScrollDirectionUnknown) {
+    // Try to determine the scroll direction by determining the vector between the first and last visible cells
+    XCElementSnapshot *firstVisibleCell = visibleCellSnapshots.firstObject;
+    XCElementSnapshot *lastVisibleCell = visibleCellSnapshots.lastObject;
+    CGVector cellGrowthVector = CGVectorMake(firstVisibleCell.frame.origin.x - lastVisibleCell.frame.origin.x,
+                                             firstVisibleCell.frame.origin.y - lastVisibleCell.frame.origin.y
+                                             );
+    if (ABS(cellGrowthVector.dy) > ABS(cellGrowthVector.dx)) {
+      scrollDirection = FBXCUIElementScrollDirectionVertical;
+    } else {
+      scrollDirection = FBXCUIElementScrollDirectionHorizontal;
+    }
+  }
 
   const NSUInteger maxScrollCount = 25;
   NSUInteger scrollCount = 0;
 
-  XCElementSnapshot *prescrollSnapshot = self.lastSnapshot;
-  // Scrolling till cell is visible and got corrent value of frames
+  XCElementSnapshot *prescrollSnapshot = self.fb_lastSnapshot;
+  // Scrolling till cell is visible and get current value of frames
   while (![self fb_isEquivalentElementSnapshotVisible:prescrollSnapshot] && scrollCount < maxScrollCount) {
     if (targetCellIndex < visibleCellIndex) {
-      isVerticalScroll ? [scrollView fb_scrollUpByNormalizedDistance:normalizedScrollDistance] : [scrollView fb_scrollLeftByNormalizedDistance:normalizedScrollDistance];
+      scrollDirection == FBXCUIElementScrollDirectionVertical ? [scrollView fb_scrollUpByNormalizedDistance:normalizedScrollDistance] :
+      [scrollView fb_scrollLeftByNormalizedDistance:normalizedScrollDistance];
     }
     else {
-      isVerticalScroll ? [scrollView fb_scrollDownByNormalizedDistance:normalizedScrollDistance] : [scrollView fb_scrollRightByNormalizedDistance:normalizedScrollDistance];
+      scrollDirection == FBXCUIElementScrollDirectionVertical ? [scrollView fb_scrollDownByNormalizedDistance:normalizedScrollDistance] :
+      [scrollView fb_scrollRightByNormalizedDistance:normalizedScrollDistance];
     }
     [self resolve]; // Resolve is needed for correct visibility
     scrollCount++;
@@ -134,7 +172,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   }
 
   // Cell is now visible, but it might be only partialy visible, scrolling till whole frame is visible
-  targetCellSnapshot = self.fb_parentCellSnapshot;
+  targetCellSnapshot = [self.fb_lastSnapshot fb_parentCellSnapshot];
   CGVector scrollVector = CGVectorMake(targetCellSnapshot.visibleFrame.size.width - targetCellSnapshot.frame.size.width,
                                        targetCellSnapshot.visibleFrame.size.height - targetCellSnapshot.frame.size.height
                                        );
@@ -149,23 +187,13 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   if (self.fb_isVisible) {
     return YES;
   }
-  [self.application resolve];
-  for (XCElementSnapshot *elementSnapshot in self.application.lastSnapshot._allDescendants.copy) {
+  for (XCElementSnapshot *elementSnapshot in self.application.fb_lastSnapshot._allDescendants.copy) {
     // We are comparing pre-scroll snapshot so frames are irrelevant.
     if ([snapshot fb_framelessFuzzyMatchesElement:elementSnapshot] && elementSnapshot.fb_isVisible) {
       return YES;
     }
   }
   return NO;
-}
-
-- (XCElementSnapshot *)fb_parentCellSnapshot
-{
-  XCElementSnapshot *targetCellSnapshot = self.lastSnapshot;
-  if (self.elementType != XCUIElementTypeCell) {
-    targetCellSnapshot = [self.lastSnapshot fb_parentMatchingType:XCUIElementTypeCell];
-  }
-  return targetCellSnapshot;
 }
 
 @end
@@ -192,7 +220,6 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 {
   [self fb_scrollByNormalizedVector:CGVectorMake(-distance, 0.0)];
 }
-
 
 - (BOOL)fb_scrollByNormalizedVector:(CGVector)normalizedScrollVector
 {
@@ -246,7 +273,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
     return YES;
   }
 
-  double offset = 0.3; // Waiting before scrolling helps to make it more stable
+  CGFloat offset = 0.3f; // Waiting before scrolling helps to make it more stable
   double scrollingTime = MAX(fabs(vector.dx), fabs(vector.dy))/FBScrollVelocity;
   XCPointerEventPath *touchPath = [[XCPointerEventPath alloc] initForTouchAtPoint:startCoordinate.screenPoint offset:offset];
   offset += MAX(scrollingTime, FBMinimumTouchEventDelay); // Setting Minimum scrolling time to avoid testmanager complaining about timing
@@ -259,8 +286,8 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
-  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    [[XCTestDriver sharedTestDriver].managerProxy _XCT_synthesizeEvent:event completion:^(NSError *scrollingError) {
+  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
+    [[FBXCTestDaemonsProxy testRunnerProxy] _XCT_synthesizeEvent:event completion:^(NSError *scrollingError) {
       innerError = scrollingError;
       didSucceed = (scrollingError == nil);
       completion();

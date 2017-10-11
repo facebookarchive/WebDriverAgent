@@ -18,13 +18,17 @@
 #define FBTransferEmptyStringToNil(value) ([value isEqual:@""] ? nil : value)
 
 /*! Returns 'value1' or 'value2' if 'value1' is an empty string */
-#define FBFirstNonEmptyValue(value1, value2) ([value1 isEqual:@""] ? value2 : value1)
+#define FBFirstNonEmptyValue(value1, value2) (value1 == nil || [value1 isEqual:@""] ? value2 : value1)
 
 /*! Returns 'value' or NSNull if 'value' is nil */
 #define FBValueOrNull(value) ((value) ?: [NSNull null])
 
-/*! Returns name of class property as a string */
-#define FBStringify(class, property) ({if(NO){[class.new property];} @#property;})
+/*!
+  Returns name of class property as a string
+  previously used [class new] errors out on certain classes because new will be declared unavailable
+  Instead we are casting into a class to get compiler support with property name.
+*/
+#define FBStringify(class, property) ({if(NO){[((class *)nil) property];} @#property;})
 
 /*! Creates weak type for given 'arg' */
 #define FBWeakify(arg) typeof(arg) __weak wda_weak_##arg = arg
@@ -35,3 +39,10 @@
   _Pragma("clang diagnostic ignored \"-Wshadow\"") \
   typeof(arg) arg = wda_weak_##arg \
   _Pragma("clang diagnostic pop")
+
+/*! Returns YES if current system version satisfies the given codition */
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)

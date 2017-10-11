@@ -20,7 +20,7 @@
       return FBResponseFileWithPath([[self class] inspectorHTMLFilePath]);
     }],
     [[FBRoute GET:@"/inspector.js"].withoutSession respondWithBlock: ^ id<FBResponsePayload> (FBRouteRequest *request) {
-        return FBResponseFileWithPath([[self class] inspectorJSFilePath]);
+      return FBResponseFileWithPath([[self class] inspectorJSFilePath]);
     }],
   ];
 }

@@ -11,8 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef BOOL (^FBRunLoopSpinnerBlock)();
-typedef __nullable id (^FBRunLoopSpinnerObjectBlock)();
+typedef BOOL (^FBRunLoopSpinnerBlock)(void);
+typedef __nullable id (^FBRunLoopSpinnerObjectBlock)(void);
 
 @interface FBRunLoopSpinner : NSObject
 
@@ -21,7 +21,7 @@ typedef __nullable id (^FBRunLoopSpinnerObjectBlock)();
 
  @param block the block to wait for to finish.
  */
-+ (void)spinUntilCompletion:(void (^)(void(^completion)()))block;
++ (void)spinUntilCompletion:(void (^)(void(^completion)(void)))block;
 
 /**
  Updates the error message to print in the event of a timeout.

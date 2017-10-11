@@ -13,6 +13,8 @@
 #import "FBRouteRequest.h"
 #import "FBSession.h"
 #import "XCUIApplication+FBHelpers.h"
+#import "XCUIElement+FBUtilities.h"
+#import "FBXPath.h"
 
 @implementation FBDebugCommands
 
@@ -22,25 +24,42 @@
 {
   return
   @[
-    [[FBRoute GET:@"/source"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
-    [[FBRoute GET:@"/source"].withoutSession respondWithTarget:self action:@selector(handleGetTreeCommand:)],
-    // TODO: Kill POST methods for source and move accessiblity tree to extension scheme
-    [[FBRoute POST:@"/source"] respondWithTarget:self action:@selector(handleGetTreeCommand:)],
-    [[FBRoute POST:@"/source"].withoutSession respondWithTarget:self action:@selector(handleGetTreeCommand:)],
+    [[FBRoute GET:@"/source"] respondWithTarget:self action:@selector(handleGetSourceCommand:)],
+    [[FBRoute GET:@"/source"].withoutSession respondWithTarget:self action:@selector(handleGetSourceCommand:)],
+    [[FBRoute GET:@"/wda/accessibleSource"] respondWithTarget:self action:@selector(handleGetAccessibleSourceCommand:)],
+    [[FBRoute GET:@"/wda/accessibleSource"].withoutSession respondWithTarget:self action:@selector(handleGetAccessibleSourceCommand:)],
   ];
 }
 
 
 #pragma mark - Commands
 
-+ (id<FBResponsePayload>)handleGetTreeCommand:(FBRouteRequest *)request
++ (id<FBResponsePayload>)handleGetSourceCommand:(FBRouteRequest *)request
 {
   FBApplication *application = request.session.application ?: [FBApplication fb_activeApplication];
-  if (!application) {
-    return FBResponseWithErrorFormat(@"There is no active application");
+  NSString *sourceType = request.parameters[@"format"];
+  id result;
+  if (!sourceType || [sourceType caseInsensitiveCompare:@"xml"] == NSOrderedSame) {
+    [application fb_waitUntilSnapshotIsStable];
+    result = [FBXPath xmlStringWithSnapshot:application.fb_lastSnapshot];
+  } else if ([sourceType caseInsensitiveCompare:@"json"] == NSOrderedSame) {
+    result = application.fb_tree;
+  } else {
+    return FBResponseWithStatus(
+      FBCommandStatusUnsupported,
+      [NSString stringWithFormat:@"Unknown source type '%@'. Only 'xml' and 'json' source types are supported.", sourceType]
+    );
   }
-  const BOOL accessibleTreeType = [request.arguments[@"accessible"] boolValue];
-  return FBResponseWithStatus(FBCommandStatusNoError, @{ @"tree": (accessibleTreeType ? application.fb_accessibilityTree : application.fb_tree) });
+  if (nil == result) {
+    return FBResponseWithErrorFormat(@"Cannot get '%@' source of the current application", sourceType);
+  }
+  return FBResponseWithObject(result);
+}
+
++ (id<FBResponsePayload>)handleGetAccessibleSourceCommand:(FBRouteRequest *)request
+{
+  FBApplication *application = request.session.application ?: [FBApplication fb_activeApplication];
+  return FBResponseWithObject(application.fb_accessibilityTree ?: @{});
 }
 
 @end

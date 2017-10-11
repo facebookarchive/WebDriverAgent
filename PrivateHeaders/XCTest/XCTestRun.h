@@ -4,14 +4,19 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
+#import <XCTest/XCTestRun.h>
+
 @class NSDate, XCTest, _XCInternalTestRun;
 
-@interface XCTestRun : NSObject
+@interface XCTestRun ()
 {
     id _internalTestRun;
 }
 @property(readonly) _XCInternalTestRun *implementation; // @synthesize implementation=_internalTestRun;
 @property(readonly) BOOL hasSucceeded;
+@property unsigned long long unexpectedExceptionCountBeforeCrash;
+@property unsigned long long failureCountBeforeCrash;
+@property unsigned long long executionCountBeforeCrash;
 @property(readonly) unsigned long long testCaseCount;
 @property(readonly) unsigned long long unexpectedExceptionCount;
 @property(readonly) unsigned long long failureCount;

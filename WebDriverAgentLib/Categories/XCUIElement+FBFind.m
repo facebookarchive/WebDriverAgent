@@ -10,24 +10,45 @@
 
 #import "XCUIElement+FBFind.h"
 
+#import "FBMacros.h"
 #import "FBElementTypeTransformer.h"
+#import "FBPredicate.h"
+#import "NSPredicate+FBFormat.h"
 #import "XCElementSnapshot.h"
-#import "XCElementSnapshot+Helpers.h"
-#import "XCUIElement+WebDriverAttributes.h"
+#import "XCElementSnapshot+FBHelpers.h"
+#import "XCUIElement+FBUtilities.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
+#import "FBElementUtils.h"
 
 @implementation XCUIElement (FBFind)
+
++ (NSArray<XCUIElement *> *)fb_extractMatchingElementsFromQuery:(XCUIElementQuery *)query shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
+{
+  if (!shouldReturnAfterFirstMatch) {
+    return query.allElementsBoundByIndex;
+  }
+  XCUIElement *matchedElement = [query elementBoundByIndex:0];
+  if (matchedElement && matchedElement.exists) {
+    return @[matchedElement];
+  }
+  return @[];
+}
 
 
 #pragma mark - Search by ClassName
 
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingClassName:(NSString *)className
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingClassName:(NSString *)className shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
   NSMutableArray *result = [NSMutableArray array];
   XCUIElementType type = [FBElementTypeTransformer elementTypeWithTypeName:className];
   if (self.elementType == type || type == XCUIElementTypeAny) {
     [result addObject:self];
+    if (shouldReturnAfterFirstMatch) {
+      return result.copy;
+    }
   }
-  [result addObjectsFromArray:[[self descendantsMatchingType:type] allElementsBoundByIndex]];
+  XCUIElementQuery *query = [self descendantsMatchingType:type];
+  [result addObjectsFromArray:[self.class fb_extractMatchingElementsFromQuery:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch]];
   return result.copy;
 }
 
@@ -55,12 +76,13 @@
     }
   }
 
-  property = wdAttributeNameForAttributeName(property);
+  property = [FBElementUtils wdAttributeNameForAttributeName:property];
   value = [value stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
   NSString *operation = partialSearch ?
   [NSString stringWithFormat:@"%@ like '*%@*'", property, value] :
   [NSString stringWithFormat:@"%@ == '%@'", property, value];
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:operation];
+
+  NSPredicate *predicate = [FBPredicate predicateWithFormat:operation];
   XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate];
   NSArray *childElements = [query allElementsBoundByIndex];
   [results addObjectsFromArray:childElements];
@@ -69,51 +91,60 @@
 
 #pragma mark - Search by Predicate String
 
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate {
-  XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate];
-  NSArray *childElements = [query allElementsBoundByIndex];
-  return childElements;
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingPredicate:(NSPredicate *)predicate shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
+{
+  NSPredicate *formattedPredicate = [NSPredicate fb_formatSearchPredicate:predicate];
+  NSMutableArray<XCUIElement *> *result = [NSMutableArray array];
+  // Include self element into predicate search
+  if ([formattedPredicate evaluateWithObject:self.fb_lastSnapshot]) {
+    if (shouldReturnAfterFirstMatch) {
+      return @[self];
+    }
+    [result addObject:self];
+  }
+  XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:formattedPredicate];
+  [result addObjectsFromArray:[self.class fb_extractMatchingElementsFromQuery:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch]];
+  return result.copy;
 }
 
 
 #pragma mark - Search by xpath
 
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery
+- (NSArray<XCElementSnapshot *> *)getMatchedSnapshotsByXPathQuery:(NSString *)xpathQuery
 {
   // XPath will try to match elements only class name, so requesting elements by XCUIElementTypeAny will not work. We should use '*' instead.
   xpathQuery = [xpathQuery stringByReplacingOccurrencesOfString:@"XCUIElementTypeAny" withString:@"*"];
-  NSArray *matchingSnapshots = [self.lastSnapshot fb_descendantsMatchingXPathQuery:xpathQuery];
-  NSArray *allElements = [[self descendantsMatchingType:XCUIElementTypeAny] allElementsBoundByIndex];
-  NSArray *matchingElements = [self filterElements:allElements matchingSnapshots:matchingSnapshots];
-  return matchingElements;
+  [self fb_waitUntilSnapshotIsStable];
+  return [self.fb_lastSnapshot fb_descendantsMatchingXPathQuery:xpathQuery];
 }
 
-- (NSArray<XCUIElement *> *)filterElements:(NSArray<XCUIElement *> *)elements matchingSnapshots:(NSArray<XCElementSnapshot *> *)snapshots
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
-  NSMutableArray *matchingElements = [NSMutableArray array];
-  [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
-    [elements enumerateObjectsUsingBlock:^(XCUIElement *element, NSUInteger elementIdx, BOOL *stopElementEnum) {
-      [element resolve];
-      if ([element.lastSnapshot _matchesElement:snapshot]) {
-        [matchingElements addObject:element];
-        *stopElementEnum = YES;
-      }
-    }];
-  }];
-  return matchingElements.copy;
+  NSArray *matchingSnapshots = [self getMatchedSnapshotsByXPathQuery:xpathQuery];
+  if (0 == [matchingSnapshots count]) {
+    return @[];
+  }
+  if (shouldReturnAfterFirstMatch) {
+    XCElementSnapshot *snapshot = matchingSnapshots.firstObject;
+    matchingSnapshots = @[snapshot];
+  }
+  return [self fb_filterDescendantsWithSnapshots:matchingSnapshots];
 }
 
 
 #pragma mark - Search by Accessibility Id
 
-- (NSArray<XCUIElement *> *)fb_descendantsMatchingIdentifier:(NSString *)accessibilityId
+- (NSArray<XCUIElement *> *)fb_descendantsMatchingIdentifier:(NSString *)accessibilityId shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
   NSMutableArray *result = [NSMutableArray array];
   if (self.identifier == accessibilityId) {
     [result addObject:self];
+    if (shouldReturnAfterFirstMatch) {
+      return result.copy;
+    }
   }
-  NSArray *children = [[[self descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:accessibilityId] allElementsBoundByIndex];
-  [result addObjectsFromArray: children];
+  XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:accessibilityId];
+  [result addObjectsFromArray:[self.class fb_extractMatchingElementsFromQuery:query shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch]];
   return result.copy;
 }
 

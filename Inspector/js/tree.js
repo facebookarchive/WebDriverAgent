@@ -7,6 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import TreeView from 'react-treeview';
 
@@ -44,7 +45,7 @@ class Tree extends React.Component {
 
   styleWithMaxHeight(height) {
     return {
-      'maxHeight': height
+      'maxHeight': height,
     };
   }
 
@@ -54,7 +55,7 @@ class Tree extends React.Component {
     }
     return (
       <div>
-        <div className="tree-header"></div>
+        <div className="tree-header"/>
         {this.renderNode(this.props.rootNode)}
       </div>
     );
@@ -62,11 +63,11 @@ class Tree extends React.Component {
 
   renderNode(node) {
     const isSelected = (this.props.selectedNode != null
-      && this.props.selectedNode.key == node.key);
+      && this.props.selectedNode.key === node.key);
     const className = classNames(
-      "tree-node",
+      'tree-node',
       {
-        "selected" : isSelected
+        'selected' : isSelected,
       }
     );
 
@@ -117,10 +118,10 @@ class Tree extends React.Component {
 }
 
 Tree.propTypes = {
-  onSelectedNodeChange: React.PropTypes.func,
-  onHighlightedNodeChange: React.PropTypes.func,
-  rootNode: React.PropTypes.object,
-  selectedNode: React.PropTypes.object,
+  onSelectedNodeChange: PropTypes.func,
+  onHighlightedNodeChange: PropTypes.func,
+  rootNode: PropTypes.object,
+  selectedNode: PropTypes.object,
 };
 
 module.exports = Tree;

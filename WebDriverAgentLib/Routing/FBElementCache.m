@@ -11,7 +11,7 @@
 
 #import "FBAlert.h"
 #import "XCUIElement.h"
-#import "XCUIElement+Utilities.h"
+#import "XCUIElement+FBUtilities.h"
 
 
 @interface FBElementCache ()
@@ -44,9 +44,6 @@
   }
   XCUIElement *element = self.elementCache[uuid];
   [element resolve];
-  if (element.fb_isObstructedByAlert) {
-    [FBAlert throwRequestedItemObstructedByAlertException];
-  }
   return element;
 }
 

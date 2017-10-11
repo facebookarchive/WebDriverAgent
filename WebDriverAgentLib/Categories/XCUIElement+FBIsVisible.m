@@ -9,17 +9,21 @@
 
 #import "XCUIElement+FBIsVisible.h"
 
-#import "XCElementSnapshot+Helpers.h"
+#import "FBApplication.h"
+#import "FBConfiguration.h"
+#import "FBMathUtils.h"
+#import "FBXCodeCompatibility.h"
+#import "XCElementSnapshot+FBHelpers.h"
+#import "XCUIElement+FBUtilities.h"
 #import "XCTestPrivateSymbols.h"
+#import <XCTest/XCUIDevice.h>
+#import "XCElementSnapshot+FBHitPoint.h"
 
 @implementation XCUIElement (FBIsVisible)
 
 - (BOOL)fb_isVisible
 {
-  if (!self.lastSnapshot) {
-    [self resolve];
-  }
-  return self.lastSnapshot.fb_isVisible;
+  return self.fb_lastSnapshot.fb_isVisible;
 }
 
 @end
@@ -28,7 +32,28 @@
 
 - (BOOL)fb_isVisible
 {
-  return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
+  CGRect frame = self.frame;
+  if (CGRectIsEmpty(frame)) {
+    return NO;
+  }
+  if ([FBConfiguration shouldUseTestManagerForVisibilityDetection]) {
+    return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
+  }
+  CGRect appFrame = [self fb_rootElement].frame;
+  CGSize screenSize = FBAdjustDimensionsForApplication(appFrame.size, (UIInterfaceOrientation)[XCUIDevice sharedDevice].orientation);
+  CGRect screenFrame = CGRectMake(0, 0, screenSize.width, screenSize.height);
+  if (!CGRectIntersectsRect(frame, screenFrame)) {
+    return NO;
+  }
+  if (CGRectContainsPoint(appFrame, self.fb_hitPoint)) {
+    return YES;
+  }
+  for (XCElementSnapshot *elementSnapshot in self._allDescendants.copy) {
+    if (CGRectContainsPoint(appFrame, elementSnapshot.fb_hitPoint)) {
+      return YES;
+    }
+  }
+  return NO;
 }
 
 @end

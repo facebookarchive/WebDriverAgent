@@ -10,12 +10,14 @@
 #import "FBApplication.h"
 
 #import "FBApplicationProcessProxy.h"
+#import "FBRunLoopSpinner.h"
 #import "FBMacros.h"
+#import "FBXCodeCompatibility.h"
+#import "XCAccessibilityElement.h"
+#import "XCAXClient_iOS.h"
 #import "XCUIApplication.h"
 #import "XCUIApplicationImpl.h"
 #import "XCUIApplicationProcess.h"
-#import "XCAXClient_iOS.h"
-#import "XCAccessibilityElement.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 
@@ -27,11 +29,18 @@
 
 + (instancetype)fb_activeApplication
 {
+  [[[FBRunLoopSpinner new]
+    timeout:5]
+   spinUntilTrue:^BOOL{
+     return [[XCAXClient_iOS sharedClient] activeApplications].count == 1;
+   }];
+
   XCAccessibilityElement *activeApplicationElement = [[[XCAXClient_iOS sharedClient] activeApplications] firstObject];
   if (!activeApplicationElement) {
     return nil;
   }
-  FBApplication *application = [FBApplication appWithPID:activeApplicationElement.processIdentifier];
+  FBApplication *application = [FBApplication fb_applicationWithPID:activeApplicationElement.processIdentifier];
+  NSAssert(nil != application, @"Active application instance is not expected to be equal to nil", nil);
   [application query];
   [application resolve];
   return application;
@@ -39,11 +48,28 @@
 
 + (instancetype)appWithPID:(pid_t)processID
 {
+  if ([NSProcessInfo processInfo].processIdentifier == processID) {
+    return nil;
+  }
   FBApplication *application = [self fb_registeredApplicationWithProcessID:processID];
   if (application) {
     return application;
   }
   application = [super appWithPID:processID];
+  [FBApplication fb_registerApplication:application withProcessID:processID];
+  return application;
+}
+
++ (instancetype)applicationWithPID:(pid_t)processID
+{
+  if ([NSProcessInfo processInfo].processIdentifier == processID) {
+    return nil;
+  }
+  FBApplication *application = [self fb_registeredApplicationWithProcessID:processID];
+  if (application) {
+    return application;
+  }
+  application = [super applicationWithPID:processID];
   [FBApplication fb_registerApplication:application withProcessID:processID];
   return application;
 }

@@ -19,33 +19,42 @@
 #define FBAssertInvisibleCell(label) XCTAssertFalse(FBCellElementWithLabel(label).fb_isVisible, @"Cell %@ should be invisible", label)
 
 @interface FBScrollingTests : FBIntegrationTestCase
-@property (nonatomic, strong) XCUIElement *tableView;
+@property (nonatomic, strong) XCUIElement *scrollView;
 @end
 
 @implementation FBScrollingTests
 
-+ (BOOL)shouldUseStrippedCells
++ (BOOL)shouldShowCells
 {
-  return NO;
+  return YES;
 }
 
 - (void)setUp
 {
   [super setUp];
-  [self gotToScrollsWithAccessibilityStrippedCells:NO];
-  self.tableView = self.testedApplication.tables.element;
-  [self.tableView resolve];
+  [self launchApplication];
+  [self goToScrollPageWithCells:[self.class shouldShowCells]];
+  self.scrollView = [[self.testedApplication.query descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:@"scrollView"].element;
+  [self.scrollView resolve];
+}
+
+- (void)testCellVisibility
+{
+  FBAssertVisibleCell(@"0");
+  FBAssertVisibleCell(@"10");
+  FBAssertInvisibleCell(@"30");
+  FBAssertInvisibleCell(@"50");
 }
 
 - (void)testSimpleScroll
 {
   FBAssertVisibleCell(@"0");
   FBAssertVisibleCell(@"10");
-  [self.tableView fb_scrollDown];
+  [self.scrollView fb_scrollDownByNormalizedDistance:1.0];
   FBAssertInvisibleCell(@"0");
   FBAssertInvisibleCell(@"10");
-  XCTAssertTrue(self.testedApplication.cells.count > 0);
-  [self.tableView fb_scrollUp];
+  XCTAssertTrue(self.testedApplication.staticTexts.count > 0);
+  [self.scrollView fb_scrollUpByNormalizedDistance:1.0];
   FBAssertVisibleCell(@"0");
   FBAssertVisibleCell(@"10");
 }
@@ -68,6 +77,18 @@
   XCTAssertTrue([FBCellElementWithLabel(cellName) fb_scrollToVisibleWithError:&error]);
   XCTAssertNil(error);
   FBAssertVisibleCell(cellName);
+}
+
+@end
+
+@interface FBNoCellScrollingTests : FBScrollingTests
+@end
+
+@implementation FBNoCellScrollingTests
+
++ (BOOL)shouldShowCells
+{
+  return NO;
 }
 
 @end

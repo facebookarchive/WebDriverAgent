@@ -30,7 +30,19 @@
   if (!self.shouldWaitForQuiescence) {
     return;
   }
+  if ([self.applicationProcess respondsToSelector:@selector(waitForQuiescenceIncludingAnimationsIdle:)]) {
+    [self.applicationProcess waitForQuiescenceIncludingAnimationsIdle:YES];
+    return;
+  }
   [self.applicationProcess waitForQuiescence];
+}
+
+- (void)waitForQuiescenceIncludingAnimationsIdle:(BOOL)includeAnimations
+{
+  if (!self.shouldWaitForQuiescence) {
+    return;
+  }
+  [self.applicationProcess waitForQuiescenceIncludingAnimationsIdle:includeAnimations];
 }
 
 - (id)forwardingTargetForSelector:(SEL)aSelector

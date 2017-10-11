@@ -16,11 +16,20 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface FBConfiguration : NSObject
 
-/**
- Switch for enabling/disabling reporting fake collection view cells by Accessibility framework.
- If set to YES it will report also invisible cells.
- */
-+ (void)shouldShowFakeCollectionViewCells:(BOOL)showFakeCells;
+/*! If set to YES will ask TestManagerDaemon for element visibility */
++ (void)setShouldUseTestManagerForVisibilityDetection:(BOOL)value;
++ (BOOL)shouldUseTestManagerForVisibilityDetection;
+
+/*! If set to YES will use compact & faster responses */
++ (void)setShouldUseCompactResponses:(BOOL)value;
++ (BOOL)shouldUseCompactResponses;
+
+/*! Disables remote query evaluation making Xcode 9.x tests behave same as Xcode 8.x test */
++ (void)disableRemoteQueryEvaluation;
+
+/* The maximum typing frequency for all typing activities */
++ (void)setMaxTypingFrequency:(NSUInteger)value;
++ (NSUInteger)maxTypingFrequency;
 
 /**
  The range of ports that the HTTP Server should attempt to bind on launch

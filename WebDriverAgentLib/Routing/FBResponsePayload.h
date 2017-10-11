@@ -31,12 +31,12 @@ id<FBResponsePayload> FBResponseWithObject(id object);
 /**
  Returns 'FBCommandStatusNoError' response payload with given 'element', which will be also cached in 'elementCache'
  */
-id<FBResponsePayload> FBResponseWithCachedElement(XCUIElement *element, FBElementCache *elementCache);
+id<FBResponsePayload> FBResponseWithCachedElement(XCUIElement *element, FBElementCache *elementCache, BOOL compact);
 
 /**
  Returns 'FBCommandStatusNoError' response payload with given array of 'elements', which will be also cached in 'elementCache'
  */
-id<FBResponsePayload> FBResponseWithCachedElements(NSArray<XCUIElement *> *elements, FBElementCache *elementCache);
+id<FBResponsePayload> FBResponseWithCachedElements(NSArray<XCUIElement *> *elements, FBElementCache *elementCache, BOOL compact);
 
 /**
  Returns 'FBCommandStatusNoError' response payload with given elementUUID

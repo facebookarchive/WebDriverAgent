@@ -23,12 +23,14 @@
 @property(readonly) XCUICoordinate *coordinate; // @synthesize coordinate=_coordinate;
 @property(readonly) XCUIElement *element; // @synthesize element=_element;
 
-- (id)description;
-- (id)copyWithZone:(NSZone *)arg1;
 - (id)initWithCoordinate:(id)arg1 pointsOffset:(CGVector)arg2;
 - (id)initWithElement:(id)arg1 normalizedOffset:(CGVector)arg2;
 - (id)init;
 
-#endif
+- (void)pressForDuration:(double)arg1 thenDragToCoordinate:(id)arg2;
+- (void)pressForDuration:(double)arg1;
+- (void)doubleTap;
+- (void)tap;
 
 @end
+#endif

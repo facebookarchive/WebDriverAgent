@@ -28,7 +28,6 @@
 - (void)_suspendObservation;
 - (void)_resumeObservation;
 - (void)_observeTestExecutionForBlock:(CDUnknownBlockType)arg1;
-- (void)_instantiateObserversFromObserverClassNames:(id)arg1;
 - (void)removeTestObserver:(id)arg1;
 - (void)addTestObserver:(id)arg1;
 - (void)_addLegacyTestObserver:(id)arg1;
