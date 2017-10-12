@@ -49,7 +49,14 @@ static NSString *const SOURCE_FORMAT_DESCRIPTION = @"description";
   } else if ([sourceType caseInsensitiveCompare:SOURCE_FORMAT_JSON] == NSOrderedSame) {
     result = application.fb_tree;
   } else if ([sourceType caseInsensitiveCompare:SOURCE_FORMAT_DESCRIPTION] == NSOrderedSame) {
-    result = application.debugDescription;
+    NSMutableArray<NSString *> *childrenDescriptions = [NSMutableArray array];
+    for (XCUIElement *child in [application childrenMatchingType:XCUIElementTypeAny].allElementsBoundByIndex) {
+      [childrenDescriptions addObject:child.debugDescription];
+    }
+    // debugDescription property of XCUIApplication instance shows descendants addresses in memory
+    // instead of the actual information about them, however the representation works properly
+    // for all descendant elements
+    result = (0 == childrenDescriptions.count) ? application.debugDescription : [childrenDescriptions componentsJoinedByString:@"\n\n"];
   } else {
     return FBResponseWithStatus(
       FBCommandStatusUnsupported,
