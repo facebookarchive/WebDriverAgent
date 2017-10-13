@@ -34,15 +34,14 @@
 @property(readonly, nonatomic) UIInterfaceOrientation interfaceOrientation; //TODO tvos
 @property(readonly, nonatomic) BOOL running;
 @property(nonatomic) pid_t processID; // @synthesize processID=_processID;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED <= __IPHONE_10_0
-@property(nonatomic, readwrite) NSUInteger state; // @synthesize state=_state;
-#endif
 @property(readonly) XCAccessibilityElement *accessibilityElement;
 
 /*! DO NOT USE DIRECTLY! Please use fb_applicationWithPID instead */
 + (instancetype)appWithPID:(pid_t)processID;
 /*! DO NOT USE DIRECTLY! Please use fb_applicationWithPID instead */
 + (instancetype)applicationWithPID:(pid_t)processID;
+/*! DO NOT USE DIRECTLY! Please use fb_activate instead */
+- (void)activate;
 
 - (void)dismissKeyboard;
 - (BOOL)setFauxCollectionViewCellsEnabled:(BOOL)arg1 error:(id *)arg2;
