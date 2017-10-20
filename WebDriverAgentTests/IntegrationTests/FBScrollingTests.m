@@ -10,13 +10,14 @@
 #import <XCTest/XCTest.h>
 
 #import "FBIntegrationTestCase.h"
+#import "FBTestMacros.h"
 
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBScrolling.h"
 
 #define FBCellElementWithLabel(label) ([self.testedApplication descendantsMatchingType:XCUIElementTypeAny][label])
-#define FBAssertVisibleCell(label) XCTAssertTrue(FBCellElementWithLabel(label).fb_isVisible, @"Cell %@ should be visible", label)
-#define FBAssertInvisibleCell(label) XCTAssertFalse(FBCellElementWithLabel(label).fb_isVisible, @"Cell %@ should be invisible", label)
+#define FBAssertVisibleCell(label) FBAssertWaitTillBecomesTrue(FBCellElementWithLabel(label).fb_isVisible)
+#define FBAssertInvisibleCell(label) FBAssertWaitTillBecomesTrue(!FBCellElementWithLabel(label).fb_isVisible)
 
 @interface FBScrollingTests : FBIntegrationTestCase
 @property (nonatomic, strong) XCUIElement *scrollView;
