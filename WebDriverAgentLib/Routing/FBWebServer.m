@@ -111,11 +111,10 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 - (void)stopServing
 {
-  [FBSession  killAll];
+  [FBSession.activeSession kill];
   if (self.server.isRunning) {
     [self.server stop:NO];
   }
-
   self.keepAlive = NO;
 }
 

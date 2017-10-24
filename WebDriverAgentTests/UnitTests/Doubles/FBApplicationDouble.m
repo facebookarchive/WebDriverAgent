@@ -25,6 +25,11 @@
   return 0;
 }
 
+- (NSString *)bundleID
+{
+  return @"com.facebook.awesome";
+}
+
 - (void)resolve
 {
 
