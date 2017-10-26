@@ -44,7 +44,13 @@
   if (!CGRectIntersectsRect(frame, screenFrame)) {
     return NO;
   }
-  CGPoint midPoint = [self.suggestedHitpoints.lastObject CGPointValue];
+  CGPoint midPoint;
+  @try {	
+    midPoint = [self hitPoint];
+  } @catch (NSException *e) {
+    [FBLogger logFmt:@"Failed to fetch hit point for %@ - %@", self.debugDescription, e.reason];
+    midPoint = [self.suggestedHitpoints.lastObject CGPointValue];
+  }
   XCElementSnapshot *hitElement = [self hitTest:midPoint];
   if (self == hitElement || [self._allDescendants.copy containsObject:hitElement]) {
     return YES;
