@@ -17,7 +17,6 @@
 #import "XCUIElement+FBUtilities.h"
 #import "XCTestPrivateSymbols.h"
 #import <XCTest/XCUIDevice.h>
-#import "XCElementSnapshot+FBHitPoint.h"
 
 @implementation XCUIElement (FBIsVisible)
 
@@ -49,14 +48,6 @@
   XCElementSnapshot *hitElement = [self hitTest:midPoint];
   if (self == hitElement || [self._allDescendants.copy containsObject:hitElement]) {
     return YES;
-  }
-  if (CGRectContainsPoint(appFrame, self.fb_hitPoint)) {
-    return YES;
-  }
-  for (XCElementSnapshot *elementSnapshot in self._allDescendants.copy) {
-    if (CGRectContainsPoint(appFrame, elementSnapshot.fb_hitPoint)) {
-      return YES;
-    }
   }
   return NO;
 }
