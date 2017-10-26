@@ -36,29 +36,12 @@ static FBSession *_activeSession;
   return _activeSession ?: [FBSession sessionWithApplication:nil];
 }
 
-+ (void)killAll
-{
-  while (self.sessions.count > 0) {
-    FBSession *session = [self.sessions anyObject];
-    [session kill];
-  }
-}
-
 + (void)markSessionActive:(FBSession *)session
 {
+  if (_activeSession && _activeSession.testedApplication.bundleID != session.testedApplication.bundleID) {
+    [_activeSession kill];
+  }
   _activeSession = session;
-}
-
-+ (NSMutableSet<FBSession *> *)sessions
-{
-  static NSMutableSet<FBSession *> *_sessions;
-
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    _sessions = [[NSMutableSet<FBSession *> alloc] init];
-  });
-
-  return _sessions;
 }
 
 + (instancetype)sessionWithIdentifier:(NSString *)identifier
@@ -78,7 +61,6 @@ static FBSession *_activeSession;
   session.identifier = [[NSUUID UUID] UUIDString];
   session.testedApplication = application;
   session.elementCache = [FBElementCache new];
-  [FBSession.sessions addObject:session];
   [FBSession markSessionActive:session];
   return session;
 }
@@ -86,23 +68,15 @@ static FBSession *_activeSession;
 - (void)kill
 {
   [self.testedApplication terminate];
-  [FBSession.sessions removeObject:self];
-
-  if ([self isEqual:_activeSession]) {
-    _activeSession = nil;
-  }
+  _activeSession = nil;
 }
 
 - (FBApplication *)application
 {
-  FBApplication *application = [FBApplication fb_activeApplication];
-  const BOOL testedApplicationIsActiveAndNotRunning = (application.processID == self.testedApplication.processID && !application.running);
-  if (testedApplicationIsActiveAndNotRunning) {
+  if (self.testedApplication && !self.testedApplication.running) {
     [[NSException exceptionWithName:FBApplicationCrashedException reason:@"Application is not running, possibly crashed" userInfo:nil] raise];
   }
-  [application query];
-  [application resolve];
-  return application;
+  return [FBApplication fb_activeApplication] ?: self.testedApplication;
 }
 
 @end

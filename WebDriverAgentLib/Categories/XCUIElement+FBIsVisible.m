@@ -45,6 +45,11 @@
   if (!CGRectIntersectsRect(frame, screenFrame)) {
     return NO;
   }
+  CGPoint midPoint = [self.suggestedHitpoints.lastObject CGPointValue];
+  XCElementSnapshot *hitElement = [self hitTest:midPoint];
+  if (self == hitElement || [self._allDescendants.copy containsObject:hitElement]) {
+    return YES;
+  }
   if (CGRectContainsPoint(appFrame, self.fb_hitPoint)) {
     return YES;
   }

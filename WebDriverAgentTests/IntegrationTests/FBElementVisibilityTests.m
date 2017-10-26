@@ -71,12 +71,12 @@
   [self launchApplication];
   [self goToScrollPageWithCells:YES];
   for (int i = 0 ; i < 10 ; i++) {
-    XCTAssertTrue(self.testedApplication.cells.allElementsBoundByIndex[i].fb_isVisible);
-    XCTAssertTrue(self.testedApplication.staticTexts.allElementsBoundByIndex[i].fb_isVisible);
+    FBAssertWaitTillBecomesTrue(self.testedApplication.cells.allElementsBoundByIndex[i].fb_isVisible);
+    FBAssertWaitTillBecomesTrue(self.testedApplication.staticTexts.allElementsBoundByIndex[i].fb_isVisible);
   }
   for (int i = 30 ; i < 40 ; i++) {
-    XCTAssertFalse(self.testedApplication.cells.allElementsBoundByIndex[i].fb_isVisible);
-    XCTAssertFalse(self.testedApplication.staticTexts.allElementsBoundByIndex[i].fb_isVisible);
+    FBAssertWaitTillBecomesTrue(!self.testedApplication.cells.allElementsBoundByIndex[i].fb_isVisible);
+    FBAssertWaitTillBecomesTrue(!self.testedApplication.staticTexts.allElementsBoundByIndex[i].fb_isVisible);
   }
 }
 
