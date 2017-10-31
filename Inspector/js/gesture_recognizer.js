@@ -16,6 +16,7 @@ class GestureRecognizer {
   constructor(params) {
     this._onClick = params.onClick;
     this._onDrag = params.onDrag;
+    this._onKeyDown = params.onKeyDown;
     this._state = {
       value: IDLE,
       params: {},
@@ -60,6 +61,17 @@ class GestureRecognizer {
       value: IDLE,
       params: {},
     };
+  }
+
+  onKeyDown(ev) {
+    if (ev.target !== document.body) {
+      return;
+    }
+    var key = ev.key;
+    if (!key || key.length !== 1) {
+      return;
+    }
+    this._onKeyDown(key);
   }
 
   _triggerClick() {

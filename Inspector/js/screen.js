@@ -18,6 +18,14 @@ var Button = require('react-button');
 require('css/screen.css');
 
 class Screen extends React.Component {
+  componentWillMount() {
+     document.addEventListener('keydown', this.onKeyDown.bind(this), false);
+  }
+
+  componentWillUnmount() {
+      document.removeEventListener('keydown', this.onKeyDown.bind(this), false);
+  }
+
   render() {
     return (
       <div id="screen" className="section first">
@@ -51,6 +59,9 @@ class Screen extends React.Component {
         },
         onDrag: (params) => {
           this.onScreenShotDrag(params);
+        },
+        onKeyDown: (key) => {
+          this.onScreenShotKeyDown(key);
         },
       });
     }
@@ -129,6 +140,23 @@ class Screen extends React.Component {
     );
   }
 
+  onScreenShotKeyDown(key) {
+    HTTP.get(
+      'status', (status_result) => {
+        var session_id = status_result.sessionId;
+        HTTP.post(
+          'session/' + session_id + '/wda/keys',
+          JSON.stringify({
+            'value': [key],
+          }),
+          (tap_result) => {
+            this.props.refreshApp();
+          },
+        );
+      },
+    );
+  }
+
   onMouseDown(ev) {
     this.gestureRecognizer().onMouseDown(ev);
   }
@@ -139,6 +167,10 @@ class Screen extends React.Component {
 
   onMouseUp(ev) {
     this.gestureRecognizer().onMouseUp(ev);
+  }
+
+  onKeyDown(ev) {
+    this.gestureRecognizer().onKeyDown(ev);
   }
 
   home(ev) {
