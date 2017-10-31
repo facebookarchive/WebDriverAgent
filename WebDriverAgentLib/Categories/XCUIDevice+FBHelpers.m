@@ -62,7 +62,9 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   [invocation setTarget:mainScreen];
   [invocation setSelector:mSelector];
   // https://developer.apple.com/documentation/xctest/xctimagequality?language=objc
-  NSUInteger quality = [UIScreen.mainScreen scale] > 2.0 ? 1 : 0;
+  // Select lower quality for screens with retina scale > 2.0,
+  // since XCTest crashes if the maximum quality (zero value) is selected on iPhone 7 Plus or iPad Pro
+  NSUInteger quality = [[mainScreen valueForKey:@"scale"] doubleValue] > 2.0 ? 1 : 0;
   [invocation setArgument:&quality atIndex:2];
   CGRect screenRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
   [invocation setArgument:&screenRect atIndex:3];
