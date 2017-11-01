@@ -12,16 +12,39 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface FBAbstractPredicateItem : NSObject
+
+/*! The actual predicate value of an item */
+@property (nonatomic, readonly) NSPredicate *value;
+
+/**
+ Instance constructor, which allows to set item value on instance creation
+ 
+ @param value the actual predicate value
+ @return FBAbstractPredicateItem instance
+ */
+- (instancetype)initWithValue:(NSPredicate *)value;
+
+@end
+
+@interface FBSelfPredicateItem : FBAbstractPredicateItem
+
+@end
+
+@interface FBDescendantPredicateItem : FBAbstractPredicateItem
+
+@end
+
 @interface FBClassChainItem : NSObject
 
 /*! Element's position */
 @property (readonly, nonatomic) NSInteger position;
 /*! Element's type */
 @property (readonly, nonatomic) XCUIElementType type;
-/*! Element's predicate */
-@property (nullable, readonly, nonatomic) NSPredicate *predicate;
 /*! Whether an element is a descendant of the previos element */
 @property (readonly, nonatomic) BOOL isDescendant;
+/*! The ordered list of matching predicates for the current element */
+@property (readonly, nonatomic) NSArray<FBAbstractPredicateItem *> *predicates;
 
 /**
  Instance constructor, which allows to set element type and position
@@ -31,13 +54,13 @@ NS_ASSUME_NONNULL_BEGIN
    starts with 1. Zero value means that all sibling element should be selected.
    Negative value means that numeration starts from the last element, for example
    -1 is the last child element and -2 is the second last element
- @param predicate valid predicate expession for element search. Can be nil
+ @param predicates the list of matching descendant/self predicates
  @param isDescendant equals to YES if the element is a descendantt element of
-   the previous element in the chain. NO value maens the element is the direct
+   the previous element in the chain. NO value means the element is the direct
    child of the previous element
  @return FBClassChainElement instance
  */
-- (instancetype)initWithType:(XCUIElementType)type position:(NSInteger)position predicate:(NSPredicate *)predicate isDescendant:(BOOL)isDescendant;
+- (instancetype)initWithType:(XCUIElementType)type position:(NSInteger)position predicates:(NSArray<FBAbstractPredicateItem *> *)predicates isDescendant:(BOOL)isDescendant;
 
 @end
 

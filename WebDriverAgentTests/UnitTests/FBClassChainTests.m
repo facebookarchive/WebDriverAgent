@@ -114,13 +114,13 @@
   FBClassChainItem *firstElement = [result.elements firstObject];
   XCTAssertEqual(firstElement.type, XCUIElementTypeWindow);
   XCTAssertEqual(firstElement.position, 1);
-  XCTAssertNil(firstElement.predicate);
+  XCTAssertEqual(firstElement.predicates.count, 0);
   XCTAssertFalse(firstElement.isDescendant);
   
   FBClassChainItem *secondElement = [result.elements objectAtIndex:1];
   XCTAssertEqual(secondElement.type, XCUIElementTypeButton);
   XCTAssertEqual(secondElement.position, -1);
-  XCTAssertNil(secondElement.predicate);
+  XCTAssertEqual(secondElement.predicates.count, 0);
   XCTAssertFalse(secondElement.isDescendant);
 }
 
@@ -134,13 +134,13 @@
   FBClassChainItem *firstElement = [result.elements firstObject];
   XCTAssertEqual(firstElement.type, XCUIElementTypeWindow);
   XCTAssertEqual(firstElement.position, 1);
-  XCTAssertNotNil(firstElement.predicate);
+  XCTAssertEqual(firstElement.predicates.count, 1);
   XCTAssertFalse(firstElement.isDescendant);
   
   FBClassChainItem *secondElement = [result.elements objectAtIndex:1];
   XCTAssertEqual(secondElement.type, XCUIElementTypeButton);
   XCTAssertEqual(secondElement.position, 0);
-  XCTAssertNil(secondElement.predicate);
+  XCTAssertEqual(secondElement.predicates.count, 0);
   XCTAssertFalse(secondElement.isDescendant);
 }
 
@@ -154,13 +154,13 @@
   FBClassChainItem *firstElement = [result.elements firstObject];
   XCTAssertEqual(firstElement.type, XCUIElementTypeWindow);
   XCTAssertEqual(firstElement.position, 1);
-  XCTAssertNotNil(firstElement.predicate);
+  XCTAssertEqual(firstElement.predicates.count, 1);
   XCTAssertFalse(firstElement.isDescendant);
   
   FBClassChainItem *secondElement = [result.elements objectAtIndex:1];
   XCTAssertEqual(secondElement.type, XCUIElementTypeButton);
   XCTAssertEqual(secondElement.position, 0);
-  XCTAssertNotNil(secondElement.predicate);
+  XCTAssertEqual(secondElement.predicates.count, 1);
   XCTAssertFalse(secondElement.isDescendant);
 }
 
@@ -174,13 +174,13 @@
   FBClassChainItem *firstElement = [result.elements firstObject];
   XCTAssertEqual(firstElement.type, XCUIElementTypeTable);
   XCTAssertEqual(firstElement.position, 10);
-  XCTAssertNotNil(firstElement.predicate);
+  XCTAssertEqual(firstElement.predicates.count, 1);
   XCTAssertTrue(firstElement.isDescendant);
   
   FBClassChainItem *secondElement = [result.elements objectAtIndex:1];
   XCTAssertEqual(secondElement.type, XCUIElementTypeButton);
   XCTAssertEqual(secondElement.position, 0);
-  XCTAssertNotNil(secondElement.predicate);
+  XCTAssertEqual(secondElement.predicates.count, 1);
   XCTAssertTrue(secondElement.isDescendant);
 }
 
@@ -194,14 +194,42 @@
   FBClassChainItem *firstElement = [result.elements firstObject];
   XCTAssertEqual(firstElement.type, XCUIElementTypeAny);
   XCTAssertEqual(firstElement.position, 3);
-  XCTAssertNotNil(firstElement.predicate);
+  XCTAssertEqual(firstElement.predicates.count, 1);
   XCTAssertFalse(firstElement.isDescendant);
   
   FBClassChainItem *secondElement = [result.elements objectAtIndex:1];
   XCTAssertEqual(secondElement.type, XCUIElementTypeButton);
   XCTAssertEqual(secondElement.position, -1);
-  XCTAssertNotNil(secondElement.predicate);
+  XCTAssertEqual(secondElement.predicates.count, 1);
   XCTAssertFalse(secondElement.isDescendant);
+}
+
+- (void)testValidChainWithDescendantPredicate
+{
+  NSError *error;
+  FBClassChain *result = [FBClassChainQueryParser parseQuery:@"**/XCUIElementTypeTable[$type == 'XCUIElementTypeImage' AND name == 'olala'$][`name == 'blabla'`][10]" error:&error];
+  XCTAssertNotNil(result);
+  XCTAssertEqual(result.elements.count, 1);
+  
+  FBClassChainItem *firstElement = [result.elements firstObject];
+  XCTAssertEqual(firstElement.type, XCUIElementTypeTable);
+  XCTAssertEqual(firstElement.position, 10);
+  XCTAssertEqual(firstElement.predicates.count, 2);
+  XCTAssertTrue(firstElement.isDescendant);
+}
+
+- (void)testValidChainWithMultipleDescendantPredicates
+{
+  NSError *error;
+  FBClassChain *result = [FBClassChainQueryParser parseQuery:@"**/XCUIElementTypeTable[$type == 'XCUIElementTypeImage' AND name == 'olala'$][`value == 'peace'`][$value == 'yolo'$][`name == 'blabla'`][10]" error:&error];
+  XCTAssertNotNil(result);
+  XCTAssertEqual(result.elements.count, 1);
+  
+  FBClassChainItem *firstElement = [result.elements firstObject];
+  XCTAssertEqual(firstElement.type, XCUIElementTypeTable);
+  XCTAssertEqual(firstElement.position, 10);
+  XCTAssertEqual(firstElement.predicates.count, 4);
+  XCTAssertTrue(firstElement.isDescendant);
 }
 
 - (void)testInvalidChains
@@ -231,11 +259,13 @@
     ,@"XCUIElementTypeWindow[1][`visible = 1`]"
     ,@"XCUIElementTypeWindow[1] [`visible = 1`]"
     ,@"XCUIElementTypeWindow[ `visible = 1`]"
-    ,@"XCUIElementTypeWindow[`visible = 1`][`name = \"bla\"`]"
     ,@"XCUIElementTypeWindow[`visible = 1][`name = \"bla\"`]"
     ,@"XCUIElementTypeWindow[`visible = 1]"
+    ,@"XCUIElementTypeWindow[$visible = 1]"
     ,@"XCUIElementTypeWindow[``]"
+    ,@"XCUIElementTypeWindow[$$]"
     ,@"XCUIElementTypeWindow[`name = \"bla```bla\"`]"
+    ,@"XCUIElementTypeWindow[$name = \"bla$$$bla\"$]"
   ];
   for (NSString *invalidQuery in invalidQueries) {
     NSError *error;
