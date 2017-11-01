@@ -109,5 +109,5 @@ BOOL isSDKVersionGreaterThan(NSString *expected)
     return SYSTEM_VERSION_GREATER_THAN(expected);
   }
   NSComparisonResult result = [version compare:expected options:NSNumericSearch];
-  return result == NSOrderedDescending || result == NSOrderedSame;
+  return result == NSOrderedDescending;
 }

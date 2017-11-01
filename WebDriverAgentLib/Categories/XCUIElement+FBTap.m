@@ -13,7 +13,6 @@
 #import "FBLogger.h"
 #import "FBMacros.h"
 #import "FBMathUtils.h"
-#import "FBRuntimeUtils.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCEventGenerator.h"
 #import "XCSynthesizedEventRecord.h"

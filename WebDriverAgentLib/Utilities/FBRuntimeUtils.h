@@ -26,6 +26,13 @@ NSArray<Class> *FBClassesThatConformsToProtocol(Protocol *protocol);
 void *FBRetrieveSymbolFromBinary(const char *binary, const char *name);
 
 /**
+ Get the compiler SDK version as string.
+ 
+ @return SDK version as string, for example "10.0" or nil if it cannot be received
+ */
+NSString * _Nullable FBSDKVersion(void);
+
+/**
  Check if the compiler SDK version is less than the given version.
  The current iOS version is taken instead if SDK version cannot be retrieved.
  
