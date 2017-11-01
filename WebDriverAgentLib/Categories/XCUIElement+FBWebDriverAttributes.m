@@ -73,7 +73,9 @@ static char const * const FBCachedAttributesKey = "FBCachedAttributes";
     }
     return result;
   }
-  return valueGetter();
+  result = valueGetter();
+  [self fb_setCachedValue:result forAttributeName:attributeName];
+  return result;
 }
 
 - (void)fb_setCachedValue:(id)value forAttributeName:(NSString *)name
