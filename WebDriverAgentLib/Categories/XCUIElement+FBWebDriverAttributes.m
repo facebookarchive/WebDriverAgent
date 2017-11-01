@@ -153,7 +153,7 @@ static char const * const FBCachedAttributesKey = "FBCachedAttributes";
 - (CGRect)wdFrame
 {
   id (^valueGetter)(void) = ^id(void) {
-    return @(CGRectIntegral(self.frame));
+    return [NSValue valueWithCGRect:CGRectIntegral(self.frame)];
   };
   return [[self fb_cachedValueFor:@"wdFrame" valueGetter:valueGetter] CGRectValue];
 }
