@@ -29,7 +29,10 @@
 
 - (void)testScreenshot
 {
-  XCTAssertNotNil([UIImage imageWithData:[XCUIDevice sharedDevice].fb_screenshot]);
+  NSError *error = nil;
+  NSData *screenshotData = [[XCUIDevice sharedDevice] fb_screenshotWithError:&error];
+  XCTAssertNotNil([UIImage imageWithData:screenshotData]);
+  XCTAssertNil(error);
 }
 
 - (void)testWifiAddress
