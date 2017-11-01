@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface XCElementSnapshot (WebDriverAttributes) <FBElement>
 
+/*! Stores cached attribute values, which imrpoves queries performance */
+@property (nonatomic) NSMutableDictionary<NSString *, id> *fb_cachedAttributes;
+
 @end
 
 NS_ASSUME_NONNULL_END
