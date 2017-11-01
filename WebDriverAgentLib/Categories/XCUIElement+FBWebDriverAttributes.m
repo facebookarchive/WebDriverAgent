@@ -87,10 +87,12 @@ static char const * const FBCachedAttributesKey = "FBCachedAttributes";
     id value = self.value;
     NSUInteger elementType = self.elementType;
     if (elementType == XCUIElementTypeStaticText) {
-      value = FBFirstNonEmptyValue(value, self.label);
+      NSString *label = self.label;
+      value = FBFirstNonEmptyValue(value, label);
     }
     if (elementType == XCUIElementTypeButton) {
-      value = FBFirstNonEmptyValue(value, (self.isSelected ? @YES : nil));
+      BOOL isSelected = self.isSelected;
+      value = FBFirstNonEmptyValue(value, (isSelected ? @YES : nil));
     }
     if (elementType == XCUIElementTypeSwitch) {
       value = @([value boolValue]);
@@ -98,7 +100,8 @@ static char const * const FBCachedAttributesKey = "FBCachedAttributes";
     if (elementType == XCUIElementTypeTextView ||
         elementType == XCUIElementTypeTextField ||
         elementType == XCUIElementTypeSecureTextField) {
-      value = FBFirstNonEmptyValue(value, self.placeholderValue);
+      NSString *placeholderValue = self.placeholderValue;
+      value = FBFirstNonEmptyValue(value, placeholderValue);
     }
     value = FBTransferEmptyStringToNil(value);
     if (nil != value) {
