@@ -22,9 +22,9 @@
 - (void)setUp
 {
   [super setUp];
-  _currentSDKVersion = @"11.0";
   NSDictionary *bundleDict = [[NSBundle mainBundle] infoDictionary];
-  [bundleDict setValue:self.currentSDKVersion forKey:@"DTSDKName"];
+  [bundleDict setValue:@"11.0" forKey:@"DTSDKName"];
+  _currentSDKVersion = FBSDKVersion();
   _lowerSDKVersion = [NSString stringWithFormat:@"%@", @((int)[self.currentSDKVersion doubleValue] - 1)];
   _higherSDKVersion = [NSString stringWithFormat:@"%@", @((int)[self.currentSDKVersion doubleValue] + 1)];
 }
