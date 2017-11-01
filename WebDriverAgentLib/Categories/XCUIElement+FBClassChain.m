@@ -62,8 +62,14 @@ NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseExcept
       query = [self childrenMatchingType:item.type];
     }
   }
-  if (item.predicate) {
-    query = [query matchingPredicate:(id)item.predicate];
+  if (item.predicates) {
+    for (FBAbstractPredicateItem *predicate in item.predicates) {
+      if ([predicate isKindOfClass:FBSelfPredicateItem.class]) {
+        query = [query matchingPredicate:predicate.value];
+      } else if ([predicate isKindOfClass:FBDescendantPredicateItem.class]) {
+        query = [query containingPredicate:predicate.value];
+      }
+    }
   }
   return query;
 }
