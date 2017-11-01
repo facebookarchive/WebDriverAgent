@@ -14,6 +14,9 @@
 #include <notify.h>
 
 #import "FBSpringboardApplication.h"
+#import "FBErrorBuilder.h"
+#import "FBMathUtils.h"
+#import "FBXCodeCompatibility.h"
 
 #import "FBMacros.h"
 #import "XCAXClient_iOS.h"
@@ -37,13 +40,48 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   return YES;
 }
 
-- (NSData *)fb_screenshot
+- (NSData *)fb_screenshotWithError:(NSError*__autoreleasing*)error
 {
   id xcScreen = NSClassFromString(@"XCUIScreen");
-  if (xcScreen) {
-    return (NSData *)[xcScreen valueForKeyPath:@"mainScreen.screenshot.PNGRepresentation"];
+  if (nil == xcScreen) {
+    NSData *result = [[XCAXClient_iOS sharedClient] screenshotData];
+    if (nil == result) {
+      if (error) {
+        *error = [[FBErrorBuilder.builder withDescription:@"Cannot take a screenshot of the current screen state"] build];
+      }
+      return nil;
+    }
+    return result;
   }
-  return [[XCAXClient_iOS sharedClient] screenshotData];
+  
+  id mainScreen = [xcScreen valueForKey:@"mainScreen"];
+  CGSize screenSize = FBAdjustDimensionsForApplication(FBApplication.fb_activeApplication.frame.size, (UIInterfaceOrientation)[self.class sharedDevice].orientation);
+  SEL mSelector = NSSelectorFromString(@"screenshotDataForQuality:rect:error:");
+  NSMethodSignature *mSignature = [mainScreen methodSignatureForSelector:mSelector];
+  NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:mSignature];
+  [invocation setTarget:mainScreen];
+  [invocation setSelector:mSelector];
+  // https://developer.apple.com/documentation/xctest/xctimagequality?language=objc
+  // Select lower quality for screens with retina scale > 2.0,
+  // since XCTest crashes if the maximum quality (zero value) is selected, for example, on iPhone 7 Plus or iPad Pro
+  NSUInteger quality = [[mainScreen valueForKey:@"scale"] doubleValue] > 2.0 ? 1 : 0;
+  [invocation setArgument:&quality atIndex:2];
+  CGRect screenRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
+  [invocation setArgument:&screenRect atIndex:3];
+  [invocation setArgument:&error atIndex:4];
+  [invocation invoke];
+  NSData __unsafe_unretained *result;
+  [invocation getReturnValue:&result];
+  if (nil == result) {
+    return nil;
+  }
+  if (0 == quality) {
+    // PNG-encoded data is only returned if quality is set to zero
+    // Otherwise it's a JPEG
+    return result;
+  }
+  UIImage *image = [UIImage imageWithData:result];
+  return (NSData *)UIImagePNGRepresentation(image);
 }
 
 - (BOOL)fb_fingerTouchShouldMatch:(BOOL)shouldMatch
