@@ -17,6 +17,74 @@
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "NSString+FBXMLSafeString.h"
 
+
+@interface FBElementAttribute : NSObject
+
+@property (nonatomic, readonly) id<FBElement> element;
+
++ (nonnull NSString *)name;
+- (nullable NSString *)value;
+
+- (instancetype)initWithElement:(id<FBElement>)element;
+- (int)recordWithWriter:(xmlTextWriterPtr)writer;
+
++ (NSArray<Class> *)supportedAttributes;
+
+@end
+
+@interface FBTypeAttribute : FBElementAttribute
+
+@end
+
+@interface FBValueAttribute : FBElementAttribute
+
+@end
+
+@interface FBNameAttribute : FBElementAttribute
+
+@end
+
+@interface FBLabelAttribute : FBElementAttribute
+
+@end
+
+@interface FBEnabledAttribute : FBElementAttribute
+
+@end
+
+@interface FBVisibleAttribute : FBElementAttribute
+
+@end
+
+@interface FBDimensionAttribute : FBElementAttribute
+
+@end
+
+@interface FBXAttribute : FBDimensionAttribute
+
+@end
+
+@interface FBYAttribute : FBDimensionAttribute
+
+@end
+
+@interface FBWidthAttribute : FBDimensionAttribute
+
+@end
+
+@interface FBHeightAttribute : FBDimensionAttribute
+
+@end
+
+@interface FBIndexAttribute : FBElementAttribute
+
+@property (nonatomic, nonnull, readonly) NSString* indexValue;
+
+- (instancetype)initWithValue:(NSString *)value;
+
+@end
+
+
 const static char *_UTF8Encoding = "UTF-8";
 
 static NSString *const kXMLIndexPathKey = @"private_indexPath";
@@ -36,7 +104,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 {
   xmlDocPtr doc;
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
-  int rc = [FBXPath getSnapshotAsXML:(XCElementSnapshot *)root writer:writer elementStore:nil];
+  int rc = [FBXPath getSnapshotAsXML:(XCElementSnapshot *)root writer:writer elementStore:nil query:nil];
   if (rc < 0) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
@@ -61,7 +129,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     return nil;
   }
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
-  int rc = [FBXPath getSnapshotAsXML:root writer:writer elementStore:elementStore];
+  int rc = [FBXPath getSnapshotAsXML:root writer:writer elementStore:elementStore query:xpathQuery];
   if (rc < 0) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
@@ -110,14 +178,31 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   return matchingSnapshots;
 }
 
-+ (int)getSnapshotAsXML:(XCElementSnapshot *)root writer:(xmlTextWriterPtr)writer elementStore:(nullable NSMutableDictionary *)elementStore
++ (NSSet<Class> *)elementAttributesWithXPathQuery:(NSString *)query
+{
+  if ([query rangeOfString:@"[^\\w@]@\\*[^\\w]" options:NSRegularExpressionSearch].location != NSNotFound) {
+    // read all element attributes if 'star' attribute name pattern is used in xpath query
+    return [NSSet setWithArray:FBElementAttribute.supportedAttributes];
+  }
+  NSMutableSet<Class> *result = [NSMutableSet set];
+  for (Class attributeCls in FBElementAttribute.supportedAttributes) {
+    if ([query rangeOfString:[NSString stringWithFormat:@"[^\\w@]@%@[^\\w]", [attributeCls name]] options:NSRegularExpressionSearch].location != NSNotFound) {
+      [result addObject:attributeCls];
+    }
+  }
+  return result.copy;
+}
+
++ (int)getSnapshotAsXML:(XCElementSnapshot *)root writer:(xmlTextWriterPtr)writer elementStore:(nullable NSMutableDictionary *)elementStore query:(nullable NSString*)query
 {
   int rc = xmlTextWriterStartDocument(writer, NULL, _UTF8Encoding, NULL);
   if (rc < 0) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterStartDocument. Error code: %d", rc];
     return rc;
   }
-  rc = [FBXPath generateXMLPresentation:root indexPath:(elementStore != nil ? topNodeIndexPath : nil) elementStore:elementStore writer:writer];
+  // Trying to be smart here and only including attributes, that were asked in the query, to the resulting document.
+  // This may speed up the lookup significantly in some cases
+  rc = [FBXPath generateXMLPresentation:root indexPath:(elementStore != nil ? topNodeIndexPath : nil) elementStore:elementStore includedAttributes:(query == nil ? nil : [self.class elementAttributesWithXPathQuery:query]) writer:writer];
   if (rc < 0) {
     [FBLogger log:@"Failed to generate XML presentation of a screen element"];
     return rc;
@@ -194,74 +279,27 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   return [self.class xmlCharPtrForInput:[safeString cStringUsingEncoding:NSUTF8StringEncoding]];
 }
 
-+ (int)recordElementAttributes:(xmlTextWriterPtr)writer forElement:(XCElementSnapshot *)element indexPath:(nullable NSString *)indexPath
++ (int)recordElementAttributes:(xmlTextWriterPtr)writer forElement:(XCElementSnapshot *)element indexPath:(nullable NSString *)indexPath includedAttributes:(nullable NSSet<Class> *)includedAttributes
 {
-  int rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "type", [self.class safeXmlStringWithString:element.wdType]);
-  if (rc < 0) {
-    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(type='%@'). Error code: %d", element.wdType, rc];
-    return rc;
-  }
-  if (element.wdValue) {
-    id value = element.wdValue;
-    NSString *stringValue;
-    if ([value isKindOfClass:[NSValue class]]) {
-      stringValue = [value stringValue];
-    } else if ([value isKindOfClass:[NSString class]]) {
-      stringValue = value;
-    } else {
-      stringValue = [value description];
+  for (Class attributeCls in FBElementAttribute.supportedAttributes) {
+    // include all supported attributes by default unless enumerated explicitly
+    if (includedAttributes && ![includedAttributes containsObject:attributeCls]) {
+      continue;
     }
-    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "value", [self.class safeXmlStringWithString:stringValue]);
+    int rc = [[[attributeCls alloc] initWithElement:element] recordWithWriter:writer];
     if (rc < 0) {
-      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(value='%@'). Error code: %d", stringValue, rc];
-      return rc;
-    }
-  }
-  if (element.wdName) {
-    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "name", [self.class safeXmlStringWithString:element.wdName]);
-    if (rc < 0) {
-      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(name='%@'). Error code: %d", element.wdName, rc];
-      return rc;
-    }
-  }
-  if (element.wdLabel) {
-    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "label", [self.class safeXmlStringWithString:element.wdLabel]);
-    if (rc < 0) {
-      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(label='%@'). Error code: %d", element.wdLabel, rc];
-      return rc;
-    }
-  }
-  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "enabled", element.wdEnabled ? BAD_CAST "true" : BAD_CAST "false");
-  if (rc < 0) {
-    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(wdEnabled). Error code: %d", rc];
-    return rc;
-  }
-  rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "visible", element.wdVisible ? BAD_CAST "true" : BAD_CAST "false");
-  if (rc < 0) {
-    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(wdVisible). Error code: %d", rc];
-    return rc;
-  }
-  for (NSString *attrName in @[@"x", @"y", @"width", @"height"]) {
-    rc = xmlTextWriterWriteAttribute(writer, [self.class safeXmlStringWithString:attrName],
-                                     [self.class safeXmlStringWithString:[element.wdRect[attrName] stringValue]]);
-    if (rc < 0) {
-      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(%@). Error code: %d", attrName, rc];
       return rc;
     }
   }
 
   if (nil != indexPath) {
-    rc = xmlTextWriterWriteAttribute(writer, [self.class safeXmlStringWithString:kXMLIndexPathKey], [self.class safeXmlStringWithString:indexPath]);
-    if (rc < 0) {
-      [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(indexPath='%@'). Error code: %d", indexPath, rc];
-      return rc;
-    }
+    // index path is the special case
+    return [[[FBIndexAttribute alloc] initWithValue:indexPath] recordWithWriter:writer];
   }
-
   return 0;
 }
 
-+ (int)generateXMLPresentation:(XCElementSnapshot *)root indexPath:(nullable NSString *)indexPath elementStore:(nullable NSMutableDictionary *)elementStore writer:(xmlTextWriterPtr)writer
++ (int)generateXMLPresentation:(XCElementSnapshot *)root indexPath:(nullable NSString *)indexPath elementStore:(nullable NSMutableDictionary *)elementStore includedAttributes:(nullable NSSet<Class> *)includedAttributes writer:(xmlTextWriterPtr)writer
 {
   NSAssert((indexPath == nil && elementStore == nil) || (indexPath != nil && elementStore != nil), @"Either both or none of indexPath and elementStore arguments should be equal to nil", nil);
 
@@ -271,7 +309,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     return rc;
   }
 
-  rc = [FBXPath recordElementAttributes:writer forElement:root indexPath:indexPath];
+  rc = [FBXPath recordElementAttributes:writer forElement:root indexPath:indexPath includedAttributes:includedAttributes];
   if (rc < 0) {
     return rc;
   }
@@ -283,7 +321,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     if (elementStore != nil && newIndexPath != nil) {
       elementStore[newIndexPath] = childSnapshot;
     }
-    rc = [self generateXMLPresentation:childSnapshot indexPath:newIndexPath elementStore:elementStore writer:writer];
+    rc = [self generateXMLPresentation:childSnapshot indexPath:newIndexPath elementStore:elementStore includedAttributes:includedAttributes writer:writer];
     if (rc < 0) {
       return rc;
     }
@@ -298,3 +336,221 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 }
 
 @end
+
+
+static NSString *const FBAbstractMethodInvocationException = @"AbstractMethodInvocationException";
+
+@implementation FBElementAttribute
+
+- (instancetype)initWithElement:(id<FBElement>)element
+{
+  self = [super init];
+  if (self) {
+    _element = element;
+  }
+  return self;
+}
+
++ (NSString *)name
+{
+  NSString *errMsg = [NSString stringWithFormat:@"The asbtract method +(NSString *)name is expected to be overriden by %@", NSStringFromClass(self.class)];
+  @throw [NSException exceptionWithName:FBAbstractMethodInvocationException reason:errMsg userInfo:nil];
+}
+
+- (NSString *)value
+{
+  NSString *errMsg = [NSString stringWithFormat:@"The asbtract method -(NSString *)value is expected to be overriden by %@", NSStringFromClass(self.class)];
+  @throw [NSException exceptionWithName:FBAbstractMethodInvocationException reason:errMsg userInfo:nil];
+}
+
+- (int)recordWithWriter:(xmlTextWriterPtr)writer
+{
+  if (nil == self.value) {
+    // Skip the attribute if the value equals to nil
+    return 0;
+  }
+  int rc = xmlTextWriterWriteAttribute(writer, [FBXPath safeXmlStringWithString:[self.class name]], [FBXPath safeXmlStringWithString:self.value]);
+  if (rc < 0) {
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(%@='%@'). Error code: %d", [self.class name], self.value, rc];
+  }
+  return rc;
+}
+
++ (NSArray<Class> *)supportedAttributes
+{
+  // The list of attributes to be written for each XML node
+  // The enumeration order does matter here
+  return @[FBTypeAttribute.class,
+           FBValueAttribute.class,
+           FBNameAttribute.class,
+           FBLabelAttribute.class,
+           FBEnabledAttribute.class,
+           FBVisibleAttribute.class,
+           FBXAttribute.class,
+           FBYAttribute.class,
+           FBWidthAttribute.class,
+           FBHeightAttribute.class];
+}
+
+@end
+
+@implementation FBTypeAttribute
+
++ (NSString *)name
+{
+  return @"type";
+}
+
+- (NSString *)value
+{
+  return self.element.wdType;
+}
+
+@end
+
+@implementation FBValueAttribute
+
++ (NSString *)name
+{
+  return @"value";
+}
+
+- (NSString *)value
+{
+  id idValue = self.element.wdValue;
+  if ([idValue isKindOfClass:[NSValue class]]) {
+    return [idValue stringValue];
+  } else if ([idValue isKindOfClass:[NSString class]]) {
+    return idValue;
+  }
+  return [idValue description];
+}
+
+@end
+
+@implementation FBNameAttribute
+
++ (NSString *)name
+{
+  return @"name";
+}
+
+- (NSString *)value
+{
+  return self.element.wdName;
+}
+
+@end
+
+@implementation FBLabelAttribute
+
++ (NSString *)name
+{
+  return @"label";
+}
+
+- (NSString *)value
+{
+  return self.element.wdLabel;
+}
+
+@end
+
+@implementation FBEnabledAttribute
+
++ (NSString *)name
+{
+  return @"enabled";
+}
+
+- (NSString *)value
+{
+  return self.element.wdEnabled ? @"true" : @"false";
+}
+
+@end
+
+@implementation FBVisibleAttribute
+
++ (NSString *)name
+{
+  return @"visible";
+}
+
+- (NSString *)value
+{
+  return self.element.wdVisible ? @"true" : @"false";
+}
+
+@end
+
+@implementation FBDimensionAttribute
+
+- (NSString *)value
+{
+  return [NSString stringWithFormat:@"%@", [self.element.wdRect objectForKey:[self.class name]]];
+}
+
+@end
+
+@implementation FBXAttribute
+
++ (NSString *)name
+{
+  return @"x";
+}
+
+@end
+
+@implementation FBYAttribute
+
++ (NSString *)name
+{
+  return @"y";
+}
+
+@end
+
+@implementation FBWidthAttribute
+
++ (NSString *)name
+{
+  return @"width";
+}
+
+@end
+
+@implementation FBHeightAttribute
+
++ (NSString *)name
+{
+  return @"height";
+}
+
+@end
+
+@implementation FBIndexAttribute
+
+- (instancetype)initWithValue:(NSString *)value
+{
+  self = [super initWithElement:nil];
+  if (self) {
+    _indexValue = value;
+  }
+  return self;
+}
+
++ (NSString *)name
+{
+  return kXMLIndexPathKey;
+}
+
+- (NSString *)value
+{
+  return self.indexValue;
+}
+
+@end
+
+
+
