@@ -48,10 +48,7 @@ static dispatch_once_t onceActivate;
 
 - (void)fb_activate
 {
-  dispatch_once(&onceActivate, ^{
-    FBCanUseActivate = [self respondsToSelector:@selector(activate)];
-  });
-  if (!FBCanUseActivate) {
+  if (!self.class.fb_isActivateSupported) {
     [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'activate' method is not supported by the current iOS SDK" userInfo:@{}] raise];
   }
   [self activate];

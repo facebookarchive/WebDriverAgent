@@ -22,6 +22,8 @@
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 
+NSString *const SPRINGBOARD_BUNDLE_ID = @"com.apple.springboard";
+
 @implementation FBSpringboardApplication
 
 + (instancetype)fb_springboard

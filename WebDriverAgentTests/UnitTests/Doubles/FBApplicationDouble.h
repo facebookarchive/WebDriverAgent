@@ -11,5 +11,5 @@
 
 @interface FBApplicationDouble : NSObject
 @property (nonatomic, assign, readonly) BOOL didTerminate;
-@property (nonatomic) NSString* bundleID;
+@property (nonatomic, strong) NSString* bundleID;
 @end
