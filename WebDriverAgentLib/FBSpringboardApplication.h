@@ -9,9 +9,12 @@
 
 #import <WebDriverAgentLib/FBApplication.h>
 
-@interface FBSpringboardApplication : FBApplication
-
 NS_ASSUME_NONNULL_BEGIN
+
+/*! Bundle identifier of Springboard app */
+extern NSString *const SPRINGBOARD_BUNDLE_ID;
+
+@interface FBSpringboardApplication : FBApplication
 
 /**
  @return FBApplication that is attached to SpringBoard
