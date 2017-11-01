@@ -9,6 +9,8 @@
 
 #import <WebDriverAgentLib/WebDriverAgentLib.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Set of categories that patches method name differences between Xcode versions,
  so that WDA can be build with different Xcode versions.
@@ -60,3 +62,5 @@ extern NSString *const FBApplicationMethodNotSupportedException;
 @property(nullable, readonly) XCUIElement *fb_firstMatch;
 
 @end
+
+NS_ASSUME_NONNULL_END
