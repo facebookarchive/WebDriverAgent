@@ -9,6 +9,8 @@
 
 #import "FBXCodeCompatibility.h"
 
+#import "XCUIElementQuery.h"
+
 static BOOL FBShouldUseOldElementRootSelector = NO;
 static dispatch_once_t onceRootElementToken;
 @implementation XCElementSnapshot (FBCompatibility)
@@ -39,6 +41,27 @@ static dispatch_once_t onceAppWithPIDToken;
     return [self appWithPID:processID];
   }
   return [self applicationWithPID:processID];
+}
+
+@end
+
+static BOOL FBShouldUseFirstMatchSelector = NO;
+static dispatch_once_t onceFirstMatchToken;
+@implementation XCUIElementQuery (FBCompatibility)
+
+- (XCUIElement *)fb_firstMatch
+{
+  dispatch_once(&onceFirstMatchToken, ^{
+    FBShouldUseFirstMatchSelector = [self respondsToSelector:@selector(firstMatch)];
+  });
+  if (FBShouldUseFirstMatchSelector) {
+    XCUIElement* result = self.firstMatch;
+    return result.exists ? result : nil;
+  }
+  if (!self.element.exists) {
+    return nil;
+  }
+  return [self elementBoundByIndex:0];
 }
 
 @end

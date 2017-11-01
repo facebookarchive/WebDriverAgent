@@ -15,6 +15,7 @@
 #import "FBMathUtils.h"
 #import "FBPredicate.h"
 #import "FBRunLoopSpinner.h"
+#import "FBXCodeCompatibility.h"
 #import "XCAXClient_iOS.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 
@@ -84,10 +85,15 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   if (uniqueTypes && [uniqueTypes count] == 1) {
     type = [uniqueTypes.firstObject intValue];
   }
-  [matchedElements addObjectsFromArray:[[self descendantsMatchingType:type] matchingPredicate:[FBPredicate predicateWithFormat:@"%K IN %@", FBStringify(XCUIElement, wdUID), matchedUids]].allElementsBoundByIndex];
+  XCUIElementQuery *query = [[self descendantsMatchingType:type] matchingPredicate:[FBPredicate predicateWithFormat:@"%K IN %@", FBStringify(XCUIElement, wdUID), matchedUids]];
+  if (1 == snapshots.count) {
+    XCUIElement *result = query.fb_firstMatch;
+    return result ? @[result] : @[];
+  }
+  [matchedElements addObjectsFromArray:query.allElementsBoundByIndex];
   if (matchedElements.count <= 1) {
     // There is no need to sort elements if count of matches is not greater than one
-    return matchedElements;
+    return matchedElements.copy;
   }
   NSMutableArray<XCUIElement *> *sortedElements = [NSMutableArray array];
   [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
