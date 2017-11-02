@@ -58,24 +58,25 @@ extern NSString *const FBApplicationCrashedException;
 
 /**
  Launch an application with given bundle identifier in scope of current session.
- !This method is only available if hasMultiAppSupport returns true
+ !This method is only available since Xcode9 SDK
 
  @param bundleIdentifier Valid bundle identifier of the application to be launched
+ @throws FBApplicationMethodNotSupportedException if the method is not supported with the current XCTest SDK
  */
 - (void)launchApplicationWithBundleId:(NSString *)bundleIdentifier;
 
 /**
  Activate an application with given bundle identifier in scope of current session.
- !This method is only available if hasMultiAppSupport returns true
+ !This method is only available since Xcode9 SDK
 
  @param bundleIdentifier Valid bundle identifier of the application to be activated
+ @throws FBApplicationMethodNotSupportedException if the method is not supported with the current XCTest SDK
  */
 - (void)activateApplicationWithBundleId:(NSString *)bundleIdentifier;
 
 /**
  Terminate an application with the given bundle id. The application should be previously
  executed by launchApplicationWithBundleId method or passed to the init method.
- !This method is only available if hasMultiAppSupport returns true
 
  @param bundleIdentifier Valid bundle identifier of the application to be terminated
  @return Either YES if the app has been successfully terminated or NO if it was not running
@@ -84,7 +85,7 @@ extern NSString *const FBApplicationCrashedException;
 
 /**
  Get the state of the particular application in scope of the current session.
- !This method is only available if hasMultiAppSupport returns true
+ !This method is only returning reliable results since Xcode9 SDK
 
  @param bundleIdentifier Valid bundle identifier of the application to get the state from
  @return Application state as integer number. See
