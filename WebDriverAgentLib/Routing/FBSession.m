@@ -121,7 +121,7 @@ static FBSession *_activeSession;
 - (void)launchApplicationWithBundleId:(NSString *)bundleIdentifier
 {
   XCUIApplication *app = [self registerApplicationWithBundleId:bundleIdentifier];
-  if (!app.running) {
+  if (app.fb_state < 2) {
     [app launch];
   }
   [app fb_activate];
