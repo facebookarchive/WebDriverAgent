@@ -35,11 +35,6 @@ extern NSString *const FBApplicationCrashedException;
 + (nullable instancetype)activeSession;
 
 /**
- Kills application associated with all sessions and removes all sessions.
- */
-+ (void)killAll;
-
-/**
  Fetches session for given identifier.
  If identifier doesn't match activeSession identifier, will return nil.
 
@@ -97,11 +92,6 @@ extern NSString *const FBApplicationCrashedException;
          for more details on possible enum values
  */
 - (NSUInteger)applicationStateWithBundleId:(NSString *)bundleIdentifier;
-
-/**
- @return YES if the session has multi-application support (e. g. since Xcode9 SDK)
- */
-+ (BOOL)hasMultiAppSupport;
 
 @end
 

@@ -53,7 +53,7 @@ NSString *const FBElementAttributeUnknownException = @"FBElementAttributeUnknown
     return YES;
   }
   if ([exception.name isEqualToString:FBApplicationCrashedException]) {
-    id<FBResponsePayload> payload = FBResponseWithStatus(FBCommandStatusStaleElementReference, [exception description]);
+    id<FBResponsePayload> payload = FBResponseWithStatus(FBCommandStatusApplicationCrashDetected, [exception description]);
     [payload dispatchWithResponse:response];
     return YES;
   }

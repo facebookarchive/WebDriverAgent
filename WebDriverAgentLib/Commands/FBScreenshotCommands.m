@@ -29,7 +29,12 @@
 
 + (id<FBResponsePayload>)handleGetScreenshot:(FBRouteRequest *)request
 {
-  NSString *screenshot = [[XCUIDevice sharedDevice].fb_screenshot base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+  NSError *error;
+  NSData *screenshotData = [[XCUIDevice sharedDevice] fb_screenshotWithError:&error];
+  if (nil == screenshotData) {
+    return FBResponseWithError(error);
+  }
+  NSString *screenshot = [screenshotData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
   return FBResponseWithObject(screenshot);
 }
 

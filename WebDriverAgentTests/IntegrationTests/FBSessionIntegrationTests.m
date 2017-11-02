@@ -16,14 +16,14 @@
 #import "FBSpringboardApplication.h"
 #import "FBXCodeCompatibility.h"
 
-@interface FBSessionTests : FBIntegrationTestCase
+@interface FBSessionIntegrationTests : FBIntegrationTestCase
 @property (nonatomic) FBSession *session;
 @end
 
 
 static NSString *const SETTINGS_BUNDLE_ID = @"com.apple.Preferences";
 
-@implementation FBSessionTests
+@implementation FBSessionIntegrationTests
 
 - (void)setUp
 {

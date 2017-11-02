@@ -11,7 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString *const SPRINGBOARD_BUNDLE_ID = @"com.apple.springboard";
+/*! Bundle identifier of Springboard app */
+extern NSString *const SPRINGBOARD_BUNDLE_ID;
 
 @interface FBSpringboardApplication : FBApplication
 

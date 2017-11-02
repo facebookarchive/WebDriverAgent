@@ -10,6 +10,7 @@
 #import "XCUIElement+FBClassChain.h"
 
 #import "FBClassChainQueryParser.h"
+#import "FBXCodeCompatibility.h"
 
 NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseException";
 
@@ -62,8 +63,14 @@ NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseExcept
       query = [self childrenMatchingType:item.type];
     }
   }
-  if (item.predicate) {
-    query = [query matchingPredicate:(id)item.predicate];
+  if (item.predicates) {
+    for (FBAbstractPredicateItem *predicate in item.predicates) {
+      if ([predicate isKindOfClass:FBSelfPredicateItem.class]) {
+        query = [query matchingPredicate:predicate.value];
+      } else if ([predicate isKindOfClass:FBDescendantPredicateItem.class]) {
+        query = [query containingPredicate:predicate.value];
+      }
+    }
   }
   return query;
 }
@@ -71,11 +78,8 @@ NSString *const FBClassChainQueryParseException = @"FBClassChainQueryParseExcept
 + (NSArray<XCUIElement *> *)fb_matchingElementsWithItem:(FBClassChainItem *)item query:(XCUIElementQuery *)query shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
   if (shouldReturnAfterFirstMatch && (item.position == 0 || item.position == 1)) {
-    // TODO: Add support for the iOS 11+ short-circuit first match
-    if (!query.element.exists) {
-      return @[];
-    }
-    return @[[query elementBoundByIndex:0]];
+    XCUIElement *result = query.fb_firstMatch;
+    return result ? @[result] : @[];
   }
   NSArray<XCUIElement *> *allMatches = query.allElementsBoundByIndex;
   if (0 == item.position) {

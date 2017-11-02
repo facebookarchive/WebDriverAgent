@@ -19,7 +19,7 @@
 {
   self = [super init];
   if (self) {
-    self.bundleID = @"some.bundle.identifier";
+    _bundleID = @"some.bundle.identifier";
   }
   return self;
 }
@@ -32,6 +32,11 @@
 - (NSUInteger)processID
 {
   return 0;
+}
+
+- (NSString *)bundleID
+{
+  return @"com.facebook.awesome";
 }
 
 - (void)resolve

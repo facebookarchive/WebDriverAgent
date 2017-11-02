@@ -9,6 +9,9 @@
 
 #import "FBRuntimeUtils.h"
 
+#import "FBMacros.h"
+#import "XCUIDevice.h"
+
 #include <dlfcn.h>
 #import <objc/runtime.h>
 
@@ -40,4 +43,71 @@ void *FBRetrieveSymbolFromBinary(const char *binary, const char *name)
   void *pointer = dlsym(handle, name);
   NSCAssert(pointer, @"%s could not be located", name);
   return pointer;
+}
+
+static NSString *sdkVersion = nil;
+static dispatch_once_t onceSdkVersionToken;
+NSString * _Nullable FBSDKVersion()
+{
+  dispatch_once(&onceSdkVersionToken, ^{
+    NSString *sdkName = [[NSBundle mainBundle] infoDictionary][@"DTSDKName"];
+    if (sdkName) {
+      // the value of DTSDKName looks like 'iphoneos9.2'
+      NSRange versionRange = [sdkName rangeOfString:@"\\d+\\.\\d+" options:NSRegularExpressionSearch];
+      if (versionRange.location != NSNotFound) {
+        sdkVersion = [sdkName substringWithRange:versionRange];
+      }
+    }
+  });
+  return sdkVersion;
+}
+
+BOOL isSDKVersionLessThan(NSString *expected)
+{
+  NSString *version = FBSDKVersion();
+  if (nil == version) {
+    return SYSTEM_VERSION_LESS_THAN(expected);
+  }
+  NSComparisonResult result = [version compare:expected options:NSNumericSearch];
+  return result == NSOrderedAscending;
+}
+
+BOOL isSDKVersionLessThanOrEqualTo(NSString *expected)
+{
+  NSString *version = FBSDKVersion();
+  if (nil == version) {
+    return SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(expected);
+  }
+  NSComparisonResult result = [version compare:expected options:NSNumericSearch];
+  return result == NSOrderedAscending || result == NSOrderedSame;
+}
+
+BOOL isSDKVersionEqualTo(NSString *expected)
+{
+  NSString *version = FBSDKVersion();
+  if (nil == version) {
+    return SYSTEM_VERSION_EQUAL_TO(expected);
+  }
+  NSComparisonResult result = [version compare:expected options:NSNumericSearch];
+  return result == NSOrderedSame;
+}
+
+BOOL isSDKVersionGreaterThanOrEqualTo(NSString *expected)
+{
+  NSString *version = FBSDKVersion();
+  if (nil == version) {
+    return SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(expected);
+  }
+  NSComparisonResult result = [version compare:expected options:NSNumericSearch];
+  return result == NSOrderedDescending || result == NSOrderedSame;
+}
+
+BOOL isSDKVersionGreaterThan(NSString *expected)
+{
+  NSString *version = FBSDKVersion();
+  if (nil == version) {
+    return SYSTEM_VERSION_GREATER_THAN(expected);
+  }
+  NSComparisonResult result = [version compare:expected options:NSNumericSearch];
+  return result == NSOrderedDescending;
 }

@@ -14,6 +14,7 @@
 #import "FBRouteRequest.h"
 #import "FBSession.h"
 #import "FBApplication.h"
+#import "FBRuntimeUtils.h"
 #import "XCUIDevice.h"
 #import "XCUIDevice+FBHealthCheck.h"
 #import "XCUIDevice+FBHelpers.h"
@@ -32,8 +33,6 @@
     [[FBRoute POST:@"/session/apps/activate"] respondWithTarget:self action:@selector(handleSessionAppActivate:)],
     [[FBRoute POST:@"/session/apps/terminate"] respondWithTarget:self action:@selector(handleSessionAppTerminate:)],
     [[FBRoute GET:@"/session/apps/state"] respondWithTarget:self action:@selector(handleSessionAppState:)],
-    [[FBRoute GET:@"/session/apps/is_supported"] respondWithTarget:self action:@selector(handleSessionAppsSupported:)],
-    [[FBRoute GET:@"/session/apps/is_supported"].withoutSession respondWithTarget:self action:@selector(handleSessionAppsSupported:)],
     [[FBRoute GET:@""] respondWithTarget:self action:@selector(handleGetActiveSession:)],
     [[FBRoute DELETE:@""] respondWithTarget:self action:@selector(handleDeleteSession:)],
     [[FBRoute GET:@"/status"].withoutSession respondWithTarget:self action:@selector(handleGetStatus:)],
@@ -121,11 +120,6 @@
   return FBResponseWithStatus(FBCommandStatusNoError, @{@"state": @(state)});
 }
 
-+ (id<FBResponsePayload>)handleSessionAppsSupported:(FBRouteRequest *)request
-{
-  return FBResponseWithStatus(FBCommandStatusNoError, @{@"supported": @(FBSession.hasMultiAppSupport)});
-}
-
 + (id<FBResponsePayload>)handleGetActiveSession:(FBRouteRequest *)request
 {
   return FBResponseWithObject(FBSessionCommands.sessionInformation);
@@ -148,6 +142,7 @@
         @{
           @"name" : [[UIDevice currentDevice] systemName],
           @"version" : [[UIDevice currentDevice] systemVersion],
+          @"sdkVersion": FBSDKVersion() ?: @"unknown",
         },
       @"ios" :
         @{

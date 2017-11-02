@@ -24,9 +24,10 @@
 NSString *const FBApplicationCrashedException = @"FBApplicationCrashedException";
 
 @interface FBSession ()
-@property (class, nonatomic, strong, readonly) NSMutableSet<FBSession *> *sessions;
+
 @property (nonatomic) NSString *testedApplicationBundleId;
 @property (nonatomic) NSDictionary<NSString *, XCUIApplication *> *applications;
+@property (nonatomic, strong, readwrite) FBApplication *testedApplication;
 @end
 
 @implementation FBSession
@@ -37,29 +38,12 @@ static FBSession *_activeSession;
   return _activeSession ?: [FBSession sessionWithApplication:nil];
 }
 
-+ (void)killAll
-{
-  while (self.sessions.count > 0) {
-    FBSession *session = [self.sessions anyObject];
-    [session kill];
-  }
-}
-
 + (void)markSessionActive:(FBSession *)session
 {
+  if (_activeSession && _activeSession.testedApplication.bundleID != session.testedApplication.bundleID) {
+    [_activeSession kill];
+  }
   _activeSession = session;
-}
-
-+ (NSMutableSet<FBSession *> *)sessions
-{
-  static NSMutableSet<FBSession *> *_sessions;
-
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    _sessions = [[NSMutableSet<FBSession *> alloc] init];
-  });
-
-  return _sessions;
 }
 
 + (instancetype)sessionWithIdentifier:(NSString *)identifier
@@ -85,7 +69,6 @@ static FBSession *_activeSession;
   }
   session.applications = apps.copy;
   session.elementCache = [FBElementCache new];
-  [FBSession.sessions addObject:session];
   [FBSession markSessionActive:session];
   return session;
 }
@@ -95,11 +78,7 @@ static FBSession *_activeSession;
   if (self.testedApplicationBundleId) {
     [[self.applications objectForKey:self.testedApplicationBundleId] terminate];
   }
-  [FBSession.sessions removeObject:self];
-
-  if ([self isEqual:_activeSession]) {
-    _activeSession = nil;
-  }
+  _activeSession = nil;
 }
 
 - (FBApplication *)activeApplication
@@ -146,9 +125,6 @@ static FBSession *_activeSession;
 
 - (void)launchApplicationWithBundleId:(NSString *)bundleIdentifier
 {
-  if (!self.class.hasMultiAppSupport) {
-    [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'launch' method is not supported by the current iOS SDK" userInfo:@{}] raise];
-  }
   XCUIApplication *app = [self registerApplicationWithBundleId:bundleIdentifier];
   if (!app.running) {
     [app launch];
@@ -158,18 +134,12 @@ static FBSession *_activeSession;
 
 - (void)activateApplicationWithBundleId:(NSString *)bundleIdentifier
 {
-  if (!self.class.hasMultiAppSupport) {
-    [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'activate' method is not supported by the current iOS SDK" userInfo:@{}] raise];
-  }
   XCUIApplication *app = [self registerApplicationWithBundleId:bundleIdentifier];
   [app fb_activate];
 }
 
 - (BOOL)terminateApplicationWithBundleId:(NSString *)bundleIdentifier
 {
-  if (!self.class.hasMultiAppSupport) {
-    [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'terminate' method is not supported by the current iOS SDK" userInfo:@{}] raise];
-  }
   XCUIApplication *app = [self registerApplicationWithBundleId:bundleIdentifier];
   BOOL result = NO;
   if (app.running) {
@@ -182,19 +152,11 @@ static FBSession *_activeSession;
 
 - (NSUInteger)applicationStateWithBundleId:(NSString *)bundleIdentifier
 {
-  if (!self.class.hasMultiAppSupport) {
-    [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'state' method is not supported by the current iOS SDK" userInfo:@{}] raise];
-  }
   XCUIApplication *app = [self.applications objectForKey:bundleIdentifier];
   if (!app) {
     app = [[XCUIApplication alloc] initPrivateWithPath:nil bundleID:bundleIdentifier];
   }
   return app.fb_state;
-}
-
-+ (BOOL)hasMultiAppSupport
-{
-  return FBApplication.fb_hasMultiAppSupport;
 }
 
 @end

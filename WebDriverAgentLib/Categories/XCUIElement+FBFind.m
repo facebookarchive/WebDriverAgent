@@ -19,6 +19,7 @@
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "FBElementUtils.h"
+#import "FBXCodeCompatibility.h"
 
 @implementation XCUIElement (FBFind)
 
@@ -27,11 +28,8 @@
   if (!shouldReturnAfterFirstMatch) {
     return query.allElementsBoundByIndex;
   }
-  XCUIElement *matchedElement = [query elementBoundByIndex:0];
-  if (matchedElement && matchedElement.exists) {
-    return @[matchedElement];
-  }
-  return @[];
+  XCUIElement *matchedElement = query.fb_firstMatch;
+  return matchedElement ? @[matchedElement] : @[];
 }
 
 
