@@ -54,7 +54,7 @@ static NSString *const SETTINGS_BUNDLE_ID = @"com.apple.Preferences";
     return;
   }
   [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID];
-  [self.session terminateApplicationWithBundleId:SETTINGS_BUNDLE_ID];
+  XCTAssertTrue([self.session terminateApplicationWithBundleId:SETTINGS_BUNDLE_ID]);
   XCTAssertEqualObjects(SPRINGBOARD_BUNDLE_ID, self.session.activeApplication.bundleID);
   [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID];
   XCTAssertEqualObjects(SETTINGS_BUNDLE_ID, self.session.activeApplication.bundleID);
@@ -78,7 +78,7 @@ static NSString *const SETTINGS_BUNDLE_ID = @"com.apple.Preferences";
   if (!testedApp.fb_isActivateSupported) {
     return;
   }
-  [self.session terminateApplicationWithBundleId:testedApp.bundleID];
+  XCTAssertTrue([self.session terminateApplicationWithBundleId:testedApp.bundleID]);
   XCTAssertEqualObjects(SPRINGBOARD_BUNDLE_ID, self.session.activeApplication.bundleID);
   [self.session launchApplicationWithBundleId:testedApp.bundleID];
   XCTAssertEqualObjects(testedApp.bundleID, self.session.activeApplication.bundleID);

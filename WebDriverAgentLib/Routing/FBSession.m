@@ -136,7 +136,7 @@ static FBSession *_activeSession;
 {
   XCUIApplication *app = [self registerApplicationWithBundleId:bundleIdentifier];
   BOOL result = NO;
-  if (app.running) {
+  if (app.fb_state >= 2) {
     [app terminate];
     result = YES;
   }
