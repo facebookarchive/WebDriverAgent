@@ -88,7 +88,8 @@ static FBSession *_activeSession;
     testedApplication = [self.applications objectForKey:self.testedApplicationBundleId];
   }
   if (testedApplication && !testedApplication.running) {
-    [[NSException exceptionWithName:FBApplicationCrashedException reason:@"Application is not running, possibly crashed" userInfo:nil] raise];
+    NSString *description = [NSString stringWithFormat:@"The application under test with bundle id '%@' is not running, possibly crashed", self.testedApplicationBundleId];
+    [[NSException exceptionWithName:FBApplicationCrashedException reason:description userInfo:nil] raise];
   }
   return application;
 }
