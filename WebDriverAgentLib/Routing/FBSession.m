@@ -24,7 +24,6 @@
 NSString *const FBApplicationCrashedException = @"FBApplicationCrashedException";
 
 @interface FBSession ()
-
 @property (nonatomic) NSString *testedApplicationBundleId;
 @property (nonatomic) NSDictionary<NSString *, XCUIApplication *> *applications;
 @property (nonatomic, strong, readwrite) FBApplication *testedApplication;
@@ -88,14 +87,9 @@ static FBSession *_activeSession;
   if (self.testedApplicationBundleId) {
     testedApplication = [self.applications objectForKey:self.testedApplicationBundleId];
   }
-  if (testedApplication) {
-    const BOOL testedApplicationIsActiveAndNotRunning = (application.processID == testedApplication.processID && !application.running);
-    if (testedApplicationIsActiveAndNotRunning) {
-      [[NSException exceptionWithName:FBApplicationCrashedException reason:@"Application is not running, possibly crashed" userInfo:nil] raise];
-    }
+  if (testedApplication && !testedApplication.running) {
+    [[NSException exceptionWithName:FBApplicationCrashedException reason:@"Application is not running, possibly crashed" userInfo:nil] raise];
   }
-  [application query];
-  [application resolve];
   return application;
 }
 
