@@ -33,7 +33,7 @@ extern NSString *const FBApplicationMethodNotSupportedException;
 
 /**
  Get the state of the application. This method only returns reliable results on Xcode SDK 9+
- 
+
  @return State value as enum item. See https://developer.apple.com/documentation/xctest/xcuiapplicationstate?language=objc for more details.
  */
 - (NSUInteger)fb_state;
@@ -42,37 +42,14 @@ extern NSString *const FBApplicationMethodNotSupportedException;
  Activate the application by restoring it from the background.
  Nothing will happen if the application is already in foreground.
  This method is only supported since Xcode9.
- 
+
  @throws FBApplicationMethodNotSupportedException if the method is called on Xcode SDK older than 9.
  */
 - (void)fb_activate;
 
 /**
  Use this method to check whether application activation is supported by the current iOS SDK.
- 
- @return YES if application activation is supported.
- */
-+ (BOOL)fb_isActivateSupported;
 
-/**
- Get the state of the application. This method only returns reliable results on Xcode SDK 9+
- 
- @return State value as enum item. See https://developer.apple.com/documentation/xctest/xcuiapplicationstate?language=objc for more details.
- */
-- (NSUInteger)fb_state;
-
-/**
- Activate the application by restoring it from the background.
- Nothing will happen if the application is already in foreground.
- This method is only supported since Xcode9.
- 
- @throws FBApplicationMethodNotSupportedException if the method is called on Xcode SDK older than 9.
- */
-- (void)fb_activate;
-
-/**
- Use this method to check whether application activation is supported by the current iOS SDK.
- 
  @return YES if application activation is supported.
  */
 + (BOOL)fb_isActivateSupported;

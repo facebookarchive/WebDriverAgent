@@ -90,5 +90,4 @@ static dispatch_once_t onceFirstMatchToken;
   return [self elementBoundByIndex:0];
 }
 
->>>>>>> ceb0744fb799775e7734870735e434185bac1814
 @end
