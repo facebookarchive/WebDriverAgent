@@ -19,7 +19,7 @@
 {
   self = [super init];
   if (self) {
-    self.bundleID = @"some.bundle.identifier";
+    _bundleID = @"some.bundle.identifier";
   }
   return self;
 }

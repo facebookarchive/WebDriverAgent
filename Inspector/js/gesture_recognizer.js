@@ -16,6 +16,7 @@ class GestureRecognizer {
   constructor(params) {
     this._onClick = params.onClick;
     this._onDrag = params.onDrag;
+    this._onKeyDown = params.onKeyDown;
     this._state = {
       value: IDLE,
       params: {},
@@ -60,6 +61,20 @@ class GestureRecognizer {
       value: IDLE,
       params: {},
     };
+  }
+
+  onKeyDown(ev) {
+    if (ev.target !== document.body) {
+      return;
+    }
+    var key = ev.key;
+    if (key === 'Backspace') {
+      this._onKeyDown('\u007F');
+    } else if (key === 'Enter') {
+      this._onKeyDown('\u000d');
+    } else if (key && key.length === 1) {
+      this._onKeyDown(key);
+    }
   }
 
   _triggerClick() {

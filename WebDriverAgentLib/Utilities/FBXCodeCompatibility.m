@@ -9,6 +9,8 @@
 
 #import "FBXCodeCompatibility.h"
 
+#import "XCUIElementQuery.h"
+
 static BOOL FBShouldUseOldElementRootSelector = NO;
 static dispatch_once_t onceRootElementToken;
 @implementation XCElementSnapshot (FBCompatibility)
@@ -48,10 +50,7 @@ static dispatch_once_t onceActivate;
 
 - (void)fb_activate
 {
-  dispatch_once(&onceActivate, ^{
-    FBCanUseActivate = [self respondsToSelector:@selector(activate)];
-  });
-  if (!FBCanUseActivate) {
+  if (!self.class.fb_isActivateSupported) {
     [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'activate' method is not supported by the current iOS SDK" userInfo:@{}] raise];
   }
   [self activate];
@@ -72,3 +71,24 @@ static dispatch_once_t onceActivate;
 
 @end
 
+static BOOL FBShouldUseFirstMatchSelector = NO;
+static dispatch_once_t onceFirstMatchToken;
+@implementation XCUIElementQuery (FBCompatibility)
+
+- (XCUIElement *)fb_firstMatch
+{
+  dispatch_once(&onceFirstMatchToken, ^{
+    FBShouldUseFirstMatchSelector = [self respondsToSelector:@selector(firstMatch)];
+  });
+  if (FBShouldUseFirstMatchSelector) {
+    XCUIElement* result = self.firstMatch;
+    return result.exists ? result : nil;
+  }
+  if (!self.element.exists) {
+    return nil;
+  }
+  return [self elementBoundByIndex:0];
+}
+
+>>>>>>> ceb0744fb799775e7734870735e434185bac1814
+@end

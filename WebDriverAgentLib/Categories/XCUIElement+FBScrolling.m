@@ -234,9 +234,9 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   CGVector scrollBoundingVector = CGVectorMake(CGRectGetWidth(self.frame) * FBScrollTouchProportion - FBScrollBoundingVelocityPadding,
                                                CGRectGetHeight(self.frame)* FBScrollTouchProportion - FBScrollBoundingVelocityPadding
                                                );
-  scrollBoundingVector.dx = (CGFloat)copysign(scrollBoundingVector.dx, vector.dx);
-  scrollBoundingVector.dy = (CGFloat)copysign(scrollBoundingVector.dy, vector.dy);
-
+  scrollBoundingVector.dx = (CGFloat)floor(copysign(scrollBoundingVector.dx, vector.dx));
+  scrollBoundingVector.dy = (CGFloat)floor(copysign(scrollBoundingVector.dy, vector.dy));
+	
   NSUInteger scrollLimit = 100;
   BOOL shouldFinishScrolling = NO;
   while (!shouldFinishScrolling) {
@@ -254,11 +254,9 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
 - (CGVector)fb_hitPointOffsetForScrollingVector:(CGVector)scrollingVector
 {
-  return
-    CGVectorMake(
-      CGRectGetMinX(self.frame) + CGRectGetWidth(self.frame) * (scrollingVector.dx < 0.0f ? FBScrollTouchProportion : (1 - FBScrollTouchProportion)),
-      CGRectGetMinY(self.frame) + CGRectGetHeight(self.frame) * (scrollingVector.dy < 0.0f ? FBScrollTouchProportion : (1 - FBScrollTouchProportion))
-    );
+  CGFloat x = CGRectGetMinX(self.frame) + CGRectGetWidth(self.frame) * (scrollingVector.dx < 0.0f ? FBScrollTouchProportion : (1 - FBScrollTouchProportion));
+  CGFloat y = CGRectGetMinY(self.frame) + CGRectGetHeight(self.frame) * (scrollingVector.dy < 0.0f ? FBScrollTouchProportion : (1 - FBScrollTouchProportion));
+  return CGVectorMake((CGFloat)floor(x), (CGFloat)floor(y));
 }
 
 - (BOOL)fb_scrollAncestorScrollViewByVectorWithinScrollViewFrame:(CGVector)vector error:(NSError **)error

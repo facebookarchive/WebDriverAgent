@@ -15,6 +15,7 @@
 #import "FBErrorBuilder.h"
 #import "FBRunLoopSpinner.h"
 #import "FBMacros.h"
+#import "FBXCodeCompatibility.h"
 #import "XCElementSnapshot.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCTestDriver.h"
@@ -53,8 +54,7 @@
      timeout:5]
     timeoutErrorMessage:@"Keyboard is not present"]
    spinUntilNotNil:^id{
-     XCUIElement *foundKeyboard = [[FBApplication fb_activeApplication].query descendantsMatchingType:XCUIElementTypeKeyboard].element;
-     return (foundKeyboard.exists ? foundKeyboard : nil);
+     return [[FBApplication fb_activeApplication].query descendantsMatchingType:XCUIElementTypeKeyboard].fb_firstMatch;
    }
    error:error];
 

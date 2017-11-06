@@ -16,6 +16,7 @@
 #import "FBFindElementCommands.h"
 #import "FBSpringboardApplication.h"
 #import "FBLogger.h"
+#import "FBXCodeCompatibility.h"
 #import "XCAXClient_iOS.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCElementSnapshot.h"
@@ -53,8 +54,7 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
     // In that case we ignore it.
     NSPredicate *predicateString = [NSPredicate predicateWithFormat:@"identifier == 'PopoverDismissRegion'"];
     XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicateString];
-    NSArray *childElements = [query allElementsBoundByIndex];
-    if (childElements.count == 0) {
+    if (!query.fb_firstMatch) {
       return alert;
     }
   }

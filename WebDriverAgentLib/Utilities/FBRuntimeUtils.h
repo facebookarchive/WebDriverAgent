@@ -26,9 +26,16 @@ NSArray<Class> *FBClassesThatConformsToProtocol(Protocol *protocol);
 void *FBRetrieveSymbolFromBinary(const char *binary, const char *name);
 
 /**
+ Get the compiler SDK version as string.
+
+ @return SDK version as string, for example "10.0" or nil if it cannot be received
+ */
+NSString * _Nullable FBSDKVersion(void);
+
+/**
  Check if the compiler SDK version is less than the given version.
  The current iOS version is taken instead if SDK version cannot be retrieved.
- 
+
  @param expected the expected version to compare with, for example '10.3'
  @return YES if the given version is less than the SDK version used for WDA compilation
  */
@@ -37,7 +44,7 @@ BOOL isSDKVersionLessThan(NSString *expected);
 /**
  Check if the compiler SDK version is less or equal to the given version.
  The current iOS version is taken instead if SDK version cannot be retrieved.
- 
+
  @param expected the expected version to compare with, for example '10.3'
  @return YES if the given version is less or equal to the SDK version used for WDA compilation
  */
@@ -46,7 +53,7 @@ BOOL isSDKVersionLessThanOrEqualTo(NSString *expected);
 /**
  Check if the compiler SDK version is equal to the given version.
  The current iOS version is taken instead if SDK version cannot be retrieved.
- 
+
  @param expected the expected version to compare with, for example '10.3'
  @return YES if the given version is equal to the SDK version used for WDA compilation
  */
@@ -55,7 +62,7 @@ BOOL isSDKVersionEqualTo(NSString *expected);
 /**
  Check if the compiler SDK version is greater or equal to the given version.
  The current iOS version is taken instead if SDK version cannot be retrieved.
- 
+
  @param expected the expected version to compare with, for example '10.3'
  @return YES if the given version is greater or equal to the SDK version used for WDA compilation
  */
@@ -64,7 +71,7 @@ BOOL isSDKVersionGreaterThanOrEqualTo(NSString *expected);
 /**
  Check if the compiler SDK version is greater than the given version.
  The current iOS version is taken instead if SDK version cannot be retrieved.
- 
+
  @param expected the expected version to compare with, for example '10.3'
  @return YES if the given version is greater than the SDK version used for WDA compilation
  */
