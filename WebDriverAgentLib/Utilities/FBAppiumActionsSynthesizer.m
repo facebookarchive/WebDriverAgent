@@ -25,10 +25,6 @@ static const double FB_LONG_TAP_DURATION_MS = 500.0;
 static NSString *const FB_OPTIONS_KEY = @"options";
 static NSString *const FB_ELEMENT_KEY = @"element";
 
-static double millisToSeconds (double msec) {
-  return msec / 1000.0;
-}
-
 @interface FBAppiumGestureItem : FBBaseGestureItem
 
 @end
@@ -144,17 +140,17 @@ static double millisToSeconds (double msec) {
 - (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
 {
   if (index > 0) {
-    [eventPath moveToPoint:self.atPosition atOffset:millisToSeconds(self.offset)];
-    [eventPath pressDownAtOffset:millisToSeconds(self.offset)];
+    [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
+    [eventPath pressDownAtOffset:FBMillisToSeconds(self.offset)];
   }
-  [eventPath liftUpAtOffset:millisToSeconds(self.offset + FB_TAP_DURATION_MS)];
+  [eventPath liftUpAtOffset:FBMillisToSeconds(self.offset + FB_TAP_DURATION_MS)];
   
   id options = [self.actionItem objectForKey:FB_OPTIONS_KEY];
   if ([options isKindOfClass:NSDictionary.class]) {
     NSNumber *tapCount = [options objectForKey:@"count"] ?: @1;
     for (NSInteger times = 1; times < tapCount.integerValue; times++) {
-      [eventPath pressDownAtOffset:millisToSeconds(self.offset + FB_TAP_DURATION_MS * times)];
-      [eventPath liftUpAtOffset:millisToSeconds(self.offset + FB_TAP_DURATION_MS * (times + 1))];
+      [eventPath pressDownAtOffset:FBMillisToSeconds(self.offset + FB_TAP_DURATION_MS * times)];
+      [eventPath liftUpAtOffset:FBMillisToSeconds(self.offset + FB_TAP_DURATION_MS * (times + 1))];
     }
   }
   return YES;
@@ -191,15 +187,15 @@ static double millisToSeconds (double msec) {
 - (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
 {
   if (index > 0) {
-    [eventPath moveToPoint:self.atPosition atOffset:millisToSeconds(self.offset)];
+    [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
   }
   
   id options = [self.actionItem objectForKey:FB_OPTIONS_KEY];
   NSNumber *pressure = [options isKindOfClass:NSDictionary.class] ? [options objectForKey:@"pressure"] : nil;
   if (nil == pressure) {
-    [eventPath pressDownAtOffset:millisToSeconds(self.offset)];
+    [eventPath pressDownAtOffset:FBMillisToSeconds(self.offset)];
   } else {
-    [eventPath pressDownWithPressure:pressure.doubleValue atOffset:millisToSeconds(self.offset)];
+    [eventPath pressDownWithPressure:pressure.doubleValue atOffset:FBMillisToSeconds(self.offset)];
   }
   return YES;
 }
@@ -226,15 +222,15 @@ static double millisToSeconds (double msec) {
 - (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
 {
   if (index > 0) {
-    [eventPath moveToPoint:self.atPosition atOffset:millisToSeconds(self.offset)];
+    [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
   }
   
   id options = [self.actionItem objectForKey:FB_OPTIONS_KEY];
   NSNumber *pressure = [options isKindOfClass:NSDictionary.class] ? [options objectForKey:@"pressure"] : nil;
   if (nil == pressure) {
-    [eventPath pressDownAtOffset:millisToSeconds(self.offset)];
+    [eventPath pressDownAtOffset:FBMillisToSeconds(self.offset)];
   } else {
-    [eventPath pressDownWithPressure:pressure.doubleValue atOffset:millisToSeconds(self.offset)];
+    [eventPath pressDownWithPressure:pressure.doubleValue atOffset:FBMillisToSeconds(self.offset)];
   }
   return YES;
 }
@@ -262,7 +258,7 @@ static double millisToSeconds (double msec) {
 
 - (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
 {
-  [eventPath moveToPoint:self.atPosition atOffset:millisToSeconds(self.offset)];
+  [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
   return YES;
 }
 
@@ -314,7 +310,7 @@ static double millisToSeconds (double msec) {
 
 - (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
 {
-  [eventPath moveToPoint:self.atPosition atOffset:millisToSeconds(self.offset)];
+  [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
   return YES;
 }
 
@@ -334,7 +330,7 @@ static double millisToSeconds (double msec) {
 
 - (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
 {
-  [eventPath liftUpAtOffset:millisToSeconds(self.offset)];
+  [eventPath liftUpAtOffset:FBMillisToSeconds(self.offset)];
   return YES;
 }
 

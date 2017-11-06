@@ -13,7 +13,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
 @interface FBBaseGestureItem : NSObject
 
 /*! Raw JSON representation of the corresponding action item */

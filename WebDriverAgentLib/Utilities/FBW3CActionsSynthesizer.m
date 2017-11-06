@@ -52,9 +52,6 @@ static NSString *const FB_KEY_ID = @"id";
 static NSString *const FB_KEY_PARAMETERS = @"parameters";
 static NSString *const FB_KEY_ACTIONS = @"actions";
 
-static double millisToSeconds (double msec) {
-  return msec / 1000.0;
-}
 
 @interface FBW3CGestureItem : FBBaseGestureItem
 
@@ -146,12 +143,12 @@ static double millisToSeconds (double msec) {
 - (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
 {
   if (index > 0) {
-    [eventPath moveToPoint:self.atPosition atOffset:millisToSeconds(self.offset)];
+    [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
   }
   if (self.pressure > 0.0) {
-    [eventPath pressDownWithPressure:self.pressure atOffset:millisToSeconds(self.offset)];
+    [eventPath pressDownWithPressure:self.pressure atOffset:FBMillisToSeconds(self.offset)];
   } else {
-    [eventPath pressDownAtOffset:millisToSeconds(self.offset)];
+    [eventPath pressDownAtOffset:FBMillisToSeconds(self.offset)];
   }
   return YES;
 }
@@ -228,7 +225,7 @@ static double millisToSeconds (double msec) {
 
 - (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
 {
-  [eventPath moveToPoint:self.atPosition atOffset:millisToSeconds(self.offset)];
+  [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
   return YES;
 }
 
@@ -243,7 +240,7 @@ static double millisToSeconds (double msec) {
 
 - (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
 {
-  [eventPath moveToPoint:self.atPosition atOffset:millisToSeconds(self.offset)];
+  [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
   return YES;
 }
 
@@ -258,7 +255,7 @@ static double millisToSeconds (double msec) {
 
 - (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
 {
-  [eventPath liftUpAtOffset:millisToSeconds(self.offset)];
+  [eventPath liftUpAtOffset:FBMillisToSeconds(self.offset)];
   return YES;
 }
 
