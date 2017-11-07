@@ -16,7 +16,6 @@
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCTestPrivateSymbols.h"
-#import <XCTest/XCUIDevice.h>
 #import "XCElementSnapshot+FBHitPoint.h"
 
 @implementation XCUIElement (FBIsVisible)
