@@ -55,7 +55,8 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   }
   
   id mainScreen = [xcScreen valueForKey:@"mainScreen"];
-  CGSize screenSize = FBAdjustDimensionsForApplication(FBApplication.fb_activeApplication.frame.size, (UIInterfaceOrientation)[self.class sharedDevice].orientation);
+  XCUIApplication *app = FBApplication.fb_activeApplication;
+  CGSize screenSize = FBAdjustDimensionsForApplication(app.frame.size, app.interfaceOrientation);
   SEL mSelector = NSSelectorFromString(@"screenshotDataForQuality:rect:error:");
   NSMethodSignature *mSignature = [mainScreen methodSignatureForSelector:mSelector];
   NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:mSignature];
