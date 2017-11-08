@@ -36,7 +36,6 @@
   if ([FBConfiguration shouldUseTestManagerForVisibilityDetection]) {
     return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
   }
-  CGRect appFrame = [self fb_rootElement].frame;
   XCElementSnapshot *parentWindow = [self fb_parentMatchingType:XCUIElementTypeWindow];
   // appFrame is always returned like the app is in portrait mode
   // and all the further tests internally assume the app is in portrait mode even
@@ -50,6 +49,7 @@
   if (self == hitElement || [self._allDescendants.copy containsObject:hitElement]) {
     return YES;
   }
+  CGRect appFrame = [self fb_rootElement].frame;
   if (CGRectContainsPoint(appFrame, self.fb_hitPoint)) {
     return YES;
   }
