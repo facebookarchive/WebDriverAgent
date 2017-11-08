@@ -15,11 +15,11 @@
  */
 #define FBAssertWaitTillBecomesTrue(condition) \
   ({ \
-    NSError *error; \
+    NSError *__error; \
     XCTAssertTrue([[[FBRunLoopSpinner new] \
       interval:1.0] \
     spinUntilTrue:^BOOL{ \
       return (condition); \
     }]); \
-    XCTAssertNil(error); \
+    XCTAssertNil(__error); \
   })
