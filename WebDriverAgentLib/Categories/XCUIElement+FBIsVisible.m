@@ -9,9 +9,7 @@
 
 #import "XCUIElement+FBIsVisible.h"
 
-#import "FBApplication.h"
 #import "FBConfiguration.h"
-#import "FBMathUtils.h"
 #import "FBXCodeCompatibility.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBUtilities.h"
@@ -39,9 +37,12 @@
     return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
   }
   CGRect appFrame = [self fb_rootElement].frame;
-  CGSize screenSize = FBAdjustDimensionsForApplication(appFrame.size, self.application.interfaceOrientation);
-  CGRect screenFrame = CGRectMake(0, 0, screenSize.width, screenSize.height);
-  if (!CGRectIntersectsRect(frame, screenFrame)) {
+  XCElementSnapshot *parentWindow = [self fb_parentMatchingType:XCUIElementTypeWindow];
+  // appFrame is always returned like the app is in portrait mode
+  // and all the further tests internally assume the app is in portrait mode even
+  // if it is in landscape. That is why we must get the parent's window frame in order
+  // to check if it intersects with the corresponding element's frame
+  if (nil != parentWindow && !CGRectIntersectsRect(frame, parentWindow.frame)) {
     return NO;
   }
   CGPoint midPoint = [self.suggestedHitpoints.lastObject CGPointValue];
