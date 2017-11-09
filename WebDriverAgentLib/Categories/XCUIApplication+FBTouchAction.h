@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
  - 'release' to release the finger
  - 'moveTo' to move the virtual finger
  - 'wait' to modify the duration of the preceeding action
- - 'cancel' to cancel all the preceeding actions in the chain
+ - 'cancel' to cancel the preceeding action in the chain
  Each dictionary can also contain 'options' key with additional parameters dictionary related to the appropriate action.
  
  The following options are mandatory for 'tap', 'longPress', 'press' and 'moveTo' actions:
@@ -33,10 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
  - 'y' the Y coordinate of the action
  - 'element' the corresponding element instance, for which the action is going to be performed
  If only 'element' is set then hit point coordinates of this element will be used.
- If only 'x' and 'y' are set then these will be considered as absolute coordinates for 'tap', 'longPress', 'press' actions, but as relative coordinates for 'moveTo' action.
+ If only 'x' and 'y' are set then these will be considered as absolute coordinates.
  If both 'element' and 'x'/'y' are set then these will act as relative element coordinates.
  
- It is also mandatory, that 'release', 'moveTo' and 'wait' actions are preceeded with at least one chain item, which contains absolute coordinates, like 'tap', 'press' or 'longPress'. Empty chains are not allowed.
+ It is also mandatory, that 'release' and 'wait' actions are preceeded with at least one chain item, which contains absolute coordinates, like 'tap', 'press' or 'longPress'. Empty chains are not allowed.
  
  The following additional options are available for different actions:
  - 'tap': 'count' (defines count of taps to be performed in a row; 1 by default)

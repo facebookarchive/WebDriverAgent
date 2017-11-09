@@ -55,6 +55,8 @@
 
 - (void)testErroneousGestures
 {
+  XCUIElement *dstButton = self.testedApplication.buttons[FBShowAlertButtonName];
+  
   NSArray<NSArray<NSDictionary<NSString *, id> *> *> *invalidGestures =
   @[
     // Empty chain
@@ -70,15 +72,9 @@
     
     // Empty chain because of cancel
     @[@{
-        @"action": @"tap",
+        @"action": @"moveTo",
         @"options": @{
-            @"element": self.testedApplication.buttons[FBShowAlertButtonName],
-            }
-        },
-      @{
-        @"action": @"wait",
-        @"options": @{
-            @"ms": @100
+            @"element": dstButton,
             }
         },
       @{
@@ -90,7 +86,7 @@
     @[@{
         @"action": @"tapP",
         @"options": @{
-            @"element": self.testedApplication.buttons[FBShowAlertButtonName],
+            @"element": dstButton,
             }
         },
       ],
@@ -348,8 +344,8 @@
     @{
       @"action": @"moveTo",
       @"options": @{
-          @"x": @0,
-          @"y": @(-pickerFrame.size.height / 2),
+          @"x": @(pickerFrame.origin.x),
+          @"y": @(pickerFrame.origin.y),
           }
       },
     @{
@@ -373,8 +369,8 @@
     @{
       @"action": @"moveTo",
       @"options": @{
-          @"x": @0,
-          @"y": @(pickerFrame.size.height / 2),
+          @"x": @(pickerFrame.origin.x),
+          @"y": @(pickerFrame.origin.y + pickerFrame.size.height),
           }
       },
     @{

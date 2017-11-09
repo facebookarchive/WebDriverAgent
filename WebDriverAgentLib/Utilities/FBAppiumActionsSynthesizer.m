@@ -20,6 +20,20 @@
 #import "XCTRunnerDaemonSession.h"
 #import "XCPointerEventPath.h"
 
+static NSString *const FB_ACTION_KEY = @"action";
+static NSString *const FB_ACTION_TAP = @"tap";
+static NSString *const FB_ACTION_PRESS = @"press";
+static NSString *const FB_ACTION_LONG_PRESS = @"longPress";
+static NSString *const FB_ACTION_MOVE_TO = @"moveTo";
+static NSString *const FB_ACTION_RELEASE = @"release";
+static NSString *const FB_ACTION_CANCEL = @"cancel";
+static NSString *const FB_ACTION_WAIT = @"wait";
+
+static NSString *const FB_OPTION_DURATION = @"duration";
+static NSString *const FB_OPTION_PRESSURE = @"pressure";
+static NSString *const FB_OPTION_COUNT = @"count";
+static NSString *const FB_OPTION_MS = @"ms";
+
 static const double FB_TAP_DURATION_MS = 100.0;
 static const double FB_LONG_TAP_DURATION_MS = 500.0;
 static NSString *const FB_OPTIONS_KEY = @"options";
@@ -77,7 +91,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
     }
     self.duration = [self durationWithOptions:options];
     if (self.duration < 0) {
-      NSString *description = [NSString stringWithFormat:@"Duration value cannot be negative for '%@' action", self.class.actionName];
+      NSString *description = [NSString stringWithFormat:@"%@ value cannot be negative for '%@' action", FB_OPTION_DURATION, self.class.actionName];
       if (error) {
         *error = [[FBErrorBuilder.builder withDescription:description] build];
       }
@@ -95,8 +109,8 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 
 - (double)durationWithOptions:(nullable NSDictionary<NSString *, id> *)options
 {
-  return (options && [options objectForKey:@"duration"]) ?
-    ((NSNumber *)[options objectForKey:@"duration"]).doubleValue :
+  return (options && [options objectForKey:FB_OPTION_DURATION]) ?
+    ((NSNumber *)[options objectForKey:FB_OPTION_DURATION]).doubleValue :
     0.0;
 }
 
@@ -129,7 +143,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 
 + (NSString *)actionName
 {
-  return @"tap";
+  return FB_ACTION_TAP;
 }
 
 + (BOOL)hasAbsolutePositioning
@@ -147,7 +161,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   
   id options = [self.actionItem objectForKey:FB_OPTIONS_KEY];
   if ([options isKindOfClass:NSDictionary.class]) {
-    NSNumber *tapCount = [options objectForKey:@"count"] ?: @1;
+    NSNumber *tapCount = [options objectForKey:FB_OPTION_COUNT] ?: @1;
     for (NSInteger times = 1; times < tapCount.integerValue; times++) {
       [eventPath pressDownAtOffset:FBMillisToSeconds(self.offset + FB_TAP_DURATION_MS * times)];
       [eventPath liftUpAtOffset:FBMillisToSeconds(self.offset + FB_TAP_DURATION_MS * (times + 1))];
@@ -160,7 +174,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 {
   NSNumber *tapCount = @1;
   if ([options isKindOfClass:NSDictionary.class]) {
-    tapCount = [options objectForKey:@"count"] ?: tapCount;
+    tapCount = [options objectForKey:FB_OPTION_COUNT] ?: tapCount;
   }
   return FB_TAP_DURATION_MS * tapCount.integerValue;
 }
@@ -176,7 +190,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 
 + (NSString *)actionName
 {
-  return @"press";
+  return FB_ACTION_PRESS;
 }
 
 + (BOOL)hasAbsolutePositioning
@@ -191,7 +205,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   }
   
   id options = [self.actionItem objectForKey:FB_OPTIONS_KEY];
-  NSNumber *pressure = [options isKindOfClass:NSDictionary.class] ? [options objectForKey:@"pressure"] : nil;
+  NSNumber *pressure = [options isKindOfClass:NSDictionary.class] ? [options objectForKey:FB_OPTION_PRESSURE] : nil;
   if (nil == pressure) {
     [eventPath pressDownAtOffset:FBMillisToSeconds(self.offset)];
   } else {
@@ -211,7 +225,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 
 + (NSString *)actionName
 {
-  return @"longPress";
+  return FB_ACTION_LONG_PRESS;
 }
 
 + (BOOL)hasAbsolutePositioning
@@ -226,7 +240,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   }
   
   id options = [self.actionItem objectForKey:FB_OPTIONS_KEY];
-  NSNumber *pressure = [options isKindOfClass:NSDictionary.class] ? [options objectForKey:@"pressure"] : nil;
+  NSNumber *pressure = [options isKindOfClass:NSDictionary.class] ? [options objectForKey:FB_OPTION_PRESSURE] : nil;
   if (nil == pressure) {
     [eventPath pressDownAtOffset:FBMillisToSeconds(self.offset)];
   } else {
@@ -237,9 +251,9 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 
 - (double)durationWithOptions:(nullable NSDictionary<NSString *, id> *)options
 {
-  return (options && [options objectForKey:@"duration"]) ?
-  ((NSNumber *)[options objectForKey:@"duration"]).doubleValue :
-  FB_LONG_TAP_DURATION_MS;
+  return (options && [options objectForKey:FB_OPTION_DURATION]) ?
+    ((NSNumber *)[options objectForKey:FB_OPTION_DURATION]).doubleValue :
+    FB_LONG_TAP_DURATION_MS;
 }
 
 @end
@@ -248,7 +262,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 
 + (NSString *)actionName
 {
-  return @"wait";
+  return FB_ACTION_WAIT;
 }
 
 + (BOOL)hasAbsolutePositioning
@@ -264,48 +278,23 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 
 - (double)durationWithOptions:(nullable NSDictionary<NSString *, id> *)options
 {
-  return (options && [options objectForKey:@"ms"]) ?
-  ((NSNumber *)[options objectForKey:@"ms"]).doubleValue :
-  0.0;
+  return (options && [options objectForKey:FB_OPTION_MS]) ?
+    ((NSNumber *)[options objectForKey:FB_OPTION_MS]).doubleValue :
+    0.0;
 }
 
 @end
 
 @implementation FBMoveToItem
 
-- (nullable instancetype)initWithActionItem:(NSDictionary<NSString *, id> *)item application:(XCUIApplication *)application atPosition:(NSValue *)atPosition offset:(double)offset error:(NSError **)error
-{
-  _recentPosition = atPosition;
-  
-  self = [super initWithActionItem:item application:application atPosition:nil offset:offset error:error];
-  if (!self) {
-    return nil;
-  }
-  return self;
-}
-
-- (CGPoint)hitpointWithElement:(nullable XCUIElement *)element positionOffset:(nullable NSValue *)positionOffset
-{
-  if (nil == element) {
-    // if element is not set then we consider coordinates passed to moveTo action as relative
-    CGPoint recentPosition = [self.recentPosition CGPointValue];
-    CGPoint offsetRelativeToRecentPosition = [positionOffset CGPointValue];
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
-      offsetRelativeToRecentPosition = FBInvertOffsetForOrientation(offsetRelativeToRecentPosition, self.application.interfaceOrientation);
-    }
-    return CGPointMake(recentPosition.x + offsetRelativeToRecentPosition.x, recentPosition.y + offsetRelativeToRecentPosition.y);
-  }
-  return [super hitpointWithElement:element positionOffset:positionOffset];
-}
-
 + (NSString *)actionName
 {
-  return @"moveTo";
+  return FB_ACTION_MOVE_TO;
 }
 
 + (BOOL)hasAbsolutePositioning
 {
-  return NO;
+  return YES;
 }
 
 - (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
@@ -320,7 +309,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 
 + (NSString *)actionName
 {
-  return @"release";
+  return FB_ACTION_RELEASE;
 }
 
 + (BOOL)hasAbsolutePositioning
@@ -373,31 +362,43 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 
 @implementation FBAppiumActionsSynthesizer
 
-- (NSArray<NSDictionary<NSString *, id> *> *)preprocessAction:(NSArray<NSDictionary<NSString *, id> *> *)touchAction
+- (NSArray<NSDictionary<NSString *, id> *> *)preprocessAction:(NSArray<NSDictionary<NSString *, id> *> *)touchActionItems
 {
-  if (nil == self.elementCache) {
-    return touchAction;
-  }
   NSMutableArray<NSDictionary<NSString *, id> *> *result = [NSMutableArray array];
-  for (NSDictionary<NSString *, id> *touchItem in touchAction) {
+  BOOL shouldSkipNextItem = NO;
+  for (NSDictionary<NSString *, id> *touchItem in [touchActionItems reverseObjectEnumerator]) {
+    id actionItemName = [touchItem objectForKey:FB_ACTION_KEY];
+    if ([actionItemName isKindOfClass:NSString.class] && [actionItemName isEqualToString:FB_ACTION_CANCEL]) {
+      shouldSkipNextItem = YES;;
+      continue;
+    }
+    if (shouldSkipNextItem) {
+      shouldSkipNextItem = NO;
+      continue;
+    }
+    
     id options = [touchItem objectForKey:FB_OPTIONS_KEY];
-    if (![options isKindOfClass:NSDictionary.class] || ![options objectForKey:FB_ELEMENT_KEY]) {
+    if (![options isKindOfClass:NSDictionary.class]) {
+      [result addObject:touchItem];
+      continue;
+    }
+    NSString *uuid = [options objectForKey:FB_ELEMENT_KEY];
+    if (nil == uuid || nil == self.elementCache) {
+      [result addObject:touchItem];
+      continue;
+    }
+    XCUIElement *element = [self.elementCache elementForUUID:uuid];
+    if (nil == element) {
       [result addObject:touchItem];
       continue;
     }
     NSMutableDictionary<NSString *, id> *processedItem = touchItem.mutableCopy;
     NSMutableDictionary<NSString *, id> *processedOptions = ((NSDictionary *)[processedItem objectForKey:FB_OPTIONS_KEY]).mutableCopy;
-    NSString *uuid = [options objectForKey:FB_ELEMENT_KEY];
-    XCUIElement *element = [self.elementCache elementForUUID:uuid];
-    if (nil == element) {
-      [result addObject:touchItem];
-    } else {
-      [processedOptions setObject:element forKey:FB_ELEMENT_KEY];
-      [processedItem setObject:processedOptions.copy forKey:FB_OPTIONS_KEY];
-      [result addObject:processedItem.copy];
-    }
+    [processedOptions setObject:element forKey:FB_ELEMENT_KEY];
+    [processedItem setObject:processedOptions.copy forKey:FB_OPTIONS_KEY];
+    [result addObject:processedItem.copy];
   }
-  return result.copy;
+  return [[result reverseObjectEnumerator] allObjects];
 }
 
 - (nullable XCPointerEventPath *)eventPathWithAction:(NSArray<NSDictionary<NSString *, id> *> *)action error:(NSError **)error
@@ -420,23 +421,18 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   FBAppiumGestureItemsChain *chain = [[FBAppiumGestureItemsChain alloc] init];
   BOOL isAbsoluteTouchPositionSet = NO;
   for (NSDictionary<NSString *, id> *actionItem in action) {
-    id actionItemName = [actionItem objectForKey:@"action"];
+    id actionItemName = [actionItem objectForKey:FB_ACTION_KEY];
     if (![actionItemName isKindOfClass:NSString.class]) {
-      NSString *description = [NSString stringWithFormat:@"'action' property is mandatory for gesture chain item %@", actionItem];
+      NSString *description = [NSString stringWithFormat:@"'%@' property is mandatory for gesture chain item %@", FB_ACTION_KEY, actionItem];
       if (error) {
         *error = [[FBErrorBuilder.builder withDescription:description] build];
       }
       return nil;
     }
-    
-    if ([actionItemName isEqualToString:@"cancel"]) {
-      [chain reset];
-      continue;
-    }
-    
+
     Class gestureItemClass = [gestureItemsMapping objectForKey:actionItemName];
     if (nil == gestureItemClass) {
-      NSString *description = [NSString stringWithFormat:@"Action value '%@' is unknown", actionItemName];
+      NSString *description = [NSString stringWithFormat:@"%@ value '%@' is unknown", FB_ACTION_KEY, actionItemName];
       if (error) {
         *error = [[FBErrorBuilder.builder withDescription:description] build];
       }
@@ -450,7 +446,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
     } else {
       if (!isAbsoluteTouchPositionSet) {
         if (error) {
-          NSString *description = [NSString stringWithFormat:@"'%@' action should be preceded by an item with absolute positioning", actionItemName];
+          NSString *description = [NSString stringWithFormat:@"'%@' %@ should be preceded by an item with absolute positioning", actionItemName, FB_ACTION_KEY];
           *error = [[FBErrorBuilder.builder withDescription:description] build];
         }
         return nil;
