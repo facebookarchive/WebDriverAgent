@@ -111,13 +111,13 @@
 + (id<FBResponsePayload>)handleSessionAppTerminate:(FBRouteRequest *)request
 {
   BOOL result = [request.session terminateApplicationWithBundleId:(id)request.arguments[@"bundleId"]];
-  return FBResponseWithStatus(FBCommandStatusNoError, @{@"terminated": @(result)});
+  return FBResponseWithStatus(FBCommandStatusNoError, @(result));
 }
 
 + (id<FBResponsePayload>)handleSessionAppState:(FBRouteRequest *)request
 {
   NSUInteger state = [request.session applicationStateWithBundleId:(id)request.arguments[@"bundleId"]];
-  return FBResponseWithStatus(FBCommandStatusNoError, @{@"state": @(state)});
+  return FBResponseWithStatus(FBCommandStatusNoError, @(state));
 }
 
 + (id<FBResponsePayload>)handleGetActiveSession:(FBRouteRequest *)request
