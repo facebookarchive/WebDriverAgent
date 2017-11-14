@@ -104,6 +104,42 @@
   XCTAssertFalse(thirdElement.isDescendant);
 }
 
+- (void)testValidDoubleIndirectChainAndStar
+{
+  NSError *error;
+  FBClassChain *result = [FBClassChainQueryParser parseQuery:@"**/XCUIElementTypeButton/**/*" error:&error];
+  XCTAssertNotNil(result);
+  XCTAssertEqual(result.elements.count, 2);
+  
+  FBClassChainItem *firstElement = [result.elements firstObject];
+  XCTAssertEqual(firstElement.type, XCUIElementTypeButton);
+  XCTAssertEqual(firstElement.position, 1);
+  XCTAssertTrue(firstElement.isDescendant);
+  
+  FBClassChainItem *secondElement = [result.elements objectAtIndex:1];
+  XCTAssertEqual(secondElement.type, XCUIElementTypeAny);
+  XCTAssertEqual(secondElement.position, 0);
+  XCTAssertTrue(secondElement.isDescendant);
+}
+
+- (void)testValidDoubleIndirectChainAndClassName
+{
+  NSError *error;
+  FBClassChain *result = [FBClassChainQueryParser parseQuery:@"**/XCUIElementTypeButton/**/XCUIElementTypeImage" error:&error];
+  XCTAssertNotNil(result);
+  XCTAssertEqual(result.elements.count, 2);
+  
+  FBClassChainItem *firstElement = [result.elements firstObject];
+  XCTAssertEqual(firstElement.type, XCUIElementTypeButton);
+  XCTAssertEqual(firstElement.position, 1);
+  XCTAssertTrue(firstElement.isDescendant);
+  
+  FBClassChainItem *secondElement = [result.elements objectAtIndex:1];
+  XCTAssertEqual(secondElement.type, XCUIElementTypeImage);
+  XCTAssertEqual(secondElement.position, 0);
+  XCTAssertTrue(secondElement.isDescendant);
+}
+
 - (void)testValidChainWithNegativeIndex
 {
   NSError *error;
