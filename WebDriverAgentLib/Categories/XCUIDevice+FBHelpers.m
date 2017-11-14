@@ -62,9 +62,9 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   [invocation setTarget:mainScreen];
   [invocation setSelector:mSelector];
   // https://developer.apple.com/documentation/xctest/xctimagequality?language=objc
-  // Select lower quality for screens with retina scale > 2.0,
-  // since XCTest crashes if the maximum quality (zero value) is selected, for example, on iPhone 7 Plus or iPad Pro
-  NSUInteger quality = [[mainScreen valueForKey:@"scale"] doubleValue] > 2.0 ? 1 : 0;
+  // Select lower quality, since XCTest crashes randomly if the maximum quality (zero value) is selected
+  // and the resulting screenshot does not fit the memory buffer preallocated for it by the operating system
+  NSUInteger quality = 1;
   [invocation setArgument:&quality atIndex:2];
   CGRect screenRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
   [invocation setArgument:&screenRect atIndex:3];
@@ -75,11 +75,7 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   if (nil == result) {
     return nil;
   }
-  if (0 == quality) {
-    // PNG-encoded data is only returned if quality is set to zero
-    // Otherwise it's a JPEG
-    return result;
-  }
+  // The resulting data is a JPEG image, so we need to convert it to PNG representation
   UIImage *image = [UIImage imageWithData:result];
   return (NSData *)UIImagePNGRepresentation(image);
 }
