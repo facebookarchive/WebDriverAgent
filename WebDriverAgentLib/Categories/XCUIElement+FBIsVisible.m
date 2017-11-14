@@ -36,28 +36,27 @@
   if (CGRectIsEmpty(frame)) {
     return NO;
   }
-  
+
   if ([FBConfiguration shouldUseTestManagerForVisibilityDetection]) {
     return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
   }
-  
+
   CGRect appFrame = [self fb_rootElement].frame;
   CGSize screenSize = FBAdjustDimensionsForApplication(appFrame.size, (UIInterfaceOrientation)[XCUIDevice sharedDevice].orientation);
   CGRect screenFrame = CGRectMake(0, 0, screenSize.width, screenSize.height);
   if (!CGRectIntersectsRect(frame, screenFrame)) {
     return NO;
   }
-  
+
   if (CGRectContainsPoint(appFrame, self.fb_hitPoint)) {
     return YES;
   }
-  
-  CGPoint hitPoint = [self.suggestedHitpoints.lastObject CGPointValue];
-  XCElementSnapshot *hitElement = [self hitTest:hitPoint];
-  if (hitElement && (self == hitElement || [self._allDescendants.copy containsObject:hitElement])) {
-    return YES;
+  for (XCElementSnapshot *elementSnapshot in self.children.copy) {
+    if (elementSnapshot.fb_isVisible) {
+      return YES;
+    }
   }
-  
+
   return NO;
 }
 
