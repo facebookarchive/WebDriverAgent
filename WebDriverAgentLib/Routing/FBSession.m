@@ -76,8 +76,7 @@ static FBSession *_activeSession;
   if (self.testedApplication && !self.testedApplication.running) {
     [[NSException exceptionWithName:FBApplicationCrashedException reason:@"Application is not running, possibly crashed" userInfo:nil] raise];
   }
-  FBApplication *application = [FBApplication fb_activeApplication] ?: self.testedApplication;
-  return application;
+  return [FBApplication fb_activeApplication] ?: self.testedApplication;
 }
 
 @end
