@@ -114,8 +114,11 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
     return nil;
   }
   NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
-  for(XCUIElement *button in buttons) {
-    [value addObject:[button wdLabel]];
+  for (XCUIElement *button in buttons) {
+    NSString *label = button.wdLabel;
+    if (nil != label) {
+      [value addObject:label];
+    }
   }
   return value;
 }
