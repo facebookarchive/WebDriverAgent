@@ -311,6 +311,18 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
       [result addObject:actionItem];
       continue;
     }
+    // Selenium Python client passes 'origin' element in the following format:
+    //
+    // if isinstance(origin, WebElement):
+    //    action["origin"] = {"element-6066-11e4-a52e-4f735466cecf": origin.id}
+    if ([origin isKindOfClass:NSDictionary.class]) {
+      for (NSString* key in [origin copy]) {
+        if ([[key lowercaseString] containsString:@"element"]) {
+          origin = [origin objectForKey:key];
+          break;
+        }
+      }
+    }
     XCUIElement *instance = [self.elementCache elementForUUID:origin];
     if (nil == instance) {
       [result addObject:actionItem];
