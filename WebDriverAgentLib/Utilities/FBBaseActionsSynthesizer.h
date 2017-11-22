@@ -9,6 +9,7 @@
 
 #import "FBElementCache.h"
 #import "XCUIApplication.h"
+#import "XCElementSnapshot.h"
 #import "XCSynthesizedEventRecord.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -52,13 +53,24 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)increaseDuration:(double)value;
 
 /**
+ Recursively calculates the visible frame of the current element inside its container window.
+ 
+ @param selfSnapshot The snapshot of the current element
+ @param frame The intersection between the current element's frame and the parent's one. Set to to nil for the initial call
+ @param window The parent window of the current element's snapshot
+ @return The coordinates of the visible element's rectange. If this rectange has zero width or height then this element is not visible
+ */
++ (CGRect)visibleFrameWithSnapshot:(XCElementSnapshot *)selfSnapshot currentIntersection:(nullable NSValue *)frame containerWindow:(XCElementSnapshot *)window;
+
+/**
  Calculate absolute gesture position on the screen based on provided element and positionOffset values.
  
  @param element The element instance to perform the gesture on. If element equals to nil then positionOffset is considered as absolute coordinates
  @param positionOffset The actual coordinate offset. If this calue equals to nil then element's hitpoint is taken as gesture position. If element is not nil then this offset is calculated relatively to the top-left cordner of the element's position
- @return Adbsolute gesture position on the screen
+ @param error If there is an error, upon return contains an NSError object that describes the problem
+ @return Adbsolute gesture position on the screen or nil if the calculation fails (for example, the element is invisible)
  */
-- (CGPoint)hitpointWithElement:(nullable XCUIElement *)element positionOffset:(nullable NSValue *)positionOffset;
+- (nullable NSValue *)hitpointWithElement:(nullable XCUIElement *)element positionOffset:(nullable NSValue *)positionOffset error:(NSError **)error;
 
 @end
 

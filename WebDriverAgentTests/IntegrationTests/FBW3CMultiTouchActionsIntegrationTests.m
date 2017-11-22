@@ -99,7 +99,7 @@
       @"id": @"finger1",
       @"parameters": @{@"pointerType": @"touch"},
       @"actions": @[
-          @{@"type": @"pointerMove", @"duration": @0, @"origin": element},
+          @{@"type": @"pointerMove", @"duration": @0, @"origin": element, @"x": @0, @"y": @0},
           @{@"type": @"pointerDown"},
           @{@"type": @"pause", @"duration": @100},
           @{@"type": @"pointerUp"},
@@ -110,7 +110,7 @@
       @"id": @"finger2",
       @"parameters": @{@"pointerType": @"touch"},
       @"actions": @[
-          @{@"type": @"pointerMove", @"duration": @0, @"origin": element},
+          @{@"type": @"pointerMove", @"duration": @0, @"origin": element, @"x": @0, @"y": @0},
           @{@"type": @"pointerDown"},
           @{@"type": @"pause", @"duration": @100},
           @{@"type": @"pointerUp"},

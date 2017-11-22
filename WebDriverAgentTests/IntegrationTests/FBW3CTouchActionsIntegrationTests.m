@@ -271,7 +271,7 @@
       @"id": @"finger1",
       @"parameters": @{@"pointerType": @"touch"},
       @"actions": @[
-          @{@"type": @"pointerMove", @"duration": @0, @"origin": self.testedApplication.buttons[FBShowAlertButtonName]},
+          @{@"type": @"pointerMove", @"duration": @0, @"origin": self.testedApplication.buttons[FBShowAlertButtonName], @"x": @0, @"y": @0},
           @{@"type": @"pointerDown"},
           @{@"type": @"pause", @"duration": @100},
           @{@"type": @"pointerUp"},
@@ -289,7 +289,7 @@
       @"id": @"finger1",
       @"parameters": @{@"pointerType": @"touch"},
       @"actions": @[
-          @{@"type": @"pointerMove", @"duration": @0, @"origin": self.testedApplication.buttons[FBShowAlertButtonName]},
+          @{@"type": @"pointerMove", @"duration": @0, @"origin": self.testedApplication.buttons[FBShowAlertButtonName], @"x": @0, @"y": @0},
           @{@"type": @"pointerDown"},
           @{@"type": @"pause", @"duration": @100},
           @{@"type": @"pointerUp"},
@@ -390,10 +390,10 @@
       @"id": @"finger1",
       @"parameters": @{@"pointerType": @"touch"},
       @"actions": @[
-          @{@"type": @"pointerMove", @"duration": @0, @"origin": self.pickerWheel, @"x": @(pickerFrame.size.width / 2), @"y": @(pickerFrame.size.height / 2)},
+          @{@"type": @"pointerMove", @"duration": @0, @"origin": self.pickerWheel, @"x": @0, @"y":@0},
           @{@"type": @"pointerDown"},
           @{@"type": @"pause", @"duration": @500},
-          @{@"type": @"pointerMove", @"duration": @0, @"origin": self.pickerWheel, @"x": @(pickerFrame.size.width / 2), @"y": @(pickerFrame.size.height)},
+          @{@"type": @"pointerMove", @"duration": @0, @"origin": self.pickerWheel, @"x": @0, @"y": @(pickerFrame.size.height / 2)},
           @{@"type": @"pointerUp"},
           ],
       },
@@ -410,7 +410,7 @@
       @"id": @"finger1",
       @"parameters": @{@"pointerType": @"touch"},
       @"actions": @[
-          @{@"type": @"pointerMove", @"duration": @0, @"origin": self.pickerWheel, @"x": @(pickerFrame.size.width / 2), @"y": @(pickerFrame.size.height / 2)},
+          @{@"type": @"pointerMove", @"duration": @0, @"origin": self.pickerWheel, @"x": @0, @"y": @0},
           @{@"type": @"pointerDown"},
           @{@"type": @"pause", @"duration": @500},
           @{@"type": @"pointerMove", @"duration": @0, @"origin": @"pointer", @"x": @0, @"y": @(-pickerFrame.size.height / 2)},

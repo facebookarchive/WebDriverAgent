@@ -40,26 +40,51 @@
   return YES;
 }
 
-- (CGPoint)hitpointWithElement:(nullable XCUIElement *)element positionOffset:(nullable NSValue *)positionOffset
++ (CGRect)visibleFrameWithSnapshot:(XCElementSnapshot *)selfSnapshot currentIntersection:(nullable NSValue *)frame containerWindow:(XCElementSnapshot *)window
+{
+  XCElementSnapshot *parent = selfSnapshot.parent;
+  CGRect intersectionRect = frame == nil ?
+  CGRectIntersection(selfSnapshot.frame, parent.frame) :
+  CGRectIntersection([frame CGRectValue], parent.frame);
+  if (parent == window) {
+    return intersectionRect;
+  }
+  return [self.class visibleFrameWithSnapshot:parent currentIntersection:[NSValue valueWithCGRect:intersectionRect] containerWindow:window];
+}
+
+- (nullable NSValue *)hitpointWithElement:(nullable XCUIElement *)element positionOffset:(nullable NSValue *)positionOffset error:(NSError **)error
 {
   CGPoint hitPoint;
   if (nil == element) {
     // Only absolute offset is defined
     hitPoint = [positionOffset CGPointValue];
   } else {
+    // The offset relative to an element is defined
+    XCElementSnapshot *snapshot = element.fb_lastSnapshot;
     if (nil == positionOffset) {
-      // Only element to tap is defined
-      // Calculating the default hitpoint
-      XCElementSnapshot *snapshot = element.fb_lastSnapshot;
       hitPoint = snapshot.fb_hitPoint;
-      if (CGPointEqualToPoint(hitPoint, CGPointMake(-1, -1))) {
-        hitPoint = [snapshot.suggestedHitpoints.lastObject CGPointValue];
+      if (!CGPointEqualToPoint(hitPoint, CGPointMake(-1, -1))) {
+        return [NSValue valueWithCGPoint:hitPoint];
       }
-      return hitPoint;
+    }
+    XCElementSnapshot *containerWindow = [snapshot fb_parentMatchingType:XCUIElementTypeWindow];
+    CGRect visibleFrame;
+    if (nil == containerWindow) {
+      visibleFrame = snapshot.frame;
     } else {
-      // Relative element offset is defined
+      visibleFrame = [self.class visibleFrameWithSnapshot:snapshot currentIntersection:nil containerWindow:containerWindow];
+    }
+    if (CGRectIsEmpty(visibleFrame)) {
+      NSString *description = [NSString stringWithFormat:@"The element '%@' is not visible on the screen", element];
+      if (error) {
+        *error = [[FBErrorBuilder.builder withDescription:description] build];
+      }
+      return nil;
+    }
+    hitPoint = CGPointMake(visibleFrame.origin.x, visibleFrame.origin.y);
+    if (nil != positionOffset) {
       CGPoint offsetValue = [positionOffset CGPointValue];
-      hitPoint = CGPointMake(element.frame.origin.x + offsetValue.x, element.frame.origin.y + offsetValue.y);
+      hitPoint = CGPointMake(hitPoint.x + offsetValue.x, hitPoint.y + offsetValue.y);
     }
   }
   if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
@@ -70,7 +95,7 @@
      */
     hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
   }
-  return hitPoint;
+  return [NSValue valueWithCGPoint:hitPoint];
 }
 
 @end

@@ -14,6 +14,8 @@
 #import "FBLogger.h"
 #import "FBMacros.h"
 #import "FBMathUtils.h"
+#import "XCElementSnapshot+FBHitPoint.h"
+#import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement.h"
 #import "XCSynthesizedEventRecord.h"
@@ -118,6 +120,46 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
   return [NSValue valueWithCGPoint:self.previousItem.atPosition];
 }
 
+- (nullable NSValue *)hitpointWithElement:(nullable XCUIElement *)element positionOffset:(nullable NSValue *)positionOffset error:(NSError **)error
+{
+  CGPoint hitPoint;
+  if (nil == element) {
+    // Only absolute offset is defined
+    hitPoint = [positionOffset CGPointValue];
+  } else {
+    // An offset relative to an element is defined
+    XCElementSnapshot *snapshot = element.fb_lastSnapshot;
+    XCElementSnapshot *containerWindow = [snapshot fb_parentMatchingType:XCUIElementTypeWindow];
+    CGRect visibleFrame;
+    if (nil == containerWindow) {
+      visibleFrame = snapshot.frame;
+    } else {
+      visibleFrame = [self.class visibleFrameWithSnapshot:snapshot currentIntersection:nil containerWindow:containerWindow];
+    }
+    if (CGRectIsEmpty(visibleFrame)) {
+      NSString *description = [NSString stringWithFormat:@"The element '%@' is not visible on the screen", element];
+      if (error) {
+        *error = [[FBErrorBuilder.builder withDescription:description] build];
+      }
+      return nil;
+    }
+    hitPoint = CGPointMake(visibleFrame.origin.x + visibleFrame.size.width / 2, visibleFrame.origin.y + visibleFrame.size.height / 2);
+    if (nil != positionOffset) {
+      CGPoint offsetValue = [positionOffset CGPointValue];
+      hitPoint = CGPointMake(hitPoint.x + offsetValue.x, hitPoint.y + offsetValue.y);
+    }
+  }
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+    /*
+     Since iOS 10.0 XCTest has a bug when it always returns portrait coordinates for UI elements
+     even if the device is not in portait mode. That is why we need to recalculate them manually
+     based on the current orientation value
+     */
+    hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
+  }
+  return [NSValue valueWithCGPoint:hitPoint];
+}
+
 @end
 
 @implementation FBPointerDownItem
@@ -193,13 +235,13 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
   
   if (nil != element) {
     if (nil == x && nil == y) {
-      return [NSValue valueWithCGPoint:[self hitpointWithElement:element positionOffset:nil]];
+      return [self hitpointWithElement:element positionOffset:nil error:error];
     }
-    return [NSValue valueWithCGPoint:[self hitpointWithElement:element positionOffset:[NSValue valueWithCGPoint:CGPointMake(x.floatValue, y.floatValue)]]];
+    return [self hitpointWithElement:element positionOffset:[NSValue valueWithCGPoint:CGPointMake(x.floatValue, y.floatValue)] error:error];
   }
   
   if ([origin isKindOfClass:NSString.class] && [origin isEqualToString:FB_ORIGIN_TYPE_VIEWPORT]) {
-    return [NSValue valueWithCGPoint:[self hitpointWithElement:nil positionOffset:[NSValue valueWithCGPoint:CGPointMake(x.floatValue, y.floatValue)]]];
+    return [self hitpointWithElement:nil positionOffset:[NSValue valueWithCGPoint:CGPointMake(x.floatValue, y.floatValue)] error:error];
   }
   
   // origin == FB_ORIGIN_TYPE_POINTER

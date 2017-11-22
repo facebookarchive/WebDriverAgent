@@ -134,7 +134,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
     return nil;
   }
   NSValue *offset = (nil != x && nil != y) ? [NSValue valueWithCGPoint:CGPointMake(x.floatValue, y.floatValue)] : nil;
-  return [NSValue valueWithCGPoint:[self hitpointWithElement:element positionOffset:offset]];
+  return [self hitpointWithElement:element positionOffset:offset error:error];
 }
 
 @end
