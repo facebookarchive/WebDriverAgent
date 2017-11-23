@@ -44,9 +44,9 @@
 {
   XCElementSnapshot *parent = selfSnapshot.parent;
   CGRect intersectionRect = frame == nil ?
-  CGRectIntersection(selfSnapshot.frame, parent.frame) :
-  CGRectIntersection([frame CGRectValue], parent.frame);
-  if (parent == window) {
+    CGRectIntersection(selfSnapshot.frame, parent.frame) :
+    CGRectIntersection([frame CGRectValue], parent.frame);
+  if (CGRectIsEmpty(intersectionRect) || parent == window) {
     return intersectionRect;
   }
   return [self.class visibleFrameWithSnapshot:parent currentIntersection:[NSValue valueWithCGRect:intersectionRect] containerWindow:window];
