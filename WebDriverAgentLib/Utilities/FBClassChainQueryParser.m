@@ -175,7 +175,7 @@ static NSString *const STAR_TOKEN = @"*";
 {
   if ([self.class.allowedCharacters characterIsMember:character]) {
     if (self.asString.length >= 1) {
-      FBDescendantMarkerToken *nextToken = [[FBDescendantMarkerToken alloc] initWithStringValue:STAR_TOKEN];
+      FBDescendantMarkerToken *nextToken = [[FBDescendantMarkerToken alloc] initWithStringValue:[NSString stringWithFormat:@"%@%@", STAR_TOKEN, STAR_TOKEN]];
       nextToken.previousItemsCountToOverride = 1;
       return nextToken;
     }
