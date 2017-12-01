@@ -27,19 +27,19 @@
 
 @implementation XCElementSnapshot (FBIsVisible)
 
-+ (BOOL)fb_isVisibleInContainerWindow:(XCElementSnapshot *)window selfElement:(XCElementSnapshot *)element hierarchyIntersection:(nullable NSValue *)intersectionRectange appFrame:(CGRect)appFrame
+- (BOOL)fb_isVisibleInContainerWindow:(XCElementSnapshot *)window hierarchyIntersection:(nullable NSValue *)intersectionRectange appFrame:(CGRect)appFrame
 {
-  CGRect currentRectangle = nil == intersectionRectange ? element.frame : [intersectionRectange CGRectValue];
-  XCElementSnapshot *parent = element.parent;
+  CGRect currentRectangle = nil == intersectionRectange ? self.frame : [intersectionRectange CGRectValue];
+  XCElementSnapshot *parent = self.parent;
   CGRect intersectionWithParent = CGRectIntersection(currentRectangle, parent.frame);
   if (CGRectIsEmpty(intersectionWithParent)) {
     return NO;
   }
   if (parent == window) {
     // Assume the element is visible if its root container is hittable and the frame is onscreen
-    return CGRectContainsPoint(appFrame, element.fb_hitPoint);
+    return CGRectContainsPoint(appFrame, self.fb_hitPoint);
   }
-  return [self.class fb_isVisibleInContainerWindow:window selfElement:parent hierarchyIntersection:[NSValue valueWithCGRect:intersectionWithParent] appFrame:appFrame];
+  return [parent fb_isVisibleInContainerWindow:window hierarchyIntersection:[NSValue valueWithCGRect:intersectionWithParent] appFrame:appFrame];
 }
 
 - (BOOL)fb_isVisible
@@ -53,7 +53,7 @@
   CGRect appFrame = [self fb_rootElement].frame;
   XCElementSnapshot *containerWindow = [self fb_parentMatchingType:XCUIElementTypeWindow];
   if (nil != containerWindow) {
-    return [self.class fb_isVisibleInContainerWindow:containerWindow selfElement:self hierarchyIntersection:nil appFrame:appFrame];
+    return [self fb_isVisibleInContainerWindow:containerWindow hierarchyIntersection:nil appFrame:appFrame];
   }
   return CGRectContainsPoint(appFrame, self.fb_hitPoint);
 }
