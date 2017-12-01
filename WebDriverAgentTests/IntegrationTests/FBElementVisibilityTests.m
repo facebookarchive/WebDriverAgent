@@ -54,7 +54,7 @@
   FBAssertWaitTillBecomesTrue(self.springboard.icons[@"Contacts"].fb_isVisible);
   NSArray *elements = self.springboard.pageIndicators.allElementsBoundByIndex;
   for (XCUIElement *element in elements) {
-    XCTAssertFalse(element.fb_isVisible);
+    XCTAssertTrue(element.fb_isVisible);
   }
 }
 
