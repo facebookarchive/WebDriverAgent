@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
- 
+
 html, body, #app {
+  font-family: sans-serif;
   width: 100%;
   height: 100%;
   margin: 0px;
@@ -35,7 +36,7 @@ html, body, #app {
 }
 
 .section-caption {
-  display: block;  
+  display: block;
   text-align: center;
   padding: 20px;
   font-size: 200%;
