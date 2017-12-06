@@ -23,10 +23,9 @@
 @property (nonatomic, readonly) id<FBElement> element;
 
 + (nonnull NSString *)name;
-- (nullable NSString *)value;
++ (nullable NSString *)valueForElement:(id<FBElement>)element;
 
-- (instancetype)initWithElement:(id<FBElement>)element;
-- (int)recordWithWriter:(xmlTextWriterPtr)writer;
++ (int)recordWithWriter:(xmlTextWriterPtr)writer forElement:(id<FBElement>)element;
 
 + (NSArray<Class> *)supportedAttributes;
 
@@ -80,7 +79,7 @@
 
 @property (nonatomic, nonnull, readonly) NSString* indexValue;
 
-- (instancetype)initWithValue:(NSString *)value;
++ (int)recordWithWriter:(xmlTextWriterPtr)writer forValue:(NSString *)value;
 
 @end
 
@@ -286,7 +285,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     if (includedAttributes && ![includedAttributes containsObject:attributeCls]) {
       continue;
     }
-    int rc = [[[attributeCls alloc] initWithElement:element] recordWithWriter:writer];
+    int rc = [attributeCls recordWithWriter:writer forElement:element];
     if (rc < 0) {
       return rc;
     }
@@ -294,7 +293,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 
   if (nil != indexPath) {
     // index path is the special case
-    return [[[FBIndexAttribute alloc] initWithValue:indexPath] recordWithWriter:writer];
+    return [FBIndexAttribute recordWithWriter:writer forValue:indexPath];
   }
   return 0;
 }
@@ -357,21 +356,22 @@ static NSString *const FBAbstractMethodInvocationException = @"AbstractMethodInv
   @throw [NSException exceptionWithName:FBAbstractMethodInvocationException reason:errMsg userInfo:nil];
 }
 
-- (NSString *)value
++ (NSString *)valueForElement:(id<FBElement>)element
 {
   NSString *errMsg = [NSString stringWithFormat:@"The asbtract method -(NSString *)value is expected to be overriden by %@", NSStringFromClass(self.class)];
   @throw [NSException exceptionWithName:FBAbstractMethodInvocationException reason:errMsg userInfo:nil];
 }
 
-- (int)recordWithWriter:(xmlTextWriterPtr)writer
++ (int)recordWithWriter:(xmlTextWriterPtr)writer forElement:(id<FBElement>)element
 {
-  if (nil == self.value) {
+  NSString *value = [self valueForElement:element];
+  if (nil == value) {
     // Skip the attribute if the value equals to nil
     return 0;
   }
-  int rc = xmlTextWriterWriteAttribute(writer, [FBXPath safeXmlStringWithString:[self.class name]], [FBXPath safeXmlStringWithString:self.value]);
+  int rc = xmlTextWriterWriteAttribute(writer, [FBXPath safeXmlStringWithString:[self name]], [FBXPath safeXmlStringWithString:value]);
   if (rc < 0) {
-    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(%@='%@'). Error code: %d", [self.class name], self.value, rc];
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(%@='%@'). Error code: %d", [self name], value, rc];
   }
   return rc;
 }
@@ -401,9 +401,9 @@ static NSString *const FBAbstractMethodInvocationException = @"AbstractMethodInv
   return @"type";
 }
 
-- (NSString *)value
++ (NSString *)valueForElement:(id<FBElement>)element
 {
-  return self.element.wdType;
+  return element.wdType;
 }
 
 @end
@@ -415,9 +415,9 @@ static NSString *const FBAbstractMethodInvocationException = @"AbstractMethodInv
   return @"value";
 }
 
-- (NSString *)value
++ (NSString *)valueForElement:(id<FBElement>)element
 {
-  id idValue = self.element.wdValue;
+  id idValue = element.wdValue;
   if ([idValue isKindOfClass:[NSValue class]]) {
     return [idValue stringValue];
   } else if ([idValue isKindOfClass:[NSString class]]) {
@@ -435,9 +435,9 @@ static NSString *const FBAbstractMethodInvocationException = @"AbstractMethodInv
   return @"name";
 }
 
-- (NSString *)value
++ (NSString *)valueForElement:(id<FBElement>)element
 {
-  return self.element.wdName;
+  return element.wdName;
 }
 
 @end
@@ -449,9 +449,9 @@ static NSString *const FBAbstractMethodInvocationException = @"AbstractMethodInv
   return @"label";
 }
 
-- (NSString *)value
++ (NSString *)valueForElement:(id<FBElement>)element
 {
-  return self.element.wdLabel;
+  return element.wdLabel;
 }
 
 @end
@@ -463,9 +463,9 @@ static NSString *const FBAbstractMethodInvocationException = @"AbstractMethodInv
   return @"enabled";
 }
 
-- (NSString *)value
++ (NSString *)valueForElement:(id<FBElement>)element
 {
-  return self.element.wdEnabled ? @"true" : @"false";
+  return element.wdEnabled ? @"true" : @"false";
 }
 
 @end
@@ -477,18 +477,18 @@ static NSString *const FBAbstractMethodInvocationException = @"AbstractMethodInv
   return @"visible";
 }
 
-- (NSString *)value
++ (NSString *)valueForElement:(id<FBElement>)element
 {
-  return self.element.wdVisible ? @"true" : @"false";
+  return element.wdVisible ? @"true" : @"false";
 }
 
 @end
 
 @implementation FBDimensionAttribute
 
-- (NSString *)value
++ (NSString *)valueForElement:(id<FBElement>)element
 {
-  return [NSString stringWithFormat:@"%@", [self.element.wdRect objectForKey:[self.class name]]];
+  return [NSString stringWithFormat:@"%@", [element.wdRect objectForKey:[self name]]];
 }
 
 @end
@@ -531,25 +531,23 @@ static NSString *const FBAbstractMethodInvocationException = @"AbstractMethodInv
 
 @implementation FBIndexAttribute
 
-- (instancetype)initWithValue:(NSString *)value
-{
-  self = [super initWithElement:nil];
-  if (self) {
-    _indexValue = value;
-  }
-  return self;
-}
-
 + (NSString *)name
 {
   return kXMLIndexPathKey;
 }
 
-- (NSString *)value
++ (int)recordWithWriter:(xmlTextWriterPtr)writer forValue:(NSString *)value
 {
-  return self.indexValue;
+  if (nil == value) {
+    // Skip the attribute if the value equals to nil
+    return 0;
+  }
+  int rc = xmlTextWriterWriteAttribute(writer, [FBXPath safeXmlStringWithString:[self name]], [FBXPath safeXmlStringWithString:value]);
+  if (rc < 0) {
+    [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterWriteAttribute(%@='%@'). Error code: %d", [self name], value, rc];
+  }
+  return rc;
 }
-
 @end
 
 
