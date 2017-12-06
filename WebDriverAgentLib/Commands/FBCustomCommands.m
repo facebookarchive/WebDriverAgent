@@ -59,7 +59,7 @@
   NSNumber *requestedDuration = request.arguments[@"duration"];
   NSTimeInterval duration = (requestedDuration ? requestedDuration.doubleValue : 3.);
   NSError *error;
-  if (![request.session.application fb_deactivateWithDuration:duration error:&error]) {
+  if (![request.session.activeApplication fb_deactivateWithDuration:duration error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
@@ -73,7 +73,7 @@
 
 + (id<FBResponsePayload>)handleDismissKeyboardCommand:(FBRouteRequest *)request
 {
-  [request.session.application dismissKeyboard];
+  [request.session.activeApplication dismissKeyboard];
   NSError *error;
   NSString *errorDescription = @"The keyboard cannot be dismissed. Try to dismiss it in the way supported by your application under test.";
   if ([UIDevice.currentDevice userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {

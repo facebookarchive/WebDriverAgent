@@ -52,7 +52,7 @@ extern NSString *const FBApplicationMethodNotSupportedException;
 
  @return YES if application activation is supported.
  */
-+ (BOOL)fb_isActivateSupported;
+- (BOOL)fb_isActivateSupported;
 
 @end
 

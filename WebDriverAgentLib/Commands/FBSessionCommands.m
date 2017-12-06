@@ -14,6 +14,7 @@
 #import "FBRouteRequest.h"
 #import "FBSession.h"
 #import "FBApplication.h"
+#import "FBRuntimeUtils.h"
 #import "XCUIDevice.h"
 #import "XCUIDevice+FBHealthCheck.h"
 #import "XCUIDevice+FBHelpers.h"
@@ -28,6 +29,10 @@
   @[
     [[FBRoute POST:@"/url"] respondWithTarget:self action:@selector(handleOpenURL:)],
     [[FBRoute POST:@"/session"].withoutSession respondWithTarget:self action:@selector(handleCreateSession:)],
+    [[FBRoute POST:@"/wda/apps/launch"] respondWithTarget:self action:@selector(handleSessionAppLaunch:)],
+    [[FBRoute POST:@"/wda/apps/activate"] respondWithTarget:self action:@selector(handleSessionAppActivate:)],
+    [[FBRoute POST:@"/wda/apps/terminate"] respondWithTarget:self action:@selector(handleSessionAppTerminate:)],
+    [[FBRoute POST:@"/wda/apps/state"] respondWithTarget:self action:@selector(handleSessionAppState:)],
     [[FBRoute GET:@""] respondWithTarget:self action:@selector(handleGetActiveSession:)],
     [[FBRoute DELETE:@""] respondWithTarget:self action:@selector(handleDeleteSession:)],
     [[FBRoute GET:@"/status"].withoutSession respondWithTarget:self action:@selector(handleGetStatus:)],
@@ -94,6 +99,30 @@
   return FBResponseWithObject(FBSessionCommands.sessionInformation);
 }
 
++ (id<FBResponsePayload>)handleSessionAppLaunch:(FBRouteRequest *)request
+{
+  [request.session launchApplicationWithBundleId:(id)request.arguments[@"bundleId"]];
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleSessionAppActivate:(FBRouteRequest *)request
+{
+  [request.session activateApplicationWithBundleId:(id)request.arguments[@"bundleId"]];
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleSessionAppTerminate:(FBRouteRequest *)request
+{
+  BOOL result = [request.session terminateApplicationWithBundleId:(id)request.arguments[@"bundleId"]];
+  return FBResponseWithStatus(FBCommandStatusNoError, @(result));
+}
+
++ (id<FBResponsePayload>)handleSessionAppState:(FBRouteRequest *)request
+{
+  NSUInteger state = [request.session applicationStateWithBundleId:(id)request.arguments[@"bundleId"]];
+  return FBResponseWithStatus(FBCommandStatusNoError, @(state));
+}
+
 + (id<FBResponsePayload>)handleGetActiveSession:(FBRouteRequest *)request
 {
   return FBResponseWithObject(FBSessionCommands.sessionInformation);
@@ -116,6 +145,7 @@
         @{
           @"name" : [[UIDevice currentDevice] systemName],
           @"version" : [[UIDevice currentDevice] systemVersion],
+          @"sdkVersion": FBSDKVersion() ?: @"unknown",
         },
       @"ios" :
         @{
@@ -160,7 +190,7 @@
 
 + (NSDictionary *)currentCapabilities
 {
-  FBApplication *application = [FBSession activeSession].application;
+  FBApplication *application = [FBSession activeSession].activeApplication;
   return
   @{
     @"device": ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ? @"ipad" : @"iphone",

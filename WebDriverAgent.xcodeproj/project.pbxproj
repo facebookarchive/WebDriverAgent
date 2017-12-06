@@ -20,6 +20,7 @@
 		713C6DCF1DDC772A00285B92 /* FBElementUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 713C6DCD1DDC772A00285B92 /* FBElementUtils.h */; };
 		713C6DD01DDC772A00285B92 /* FBElementUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 713C6DCE1DDC772A00285B92 /* FBElementUtils.m */; };
 		714801D11FA9D9FA00DC5997 /* FBSDKVersionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 714801D01FA9D9FA00DC5997 /* FBSDKVersionTests.m */; };
+		7152EB301F41F9960047EEFF /* FBSessionIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7152EB2F1F41F9960047EEFF /* FBSessionIntegrationTests.m */; };
 		71555A3D1DEC460A007D4A8B /* NSExpression+FBFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 71555A3B1DEC460A007D4A8B /* NSExpression+FBFormat.h */; };
 		71555A3E1DEC460A007D4A8B /* NSExpression+FBFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 71555A3C1DEC460A007D4A8B /* NSExpression+FBFormat.m */; };
 		716E0BCE1E917E810087A825 /* NSString+FBXMLSafeString.h in Headers */ = {isa = PBXBuildFile; fileRef = 716E0BCC1E917E810087A825 /* NSString+FBXMLSafeString.h */; };
@@ -411,6 +412,7 @@
 		713C6DCE1DDC772A00285B92 /* FBElementUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementUtils.m; sourceTree = "<group>"; };
 		714801D01FA9D9FA00DC5997 /* FBSDKVersionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBSDKVersionTests.m; sourceTree = "<group>"; };
 		714CA3C61DC23186000F12C9 /* FBXPathIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathIntegrationTests.m; sourceTree = "<group>"; };
+		7152EB2F1F41F9960047EEFF /* FBSessionIntegrationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBSessionIntegrationTests.m; sourceTree = "<group>"; };
 		71555A3B1DEC460A007D4A8B /* NSExpression+FBFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSExpression+FBFormat.h"; sourceTree = "<group>"; };
 		71555A3C1DEC460A007D4A8B /* NSExpression+FBFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSExpression+FBFormat.m"; sourceTree = "<group>"; };
 		716E0BCC1E917E810087A825 /* NSString+FBXMLSafeString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FBXMLSafeString.h"; sourceTree = "<group>"; };
@@ -1064,6 +1066,7 @@
 				EE05BAF91D13003C00A3EB00 /* FBKeyboardTests.m */,
 				7119E1EB1E891F8600D0B125 /* FBPickerWheelSelectTests.m */,
 				EE55B3261D1D54CF003AAAEC /* FBScrollingTests.m */,
+				7152EB2F1F41F9960047EEFF /* FBSessionIntegrationTests.m */,
 				EE26409A1D0EB5E8009BE6B0 /* FBTapTest.m */,
 				EE1E06DC1D1811C4007CF043 /* FBTestMacros.h */,
 				AD76723F1D6B826F00610457 /* FBTypingTest.m */,
@@ -1873,6 +1876,7 @@
 				EE55B3271D1D54CF003AAAEC /* FBScrollingTests.m in Sources */,
 				EE6A89371D0B35920083E92B /* FBFailureProofTestCaseTests.m in Sources */,
 				EE006EAD1EB99B15006900A4 /* FBElementVisibilityTests.m in Sources */,
+				7152EB301F41F9960047EEFF /* FBSessionIntegrationTests.m in Sources */,
 				EE9B769A1CF799F400275851 /* FBAlertTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
