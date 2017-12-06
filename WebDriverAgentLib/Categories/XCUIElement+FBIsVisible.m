@@ -9,12 +9,15 @@
 
 #import "XCUIElement+FBIsVisible.h"
 
+#import "FBApplication.h"
 #import "FBConfiguration.h"
+#import "FBMathUtils.h"
 #import "FBXCodeCompatibility.h"
 #import "XCElementSnapshot+FBHelpers.h"
-#import "XCElementSnapshot+FBHitPoint.h"
-#import "XCTestPrivateSymbols.h"
 #import "XCUIElement+FBUtilities.h"
+#import "XCTestPrivateSymbols.h"
+#import <XCTest/XCUIDevice.h>
+#import "XCElementSnapshot+FBHitPoint.h"
 
 @implementation XCUIElement (FBIsVisible)
 
@@ -27,35 +30,35 @@
 
 @implementation XCElementSnapshot (FBIsVisible)
 
-- (BOOL)fb_isVisibleInContainerWindow:(XCElementSnapshot *)window hierarchyIntersection:(nullable NSValue *)intersectionRectange appFrame:(CGRect)appFrame
-{
-  CGRect currentRectangle = nil == intersectionRectange ? self.frame : [intersectionRectange CGRectValue];
-  XCElementSnapshot *parent = self.parent;
-  CGRect intersectionWithParent = CGRectIntersection(currentRectangle, parent.frame);
-  if (CGRectIsEmpty(intersectionWithParent)) {
-    return NO;
-  }
-  if (parent == window) {
-    // Assume the element is visible if its root container is hittable and the frame is onscreen
-    return CGRectContainsPoint(appFrame, self.fb_hitPoint);
-  }
-  return [parent fb_isVisibleInContainerWindow:window hierarchyIntersection:[NSValue valueWithCGRect:intersectionWithParent] appFrame:appFrame];
-}
-
 - (BOOL)fb_isVisible
 {
-  if (CGRectIsEmpty(self.frame)) {
+  CGRect frame = self.frame;
+  if (CGRectIsEmpty(frame)) {
     return NO;
   }
   if ([FBConfiguration shouldUseTestManagerForVisibilityDetection]) {
     return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
   }
   CGRect appFrame = [self fb_rootElement].frame;
-  XCElementSnapshot *containerWindow = [self fb_parentMatchingType:XCUIElementTypeWindow];
-  if (nil != containerWindow) {
-    return [self fb_isVisibleInContainerWindow:containerWindow hierarchyIntersection:nil appFrame:appFrame];
+  CGSize screenSize = FBAdjustDimensionsForApplication(appFrame.size, (UIInterfaceOrientation)[XCUIDevice sharedDevice].orientation);
+  CGRect screenFrame = CGRectMake(0, 0, screenSize.width, screenSize.height);
+  if (!CGRectIntersectsRect(frame, screenFrame)) {
+    return NO;
   }
-  return CGRectContainsPoint(appFrame, self.fb_hitPoint);
+  CGPoint midPoint = [self.suggestedHitpoints.lastObject CGPointValue];
+  XCElementSnapshot *hitElement = [self hitTest:midPoint];
+  if (self == hitElement || [self._allDescendants.copy containsObject:hitElement]) {
+    return YES;
+  }
+  if (CGRectContainsPoint(appFrame, self.fb_hitPoint)) {
+    return YES;
+  }
+  for (XCElementSnapshot *elementSnapshot in self.children.copy) {
+    if (elementSnapshot.fb_isVisible) {
+      return YES;
+    }
+  }
+  return NO;
 }
 
 @end
