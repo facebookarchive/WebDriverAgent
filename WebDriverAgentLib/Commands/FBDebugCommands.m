@@ -40,7 +40,7 @@ static NSString *const SOURCE_FORMAT_DESCRIPTION = @"description";
 
 + (id<FBResponsePayload>)handleGetSourceCommand:(FBRouteRequest *)request
 {
-  FBApplication *application = request.session.application ?: [FBApplication fb_activeApplication];
+  FBApplication *application = request.session.activeApplication;
   NSString *sourceType = request.parameters[@"format"] ?: SOURCE_FORMAT_XML;
   id result;
   if ([sourceType caseInsensitiveCompare:SOURCE_FORMAT_XML] == NSOrderedSame) {
@@ -72,7 +72,7 @@ static NSString *const SOURCE_FORMAT_DESCRIPTION = @"description";
 
 + (id<FBResponsePayload>)handleGetAccessibleSourceCommand:(FBRouteRequest *)request
 {
-  FBApplication *application = request.session.application ?: [FBApplication fb_activeApplication];
+  FBApplication *application = request.session.activeApplication;
   return FBResponseWithObject(application.fb_accessibilityTree ?: @{});
 }
 
