@@ -10,6 +10,7 @@
 		711084441DA3AA7500F913D6 /* FBXPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 711084421DA3AA7500F913D6 /* FBXPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		711084451DA3AA7500F913D6 /* FBXPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 711084431DA3AA7500F913D6 /* FBXPath.m */; };
 		7119E1EC1E891F8600D0B125 /* FBPickerWheelSelectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7119E1EB1E891F8600D0B125 /* FBPickerWheelSelectTests.m */; };
+		7126FF0E1FD99C7E00DEFB38 /* FBElementScreenshotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7126FF0D1FD99C7E00DEFB38 /* FBElementScreenshotTests.m */; };
 		712A0C851DA3E459007D02E5 /* FBXPathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 712A0C841DA3E459007D02E5 /* FBXPathTests.m */; };
 		712A0C871DA3E55D007D02E5 /* FBXPath-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 712A0C861DA3E55D007D02E5 /* FBXPath-Private.h */; };
 		712A0C8C1DA3F25B007D02E5 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7174AF031D9D39AF008C8AD5 /* libxml2.tbd */; };
@@ -401,6 +402,7 @@
 		711084421DA3AA7500F913D6 /* FBXPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXPath.h; sourceTree = "<group>"; };
 		711084431DA3AA7500F913D6 /* FBXPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPath.m; sourceTree = "<group>"; };
 		7119E1EB1E891F8600D0B125 /* FBPickerWheelSelectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBPickerWheelSelectTests.m; sourceTree = "<group>"; };
+		7126FF0D1FD99C7E00DEFB38 /* FBElementScreenshotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBElementScreenshotTests.m; sourceTree = "<group>"; };
 		712A0C841DA3E459007D02E5 /* FBXPathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathTests.m; sourceTree = "<group>"; };
 		712A0C861DA3E55D007D02E5 /* FBXPath-Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBXPath-Private.h"; sourceTree = "<group>"; };
 		7136A4771E8918E60024FC3D /* XCUIElement+FBPickerWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBPickerWheel.h"; sourceTree = "<group>"; };
@@ -1058,6 +1060,7 @@
 			children = (
 				EE9B76991CF799F400275851 /* FBAlertTests.m */,
 				EE26409C1D0EBA25009BE6B0 /* FBElementAttributeTests.m */,
+				7126FF0D1FD99C7E00DEFB38 /* FBElementScreenshotTests.m */,
 				EE006EAC1EB99B15006900A4 /* FBElementVisibilityTests.m */,
 				EE6A89361D0B35920083E92B /* FBFailureProofTestCaseTests.m */,
 				EE1E06DB1D18090F007CF043 /* FBIntegrationTestCase.h */,
@@ -1801,6 +1804,7 @@
 			files = (
 				EE2202131ECC612200A29571 /* FBIntegrationTestCase.m in Sources */,
 				EE22021E1ECC618900A29571 /* FBTapTest.m in Sources */,
+				7126FF0E1FD99C7E00DEFB38 /* FBElementScreenshotTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -59,6 +59,13 @@ NS_ASSUME_NONNULL_BEGIN
 */
 - (BOOL)fb_waitUntilSnapshotIsStable;
 
+/**
+ Returns screenshot of the particular element
+ @param error If there is an error, upon return contains an NSError object that describes the problem.
+ @return Element screenshot as PNG-encoded data or nil in case of failure
+ */
+- (nullable NSData *)fb_screenshotWithError:(NSError**)error;
+
 @end
 
 NS_ASSUME_NONNULL_END
