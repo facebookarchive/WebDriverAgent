@@ -34,6 +34,9 @@
   XCUIElement *button = self.testedApplication.buttons[FBShowAlertButtonName];
   NSError *error = nil;
   NSData *screenshotData = [button fb_screenshotWithError:&error];
+  if (nil == screenshotData && [error.description containsString:@"available since Xcode9"]) {
+    return;
+  }
   XCTAssertNotNil(screenshotData);
   XCTAssertNil(error);
   UIImage *image = [UIImage imageWithData:screenshotData];
