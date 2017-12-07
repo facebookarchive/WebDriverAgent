@@ -53,6 +53,21 @@ CGPoint FBInvertPointForApplication(CGPoint point, CGSize screenSize, UIInterfac
   }
 }
 
+CGPoint FBInvertOffsetForOrientation(CGPoint offset, UIInterfaceOrientation orientation)
+{
+  switch (orientation) {
+    case UIInterfaceOrientationUnknown:
+    case UIInterfaceOrientationPortrait:
+      return offset;
+    case UIInterfaceOrientationPortraitUpsideDown:
+      return CGPointMake(-offset.x, -offset.y);
+    case UIInterfaceOrientationLandscapeLeft:
+      return CGPointMake(offset.y, -offset.x);
+    case UIInterfaceOrientationLandscapeRight:
+      return CGPointMake(-offset.y, offset.x);
+  }
+}
+
 CGSize FBAdjustDimensionsForApplication(CGSize actualSize, UIInterfaceOrientation orientation)
 {
   if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {

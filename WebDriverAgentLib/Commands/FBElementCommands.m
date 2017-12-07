@@ -10,16 +10,16 @@
 #import "FBElementCommands.h"
 
 #import "FBApplication.h"
+#import "FBElementCache.h"
+#import "FBElementTypeTransformer.h"
+#import "FBErrorBuilder.h"
 #import "FBKeyboard.h"
+#import "FBMacros.h"
 #import "FBPredicate.h"
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
 #import "FBRunLoopSpinner.h"
-#import "FBElementCache.h"
-#import "FBErrorBuilder.h"
 #import "FBSession.h"
-#import "FBApplication.h"
-#import "FBMacros.h"
 #import "FBMathUtils.h"
 #import "FBRuntimeUtils.h"
 #import "NSPredicate+FBFormat.h"
@@ -32,7 +32,6 @@
 #import "XCUIElement+FBTyping.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
-#import "FBElementTypeTransformer.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 
@@ -71,7 +70,7 @@
     [[FBRoute POST:@"/wda/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHoldCoordinate:)],
     [[FBRoute POST:@"/wda/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
     [[FBRoute POST:@"/wda/keys"] respondWithTarget:self action:@selector(handleKeys:)],
-    [[FBRoute POST:@"/wda/pickerwheel/:uuid/select"] respondWithTarget:self action:@selector(handleWheelSelect:)]
+    [[FBRoute POST:@"/wda/pickerwheel/:uuid/select"] respondWithTarget:self action:@selector(handleWheelSelect:)],
   ];
 }
 
