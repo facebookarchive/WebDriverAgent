@@ -124,4 +124,60 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   return result;
 }
 
+- (NSData *)fb_screenshotWithError:(NSError**)error
+{
+  if (CGRectIsEmpty(self.frame)) {
+    if (error) {
+      *error = [[FBErrorBuilder.builder withDescription:@"Cannot get a screenshot of zero-sized element"] build];
+    }
+    return nil;
+  }
+  
+  Class xcScreenClass = NSClassFromString(@"XCUIScreen");
+  if (nil == xcScreenClass) {
+    if (error) {
+      *error = [[FBErrorBuilder.builder withDescription:@"Element screenshots are only available since Xcode9 SDK"] build];
+    }
+    return nil;
+  }
+  
+  id mainScreen = [xcScreenClass valueForKey:@"mainScreen"];
+  SEL mSelector = NSSelectorFromString(@"screenshotDataForQuality:rect:error:");
+  NSMethodSignature *mSignature = [mainScreen methodSignatureForSelector:mSelector];
+  NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:mSignature];
+  [invocation setTarget:mainScreen];
+  [invocation setSelector:mSelector];
+  NSUInteger quality = 1;
+  [invocation setArgument:&quality atIndex:2];
+  CGRect elementRect = self.frame;
+  [invocation setArgument:&elementRect atIndex:3];
+  [invocation setArgument:&error atIndex:4];
+  [invocation invoke];
+  NSData __unsafe_unretained *imageData;
+  [invocation getReturnValue:&imageData];
+  if (nil == imageData) {
+    return nil;
+  }
+  
+  UIImage *image = [UIImage imageWithData:imageData];
+  UIInterfaceOrientation orientation = self.application.interfaceOrientation;
+  UIImageOrientation imageOrientation = UIImageOrientationUp;
+  // The received element screenshot will be rotated, if the current interface orientation differs from portrait, so we need to fix that first
+  if (orientation == UIInterfaceOrientationLandscapeRight) {
+    imageOrientation = UIImageOrientationLeft;
+  } else if (orientation == UIInterfaceOrientationLandscapeLeft) {
+    imageOrientation = UIImageOrientationRight;
+  } else if (orientation == UIInterfaceOrientationPortraitUpsideDown) {
+    imageOrientation = UIImageOrientationDown;
+  }
+  CGSize size = image.size;
+  UIGraphicsBeginImageContext(CGSizeMake(size.width, size.height));
+  [[UIImage imageWithCGImage:(CGImageRef)[image CGImage] scale:1.0 orientation:imageOrientation] drawInRect:CGRectMake(0, 0, size.width, size.height)];
+  UIImage* fixedImage = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  
+  // The resulting data is a JPEG image, so we need to convert it to PNG representation
+  return (NSData *)UIImagePNGRepresentation(fixedImage);
+}
+
 @end

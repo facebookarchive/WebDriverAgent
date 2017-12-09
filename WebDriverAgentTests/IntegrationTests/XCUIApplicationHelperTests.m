@@ -43,8 +43,9 @@
   XCTAssertTrue([FBApplication fb_activeApplication].buttons[@"URL"].exists);
 }
 
-- (void)testWaitingForSpringboard
+- (void)disabled_testWaitingForSpringboard
 {
+  // This test is flaky on Travis
   NSError *error;
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
   XCTAssertTrue([[FBSpringboardApplication fb_springboard] fb_waitUntilApplicationBoardIsVisible:&error]);
@@ -60,8 +61,10 @@
   XCTAssertNotNil(self.testedApplication.fb_accessibilityTree);
 }
 
-- (void)testDeactivateApplication
+- (void)disabled_testDeactivateApplication
 {
+  // This test randomly causes:
+  // Failure fetching attributes for element <XCAccessibilityElement: 0x6080008407b0> Device element: Error Domain=XCTDaemonErrorDomain Code=13 "Value for attribute 5017 is an error." UserInfo={NSLocalizedDescription=Value for attribute 5017 is an error.}
   [self.testedApplication query];
   [self.testedApplication resolve];
   NSError *error;

@@ -58,8 +58,10 @@
   }
 }
 
-- (void)testIconsFromSearchDashboard
+- (void)disabled_testIconsFromSearchDashboard
 {
+  // This test causes:
+  // Failure fetching attributes for element <XCAccessibilityElement: 0x60800044dd10> Device element: Error Domain=XCTDaemonErrorDomain Code=13 "Value for attribute 5017 is an error." UserInfo={NSLocalizedDescription=Value for attribute 5017 is an error.}
   [self launchApplication];
   [self goToSpringBoardDashboard];
   XCTAssertFalse(self.springboard.icons[@"Reminders"].fb_isVisible);
