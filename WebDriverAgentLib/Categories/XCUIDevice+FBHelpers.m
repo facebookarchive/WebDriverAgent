@@ -54,11 +54,12 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
     }
     return result;
   }
-  
+
+  XCUIApplication *app = FBApplication.fb_activeApplication;
+  CGSize screenSize = FBAdjustDimensionsForApplication(app.frame.size, app.interfaceOrientation);
   // https://developer.apple.com/documentation/xctest/xctimagequality?language=objc
   // Select lower quality, since XCTest crashes randomly if the maximum quality (zero value) is selected
   // and the resulting screenshot does not fit the memory buffer preallocated for it by the operating system
-  CGSize screenSize = FBAdjustDimensionsForApplication(FBApplication.fb_activeApplication.frame.size, (UIInterfaceOrientation)[self.class sharedDevice].orientation);
   NSUInteger quality = 1;
   CGRect screenRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
 
