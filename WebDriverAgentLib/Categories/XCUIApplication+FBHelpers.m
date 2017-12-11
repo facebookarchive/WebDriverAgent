@@ -31,7 +31,7 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
     return NO;
   }
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:MAX(duration, FBMinimumAppSwitchWait)]];
-  if (self.class.fb_isActivateSupported) {
+  if (self.fb_isActivateSupported) {
     [self fb_activate];
     return YES;
   }

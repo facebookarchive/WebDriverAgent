@@ -50,7 +50,7 @@ static dispatch_once_t onceActivate;
 
 - (void)fb_activate
 {
-  if (!self.class.fb_isActivateSupported) {
+  if (!self.fb_isActivateSupported) {
     [[NSException exceptionWithName:FBApplicationMethodNotSupportedException reason:@"'activate' method is not supported by the current iOS SDK" userInfo:@{}] raise];
   }
   [self activate];
@@ -61,7 +61,7 @@ static dispatch_once_t onceActivate;
   return [[self valueForKey:@"state"] intValue];
 }
 
-+ (BOOL)fb_isActivateSupported
+- (BOOL)fb_isActivateSupported
 {
   dispatch_once(&onceActivate, ^{
     FBCanUseActivate = [self respondsToSelector:@selector(activate)];
@@ -70,6 +70,7 @@ static dispatch_once_t onceActivate;
 }
 
 @end
+
 
 static BOOL FBShouldUseFirstMatchSelector = NO;
 static dispatch_once_t onceFirstMatchToken;
