@@ -17,6 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 /*! Whether or not the element is visible */
 @property (atomic, readonly) BOOL fb_isVisible;
 
+/*! Visible rectange of the element relatively to its ancestors in container window hierarchy.
+ Element frame is returned instead if no parent window is detected.
+ The result may be equal to CGRectZero if the element is hidden */
+@property (readonly, nonatomic) CGRect fb_frameInWindow;
+
 @end
 
 
@@ -24,6 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*! Whether or not the element is visible */
 @property (atomic, readonly) BOOL fb_isVisible;
+
+/*! Visible rectange of the element relatively to its ancestors in container window hierarchy.
+ Element frame is returned instead if no parent window is detected.
+ The result may be equal to CGRectZero if the element is hidden */
+@property (readonly, nonatomic) CGRect fb_frameInWindow;
 
 @end
 

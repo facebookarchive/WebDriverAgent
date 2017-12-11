@@ -16,6 +16,7 @@
 #import "FBMathUtils.h"
 #import "XCElementSnapshot+FBHitPoint.h"
 #import "XCElementSnapshot+FBHelpers.h"
+#import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement.h"
 #import "XCSynthesizedEventRecord.h"
@@ -127,26 +128,21 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
     // Only absolute offset is defined
     hitPoint = [positionOffset CGPointValue];
   } else {
-    // An offset relative to an element is defined
+    // An offset relative to the element is defined
     XCElementSnapshot *snapshot = element.fb_lastSnapshot;
-    XCElementSnapshot *containerWindow = [snapshot fb_parentMatchingType:XCUIElementTypeWindow];
-    CGRect visibleFrame;
-    if (nil == containerWindow) {
-      visibleFrame = snapshot.frame;
-    } else {
-      visibleFrame = [self.class visibleFrameWithSnapshot:snapshot currentIntersection:nil containerWindow:containerWindow];
-    }
-    if (CGRectIsEmpty(visibleFrame)) {
-      NSString *description = [NSString stringWithFormat:@"The element '%@' is not visible on the screen", element];
+    if (CGRectIsEmpty(snapshot.fb_frameInWindow)) {
+      NSString *description = [NSString stringWithFormat:@"The element '%@' is not visible on the screen", element.debugDescription];
       if (error) {
         *error = [[FBErrorBuilder.builder withDescription:description] build];
       }
       return nil;
     }
-    hitPoint = CGPointMake(visibleFrame.origin.x + visibleFrame.size.width / 2, visibleFrame.origin.y + visibleFrame.size.height / 2);
+    CGRect frame = snapshot.frame;
+    hitPoint = CGPointMake(frame.origin.x + frame.size.width / 2, frame.origin.y + frame.size.height / 2);
     if (nil != positionOffset) {
       CGPoint offsetValue = [positionOffset CGPointValue];
       hitPoint = CGPointMake(hitPoint.x + offsetValue.x, hitPoint.y + offsetValue.y);
+      // TODO: Shall we throw an exception if hitPoint is out of the element frame?
     }
   }
   if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {

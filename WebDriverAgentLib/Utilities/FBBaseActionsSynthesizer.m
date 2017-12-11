@@ -10,11 +10,12 @@
 #import "FBBaseActionsSynthesizer.h"
 
 #import "FBErrorBuilder.h"
+#import "FBLogger.h"
 #import "FBMacros.h"
 #import "FBMathUtils.h"
+#import "XCUIElement+FBIsVisible.h"
 #import "XCElementSnapshot.h"
 #import "XCElementSnapshot+FBHelpers.h"
-#import "XCElementSnapshot+FBHitPoint.h"
 #import "XCPointerEventPath.h"
 #import "XCSynthesizedEventRecord.h"
 #import "XCUIElement+FBUtilities.h"
@@ -40,18 +41,6 @@
   return YES;
 }
 
-+ (CGRect)visibleFrameWithSnapshot:(XCElementSnapshot *)selfSnapshot currentIntersection:(nullable NSValue *)frame containerWindow:(XCElementSnapshot *)window
-{
-  XCElementSnapshot *parent = selfSnapshot.parent;
-  CGRect intersectionRect = frame == nil ?
-    CGRectIntersection(selfSnapshot.frame, parent.frame) :
-    CGRectIntersection([frame CGRectValue], parent.frame);
-  if (CGRectIsEmpty(intersectionRect) || parent == window) {
-    return intersectionRect;
-  }
-  return [self.class visibleFrameWithSnapshot:parent currentIntersection:[NSValue valueWithCGRect:intersectionRect] containerWindow:window];
-}
-
 - (nullable NSValue *)hitpointWithElement:(nullable XCUIElement *)element positionOffset:(nullable NSValue *)positionOffset error:(NSError **)error
 {
   CGPoint hitPoint;
@@ -59,32 +48,29 @@
     // Only absolute offset is defined
     hitPoint = [positionOffset CGPointValue];
   } else {
-    // The offset relative to an element is defined
+    // The offset relative to the element is defined
     XCElementSnapshot *snapshot = element.fb_lastSnapshot;
-    if (nil == positionOffset) {
-      hitPoint = snapshot.fb_hitPoint;
-      if (!CGPointEqualToPoint(hitPoint, CGPointMake(-1, -1))) {
-        return [NSValue valueWithCGPoint:hitPoint];
-      }
-    }
-    XCElementSnapshot *containerWindow = [snapshot fb_parentMatchingType:XCUIElementTypeWindow];
-    CGRect visibleFrame;
-    if (nil == containerWindow) {
-      visibleFrame = snapshot.frame;
-    } else {
-      visibleFrame = [self.class visibleFrameWithSnapshot:snapshot currentIntersection:nil containerWindow:containerWindow];
-    }
-    if (CGRectIsEmpty(visibleFrame)) {
-      NSString *description = [NSString stringWithFormat:@"The element '%@' is not visible on the screen", element];
+    CGRect frameInWindow = snapshot.fb_frameInWindow;
+    if (CGRectIsEmpty(frameInWindow)) {
+      NSString *description = [NSString stringWithFormat:@"The element '%@' is not visible on the screen", element.debugDescription];
       if (error) {
         *error = [[FBErrorBuilder.builder withDescription:description] build];
       }
       return nil;
     }
-    hitPoint = CGPointMake(visibleFrame.origin.x, visibleFrame.origin.y);
-    if (nil != positionOffset) {
+    if (nil == positionOffset) {
+      @try {
+        return [NSValue valueWithCGPoint:[snapshot hitPoint]];
+      } @catch (NSException *e) {
+        [FBLogger logFmt:@"Failed to fetch hit point for %@ - %@. Will use element frame in window for hit point calculation instead", element.debugDescription, e.reason];
+      }
+      hitPoint = CGPointMake(frameInWindow.origin.x + frameInWindow.size.width / 2, frameInWindow.origin.y + frameInWindow.size.height / 2);
+    } else {
+      CGPoint origin = snapshot.frame.origin;
+      hitPoint = CGPointMake(origin.x, origin.y);
       CGPoint offsetValue = [positionOffset CGPointValue];
       hitPoint = CGPointMake(hitPoint.x + offsetValue.x, hitPoint.y + offsetValue.y);
+      // TODO: Shall we throw an exception if hitPoint is out of the element frame?
     }
   }
   if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {

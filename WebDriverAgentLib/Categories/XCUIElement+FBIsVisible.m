@@ -23,9 +23,34 @@
   return self.fb_lastSnapshot.fb_isVisible;
 }
 
+- (CGRect)fb_frameInWindow
+{
+  return self.fb_lastSnapshot.fb_frameInWindow;
+}
+
 @end
 
 @implementation XCElementSnapshot (FBIsVisible)
+
+- (CGRect)fb_frameInContainer:(XCElementSnapshot *)container hierarchyIntersection:(nullable NSValue *)intersectionRectange
+{
+  CGRect currentRectangle = nil == intersectionRectange ? self.frame : [intersectionRectange CGRectValue];
+  XCElementSnapshot *parent = self.parent;
+  CGRect intersectionWithParent = CGRectIntersection(currentRectangle, parent.frame);
+  if (CGRectIsEmpty(intersectionWithParent) || parent == container) {
+    return intersectionWithParent;
+  }
+  return [parent fb_frameInContainer:container hierarchyIntersection:[NSValue valueWithCGRect:intersectionWithParent]];
+}
+
+- (CGRect)fb_frameInWindow
+{
+  XCElementSnapshot *parentWindow = [self fb_parentMatchingType:XCUIElementTypeWindow];
+  if (nil != parentWindow) {
+    return [self fb_frameInContainer:parentWindow hierarchyIntersection:nil];
+  }
+  return self.frame;
+}
 
 - (BOOL)fb_isVisible
 {
@@ -38,11 +63,8 @@
     return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
   }
   XCElementSnapshot *parentWindow = [self fb_parentMatchingType:XCUIElementTypeWindow];
-  // appFrame is always returned like the app is in portrait mode
-  // and all the further tests internally assume the app is in portrait mode even
-  // if it is in landscape. That is why we must get the parent's window frame in order
-  // to check if it intersects with the corresponding element's frame
-  if (nil != parentWindow && !CGRectIntersectsRect(frame, parentWindow.frame)) {
+  if (nil != parentWindow &&
+      CGRectIsEmpty([self fb_frameInContainer:parentWindow hierarchyIntersection:nil])) {
     return NO;
   }
   CGPoint midPoint = [self.suggestedHitpoints.lastObject CGPointValue];

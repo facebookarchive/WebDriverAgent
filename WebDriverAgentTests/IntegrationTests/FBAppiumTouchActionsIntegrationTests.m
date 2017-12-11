@@ -344,7 +344,7 @@
     @{
       @"action": @"moveTo",
       @"options": @{
-          @"x": @(pickerFrame.origin.x),
+          @"x": @(pickerFrame.origin.x / 2),
           @"y": @(pickerFrame.origin.y),
           }
       },
@@ -369,7 +369,7 @@
     @{
       @"action": @"moveTo",
       @"options": @{
-          @"x": @(pickerFrame.origin.x),
+          @"x": @(pickerFrame.origin.x + pickerFrame.size.width / 2),
           @"y": @(pickerFrame.origin.y + pickerFrame.size.height),
           }
       },

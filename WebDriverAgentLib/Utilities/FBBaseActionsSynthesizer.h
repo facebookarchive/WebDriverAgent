@@ -53,16 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)increaseDuration:(double)value;
 
 /**
- Recursively calculates the visible frame of the current element inside its container window.
- 
- @param selfSnapshot The snapshot of the current element
- @param frame The intersection between the current element's frame and the parent's one. Set to to nil for the initial call
- @param window The parent window of the current element's snapshot
- @return The coordinates of the visible element's rectange. If this rectange has zero width or height then this element is not visible
- */
-+ (CGRect)visibleFrameWithSnapshot:(XCElementSnapshot *)selfSnapshot currentIntersection:(nullable NSValue *)frame containerWindow:(XCElementSnapshot *)window;
-
-/**
  Calculate absolute gesture position on the screen based on provided element and positionOffset values.
  
  @param element The element instance to perform the gesture on. If element equals to nil then positionOffset is considered as absolute coordinates
