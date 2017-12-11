@@ -319,8 +319,10 @@
   });
 }
 
-- (void)testInvisibleDescendantWithXPathQuery
+- (void)disabled_testInvisibleDescendantWithXPathQuery
 {
+  // this test randomly causes:
+  // Failure fetching attributes for element <XCAccessibilityElement: 0x608000643900> Device element: Error Domain=XCTDaemonErrorDomain Code=13 "Value for attribute 5017 is an error." UserInfo={NSLocalizedDescription=Value for attribute 5017 is an error.}
   NSArray<XCUIElement *> *matchingSnapshots = [self.testedApplication fb_descendantsMatchingXPathQuery:@"//XCUIElementTypePageIndicator[@visible='false']" shouldReturnAfterFirstMatch:NO];
   XCTAssertEqual(matchingSnapshots.count, 1);
   XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypePageIndicator);
