@@ -20,7 +20,6 @@
 
 #import "FBMacros.h"
 #import "XCAXClient_iOS.h"
-#import "XCUIScreen.h"
 
 static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
 
@@ -43,8 +42,8 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
 
 - (NSData *)fb_screenshotWithError:(NSError*__autoreleasing*)error
 {
-  Class xcScreenClass = NSClassFromString(@"XCUIScreen");
-  if (nil == xcScreenClass) {
+  id xcScreen = NSClassFromString(@"XCUIScreen");
+  if (nil == xcScreen) {
     NSData *result = [[XCAXClient_iOS sharedClient] screenshotData];
     if (nil == result) {
       if (error) {
@@ -55,19 +54,27 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
     return result;
   }
 
+  id mainScreen = [xcScreen valueForKey:@"mainScreen"];
+  CGSize screenSize = FBAdjustDimensionsForApplication(FBApplication.fb_activeApplication.frame.size, (UIInterfaceOrientation)[self.class sharedDevice].orientation);
+  SEL mSelector = NSSelectorFromString(@"screenshotDataForQuality:rect:error:");
+  NSMethodSignature *mSignature = [mainScreen methodSignatureForSelector:mSelector];
+  NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:mSignature];
+  [invocation setTarget:mainScreen];
+  [invocation setSelector:mSelector];
   // https://developer.apple.com/documentation/xctest/xctimagequality?language=objc
   // Select lower quality, since XCTest crashes randomly if the maximum quality (zero value) is selected
   // and the resulting screenshot does not fit the memory buffer preallocated for it by the operating system
-  CGSize screenSize = FBAdjustDimensionsForApplication(FBApplication.fb_activeApplication.frame.size, (UIInterfaceOrientation)[self.class sharedDevice].orientation);
   NSUInteger quality = 1;
+  [invocation setArgument:&quality atIndex:2];
   CGRect screenRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
-
-  XCUIScreen *mainScreen = (XCUIScreen *)[xcScreenClass mainScreen];
-  NSData *result = [mainScreen screenshotDataForQuality:quality rect:screenRect error:error];
+  [invocation setArgument:&screenRect atIndex:3];
+  [invocation setArgument:&error atIndex:4];
+  [invocation invoke];
+  NSData __unsafe_unretained *result;
+  [invocation getReturnValue:&result];
   if (nil == result) {
     return nil;
   }
-
   // The resulting data is a JPEG image, so we need to convert it to PNG representation
   UIImage *image = [UIImage imageWithData:result];
   return (NSData *)UIImagePNGRepresentation(image);

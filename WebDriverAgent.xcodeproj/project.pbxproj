@@ -724,7 +724,6 @@
 		EEC088E71CB56DA400B65968 /* FBExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBExceptionHandler.m; sourceTree = "<group>"; };
 		EEC088EA1CB5706D00B65968 /* FBSpringboardApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBSpringboardApplication.h; path = WebDriverAgentLib/FBSpringboardApplication.h; sourceTree = SOURCE_ROOT; };
 		EEC088EB1CB5706D00B65968 /* FBSpringboardApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBSpringboardApplication.m; path = WebDriverAgentLib/FBSpringboardApplication.m; sourceTree = SOURCE_ROOT; };
-		EED404361FCF02AB00D08020 /* XCUIScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIScreen.h; sourceTree = "<group>"; };
 		EEDBEBBA1CB2681900A790A2 /* WebDriverAgent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WebDriverAgent.bundle; sourceTree = "<group>"; };
 		EEDFE11F1D9C06F800E6FFE5 /* XCUIDevice+FBHealthCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIDevice+FBHealthCheck.h"; sourceTree = "<group>"; };
 		EEDFE1201D9C06F800E6FFE5 /* XCUIDevice+FBHealthCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIDevice+FBHealthCheck.m"; sourceTree = "<group>"; };
@@ -1322,7 +1321,6 @@
 				EE35AD051E3B77D600A02D78 /* XCUIRecorderNodeFinderMatch.h */,
 				EE35AD061E3B77D600A02D78 /* XCUIRecorderTimingMessage.h */,
 				EE35AD071E3B77D600A02D78 /* XCUIRecorderUtilities.h */,
-				EED404361FCF02AB00D08020 /* XCUIScreen.h */,
 			);
 			path = XCTest;
 			sourceTree = "<group>";
