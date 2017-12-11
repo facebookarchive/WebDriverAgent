@@ -33,6 +33,7 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
 {
   [super setUp];
   [FBConfiguration disableRemoteQueryEvaluation];
+  [FBConfiguration disableAttributeKeyPathAnalysis];
   self.continueAfterFailure = NO;
   self.springboard = [FBSpringboardApplication fb_springboard];
   self.testedApplication = [XCUIApplication new];

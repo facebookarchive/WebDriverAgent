@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-.inspector-field {  
+.inspector-field {
   margin-bottom: 5px;
 }
 
@@ -16,4 +16,5 @@
 }
 
 .inspector-field-value {
+  font-family: monospace;
 }
