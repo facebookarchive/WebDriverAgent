@@ -12,6 +12,7 @@
 #import <arpa/inet.h>
 #import <ifaddrs.h>
 #include <notify.h>
+#import <objc/runtime.h>
 
 #import "FBSpringboardApplication.h"
 #import "FBErrorBuilder.h"
@@ -43,7 +44,7 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
 
 - (NSData *)fb_screenshotWithError:(NSError*__autoreleasing*)error
 {
-  Class xcScreenClass = NSClassFromString(@"XCUIScreen");
+  Class xcScreenClass = objc_lookUpClass("XCUIScreen");
   if (nil == xcScreenClass) {
     NSData *result = [[XCAXClient_iOS sharedClient] screenshotData];
     if (nil == result) {
