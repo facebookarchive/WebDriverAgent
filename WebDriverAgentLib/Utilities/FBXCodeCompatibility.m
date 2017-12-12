@@ -71,6 +71,7 @@ static dispatch_once_t onceActivate;
 
 @end
 
+
 static BOOL FBShouldUseFirstMatchSelector = NO;
 static dispatch_once_t onceFirstMatchToken;
 @implementation XCUIElementQuery (FBCompatibility)

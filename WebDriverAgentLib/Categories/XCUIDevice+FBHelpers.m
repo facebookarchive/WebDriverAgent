@@ -12,6 +12,7 @@
 #import <arpa/inet.h>
 #import <ifaddrs.h>
 #include <notify.h>
+#import <objc/runtime.h>
 
 #import "FBSpringboardApplication.h"
 #import "FBErrorBuilder.h"

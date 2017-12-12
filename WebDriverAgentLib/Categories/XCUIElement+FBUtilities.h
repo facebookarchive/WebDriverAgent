@@ -34,16 +34,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)fb_obstructsElement:(XCUIElement *)element;
 
 /**
- Gets the most recent snapshot of the current element. The element will be 
+ Gets the most recent snapshot of the current element. The element will be
  automatically resolved if the snapshot is not available yet
- 
+
  @return The recent snapshot of the element
  */
 - (XCElementSnapshot *)fb_lastSnapshot;
 
 /**
  Filters elements by matching them to snapshots from the corresponding array
- 
+
  @param snapshots Array of snapshots to be matched with
 
  @return Array of filtered elements, which have matches in snapshots array

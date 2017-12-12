@@ -9,6 +9,8 @@
 
 #import "XCUIElement+FBUtilities.h"
 
+#import <objc/runtime.h>
+
 #import "FBAlert.h"
 #import "FBLogger.h"
 #import "FBMacros.h"
@@ -18,6 +20,7 @@
 #import "FBXCodeCompatibility.h"
 #import "XCAXClient_iOS.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
+
 
 @implementation XCUIElement (FBUtilities)
 
@@ -124,7 +127,7 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   return result;
 }
 
-- (NSData *)fb_screenshotWithError:(NSError**)error
+- (NSData *)fb_screenshotWithError:(NSError **)error
 {
   if (CGRectIsEmpty(self.frame)) {
     if (error) {
@@ -132,7 +135,7 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
     }
     return nil;
   }
-  
+
   Class xcScreenClass = NSClassFromString(@"XCUIScreen");
   if (nil == xcScreenClass) {
     if (error) {
@@ -140,7 +143,7 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
     }
     return nil;
   }
-  
+
   id mainScreen = [xcScreenClass valueForKey:@"mainScreen"];
   SEL mSelector = NSSelectorFromString(@"screenshotDataForQuality:rect:error:");
   NSMethodSignature *mSignature = [mainScreen methodSignatureForSelector:mSelector];
@@ -158,7 +161,7 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   if (nil == imageData) {
     return nil;
   }
-  
+
   UIImage *image = [UIImage imageWithData:imageData];
   UIInterfaceOrientation orientation = self.application.interfaceOrientation;
   UIImageOrientation imageOrientation = UIImageOrientationUp;
@@ -173,9 +176,9 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   CGSize size = image.size;
   UIGraphicsBeginImageContext(CGSizeMake(size.width, size.height));
   [[UIImage imageWithCGImage:(CGImageRef)[image CGImage] scale:1.0 orientation:imageOrientation] drawInRect:CGRectMake(0, 0, size.width, size.height)];
-  UIImage* fixedImage = UIGraphicsGetImageFromCurrentImageContext();
+  UIImage *fixedImage = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
-  
+
   // The resulting data is a JPEG image, so we need to convert it to PNG representation
   return (NSData *)UIImagePNGRepresentation(fixedImage);
 }

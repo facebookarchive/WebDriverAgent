@@ -54,6 +54,7 @@ function fetch_and_build_dependencies() {
 
 function build_inspector() {
   echo -e "${BOLD}Building Inspector"
+  assert_has_npm
   CURRENT_DIR=$(pwd)
   RESOURCE_BUNDLE_DIR="$CURRENT_DIR/Resources/WebDriverAgent.bundle"
   INSPECTOR_DIR="$CURRENT_DIR/Inspector"
