@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nJd-IZ-bfU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nJd-IZ-bfU">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -63,6 +63,12 @@
                                     <segue destination="YzO-du-v3Y" kind="show" animates="NO" id="Ds1-bA-25D"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Orientation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uiD-R4-b34">
+                                <rect key="frame" x="118" y="245" width="85" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <accessibility key="accessibilityConfiguration" label="MainView"/>
@@ -71,17 +77,22 @@
                             <constraint firstItem="S56-6U-3gG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8UW-Nz-F04"/>
                             <constraint firstItem="nbp-zX-Om1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ahr-dg-qwa"/>
                             <constraint firstItem="nbp-zX-Om1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="29" id="GcP-yp-Ze6"/>
+                            <constraint firstItem="uiD-R4-b34" firstAttribute="top" secondItem="S56-6U-3gG" secondAttribute="bottom" constant="8" id="SPc-4k-0MA"/>
                             <constraint firstItem="M2N-Yn-ytb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Yr3-Lt-qdn"/>
                             <constraint firstItem="YgP-SF-TkS" firstAttribute="top" secondItem="nbp-zX-Om1" secondAttribute="bottom" constant="8" id="b56-i5-Lxo"/>
+                            <constraint firstItem="uiD-R4-b34" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nFx-Xr-rGC"/>
                             <constraint firstItem="S56-6U-3gG" firstAttribute="top" secondItem="M2N-Yn-ytb" secondAttribute="bottom" constant="8" id="rMW-LW-ejO"/>
                             <constraint firstItem="M2N-Yn-ytb" firstAttribute="top" secondItem="YgP-SF-TkS" secondAttribute="bottom" constant="8" id="tMN-gl-smg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dmu-Fe-aoT"/>
+                    <connections>
+                        <outlet property="orentationLabel" destination="uiD-R4-b34" id="ysn-P0-ADp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="41" y="613"/>
+            <point key="canvasLocation" x="39.375" y="612.67605633802816"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bWj-vr-GrF">
@@ -460,7 +471,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2mC-E2-VxB">
-                                            <rect key="frame" x="16" y="0.0" width="289" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="288" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
