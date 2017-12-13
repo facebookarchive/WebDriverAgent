@@ -24,10 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy) NSDictionary *wdRect;
 
 /*! Element's name */
-@property (nonatomic, readonly, copy) NSString *wdName;
+@property (nonatomic, readonly, copy, nullable) NSString *wdName;
 
 /*! Element's label */
-@property (nonatomic, readonly, copy) NSString *wdLabel;
+@property (nonatomic, readonly, copy, nullable) NSString *wdLabel;
 
 /*! Element's type */
 @property (nonatomic, readonly, copy) NSString *wdType;

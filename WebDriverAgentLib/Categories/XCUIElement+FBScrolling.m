@@ -106,7 +106,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
          cellSnapshots = [snapshot fb_descendantsCellSnapshots];
 
-         visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[FBPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)]];
+         visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[FBPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, isWDVisible)]];
 
          if (visibleCellSnapshots.count > 1) {
            return YES;
@@ -191,7 +191,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   }
   for (XCElementSnapshot *elementSnapshot in self.application.fb_lastSnapshot._allDescendants.copy) {
     // We are comparing pre-scroll snapshot so frames are irrelevant.
-    if ([snapshot fb_framelessFuzzyMatchesElement:elementSnapshot] && elementSnapshot.fb_isVisible) {
+    if ([snapshot fb_framelessFuzzyMatchesElement:elementSnapshot] && elementSnapshot.wdVisible) {
       return YES;
     }
   }
