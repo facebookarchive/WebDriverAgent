@@ -63,6 +63,7 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
 {
   [self.testedApplication.buttons[@"Alerts"] tap];
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[FBShowAlertButtonName].fb_isVisible);
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[FBShowSheetAlertButtonName].fb_isVisible);
 }
 
 - (void)goToSpringBoardFirstPage
