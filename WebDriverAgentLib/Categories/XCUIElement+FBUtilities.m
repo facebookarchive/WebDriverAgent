@@ -153,6 +153,18 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   NSUInteger quality = 1;
   [invocation setArgument:&quality atIndex:2];
   CGRect elementRect = self.frame;
+  UIInterfaceOrientation orientation = self.application.interfaceOrientation;
+  if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+    // Workaround XCTest bug when element frame is returned as in portrait mode even if the screenshot is rotated
+    XCElementSnapshot *parentWindow = [self.fb_lastSnapshot fb_parentMatchingType:XCUIElementTypeWindow];
+    CGRect appFrame = self.application.frame;
+    if (CGRectEqualToRect(appFrame, nil == parentWindow ? elementRect : parentWindow.frame)) {
+      CGPoint fixedOrigin = orientation == UIInterfaceOrientationLandscapeLeft ?
+        CGPointMake(appFrame.size.height - elementRect.origin.y - elementRect.size.height, elementRect.origin.x) :
+        CGPointMake(elementRect.origin.y, appFrame.size.width - elementRect.origin.x - elementRect.size.width);
+      elementRect = CGRectMake(fixedOrigin.x, fixedOrigin.y, elementRect.size.height, elementRect.size.width);
+    }
+  }
   [invocation setArgument:&elementRect atIndex:3];
   [invocation setArgument:&error atIndex:4];
   [invocation invoke];
@@ -161,26 +173,7 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   if (nil == imageData) {
     return nil;
   }
-
-  UIImage *image = [UIImage imageWithData:imageData];
-  UIInterfaceOrientation orientation = self.application.interfaceOrientation;
-  UIImageOrientation imageOrientation = UIImageOrientationUp;
-  // The received element screenshot will be rotated, if the current interface orientation differs from portrait, so we need to fix that first
-  if (orientation == UIInterfaceOrientationLandscapeRight) {
-    imageOrientation = UIImageOrientationLeft;
-  } else if (orientation == UIInterfaceOrientationLandscapeLeft) {
-    imageOrientation = UIImageOrientationRight;
-  } else if (orientation == UIInterfaceOrientationPortraitUpsideDown) {
-    imageOrientation = UIImageOrientationDown;
-  }
-  CGSize size = image.size;
-  UIGraphicsBeginImageContext(CGSizeMake(size.width, size.height));
-  [[UIImage imageWithCGImage:(CGImageRef)[image CGImage] scale:1.0 orientation:imageOrientation] drawInRect:CGRectMake(0, 0, size.width, size.height)];
-  UIImage *fixedImage = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
-
-  // The resulting data is a JPEG image, so we need to convert it to PNG representation
-  return (NSData *)UIImagePNGRepresentation(fixedImage);
+  return FBAdjustScreenshotOrientationForApplication(imageData, orientation);
 }
 
 @end

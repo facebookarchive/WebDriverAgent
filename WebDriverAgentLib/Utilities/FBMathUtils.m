@@ -82,3 +82,27 @@ CGSize FBAdjustDimensionsForApplication(CGSize actualSize, UIInterfaceOrientatio
   }
   return actualSize;
 }
+
+NSData *FBAdjustScreenshotOrientationForApplication(NSData *screenshotData, UIInterfaceOrientation orientation)
+{
+  UIImage *image = [UIImage imageWithData:screenshotData];
+  UIImageOrientation imageOrientation;
+  if (orientation == UIInterfaceOrientationLandscapeRight) {
+    imageOrientation = UIImageOrientationLeft;
+  } else if (orientation == UIInterfaceOrientationLandscapeLeft) {
+    imageOrientation = UIImageOrientationRight;
+  } else if (orientation == UIInterfaceOrientationPortraitUpsideDown) {
+    imageOrientation = UIImageOrientationDown;
+  } else {
+    return (NSData *)UIImagePNGRepresentation(image);
+  }
+  
+  UIGraphicsBeginImageContext(CGSizeMake(image.size.width, image.size.height));
+  [[UIImage imageWithCGImage:(CGImageRef)[image CGImage] scale:1.0 orientation:imageOrientation]
+   drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+  UIImage *fixedImage = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  
+  // The resulting data should be a PNG image
+  return (NSData *)UIImagePNGRepresentation(fixedImage);
+}

@@ -56,7 +56,8 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   }
 
   id mainScreen = [xcScreen valueForKey:@"mainScreen"];
-  CGSize screenSize = FBAdjustDimensionsForApplication(FBApplication.fb_activeApplication.frame.size, (UIInterfaceOrientation)[self.class sharedDevice].orientation);
+  FBApplication *activeApplication = FBApplication.fb_activeApplication;
+  UIInterfaceOrientation orientation = activeApplication.interfaceOrientation;
   SEL mSelector = NSSelectorFromString(@"screenshotDataForQuality:rect:error:");
   NSMethodSignature *mSignature = [mainScreen methodSignatureForSelector:mSelector];
   NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:mSignature];
@@ -67,18 +68,17 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   // and the resulting screenshot does not fit the memory buffer preallocated for it by the operating system
   NSUInteger quality = 1;
   [invocation setArgument:&quality atIndex:2];
+  CGSize screenSize = FBAdjustDimensionsForApplication(activeApplication.frame.size, orientation);
   CGRect screenRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
   [invocation setArgument:&screenRect atIndex:3];
   [invocation setArgument:&error atIndex:4];
   [invocation invoke];
-  NSData __unsafe_unretained *result;
-  [invocation getReturnValue:&result];
-  if (nil == result) {
+  NSData __unsafe_unretained *imageData;
+  [invocation getReturnValue:&imageData];
+  if (nil == imageData) {
     return nil;
   }
-  // The resulting data is a JPEG image, so we need to convert it to PNG representation
-  UIImage *image = [UIImage imageWithData:result];
-  return (NSData *)UIImagePNGRepresentation(image);
+  return FBAdjustScreenshotOrientationForApplication(imageData, orientation);
 }
 
 - (BOOL)fb_fingerTouchShouldMatch:(BOOL)shouldMatch

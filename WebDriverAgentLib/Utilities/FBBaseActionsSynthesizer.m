@@ -52,7 +52,7 @@
     XCElementSnapshot *snapshot = element.fb_lastSnapshot;
     CGRect frameInWindow = snapshot.fb_frameInWindow;
     if (CGRectIsEmpty(frameInWindow)) {
-      NSString *description = [NSString stringWithFormat:@"The element '%@' is not visible on the screen", element.debugDescription];
+      NSString *description = [NSString stringWithFormat:@"The element '%@' is not visible on the screen and thus is not interactable", element.description];
       if (error) {
         *error = [[FBErrorBuilder.builder withDescription:description] build];
       }

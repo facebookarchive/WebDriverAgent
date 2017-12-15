@@ -36,3 +36,6 @@ CGPoint FBInvertOffsetForOrientation(CGPoint offset, UIInterfaceOrientation orie
 
 /*! Inverts size if necessary to match current screen orientation */
 CGSize FBAdjustDimensionsForApplication(CGSize actualSize, UIInterfaceOrientation orientation);
+
+/*! Fixes the screenshot orientation if necessary to match current screen orientation */
+NSData *FBAdjustScreenshotOrientationForApplication(NSData *screenshotData, UIInterfaceOrientation orientation);
