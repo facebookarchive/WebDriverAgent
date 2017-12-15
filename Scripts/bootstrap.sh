@@ -67,14 +67,14 @@ function build_inspector() {
   cd "$INSPECTOR_DIR"
 
   echo "Fetching Inspector dependencies..."
-  npm install
+  yarn install
 
   echo "Validating Inspector"
   "$INSPECTOR_DIR"/node_modules/.bin/flow
   "$INSPECTOR_DIR"/node_modules/.bin/eslint js/*
 
   echo "Building Inspector..."
-  BUILD_OUTPUT_DIR="$RESOURCE_BUNDLE_DIR" npm run build
+  BUILD_OUTPUT_DIR="$RESOURCE_BUNDLE_DIR" yarn build
   cd "$CURRENT_DIR"
   cp "$INSPECTOR_DIR/index.html" "$RESOURCE_BUNDLE_DIR"
   echo "Done"
