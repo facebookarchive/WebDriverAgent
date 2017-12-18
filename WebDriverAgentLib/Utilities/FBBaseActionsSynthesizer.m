@@ -47,6 +47,14 @@
   if (nil == element) {
     // Only absolute offset is defined
     hitPoint = [positionOffset CGPointValue];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+      /*
+       Since iOS 10.0 XCTest has a bug when it always returns portrait coordinates for UI elements
+       even if the device is not in portait mode. That is why we need to recalculate them manually
+       based on the current orientation value
+       */
+      hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
+    }
   } else {
     // The offset relative to the element is defined
     XCElementSnapshot *snapshot = element.fb_lastSnapshot;
@@ -72,14 +80,13 @@
       hitPoint = CGPointMake(hitPoint.x + offsetValue.x, hitPoint.y + offsetValue.y);
       // TODO: Shall we throw an exception if hitPoint is out of the element frame?
     }
-  }
-  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
-    /*
-     Since iOS 10.0 XCTest has a bug when it always returns portrait coordinates for UI elements
-     even if the device is not in portait mode. That is why we need to recalculate them manually
-     based on the current orientation value
-     */
-    hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
+    XCElementSnapshot *parentWindow = [snapshot fb_parentMatchingType:XCUIElementTypeWindow];
+    CGRect parentWindowFrame = nil == parentWindow ? snapshot.frame : parentWindow.frame;
+    if (!CGRectEqualToRect(self.application.frame, parentWindowFrame) ||
+        self.application.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+      // Fix the hitpoint if the element frame is inverted
+      hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
+    }
   }
   return [NSValue valueWithCGPoint:hitPoint];
 }
