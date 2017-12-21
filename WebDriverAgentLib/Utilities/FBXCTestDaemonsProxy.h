@@ -7,7 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
+#import "XCSynthesizedEventRecord.h"
 
 @protocol XCTestManager_ManagerInterface;
 
@@ -17,5 +18,9 @@
 @interface FBXCTestDaemonsProxy : NSObject
 
 + (id<XCTestManager_ManagerInterface>)testRunnerProxy;
+
++ (UIInterfaceOrientation)orientationWithApplication:(XCUIApplication *)application;
+
++ (BOOL)synthesizeEventWithRecord:(XCSynthesizedEventRecord *)record error:(NSError *__autoreleasing*)error;
 
 @end

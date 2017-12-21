@@ -14,13 +14,13 @@
 #import "FBLogger.h"
 #import "FBMacros.h"
 #import "FBMathUtils.h"
+#import "FBXCTestDaemonsProxy.h"
 #import "XCElementSnapshot+FBHitPoint.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement.h"
 #import "XCSynthesizedEventRecord.h"
-#import "XCTRunnerDaemonSession.h"
 #import "XCPointerEventPath.h"
 
 
@@ -460,11 +460,9 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
 
 - (nullable XCSynthesizedEventRecord *)synthesizeWithError:(NSError **)error
 {
-  UIInterfaceOrientation orientation = self.application.interfaceOrientation;
-  if (![XCTRunnerDaemonSession sharedSession].useLegacyEventCoordinateTransformationPath) {
-    orientation = UIInterfaceOrientationPortrait;
-  }
-  XCSynthesizedEventRecord *eventRecord = [[XCSynthesizedEventRecord alloc] initWithName:@"W3C Touch Action" interfaceOrientation:orientation];
+  XCSynthesizedEventRecord *eventRecord = [[XCSynthesizedEventRecord alloc]
+                                           initWithName:@"W3C Touch Action"
+                                           interfaceOrientation:[FBXCTestDaemonsProxy orientationWithApplication:self.application]];
   NSMutableDictionary<NSString *, NSDictionary<NSString *, id> *> *actionsMapping = [NSMutableDictionary new];
   NSMutableArray<NSString *> *actionIds = [NSMutableArray new];
   for (NSDictionary<NSString *, id> *action in self.actions) {

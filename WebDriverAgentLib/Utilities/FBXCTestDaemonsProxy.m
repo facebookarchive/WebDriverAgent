@@ -8,8 +8,10 @@
  */
 
 #import "FBXCTestDaemonsProxy.h"
+#import "FBRunLoopSpinner.h"
 #import "XCTestDriver.h"
 #import "XCTRunnerDaemonSession.h"
+#import "XCUIApplication.h"
 #import "FBConfiguration.h"
 #import "FBLogger.h"
 #import <objc/runtime.h>
@@ -41,6 +43,45 @@
     Class runnerClass = objc_lookUpClass("XCTRunnerDaemonSession");
     return ((XCTRunnerDaemonSession *)[runnerClass sharedSession]).daemonProxy;
   }
+}
+
++ (UIInterfaceOrientation)orientationWithApplication:(XCUIApplication *)application
+{
+  Class runnerClass = objc_lookUpClass("XCTRunnerDaemonSession");
+  if (nil == runnerClass || [[runnerClass sharedSession] useLegacyEventCoordinateTransformationPath]) {
+    return application.interfaceOrientation;
+  }
+  return UIInterfaceOrientationPortrait;
+}
+
++ (BOOL)synthesizeEventWithRecord:(XCSynthesizedEventRecord *)record error:(NSError *__autoreleasing*)error
+{
+  __block BOOL didSucceed = NO;
+  Class runnerClass = objc_lookUpClass("XCTRunnerDaemonSession");
+  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
+    if (nil == runnerClass) {
+      [[FBXCTestDaemonsProxy testRunnerProxy] _XCT_synthesizeEvent:record completion:^(NSError *commandError) {
+        if (error) {
+          *error = commandError;
+        }
+        didSucceed = (commandError == nil);
+        completion();
+      }];
+    } else {
+      // XCTRunnerDaemonSession class is only available since Xcode 8.3
+      XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *innerRecord, NSError *commandError) {
+        if (error) {
+          *error = commandError;
+        }
+        didSucceed = (commandError == nil);
+        completion();
+      };
+      [[runnerClass sharedSession] synthesizeEvent:record completion:^(NSError *invokeError){
+        handlerBlock(record, invokeError);
+      }];
+    }
+  }];
+  return didSucceed;
 }
 
 @end

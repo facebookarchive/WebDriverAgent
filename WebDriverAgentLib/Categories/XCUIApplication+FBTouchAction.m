@@ -15,8 +15,8 @@
 #import "FBLogger.h"
 #import "FBRunLoopSpinner.h"
 #import "FBW3CActionsSynthesizer.h"
+#import "FBXCTestDaemonsProxy.h"
 #import "XCEventGenerator.h"
-#import "XCTRunnerDaemonSession.h"
 
 @implementation XCUIApplication (FBTouchAction)
 
@@ -45,24 +45,7 @@
 
 - (BOOL)fb_synthesizeEvent:(XCSynthesizedEventRecord *)event error:(NSError *__autoreleasing*)error
 {
-  __block BOOL didSucceed;
-  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
-    XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
-      if (commandError) {
-        [FBLogger logFmt:@"Failed to perform complex gesture: %@", commandError];
-      }
-      if (error) {
-        *error = commandError;
-      }
-      didSucceed = (commandError == nil);
-      completion();
-    };
-
-    [[XCTRunnerDaemonSession sharedSession] synthesizeEvent:event completion:^(NSError *invokeError){
-      handlerBlock(event, invokeError);
-    }];
-  }];
-  return didSucceed;
+  return [FBXCTestDaemonsProxy synthesizeEventWithRecord:event error:error];
 }
 
 

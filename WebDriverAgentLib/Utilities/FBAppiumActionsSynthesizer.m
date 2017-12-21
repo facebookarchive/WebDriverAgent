@@ -14,10 +14,10 @@
 #import "FBLogger.h"
 #import "FBMacros.h"
 #import "FBMathUtils.h"
+#import "FBXCTestDaemonsProxy.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement.h"
 #import "XCSynthesizedEventRecord.h"
-#import "XCTRunnerDaemonSession.h"
 #import "XCPointerEventPath.h"
 
 static NSString *const FB_ACTION_KEY = @"action";
@@ -466,13 +466,11 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 
 - (nullable XCSynthesizedEventRecord *)synthesizeWithError:(NSError **)error
 {
-  UIInterfaceOrientation orientation = self.application.interfaceOrientation;
-  if (![XCTRunnerDaemonSession sharedSession].useLegacyEventCoordinateTransformationPath) {
-    orientation = UIInterfaceOrientationPortrait;
-  }
   XCSynthesizedEventRecord *eventRecord;
   BOOL isMultiTouch = [self.actions.firstObject isKindOfClass:NSArray.class];
-  eventRecord = [[XCSynthesizedEventRecord alloc] initWithName:(isMultiTouch ? @"Multi-Finger Touch Action" : @"Single-Finger Touch Action") interfaceOrientation:orientation];
+  eventRecord = [[XCSynthesizedEventRecord alloc]
+                 initWithName:(isMultiTouch ? @"Multi-Finger Touch Action" : @"Single-Finger Touch Action")
+                 interfaceOrientation:[FBXCTestDaemonsProxy orientationWithApplication:self.application]];
   for (NSArray<NSDictionary<NSString *, id> *> *action in (isMultiTouch ? self.actions : @[self.actions])) {
     NSArray<NSDictionary<NSString *, id> *> *preprocessedAction = [self preprocessAction:action];
     XCPointerEventPath *eventPath = [self eventPathWithAction:preprocessedAction error:error];

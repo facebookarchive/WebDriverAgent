@@ -281,25 +281,14 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   offset += FBMinimumTouchEventDelay;
   [touchPath liftUpAtOffset:offset];
 
-  XCSynthesizedEventRecord *event = [[XCSynthesizedEventRecord alloc] initWithName:@"FBScroll" interfaceOrientation:application.interfaceOrientation];
+  XCSynthesizedEventRecord *event = [[XCSynthesizedEventRecord alloc] initWithName:@"FBScroll" interfaceOrientation:[FBXCTestDaemonsProxy orientationWithApplication:application]];
   [event addPointerEventPath:touchPath];
 
-  __block BOOL didSucceed = NO;
-  __block NSError *innerError;
-  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
-    [[FBXCTestDaemonsProxy testRunnerProxy] _XCT_synthesizeEvent:event completion:^(NSError *scrollingError) {
-      innerError = scrollingError;
-      didSucceed = (scrollingError == nil);
-      completion();
-    }];
-  }];
-  if (error) {
-    *error = innerError;
-  }
+  BOOL result = [FBXCTestDaemonsProxy synthesizeEventWithRecord:event error:error];
   // Tapping cells immediately after scrolling may fail due to way UIKit is handling touches.
   // We should wait till scroll view cools off, before continuing
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBScrollCoolOffTime]];
-  return didSucceed;
+  return result;
 }
 
 @end
