@@ -21,6 +21,7 @@
 }
 
 .tree-node {
+  font-family: monospace;
   cursor: pointer;
 }
 

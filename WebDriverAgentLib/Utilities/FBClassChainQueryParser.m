@@ -40,11 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
 @interface FBOpeningBracketToken : FBBaseClassChainToken
 
 @end
-
 
 @interface FBClosingBracketToken : FBBaseClassChainToken
 
@@ -54,10 +52,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
-@interface FBPredicateToken : FBBaseClassChainToken
+@interface FBAbstractPredicateToken : FBBaseClassChainToken
 
 @property (nonatomic) BOOL isParsingCompleted;
+
++ (NSString *)enclosingMarker;
+
+@end
+
+@interface FBSelfPredicateToken : FBAbstractPredicateToken
+
+@end
+
+@interface FBDescendantPredicateToken : FBAbstractPredicateToken
 
 @end
 
@@ -168,7 +175,7 @@ static NSString *const STAR_TOKEN = @"*";
 {
   if ([self.class.allowedCharacters characterIsMember:character]) {
     if (self.asString.length >= 1) {
-      FBDescendantMarkerToken *nextToken = [[FBDescendantMarkerToken alloc] initWithStringValue:STAR_TOKEN];
+      FBDescendantMarkerToken *nextToken = [[FBDescendantMarkerToken alloc] initWithStringValue:[NSString stringWithFormat:@"%@%@", STAR_TOKEN, STAR_TOKEN]];
       nextToken.previousItemsCountToOverride = 1;
       return nextToken;
     }
@@ -245,7 +252,7 @@ static NSString *const DESCENDANT_MARKER = @"**/";
 
 - (NSArray<Class> *)followingTokens
 {
-  return @[FBNumberToken.class, FBPredicateToken.class];
+  return @[FBNumberToken.class, FBSelfPredicateToken.class, FBDescendantPredicateToken.class];
 }
 
 + (NSUInteger)maxLength
@@ -293,10 +300,9 @@ static NSString *const DESCENDANT_MARKER = @"**/";
 
 @end
 
+static NSString *const FBAbstractMethodInvocationException = @"FBAbstractMethodInvocationException";
 
-@implementation FBPredicateToken
-
-static NSString* const ENCLOSING_MARKER = @"`";
+@implementation FBAbstractPredicateToken
 
 - (id)init
 {
@@ -305,6 +311,12 @@ static NSString* const ENCLOSING_MARKER = @"`";
     _isParsingCompleted = NO;
   }
   return self;
+}
+
++ (NSString *)enclosingMarker
+{
+  NSString *errMsg = [NSString stringWithFormat:@"The + (NSString *)enclosingMarker method is expected to be overriden by %@ class", NSStringFromClass(self.class)];
+  @throw [NSException exceptionWithName:FBAbstractMethodInvocationException reason:errMsg userInfo:nil];
 }
 
 + (NSCharacterSet *)allowedCharacters
@@ -319,7 +331,7 @@ static NSString* const ENCLOSING_MARKER = @"`";
 
 + (BOOL)canConsumeCharacter:(unichar)character
 {
-  return [[NSCharacterSet characterSetWithCharactersInString:ENCLOSING_MARKER] characterIsMember:character];
+  return [[NSCharacterSet characterSetWithCharactersInString:self.class.enclosingMarker] characterIsMember:character];
 }
 
 - (void)stripLastChar
@@ -334,11 +346,11 @@ static NSString* const ENCLOSING_MARKER = @"`";
   NSString *currentChar = [NSString stringWithFormat:@"%C", character];
   if (!self.isParsingCompleted && [self.class.allowedCharacters characterIsMember:character]) {
     if (0 == self.asString.length) {
-      if ([ENCLOSING_MARKER isEqualToString:currentChar]) {
+      if ([self.class.enclosingMarker isEqualToString:currentChar]) {
         // Do not include enclosing character
         return self;
       }
-    } else if ([ENCLOSING_MARKER isEqualToString:currentChar]) {
+    } else if ([self.class.enclosingMarker isEqualToString:currentChar]) {
       [self appendChar:character];
       self.isParsingCompleted = YES;
       return self;
@@ -347,7 +359,7 @@ static NSString* const ENCLOSING_MARKER = @"`";
     return self;
   }
   if (self.isParsingCompleted) {
-    if ([currentChar isEqualToString:ENCLOSING_MARKER]) {
+    if ([currentChar isEqualToString:self.class.enclosingMarker]) {
       // Escaped enclosing character has been detected. Do not finish parsing
       self.isParsingCompleted = NO;
       return self;
@@ -361,16 +373,34 @@ static NSString* const ENCLOSING_MARKER = @"`";
 
 @end
 
+@implementation FBSelfPredicateToken
+
++ (NSString *)enclosingMarker
+{
+  return @"`";
+}
+
+@end
+
+@implementation FBDescendantPredicateToken
+
++ (NSString *)enclosingMarker
+{
+  return @"$";
+}
+
+@end
+
 
 @implementation FBClassChainItem
 
-- (instancetype)initWithType:(XCUIElementType)type position:(NSInteger)position predicate:(NSPredicate *)predicate isDescendant:(BOOL)isDescendant
+- (instancetype)initWithType:(XCUIElementType)type position:(NSInteger)position predicates:(NSArray<FBAbstractPredicateItem *> *)predicates isDescendant:(BOOL)isDescendant
 {
   self = [super init];
   if (self) {
     _type = type;
     _position = position;
-    _predicate = predicate;
+    _predicates = predicates;
     _isDescendant = isDescendant;
   }
   return self;
@@ -481,8 +511,7 @@ static NSNumberFormatter *numberFormatter = nil;
   BOOL isTypeSet = NO;
   BOOL isPositionSet = NO;
   BOOL isDescendantSet = NO;
-  BOOL isPredicateSet = NO;
-  NSPredicate *predicate = nil;
+  NSMutableArray<FBAbstractPredicateItem *> *predicates = [NSMutableArray array];
   for (FBBaseClassChainToken *token in tokenizedQuery) {
     if ([token isKindOfClass:FBClassNameToken.class]) {
       if (isTypeSet) {
@@ -517,27 +546,25 @@ static NSNumberFormatter *numberFormatter = nil;
       }
       isTypeSet = NO;
       isPositionSet = NO;
-      isPredicateSet = NO;
-      predicate = nil;
+      [predicates removeAllObjects];
       isDescendantSet = YES;
-    } else if ([token isKindOfClass:FBPredicateToken.class]) {
-      if (isPredicateSet) {
-        NSString *description = [NSString stringWithFormat:@"Predicate value '%@' is expected to be set only once.", token.asString];
-        *error = [self.class compilationErrorWithQuery:originalQuery description:description];
-        return nil;
-      }
+    } else if ([token isKindOfClass:FBAbstractPredicateToken.class]) {
       if (isPositionSet) {
         NSString *description = [NSString stringWithFormat:@"Predicate value '%@' must be set before position value.", token.asString];
         *error = [self.class compilationErrorWithQuery:originalQuery description:description];
         return nil;
       }
-      if (!((FBPredicateToken *)token).isParsingCompleted) {
+      if (!((FBAbstractPredicateToken *)token).isParsingCompleted) {
         NSString *description = [NSString stringWithFormat:@"Cannot find the end of '%@' predicate value.", token.asString];
         *error = [self.class compilationErrorWithQuery:originalQuery description:description];
         return nil;
       }
-      predicate = [NSPredicate fb_formatSearchPredicate:[FBPredicate predicateWithFormat:token.asString]];
-      isPredicateSet = YES;
+      NSPredicate *value = [NSPredicate fb_formatSearchPredicate:[FBPredicate predicateWithFormat:token.asString]];
+      if ([token isKindOfClass:FBSelfPredicateToken.class]) {
+        [predicates addObject:[[FBSelfPredicateItem alloc] initWithValue:value]];
+      } else if ([token isKindOfClass:FBDescendantPredicateToken.class]) {
+        [predicates addObject:[[FBDescendantPredicateItem alloc] initWithValue:value]];
+      }
     } else if ([token isKindOfClass:FBNumberToken.class]) {
       if (isPositionSet) {
         NSString *description = [NSString stringWithFormat:@"Position value '%@' is expected to be set only once.", token.asString];
@@ -558,16 +585,15 @@ static NSNumberFormatter *numberFormatter = nil;
       }
       if (isDescendantSet) {
         if (isTypeSet) {
-          [result addObject:[[FBClassChainItem alloc] initWithType:chainElementType position:chainElementPosition predicate:predicate isDescendant:YES]];
+          [result addObject:[[FBClassChainItem alloc] initWithType:chainElementType position:chainElementPosition predicates:predicates.copy isDescendant:YES]];
           isDescendantSet = NO;
         }
       } else {
-        [result addObject:[[FBClassChainItem alloc] initWithType:chainElementType position:chainElementPosition predicate:predicate isDescendant:NO]];
+        [result addObject:[[FBClassChainItem alloc] initWithType:chainElementType position:chainElementPosition predicates:predicates.copy isDescendant:NO]];
       }
       isTypeSet = NO;
       isPositionSet = NO;
-      isPredicateSet = NO;
-      predicate = nil;
+      [predicates removeAllObjects];
     }
   }
   if (!isPositionSet) {
@@ -576,14 +602,14 @@ static NSNumberFormatter *numberFormatter = nil;
   }
   if (isDescendantSet) {
     if (isTypeSet) {
-      [result addObject:[[FBClassChainItem alloc] initWithType:chainElementType position:chainElementPosition predicate:predicate isDescendant:YES]];
+      [result addObject:[[FBClassChainItem alloc] initWithType:chainElementType position:chainElementPosition predicates:predicates.copy isDescendant:YES]];
     } else {
       NSString *description = @"Descendants lookup modifier '**/' should be followed with the actual element type";
       *error = [self.class compilationErrorWithQuery:originalQuery description:description];
       return nil;
     }
   } else {
-    [result addObject:[[FBClassChainItem alloc] initWithType:chainElementType position:chainElementPosition predicate:predicate isDescendant:NO]];
+    [result addObject:[[FBClassChainItem alloc] initWithType:chainElementType position:chainElementPosition predicates:predicates.copy isDescendant:NO]];
   }
   return [[FBClassChain alloc] initWithElements:result.copy];
 }
@@ -597,5 +623,27 @@ static NSNumberFormatter *numberFormatter = nil;
   }
   return [self.class compiledQueryWithTokenizedQuery:tokenizedQuery originalQuery:classChainQuery error:error];
 }
+
+@end
+
+
+@implementation FBAbstractPredicateItem
+
+- (instancetype)initWithValue:(NSPredicate *)value
+{
+  self = [super init];
+  if (self) {
+    _value = value;
+  }
+  return self;
+}
+
+@end
+
+@implementation FBSelfPredicateItem
+
+@end
+
+@implementation FBDescendantPredicateItem
 
 @end

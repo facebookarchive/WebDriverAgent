@@ -12,11 +12,16 @@
 #import <arpa/inet.h>
 #import <ifaddrs.h>
 #include <notify.h>
+#import <objc/runtime.h>
 
 #import "FBSpringboardApplication.h"
+#import "FBErrorBuilder.h"
+#import "FBMathUtils.h"
+#import "FBXCodeCompatibility.h"
 
 #import "FBMacros.h"
 #import "XCAXClient_iOS.h"
+#import "XCUIScreen.h"
 
 static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
 
@@ -37,13 +42,37 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   return YES;
 }
 
-- (NSData *)fb_screenshot
+- (NSData *)fb_screenshotWithError:(NSError*__autoreleasing*)error
 {
-  id xcScreen = NSClassFromString(@"XCUIScreen");
-  if (xcScreen) {
-    return (NSData *)[xcScreen valueForKeyPath:@"mainScreen.screenshot.PNGRepresentation"];
+  Class xcScreenClass = objc_lookUpClass("XCUIScreen");
+  if (nil == xcScreenClass) {
+    NSData *result = [[XCAXClient_iOS sharedClient] screenshotData];
+    if (nil == result) {
+      if (error) {
+        *error = [[FBErrorBuilder.builder withDescription:@"Cannot take a screenshot of the current screen state"] build];
+      }
+      return nil;
+    }
+    return result;
   }
-  return [[XCAXClient_iOS sharedClient] screenshotData];
+
+  XCUIApplication *app = FBApplication.fb_activeApplication;
+  CGSize screenSize = FBAdjustDimensionsForApplication(app.frame.size, app.interfaceOrientation);
+  // https://developer.apple.com/documentation/xctest/xctimagequality?language=objc
+  // Select lower quality, since XCTest crashes randomly if the maximum quality (zero value) is selected
+  // and the resulting screenshot does not fit the memory buffer preallocated for it by the operating system
+  NSUInteger quality = 1;
+  CGRect screenRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
+
+  XCUIScreen *mainScreen = (XCUIScreen *)[xcScreenClass mainScreen];
+  NSData *result = [mainScreen screenshotDataForQuality:quality rect:screenRect error:error];
+  if (nil == result) {
+    return nil;
+  }
+
+  // The resulting data is a JPEG image, so we need to convert it to PNG representation
+  UIImage *image = [UIImage imageWithData:result];
+  return (NSData *)UIImagePNGRepresentation(image);
 }
 
 - (BOOL)fb_fingerTouchShouldMatch:(BOOL)shouldMatch

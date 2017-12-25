@@ -30,8 +30,11 @@ extern NSString *const FBClassChainQueryParseException;
  XCUIElementTypeWindow[`label BEGINSWITH "blabla"`][-1] - select the last window, where label text begins with "blabla".
  XCUIElementTypeWindow/XCUIElementTypeAny[`value == "bla1" OR label == "bla2"`] - select all children of the first window, where value is "bla1" or label is "bla2".
  XCUIElementTypeWindow[`name == "you're the winner"`]/XCUIElementTypeAny[`visible == 1`] - select all visible children of the first window named "you're the winner".
- Predicate string should be always enclosed into ` characters inside square brackets. Use `` to escape a single ` character inside predicate expression.
- Predicate expression should be always put before the index, but never after it.
+ XCUIElementTypeWindow/XCUIElementTypeTable/XCUIElementTypeCell[`visible == 1`][$type == XCUIElementTypeImage AND name == 'bla'$]/XCUIElementTypeTextField - select a text field, which is a direct child of a visible table cell, which has at least one descendant image with identifier 'bla'.
+ Predicate string should be always enclosed into ` or $ characters inside square brackets. Use `` or $$ to escape a single ` or $ character inside predicate expression.
+ Single backtick means the predicate expression is applied to the current children. It is the direct alternative of matchingPredicate: query selector.
+ Single dollar sign means the predicate expression is applied to all the descendants of the current element(s). It is the direct alternative of containingPredicate: query selector.
+ Predicate expression should be always put before the index, but never after it. All predicate expressions are executed in the same exact order, which is set in the chain query.
  It is not recommended to set explicit indexes for intermediate chain elements, because it slows down the lookup speed.
  
  Indirect descendant search requests are pretty similar to requests above:

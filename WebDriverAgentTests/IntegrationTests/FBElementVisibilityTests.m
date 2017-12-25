@@ -43,21 +43,6 @@
   XCTAssertFalse(self.springboard.icons[@"Extras"].otherElements[@"Contacts"].fb_isVisible);
 }
 
-- (void)testExtrasIconContent
-{
-  if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-    return;
-  }
-  [self launchApplication];
-  [self goToSpringBoardExtras];
-  [self.springboard.icons[@"Extras"] tap];
-  FBAssertWaitTillBecomesTrue(self.springboard.icons[@"Contacts"].fb_isVisible);
-  NSArray *elements = self.springboard.pageIndicators.allElementsBoundByIndex;
-  for (XCUIElement *element in elements) {
-    XCTAssertFalse(element.fb_isVisible);
-  }
-}
-
 - (void)testIconsFromSearchDashboard
 {
   [self launchApplication];

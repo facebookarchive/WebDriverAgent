@@ -251,7 +251,6 @@
 
     "flowtype/define-flow-type": 1,
     "flowtype/use-flow-type": 1,
-    "flowtype/object-type-delimiter": [1, "comma"],
 
   // React Plugin
   // The following rules are made available via `eslint-plugin-react`.

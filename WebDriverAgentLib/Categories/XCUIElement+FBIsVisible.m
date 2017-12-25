@@ -53,8 +53,8 @@
   if (CGRectContainsPoint(appFrame, self.fb_hitPoint)) {
     return YES;
   }
-  for (XCElementSnapshot *elementSnapshot in self._allDescendants.copy) {
-    if (CGRectContainsPoint(appFrame, elementSnapshot.fb_hitPoint)) {
+  for (XCElementSnapshot *elementSnapshot in self.children.copy) {
+    if (elementSnapshot.fb_isVisible) {
       return YES;
     }
   }

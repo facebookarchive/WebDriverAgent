@@ -33,6 +33,7 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
 {
   [super setUp];
   [FBConfiguration disableRemoteQueryEvaluation];
+  [FBConfiguration disableAttributeKeyPathAnalysis];
   self.continueAfterFailure = NO;
   self.springboard = [FBSpringboardApplication fb_springboard];
   self.testedApplication = [XCUIApplication new];
@@ -62,6 +63,7 @@ NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
 {
   [self.testedApplication.buttons[@"Alerts"] tap];
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[FBShowAlertButtonName].fb_isVisible);
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[FBShowSheetAlertButtonName].fb_isVisible);
 }
 
 - (void)goToSpringBoardFirstPage

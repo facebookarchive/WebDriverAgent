@@ -30,6 +30,11 @@ static NSUInteger FBMaxTypingFrequency = 60;
   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"XCTDisableRemoteQueryEvaluation"];
 }
 
++ (void)disableAttributeKeyPathAnalysis
+{
+  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"XCTDisableAttributeKeyPathAnalysis"];
+}
+
 + (NSRange)bindingPortRange
 {
   // 'WebDriverAgent --port 8080' can be passed via the arguments to the process

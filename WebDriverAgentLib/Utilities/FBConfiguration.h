@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 /*! Disables remote query evaluation making Xcode 9.x tests behave same as Xcode 8.x test */
 + (void)disableRemoteQueryEvaluation;
 
+/*! Disables attribute key path analysis, which will cause XCTest on Xcode 9.x to ignore some elements */
++ (void)disableAttributeKeyPathAnalysis;
+
 /* The maximum typing frequency for all typing activities */
 + (void)setMaxTypingFrequency:(NSUInteger)value;
 + (NSUInteger)maxTypingFrequency;

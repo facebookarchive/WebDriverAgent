@@ -9,6 +9,8 @@
 
 #import "XCTestPrivateSymbols.h"
 
+#import <objc/runtime.h>
+
 #import "FBRuntimeUtils.h"
 
 NSNumber *FB_XCAXAIsVisibleAttribute;
@@ -38,7 +40,7 @@ __attribute__((constructor)) void FBLoadXCTestSymbols(void)
 
 void *FBRetrieveXCTestSymbol(const char *name)
 {
-  Class XCTestClass = NSClassFromString(@"XCTestCase");
+  Class XCTestClass = objc_lookUpClass("XCTestCase");
   NSCAssert(XCTestClass != nil, @"XCTest should be already linked", XCTestClass);
   NSString *XCTestBinary = [NSBundle bundleForClass:XCTestClass].executablePath;
   const char *binaryPath = XCTestBinary.UTF8String;
