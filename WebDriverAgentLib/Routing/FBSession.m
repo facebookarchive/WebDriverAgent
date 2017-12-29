@@ -119,9 +119,13 @@ static FBSession *_activeSession;
 }
 
 - (void)launchApplicationWithBundleId:(NSString *)bundleIdentifier
+                            arguments:(nullable NSArray<NSString *> *)arguments
+                          environment:(nullable NSDictionary <NSString *, NSString *> *)environment
 {
   XCUIApplication *app = [self registerApplicationWithBundleId:bundleIdentifier];
   if (app.fb_state < 2) {
+    app.launchArguments = arguments ?: @[];
+    app.launchEnvironment = environment ?: @{};
     [app launch];
   }
   [app fb_activate];

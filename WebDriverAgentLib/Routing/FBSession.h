@@ -61,9 +61,13 @@ extern NSString *const FBApplicationCrashedException;
  !This method is only available since Xcode9 SDK
 
  @param bundleIdentifier Valid bundle identifier of the application to be launched
+ @param arguments The optional array of application command line arguments. The arguments are going to be applied if the application was not running before.
+ @param environment The optional dictionary of environment variables for the application, which is going to be executed. The environment variables are going to be applied if the application was not running before.
  @throws FBApplicationMethodNotSupportedException if the method is not supported with the current XCTest SDK
  */
-- (void)launchApplicationWithBundleId:(NSString *)bundleIdentifier;
+- (void)launchApplicationWithBundleId:(NSString *)bundleIdentifier
+                            arguments:(nullable NSArray<NSString *> *)arguments
+                          environment:(nullable NSDictionary <NSString *, NSString *> *)environment;
 
 /**
  Activate an application with given bundle identifier in scope of current session.

@@ -101,7 +101,9 @@
 
 + (id<FBResponsePayload>)handleSessionAppLaunch:(FBRouteRequest *)request
 {
-  [request.session launchApplicationWithBundleId:(id)request.arguments[@"bundleId"]];
+  [request.session launchApplicationWithBundleId:(id)request.arguments[@"bundleId"]
+                                       arguments:request.arguments[@"arguments"]
+                                     environment:request.arguments[@"environment"]];
   return FBResponseWithOK();
 }
 

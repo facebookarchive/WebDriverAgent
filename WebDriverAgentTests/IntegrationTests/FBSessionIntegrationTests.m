@@ -39,7 +39,7 @@ static NSString *const SETTINGS_BUNDLE_ID = @"com.apple.Preferences";
   if (!testedApp.fb_isActivateSupported) {
     return;
   }
-  [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID];
+  [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID arguments:nil environment:nil];
   XCTAssertEqualObjects(SETTINGS_BUNDLE_ID, self.session.activeApplication.bundleID);
   XCTAssertEqual([self.session applicationStateWithBundleId:SETTINGS_BUNDLE_ID], 4);
   [self.session activateApplicationWithBundleId:testedApp.bundleID];
@@ -53,10 +53,10 @@ static NSString *const SETTINGS_BUNDLE_ID = @"com.apple.Preferences";
   if (!testedApp.fb_isActivateSupported) {
     return;
   }
-  [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID];
+  [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID arguments:nil environment:nil];
   XCTAssertTrue([self.session terminateApplicationWithBundleId:SETTINGS_BUNDLE_ID]);
   XCTAssertEqualObjects(SPRINGBOARD_BUNDLE_ID, self.session.activeApplication.bundleID);
-  [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID];
+  [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID arguments:nil environment:nil];
   XCTAssertEqualObjects(SETTINGS_BUNDLE_ID, self.session.activeApplication.bundleID);
 }
 
@@ -66,7 +66,7 @@ static NSString *const SETTINGS_BUNDLE_ID = @"com.apple.Preferences";
   if (!testedApp.fb_isActivateSupported) {
     return;
   }
-  [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID];
+  [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID arguments:nil environment:nil];
   XCTAssertEqualObjects(SETTINGS_BUNDLE_ID, self.session.activeApplication.bundleID);
   [self.session activateApplicationWithBundleId:testedApp.bundleID];
   XCTAssertEqualObjects(testedApp.bundleID, self.session.activeApplication.bundleID);
@@ -80,7 +80,7 @@ static NSString *const SETTINGS_BUNDLE_ID = @"com.apple.Preferences";
   }
   XCTAssertTrue([self.session terminateApplicationWithBundleId:testedApp.bundleID]);
   XCTAssertEqualObjects(SPRINGBOARD_BUNDLE_ID, self.session.activeApplication.bundleID);
-  [self.session launchApplicationWithBundleId:testedApp.bundleID];
+  [self.session launchApplicationWithBundleId:testedApp.bundleID arguments:nil environment:nil];
   XCTAssertEqualObjects(testedApp.bundleID, self.session.activeApplication.bundleID);
 }
 
