@@ -19,6 +19,7 @@
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
 #import "FBRunLoopSpinner.h"
+#import "FBScreen.h"
 #import "FBSession.h"
 #import "FBXCodeCompatibility.h"
 #import "FBSpringboardApplication.h"
@@ -38,7 +39,8 @@
     [[FBRoute POST:@"/wda/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/wda/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/wda/keyboard/dismiss"] respondWithTarget:self action:@selector(handleDismissKeyboardCommand:)],
-    [[FBRoute GET:@"/lock"].withoutSession respondWithTarget:self action:@selector(handleLock:)]
+    [[FBRoute GET:@"/lock"].withoutSession respondWithTarget:self action:@selector(handleLock:)],
+    [[FBRoute GET:@"/wda/screen"] respondWithTarget:self action:@selector(handleGetScreen:)]
   ];
 }
 
@@ -106,6 +108,19 @@
     }
   });
   return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleGetScreen:(FBRouteRequest *)request
+{
+  FBSession *session = request.session;
+  CGSize statusBarSize = [FBScreen statusBarSizeForApplication:session.activeApplication];
+  return FBResponseWithObject(
+  @{
+    @"statusBarSize": @{@"width": @(statusBarSize.width),
+                        @"height": @(statusBarSize.height),
+                        },
+    @"scale": @([FBScreen scale])
+    });
 }
 
 @end
