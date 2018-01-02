@@ -69,10 +69,13 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   if (nil == result) {
     return nil;
   }
-
+  
   // The resulting data is a JPEG image, so we need to convert it to PNG representation
-  UIImage *image = [UIImage imageWithData:result];
-  return (NSData *)UIImagePNGRepresentation(image);
+  
+//  UIImage *image = [UIImage imageWithData:result];
+//  return (NSData *)UIImagePNGRepresentation(image);
+  
+    return result;
 }
 
 - (BOOL)fb_fingerTouchShouldMatch:(BOOL)shouldMatch

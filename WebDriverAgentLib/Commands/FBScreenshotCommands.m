@@ -6,10 +6,20 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-
 #import "FBScreenshotCommands.h"
-
 #import "XCUIDevice+FBHelpers.h"
+#import "FBApplication.h"
+#import "FBMathUtils.h"
+
+
+@interface ScreenShotWithMeta : NSObject
+@property (nonatomic) UIInterfaceOrientation orientation;
+@property (nonatomic,strong) NSString *screenshot;
+@property (nonatomic) int width, height;
+@end
+
+@implementation ScreenShotWithMeta
+@end
 
 @implementation FBScreenshotCommands
 
@@ -21,21 +31,62 @@
   @[
     [[FBRoute GET:@"/screenshot"].withoutSession respondWithTarget:self action:@selector(handleGetScreenshot:)],
     [[FBRoute GET:@"/screenshot"] respondWithTarget:self action:@selector(handleGetScreenshot:)],
+    [[FBRoute GET:@"/screenshotWithScreenMeta"].withoutSession respondWithTarget:self action:@selector(handleGetScreenshotWithScreenMeta:)],
+    [[FBRoute GET:@"/screenshotWithScreenMeta"] respondWithTarget:self action:@selector(handleGetScreenshotWithScreenMeta:)],
   ];
 }
 
++ (NSString*) getScreenData {
+  //NSTimeInterval fnStartTime = [[NSDate date] timeIntervalSince1970]*1000;
+  NSError *error;
+  
+  //NSTimeInterval screenShotStartTime = [[NSDate date] timeIntervalSince1970]*1000;
+  
+  NSData *screenshotData = [[XCUIDevice sharedDevice] fb_screenshotWithError:&error];
+  
+  //NSTimeInterval screenShotEndTime = [[NSDate date] timeIntervalSince1970]*1000;
+  
+  //NSLog(@"ScreenShot time : %f",(screenShotEndTime - screenShotStartTime));
+  
+  if (nil == screenshotData) {
+    return nil;
+  }
+  
+  //NSTimeInterval screenShotConvertStartTime = [[NSDate date] timeIntervalSince1970]*1000;
+  
+  NSString *screenshot = [screenshotData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+  
+  //NSTimeInterval screenShotConvertEndTime = [[NSDate date] timeIntervalSince1970]*1000;
+  //NSLog(@"ScreenShot convert time : %f",(screenShotConvertEndTime - screenShotConvertStartTime));
+  
+  //NSTimeInterval fnEndTime = [[NSDate date] timeIntervalSince1970]*1000;
+  
+  //NSLog(@"ScreenShot Function time  : %f",(fnEndTime - fnStartTime));
+  
+  return screenshot;
+}
 
 #pragma mark - Commands
-
 + (id<FBResponsePayload>)handleGetScreenshot:(FBRouteRequest *)request
 {
-  NSError *error;
-  NSData *screenshotData = [[XCUIDevice sharedDevice] fb_screenshotWithError:&error];
-  if (nil == screenshotData) {
-    return FBResponseWithError(error);
-  }
-  NSString *screenshot = [screenshotData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-  return FBResponseWithObject(screenshot);
+  return FBResponseWithObject([self getScreenData]);
+}
+
++ (id<FBResponsePayload>)handleGetScreenshotWithScreenMeta:(FBRouteRequest *)request
+{
+  XCUIApplication *app = FBApplication.fb_activeApplication;
+  CGSize screenSize = FBAdjustDimensionsForApplication(app.frame.size, app.interfaceOrientation);
+  NSString *height = [NSString stringWithFormat:@"%.0f", screenSize.height];
+  NSString *width = [NSString stringWithFormat:@"%.0f", screenSize.width];
+  NSString *orientation = [NSString stringWithFormat:@"%.0ld", (long)app.interfaceOrientation];
+  NSDictionary *screenShotWithMeta = @{
+                                       @"height":height,
+                                       @"width":width,
+                                       @"orientation":orientation,
+                                       @"base64EncodedImage":[self getScreenData]
+                                    };
+  return FBResponseWithObject(screenShotWithMeta);
 }
 
 @end
+

@@ -20,7 +20,8 @@ import Inspector from 'js/inspector';
 
 require('css/app.css');
 
-const SCREENSHOT_ENDPOINT = 'screenshot';
+//const SCREENSHOT_ENDPOINT = 'screenshot';
+const SCREENSHOT_ENDPOINT = 'screenshotWithScreenMeta';
 const TREE_ENDPOINT = 'source?format=json';
 const ORIENTATION_ENDPOINT = 'orientation';
 
@@ -28,11 +29,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.fetchLatestScreen = this.fetchScreenshot.bind(this);
   }
 
   refreshApp() {
     this.fetchScreenshot();
-    this.fetchTree();
+    //this.fetchTree();
   }
 
   componentDidMount() {
@@ -40,15 +42,29 @@ class App extends React.Component {
   }
 
   fetchScreenshot() {
-    HTTP.get(ORIENTATION_ENDPOINT, (orientation) => {
-      orientation = orientation.value;
-      HTTP.get(SCREENSHOT_ENDPOINT, (base64EncodedImage) => {
-        base64EncodedImage = base64EncodedImage.value;
-        ScreenshotFactory.createScreenshot(orientation, base64EncodedImage, (screenshot) => {
-          this.setState({
-            screenshot: screenshot,
-          });
+   const startTime = new Date().getTime();
+    // HTTP.get(ORIENTATION_ENDPOINT, (orientation) => {
+    //   orientation = orientation.value;
+    //   HTTP.get(SCREENSHOT_ENDPOINT, (base64EncodedImage) => {
+    //     base64EncodedImage = base64EncodedImage.value;
+    //     ScreenshotFactory.createScreenshot(orientation, base64EncodedImage, (screenshot) => {
+    //       this.setState({
+    //         screenshot: screenshot,
+    //       });
+    //       console.log("Time took to render image : " + (new Date().getTime() - startTime))
+    //       this.fetchScreenshot();
+    //     });
+    //   });
+    // });
+    HTTP.get(SCREENSHOT_ENDPOINT, (data) => {
+      const dataValue = data.value;
+      ScreenshotFactory.createScreenshot(dataValue.orientation, dataValue.base64EncodedImage, (screenshot) => {
+        this.setState({
+          screenshot: screenshot,
+          width : parseInt(dataValue.width)
         });
+        console.log("Time took to render image : " + (new Date().getTime() - startTime))
+        requestAnimationFrame(this.fetchLatestScreen);
       });
     });
   }
@@ -68,6 +84,7 @@ class App extends React.Component {
         <Screen
           highlightedNode={this.state.highlightedNode}
           screenshot={this.state.screenshot}
+          width = {this.state.width}
           rootNode={this.state.rootNode}
           refreshApp={() => { this.refreshApp(); }} />
         <Tree

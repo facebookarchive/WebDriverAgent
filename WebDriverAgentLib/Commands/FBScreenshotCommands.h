@@ -8,7 +8,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
+#import "FBApplication.h"
 #import <WebDriverAgentLib/FBCommandHandler.h>
 
 NS_ASSUME_NONNULL_BEGIN

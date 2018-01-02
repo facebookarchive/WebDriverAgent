@@ -113,7 +113,8 @@ class Screen extends React.Component {
 
   scaleCoord(coord) {
     var screenshot = this.screenshot();
-    var pxPtScale = screenshot.width / this.props.rootNode.rect.size.width;
+    //var pxPtScale = screenshot.width / this.props.rootNode.rect.size.width;
+    var pxPtScale = screenshot.width / this.props.width;
     return coord / screenshot.scale / pxPtScale;
   }
 
