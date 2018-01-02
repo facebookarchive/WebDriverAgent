@@ -37,16 +37,16 @@
 }
 
 + (NSString*) getScreenData {
-  //NSTimeInterval fnStartTime = [[NSDate date] timeIntervalSince1970]*1000;
+  NSTimeInterval fnStartTime = [[NSDate date] timeIntervalSince1970]*1000;
   NSError *error;
   
-  //NSTimeInterval screenShotStartTime = [[NSDate date] timeIntervalSince1970]*1000;
+  NSTimeInterval screenShotStartTime = [[NSDate date] timeIntervalSince1970]*1000;
   
   NSData *screenshotData = [[XCUIDevice sharedDevice] fb_screenshotWithError:&error];
   
-  //NSTimeInterval screenShotEndTime = [[NSDate date] timeIntervalSince1970]*1000;
+  NSTimeInterval screenShotEndTime = [[NSDate date] timeIntervalSince1970]*1000;
   
-  //NSLog(@"ScreenShot time : %f",(screenShotEndTime - screenShotStartTime));
+  NSLog(@"ScreenShot time : %f",(screenShotEndTime - screenShotStartTime));
   
   if (nil == screenshotData) {
     return nil;
@@ -59,9 +59,9 @@
   //NSTimeInterval screenShotConvertEndTime = [[NSDate date] timeIntervalSince1970]*1000;
   //NSLog(@"ScreenShot convert time : %f",(screenShotConvertEndTime - screenShotConvertStartTime));
   
-  //NSTimeInterval fnEndTime = [[NSDate date] timeIntervalSince1970]*1000;
+  NSTimeInterval fnEndTime = [[NSDate date] timeIntervalSince1970]*1000;
   
-  //NSLog(@"ScreenShot Function time  : %f",(fnEndTime - fnStartTime));
+  NSLog(@"ScreenShot Function time  : %f",(fnEndTime - fnStartTime));
   
   return screenshot;
 }

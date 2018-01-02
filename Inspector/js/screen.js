@@ -24,6 +24,10 @@ class Screen extends React.Component {
       document.removeEventListener('keydown', this.onKeyDown.bind(this), false);
   }
 
+  componentDidMount() {
+    this.screenEle = document.getElementById('screenshot');
+  }
+
   render() {
     return (
       <div id="screen" className="section first">
@@ -76,10 +80,10 @@ class Screen extends React.Component {
   }
 
   onScreenShotDrag(params) {
-    var fromX = params.origin.x - document.getElementById('screenshot').offsetLeft;
-    var fromY = params.origin.y - document.getElementById('screenshot').offsetTop;
-    var toX = params.end.x - document.getElementById('screenshot').offsetLeft;
-    var toY = params.end.y - document.getElementById('screenshot').offsetTop;
+    var fromX = params.origin.x - this.screenEle.offsetLeft;
+    var fromY = params.origin.y - this.screenEle.offsetTop;
+    var toX = params.end.x - this.screenEle.offsetLeft;
+    var toY = params.end.y - this.screenEle.offsetTop;
 
     fromX = this.scaleCoord(fromX);
     fromY = this.scaleCoord(fromY);
@@ -111,8 +115,8 @@ class Screen extends React.Component {
   }
 
   onScreenShotClick(point) {
-    var x = point.x - document.getElementById('screenshot').offsetLeft;
-    var y = point.y - document.getElementById('screenshot').offsetTop;
+    var x = point.x - this.screenEle.offsetLeft;
+    var y = point.y - this.screenEle.offsetTop;
     x = this.scaleCoord(x);
     y = this.scaleCoord(y);
 

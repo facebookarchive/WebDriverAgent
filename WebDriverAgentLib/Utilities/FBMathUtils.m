@@ -62,7 +62,9 @@ CGSize FBAdjustDimensionsForApplication(CGSize actualSize, UIInterfaceOrientatio
      and to make it still working properly after XCTest itself starts to respect landscape mode.
      */
     if (actualSize.height > actualSize.width) {
-      return CGSizeMake(actualSize.height, actualSize.width);
+      CGFloat _tempWidth = actualSize.width;
+      actualSize.width = actualSize.height;
+      actualSize.height = _tempWidth;
     }
   }
   return actualSize;

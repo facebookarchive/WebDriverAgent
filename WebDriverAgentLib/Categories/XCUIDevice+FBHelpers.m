@@ -24,6 +24,10 @@
 #import "XCUIScreen.h"
 
 static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
+static const XCUIApplication *app;
+static UIInterfaceOrientation lastScreenOrientation;
+static CGSize lastScreenSize;
+
 
 @implementation XCUIDevice (FBHelpers)
 
@@ -56,13 +60,21 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
     return result;
   }
 
-  XCUIApplication *app = FBApplication.fb_activeApplication;
-  CGSize screenSize = FBAdjustDimensionsForApplication(app.frame.size, app.interfaceOrientation);
+  if(app == nil) {
+    app = FBApplication.fb_activeApplication;
+  }
+  
+  if(CGSizeEqualToSize(CGSizeZero, lastScreenSize) || (lastScreenOrientation != app.interfaceOrientation) ) {
+    lastScreenOrientation = app.interfaceOrientation;
+    lastScreenSize = FBAdjustDimensionsForApplication(app.frame.size, app.interfaceOrientation);
+  }
+  
   // https://developer.apple.com/documentation/xctest/xctimagequality?language=objc
   // Select lower quality, since XCTest crashes randomly if the maximum quality (zero value) is selected
   // and the resulting screenshot does not fit the memory buffer preallocated for it by the operating system
   NSUInteger quality = 1;
-  CGRect screenRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
+  CGRect screenRect = CGRectMake(0, 0, lastScreenSize.width, lastScreenSize.height);
+
 
   XCUIScreen *mainScreen = (XCUIScreen *)[xcScreenClass mainScreen];
   NSData *result = [mainScreen screenshotDataForQuality:quality rect:screenRect error:error];
