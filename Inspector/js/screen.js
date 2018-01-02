@@ -13,8 +13,6 @@ import React from 'react';
 import HTTP from 'js/http';
 import GestureRecognizer from 'js/gesture_recognizer';
 
-var Button = require('react-button');
-
 require('css/screen.css');
 
 class Screen extends React.Component {
@@ -33,12 +31,9 @@ class Screen extends React.Component {
           Screen
         </div>
         <div>
-          <Button onClick={(ev) => {this.home(ev); }} >
+          <button onClick={(ev) => {this.home(ev); }} >
             Home
-          </Button>
-          <Button onClick={this.props.refreshApp} >
-            Refresh
-          </Button>
+          </button>
         </div>
         <div className="section-content-container">
           <div className="screen-screenshot-container"
@@ -102,10 +97,7 @@ class Screen extends React.Component {
             'toX': toX,
             'toY': toY,
             'duration': params.duration,
-          }),
-          (tap_result) => {
-            this.props.refreshApp();
-          },
+          })
         );
       },
     );
@@ -132,10 +124,7 @@ class Screen extends React.Component {
           JSON.stringify({
             'x': x,
             'y': y,
-          }),
-          (tap_result) => {
-            this.props.refreshApp();
-          },
+          })
         );
       },
     );
@@ -149,10 +138,7 @@ class Screen extends React.Component {
           'session/' + session_id + '/wda/keys',
           JSON.stringify({
             'value': [key],
-          }),
-          (tap_result) => {
-            this.props.refreshApp();
-          },
+          })
         );
       },
     );
@@ -177,10 +163,7 @@ class Screen extends React.Component {
   home(ev) {
     HTTP.post(
       '/wda/homescreen',
-      JSON.stringify({}),
-      (result) => {
-        this.props.refreshApp();
-      },
+      JSON.stringify({})
     );
   }
 

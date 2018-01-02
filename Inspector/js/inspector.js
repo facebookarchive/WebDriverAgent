@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import HTTP from 'js/http';
-var Button = require('react-button');
 
 require('css/inspector.css');
 
@@ -42,9 +41,9 @@ class Inspector extends React.Component {
 
     const attributes = this.props.selectedNode.attributes;
     const tapButton =
-      <Button onClick={(event) => this.tap(this.props.selectedNode)}>
+      <button onClick={(event) => this.tap(this.props.selectedNode)}>
         tap
-      </Button>;
+      </button>;
 
     return (
       <div>
@@ -99,10 +98,7 @@ class Inspector extends React.Component {
 
             HTTP.post(
               'session/' + session_id + '/element/' + element_id + '/click',
-              JSON.stringify({}),
-              (result) => {
-                this.props.refreshApp();
-              },
+              JSON.stringify({})
             );
           },
         );

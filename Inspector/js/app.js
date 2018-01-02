@@ -32,13 +32,8 @@ class App extends React.Component {
     this.fetchLatestScreen = this.fetchScreenshot.bind(this);
   }
 
-  refreshApp() {
-    this.fetchScreenshot();
-    //this.fetchTree();
-  }
-
   componentDidMount() {
-    this.refreshApp();
+    this.fetchScreenshot();
   }
 
   fetchScreenshot() {
@@ -86,7 +81,7 @@ class App extends React.Component {
           screenshot={this.state.screenshot}
           width = {this.state.width}
           rootNode={this.state.rootNode}
-          refreshApp={() => { this.refreshApp(); }} />
+          />
         <Tree
           onHighlightedNodeChange={(node) => {
             this.setState({
@@ -102,7 +97,7 @@ class App extends React.Component {
           selectedNode={this.state.selectedNode} />
         <Inspector
           selectedNode={this.state.selectedNode}
-          refreshApp={() => { this.refreshApp(); }} />
+           />
       </div>
     );
   }

@@ -17,7 +17,9 @@ class Http {
     });
     ajax.on('success', event => {
       var response = JSON.parse(event.target.responseText);
-      callback(response);
+      if(callback) {
+        callback(response);
+      }
     });
     ajax.send();
   }
@@ -30,7 +32,9 @@ class Http {
     });
     ajax.on('success', event => {
       var response = JSON.parse(event.target.responseText);
-      callback(response);
+      if(callback) {
+        callback(response);
+      }
     });
     ajax.send();
   }
