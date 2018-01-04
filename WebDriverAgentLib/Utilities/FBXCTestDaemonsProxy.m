@@ -18,6 +18,16 @@
 
 @implementation FBXCTestDaemonsProxy
 
+static Class FBXCTRunnerDaemonSessionClass = nil;
+static dispatch_once_t onceTestRunnerDaemonClass;
++ (void)load
+{
+  // XCTRunnerDaemonSession class is only available since Xcode 8.3
+  dispatch_once(&onceTestRunnerDaemonClass, ^{
+    FBXCTRunnerDaemonSessionClass = objc_lookUpClass("XCTRunnerDaemonSession");
+  });
+}
+
 + (id<XCTestManager_ManagerInterface>)testRunnerProxy
 {
   static id<XCTestManager_ManagerInterface> proxy = nil;
@@ -40,15 +50,14 @@
   if ([[XCTestDriver sharedTestDriver] respondsToSelector:@selector(managerProxy)]) {
     return [XCTestDriver sharedTestDriver].managerProxy;
   } else {
-    Class runnerClass = objc_lookUpClass("XCTRunnerDaemonSession");
-    return ((XCTRunnerDaemonSession *)[runnerClass sharedSession]).daemonProxy;
+    return ((XCTRunnerDaemonSession *)[FBXCTRunnerDaemonSessionClass sharedSession]).daemonProxy;
   }
 }
 
 + (UIInterfaceOrientation)orientationWithApplication:(XCUIApplication *)application
 {
-  Class runnerClass = objc_lookUpClass("XCTRunnerDaemonSession");
-  if (nil == runnerClass || [[runnerClass sharedSession] useLegacyEventCoordinateTransformationPath]) {
+  if (nil == FBXCTRunnerDaemonSessionClass ||
+      [[FBXCTRunnerDaemonSessionClass sharedSession] useLegacyEventCoordinateTransformationPath]) {
     return application.interfaceOrientation;
   }
   return UIInterfaceOrientationPortrait;
@@ -57,31 +66,50 @@
 + (BOOL)synthesizeEventWithRecord:(XCSynthesizedEventRecord *)record error:(NSError *__autoreleasing*)error
 {
   __block BOOL didSucceed = NO;
-  Class runnerClass = objc_lookUpClass("XCTRunnerDaemonSession");
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
-    if (nil == runnerClass) {
-      [[FBXCTestDaemonsProxy testRunnerProxy] _XCT_synthesizeEvent:record completion:^(NSError *commandError) {
-        if (error) {
-          *error = commandError;
-        }
-        didSucceed = (commandError == nil);
-        completion();
-      }];
+    void (^errorHandler)(NSError *) = ^(NSError *invokeError) {
+      if (error) {
+        *error = invokeError;
+      }
+      didSucceed = (invokeError == nil);
+      completion();
+    };
+    
+    if (nil == FBXCTRunnerDaemonSessionClass) {
+      [[self testRunnerProxy] _XCT_synthesizeEvent:record completion:errorHandler];
     } else {
-      // XCTRunnerDaemonSession class is only available since Xcode 8.3
-      XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *innerRecord, NSError *commandError) {
-        if (error) {
-          *error = commandError;
-        }
-        didSucceed = (commandError == nil);
-        completion();
+      XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *innerRecord, NSError *invokeError) {
+        errorHandler(invokeError);
       };
-      [[runnerClass sharedSession] synthesizeEvent:record completion:^(NSError *invokeError){
+      [[FBXCTRunnerDaemonSessionClass sharedSession] synthesizeEvent:record completion:^(NSError *invokeError){
         handlerBlock(record, invokeError);
       }];
     }
   }];
   return didSucceed;
+}
+
++ (XCAccessibilityElement *)accessibilityElementAtPoint:(CGPoint)point error:(NSError *__autoreleasing*)error
+{
+  __block XCAccessibilityElement *resultingAccessiblityElement = nil;
+  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
+    void (^resultBlock)(XCAccessibilityElement *, NSError *) = ^(XCAccessibilityElement *commandResult, NSError *invokeError) {
+      if (error) {
+        *error = invokeError;
+      }
+      if (invokeError == nil) {
+        resultingAccessiblityElement = commandResult;
+      }
+      completion();
+    };
+    
+    if (nil == FBXCTRunnerDaemonSessionClass) {
+      [[self testRunnerProxy] _XCT_requestElementAtPoint:point reply:resultBlock];
+    } else {
+      [[FBXCTRunnerDaemonSessionClass sharedSession] requestElementAtPoint:point reply:(id)resultBlock];
+    }
+  }];
+  return resultingAccessiblityElement;
 }
 
 @end

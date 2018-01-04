@@ -109,4 +109,17 @@ static NSString *const OBJC_PROP_ATTRIBS_SEPARATOR = @",";
   return attributeNamesMapping.copy;
 }
 
+static BOOL FBShouldUsePayloadForUIDExtraction = YES;
+static dispatch_once_t oncePayloadToken;
++ (NSUInteger)uidWithAccessibilityElement:(XCAccessibilityElement *)element
+{
+  dispatch_once(&oncePayloadToken, ^{
+    FBShouldUsePayloadForUIDExtraction = [element respondsToSelector:@selector(payload)];
+  });
+  if (FBShouldUsePayloadForUIDExtraction) {
+    return [[element.payload objectForKey:@"uid.elementID"] intValue];
+  }
+  return [[element valueForKey:@"_elementID"] intValue];
+}
+
 @end
