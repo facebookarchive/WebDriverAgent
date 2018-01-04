@@ -2088,6 +2088,28 @@
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WARNING_CFLAGS = (
+					"-Wno-objc-missing-property-synthesis",
+					"-Wno-unused-macros",
+					"-Wno-disabled-macro-expansion",
+					"-Wno-gnu-statement-expression",
+					"-Wno-language-extension-token",
+					"-Wno-overriding-method-mismatch",
+					"-Rno-module-build",
+					"-Wno-auto-import",
+					"-Wno-objc-interface-ivars",
+					"-Wno-documentation-unknown-command",
+					"-Wno-reserved-id-macro",
+					"-Wno-unused-parameter",
+					"-Wno-gnu-conditional-omitted-operand",
+					"-Wno-explicit-ownership-type",
+					"-Wno-date-time",
+					"-Wno-cast-align",
+					"-Wno-cstring-format-directive",
+					"-Wno-double-promotion",
+					"-Wno-partial-availability",
+					"-Wno-missing-variable-declarations",
+				);
 			};
 			name = Debug;
 		};
@@ -2116,6 +2138,28 @@
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WARNING_CFLAGS = (
+					"-Wno-objc-missing-property-synthesis",
+					"-Wno-unused-macros",
+					"-Wno-disabled-macro-expansion",
+					"-Wno-gnu-statement-expression",
+					"-Wno-language-extension-token",
+					"-Wno-overriding-method-mismatch",
+					"-Rno-module-build",
+					"-Wno-auto-import",
+					"-Wno-objc-interface-ivars",
+					"-Wno-documentation-unknown-command",
+					"-Wno-reserved-id-macro",
+					"-Wno-unused-parameter",
+					"-Wno-gnu-conditional-omitted-operand",
+					"-Wno-explicit-ownership-type",
+					"-Wno-date-time",
+					"-Wno-cast-align",
+					"-Wno-cstring-format-directive",
+					"-Wno-double-promotion",
+					"-Wno-partial-availability",
+					"-Wno-missing-variable-declarations",
+				);
 			};
 			name = Release;
 		};

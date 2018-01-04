@@ -21,9 +21,8 @@
 #import "FBUnknownCommands.h"
 #import "FBConfiguration.h"
 #import "FBLogger.h"
-
 #import "XCUIDevice+FBHelpers.h"
-
+#import <SocketIO/SocketIO-Swift.h>
 static NSString *const FBServerURLBeginMarker = @"ServerURLHere->";
 static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
