@@ -41,6 +41,7 @@ Carthage/Cartfile.resolved
 
 # Inspector files
 Inspector/node_modules
+Inspector/dist
 
 # Resource bundle recreated on each build
 Resources/WebDriverAgent.bundle
