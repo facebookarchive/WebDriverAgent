@@ -53,4 +53,16 @@
   XCTAssertTrue([FBApplication fb_activeApplication].icons[@"Safari"].exists);
 }
 
+- (void)testLockUnlockScreen
+{
+  XCTAssertFalse([[XCUIDevice sharedDevice] fb_isScreenLocked]);
+  NSError *error;
+  XCTAssertTrue([[XCUIDevice sharedDevice] fb_lockScreen:&error]);
+  XCTAssertTrue([[XCUIDevice sharedDevice] fb_isScreenLocked]);
+  XCTAssertNil(error);
+  XCTAssertTrue([[XCUIDevice sharedDevice] fb_unlockScreen:&error]);
+  XCTAssertFalse([[XCUIDevice sharedDevice] fb_isScreenLocked]);
+  XCTAssertNil(error);
+}
+
 @end

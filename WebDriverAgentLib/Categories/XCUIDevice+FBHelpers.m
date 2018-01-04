@@ -16,15 +16,37 @@
 
 #import "FBSpringboardApplication.h"
 #import "FBErrorBuilder.h"
+#import "FBMacros.h"
 #import "FBMathUtils.h"
 #import "FBXCodeCompatibility.h"
 
-#import "FBMacros.h"
+#import "XCUIDevice.h"
 #import "XCAXClient_iOS.h"
 
 static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
+static const NSTimeInterval FBScreenLockTimeout = 5.;
 
 @implementation XCUIDevice (FBHelpers)
+
+static bool fb_isLocked;
+
++ (void)load
+{
+  [self fb_registerAppforDetectLockState];
+}
+
++ (void)fb_registerAppforDetectLockState
+{
+  int notify_token;
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wstrict-prototypes"
+  notify_register_dispatch("com.apple.springboard.lockstate", &notify_token, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(int token) {
+    uint64_t state = UINT64_MAX;
+    notify_get_state(token, &state);
+    fb_isLocked = state != 0;
+  });
+  #pragma clang diagnostic pop
+}
 
 - (BOOL)fb_goToHomescreenWithError:(NSError **)error
 {
@@ -41,6 +63,46 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   return YES;
 }
 
+- (BOOL)fb_lockScreen:(NSError **)error
+{
+  if (fb_isLocked) {
+    return YES;
+  }
+  [self pressLockButton];
+  return [[[[FBRunLoopSpinner new]
+            timeout:FBScreenLockTimeout]
+           timeoutErrorMessage:@"Timed out while waiting until the screen gets locked"]
+          spinUntilTrue:^BOOL{
+            return fb_isLocked;
+          } error:error];
+}
+
+- (BOOL)fb_isScreenLocked
+{
+  return fb_isLocked;
+}
+
+- (BOOL)fb_unlockScreen:(NSError **)error
+{
+  if (!fb_isLocked) {
+    return YES;
+  }
+  [self pressButton:XCUIDeviceButtonHome];
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBHomeButtonCoolOffTime]];
+  if (SYSTEM_VERSION_LESS_THAN(@"10.0")) {
+    [[FBApplication fb_activeApplication] swipeRight];
+  } else {
+    [self pressButton:XCUIDeviceButtonHome];
+  }
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBHomeButtonCoolOffTime]];
+  return [[[[FBRunLoopSpinner new]
+            timeout:FBScreenLockTimeout]
+           timeoutErrorMessage:@"Timed out while waiting until the screen gets unlocked"]
+          spinUntilTrue:^BOOL{
+            return !fb_isLocked;
+          } error:error];
+}
+
 - (NSData *)fb_screenshotWithError:(NSError*__autoreleasing*)error
 {
   id xcScreen = NSClassFromString(@"XCUIScreen");
@@ -54,7 +116,7 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
     }
     return result;
   }
-
+  
   id mainScreen = [xcScreen valueForKey:@"mainScreen"];
   FBApplication *activeApplication = FBApplication.fb_activeApplication;
   UIInterfaceOrientation orientation = activeApplication.interfaceOrientation;

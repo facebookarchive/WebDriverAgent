@@ -39,7 +39,10 @@
     [[FBRoute POST:@"/wda/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/wda/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/wda/keyboard/dismiss"] respondWithTarget:self action:@selector(handleDismissKeyboardCommand:)],
-    [[FBRoute GET:@"/lock"].withoutSession respondWithTarget:self action:@selector(handleLock:)],
+    [[FBRoute POST:@"/wda/lock"].withoutSession respondWithTarget:self action:@selector(handleLock:)],
+    [[FBRoute POST:@"/wda/lock"] respondWithTarget:self action:@selector(handleLock:)],
+    [[FBRoute POST:@"/wda/unlock"].withoutSession respondWithTarget:self action:@selector(handleUnlock:)],
+    [[FBRoute POST:@"/wda/unlock"] respondWithTarget:self action:@selector(handleUnlock:)],
     [[FBRoute GET:@"/wda/screen"] respondWithTarget:self action:@selector(handleGetScreen:)]
   ];
 }
@@ -96,20 +99,6 @@
   return FBResponseWithOK();
 }
 
-+ (id<FBResponsePayload>)handleLock:(FBRouteRequest *)request
-{
-  
-  dispatch_async(dispatch_get_main_queue(), ^{
-    @try{
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-      [[XCUIDevice sharedDevice] performSelector:NSSelectorFromString(@"pressLockButton")];
-    }@catch(NSException *exception){
-      NSLog(@"Exception cought in the main thread %@",exception);
-    }
-  });
-  return FBResponseWithOK();
-}
-
 + (id<FBResponsePayload>)handleGetScreen:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
@@ -119,8 +108,27 @@
     @"statusBarSize": @{@"width": @(statusBarSize.width),
                         @"height": @(statusBarSize.height),
                         },
-    @"scale": @([FBScreen scale])
+    @"scale": @([FBScreen scale]),
+    @"locked": @([[XCUIDevice sharedDevice] fb_isScreenLocked])
     });
+}
+
++ (id<FBResponsePayload>)handleLock:(FBRouteRequest *)request
+{
+  NSError *error;
+  if (![[XCUIDevice sharedDevice] fb_lockScreen:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleUnlock:(FBRouteRequest *)request
+{
+  NSError *error;
+  if (![[XCUIDevice sharedDevice] fb_unlockScreen:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithOK();
 }
 
 @end
