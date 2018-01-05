@@ -53,6 +53,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)increaseDuration:(double)value;
 
 /**
+ Returns fixed hit point coordinates for the case when XCTest fails to transform element snaapshot properly on screen rotation.
+ 
+ @param hitPoint The initial hitpoint coordinates
+ @param snapshot Element's snapshot instance
+ @return The fixed hit point coordinates, if there is a need to fix them, or the unchanged hit point value
+ */
+- (CGPoint)fixedHitPointWith:(CGPoint)hitPoint forSnapshot:(XCElementSnapshot *)snapshot;
+
+/**
  Calculate absolute gesture position on the screen based on provided element and positionOffset values.
  
  @param element The element instance to perform the gesture on. If element equals to nil then positionOffset is considered as absolute coordinates

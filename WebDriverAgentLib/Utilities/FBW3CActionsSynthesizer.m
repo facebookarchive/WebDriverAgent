@@ -139,6 +139,7 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
   }
   CGRect frame = snapshot.frame;
   CGPoint hitPoint;
+  // W3C standard requires that relative element coordinates start at the center of the element's rectangle
   if (nil == positionOffset) {
     hitPoint = CGPointMake(frameInWindow.origin.x + frameInWindow.size.width / 2,
                            frameInWindow.origin.y + frameInWindow.size.height / 2);
@@ -148,13 +149,7 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
     hitPoint = CGPointMake(hitPoint.x + offsetValue.x, hitPoint.y + offsetValue.y);
     // TODO: Shall we throw an exception if hitPoint is out of the element frame?
   }
-  XCElementSnapshot *parentWindow = [snapshot fb_parentMatchingType:XCUIElementTypeWindow];
-  CGRect parentWindowFrame = nil == parentWindow ? frame : parentWindow.frame;
-  if (!CGRectEqualToRect(self.application.frame, parentWindowFrame) ||
-      self.application.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-    // Fix the hitpoint if the element frame is inverted
-    hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
-  }
+  hitPoint = [self fixedHitPointWith:hitPoint forSnapshot:snapshot];
   return [NSValue valueWithCGPoint:hitPoint];
 }
 

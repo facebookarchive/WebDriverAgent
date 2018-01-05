@@ -99,27 +99,12 @@
     return self.parent.fb_isVisible;
   }
   CGPoint visibleRectCenter = CGPointMake(frame.origin.x + frame.size.width / 2, frame.origin.y + frame.size.height / 2);
-  XCElementSnapshot *mainWindow = [parentWindow.parent.children firstObject];
-  if (!CGRectEqualToRect(mainWindow.frame, appFrame) || !CGRectContainsRect(mainWindow.frame, appFrame)) {
+  CGRect parentWindowFrame = parentWindow.frame;
+  if ((appFrame.size.height > appFrame.size.width && parentWindowFrame.size.height < parentWindowFrame.size.width) ||
+      (appFrame.size.height < appFrame.size.width && parentWindowFrame.size.height > parentWindowFrame.size.width)) {
     // This is the indication of the fact that transformation is broken and coordinates should be
     // recalculated manually.
     // However, upside-down case cannot be covered this way, which is not important for Appium
-    if (CGRectContainsRect(parentWindow.frame, appFrame) || CGRectEqualToRect(parentWindow.frame, appFrame)) {
-      // Poor man's solution for the very broken cases, where it's uncear how to fix
-      // coordinates transformation
-      CGPoint hitPoint = self.fb_hitPoint;
-      if (hitPoint.x >= 0 && hitPoint.y >= 0) {
-        return YES;
-      }
-      // Special case - detect visibility based on gesture recognizer presence
-      for (parent in ancestorsUntilCell) {
-        hitPoint = parent.fb_hitPoint;
-        if (hitPoint.x >= 0 && hitPoint.y >= 0) {
-          return YES;
-        }
-      }
-      return NO;
-    }
     visibleRectCenter = FBInvertPointForApplication(visibleRectCenter, appFrame.size, FBApplication.fb_activeApplication.interfaceOrientation);
   }
   XCAccessibilityElement *match = [FBXCTestDaemonsProxy accessibilityElementAtPoint:visibleRectCenter error:NULL];

@@ -41,6 +41,25 @@
   return YES;
 }
 
+- (CGPoint)fixedHitPointWith:(CGPoint)hitPoint forSnapshot:(XCElementSnapshot *)snapshot
+{
+  UIInterfaceOrientation interfaceOrientation = self.application.interfaceOrientation;
+  if (interfaceOrientation == UIInterfaceOrientationPortrait) {
+    return hitPoint;
+  }
+  XCElementSnapshot *parentWindow = [snapshot fb_parentMatchingType:XCUIElementTypeWindow];
+  CGRect parentWindowFrame = nil == parentWindow ? snapshot.frame : parentWindow.frame;
+  CGRect appFrame = self.application.frame;
+  if ((appFrame.size.height > appFrame.size.width && parentWindowFrame.size.height < parentWindowFrame.size.width) ||
+      (appFrame.size.height < appFrame.size.width && parentWindowFrame.size.height > parentWindowFrame.size.width)) {
+    // This is the indication of the fact that transformation is broken and coordinates should be
+    // recalculated manually.
+    // However, upside-down case cannot be covered this way, which is not important for Appium
+    hitPoint = FBInvertPointForApplication(hitPoint, appFrame.size, interfaceOrientation);
+  }
+  return hitPoint;
+}
+
 - (nullable NSValue *)hitpointWithElement:(nullable XCUIElement *)element positionOffset:(nullable NSValue *)positionOffset error:(NSError **)error
 {
   CGPoint hitPoint;
@@ -80,13 +99,7 @@
       hitPoint = CGPointMake(hitPoint.x + offsetValue.x, hitPoint.y + offsetValue.y);
       // TODO: Shall we throw an exception if hitPoint is out of the element frame?
     }
-    XCElementSnapshot *parentWindow = [snapshot fb_parentMatchingType:XCUIElementTypeWindow];
-    CGRect parentWindowFrame = nil == parentWindow ? snapshot.frame : parentWindow.frame;
-    if (!CGRectEqualToRect(self.application.frame, parentWindowFrame) ||
-        self.application.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-      // Fix the hitpoint if the element frame is inverted
-      hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
-    }
+    hitPoint = [self fixedHitPointWith:hitPoint forSnapshot:snapshot];
   }
   return [NSValue valueWithCGPoint:hitPoint];
 }
