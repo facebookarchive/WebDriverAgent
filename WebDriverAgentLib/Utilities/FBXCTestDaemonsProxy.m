@@ -89,27 +89,4 @@ static dispatch_once_t onceTestRunnerDaemonClass;
   return didSucceed;
 }
 
-+ (XCAccessibilityElement *)accessibilityElementAtPoint:(CGPoint)point error:(NSError *__autoreleasing*)error
-{
-  __block XCAccessibilityElement *resultingAccessiblityElement = nil;
-  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
-    void (^resultBlock)(XCAccessibilityElement *, NSError *) = ^(XCAccessibilityElement *commandResult, NSError *invokeError) {
-      if (error) {
-        *error = invokeError;
-      }
-      if (invokeError == nil) {
-        resultingAccessiblityElement = commandResult;
-      }
-      completion();
-    };
-    
-    if (nil == FBXCTRunnerDaemonSessionClass) {
-      [[self testRunnerProxy] _XCT_requestElementAtPoint:point reply:resultBlock];
-    } else {
-      [[FBXCTRunnerDaemonSessionClass sharedSession] requestElementAtPoint:point reply:(id)resultBlock];
-    }
-  }];
-  return resultingAccessiblityElement;
-}
-
 @end

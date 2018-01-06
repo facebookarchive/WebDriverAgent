@@ -26,8 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)synthesizeEventWithRecord:(XCSynthesizedEventRecord *)record error:(NSError *__autoreleasing*)error;
 
-+ (nullable XCAccessibilityElement *)accessibilityElementAtPoint:(CGPoint)point error:(NSError *__autoreleasing*)error;
-
 @end
 
 NS_ASSUME_NONNULL_END
