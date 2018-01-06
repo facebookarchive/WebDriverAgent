@@ -14,7 +14,6 @@
 #import "FBApplication.h"
 #import "FBConfiguration.h"
 #import "FBExceptionHandler.h"
-#import "FBKeyboard.h"
 #import "FBResponsePayload.h"
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
@@ -89,8 +88,8 @@
      timeout:5]
     timeoutErrorMessage:errorDescription]
    spinUntilTrue:^BOOL{
-     XCUIElement *foundKeyboard = [[FBApplication fb_activeApplication].query descendantsMatchingType:XCUIElementTypeKeyboard].fb_firstMatch;
-     return !(foundKeyboard && foundKeyboard.fb_isVisible);
+     XCUIElement *foundKeyboard = [request.session.activeApplication descendantsMatchingType:XCUIElementTypeKeyboard].fb_firstMatch;
+     return !(foundKeyboard && foundKeyboard.hittable);
    }
    error:&error];
   if (!isKeyboardNotPresent) {

@@ -26,9 +26,6 @@
 
 + (BOOL)typeText:(NSString *)text error:(NSError **)error
 {
-  if (![FBKeyboard waitUntilVisibleWithError:error]) {
-    return NO;
-  }
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
@@ -47,33 +44,21 @@
   return didSucceed;
 }
 
-+ (BOOL)waitUntilVisibleWithError:(NSError **)error
++ (BOOL)waitUntilVisibleForApplication:(XCUIApplication *)app timeout:(NSTimeInterval)timeout error:(NSError **)error
 {
-  XCUIElement *keyboard =
-  [[[[FBRunLoopSpinner new]
-     timeout:5]
-    timeoutErrorMessage:@"Keyboard is not present"]
-   spinUntilNotNil:^id{
-     return [[FBApplication fb_activeApplication].query descendantsMatchingType:XCUIElementTypeKeyboard].fb_firstMatch;
-   }
-   error:error];
-
-  if (!keyboard) {
-    return NO;
+  BOOL (^keyboardIsVisible)(void) = ^BOOL(void) {
+    XCUIElement *keyboard = [app descendantsMatchingType:XCUIElementTypeKeyboard].fb_firstMatch;
+    return keyboard && keyboard.hittable;
+  };
+  if (timeout <= 0) {
+    return keyboardIsVisible();
   }
-
-  if (![keyboard fb_waitUntilFrameIsStable]) {
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
-      // this always happens on iOS 11
-      return YES;
-    } else {
-      return
-      [[[FBErrorBuilder builder]
-        withDescription:@"Timeout waiting for keybord to stop animating"]
-       buildError:error];
-     }
-  }
-  return YES;
+  return
+    [[[[FBRunLoopSpinner new]
+       timeout:timeout]
+      timeoutErrorMessage:@"Keyboard is not present"]
+     spinUntilTrue:keyboardIsVisible
+     error:error];
 }
 
 @end

@@ -31,15 +31,17 @@
   XCUIElement *textField = self.testedApplication.textFields[@"aIdentifier"];
   [textField tap];
   NSError *error;
+  XCTAssertTrue([FBKeyboard waitUntilVisibleForApplication:self.testedApplication timeout:1 error:&error]);
+  XCTAssertNil(error);
   XCTAssertTrue([FBKeyboard typeText:text error:&error]);
   XCTAssertNil(error);
   XCTAssertEqualObjects(textField.value, text);
 }
 
-- (void)testTypingWithoutKeyboardPresent
+- (void)testKeyboardPresenceVerification
 {
   NSError *error;
-  XCTAssertFalse([FBKeyboard typeText:@"This should fail" error:&error]);
+  XCTAssertFalse([FBKeyboard waitUntilVisibleForApplication:self.testedApplication timeout:1 error:&error]);
   XCTAssertNotNil(error);
 }
 
