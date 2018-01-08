@@ -53,10 +53,11 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
   return [result objectForKey:[NSString stringWithFormat:@"%p", (void *)self]];
 }
 
-- (void)fb_cacheVisibilityWithValue:(BOOL)isVisible
+- (BOOL)fb_cacheVisibilityWithValue:(BOOL)isVisible
 {
   NSMutableDictionary<NSString *, NSNumber *> *destination = [fb_generationsCache objectForKey:@(self.generation)];
   [destination setObject:@(isVisible) forKey:[NSString stringWithFormat:@"%p", (void *)self]];
+  return isVisible;
 }
 
 - (CGRect)fb_frameInContainer:(XCElementSnapshot *)container hierarchyIntersection:(nullable NSValue *)intersectionRectange
@@ -104,14 +105,12 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
   
   CGRect frame = self.frame;
   if (CGRectIsEmpty(frame)) {
-    [self fb_cacheVisibilityWithValue:NO];
-    return NO;
+    return [self fb_cacheVisibilityWithValue:NO];
   }
   
   if ([FBConfiguration shouldUseTestManagerForVisibilityDetection]) {
     BOOL isVisible = [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
-    [self fb_cacheVisibilityWithValue:isVisible];
-    return isVisible;
+    return [self fb_cacheVisibilityWithValue:isVisible];
   }
   
   NSMutableArray<XCElementSnapshot *> *ancestorsUntilCell = [NSMutableArray array];
@@ -127,9 +126,7 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
     }
     [ancestors addObject:parent];
     if (type == XCUIElementTypeCell && isFirstCellMatch) {
-      if (ancestors.count > 1) {
-        [ancestorsUntilCell addObjectsFromArray:ancestors];
-      }
+      [ancestorsUntilCell addObjectsFromArray:ancestors];
       isFirstCellMatch = NO;
     }
     parent = parent.parent;
@@ -138,12 +135,10 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
   CGRect appFrame = [self fb_rootElement].frame;
   CGRect rectInContainer = nil == parentWindow ? self.frame : [self fb_frameInContainer:parentWindow hierarchyIntersection:nil];
   if (CGRectIsEmpty(rectInContainer)) {
-    [self fb_cacheVisibilityWithValue:NO];
-    return NO;
+    return [self fb_cacheVisibilityWithValue:NO];
   }
   if (self.children.count > 0 && [self fb_hasAnyVisibleLeafs]) {
-    [self fb_cacheVisibilityWithValue:YES];
-    return YES;
+    return [self fb_cacheVisibilityWithValue:YES];
   }
   CGPoint midPoint = CGPointMake(rectInContainer.origin.x + rectInContainer.size.width / 2,
                                  rectInContainer.origin.y + rectInContainer.size.height / 2);
@@ -157,18 +152,15 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
   }
   XCElementSnapshot *hitElement = [self hitTest:midPoint];
   if (self == hitElement) {
-    [self fb_cacheVisibilityWithValue:YES];
-    return YES;
+    return [self fb_cacheVisibilityWithValue:YES];
   }
   // Special case - detect visibility based on gesture recognizer presence
   for (parent in ancestorsUntilCell) {
     if (hitElement == parent) {
-      [self fb_cacheVisibilityWithValue:YES];
-      return YES;
+      return [self fb_cacheVisibilityWithValue:YES];
     }
   }
-  [self fb_cacheVisibilityWithValue:NO];
-  return NO;
+  return [self fb_cacheVisibilityWithValue:NO];
 }
 
 @end
