@@ -43,9 +43,9 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 @interface FBWebSocket ()
 @property (nonatomic, strong) FBExceptionHandler *exceptionHandler;
-@property (nonatomic, strong) RoutingHTTPServer *server;
 @property (atomic, assign) BOOL keepAlive;
 @property (nonatomic, strong) SocketManager *manager;
+@property (nonatomic, strong) NSMutableDictionary *routeDict;
 @end
 
 @implementation FBWebSocket
@@ -85,101 +85,63 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   
   [clientSocket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
     NSLog(@"socket connected");
-    [clientSocket emit:@"hello" with: [[NSArray alloc] init]];
+    [clientSocket emit:@"event" with: [[NSArray alloc] initWithObjects:@"hello", nil]];
+  }];
+  
+  [clientSocket on:@"message" callback:^(NSArray* data, SocketAckEmitter* ack) {
+    [self socketOnMessageHandler:data andSocketAck:ack];
   }];
   
   [clientSocket connect];
   
-  self.server = [[RoutingHTTPServer alloc] init];
-  [self.server setRouteQueue:dispatch_get_main_queue()];
-  [self.server setDefaultHeader:@"Server" value:@"WebDriverAgent/1.0"];
-  [self.server setConnectionClass:[FBSocketConnection self]];
   
-  [self registerRouteHandlers:[self.class collectCommandHandlerClasses]];
-  [self registerServerKeyRouteHandlers];
-  
-  NSRange serverPortRange = FBConfiguration.bindingPortRange;
-  NSError *error;
-  BOOL serverStarted = NO;
-  
-  for (NSUInteger index = 0; index < serverPortRange.length; index++) {
-    NSInteger port = serverPortRange.location + index;
-    [self.server setPort:(UInt16)port];
-    
-    serverStarted = [self attemptToStartSocket:self.server onPort:port withError:&error];
-    if (serverStarted) {
-      break;
-    }
-    
-    [FBLogger logFmt:@"Failed to start web server on port %ld with error %@", (long)port, [error description]];
-  }
-  
-  if (!serverStarted) {
-    [FBLogger logFmt:@"Last attempt to start web server failed with error %@", [error description]];
-    abort();
-  }
-  [FBLogger logFmt:@"%@http://%@:%d%@", FBServerURLBeginMarker, [XCUIDevice sharedDevice].fb_wifiIPAddress ?: @"localhost", [self.server port], FBServerURLEndMarker];
+  [self registerRouteHandlers:[self.class collectCommandHandlerClasses] andClientSocket:clientSocket];
+  [self registerServerKeyRouteHandlers: clientSocket];
 }
 
 - (void)stopSocket
 {
   [FBSession.activeSession kill];
-  if (self.server.isRunning) {
-    [self.server stop:NO];
-  }
   self.keepAlive = NO;
+  //TODO : Stop socket
 }
 
-- (BOOL)attemptToStartSocket:(RoutingHTTPServer *)server onPort:(NSInteger)port withError:(NSError **)error
+- (void) socketOnMessageHandler: (NSArray*) data andSocketAck: (SocketAckEmitter*) ack
 {
-  server.port = (UInt16)port;
-  NSError *innerError = nil;
-  BOOL started = [server start:&innerError];
-  if (!started) {
-    if (!error) {
-      return NO;
-    }
-    
-    NSString *description = @"Unknown Error when Starting server";
-    if ([innerError.domain isEqualToString:NSPOSIXErrorDomain] && innerError.code == EADDRINUSE) {
-      description = [NSString stringWithFormat:@"Unable to start web server on port %ld", (long)port];
-    }
-    return
-    [[[[FBErrorBuilder builder]
-       withDescription:description]
-      withInnerError:innerError]
-     buildError:error];
-  }
-  return YES;
+  NSData *requestData = (NSData *) data[0];
+  NSDictionary *arguments = [NSJSONSerialization JSONObjectWithData:requestData options:NSJSONReadingMutableContainers error:NULL];
+  FBRouteRequest *routeParams = [FBRouteRequest
+                                 routeRequestWithURL:[[NSURL alloc] init]
+                                 parameters:[[NSDictionary alloc] init]
+                                 arguments:arguments ?: @{}
+                                 ];
+  
+  [FBLogger verboseLog:routeParams.description];
+  
+//  FBRouteResponse *response = [[FBRouteResponse alloc] initWithSocketAck:ack];
+//  @try {
+//    [route mountRequest:routeParams intoResponse:response];
+//  }
+//  @catch (NSException *exception) {
+//    [self handleException:exception forResponse:response];
+//  }
 }
 
-- (void)registerRouteHandlers:(NSArray *)commandHandlerClasses
+
+- (void)registerRouteHandlers:(NSArray *)commandHandlerClasses andClientSocket: (SocketIOClient *) clientSocket
 {
+  _routeDict = [[NSMutableDictionary alloc] init];
   for (Class<FBCommandHandler> commandHandler in commandHandlerClasses) {
     NSArray *routes = [commandHandler routes];
     for (FBRoute *route in routes) {
-      [self.server handleMethod:route.verb withPath:route.path block:^(RouteRequest *request, RouteResponse *response) {
-        NSDictionary *arguments = [NSJSONSerialization JSONObjectWithData:request.body options:NSJSONReadingMutableContainers error:NULL];
-        FBRouteRequest *routeParams = [FBRouteRequest
-                                       routeRequestWithURL:request.url
-                                       parameters:request.params
-                                       arguments:arguments ?: @{}
-                                       ];
-        
-        [FBLogger verboseLog:routeParams.description];
-        
-        @try {
-          [route mountRequest:routeParams intoResponse:response];
-        }
-        @catch (NSException *exception) {
-          [self handleException:exception forResponse:response];
-        }
-      }];
+      if(route.withoutSession) {
+        [_routeDict setObject:route forKey:route.path];
+      }
     }
   }
 }
 
-- (void)handleException:(NSException *)exception forResponse:(RouteResponse *)response
+- (void)handleException:(NSException *)exception forResponse:(FBRouteResponse *)response
 {
   if ([self.exceptionHandler handleException:exception forResponse:response]) {
     return;
@@ -188,18 +150,18 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   [payload dispatchWithResponse:response];
 }
 
-- (void)registerServerKeyRouteHandlers
+- (void)registerServerKeyRouteHandlers: (SocketIOClient*) clientSocket
 {
-  [self.server get:@"/health" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    [response respondWithString:@"I-AM-ALIVE"];
+  [clientSocket on:@"/health" callback:^(NSArray* data, SocketAckEmitter* ack) {
+    [clientSocket emit:@"I-AM-ALIVE" with: [[NSArray alloc] init]];
   }];
   
-  [self.server get:@"/wda/shutdown" withBlock:^(RouteRequest *request, RouteResponse *response) {
-    [response respondWithString:@"Shutting down"];
-    [self.delegate webSocketDidRequestShutdown:self];
+  [clientSocket on:@"/wda/shutdown" callback:^(NSArray* data, SocketAckEmitter* ack) {
+    [clientSocket emit:@"Shutting down" with: [[NSArray alloc] init]];
   }];
   
-  [self registerRouteHandlers:@[FBUnknownCommands.class]];
+  
+  [self registerRouteHandlers:@[FBUnknownCommands.class] andClientSocket: clientSocket];
 }
 
 @end

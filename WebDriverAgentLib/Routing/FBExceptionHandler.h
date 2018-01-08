@@ -9,6 +9,7 @@
 
 #import <Foundation/Foundation.h>
 #import <WebDriverAgentLib/FBWebServer.h>
+#import "FBRouteResponse.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -37,7 +38,7 @@ extern NSString *const FBInvalidArgumentException;
  @param response response related to that exception
  @return YES, if exception was handled, otherwise NO
  */
-- (BOOL) handleException:(NSException *)exception forResponse:(RouteResponse *)response;
+- (BOOL) handleException:(NSException *)exception forResponse:(FBRouteResponse *)response;
 
 @end
 

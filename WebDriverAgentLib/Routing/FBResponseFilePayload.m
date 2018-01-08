@@ -10,6 +10,7 @@
 #import "FBResponseFilePayload.h"
 
 #import <RoutingHTTPServer/RouteResponse.h>
+#import "FBRouteResponse.h"
 
 @interface FBResponseFilePayload ()
 
@@ -33,7 +34,7 @@
     return self;
 }
 
-- (void)dispatchWithResponse:(RouteResponse *)response
+- (void)dispatchWithResponse:(FBRouteResponse *)response
 {
   [response respondWithFile:self.path];
 }

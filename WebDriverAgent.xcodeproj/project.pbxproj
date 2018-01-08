@@ -314,6 +314,8 @@
 		EEE9B4731CD02B88009D2030 /* FBRunLoopSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */; };
 		EEEC7C921F21F27A0053426C /* FBPredicate.h in Headers */ = {isa = PBXBuildFile; fileRef = EEEC7C901F21F27A0053426C /* FBPredicate.h */; };
 		EEEC7C931F21F27A0053426C /* FBPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC7C911F21F27A0053426C /* FBPredicate.m */; };
+		F639A75C2003756800EC0C00 /* FBRouteResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = F639A75A2003756800EC0C00 /* FBRouteResponse.h */; };
+		F639A75D2003756800EC0C00 /* FBRouteResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = F639A75B2003756800EC0C00 /* FBRouteResponse.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -752,6 +754,8 @@
 		EEEC7C901F21F27A0053426C /* FBPredicate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBPredicate.h; sourceTree = "<group>"; };
 		EEEC7C911F21F27A0053426C /* FBPredicate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBPredicate.m; sourceTree = "<group>"; };
 		EEF9882A1C486603005CA669 /* WebDriverAgentRunner.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentRunner.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F639A75A2003756800EC0C00 /* FBRouteResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBRouteResponse.h; sourceTree = "<group>"; };
+		F639A75B2003756800EC0C00 /* FBRouteResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBRouteResponse.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1039,6 +1043,8 @@
 				EE9AB7861CAEDF0C008C271F /* FBRouteRequest-Private.h */,
 				EE9AB7871CAEDF0C008C271F /* FBRouteRequest.h */,
 				EE9AB7881CAEDF0C008C271F /* FBRouteRequest.m */,
+				F639A75A2003756800EC0C00 /* FBRouteResponse.h */,
+				F639A75B2003756800EC0C00 /* FBRouteResponse.m */,
 				EE9AB7891CAEDF0C008C271F /* FBSession-Private.h */,
 				EE9AB78A1CAEDF0C008C271F /* FBSession.h */,
 				EE9AB78B1CAEDF0C008C271F /* FBSession.m */,
@@ -1404,6 +1410,7 @@
 				EE35AD551E3B77D600A02D78 /* XCTestRun.h in Headers */,
 				EE158AE61CBD456F00A3E3F0 /* FBWebServer.h in Headers */,
 				EE158AC61CBD456F00A3E3F0 /* FBScreenshotCommands.h in Headers */,
+				F639A75C2003756800EC0C00 /* FBRouteResponse.h in Headers */,
 				EE35AD0A1E3B77D600A02D78 /* _XCKVOExpectationImplementation.h in Headers */,
 				EE0D1F611EBCDCF7006A3123 /* NSString+FBVisualLength.h in Headers */,
 				EE35AD7B1E3B80C000A02D78 /* FBXCTestDaemonsProxy.h in Headers */,
@@ -1887,6 +1894,7 @@
 				EE9B76A71CF7A43900275851 /* FBConfiguration.m in Sources */,
 				EE158AD31CBD456F00A3E3F0 /* FBElementCache.m in Sources */,
 				AD6C26951CF2379700F8B5FF /* FBAlert.m in Sources */,
+				F639A75D2003756800EC0C00 /* FBRouteResponse.m in Sources */,
 				EE158ABF1CBD456F00A3E3F0 /* FBElementCommands.m in Sources */,
 				EE158AD51CBD456F00A3E3F0 /* FBExceptionHandler.m in Sources */,
 				EE5A24421F136D360078B1D9 /* FBXCodeCompatibility.m in Sources */,

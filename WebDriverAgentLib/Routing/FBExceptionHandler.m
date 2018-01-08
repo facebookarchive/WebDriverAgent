@@ -14,6 +14,7 @@
 #import "FBAlert.h"
 #import "FBResponsePayload.h"
 #import "FBSession.h"
+#import "FBRouteResponse.h"
 
 NSString *const FBInvalidArgumentException = @"FBInvalidArgumentException";
 NSString *const FBSessionDoesNotExistException = @"FBSessionDoesNotExistException";
@@ -22,7 +23,7 @@ NSString *const FBElementAttributeUnknownException = @"FBElementAttributeUnknown
 
 @implementation FBExceptionHandler
 
-- (BOOL) handleException:(NSException *)exception forResponse:(RouteResponse *)response
+- (BOOL) handleException:(NSException *)exception forResponse:(FBRouteResponse *)response
 {
   if ([exception.name isEqualToString:FBApplicationDeadlockDetectedException]) {
     id<FBResponsePayload> payload = FBResponseWithStatus(FBCommandStatusApplicationDeadlockDetected, [exception description]);

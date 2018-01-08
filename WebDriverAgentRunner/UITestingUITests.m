@@ -14,8 +14,9 @@
 #import <WebDriverAgentLib/FBFailureProofTestCase.h>
 #import <WebDriverAgentLib/FBWebServer.h>
 #import <WebDriverAgentLib/XCTestCase.h>
+#import "FBWebSocket.h"
 
-@interface UITestingUITests : FBFailureProofTestCase <FBWebServerDelegate>
+@interface UITestingUITests : FBFailureProofTestCase <FBWebServerDelegate, FBWebSocketDelegate>
 @end
 
 @implementation UITestingUITests
@@ -32,9 +33,12 @@
  */
 - (void)testRunner
 {
-  FBWebServer *webServer = [[FBWebServer alloc] init];
-  webServer.delegate = self;
-  [webServer startServing];
+//  FBWebServer *webServer = [[FBWebServer alloc] init];
+//  webServer.delegate = self;
+//  [webServer startServing];
+  FBWebSocket *webScoket = [[FBWebSocket alloc] init];
+  webScoket.delegate = self;
+  [webScoket startSocket];
 }
 
 #pragma mark - FBWebServerDelegate
@@ -42,6 +46,10 @@
 - (void)webServerDidRequestShutdown:(FBWebServer *)webServer
 {
   [webServer stopServing];
+}
+
+- (void)webSocketDidRequestShutdown:(nonnull FBWebSocket *)webSocket {
+  [webSocket stopSocket];
 }
 
 @end

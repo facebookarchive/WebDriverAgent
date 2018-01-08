@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  The server requested WebDriverAgent service shutdown.
  
- @param webServer Server instance.
+ @param webSocket Server instance.
  */
 - (void)webSocketDidRequestShutdown:(FBWebSocket *)webSocket;
 

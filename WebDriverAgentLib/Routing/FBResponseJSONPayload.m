@@ -10,6 +10,7 @@
 #import "FBResponseJSONPayload.h"
 
 #import <RoutingHTTPServer/RouteResponse.h>
+#import "FBRouteResponse.h"
 
 @interface FBResponseJSONPayload ()
 
@@ -33,7 +34,7 @@
   return self;
 }
 
-- (void)dispatchWithResponse:(RouteResponse *)response
+- (void)dispatchWithResponse:(FBRouteResponse *)response
 {
   NSError *error;
   NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.dictionary

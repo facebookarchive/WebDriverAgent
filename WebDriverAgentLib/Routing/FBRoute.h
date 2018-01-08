@@ -8,6 +8,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "FBRouteResponse.h"
 
 @protocol FBResponsePayload;
 @class FBRouteRequest;
@@ -66,7 +67,7 @@ typedef __nonnull id<FBResponsePayload> (^FBRouteSyncHandler)(FBRouteRequest *re
 /**
  Dispatches response for request
  */
-- (void)mountRequest:(FBRouteRequest *)request intoResponse:(RouteResponse *)response;
+- (void)mountRequest:(FBRouteRequest *)request intoResponse:(FBRouteResponse *)response;
 
 @end
 

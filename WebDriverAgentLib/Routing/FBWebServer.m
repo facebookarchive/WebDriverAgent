@@ -166,19 +166,19 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
         ];
 
         [FBLogger verboseLog:routeParams.description];
-
+        FBRouteResponse *newResponse = [[FBRouteResponse alloc] initWithRouteResponse:response];
         @try {
-          [route mountRequest:routeParams intoResponse:response];
+          [route mountRequest:routeParams intoResponse:newResponse];
         }
         @catch (NSException *exception) {
-          [self handleException:exception forResponse:response];
+          [self handleException:exception forResponse:newResponse];
         }
       }];
     }
   }
 }
 
-- (void)handleException:(NSException *)exception forResponse:(RouteResponse *)response
+- (void)handleException:(NSException *)exception forResponse:(FBRouteResponse *)response
 {
   if ([self.exceptionHandler handleException:exception forResponse:response]) {
     return;

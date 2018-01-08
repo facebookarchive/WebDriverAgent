@@ -7,7 +7,6 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-import Ajax from 'simple-ajax';
 import io from 'socket.io-client'
 const socket = io('http://localhost:8000');
 
@@ -35,7 +34,8 @@ class Http {
     //   }
     // });
     // ajax.send();
-    socket.emit(path,null, function(response) {
+    console.log("Event GET posted at : " + path);
+    socket.emit("/"+path,null, function(response) {
       if(callback) {
         var data = JSON.parse(response);
             callback(data);
@@ -56,6 +56,7 @@ class Http {
     //   }
     // });
     // ajax.send();
+    console.log("Event POST posted at : " + path);
 
     socket.emit(path,data, function(response) {
       if(callback) {

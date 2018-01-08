@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 
 #import <WebDriverAgentLib/FBCommandStatus.h>
+#import "FBRouteResponse.h"
 
 @class FBElementCache;
 @class RouteResponse;
@@ -72,7 +73,7 @@ id<FBResponsePayload> FBResponseFileWithPath(NSString *path);
 /**
  Dispatch constructed payload into given response
  */
-- (void)dispatchWithResponse:(RouteResponse *)response;
+- (void)dispatchWithResponse:(FBRouteResponse *)response;
 
 @end
 

@@ -35,7 +35,7 @@ static NSString *const FBRouteSessionPrefix = @"/session/:sessionID";
 
 @implementation FBRoute_TargetAction
 
-- (void)mountRequest:(FBRouteRequest *)request intoResponse:(RouteResponse *)response
+- (void)mountRequest:(FBRouteRequest *)request intoResponse:(FBRouteResponse *)response
 {
   [self decorateRequest:request];
   id<FBResponsePayload> (*requestMsgSend)(id, SEL, FBRouteRequest *) = ((id<FBResponsePayload>(*)(id, SEL, FBRouteRequest *))objc_msgSend);
@@ -53,7 +53,7 @@ static NSString *const FBRouteSessionPrefix = @"/session/:sessionID";
 
 @implementation FBRoute_Sync
 
-- (void)mountRequest:(FBRouteRequest *)request intoResponse:(RouteResponse *)response
+- (void)mountRequest:(FBRouteRequest *)request intoResponse:(FBRouteResponse *)response
 {
   [self decorateRequest:request];
   id<FBResponsePayload> payload = self.handler(request);
@@ -156,7 +156,7 @@ static NSString *const FBRouteSessionPrefix = @"/session/:sessionID";
   [[NSException exceptionWithName:FBSessionDoesNotExistException reason:@"Session does not exist" userInfo:nil] raise];
 }
 
-- (void)mountRequest:(FBRouteRequest *)request intoResponse:(RouteResponse *)response
+- (void)mountRequest:(FBRouteRequest *)request intoResponse:(FBRouteResponse *)response
 {
   [FBResponseWithErrorFormat(@"Unhandled route") dispatchWithResponse:response];
 }
