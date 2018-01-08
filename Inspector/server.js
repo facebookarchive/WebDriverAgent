@@ -1,4 +1,5 @@
 const express = require('express');
+const ab2str = require('arraybuffer-to-string')
 var app = express();
 const PORT = 8000;
 app.use(express.static('./dist'))
@@ -20,14 +21,15 @@ io.on('connection', function(client){
         console.log("Message : " + data)
     });
 
-    client.on('message', function(data, callback){
-        console.log(data);
-        if(callback) {
-            console.log("callback");
-        }
+    client.on('message', function(data, callback) {
         for (var key in clients) {
             if (key != client.id && clients.hasOwnProperty(key)) {
-                clients[key].emit("message",data,callback)
+                clients[key].emit("message",data,function(data) {
+                    if(callback) {
+                        var decodedString = ab2str(data, 'utf8');
+                        callback(decodedString);
+                    }
+                })
             }
         }
     });

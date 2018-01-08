@@ -31,11 +31,16 @@
 /**
  Never ending test used to start WebDriverAgent
  */
-- (void)testRunner
+
+- (void)testServerRunner
 {
-//  FBWebServer *webServer = [[FBWebServer alloc] init];
-//  webServer.delegate = self;
-//  [webServer startServing];
+    FBWebServer *webServer = [[FBWebServer alloc] init];
+    webServer.delegate = self;
+    [webServer startServing];
+}
+
+- (void)testSocketRunner
+{
   FBWebSocket *webScoket = [[FBWebSocket alloc] init];
   webScoket.delegate = self;
   [webScoket startSocket];

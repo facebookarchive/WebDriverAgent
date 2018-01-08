@@ -43,10 +43,11 @@ class Http {
     //   }
     // });
     // ajax.send();
+    const startTime = new Date().getTime();
+
     postMessage(path,null, function(response) {
       if(callback && response) {
-        var decodedString = new TextDecoder("utf-8").decode(response);
-        var data = JSON.parse(decodedString);
+        var data = JSON.parse(response);
         callback(data);
       }
     });
