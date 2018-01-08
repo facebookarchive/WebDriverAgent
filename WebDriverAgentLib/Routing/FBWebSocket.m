@@ -67,6 +67,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 - (void)startSocket
 {
+  _routeDict = [[NSMutableDictionary alloc] init];
   [FBLogger logFmt:@"Built at %s %s", __DATE__, __TIME__];
   self.exceptionHandler = [FBExceptionHandler new];
   [self startWebSocket];
@@ -108,29 +109,29 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 - (void) socketOnMessageHandler: (NSArray*) data andSocketAck: (SocketAckEmitter*) ack
 {
-  NSData *requestData = (NSData *) data[0];
-  NSDictionary *arguments = [NSJSONSerialization JSONObjectWithData:requestData options:NSJSONReadingMutableContainers error:NULL];
+//  NSData *requestData = (NSData *) data[0];
+//  NSDictionary *arguments = [NSJSONSerialization JSONObjectWithData:requestData options:NSJSONReadingMutableContainers error:NULL];
+  NSDictionary *arguments = (NSDictionary*) data[0];
+  NSString* path = [arguments valueForKey:@"path"];
+  FBRoute* route = [_routeDict valueForKey:path];
   FBRouteRequest *routeParams = [FBRouteRequest
                                  routeRequestWithURL:[[NSURL alloc] init]
                                  parameters:[[NSDictionary alloc] init]
-                                 arguments:arguments ?: @{}
+                                 arguments:arguments ? [arguments valueForKey:@"data"] : @{}
                                  ];
   
-  [FBLogger verboseLog:routeParams.description];
-  
-//  FBRouteResponse *response = [[FBRouteResponse alloc] initWithSocketAck:ack];
-//  @try {
-//    [route mountRequest:routeParams intoResponse:response];
-//  }
-//  @catch (NSException *exception) {
-//    [self handleException:exception forResponse:response];
-//  }
+  FBRouteResponse *response = [[FBRouteResponse alloc] initWithSocketAck:ack];
+  @try {
+    [route mountRequest:routeParams intoResponse:response];
+  }
+  @catch (NSException *exception) {
+    [self handleException:exception forResponse:response];
+  }
 }
 
 
 - (void)registerRouteHandlers:(NSArray *)commandHandlerClasses andClientSocket: (SocketIOClient *) clientSocket
 {
-  _routeDict = [[NSMutableDictionary alloc] init];
   for (Class<FBCommandHandler> commandHandler in commandHandlerClasses) {
     NSArray *routes = [commandHandler routes];
     for (FBRoute *route in routes) {
