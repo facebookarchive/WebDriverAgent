@@ -10,17 +10,25 @@
 import Ajax from 'simple-ajax';
 import io from 'socket.io-client'
 const socket = io('http://localhost:8000');
-
 socket.on('connect', function(){
   console.log("Connected with Socket.")
 });
+
 socket.on('event', function(data){
   console.log("Message : "+ data);
   socket.emit("event","Thank u...");
 });
+
 socket.on('disconnect', function(){
   console.log("disconnected");
 });
+
+function postMessage(path, data, callback) {
+  socket.emit("message", {
+    path : path,
+    data : data
+  },callback);
+};
 
 class Http {
   static get(path, callback) {
@@ -35,8 +43,8 @@ class Http {
     //   }
     // });
     // ajax.send();
-    socket.emit(path,null, function(response) {
-      if(callback) {
+    postMessage(path,null, function(response) {
+      if(callback && response) {
         var data = JSON.parse(response);
             callback(data);
         }
@@ -57,8 +65,8 @@ class Http {
     // });
     // ajax.send();
 
-    socket.emit(path,data, function(response) {
-      if(callback) {
+    postMessage(path,data, function(response) {
+      if(callback && response) {
         var data = JSON.parse(response);
             callback(data);
         }
