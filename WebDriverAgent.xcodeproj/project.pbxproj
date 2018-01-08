@@ -39,6 +39,9 @@
 		71B49EC71ED1A58100D51AD6 /* XCUIElement+FBUID.h in Headers */ = {isa = PBXBuildFile; fileRef = 71B49EC51ED1A58100D51AD6 /* XCUIElement+FBUID.h */; };
 		71B49EC81ED1A58100D51AD6 /* XCUIElement+FBUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 71B49EC61ED1A58100D51AD6 /* XCUIElement+FBUID.m */; };
 		71E95ADF1DC101BA002D0364 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7174AF031D9D39AF008C8AD5 /* libxml2.tbd */; };
+		9708CD2E200369810085B04D /* FBWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 9708CD2D200369810085B04D /* FBWebSocket.m */; };
+		9708CD3820036DD10085B04D /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9708CD3520036DCB0085B04D /* SocketIO.framework */; };
+		9708CD4220036DE50085B04D /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9708CD3F20036DE10085B04D /* Starscream.framework */; };
 		AD35D01A1CF1418E00870A75 /* RoutingHTTPServer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD35D0641CF1C2C300870A75 /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; };
 		AD35D06C1CF1C35500870A75 /* WebDriverAgentLib.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = EE158A991CBD452B00A3E3F0 /* WebDriverAgentLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -314,6 +317,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9708CD3420036DCB0085B04D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9708CD2F20036DCA0085B04D /* Socket.IO-Client-Swift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 572EF2381B51F18A00EEBB58;
+			remoteInfo = SocketIO;
+		};
+		9708CD3620036DCB0085B04D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9708CD2F20036DCA0085B04D /* Socket.IO-Client-Swift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 572EF2421B51F18A00EEBB58;
+			remoteInfo = "SocketIO-Tests";
+		};
+		9708CD3E20036DE10085B04D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9708CD3920036DE10085B04D /* Starscream.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 33CCF0921F5DDC030099B092;
+			remoteInfo = Starscream;
+		};
+		9708CD4020036DE10085B04D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9708CD3920036DE10085B04D /* Starscream.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 335FA2021F5DF71D00F6D2EC;
+			remoteInfo = "Starscream Tests";
+		};
 		AD8D96F01D3C12960061268E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
@@ -431,6 +462,10 @@
 		71B49EC51ED1A58100D51AD6 /* XCUIElement+FBUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBUID.h"; sourceTree = "<group>"; };
 		71B49EC61ED1A58100D51AD6 /* XCUIElement+FBUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+FBUID.m"; sourceTree = "<group>"; };
 		71E504941DF59BAD0020C32A /* XCUIElementAttributesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIElementAttributesTests.m; sourceTree = "<group>"; };
+		9708CD2C2003695D0085B04D /* FBWebSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBWebSocket.h; sourceTree = "<group>"; };
+		9708CD2D200369810085B04D /* FBWebSocket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBWebSocket.m; sourceTree = "<group>"; };
+		9708CD2F20036DCA0085B04D /* Socket.IO-Client-Swift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Socket.IO-Client-Swift.xcodeproj"; path = "Carthage/Checkouts/socket.io-client-swift/Socket.IO-Client-Swift.xcodeproj"; sourceTree = "<group>"; };
+		9708CD3920036DE10085B04D /* Starscream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Starscream.xcodeproj; path = Carthage/Checkouts/Starscream/Starscream.xcodeproj; sourceTree = "<group>"; };
 		AD42DD2A1CF121E600806E5D /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RoutingHTTPServer.framework; path = Carthage/Build/iOS/RoutingHTTPServer.framework; sourceTree = "<group>"; };
 		AD6C26921CF2379700F8B5FF /* FBAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBAlert.h; path = WebDriverAgentLib/FBAlert.h; sourceTree = SOURCE_ROOT; };
@@ -724,6 +759,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9708CD4220036DE50085B04D /* Starscream.framework in Frameworks */,
+				9708CD3820036DD10085B04D /* SocketIO.framework in Frameworks */,
 				7174AF041D9D39AF008C8AD5 /* libxml2.tbd in Frameworks */,
 				AD35D0641CF1C2C300870A75 /* RoutingHTTPServer.framework in Frameworks */,
 			);
@@ -833,6 +870,24 @@
 			path = PrivateHeaders;
 			sourceTree = "<group>";
 		};
+		9708CD3020036DCA0085B04D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9708CD3520036DCB0085B04D /* SocketIO.framework */,
+				9708CD3720036DCB0085B04D /* SocketIO-Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9708CD3A20036DE10085B04D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9708CD3F20036DE10085B04D /* Starscream.framework */,
+				9708CD4120036DE10085B04D /* Starscream Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		AD35D0671CF1C2DA00870A75 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -864,6 +919,8 @@
 		B6E83A410C45944B036B6B0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9708CD3920036DE10085B04D /* Starscream.xcodeproj */,
+				9708CD2F20036DCA0085B04D /* Socket.IO-Client-Swift.xcodeproj */,
 				7174AF031D9D39AF008C8AD5 /* libxml2.tbd */,
 				AD35D0671CF1C2DA00870A75 /* iOS */,
 			);
@@ -987,6 +1044,8 @@
 				EE9AB78B1CAEDF0C008C271F /* FBSession.m */,
 				EE9AB78C1CAEDF0C008C271F /* FBWebServer.h */,
 				EE9AB78D1CAEDF0C008C271F /* FBWebServer.m */,
+				9708CD2C2003695D0085B04D /* FBWebSocket.h */,
+				9708CD2D200369810085B04D /* FBWebSocket.m */,
 			);
 			name = Routing;
 			path = WebDriverAgentLib/Routing;
@@ -1659,6 +1718,16 @@
 			mainGroup = 91F9DAE01B99DBC2001349B2;
 			productRefGroup = 91F9DAEA1B99DBC2001349B2 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9708CD3020036DCA0085B04D /* Products */;
+					ProjectRef = 9708CD2F20036DCA0085B04D /* Socket.IO-Client-Swift.xcodeproj */;
+				},
+				{
+					ProductGroup = 9708CD3A20036DE10085B04D /* Products */;
+					ProjectRef = 9708CD3920036DE10085B04D /* Starscream.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				EE158A981CBD452B00A3E3F0 /* WebDriverAgentLib */,
@@ -1671,6 +1740,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9708CD3520036DCB0085B04D /* SocketIO.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SocketIO.framework;
+			remoteRef = 9708CD3420036DCB0085B04D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9708CD3720036DCB0085B04D /* SocketIO-Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SocketIO-Tests.xctest";
+			remoteRef = 9708CD3620036DCB0085B04D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9708CD3F20036DE10085B04D /* Starscream.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Starscream.framework;
+			remoteRef = 9708CD3E20036DE10085B04D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9708CD4120036DE10085B04D /* Starscream Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Starscream Tests.xctest";
+			remoteRef = 9708CD4020036DE10085B04D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		EE158A971CBD452B00A3E3F0 /* Resources */ = {
@@ -1735,6 +1835,7 @@
 				EEEC7C931F21F27A0053426C /* FBPredicate.m in Sources */,
 				7136A47A1E8918E60024FC3D /* XCUIElement+FBPickerWheel.m in Sources */,
 				711084451DA3AA7500F913D6 /* FBXPath.m in Sources */,
+				9708CD2E200369810085B04D /* FBWebSocket.m in Sources */,
 				EE158AE71CBD456F00A3E3F0 /* FBWebServer.m in Sources */,
 				EE3A18631CDE618F00DE4205 /* FBErrorBuilder.m in Sources */,
 				71A7EAF61E20516B001DA4F2 /* XCUIElement+FBClassChain.m in Sources */,
@@ -2066,6 +2167,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_STATIC_ANALYZER_MODE = deep;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -2117,6 +2219,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_STATIC_ANALYZER_MODE = deep;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;

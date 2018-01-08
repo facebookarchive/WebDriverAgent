@@ -37,7 +37,7 @@ extern NSString *const FBInvalidArgumentException;
  @param response response related to that exception
  @return YES, if exception was handled, otherwise NO
  */
-- (BOOL)webServer:(FBWebServer *)webServer handleException:(NSException *)exception forResponse:(RouteResponse *)response;
+- (BOOL) handleException:(NSException *)exception forResponse:(RouteResponse *)response;
 
 @end
 
