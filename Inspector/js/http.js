@@ -45,9 +45,10 @@ class Http {
     // ajax.send();
     postMessage(path,null, function(response) {
       if(callback && response) {
-        var data = JSON.parse(response);
-            callback(data);
-        }
+        var decodedString = new TextDecoder("utf-8").decode(response);
+        var data = JSON.parse(decodedString);
+        callback(data);
+      }
     });
   }
 
@@ -67,9 +68,10 @@ class Http {
 
     postMessage(path,data, function(response) {
       if(callback && response) {
-        var data = JSON.parse(response);
-            callback(data);
-        }
+        var decodedString = new TextDecoder("utf-8").decode(response);
+        var data = JSON.parse(decodedString);
+        callback(data);
+      }
     });
 
   }
