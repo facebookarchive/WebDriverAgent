@@ -108,4 +108,21 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
   return info;
 }
 
+-(void) fb_application_resolve
+{
+  if (self.fb_isActivateSupported) {
+    [self activate];
+  }
+  else
+  {
+    [self query];
+    [self resolve];
+  }
+}
+
+- (XCElementSnapshot *)fb_application_lastSnapshot
+{
+  [self fb_application_resolve];
+  return self.lastSnapshot;
+}
 @end
