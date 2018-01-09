@@ -24,6 +24,8 @@
 #import "FBLogger.h"
 #import "XCUIDevice+FBHelpers.h"
 #import <SocketIO/SocketIO-Swift.h>
+#import <JLRoutes/JLRoutes.h>
+
 static NSString *const FBServerURLBeginMarker = @"ServerURLHere->";
 static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
@@ -46,6 +48,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 @property (atomic, assign) BOOL keepAlive;
 @property (nonatomic, strong) SocketManager *manager;
 @property (nonatomic, strong) NSMutableDictionary *routeDict;
+@property (nonatomic, strong) NSDictionary *currentParams;
 @end
 
 @implementation FBWebSocket
@@ -113,13 +116,20 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 //  NSDictionary *arguments = [NSJSONSerialization JSONObjectWithData:requestData options:NSJSONReadingMutableContainers error:NULL];
   NSDictionary *arguments = (NSDictionary*) data[0];
   NSString* path = [arguments valueForKey:@"path"];
-  FBRoute* route = [_routeDict valueForKey:path];
+  NSURL *pathURL = [NSURL URLWithString:path];
+  [JLRoutes routeURL:pathURL];
+  NSString *routePath = [self.currentParams valueForKey:@"JLRoutePattern"];
+
+  FBRoute* route = [_routeDict valueForKey:routePath];
+  if (route == nil) {
+    return;
+  }
   FBRouteRequest *routeParams = [FBRouteRequest
-                                 routeRequestWithURL:[[NSURL alloc] init]
-                                 parameters:[[NSDictionary alloc] init]
+                                 routeRequestWithURL:pathURL
+                                 parameters:self.currentParams
                                  arguments:arguments ? [arguments valueForKey:@"data"] : @{}
                                  ];
-  
+
   FBRouteResponse *response = [[FBRouteResponse alloc] initWithSocketAck:ack];
   @try {
     [route mountRequest:routeParams intoResponse:response];
@@ -137,6 +147,10 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     for (FBRoute *route in routes) {
       if(route.withoutSession) {
         [_routeDict setObject:route forKey:route.path];
+        JLRoutes.globalRoutes[route.path] = ^BOOL(NSDictionary *parameters) {
+          self.currentParams = parameters;
+          return YES;
+        };
       }
     }
   }
