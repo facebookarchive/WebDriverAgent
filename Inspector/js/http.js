@@ -32,17 +32,6 @@ function postMessage(path, data, callback) {
 
 class Http {
   static get(path, callback) {
-    // const ajax = new Ajax({
-    //   url: path,
-    //   method: 'GET',
-    // });
-    // ajax.on('success', event => {
-    //   var response = JSON.parse(event.target.responseText);
-    //   if(callback) {
-    //     callback(response);
-    //   }
-    // });
-    // ajax.send();
     const startTime = new Date().getTime();
 
     postMessage(path,null, function(response) {
@@ -54,19 +43,6 @@ class Http {
   }
 
   static post(path, data, callback) {
-    // const ajax = new Ajax({
-    //   url: path,
-    //   method: 'POST',
-    //   data: data,
-    // });
-    // ajax.on('success', event => {
-    //   var response = JSON.parse(event.target.responseText);
-    //   if(callback) {
-    //     callback(response);
-    //   }
-    // });
-    // ajax.send();
-
     postMessage(path,data, function(response) {
       if(callback && response) {
         var decodedString = new TextDecoder("utf-8").decode(response);
@@ -79,3 +55,38 @@ class Http {
 }
 
 module.exports = Http;
+
+
+// import Ajax from 'simple-ajax';
+
+// class Http {
+//   static get(path, callback) {
+//     const ajax = new Ajax({
+//       url: path,
+//       method: 'GET',
+//     });
+//     ajax.on('success', event => {
+//       var response = JSON.parse(event.target.responseText);
+//       if(callback) {
+//         callback(response);
+//       }
+//     });
+//     ajax.send();
+//   }
+
+//   static post(path, data, callback) {
+//     const ajax = new Ajax({
+//       url: path,
+//       method: 'POST',
+//       data: data,
+//     });
+//     ajax.on('success', event => {
+//       var response = JSON.parse(event.target.responseText);
+//       if(callback) {
+//         callback(response);
+//       }    });
+//     ajax.send();
+//   }
+// }
+
+// module.exports = Http;

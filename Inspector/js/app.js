@@ -59,7 +59,7 @@ class App extends React.Component {
           width : parseInt(dataValue.width)
         });
         console.log("Time took to render image : " + (new Date().getTime() - startTime))
-        //requestAnimationFrame(this.fetchLatestScreen);
+        requestAnimationFrame(this.fetchLatestScreen);
       });
     });
   }

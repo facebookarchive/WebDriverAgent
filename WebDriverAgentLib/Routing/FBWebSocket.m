@@ -155,13 +155,13 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   for (Class<FBCommandHandler> commandHandler in commandHandlerClasses) {
     NSArray *routes = [commandHandler routes];
     for (FBRoute *route in routes) {
-      if(route.withoutSession) {
+      //if(route.withoutSession) {
         [_routeDict setObject:route forKey:route.path];
         JLRoutes.globalRoutes[route.path] = ^BOOL(NSDictionary *parameters) {
           self.currentParams = parameters;
           return YES;
         };
-      }
+     // }
     }
   }
 }

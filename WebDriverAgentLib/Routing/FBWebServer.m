@@ -22,7 +22,7 @@
 #import "FBConfiguration.h"
 #import "FBLogger.h"
 #import "XCUIDevice+FBHelpers.h"
-#import <SocketIO/SocketIO-Swift.h>
+
 static NSString *const FBServerURLBeginMarker = @"ServerURLHere->";
 static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
@@ -44,7 +44,6 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 @property (nonatomic, strong) FBExceptionHandler *exceptionHandler;
 @property (nonatomic, strong) RoutingHTTPServer *server;
 @property (atomic, assign) BOOL keepAlive;
-@property (nonatomic, strong) SocketManager *manager;
 @end
 
 @implementation FBWebServer
@@ -78,17 +77,6 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 - (void)startHTTPServer
 {
-  NSURL *serverURL = [[NSURL alloc] initWithString:@"http://localhost:8000"];
-  self.manager = [[SocketManager alloc] initWithSocketURL:serverURL config:nil];
-  SocketIOClient *clientSocket = self.manager.defaultSocket;
-  
-  [clientSocket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
-    NSLog(@"socket connected");
-    [clientSocket emit:@"hello" with: [[NSArray alloc] init]];
-  }];
-  
-  [clientSocket connect];
-  
   self.server = [[RoutingHTTPServer alloc] init];
   [self.server setRouteQueue:dispatch_get_main_queue()];
   [self.server setDefaultHeader:@"Server" value:@"WebDriverAgent/1.0"];
