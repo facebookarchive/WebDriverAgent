@@ -116,6 +116,16 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 //  NSDictionary *arguments = [NSJSONSerialization JSONObjectWithData:requestData options:NSJSONReadingMutableContainers error:NULL];
   NSDictionary *arguments = (NSDictionary*) data[0];
   NSString* path = [arguments valueForKey:@"path"];
+//  NSDictionary *reqArg = [arguments valueForKey:@"data"];
+  NSString *reqData = [arguments valueForKey:@"data"];
+  NSDictionary *reqArg = nil;
+  if ((reqData != nil) && (![reqData isEqual:[NSNull null]])) {
+    NSData *objectData = [reqData dataUsingEncoding:NSUTF8StringEncoding];
+    reqArg = [NSJSONSerialization JSONObjectWithData:objectData
+                                                           options:NSJSONReadingMutableContainers
+                                                             error:NULL];
+  }
+
   NSURL *pathURL = [NSURL URLWithString:path];
   [JLRoutes routeURL:pathURL];
   NSString *routePath = [self.currentParams valueForKey:@"JLRoutePattern"];
@@ -127,7 +137,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   FBRouteRequest *routeParams = [FBRouteRequest
                                  routeRequestWithURL:pathURL
                                  parameters:self.currentParams
-                                 arguments:arguments ? [arguments valueForKey:@"data"] : @{}
+                                 arguments:arguments ? reqArg : @{}
                                  ];
 
   FBRouteResponse *response = [[FBRouteResponse alloc] initWithSocketAck:ack];
