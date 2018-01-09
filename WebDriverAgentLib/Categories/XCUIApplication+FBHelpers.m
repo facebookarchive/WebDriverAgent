@@ -41,7 +41,7 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
 - (NSDictionary *)fb_tree
 {
   [self fb_waitUntilSnapshotIsStable];
-  return [self.class dictionaryForElement:self.fb_lastSnapshot];
+  return [self.class dictionaryForElement:self.fb_application_lastSnapshot];
 }
 
 - (NSDictionary *)fb_accessibilityTree
