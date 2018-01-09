@@ -27,6 +27,8 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
 static const XCUIApplication *app;
 static UIInterfaceOrientation lastScreenOrientation;
 static CGSize lastScreenSize;
+static CGRect screenRect;
+static XCUIScreen *mainScreen;
 
 
 @implementation XCUIDevice (FBHelpers)
@@ -67,27 +69,26 @@ static CGSize lastScreenSize;
   if(CGSizeEqualToSize(CGSizeZero, lastScreenSize) || (lastScreenOrientation != app.interfaceOrientation) ) {
     lastScreenOrientation = app.interfaceOrientation;
     lastScreenSize = FBAdjustDimensionsForApplication(app.frame.size, app.interfaceOrientation);
+    screenRect = CGRectMake(0, 0, lastScreenSize.width, lastScreenSize.height);
   }
-  
+  if(mainScreen == nil) {
+    mainScreen = (XCUIScreen *)[xcScreenClass mainScreen];
+  }
   // https://developer.apple.com/documentation/xctest/xctimagequality?language=objc
   // Select lower quality, since XCTest crashes randomly if the maximum quality (zero value) is selected
   // and the resulting screenshot does not fit the memory buffer preallocated for it by the operating system
-  NSUInteger quality = 1;
-  CGRect screenRect = CGRectMake(0, 0, lastScreenSize.width, lastScreenSize.height);
-
-
-  XCUIScreen *mainScreen = (XCUIScreen *)[xcScreenClass mainScreen];
-  NSData *result = [mainScreen screenshotDataForQuality:quality rect:screenRect error:error];
-  if (nil == result) {
-    return nil;
-  }
+  NSUInteger quality = 2;
+  NSData *result =   [mainScreen screenshotDataForQuality:quality rect:screenRect error:error];
+  return result;
+//  UIImage *image = [UIImage imageWithData:result];
+//  return (NSData *)UIImageJPEGRepresentation(image,0);
+  
   
   // The resulting data is a JPEG image, so we need to convert it to PNG representation
-  
+
 //  UIImage *image = [UIImage imageWithData:result];
 //  return (NSData *)UIImagePNGRepresentation(image);
-  
-    return result;
+
 }
 
 - (BOOL)fb_fingerTouchShouldMatch:(BOOL)shouldMatch

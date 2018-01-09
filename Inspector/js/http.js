@@ -11,11 +11,7 @@ import io from 'socket.io-client'
 const socket = io('http://localhost:8000');
 socket.on('connect', function(){
   console.log("Connected with Socket.")
-});
-
-socket.on('event', function(data){
-  console.log("Message : "+ data);
-  socket.emit("event","Thank u...");
+  socket.emit("register","web");
 });
 
 socket.on('disconnect', function(){
@@ -45,8 +41,7 @@ class Http {
   static post(path, data, callback) {
     postMessage(path,data, function(response) {
       if(callback && response) {
-        var decodedString = new TextDecoder("utf-8").decode(response);
-        var data = JSON.parse(decodedString);
+        var data = JSON.parse(response);
         callback(data);
       }
     });

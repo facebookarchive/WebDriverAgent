@@ -13,21 +13,16 @@ io.on('connection', function(client){
     clientId++;
     clients[clientId] = client;
     client.id = clientId;
-
     console.log("client connected");
-    client.emit('event',"Welcome");
-
-    client.on('event', function(data){
-        console.log("Message : " + data)
-    });
-
     client.on('message', function(data, callback) {
         for (var key in clients) {
             if (key != client.id && clients.hasOwnProperty(key)) {
+                const startTime = new Date().getTime();
                 clients[key].emit("message",data,function(data) {
                     if(callback) {
                         var decodedString = ab2str(data, 'utf8');
                         callback(decodedString);
+                        console.log("Time took to decode message : " + (new Date().getTime() - startTime))
                     }
                 })
             }

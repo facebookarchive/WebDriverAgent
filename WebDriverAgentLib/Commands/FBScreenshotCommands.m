@@ -11,6 +11,11 @@
 #import "FBApplication.h"
 #import "FBMathUtils.h"
 
+static const XCUIApplication *app;
+static UIInterfaceOrientation lastScreenOrientation;
+static CGSize lastScreenSize;
+static XCUIScreen *mainScreen;
+static NSString *height,*width,*orientation;
 
 @interface ScreenShotWithMeta : NSObject
 @property (nonatomic) UIInterfaceOrientation orientation;
@@ -40,13 +45,13 @@
   NSTimeInterval fnStartTime = [[NSDate date] timeIntervalSince1970]*1000;
   NSError *error;
   
-  NSTimeInterval screenShotStartTime = [[NSDate date] timeIntervalSince1970]*1000;
+  //NSTimeInterval screenShotStartTime = [[NSDate date] timeIntervalSince1970]*1000;
   
   NSData *screenshotData = [[XCUIDevice sharedDevice] fb_screenshotWithError:&error];
   
-  NSTimeInterval screenShotEndTime = [[NSDate date] timeIntervalSince1970]*1000;
+  //NSTimeInterval screenShotEndTime = [[NSDate date] timeIntervalSince1970]*1000;
   
-  NSLog(@"ScreenShot time : %f",(screenShotEndTime - screenShotStartTime));
+ // NSLog(@"ScreenShot time : %f",(screenShotEndTime - screenShotStartTime));
   
   if (nil == screenshotData) {
     return nil;
@@ -74,11 +79,18 @@
 
 + (id<FBResponsePayload>)handleGetScreenshotWithScreenMeta:(FBRouteRequest *)request
 {
-  XCUIApplication *app = FBApplication.fb_activeApplication;
-  CGSize screenSize = FBAdjustDimensionsForApplication(app.frame.size, app.interfaceOrientation);
-  NSString *height = [NSString stringWithFormat:@"%.0f", screenSize.height];
-  NSString *width = [NSString stringWithFormat:@"%.0f", screenSize.width];
-  NSString *orientation = [NSString stringWithFormat:@"%.0ld", (long)app.interfaceOrientation];
+  if(app == nil) {
+    app = FBApplication.fb_activeApplication;
+  }
+  
+  if(CGSizeEqualToSize(CGSizeZero, lastScreenSize) || (lastScreenOrientation != app.interfaceOrientation) ) {
+    lastScreenOrientation = app.interfaceOrientation;
+    lastScreenSize = FBAdjustDimensionsForApplication(app.frame.size, app.interfaceOrientation);
+    height = [NSString stringWithFormat:@"%.0f", lastScreenSize.height];
+    width = [NSString stringWithFormat:@"%.0f", lastScreenSize.width];
+    orientation = [NSString stringWithFormat:@"%.0ld", (long)lastScreenOrientation];
+  }
+  
   NSDictionary *screenShotWithMeta = @{
                                        @"height":height,
                                        @"width":width,

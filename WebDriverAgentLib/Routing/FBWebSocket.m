@@ -89,7 +89,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   
   [clientSocket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
     NSLog(@"socket connected");
-    [clientSocket emit:@"event" with: [[NSArray alloc] initWithObjects:@"hello", nil]];
+    [clientSocket emit:@"register" with: [[NSArray alloc] initWithObjects:@"device", nil]];
   }];
   
   [clientSocket on:@"message" callback:^(NSArray* data, SocketAckEmitter* ack) {
@@ -97,8 +97,6 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   }];
   
   [clientSocket connect];
-  
-  
   [self registerRouteHandlers:[self.class collectCommandHandlerClasses] andClientSocket:clientSocket];
   [self registerServerKeyRouteHandlers: clientSocket];
 }
