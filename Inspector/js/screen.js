@@ -104,7 +104,7 @@ class Screen extends React.Component {
         'fromY': fromY,
         'toX': toX,
         'toY': toY,
-        'duration': 0,//params.duration
+        'duration': params.duration
       })
     );
   }
@@ -173,6 +173,7 @@ class Screen extends React.Component {
         onMouseDown={(ev) => this.onMouseDown(ev)}
         onMouseMove={(ev) => this.onMouseMove(ev)}
         onMouseUp={(ev) => this.onMouseUp(ev)}
+        onMouseLeave={(ev) => this.onMouseUp(ev)}
         draggable="false"
         id="screenshot"
       />

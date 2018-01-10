@@ -300,6 +300,7 @@
 
 + (id<FBResponsePayload>)handleDrag:(FBRouteRequest *)request
 {
+
   FBSession *session = request.session;
   FBElementCache *elementCache = session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
@@ -307,9 +308,19 @@
   CGPoint endPoint = CGPointMake((CGFloat)(element.frame.origin.x + [request.arguments[@"toX"] doubleValue]), (CGFloat)(element.frame.origin.y + [request.arguments[@"toY"] doubleValue]));
   NSTimeInterval duration = [request.arguments[@"duration"] doubleValue];
   BOOL shouldApplyOrientationWorkaround = isSDKVersionGreaterThanOrEqualTo(@"10.0") && isSDKVersionLessThan(@"11.0");
+  NSTimeInterval fnStartTime = [[NSDate date] timeIntervalSince1970]*1000;
+
   XCUICoordinate *endCoordinate = [self.class gestureCoordinateWithCoordinate:endPoint application:session.application shouldApplyOrientationWorkaround:shouldApplyOrientationWorkaround];
   XCUICoordinate *startCoordinate = [self.class gestureCoordinateWithCoordinate:startPoint application:session.application shouldApplyOrientationWorkaround:shouldApplyOrientationWorkaround];
+  
+  
+  
+  NSTimeInterval fnEndTime = [[NSDate date] timeIntervalSince1970]*1000;
+
   [startCoordinate pressForDuration:duration thenDragToCoordinate:endCoordinate];
+  
+  NSLog(@"handleDragCoordinate Function time  : %f",(fnEndTime - fnStartTime));
+  
   return FBResponseWithOK();
 }
 
