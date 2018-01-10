@@ -79,6 +79,8 @@
     XCElementSnapshot *snapshot = element.fb_lastSnapshot;
     CGRect frameInWindow = snapshot.fb_frameInWindow;
     if (CGRectIsEmpty(frameInWindow)) {
+      XCElementSnapshot *root = [snapshot fb_parentMatchingType:XCUIElementTypeWindow];
+      [FBLogger log:(nil == root ? snapshot : root).debugDescription];
       NSString *description = [NSString stringWithFormat:@"The element '%@' is not visible on the screen and thus is not interactable", element.description];
       if (error) {
         *error = [[FBErrorBuilder.builder withDescription:description] build];

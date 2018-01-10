@@ -42,21 +42,28 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
 
 - (nullable NSNumber *)fb_cachedVisibilityValue
 {
-  unsigned long long generation = self.generation;
-  NSDictionary<NSString *, NSNumber *> *result = [fb_generationsCache objectForKey:@(generation)];
+  NSNumber* generationObj = [NSNumber numberWithUnsignedLongLong:self.generation];
+  NSDictionary<NSString *, NSNumber *> *result = [fb_generationsCache objectForKey:generationObj];
   if (nil == result) {
     // There is no need to keep the cached data for the previous generations
     [fb_generationsCache removeAllObjects];
-    [fb_generationsCache setObject:[NSMutableDictionary dictionary] forKey:@(generation)];
+    [fb_generationsCache setObject:[NSMutableDictionary dictionary] forKey:generationObj];
     return nil;
   }
   return [result objectForKey:[NSString stringWithFormat:@"%p", (void *)self]];
 }
 
-- (BOOL)fb_cacheVisibilityWithValue:(BOOL)isVisible
+- (BOOL)fb_cacheVisibilityWithValue:(BOOL)isVisible forAncestors:(nullable NSArray<XCElementSnapshot *> *)ancestors
 {
   NSMutableDictionary<NSString *, NSNumber *> *destination = [fb_generationsCache objectForKey:@(self.generation)];
-  [destination setObject:@(isVisible) forKey:[NSString stringWithFormat:@"%p", (void *)self]];
+  NSNumber *visibleObj = [NSNumber numberWithBool:isVisible];
+  [destination setObject:visibleObj forKey:[NSString stringWithFormat:@"%p", (void *)self]];
+  if (isVisible && nil != ancestors) {
+    // if an element is visible then all its ancestors must be visible as well
+    for (XCElementSnapshot *ancestor in ancestors) {
+      [destination setObject:visibleObj forKey:[NSString stringWithFormat:@"%p", (void *)ancestor]];
+    }
+  }
   return isVisible;
 }
 
@@ -64,7 +71,26 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
 {
   CGRect currentRectangle = nil == intersectionRectange ? self.frame : [intersectionRectange CGRectValue];
   XCElementSnapshot *parent = self.parent;
+  CGRect parentFrame = parent.frame;
   CGRect intersectionWithParent = CGRectIntersection(currentRectangle, parent.frame);
+  if (CGRectIsEmpty(intersectionWithParent) && parent != container) {
+    CGSize containerSize = container.frame.size;
+    if ((CGSizeEqualToSize(parentFrame.size, containerSize) ||
+         // The size might be inverted in landscape
+         CGSizeEqualToSize(parentFrame.size, CGSizeMake(containerSize.height, containerSize.width))) &&
+        parent.elementType == XCUIElementTypeOther) {
+      // Special case (or XCTest bug). We need to shift the origin
+      currentRectangle.origin.x += parentFrame.origin.x;
+      currentRectangle.origin.y += parentFrame.origin.y;
+      intersectionWithParent = CGRectIntersection(currentRectangle, parentFrame);
+    }
+    if (CGSizeEqualToSize(parentFrame.size, CGSizeZero) &&
+        CGPointEqualToPoint(parentFrame.origin, CGPointZero) &&
+        parent.elementType == XCUIElementTypeOther) {
+      // Special case (or XCTest bug). Skip such parent
+      intersectionWithParent = currentRectangle;
+    }
+  }
   if (CGRectIsEmpty(intersectionWithParent) || parent == container) {
     return intersectionWithParent;
   }
@@ -88,7 +114,7 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
   }
   
   for (XCElementSnapshot *child in children) {
-    if ([child fb_hasAnyVisibleLeafs]) {
+    if (child.fb_hasAnyVisibleLeafs) {
       return YES;
     }
   }
@@ -105,40 +131,38 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
   
   CGRect frame = self.frame;
   if (CGRectIsEmpty(frame)) {
-    return [self fb_cacheVisibilityWithValue:NO];
+    return [self fb_cacheVisibilityWithValue:NO forAncestors:nil];
   }
   
   if ([FBConfiguration shouldUseTestManagerForVisibilityDetection]) {
     BOOL isVisible = [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
-    return [self fb_cacheVisibilityWithValue:isVisible];
+    return [self fb_cacheVisibilityWithValue:isVisible forAncestors:nil];
   }
   
-  NSMutableArray<XCElementSnapshot *> *ancestorsUntilCell = [NSMutableArray array];
   XCElementSnapshot *parentWindow = nil;
-  NSMutableArray<XCElementSnapshot *> *ancestors = [NSMutableArray array];
+  NSMutableArray<XCElementSnapshot *> *ancestorsUntilWindow = [NSMutableArray array];
   XCElementSnapshot *parent = self.parent;
-  BOOL isFirstCellMatch = YES;
   while (parent) {
     XCUIElementType type = parent.elementType;
     if (type == XCUIElementTypeWindow) {
       parentWindow = parent;
       break;
     }
-    [ancestors addObject:parent];
-    if (type == XCUIElementTypeCell && isFirstCellMatch) {
-      [ancestorsUntilCell addObjectsFromArray:ancestors];
-      isFirstCellMatch = NO;
-    }
+    [ancestorsUntilWindow addObject:parent];
     parent = parent.parent;
+  }
+  if (nil == parentWindow) {
+    [ancestorsUntilWindow removeAllObjects];
   }
   
   CGRect appFrame = [self fb_rootElement].frame;
   CGRect rectInContainer = nil == parentWindow ? self.frame : [self fb_frameInContainer:parentWindow hierarchyIntersection:nil];
   if (CGRectIsEmpty(rectInContainer)) {
-    return [self fb_cacheVisibilityWithValue:NO];
+    return [self fb_cacheVisibilityWithValue:NO forAncestors:ancestorsUntilWindow];
   }
-  if (self.children.count > 0 && [self fb_hasAnyVisibleLeafs]) {
-    return [self fb_cacheVisibilityWithValue:YES];
+  BOOL hasChilren = self.children.count > 0;
+  if (hasChilren && self.fb_hasAnyVisibleLeafs) {
+    return [self fb_cacheVisibilityWithValue:YES forAncestors:ancestorsUntilWindow];
   }
   CGPoint midPoint = CGPointMake(rectInContainer.origin.x + rectInContainer.size.width / 2,
                                  rectInContainer.origin.y + rectInContainer.size.height / 2);
@@ -151,16 +175,11 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
     midPoint = FBInvertPointForApplication(midPoint, appFrame.size, FBApplication.fb_activeApplication.interfaceOrientation);
   }
   XCElementSnapshot *hitElement = [self hitTest:midPoint];
-  if (self == hitElement) {
-    return [self fb_cacheVisibilityWithValue:YES];
+  if (nil == hitElement || self == hitElement || [ancestorsUntilWindow containsObject:hitElement] ||
+      (hasChilren && [self._allDescendants containsObject:hitElement])) {
+    return [self fb_cacheVisibilityWithValue:YES forAncestors:ancestorsUntilWindow];
   }
-  // Special case - detect visibility based on gesture recognizer presence
-  for (parent in ancestorsUntilCell) {
-    if (hitElement == parent) {
-      return [self fb_cacheVisibilityWithValue:YES];
-    }
-  }
-  return [self fb_cacheVisibilityWithValue:NO];
+  return [self fb_cacheVisibilityWithValue:NO forAncestors:ancestorsUntilWindow];
 }
 
 @end
