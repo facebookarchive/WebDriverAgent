@@ -27,12 +27,11 @@
 #import <JLRoutes/JLRoutes.h>
 #import <objc/runtime.h>
 #import "XCUIScreen.h"
+#import "FBApplication.h"
 #import "FBResponseJSONPayload.h"
 static NSString *const FBServerURLBeginMarker = @"ServerURLHere->";
 static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 static BOOL isSocketConnected;
-static CGRect screenRect;
-static XCUIScreen *mainScreen;
 
 @interface FBSocketConnection : RoutingConnection
 @end
@@ -88,11 +87,11 @@ static XCUIScreen *mainScreen;
 
 - (void) pushScreenShot:(SocketIOClient*) clientSocket andOrientation:(UIInterfaceOrientation) orientation andScreenWidth:(CGFloat) screenWidth andScreenHeight:(CGFloat) screenHeight {
   Class xcScreenClass = objc_lookUpClass("XCUIScreen");
-  if(mainScreen == nil) {
-    mainScreen = (XCUIScreen *)[xcScreenClass mainScreen];
-  }
+  //if(mainScreen == nil) {
+    XCUIScreen *mainScreen = (XCUIScreen *)[xcScreenClass mainScreen];
+  //}
   
-  screenRect = CGRectMake(0, 0, screenWidth, screenHeight);
+  CGRect screenRect = CGRectMake(0, 0, screenWidth, screenHeight);
   
   NSUInteger quality = 2;
   NSData *result =   [mainScreen screenshotDataForQuality:quality rect:screenRect error:nil];
@@ -115,21 +114,19 @@ static XCUIScreen *mainScreen;
   NSArray *dataArray = [[NSArray alloc] initWithObjects:jsonData, nil];
 
   [clientSocket emit:@"screenShot" with: dataArray];
-  
-  if(isSocketConnected) {
-    [self pushScreenShot:clientSocket andOrientation:orientation andScreenWidth:screenWidth andScreenHeight:screenHeight];
-  }
 }
 
 -(void) startScreeing: (SocketIOClient*) clientSocket {
   dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
   UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-  CGFloat screenScale = [[UIScreen mainScreen] scale];
-
-  CGFloat width = [UIScreen mainScreen].bounds.size.width * screenScale;
-  CGFloat height = [UIScreen mainScreen].bounds.size.height * screenScale;
+  //CGFloat screenScale = [[UIScreen mainScreen] scale];
+  CGSize screenSize = FBApplication.fb_activeApplication.frame.size;
+  CGFloat width = screenSize.width;
+  CGFloat height = screenSize.height;
   dispatch_async(queue, ^{
-    [self pushScreenShot: clientSocket andOrientation:interfaceOrientation andScreenWidth:width andScreenHeight:height];
+    while(isSocketConnected) {
+      [self pushScreenShot: clientSocket andOrientation:interfaceOrientation andScreenWidth:width andScreenHeight:height];
+    }
   });
 }
 
