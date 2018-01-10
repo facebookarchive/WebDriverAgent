@@ -124,8 +124,10 @@ static XCUIScreen *mainScreen;
 -(void) startScreeing: (SocketIOClient*) clientSocket {
   dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
   UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-  CGFloat width = [UIScreen mainScreen].bounds.size.width;
-  CGFloat height = [UIScreen mainScreen].bounds.size.height;
+  CGFloat screenScale = [[UIScreen mainScreen] scale];
+
+  CGFloat width = [UIScreen mainScreen].bounds.size.width * screenScale;
+  CGFloat height = [UIScreen mainScreen].bounds.size.height * screenScale;
   dispatch_async(queue, ^{
     [self pushScreenShot: clientSocket andOrientation:interfaceOrientation andScreenWidth:width andScreenHeight:height];
   });
