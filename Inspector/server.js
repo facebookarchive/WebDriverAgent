@@ -17,14 +17,21 @@ io.on('connection', function(client){
     client.on('message', function(data, callback) {
         for (var key in clients) {
             if (key != client.id && clients.hasOwnProperty(key)) {
-                const startTime = new Date().getTime();
                 clients[key].emit("message",data,function(data) {
                     if(callback) {
                         var decodedString = ab2str(data, 'utf8');
                         callback(decodedString);
-                        console.log("Time took to decode message : " + (new Date().getTime() - startTime))
                     }
                 })
+            }
+        }
+    });
+
+    client.on('screenShot', function(data, callback) {
+        var decodedString = ab2str(data, 'utf8');
+        for (var key in clients) {
+            if (key != client.id && clients.hasOwnProperty(key)) {
+                clients[key].emit("screenShot",decodedString)
             }
         }
     });

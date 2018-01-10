@@ -47,6 +47,15 @@ class Http {
     });
 
   }
+
+  static registerEvent(event, listener) {
+    if(listener) {
+      socket.on(event,function(data) {
+        var data = JSON.parse(data);
+        listener(data);
+      });
+    }
+  }
 }
 
 module.exports = Http;

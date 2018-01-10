@@ -25,9 +25,14 @@
 #import "XCUIDevice+FBHelpers.h"
 #import <SocketIO/SocketIO-Swift.h>
 #import <JLRoutes/JLRoutes.h>
-
+#import <objc/runtime.h>
+#import "XCUIScreen.h"
+#import "FBResponseJSONPayload.h"
 static NSString *const FBServerURLBeginMarker = @"ServerURLHere->";
 static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
+static BOOL isSocketConnected;
+static CGRect screenRect;
+static XCUIScreen *mainScreen;
 
 @interface FBSocketConnection : RoutingConnection
 @end
@@ -81,15 +86,67 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
          [runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
 }
 
+- (void) pushScreenShot:(SocketIOClient*) clientSocket andOrientation:(UIInterfaceOrientation) orientation andScreenWidth:(CGFloat) screenWidth andScreenHeight:(CGFloat) screenHeight {
+  Class xcScreenClass = objc_lookUpClass("XCUIScreen");
+  if(mainScreen == nil) {
+    mainScreen = (XCUIScreen *)[xcScreenClass mainScreen];
+  }
+  
+  screenRect = CGRectMake(0, 0, screenWidth, screenHeight);
+  
+  NSUInteger quality = 2;
+  NSData *result =   [mainScreen screenshotDataForQuality:quality rect:screenRect error:nil];
+  
+  NSString *screenshot = [result base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+  NSString *height = [NSString stringWithFormat:@"%.0f", screenHeight];
+  NSString *width = [NSString stringWithFormat:@"%.0f", screenWidth];
+  NSString *screenOrientation = [NSString stringWithFormat:@"%.0ld", (long)orientation];
+  
+  NSDictionary *screenShotWithMeta = @{
+                                       @"height":height,
+                                       @"width":width,
+                                       @"orientation":screenOrientation,
+                                       @"base64EncodedImage":screenshot
+                                       };
+  FBResponseJSONPayload *fbJSONPayload = FBResponseWithObject(screenShotWithMeta);
+  NSData *jsonData = [NSJSONSerialization dataWithJSONObject:fbJSONPayload.dictionary
+                                                     options:NSJSONWritingPrettyPrinted
+                                                       error:nil];
+  NSArray *dataArray = [[NSArray alloc] initWithObjects:jsonData, nil];
+
+  [clientSocket emit:@"screenShot" with: dataArray];
+  
+  if(isSocketConnected) {
+    [self pushScreenShot:clientSocket andOrientation:orientation andScreenWidth:screenWidth andScreenHeight:screenHeight];
+  }
+}
+
+-(void) startScreeing: (SocketIOClient*) clientSocket {
+  dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+  UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+  CGFloat width = [UIScreen mainScreen].bounds.size.width;
+  CGFloat height = [UIScreen mainScreen].bounds.size.height;
+  dispatch_async(queue, ^{
+    [self pushScreenShot: clientSocket andOrientation:interfaceOrientation andScreenWidth:width andScreenHeight:height];
+  });
+}
+
 - (void)startWebSocket
 {
   NSURL *serverURL = [[NSURL alloc] initWithString:@"http://localhost:8000"];
-  self.manager = [[SocketManager alloc] initWithSocketURL:serverURL config:nil];
+  self.manager = [[SocketManager alloc] initWithSocketURL:serverURL config:@{@"log": @NO, @"compress": @YES}];
   SocketIOClient *clientSocket = self.manager.defaultSocket;
   
   [clientSocket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+    isSocketConnected = true;
     NSLog(@"socket connected");
+    [self startScreeing: clientSocket];
     [clientSocket emit:@"register" with: [[NSArray alloc] initWithObjects:@"device", nil]];
+  }];
+  
+  [clientSocket on:@"disconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+    isSocketConnected = false;
+    NSLog(@"socket disconnected");
   }];
   
   [clientSocket on:@"message" callback:^(NSArray* data, SocketAckEmitter* ack) {
@@ -97,6 +154,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   }];
   
   [clientSocket connect];
+
   [self registerRouteHandlers:[self.class collectCommandHandlerClasses] andClientSocket:clientSocket];
   [self registerServerKeyRouteHandlers: clientSocket];
 }

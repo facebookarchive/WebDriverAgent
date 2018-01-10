@@ -83,7 +83,7 @@ static NSString *height,*width,*orientation;
     app = FBApplication.fb_activeApplication;
   }
   
-  if(CGSizeEqualToSize(CGSizeZero, lastScreenSize) || (lastScreenOrientation != app.interfaceOrientation) ) {
+  if(CGSizeEqualToSize(CGSizeZero, lastScreenSize) || (lastScreenOrientation != app.interfaceOrientation)) {
     lastScreenOrientation = app.interfaceOrientation;
     lastScreenSize = FBAdjustDimensionsForApplication(app.frame.size, app.interfaceOrientation);
     height = [NSString stringWithFormat:@"%.0f", lastScreenSize.height];

@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  Class that represents WebDriverAgent JSON repsonse
  */
 @interface FBResponseJSONPayload : NSObject <FBResponsePayload>
+@property (nonatomic, copy, readonly) NSDictionary *dictionary;
 
 /**
  Initializer for JSON respond that converts given 'dictionary' to JSON

@@ -33,9 +33,20 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchScreenshot();
+    const self =this;
+   // this.fetchScreenshot();
+    HTTP.registerEvent("screenShot",function(data) {
+      const dataValue = data.value;
+      ScreenshotFactory.createScreenshot(dataValue.orientation, dataValue.base64EncodedImage, (screenshot) => {
+        self.setState({
+          screenshot: screenshot,
+          sessionId : data.sessionId,
+          width : parseInt(dataValue.width)
+        });
+      });
+    });
   }
-  
+
   fetchScreenshot() {
    const startTime = new Date().getTime();
     // HTTP.get(ORIENTATION_ENDPOINT, (orientation) => {
