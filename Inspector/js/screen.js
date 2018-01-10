@@ -12,10 +12,16 @@ import React from 'react';
 
 import HTTP from 'js/http';
 import GestureRecognizer from 'js/gesture_recognizer';
+import {debounce} from 'throttle-debounce';
 
 require('css/screen.css');
 
 class Screen extends React.Component {
+  constructor() {
+    super();
+    this.typedKeys = "";
+    this.debounceOnScreenShotKeyDown = debounce(200, this.onScreenShotKeyDown);
+  }
   componentWillMount() {
      document.addEventListener('keydown', this.onKeyDown.bind(this), false);
   }
@@ -60,7 +66,8 @@ class Screen extends React.Component {
           this.onScreenShotDrag(params);
         },
         onKeyDown: (key) => {
-          this.onScreenShotKeyDown(key);
+          this.typedKeys = this.typedKeys+key
+          this.debounceOnScreenShotKeyDown(this.typedKeys);
         },
       });
     }
@@ -90,20 +97,15 @@ class Screen extends React.Component {
     toX = this.scaleCoord(toX);
     toY = this.scaleCoord(toY);
 
-    HTTP.get(
-      'status', (status_result) => {
-        var session_id = status_result.sessionId;
-        HTTP.post(
-          'session/' + session_id + '/wda/element/0/dragfromtoforduration',
-          JSON.stringify({
-            'fromX': fromX,
-            'fromY': fromY,
-            'toX': toX,
-            'toY': toY,
-            'duration': params.duration,
-          })
-        );
-      },
+    HTTP.post(
+      'session/' + this.props.sessionId + '/wda/element/0/dragfromtoforduration',
+      JSON.stringify({
+        'fromX': fromX,
+        'fromY': fromY,
+        'toX': toX,
+        'toY': toY,
+        'duration': 0,//params.duration
+      })
     );
   }
 
@@ -120,32 +122,23 @@ class Screen extends React.Component {
     x = this.scaleCoord(x);
     y = this.scaleCoord(y);
 
-    HTTP.get(
-      'status', (status_result) => {
-        var session_id = status_result.sessionId;
-        HTTP.post(
-          'session/' + session_id + '/wda/tap/0',
-          JSON.stringify({
-            'x': x,
-            'y': y,
-          })
-        );
-      },
+    HTTP.post(
+      'session/' + this.props.sessionId + '/wda/tap/0',
+      JSON.stringify({
+        'x': x,
+        'y': y,
+      })
     );
   }
 
   onScreenShotKeyDown(key) {
-    HTTP.get(
-      'status', (status_result) => {
-        var session_id = status_result.sessionId;
-        HTTP.post(
-          'session/' + session_id + '/wda/keys',
-          JSON.stringify({
-            'value': [key],
-          })
-        );
-      },
-    );
+    this.typedKeys = "";
+      HTTP.post(
+        'session/' + this.props.sessionId + '/wda/keys',
+        JSON.stringify({
+          'value': [key],
+        })
+      );
   }
 
   onMouseDown(ev) {

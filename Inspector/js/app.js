@@ -35,7 +35,7 @@ class App extends React.Component {
   componentDidMount() {
     this.fetchScreenshot();
   }
-
+  
   fetchScreenshot() {
    const startTime = new Date().getTime();
     // HTTP.get(ORIENTATION_ENDPOINT, (orientation) => {
@@ -56,6 +56,7 @@ class App extends React.Component {
       ScreenshotFactory.createScreenshot(dataValue.orientation, dataValue.base64EncodedImage, (screenshot) => {
         this.setState({
           screenshot: screenshot,
+          sessionId : data.sessionId,
           width : parseInt(dataValue.width)
         });
         console.log("Time took to render image : " + (new Date().getTime() - startTime))
@@ -80,6 +81,7 @@ class App extends React.Component {
           highlightedNode={this.state.highlightedNode}
           screenshot={this.state.screenshot}
           width = {this.state.width}
+          sessionId = {this.state.sessionId}
           rootNode={this.state.rootNode}
           />
         <Tree
