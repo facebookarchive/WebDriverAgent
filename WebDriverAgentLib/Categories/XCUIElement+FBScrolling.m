@@ -24,6 +24,7 @@
 #import "XCTestDriver.h"
 #import "XCUIApplication.h"
 #import "XCUICoordinate.h"
+#import "XCUICoordinate+FBFix.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBUtilities.h"
@@ -238,7 +239,7 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
                                                );
   scrollBoundingVector.dx = (CGFloat)floor(copysign(scrollBoundingVector.dx, vector.dx));
   scrollBoundingVector.dy = (CGFloat)floor(copysign(scrollBoundingVector.dy, vector.dy));
-	
+
   NSUInteger scrollLimit = 100;
   BOOL shouldFinishScrolling = NO;
   while (!shouldFinishScrolling) {
@@ -269,15 +270,15 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   XCUICoordinate *startCoordinate = [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:hitpointOffset];
   XCUICoordinate *endCoordinate = [[XCUICoordinate alloc] initWithCoordinate:startCoordinate pointsOffset:vector];
 
-  if (FBPointFuzzyEqualToPoint(startCoordinate.screenPoint, endCoordinate.screenPoint, FBFuzzyPointThreshold)) {
+  if (FBPointFuzzyEqualToPoint(startCoordinate.fb_screenPoint, endCoordinate.fb_screenPoint, FBFuzzyPointThreshold)) {
     return YES;
   }
 
   CGFloat offset = 0.3f; // Waiting before scrolling helps to make it more stable
   double scrollingTime = MAX(fabs(vector.dx), fabs(vector.dy))/FBScrollVelocity;
-  XCPointerEventPath *touchPath = [[XCPointerEventPath alloc] initForTouchAtPoint:startCoordinate.screenPoint offset:offset];
+  XCPointerEventPath *touchPath = [[XCPointerEventPath alloc] initForTouchAtPoint:startCoordinate.fb_screenPoint offset:offset];
   offset += MAX(scrollingTime, FBMinimumTouchEventDelay); // Setting Minimum scrolling time to avoid testmanager complaining about timing
-  [touchPath moveToPoint:endCoordinate.screenPoint atOffset:offset];
+  [touchPath moveToPoint:endCoordinate.fb_screenPoint atOffset:offset];
   offset += FBMinimumTouchEventDelay;
   [touchPath liftUpAtOffset:offset];
 
