@@ -12,6 +12,7 @@ import ReactDOM from 'react-dom';
 
 import HTTP from 'js/http';
 import Screen from 'js/screen';
+import Device from 'js/Device';
 import ScreenshotFactory from 'js/screenshot_factory';
 import Tree from 'js/tree';
 import TreeNode from 'js/tree_node';
@@ -88,6 +89,8 @@ class App extends React.Component {
   render() {
     return (
       <div id="app">
+      <Device>
+      </Device>
         <Screen
           highlightedNode={this.state.highlightedNode}
           screenshot={this.state.screenshot}

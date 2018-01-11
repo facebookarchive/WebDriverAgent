@@ -39,7 +39,6 @@ if (!SOCKET) {
       ajax.send();
     }
   }
-
   module.exports = Http;
 } else {
   const socket = io("http://localhost:8000");
@@ -55,7 +54,7 @@ if (!SOCKET) {
   function postMessage(path, data, callback) {
     var path = path.charAt(0) == "/" ? path : "/" + path;
     socket.emit(
-      "message",
+      "performAction",
       {
         path: path,
         data: data
@@ -85,6 +84,10 @@ if (!SOCKET) {
       });
     }
 
+    static on(event, data, callback) {
+      socket.emit(event,data, callback);
+    }
+    
     static registerEvent(event, listener) {
       if (listener) {
         socket.on(event, function(data) {
