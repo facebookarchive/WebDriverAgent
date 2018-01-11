@@ -130,16 +130,15 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 }
 
 -(NSDictionary*) getRegisterDictionary {
-  NSDictionary *registerDict = [[NSDictionary alloc] init];
-  [registerDict setValue:[[UIDevice currentDevice] systemName] forKey:@"osName"];
-  [registerDict setValue:[[UIDevice currentDevice] systemVersion] forKey:@"osVersion"];
-  [registerDict setValue:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"deviceId"];
+  NSMutableDictionary *registerDict = [[NSMutableDictionary alloc] init];
+  [registerDict setObject:[[UIDevice currentDevice] systemName] forKey:@"osName"];
+  [registerDict setObject:[[UIDevice currentDevice] systemVersion] forKey:@"osVersion"];
+  [registerDict setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"deviceId"];
 #if TARGET_IPHONE_SIMULATOR
-  [registerDict setValue:[[[UIDevice currentDevice] model] stringByAppendingString:@" simulator"] forKey:@"deviceModel"];
+  [registerDict setObject:[[[UIDevice currentDevice] model] stringByAppendingString:@" simulator"] forKey:@"deviceModel"];
 #else
-  [registerDict setValue:[[UIDevice currentDevice] model] forKey:@"deviceModel"];
+  [registerDict setObject:[[UIDevice currentDevice] model] forKey:@"deviceModel"];
 #endif
-
   return registerDict;
 }
 
