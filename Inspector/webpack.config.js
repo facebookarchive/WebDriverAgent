@@ -11,7 +11,6 @@ var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-
 function buildOutputDir() {
   return (process.env.BUILD_OUTPUT_DIR != null ? process.env.BUILD_OUTPUT_DIR : __dirname+"/dist");
 }
@@ -42,6 +41,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'WebDriverAgent Inspector',
       filename: 'index.html'
+    }),
+    new webpack.DefinePlugin({
+      SOCKET: JSON.stringify(process.env.SOCKET || false)
     })
   ]
 };

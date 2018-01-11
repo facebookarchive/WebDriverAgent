@@ -34,6 +34,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --hot --progress --colors",
-    "build": "webpack --progress --colors"
+    "build": "webpack --progress --colors",
+    "build-socket": "SOCKET=true webpack --progress --colors"
   }
 }

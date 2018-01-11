@@ -85,7 +85,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 - (void)startWebSocket
 {
-  NSURL *serverURL = [[NSURL alloc] initWithString:@"http://172.20.52.189:8000"];
+  NSURL *serverURL = [[NSURL alloc] initWithString:@"http://localhost:8000"];
   self.manager = [[SocketManager alloc] initWithSocketURL:serverURL config:@{@"log": @NO, @"compress": @YES}];
   SocketIOClient *clientSocket = self.manager.defaultSocket;
   
