@@ -28,6 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
  @return YES if the operation succeeds, otherwise NO.
  */
 - (BOOL)fb_goToHomescreenWithError:(NSError **)error;
+- (BOOL)fb_doubleTapHomeWithError:(NSError **)error;
+- (BOOL)fb_increaseVolumeWithError:(NSError **)error;
+- (BOOL)fb_decreaseVolumeWithError:(NSError **)error;
+
 
 /**
  Returns screenshot
