@@ -95,7 +95,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     NSLog(@"socket connected");
     [self.screenCasting setSocketConnected:YES];
     [self.screenCasting startScreeing:clientSocket];
-    [clientSocket emit:@"register" with: [[NSArray alloc] initWithObjects:@"device", nil]];
+    [clientSocket emit:@"register" with: [[NSArray alloc] initWithObjects:[self getRegisterDictionary], nil]];
   }];
   
   [clientSocket on:@"disconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
@@ -118,6 +118,20 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   [FBSession.activeSession kill];
   self.keepAlive = NO;
   //TODO : Stop socket
+}
+
+-(NSDictionary*) getRegisterDictionary {
+  NSDictionary *registerDict = [[NSDictionary alloc] init];
+  [registerDict setValue:[[UIDevice currentDevice] systemName] forKey:@"osName"];
+  [registerDict setValue:[[UIDevice currentDevice] systemVersion] forKey:@"osVersion"];
+  [registerDict setValue:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"deviceId"];
+#if TARGET_IPHONE_SIMULATOR
+  [registerDict setValue:[[[UIDevice currentDevice] model] stringByAppendingString:@" simulator"] forKey:@"deviceModel"];
+#else
+  [registerDict setValue:[[UIDevice currentDevice] model] forKey:@"deviceModel"];
+#endif
+
+  return registerDict;
 }
 
 - (void) socketOnMessageHandler: (NSArray*) data andSocketAck: (SocketAckEmitter*) ack
@@ -162,13 +176,11 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   for (Class<FBCommandHandler> commandHandler in commandHandlerClasses) {
     NSArray *routes = [commandHandler routes];
     for (FBRoute *route in routes) {
-      //if(route.withoutSession) {
         [_routeDict setObject:route forKey:route.path];
         JLRoutes.globalRoutes[route.path] = ^BOOL(NSDictionary *parameters) {
           self.currentParams = parameters;
           return YES;
         };
-     // }
     }
   }
 }

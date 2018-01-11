@@ -40,6 +40,11 @@
                BlueprintName = "WebDriverAgentRunner"
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "UITestingUITests/testServerRunner">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <AdditionalOptions>
