@@ -317,6 +317,10 @@
 		EEEC7C931F21F27A0053426C /* FBPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC7C911F21F27A0053426C /* FBPredicate.m */; };
 		F632493220074550003EEA2C /* WebSocketScreenCasting.h in Headers */ = {isa = PBXBuildFile; fileRef = F632493020074550003EEA2C /* WebSocketScreenCasting.h */; };
 		F632493320074550003EEA2C /* WebSocketScreenCasting.m in Sources */ = {isa = PBXBuildFile; fileRef = F632493120074550003EEA2C /* WebSocketScreenCasting.m */; };
+		F632494920074D50003EEA2C /* Starscream.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 9708CD3F20036DE10085B04D /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F632494A20074D70003EEA2C /* SocketIO.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 9708CD3520036DCB0085B04D /* SocketIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F632494B20074D89003EEA2C /* RoutingHTTPServer.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F632494C20074D9E003EEA2C /* JLRoutes.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = F639A7932004A52200EC0C00 /* JLRoutes.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F639A75C2003756800EC0C00 /* FBRouteResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = F639A75A2003756800EC0C00 /* FBRouteResponse.h */; };
 		F639A75D2003756800EC0C00 /* FBRouteResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = F639A75B2003756800EC0C00 /* FBRouteResponse.m */; };
 		F639A79B2004A73F00EC0C00 /* JLRoutes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F639A7932004A52200EC0C00 /* JLRoutes.framework */; };
@@ -439,6 +443,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F632494C20074D9E003EEA2C /* JLRoutes.framework in Copy frameworks */,
+				F632494B20074D89003EEA2C /* RoutingHTTPServer.framework in Copy frameworks */,
+				F632494A20074D70003EEA2C /* SocketIO.framework in Copy frameworks */,
+				F632494920074D50003EEA2C /* Starscream.framework in Copy frameworks */,
 				AD35D06C1CF1C35500870A75 /* WebDriverAgentLib.framework in Copy frameworks */,
 			);
 			name = "Copy frameworks";
