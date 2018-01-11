@@ -116,6 +116,7 @@
         },
       @"ios" :
         @{
+          @"deviceId" : [[[UIDevice currentDevice] identifierForVendor] UUIDString],
           @"simulatorVersion" : [[UIDevice currentDevice] systemVersion],
           @"ip" : [XCUIDevice sharedDevice].fb_wifiIPAddress ?: [NSNull null],
         },
