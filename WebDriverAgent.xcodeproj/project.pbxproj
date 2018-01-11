@@ -315,6 +315,8 @@
 		EEE9B4731CD02B88009D2030 /* FBRunLoopSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE9B4711CD02B88009D2030 /* FBRunLoopSpinner.m */; };
 		EEEC7C921F21F27A0053426C /* FBPredicate.h in Headers */ = {isa = PBXBuildFile; fileRef = EEEC7C901F21F27A0053426C /* FBPredicate.h */; };
 		EEEC7C931F21F27A0053426C /* FBPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC7C911F21F27A0053426C /* FBPredicate.m */; };
+		F632493220074550003EEA2C /* WebSocketScreenCasting.h in Headers */ = {isa = PBXBuildFile; fileRef = F632493020074550003EEA2C /* WebSocketScreenCasting.h */; };
+		F632493320074550003EEA2C /* WebSocketScreenCasting.m in Sources */ = {isa = PBXBuildFile; fileRef = F632493120074550003EEA2C /* WebSocketScreenCasting.m */; };
 		F639A75C2003756800EC0C00 /* FBRouteResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = F639A75A2003756800EC0C00 /* FBRouteResponse.h */; };
 		F639A75D2003756800EC0C00 /* FBRouteResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = F639A75B2003756800EC0C00 /* FBRouteResponse.m */; };
 		F639A79B2004A73F00EC0C00 /* JLRoutes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F639A7932004A52200EC0C00 /* JLRoutes.framework */; };
@@ -779,6 +781,8 @@
 		EEEC7C901F21F27A0053426C /* FBPredicate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBPredicate.h; sourceTree = "<group>"; };
 		EEEC7C911F21F27A0053426C /* FBPredicate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBPredicate.m; sourceTree = "<group>"; };
 		EEF9882A1C486603005CA669 /* WebDriverAgentRunner.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentRunner.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F632493020074550003EEA2C /* WebSocketScreenCasting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebSocketScreenCasting.h; sourceTree = "<group>"; };
+		F632493120074550003EEA2C /* WebSocketScreenCasting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebSocketScreenCasting.m; sourceTree = "<group>"; };
 		F639A75A2003756800EC0C00 /* FBRouteResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBRouteResponse.h; sourceTree = "<group>"; };
 		F639A75B2003756800EC0C00 /* FBRouteResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBRouteResponse.m; sourceTree = "<group>"; };
 		F639A78A2004A52200EC0C00 /* JLRoutes.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JLRoutes.xcodeproj; path = Carthage/Checkouts/JLRoutes/JLRoutes.xcodeproj; sourceTree = "<group>"; };
@@ -1081,6 +1085,8 @@
 				EE9AB78D1CAEDF0C008C271F /* FBWebServer.m */,
 				9708CD2C2003695D0085B04D /* FBWebSocket.h */,
 				9708CD2D200369810085B04D /* FBWebSocket.m */,
+				F632493020074550003EEA2C /* WebSocketScreenCasting.h */,
+				F632493120074550003EEA2C /* WebSocketScreenCasting.m */,
 			);
 			name = Routing;
 			path = WebDriverAgentLib/Routing;
@@ -1514,6 +1520,7 @@
 				EE158AEA1CBD456F00A3E3F0 /* FBRuntimeUtils.h in Headers */,
 				7136A4791E8918E60024FC3D /* XCUIElement+FBPickerWheel.h in Headers */,
 				EE35AD511E3B77D600A02D78 /* XCTestObservation-Protocol.h in Headers */,
+				F632493220074550003EEA2C /* WebSocketScreenCasting.h in Headers */,
 				EE35AD131E3B77D600A02D78 /* _XCTNSPredicateExpectationImplementation.h in Headers */,
 				EE158ABE1CBD456F00A3E3F0 /* FBElementCommands.h in Headers */,
 				EE158AD81CBD456F00A3E3F0 /* FBResponseFilePayload.h in Headers */,
@@ -1923,6 +1930,7 @@
 				EE158AB11CBD456F00A3E3F0 /* XCUIElement+FBIsVisible.m in Sources */,
 				EEBBD48C1D47746D00656A81 /* XCUIElement+FBFind.m in Sources */,
 				EE158ADD1CBD456F00A3E3F0 /* FBResponsePayload.m in Sources */,
+				F632493320074550003EEA2C /* WebSocketScreenCasting.m in Sources */,
 				EE158ADF1CBD456F00A3E3F0 /* FBRoute.m in Sources */,
 				EE0D1F621EBCDCF7006A3123 /* NSString+FBVisualLength.m in Sources */,
 				EEE9B4731CD02B88009D2030 /* FBRunLoopSpinner.m in Sources */,

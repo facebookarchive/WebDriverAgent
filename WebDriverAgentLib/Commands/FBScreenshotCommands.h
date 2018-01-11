@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FBScreenshotCommands : NSObject <FBCommandHandler>
 
++ (id<FBResponsePayload>)handleGetScreenshotWithScreenMeta:(UIInterfaceOrientation) orientation andScreenWidth:(CGFloat) screenWidth andScreenHeight:(CGFloat) screenHeight;
+
 @end
 
 NS_ASSUME_NONNULL_END

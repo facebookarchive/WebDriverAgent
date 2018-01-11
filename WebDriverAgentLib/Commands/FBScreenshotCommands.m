@@ -15,7 +15,6 @@ static const XCUIApplication *app;
 static UIInterfaceOrientation lastScreenOrientation;
 static CGSize lastScreenSize;
 static XCUIScreen *mainScreen;
-static NSString *height,*width,*orientation;
 
 @interface ScreenShotWithMeta : NSObject
 @property (nonatomic) UIInterfaceOrientation orientation;
@@ -71,6 +70,8 @@ static NSString *height,*width,*orientation;
   return screenshot;
 }
 
+
+
 #pragma mark - Commands
 + (id<FBResponsePayload>)handleGetScreenshot:(FBRouteRequest *)request
 {
@@ -86,17 +87,25 @@ static NSString *height,*width,*orientation;
   if(CGSizeEqualToSize(CGSizeZero, lastScreenSize) || (lastScreenOrientation != app.interfaceOrientation)) {
     lastScreenOrientation = app.interfaceOrientation;
     lastScreenSize = FBAdjustDimensionsForApplication(app.frame.size, app.interfaceOrientation);
-    height = [NSString stringWithFormat:@"%.0f", lastScreenSize.height];
-    width = [NSString stringWithFormat:@"%.0f", lastScreenSize.width];
-    orientation = [NSString stringWithFormat:@"%.0ld", (long)lastScreenOrientation];
   }
+  return [FBScreenshotCommands handleGetScreenshotWithScreenMeta:lastScreenOrientation andScreenWidth:lastScreenSize.width andScreenHeight:lastScreenSize.height];
+}
+
++ (id<FBResponsePayload>)handleGetScreenshotWithScreenMeta:(UIInterfaceOrientation) orientation andScreenWidth:(CGFloat) screenWidth andScreenHeight:(CGFloat) screenHeight
+{
+  NSError *error;
+  NSData *screenData = [[XCUIDevice sharedDevice] fb_screenshotWithError:&error withOrientation:orientation andScreenWidth:screenWidth andScreenHeight:screenHeight];
+  NSString *screenshot = [screenData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+  NSString *height = [NSString stringWithFormat:@"%.0f", screenHeight];
+  NSString *width = [NSString stringWithFormat:@"%.0f", screenWidth];
+  NSString *screenOrientation = [NSString stringWithFormat:@"%.0ld", (long)orientation];
   
   NSDictionary *screenShotWithMeta = @{
                                        @"height":height,
                                        @"width":width,
-                                       @"orientation":orientation,
-                                       @"base64EncodedImage":[self getScreenData]
-                                    };
+                                       @"orientation":screenOrientation,
+                                       @"base64EncodedImage":screenshot
+                                       };
   return FBResponseWithObject(screenShotWithMeta);
 }
 

@@ -33,9 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
  Returns screenshot
  @param error If there is an error, upon return contains an NSError object that describes the problem.
  @return Device screenshot as PNG-encoded data or nil in case of failure
+ 
  */
 - (nullable NSData *)fb_screenshotWithError:(NSError*__autoreleasing*)error;
 
+- (nullable NSData *)fb_screenshotWithError:(NSError*__autoreleasing*)error withOrientation:(UIInterfaceOrientation) orientation andScreenWidth:(CGFloat) screenWidth andScreenHeight:(CGFloat) screenHeight;
 /**
  Returns device current wifi ip4 address
  */
