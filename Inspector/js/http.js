@@ -84,10 +84,10 @@ if (!SOCKET) {
       });
     }
 
-    static on(event, data, callback) {
+    static emit(event, data, callback) {
       socket.emit(event,data, callback);
     }
-    
+
     static registerEvent(event, listener) {
       if (listener) {
         socket.on(event, function(data) {

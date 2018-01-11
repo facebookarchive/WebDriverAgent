@@ -43,7 +43,7 @@ const ON_SOCKET_CLEINT_DISCONNECTED = "disconnect";
 io.on(ON_SOCKET_CLEINT_CONNECT, function(client) {
     console.log("client connected");
     client.on(PERFORM_ACTION, function(data, callback) {
-        const deviceClient = client[CONNECTED_DEVICES];
+        const deviceClient = client[KEY_CONNECTED_TO_DEVICE];
         if(deviceClient) {
             deviceClient.emit(PERFORM_ACTION,data,function(data) {
                 if(callback) {
@@ -65,12 +65,11 @@ io.on(ON_SOCKET_CLEINT_CONNECT, function(client) {
     });
 
     client.on(REGISTER_DEVICE, function(data) {
-        var jsonData = JSON.parse(data);
-        const deviceId = jsonData.deviceId;
+        const deviceId = data.deviceId;
         client[KEY_DEVICE_ID] = deviceId;
         client[KEY_DEVICE_DATA] = data;
         connectedDevices[deviceId] = client;
-        client.broadcast("newDeviceConnected",data);
+        client.broadcast.emit("newDeviceConnected",data);
     })
 
     client.on(CLIENT_CONNECT_TO_DEVICE,function(deviceId, callback) {
@@ -78,11 +77,9 @@ io.on(ON_SOCKET_CLEINT_CONNECT, function(client) {
         if(deviceClient) {
             client[KEY_CONNECTED_TO_DEVICE] = deviceClient;
             deviceClient[KEY_CONNECTED_TO_CLIENT] = client;
-            deviceClient.emit(CLIENT_CONNECTED);
-            callback(deviceClient.data); // Device connected Successfully.
-        }
-        else {
-            callback();
+            deviceClient.emit(CLIENT_CONNECTED,function(){
+                callback(deviceClient[KEY_DEVICE_DATA]); // Device connected Successfully.
+            });
         }
     });
 

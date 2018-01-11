@@ -1,0 +1,6 @@
+.device-list {
+    list-style-type : none;
+}
+.device-list li {
+    float: left;
+}

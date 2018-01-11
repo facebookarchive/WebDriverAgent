@@ -40,7 +40,8 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       title: 'WebDriverAgent Inspector',
-      filename: 'index.html'
+      filename: 'index.html',
+      template : 'index.html'
     }),
     new webpack.DefinePlugin({
       SOCKET: JSON.stringify(process.env.SOCKET || false)

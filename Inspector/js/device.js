@@ -15,23 +15,28 @@ class Device extends React.Component {
   }
 
   componentDidMount() {
-      HTTP.on("getConnectedDevices",null,function(data){
-          const connectedDevice = JSON.parse(data);
+      HTTP.emit("getConnectedDevices",null,(data) => {
           this.setState({
-              connectedDevice : connectedDevice
+              connectedDevice : data
           })
       })
+  }
+
+  onDeviceSelected(ev, device) {
+      if(this.props.onDeviceSelected) {
+        this.props.onDeviceSelected(device);
+      }
   }
 
 
   render() {
       if(this.state.connectedDevice.length > 0) {
         return (
-            <div>
-                <ul>
+            <div className="device-list-container">
+                <ul className="device-list">
                     {
-                        this.state.connectedDevice.map(function(device){
-                            return <li key={device.deviceId}>device.deviceId</li>
+                        this.state.connectedDevice.map((device) => {
+                            return <li key={device.deviceId} onClick={(ev) => this.onDeviceSelected(ev,device)}>{device.deviceModel + "-" + device.osVersion}</li>
                         })
                     }
                 </ul>

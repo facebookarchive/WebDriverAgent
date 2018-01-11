@@ -29,7 +29,7 @@
 
 static NSString *const FBServerURLBeginMarker = @"ServerURLHere->";
 static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
-
+static BOOL isConnectedToClient;
 @interface FBSocketConnection : RoutingConnection
 @end
 
@@ -97,12 +97,17 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   }];
   
   [clientSocket on:@"connectedToClient" callback:^(NSArray* data, SocketAckEmitter* ack) {
-    [self.screenCasting setSocketConnected:YES];
-    [self.screenCasting startScreeing:clientSocket];
-    NSLog(@"socket Connected to Client");
+    if(!isConnectedToClient) {
+      isConnectedToClient = true;
+      [self.screenCasting setSocketConnected:YES];
+      [self.screenCasting startScreeing:clientSocket];
+      [ack with:[[NSArray alloc]init]];
+      NSLog(@"socket Connected to Client");
+    }
   }];
   
   [clientSocket on:@"disconnectedFromClient" callback:^(NSArray* data, SocketAckEmitter* ack) {
+    isConnectedToClient = false;
     [self.screenCasting setSocketConnected:NO];
     NSLog(@"socket Disconnected from Client.");
   }];
