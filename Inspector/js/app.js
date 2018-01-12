@@ -12,7 +12,7 @@ import ReactDOM from 'react-dom';
 
 import HTTP from 'js/http';
 import Screen from 'js/screen';
-import Device from 'js/Device';
+import DeviceList from 'js/device_list';
 import ScreenshotFactory from 'js/screenshot_factory';
 import Tree from 'js/tree';
 import TreeNode from 'js/tree_node';
@@ -33,7 +33,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    HTTP.registerEvent("screenShot",(data) => {
+    HTTP.onScreenShotData((data) => {
+      var data = JSON.parse(data);
       const dataValue = data.value;
       ScreenshotFactory.createScreenshot(dataValue.orientation, dataValue.base64EncodedImage, (screenshot) => {
         this.setState({
@@ -44,15 +45,19 @@ class App extends React.Component {
       });
     });
 
-    HTTP.registerEvent("deviceDisconnected",() => {
-      this.setState({
-        selectedDevice : null
-      });
+    HTTP.onDeviceDisconnected((data) => {
+      if(this.state.selectedDevice && (data.deviceMeta.deviceId == this.state.selectedDevice.deviceMeta.deviceId)) {
+        alert("Device got Disconnected");
+        this.setState({
+          selectedDevice : null
+        });
+      }
     });
+
   }
 
   onDeviceSelected(device) {
-    HTTP.emit("connectToDevice",device.deviceId,(data) => {
+    HTTP.connectToDevice(device.deviceMeta.deviceId,(data) => {
       if(data) {
         this.setState({
           selectedDevice : device
@@ -62,7 +67,7 @@ class App extends React.Component {
   }
 
   onDisconnectDevice() {
-    HTTP.emit("disconnectFromDevice");
+    HTTP.disconnectFromDevice();
     this.setState({
       selectedDevice : null
     })
@@ -83,11 +88,11 @@ class App extends React.Component {
            <Screen
           highlightedNode={this.state.highlightedNode}
           screenshot={this.state.screenshot}
+          onDisconnect = {this.onDisconnectDevice.bind(this)}
           width = {this.state.width}
           sessionId = {this.state.sessionId}
           rootNode={this.state.rootNode}
           />
-        <p style={{"float":"right"}}onClick={this.onDisconnectDevice.bind(this)}> close device</p>
         <Tree
           onHighlightedNodeChange={(node) => {
             this.setState({
@@ -106,7 +111,7 @@ class App extends React.Component {
            />
           </div>
           : 
-          <Device onDeviceSelected={this.onDeviceSelected.bind(this)}></Device>
+          <DeviceList onDeviceSelected={this.onDeviceSelected.bind(this)}></DeviceList>
           return renderingComponent;
   }
 }

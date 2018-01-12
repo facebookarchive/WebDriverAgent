@@ -26,7 +26,11 @@ const CLIENT_DISCONNECT_TO_DEVICE = "disconnectFromDevice";
 // This event will be emitted to Client when device is disconnected.
 const DEVICE_DISCONNECTED = "deviceDisconnected";
 // This event will be emitted to Client whenever any new device is connected.
-const CONNECTED_DEVICES = "newDeviceConnected";
+const NEW_DEVICE_CONNECTED = "newDeviceConnected";
+// This event will be emitted to Client whenever any connected device is freed by client.
+const DEVICE_UNBLOCKED = "deviceUnBlocked";
+// This event will be emitted to Client whenever any connected device is blocked by client.
+const DEVICE_BLOCKED = "deviceBlocked";
 // Event from Client to get the connected Device list.
 const GET_CONNECTED_DEVICES = "getConnectedDevices";
 // Event to share ScreenShot data from Device to Client.
@@ -39,6 +43,19 @@ const PERFORM_ACTION = "performAction";
 // Socket Client Default Commands
 const ON_SOCKET_CLEINT_CONNECT = "connection"
 const ON_SOCKET_CLEINT_DISCONNECTED = "disconnect";
+
+function getDeviceData(deviceClient) {
+    return {
+        "isBlocked" : deviceClient[KEY_CONNECTED_TO_CLIENT] ? true : false,
+        "deviceMeta" : deviceClient[KEY_DEVICE_DATA]
+    }
+}
+
+function onDeviceUnblocked(deviceClient) {
+    deviceClient[KEY_CONNECTED_TO_CLIENT] = null;
+    deviceClient.emit(CLIENT_DISCONNECTED);
+    io.local.emit(DEVICE_UNBLOCKED,getDeviceData(deviceClient));
+}
 
 io.on(ON_SOCKET_CLEINT_CONNECT, function(client) {
     console.log("client connected");
@@ -58,7 +75,8 @@ io.on(ON_SOCKET_CLEINT_CONNECT, function(client) {
         if(callback) {
             const connectedDeviceArray = [];
             for(key in connectedDevices) {
-                connectedDeviceArray.push(connectedDevices[key][KEY_DEVICE_DATA]);
+                const deviceClient = connectedDevices[key];
+                connectedDeviceArray.push(getDeviceData(deviceClient));
             }
             callback(connectedDeviceArray);
         }
@@ -69,7 +87,7 @@ io.on(ON_SOCKET_CLEINT_CONNECT, function(client) {
         client[KEY_DEVICE_ID] = deviceId;
         client[KEY_DEVICE_DATA] = data;
         connectedDevices[deviceId] = client;
-        client.broadcast.emit("newDeviceConnected",data);
+        client.broadcast.emit(NEW_DEVICE_CONNECTED,getDeviceData(client));
     })
 
     client.on(CLIENT_CONNECT_TO_DEVICE,function(deviceId, callback) {
@@ -79,6 +97,7 @@ io.on(ON_SOCKET_CLEINT_CONNECT, function(client) {
             deviceClient[KEY_CONNECTED_TO_CLIENT] = client;
             deviceClient.emit(CLIENT_CONNECTED,function(){
                 callback(deviceClient[KEY_DEVICE_DATA]); // Device connected Successfully.
+                client.broadcast.emit(DEVICE_BLOCKED,getDeviceData(deviceClient));
             });
         }
     });
@@ -87,8 +106,7 @@ io.on(ON_SOCKET_CLEINT_CONNECT, function(client) {
         const deviceClient = client[KEY_CONNECTED_TO_DEVICE];
         if(deviceClient) {
             client[KEY_CONNECTED_TO_DEVICE] = null;
-            deviceClient[KEY_CONNECTED_TO_CLIENT] = null;
-            deviceClient.emit(CLIENT_DISCONNECTED);
+            onDeviceUnblocked(deviceClient);
         }
     })
 
@@ -107,16 +125,15 @@ io.on(ON_SOCKET_CLEINT_CONNECT, function(client) {
             const connectedClient = client[KEY_CONNECTED_TO_CLIENT];
             if(connectedClient) {
                 connectedClient[KEY_CONNECTED_TO_DEVICE] = null; // Remove connected device.
-                connectedClient.emit(DEVICE_DISCONNECTED);
             }
+            client.broadcast.emit(DEVICE_DISCONNECTED,getDeviceData(client));
             delete connectedDevices[deviceId];
         }
         else {
             // Client(Web) disconnected.
             const deviceClient = client[KEY_CONNECTED_TO_DEVICE];
             if(deviceClient) {
-                deviceClient[KEY_CONNECTED_TO_CLIENT] = null;
-                deviceClient.emit(CLIENT_DISCONNECTED);
+                onDeviceUnblocked(deviceClient);
             }
         }
         console.log("client disconnected")

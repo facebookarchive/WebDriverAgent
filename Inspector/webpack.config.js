@@ -11,6 +11,8 @@ var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
 function buildOutputDir() {
   return (process.env.BUILD_OUTPUT_DIR != null ? process.env.BUILD_OUTPUT_DIR : __dirname+"/dist");
 }
@@ -26,7 +28,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.js?$/, loaders: ['babel-loader'], exclude: /node_modules/ },
-      { test: /\.css?$/, loader: 'style-loader!css-loader' },
+      { test: /\.css?$/, loader: 'style-loader!css-loader' }
     ]
   },
   resolve: {
@@ -36,6 +38,8 @@ module.exports = {
   resolveLoader: {
     modulesDirectories: [path.resolve(fs.realpathSync(__dirname), 'node_modules')],
   },
+  debug: true,
+  devtool: 'source-map',
   plugins: [
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
@@ -45,6 +49,11 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       SOCKET: JSON.stringify(process.env.SOCKET || false)
-    })
+    }),
+    new CopyWebpackPlugin([
+      { 
+        from: 'assets',
+        to : 'assets' }
+  ])
   ]
 };

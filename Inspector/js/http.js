@@ -6,97 +6,109 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-import Ajax from "simple-ajax";
 import io from "socket.io-client";
-if (!SOCKET) {
-  class Http {
-    static get(path, callback) {
-      const ajax = new Ajax({
-        url: path,
-        method: "GET"
-      });
-      ajax.on("success", event => {
-        var response = JSON.parse(event.target.responseText);
-        if (callback) {
-          callback(response);
-        }
-      });
-      ajax.send();
-    }
 
-    static post(path, data, callback) {
-      const ajax = new Ajax({
-        url: path,
-        method: "POST",
-        data: data
-      });
-      ajax.on("success", event => {
-        var response = JSON.parse(event.target.responseText);
-        if (callback) {
-          callback(response);
-        }
-      });
-      ajax.send();
-    }
-  }
-  module.exports = Http;
-} else {
-  const socket = io("http://localhost:8000");
-  socket.on("connect", function() {
-    console.log("Connected with Socket.");
-    socket.emit("register", "web");
-  });
+const socket = io("http://172.20.52.157:8000");
 
-  socket.on("disconnect", function() {
-    console.log("disconnected");
-  });
+// Socket-Keys :
 
-  function postMessage(path, data, callback) {
-    var path = path.charAt(0) == "/" ? path : "/" + path;
-    socket.emit(
-      "performAction",
-      {
-        path: path,
-        data: data
-      },
-      callback
-    );
-  }
+// Event from client when any device is selected.
+const CLIENT_CONNECT_TO_DEVICE = "connectToDevice";
+// Event from client when it is disconnected to Device.
+const CLIENT_DISCONNECT_TO_DEVICE = "disconnectFromDevice";
+// This event will be emitted to Client when device is disconnected.
+const DEVICE_DISCONNECTED = "deviceDisconnected";
+// This event will be emitted to Client whenever any new device is connected.
+const NEW_DEVICE_CONNECTED = "newDeviceConnected";
+// This event will be emitted to Client whenever any connected device is freed by client.
+const DEVICE_UNBLOCKED = "deviceUnBlocked";
+// This event will be emitted to Client whenever any connected device is blocked by client.
+const DEVICE_BLOCKED = "deviceBlocked";
+// Event from Client to get the connected Device list.
+const GET_CONNECTED_DEVICES = "getConnectedDevices";
+// Event to share ScreenShot data from Device to Client.
+const SCREEN_SHOT_DATA = "screenShot"
+// Event to Perform Action from Client to Device.
+const PERFORM_ACTION = "performAction";
 
-  class Http {
-    static get(path, callback) {
-      const startTime = new Date().getTime();
+socket.on("connect", function() {
+  console.log("Connected with Socket.");
+  socket.emit("register", "web");
+});
 
-      postMessage(path, null, function(response) {
-        if (callback && response) {
-          var data = JSON.parse(response);
-          callback(data);
-        }
-      });
-    }
+socket.on("disconnect", function() {
+  console.log("disconnected..");
+});
 
-    static post(path, data, callback) {
-      postMessage(path, data, function(response) {
-        if (callback && response) {
-          var data = JSON.parse(response);
-          callback(data);
-        }
-      });
-    }
-
-    static emit(event, data, callback) {
-      socket.emit(event,data, callback);
-    }
-
-    static registerEvent(event, listener) {
-      if (listener) {
-        socket.on(event, function(data) {
-          var data = JSON.parse(data);
-          listener(data);
-        });
-      }
-    }
-  }
-
-  module.exports = Http;
+function emitEvent(event, data, callback) {
+  socket.emit(event, data, callback);
 }
+
+function registerEvent(event, listener) {
+  if (listener) {
+    socket.on(event, function(data) {
+      listener(data);
+    });
+  }
+};
+
+function performAction(path, data, callback) {
+  var path = path.charAt(0) == "/" ? path : "/" + path;
+  emitEvent(PERFORM_ACTION, {
+    path: path,
+    data: data
+  }, callback);
+}
+
+class Http {
+  static get(path, callback) {
+    performAction(path, null, function(response) {
+      if (callback && response) {
+        var data = JSON.parse(response);
+        callback(data);
+      }
+    });
+  }
+
+  static post(path, data, callback) {
+    performAction(path, data, function(response) {
+      if (callback && response) {
+        var data = JSON.parse(response);
+        callback(data);
+      }
+    });
+  };
+
+  static connectToDevice(deviceId, callback) {
+    emitEvent(CLIENT_CONNECT_TO_DEVICE, deviceId , callback);
+  }
+
+  static disconnectFromDevice(callback) {
+    emitEvent(CLIENT_DISCONNECT_TO_DEVICE, null , callback);
+  }
+
+  static onDeviceDisconnected(callback) {
+    registerEvent(DEVICE_DISCONNECTED, callback);
+  }
+
+  static onNewDeviceConnected(callback) {
+    registerEvent(NEW_DEVICE_CONNECTED, callback);
+  }
+
+  static onDeviceUnBlock(callback) {
+    registerEvent(DEVICE_UNBLOCKED, callback);
+  }
+
+  static onDeviceBlock(callback) {
+    registerEvent(DEVICE_BLOCKED, callback);
+  }
+
+  static getConnectedDevices(callback) {
+    emitEvent(GET_CONNECTED_DEVICES, null, callback);
+  }
+
+  static onScreenShotData(callback) {
+    registerEvent(SCREEN_SHOT_DATA, callback);
+  }
+}
+module.exports = Http;
