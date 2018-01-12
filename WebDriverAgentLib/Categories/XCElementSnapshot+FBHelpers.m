@@ -33,7 +33,7 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
 
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery
 {
-  return (NSArray<XCElementSnapshot *> *)[FBXPath findMatchesIn:self xpathQuery:xpathQuery];
+  return [FBXPath matchesWithRootElement:self forQuery:xpathQuery];
 }
 
 - (XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type
