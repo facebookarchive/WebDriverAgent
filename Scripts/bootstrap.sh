@@ -75,6 +75,7 @@ function build_inspector() {
   # "$INSPECTOR_DIR"/node_modules/.bin/eslint js/*
 
   echo "Building Inspector..."
+  npm run build
   BUILD_OUTPUT_DIR="$RESOURCE_BUNDLE_DIR" npm run build
   cd "$CURRENT_DIR"
   cp "$INSPECTOR_DIR/index.html" "$RESOURCE_BUNDLE_DIR"

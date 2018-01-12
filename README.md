@@ -22,8 +22,56 @@ It will:
 * fetch all dependencies with [Carthage](https://github.com/Carthage/Carthage)
 * build Inspector bundle using [npm](https://www.npmjs.com)
 
-After it is finished you can simply open `WebDriverAgent.xcodeproj` and start `WebDriverAgentRunner` test
+After it is finished you can simply open `WebDriverAgent.xcworkspace` and start `WebDriverAgentRunner testRunnerSocket` 
 and start sending [requests](https://github.com/facebook/WebDriverAgent/wiki/Queries).
+
+For building client manually :
+```
+sh ./Scripts/build-socket.sh
+```
+
+Start Node Server :
+```
+sh ./Scripts/start-server.sh
+```
+
+Open "http://localhost:8000" : You will see the connected devices. If there is no devices, run the `WebDriverAgentRunner testRunnerSocket`.
+
+
+##Running from terminal :
+
+Check all available Device :
+```
+ instruments -s devices
+```
+
+Run the below command to start simulator :
+
+```
+xcodebuild test -workspace WebDriverAgent.xcworkspace -scheme WebDriverAgentRunner -destination "platform=iOS Simulator,OS=11.2,name=iPhone 8 Plus"
+```
+update `-destination` for devices as available in your system.
+
+For running in Real device, You need to provide the device id :
+
+```
+xcodebuild test -workspace WebDriverAgent.xcworkspace -scheme WebDriverAgentRunner -destination "platform=iOS,id=8c9406453401735ad174d8f4118e2347772fc969"
+```
+NOTE: 
+Before running in device Go to the SocketIO project, put `BITCODE_GENERATION_MODE` as `marker` and `ENABLE_BITCODE` as `NO`
+
+##Run failure
+
+In case the program builds but there is the following run error
+Testing failed:
+Linker command failed with exit code 1 (use -v to see invocation)
+** TEST FAILED **
+
+The following build commands failed:
+Ld /Users/USER_NAME/Library/Developer/Xcode/DerivedData/WebDriverAgent-ajlpezvrbmujhvcgzjblwcnckdvv/Build/Products/Debug-iphoneos/SocketIO.framework/SocketIO normal arm64
+
+Go to the SocketIO project, put `BITCODE_GENERATION_MODE` as `marker` and `ENABLE_BITCODE` as `NO`
+
 
 More about how to start WebDriverAgent [here](https://github.com/facebook/WebDriverAgent/wiki/Starting-WebDriverAgent).
 
