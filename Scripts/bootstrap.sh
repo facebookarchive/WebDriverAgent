@@ -43,6 +43,7 @@ function print_usage() {
 }
 
 function fetch_and_build_dependencies() {
+  pod install
   echo -e "${BOLD}Fetching dependencies"
   assert_has_carthage
   if ! cmp -s Cartfile.resolved Carthage/Cartfile.resolved; then
