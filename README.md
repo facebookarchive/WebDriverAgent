@@ -11,7 +11,7 @@ WebDriverAgent is a [WebDriver server](https://w3c.github.io/webdriver/webdriver
  * Easy development cycle as it can be launched & debugged directly via Xcode
  * Unsupported yet, but works with tvOS & OSX
 
-[![Demo Video](https://youtu.be/bGJAKXdfrgM)](https://youtu.be/bGJAKXdfrgM)
+[![Demo Video](https://i.ytimg.com/vi_webp/bGJAKXdfrgM/hqdefault.webp)](https://youtu.be/bGJAKXdfrgM)
 
 ## Getting Started
 To get the project set up just run bootstrap script:
