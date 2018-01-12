@@ -28,7 +28,9 @@
 #import "WebSocketScreenCasting.h"
 #import <SDVersion/SDVersion.h>
 
-
+static NSString *const FBServerURLBeginMarker = @"ServerURLHere->";
+static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
+static BOOL isConnectedToClient;
 @interface FBSocketConnection : RoutingConnection
 @end
 
@@ -92,9 +94,23 @@
   
   [clientSocket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
     NSLog(@"socket connected");
-    [self.screenCasting setSocketConnected:YES];
-    [self.screenCasting startScreeing:clientSocket];
-    [clientSocket emit:@"register" with: [[NSArray alloc] initWithObjects:[self getRegisterDictionary], nil]];
+    [clientSocket emit:@"registerDevice" with: [[NSArray alloc] initWithObjects:[self getRegisterDictionary], nil]];
+  }];
+  
+  [clientSocket on:@"connectedToClient" callback:^(NSArray* data, SocketAckEmitter* ack) {
+    if(!isConnectedToClient) {
+      isConnectedToClient = true;
+      [self.screenCasting setSocketConnected:YES];
+      [self.screenCasting startScreeing:clientSocket];
+      [ack with:[[NSArray alloc]init]];
+      NSLog(@"socket Connected to Client");
+    }
+  }];
+  
+  [clientSocket on:@"disconnectedFromClient" callback:^(NSArray* data, SocketAckEmitter* ack) {
+    isConnectedToClient = false;
+    [self.screenCasting setSocketConnected:NO];
+    NSLog(@"socket Disconnected from Client.");
   }];
   
   [clientSocket on:@"disconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
@@ -102,8 +118,8 @@
     NSLog(@"socket disconnected");
   }];
   
-  [clientSocket on:@"message" callback:^(NSArray* data, SocketAckEmitter* ack) {
-    [self socketOnMessageHandler:data andSocketAck:ack];
+  [clientSocket on:@"performAction" callback:^(NSArray* data, SocketAckEmitter* ack) {
+    [self socketOnPerformActionHandler:data andSocketAck:ack];
   }];
   
   [clientSocket connect];
@@ -124,16 +140,11 @@
   [registerDict setObject:[[UIDevice currentDevice] systemName] forKey:@"osName"];
   [registerDict setObject:[[UIDevice currentDevice] systemVersion] forKey:@"osVersion"];
   [registerDict setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"deviceId"];
-#if TARGET_IPHONE_SIMULATOR
-  [registerDict setObject:[[SDVersion deviceNameString] stringByAppendingString:@" simulator"] forKey:@"deviceModel"];
-#else
   [registerDict setObject:[SDVersion deviceNameString] forKey:@"deviceModel"];
-#endif
-   NSLog(@"===%@",[SDVersion deviceNameString]);
   return registerDict;
 }
 
-- (void) socketOnMessageHandler: (NSArray*) data andSocketAck: (SocketAckEmitter*) ack
+- (void) socketOnPerformActionHandler: (NSArray*) data andSocketAck: (SocketAckEmitter*) ack
 {
   NSDictionary *arguments = (NSDictionary*) data[0];
   NSString* path = [arguments valueForKey:@"path"];

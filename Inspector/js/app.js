@@ -12,6 +12,7 @@ import ReactDOM from 'react-dom';
 
 import HTTP from 'js/http';
 import Screen from 'js/screen';
+import DeviceList from 'js/device_list';
 import ScreenshotFactory from 'js/screenshot_factory';
 import Tree from 'js/tree';
 import TreeNode from 'js/tree_node';
@@ -29,40 +30,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.fetchLatestScreen = this.fetchScreenshot.bind(this);
   }
 
   componentDidMount() {
-    const self =this;
-   // this.fetchScreenshot();
-    HTTP.registerEvent("screenShot",function(data) {
-      const dataValue = data.value;
-      ScreenshotFactory.createScreenshot(dataValue.orientation, dataValue.base64EncodedImage, (screenshot) => {
-        self.setState({
-          screenshot: screenshot,
-          sessionId : data.sessionId,
-          width : parseInt(dataValue.width)
-        });
-      });
-    });
-  }
-
-  fetchScreenshot() {
-   const startTime = new Date().getTime();
-    // HTTP.get(ORIENTATION_ENDPOINT, (orientation) => {
-    //   orientation = orientation.value;
-    //   HTTP.get(SCREENSHOT_ENDPOINT, (base64EncodedImage) => {
-    //     base64EncodedImage = base64EncodedImage.value;
-    //     ScreenshotFactory.createScreenshot(orientation, base64EncodedImage, (screenshot) => {
-    //       this.setState({
-    //         screenshot: screenshot,
-    //       });
-    //       console.log("Time took to render image : " + (new Date().getTime() - startTime))
-    //       this.fetchScreenshot();
-    //     });
-    //   });
-    // });
-    HTTP.get(SCREENSHOT_ENDPOINT, (data) => {
+    HTTP.onScreenShotData((data) => {
+      var data = JSON.parse(data);
       const dataValue = data.value;
       ScreenshotFactory.createScreenshot(dataValue.orientation, dataValue.base64EncodedImage, (screenshot) => {
         this.setState({
@@ -70,10 +42,35 @@ class App extends React.Component {
           sessionId : data.sessionId,
           width : parseInt(dataValue.width)
         });
-        console.log("Time took to render image : " + (new Date().getTime() - startTime))
-        requestAnimationFrame(this.fetchLatestScreen);
       });
     });
+
+    HTTP.onDeviceDisconnected((data) => {
+      if(this.state.selectedDevice && (data.deviceMeta.deviceId == this.state.selectedDevice.deviceMeta.deviceId)) {
+        alert("Device got Disconnected");
+        this.setState({
+          selectedDevice : null
+        });
+      }
+    });
+
+  }
+
+  onDeviceSelected(device) {
+    HTTP.connectToDevice(device.deviceMeta.deviceId,(data) => {
+      if(data) {
+        this.setState({
+          selectedDevice : device
+        });
+      }
+    });
+  }
+
+  onDisconnectDevice() {
+    HTTP.disconnectFromDevice();
+    this.setState({
+      selectedDevice : null
+    })
   }
 
   fetchTree() {
@@ -86,11 +83,12 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <div id="app">
-        <Screen
+       const renderingComponent =  this.state.selectedDevice ? 
+         <div id="app">
+           <Screen
           highlightedNode={this.state.highlightedNode}
           screenshot={this.state.screenshot}
+          onDisconnect = {this.onDisconnectDevice.bind(this)}
           width = {this.state.width}
           sessionId = {this.state.sessionId}
           rootNode={this.state.rootNode}
@@ -111,9 +109,11 @@ class App extends React.Component {
         <Inspector
           selectedNode={this.state.selectedNode}
            />
-      </div>
-    );
+          </div>
+          : 
+          <DeviceList onDeviceSelected={this.onDeviceSelected.bind(this)}></DeviceList>
+          return renderingComponent;
   }
 }
 
-ReactDOM.render(<App />, document.body);
+ReactDOM.render(<App />, document.getElementById("app"));

@@ -1,0 +1,47 @@
+.no-device {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+}
+.device-list-container {
+    padding: 10px;
+}
+.device-list {
+    list-style-type : none;
+}
+.device-list li {
+    float: left;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e9e9e9;
+    clear: none;
+    margin: 6px;
+    padding: 4px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.device-list li blocked {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.device-img {
+    width: auto;
+    height: 90px;
+    max-width: 95%;
+    margin-top: 8px;
+    margin-bottom: 10px; 
+}
+.blocked > .device-img {
+    opacity: 0.3;
+}
+.device-desc {
+    color:#3FA9F5;
+    font-size:16px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.blocked > .device-desc {
+    color: #3FA9BD;
+}

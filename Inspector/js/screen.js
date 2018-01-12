@@ -44,6 +44,15 @@ class Screen extends React.Component {
           <button onClick={(ev) => {this.home(ev); }} >
             Home
           </button>
+          <button onClick={(ev) => {this.volumeUp(ev); }} >
+            Vol-up
+          </button>
+          <button onClick={(ev) => {this.volumeDown(ev); }} >
+            Vol-down
+          </button>
+          <button style={{float:"right"}} onClick={(ev) => {this.disconnectDevice(ev)}} >
+            Disconnect
+          </button>
         </div>
         <div className="section-content-container">
           <div className="screen-screenshot-container"
@@ -162,6 +171,25 @@ class Screen extends React.Component {
       '/wda/homescreen',
       JSON.stringify({})
     );
+  }
+
+  volumeUp(ev) {
+    HTTP.post(
+      '/wda/volumeUp',
+      JSON.stringify({})
+    );
+  }
+  volumeDown(ev) {
+    HTTP.post(
+      '/wda/volumeDown',
+      JSON.stringify({})
+    );
+  }
+
+  disconnectDevice() {
+    if(this.props.onDisconnect) {
+      this.props.onDisconnect();
+    }
   }
 
   renderScreenshot() {
