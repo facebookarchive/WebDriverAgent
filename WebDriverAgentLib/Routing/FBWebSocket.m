@@ -26,9 +26,8 @@
 #import <SocketIO/SocketIO-Swift.h>
 #import <JLRoutes/JLRoutes.h>
 #import "WebSocketScreenCasting.h"
+#import <SDVersion/SDVersion.h>
 
-static NSString *const FBServerURLBeginMarker = @"ServerURLHere->";
-static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 @interface FBSocketConnection : RoutingConnection
 @end
@@ -85,7 +84,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
 
 - (void)startWebSocket
 {
-  NSURL *serverURL = [[NSURL alloc] initWithString:@"http://localhost:8000"];
+  NSURL *serverURL = [[NSURL alloc] initWithString:@"http://172.20.52.175:8000"];
   self.manager = [[SocketManager alloc] initWithSocketURL:serverURL config:@{@"log": @NO, @"compress": @YES}];
   SocketIOClient *clientSocket = self.manager.defaultSocket;
   
@@ -126,10 +125,11 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
   [registerDict setObject:[[UIDevice currentDevice] systemVersion] forKey:@"osVersion"];
   [registerDict setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"deviceId"];
 #if TARGET_IPHONE_SIMULATOR
-  [registerDict setObject:[[[UIDevice currentDevice] model] stringByAppendingString:@" simulator"] forKey:@"deviceModel"];
+  [registerDict setObject:[[SDVersion deviceNameString] stringByAppendingString:@" simulator"] forKey:@"deviceModel"];
 #else
-  [registerDict setObject:[[UIDevice currentDevice] model] forKey:@"deviceModel"];
+  [registerDict setObject:[SDVersion deviceNameString] forKey:@"deviceModel"];
 #endif
+   NSLog(@"===%@",[SDVersion deviceNameString]);
   return registerDict;
 }
 

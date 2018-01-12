@@ -36,6 +36,8 @@
   @[
     [[FBRoute POST:@"/timeouts"] respondWithTarget:self action:@selector(handleTimeouts:)],
     [[FBRoute POST:@"/wda/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
+    [[FBRoute POST:@"/wda/volumeUp"].withoutSession respondWithTarget:self action:@selector(handleVolumeUpCommand:)],
+    [[FBRoute POST:@"/wda/volumeDown"].withoutSession respondWithTarget:self action:@selector(handleVolumeDownCommand:)],
     [[FBRoute POST:@"/wda/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/wda/keyboard/dismiss"] respondWithTarget:self action:@selector(handleDismissKeyboardCommand:)],
   ];
@@ -50,6 +52,18 @@
   if (![[XCUIDevice sharedDevice] fb_goToHomescreenWithError:&error]) {
     return FBResponseWithError(error);
   }
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleVolumeUpCommand:(FBRouteRequest *)request
+{
+  [[XCUIDevice sharedDevice] fb_increaseVolume];
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleVolumeDownCommand:(FBRouteRequest *)request
+{
+  [[XCUIDevice sharedDevice] fb_decreaseVolume];
   return FBResponseWithOK();
 }
 

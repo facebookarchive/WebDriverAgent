@@ -54,22 +54,20 @@ static XCUIScreen *mainScreen;
   return YES;
 }
 
-- (BOOL)fb_increaseVolumeWithError:(NSError **)error
+- (void)fb_increaseVolume
 {
 #if TARGET_IPHONE_SIMULATOR
 #else
   [self pressButton:XCUIDeviceButtonVolumeUp];
 #endif
-  return YES;
 }
 
-- (BOOL)fb_decreaseVolumeWithError:(NSError **)error
+- (void)fb_decreaseVolume
 {
 #if TARGET_IPHONE_SIMULATOR
 #else
   [self pressButton:XCUIDeviceButtonVolumeDown];
 #endif
-  return YES;
 }
 
 - (NSData *)fb_screenshotWithError:(NSError*__autoreleasing*)error

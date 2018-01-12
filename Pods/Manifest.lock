@@ -1,0 +1,12 @@
+PODS:
+  - SDVersion (4.3.2)
+
+DEPENDENCIES:
+  - SDVersion (= 4.3.2)
+
+SPEC CHECKSUMS:
+  SDVersion: 18f32c835c1543611fcfae3c6accd9a04b90597e
+
+PODFILE CHECKSUM: ef1cf96dc65b22bf57b08d4d51bb4f409ea9a3b2
+
+COCOAPODS: 1.3.1
