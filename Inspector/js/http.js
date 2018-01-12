@@ -7,8 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 import io from "socket.io-client";
-
-const socket = io("http://172.20.52.175:8000");
+const socket = io("http://"+IP+":8000");
 
 // Socket-Keys :
 

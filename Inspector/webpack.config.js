@@ -12,6 +12,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var ip = require("ip");
 
 function buildOutputDir() {
   return (process.env.BUILD_OUTPUT_DIR != null ? process.env.BUILD_OUTPUT_DIR : __dirname+"/dist");
@@ -48,7 +49,7 @@ module.exports = {
       template : 'index.html'
     }),
     new webpack.DefinePlugin({
-      SOCKET: JSON.stringify(process.env.SOCKET || false)
+      IP : JSON.stringify(ip.address())
     }),
     new CopyWebpackPlugin([
       { 

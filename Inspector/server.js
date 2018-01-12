@@ -1,6 +1,7 @@
 const express = require('express');
 const ab2str = require('arraybuffer-to-string')
 var app = express();
+var ip = require("ip");
 const PORT = 8000;
 app.use(express.static('./dist'))
 var server = require('http').createServer(app);
@@ -144,6 +145,6 @@ io.on(ON_SOCKET_CLEINT_CONNECT, function(client) {
 
 server.listen(PORT);
 
-console.log("Server started : http://localhost:"+PORT);
+console.log("Server started : http://"+ip.address()+":"+PORT);
 
 // Socket Example : https://github.com/socketio/socket.io/blob/master/examples/chat/index.js
