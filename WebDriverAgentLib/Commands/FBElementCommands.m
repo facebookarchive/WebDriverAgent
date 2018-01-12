@@ -35,6 +35,7 @@
 #import "FBElementTypeTransformer.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
+#import "XCEventGenerator.h"
 
 @interface FBElementCommands ()
 @end
@@ -68,7 +69,9 @@
     [[FBRoute POST:@"/wda/element/:uuid/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
     [[FBRoute POST:@"/wda/element/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
     [[FBRoute POST:@"/wda/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDragCoordinate:)],
+    [[FBRoute POST:@"/wda/dragfromtofordurationWithRapidResp"] respondWithTarget:self action:@selector(handleDragCoordinateWithRapidResp:)],
     [[FBRoute POST:@"/wda/tap/:uuid"] respondWithTarget:self action:@selector(handleTap:)],
+    [[FBRoute POST:@"/wda/tapCoordinateWithRapidResp"] respondWithTarget:self action:@selector(handleTapCoordinateWithRapidResp:)],
     [[FBRoute POST:@"/wda/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHoldCoordinate:)],
     [[FBRoute POST:@"/wda/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
     [[FBRoute POST:@"/wda/keys"] respondWithTarget:self action:@selector(handleKeys:)],
@@ -298,6 +301,53 @@
   return FBResponseWithOK();
 }
 
+/**
+ Process drag from a coordinate to another coordinate with rapid return,
+ used for some remote access and control system to get more
+ fast response compared with handleDragCoordinate function.
+ */
++ (id<FBResponsePayload>)handleDragCoordinateWithRapidResp:(FBRouteRequest *)request
+{
+  
+  FBApplication *application = request.session.application;
+  UIInterfaceOrientation orientation =application.interfaceOrientation;
+  
+  CGPoint startPoint = CGPointMake((CGFloat)[request.arguments[@"fromX"] doubleValue], (CGFloat)[request.arguments[@"fromY"] doubleValue]);
+  CGPoint endPoint = CGPointMake((CGFloat)[request.arguments[@"toX"] doubleValue], (CGFloat)[request.arguments[@"toY"] doubleValue]);
+  
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+    /*
+     Since iOS 10.0 XCTest has a bug when it always returns portrait coordinates for UI elements
+     even if the device is not in portait mode. That is why we need to recalculate them manually
+     based on the current orientation value
+     */
+    startPoint = FBInvertPointForApplication(startPoint, application.wdFrame.size, orientation);
+    endPoint = FBInvertPointForApplication(endPoint, application.wdFrame.size, orientation);
+  }
+  
+  NSTimeInterval duration = [request.arguments[@"duration"] doubleValue];
+  
+  
+  XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
+    /* if (commandError) {
+     [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
+     }
+     if (error) {
+     *error = commandError;
+     }
+     didSucceed = (commandError == nil);
+     completion();*/
+  };
+  
+  XCEventGenerator *eventGenerator = [XCEventGenerator sharedGenerator];
+  
+  [ eventGenerator pressAtPoint:startPoint forDuration:duration liftAtPoint:endPoint velocity:1000 orientation:orientation name:@"drag" handler:handlerBlock ];
+  
+  return FBResponseWithOK();
+}
+
+
+
 + (id<FBResponsePayload>)handleDrag:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
@@ -348,6 +398,55 @@
     if (![element fb_tapCoordinate:tapPoint error:&error]) {
       return FBResponseWithError(error);
     }
+  }
+  return FBResponseWithOK();
+}
+
+/**
+ Process tap a coordinate with rapid return,
+ used for some remote access and control system to get more
+ fast response compared with handleTap function.
+ */
++ (id<FBResponsePayload>)handleTapCoordinateWithRapidResp:(FBRouteRequest *)request
+{
+  
+  
+  FBApplication * application =  request.session.application;
+  UIInterfaceOrientation orientation =application.interfaceOrientation;
+  CGPoint tapPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
+  
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+    /*
+     Since iOS 10.0 XCTest has a bug when it always returns portrait coordinates for UI elements
+     even if the device is not in portait mode. That is why we need to recalculate them manually
+     based on the current orientation value
+     */
+    
+    tapPoint = FBInvertPointForApplication(tapPoint, application.wdFrame.size, orientation);
+  }
+  
+  XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
+    /* if (commandError) {
+     [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
+     }
+     if (error) {
+     *error = commandError;
+     }
+     didSucceed = (commandError == nil);
+     completion();*/
+  };
+  
+  XCEventGenerator *eventGenerator = [XCEventGenerator sharedGenerator];
+  
+  
+  if ([eventGenerator respondsToSelector:@selector(tapAtTouchLocations:numberOfTaps:orientation:handler:)]) {
+    
+    [eventGenerator tapAtTouchLocations:@[[NSValue valueWithCGPoint:tapPoint]] numberOfTaps:1 orientation:orientation handler:handlerBlock];
+ 
+  }
+  else {
+    [eventGenerator tapAtPoint:tapPoint orientation:orientation handler:handlerBlock];
+  
   }
   return FBResponseWithOK();
 }
