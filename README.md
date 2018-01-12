@@ -38,7 +38,7 @@ sh ./Scripts/start-server.sh
 Open "http://localhost:8000" : You will see the connected devices. If there is no devices, run the `WebDriverAgentRunner testRunnerSocket`.
 
 
-##Running from terminal :
+## Running from terminal :
 
 Check all available Device :
 ```
@@ -60,7 +60,7 @@ xcodebuild test -workspace WebDriverAgent.xcworkspace -scheme WebDriverAgentRunn
 NOTE: 
 Before running in device Go to the SocketIO project, put `BITCODE_GENERATION_MODE` as `marker` and `ENABLE_BITCODE` as `NO`
 
-##Run failure
+## Run failure
 
 In case the program builds but there is the following run error
 Testing failed:
