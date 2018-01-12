@@ -12,6 +12,7 @@ WebDriverAgent is a [WebDriver server](https://w3c.github.io/webdriver/webdriver
  * Unsupported yet, but works with tvOS & OSX
 
 [![Demo Video](https://i.ytimg.com/vi_webp/bGJAKXdfrgM/hqdefault.webp)](https://youtu.be/bGJAKXdfrgM)
+[Demo Video](https://www.youtube.com/watch?v=bGJAKXdfrgM)
 
 ## Getting Started
 To get the project set up just run bootstrap script:
