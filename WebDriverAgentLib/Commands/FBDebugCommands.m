@@ -40,7 +40,7 @@ static NSString *const SOURCE_FORMAT_DESCRIPTION = @"description";
 
 + (id<FBResponsePayload>)handleGetSourceCommand:(FBRouteRequest *)request
 {
-  FBApplication *application = request.session.activeApplication;
+  FBApplication *application = request.session.activeApplication ?: [FBApplication fb_activeApplication];
   NSString *sourceType = request.parameters[@"format"] ?: SOURCE_FORMAT_XML;
   id result;
   if ([sourceType caseInsensitiveCompare:SOURCE_FORMAT_XML] == NSOrderedSame) {
