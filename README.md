@@ -61,6 +61,8 @@ xcodebuild test -workspace WebDriverAgent.xcworkspace -scheme WebDriverAgentRunn
 NOTE: 
 Before running in device Go to the SocketIO project, put `BITCODE_GENERATION_MODE` as `marker` and `ENABLE_BITCODE` as `NO`
 
+Replace "localhost" in [FBWebSocket.m](https://github.com/manishPatwari/WebDriverAgent/blob/master/WebDriverAgentLib/Routing/FBWebSocket.m) with the ip address where Node server is running.
+
 ## Run failure
 
 In case the program builds but there is the following run error
