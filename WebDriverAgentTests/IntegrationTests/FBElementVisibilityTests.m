@@ -22,6 +22,9 @@
 
 - (void)testSpringBoardIcons
 {
+  if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+    return;
+  }
   [self launchApplication];
   [self goToSpringBoardFirstPage];
 
