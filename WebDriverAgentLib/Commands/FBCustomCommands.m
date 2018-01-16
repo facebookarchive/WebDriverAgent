@@ -42,6 +42,8 @@
     [[FBRoute POST:@"/wda/lock"] respondWithTarget:self action:@selector(handleLock:)],
     [[FBRoute POST:@"/wda/unlock"].withoutSession respondWithTarget:self action:@selector(handleUnlock:)],
     [[FBRoute POST:@"/wda/unlock"] respondWithTarget:self action:@selector(handleUnlock:)],
+    [[FBRoute GET:@"/wda/locked"].withoutSession respondWithTarget:self action:@selector(handleIsLocked:)],
+    [[FBRoute GET:@"/wda/locked"] respondWithTarget:self action:@selector(handleIsLocked:)],
     [[FBRoute GET:@"/wda/screen"] respondWithTarget:self action:@selector(handleGetScreen:)]
   ];
 }
@@ -108,7 +110,6 @@
                         @"height": @(statusBarSize.height),
                         },
     @"scale": @([FBScreen scale]),
-    @"locked": @([[XCUIDevice sharedDevice] fb_isScreenLocked])
     });
 }
 
@@ -119,6 +120,12 @@
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleIsLocked:(FBRouteRequest *)request
+{
+  BOOL isLocked = [XCUIDevice sharedDevice].fb_isScreenLocked;
+  return FBResponseWithStatus(FBCommandStatusNoError, isLocked ? @YES : @NO);
 }
 
 + (id<FBResponsePayload>)handleUnlock:(FBRouteRequest *)request
