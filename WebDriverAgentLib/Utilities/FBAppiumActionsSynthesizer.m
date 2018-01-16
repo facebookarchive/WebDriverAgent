@@ -34,7 +34,10 @@ static NSString *const FB_OPTION_PRESSURE = @"pressure";
 static NSString *const FB_OPTION_COUNT = @"count";
 static NSString *const FB_OPTION_MS = @"ms";
 
+// Some useful constants might be found at
+// https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/view/ViewConfiguration.java
 static const double FB_TAP_DURATION_MS = 100.0;
+static const double FB_INTERTAP_MIN_DURATION_MS = 40.0;
 static const double FB_LONG_TAP_DURATION_MS = 500.0;
 static NSString *const FB_OPTIONS_KEY = @"options";
 static NSString *const FB_ELEMENT_KEY = @"element";
@@ -153,18 +156,22 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 
 - (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
 {
+  NSTimeInterval currentOffset = FBMillisToSeconds(self.offset);
   if (index > 0) {
-    [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
-    [eventPath pressDownAtOffset:FBMillisToSeconds(self.offset)];
+    [eventPath moveToPoint:self.atPosition atOffset:currentOffset];
+    [eventPath pressDownAtOffset:currentOffset];
   }
-  [eventPath liftUpAtOffset:FBMillisToSeconds(self.offset + FB_TAP_DURATION_MS)];
+  currentOffset += FBMillisToSeconds(FB_TAP_DURATION_MS);
+  [eventPath liftUpAtOffset:currentOffset];
   
   id options = [self.actionItem objectForKey:FB_OPTIONS_KEY];
   if ([options isKindOfClass:NSDictionary.class]) {
     NSNumber *tapCount = [options objectForKey:FB_OPTION_COUNT] ?: @1;
-    for (NSInteger times = 1; times < tapCount.integerValue; times++) {
-      [eventPath pressDownAtOffset:FBMillisToSeconds(self.offset + FB_TAP_DURATION_MS * times)];
-      [eventPath liftUpAtOffset:FBMillisToSeconds(self.offset + FB_TAP_DURATION_MS * (times + 1))];
+    for (NSInteger times = 1; times < tapCount.integerValue; ++times) {
+      currentOffset += FBMillisToSeconds(FB_INTERTAP_MIN_DURATION_MS);
+      [eventPath pressDownAtOffset:currentOffset];
+      currentOffset += FBMillisToSeconds(FB_TAP_DURATION_MS);
+      [eventPath liftUpAtOffset:currentOffset];
     }
   }
   return YES;
@@ -176,7 +183,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   if ([options isKindOfClass:NSDictionary.class]) {
     tapCount = [options objectForKey:FB_OPTION_COUNT] ?: tapCount;
   }
-  return FB_TAP_DURATION_MS * tapCount.integerValue;
+  return FB_TAP_DURATION_MS * tapCount.integerValue + FB_INTERTAP_MIN_DURATION_MS * (tapCount.integerValue - 1);
 }
 
 - (BOOL)increaseDuration:(double)value

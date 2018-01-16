@@ -293,6 +293,7 @@
           @{@"type": @"pointerDown"},
           @{@"type": @"pause", @"duration": @100},
           @{@"type": @"pointerUp"},
+          @{@"type": @"pause", @"duration": @40},
           @{@"type": @"pointerDown"},
           @{@"type": @"pause", @"duration": @100},
           @{@"type": @"pointerUp"},
