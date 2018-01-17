@@ -29,16 +29,10 @@
   return nil;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
+- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
 {
   @throw [[FBErrorBuilder.builder withDescription:@"Override this method in subclasses"] build];
   return NO;
-}
-
-- (BOOL)increaseDuration:(double)value
-{
-  self.duration += value;
-  return YES;
 }
 
 - (CGPoint)fixedHitPointWith:(CGPoint)hitPoint forSnapshot:(XCElementSnapshot *)snapshot
@@ -138,7 +132,7 @@
   XCPointerEventPath *result = [[XCPointerEventPath alloc] initForTouchAtPoint:self.items.firstObject.atPosition offset:0.0];
   NSUInteger index = 0;
   for (FBBaseGestureItem *item in self.items.copy) {
-    if (![item addToEventPath:result index:index++ error:error]) {
+    if (![item addToEventPath:result index:index++ count:self.items.count error:error]) {
       return nil;
     }
   }

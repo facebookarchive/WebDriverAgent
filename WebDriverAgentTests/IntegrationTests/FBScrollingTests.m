@@ -55,7 +55,14 @@
   FBAssertInvisibleCell(@"0");
   FBAssertInvisibleCell(@"10");
   XCTAssertTrue(self.testedApplication.staticTexts.count > 0);
-  [self.scrollView fb_scrollUpByNormalizedDistance:1.0];
+  // Scroll up might sometimes be unstable
+  // (it depends on Simulator window size and the actual machine perfomance)
+  for (int retry = 0; retry < 5; ++retry) {
+    [self.scrollView fb_scrollUpByNormalizedDistance:1.0];
+    if (FBCellElementWithLabel(@"0").fb_isVisible) {
+      break;
+    }
+  }
   FBAssertVisibleCell(@"0");
   FBAssertVisibleCell(@"10");
 }

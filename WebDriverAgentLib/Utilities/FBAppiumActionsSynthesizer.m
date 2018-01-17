@@ -154,7 +154,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return YES;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
+- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
 {
   NSTimeInterval currentOffset = FBMillisToSeconds(self.offset);
   if (index > 0) {
@@ -186,11 +186,6 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return FB_TAP_DURATION_MS * tapCount.integerValue + FB_INTERTAP_MIN_DURATION_MS * (tapCount.integerValue - 1);
 }
 
-- (BOOL)increaseDuration:(double)value
-{
-  return NO;
-}
-
 @end
 
 @implementation FBPressItem
@@ -205,7 +200,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return YES;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
+- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
 {
   if (index > 0) {
     [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
@@ -240,7 +235,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return YES;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
+- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
 {
   if (index > 0) {
     [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
@@ -277,9 +272,11 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return NO;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
+- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
 {
-  [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
+  if (index == count - 1) {
+    [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
+  }
   return YES;
 }
 
@@ -304,7 +301,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return YES;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
+- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
 {
   [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
   return YES;
@@ -324,15 +321,10 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return NO;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
+- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
 {
   [eventPath liftUpAtOffset:FBMillisToSeconds(self.offset)];
   return YES;
-}
-
-- (BOOL)increaseDuration:(double)value
-{
-  return NO;
 }
 
 - (double)durationWithOptions:(nullable NSDictionary<NSString *, id> *)options
@@ -352,10 +344,6 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 - (void)addItem:(FBBaseGestureItem *)item
 {
   self.durationOffset += item.duration;
-  if ([item isKindOfClass:FBWaitItem.class] && [self.items.lastObject increaseDuration:item.duration]) {
-    // Merge wait duration to the recent action if possible
-    return;
-  }
   [self.items addObject:item];
 }
 

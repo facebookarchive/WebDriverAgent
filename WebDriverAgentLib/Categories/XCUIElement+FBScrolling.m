@@ -9,19 +9,15 @@
 
 #import "XCUIElement+FBScrolling.h"
 
-#import "FBXCTestDaemonsProxy.h"
 #import "FBErrorBuilder.h"
 #import "FBRunLoopSpinner.h"
 #import "FBLogger.h"
 #import "FBMacros.h"
 #import "FBMathUtils.h"
 #import "FBPredicate.h"
+#import "XCUIApplication+FBTouchAction.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCElementSnapshot.h"
-#import "XCEventGenerator.h"
-#import "XCPointerEventPath.h"
-#import "XCSynthesizedEventRecord.h"
-#import "XCTestDriver.h"
 #import "XCUIApplication.h"
 #import "XCUICoordinate.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -273,22 +269,47 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
     return YES;
   }
 
-  CGFloat offset = 0.3f; // Waiting before scrolling helps to make it more stable
-  double scrollingTime = MAX(fabs(vector.dx), fabs(vector.dy))/FBScrollVelocity;
-  XCPointerEventPath *touchPath = [[XCPointerEventPath alloc] initForTouchAtPoint:startCoordinate.screenPoint offset:offset];
-  offset += MAX(scrollingTime, FBMinimumTouchEventDelay); // Setting Minimum scrolling time to avoid testmanager complaining about timing
-  [touchPath moveToPoint:endCoordinate.screenPoint atOffset:offset];
-  offset += FBMinimumTouchEventDelay;
-  [touchPath liftUpAtOffset:offset];
-
-  XCSynthesizedEventRecord *event = [[XCSynthesizedEventRecord alloc] initWithName:@"FBScroll" interfaceOrientation:[FBXCTestDaemonsProxy orientationWithApplication:application]];
-  [event addPointerEventPath:touchPath];
-
-  BOOL result = [FBXCTestDaemonsProxy synthesizeEventWithRecord:event error:error];
-  // Tapping cells immediately after scrolling may fail due to way UIKit is handling touches.
-  // We should wait till scroll view cools off, before continuing
-  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBScrollCoolOffTime]];
-  return result;
+  NSTimeInterval scrollingTime = MAX(MAX(fabs(vector.dx), fabs(vector.dy)) / FBScrollVelocity, FBMinimumTouchEventDelay);
+  NSArray<NSDictionary<NSString *, id> *> *gesture =
+  @[@{
+      @"action": @"longPress",
+      @"options": @{
+          @"x": @(startCoordinate.screenPoint.x),
+          @"y": @(startCoordinate.screenPoint.y),
+          }
+      },
+    @{
+      @"action": @"wait",
+      @"options": @{
+          @"ms": @(scrollingTime * 1000),
+          }
+      },
+    @{
+      @"action": @"moveTo",
+      @"options": @{
+          @"x": @(endCoordinate.screenPoint.x),
+          @"y": @(endCoordinate.screenPoint.y),
+          }
+      },
+    @{
+      @"action": @"wait",
+      @"options": @{
+          @"ms": @(FBMinimumTouchEventDelay * 1000),
+          }
+      },
+    @{
+      @"action": @"release"
+      },
+    // Tapping cells immediately after scrolling may fail due to way UIKit is handling touches.
+    // We should wait till scroll view cools off, before continuing
+    @{
+      @"action": @"wait",
+      @"options": @{
+          @"ms": @(FBScrollCoolOffTime * 1000),
+          }
+      }
+    ];
+  return [application fb_performAppiumTouchActions:gesture elementCache:nil error:error];
 }
 
 @end

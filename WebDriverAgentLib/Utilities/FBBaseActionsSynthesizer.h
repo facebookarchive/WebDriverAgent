@@ -39,18 +39,11 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param eventPath The destination XCPointerEventPath instance
  @param index The index of the current gesture in the chain. Starts from zero
+ @param count The count of all gestures in the chain
  @param error If there is an error, upon return contains an NSError object that describes the problem
  @return YES if the gesture has been successully added to the XCPointerEventPath instance
  */
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error;
-
-/**
- Increase duration of the current gesture.
- 
- @param value The duration value to add in milliseconds
- @return YES if the gesture supports duration increment
- */
-- (BOOL)increaseDuration:(double)value;
+- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error;
 
 /**
  Returns fixed hit point coordinates for the case when XCTest fails to transform element snaapshot properly on screen rotation.

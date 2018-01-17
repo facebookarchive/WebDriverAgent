@@ -93,7 +93,10 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
     _previousItem = previousItem;
     self.duration = 0.0;
     NSNumber *durationObj = [actionItem objectForKey:FB_ACTION_ITEM_KEY_DURATION];
-    if (nil != durationObj && [self increaseDuration:[durationObj doubleValue]] && self.duration < 0.0) {
+    if (nil != durationObj) {
+      self.duration += [durationObj doubleValue];
+    }
+    if (self.duration < 0.0) {
       NSString *description = [NSString stringWithFormat:@"Duration value cannot be negative for '%@' action item", self.actionItem];
       if (error) {
         *error = [[FBErrorBuilder.builder withDescription:description] build];
@@ -177,7 +180,7 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
   return FB_ACTION_ITEM_TYPE_POINTER_DOWN;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
+- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
 {
   if (index > 0) {
     [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
@@ -188,11 +191,6 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
     [eventPath pressDownAtOffset:FBMillisToSeconds(self.offset)];
   }
   return YES;
-}
-
-- (BOOL)increaseDuration:(double)value
-{
-  return NO;
 }
 
 @end
@@ -260,7 +258,7 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
   return FB_ACTION_ITEM_TYPE_POINTER_MOVE;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
+- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
 {
   [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
   return YES;
@@ -275,9 +273,11 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
   return FB_ACTION_ITEM_TYPE_PAUSE;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
+- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
 {
-  [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
+  if (index == count - 1) {
+    [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
+  }
   return YES;
 }
 
@@ -290,15 +290,10 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
   return FB_ACTION_ITEM_TYPE_POINTER_UP;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index error:(NSError **)error
+- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
 {
   [eventPath liftUpAtOffset:FBMillisToSeconds(self.offset)];
   return YES;
-}
-
-- (BOOL)increaseDuration:(double)value
-{
-  return NO;
 }
 
 @end
@@ -313,10 +308,6 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
 - (void)addItem:(FBBaseGestureItem *)item
 {
   self.durationOffset += item.duration;
-  if ([item isKindOfClass:FBPauseItem.class] && [self.items.lastObject increaseDuration:item.duration]) {
-    // Merge wait duration to the recent action if possible
-    return;
-  }
   [self.items addObject:item];
 }
 
