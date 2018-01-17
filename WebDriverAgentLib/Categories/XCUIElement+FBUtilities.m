@@ -66,10 +66,24 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
 
 - (XCElementSnapshot *)fb_lastSnapshot
 {
-  XCElementSnapshot *snapshot=self.lastSnapshot;
-  [snapshot.application fb_resolve];
-  return snapshot;
+  [self fb_resolve];
+  return self.lastSnapshot;
 }
+
+- (void)fb_resolve
+{
+  if ([self isKindOfClass:XCUIApplication.class]) {
+    [((XCUIApplication *)self) fb_resolve];
+  }
+  else if (self.application.fb_isActivateSupported) {
+    [self.application fb_resolve];
+  }
+  else {
+    [self query];
+    [self resolve];
+  }
+}
+
 - (NSArray<XCUIElement *> *)fb_filterDescendantsWithSnapshots:(NSArray<XCElementSnapshot *> *)snapshots
 {
   if (0 == snapshots.count) {
