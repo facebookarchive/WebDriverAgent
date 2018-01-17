@@ -41,7 +41,7 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
 - (NSDictionary *)fb_tree
 {
   [self fb_waitUntilSnapshotIsStable];
-  return [self.class dictionaryForElement:self.fb_application_lastSnapshot];
+  return [self.class dictionaryForElement:self.fb_lastSnapshot];
 }
 
 - (NSDictionary *)fb_accessibilityTree
@@ -108,21 +108,19 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
   return info;
 }
 
--(void) fb_application_resolve
+-(void) fb_resolve
 {
   if (self.fb_isActivateSupported) {
-    [self activate];
+    
+    if(self.state != XCUIApplicationStateRunningForeground)
+    {
+      [self activate];
+    }
   }
-  else
-  {
+  else {
     [self query];
     [self resolve];
   }
 }
 
-- (XCElementSnapshot *)fb_application_lastSnapshot
-{
-  [self fb_application_resolve];
-  return self.lastSnapshot;
-}
 @end

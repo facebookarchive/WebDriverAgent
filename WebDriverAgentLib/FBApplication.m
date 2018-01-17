@@ -42,8 +42,7 @@
   }
   FBApplication *application = [FBApplication fb_applicationWithPID:activeApplicationElement.processIdentifier];
   NSAssert(nil != application, @"Active application instance is not expected to be equal to nil", nil);
-  
-  [application fb_application_resolve];
+  [application fb_resolve];
   return application;
 }
 

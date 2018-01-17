@@ -21,6 +21,7 @@
 #import "XCAXClient_iOS.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "XCUIScreen.h"
+#import "XCElementSnapshot+FBHelpers.h"
 
 @implementation XCUIElement (FBUtilities)
 
@@ -65,11 +66,10 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
 
 - (XCElementSnapshot *)fb_lastSnapshot
 {
-  [self query];
-  [self resolve];
-  return self.lastSnapshot;
+  XCElementSnapshot *snapshot=self.lastSnapshot;
+  [snapshot.application fb_resolve];
+  return snapshot;
 }
-
 - (NSArray<XCUIElement *> *)fb_filterDescendantsWithSnapshots:(NSArray<XCElementSnapshot *> *)snapshots
 {
   if (0 == snapshots.count) {
