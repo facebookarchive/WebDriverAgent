@@ -110,11 +110,12 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
 
 -(void) fb_resolve
 {
-  if (self.fb_isActivateSupported) {
-    if(self.state != XCUIApplicationStateRunningForeground) {
-      [self activate];
+  @try {
+    if(self.fb_state != XCUIApplicationStateRunningForeground) {
+      [self fb_activate];
     }
-  } else {
+  }
+  @catch (NSException *) {
     [self query];
     [self resolve];
   }
