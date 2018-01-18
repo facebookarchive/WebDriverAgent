@@ -74,21 +74,27 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
   CGRect parentFrame = parent.frame;
   CGRect intersectionWithParent = CGRectIntersection(currentRectangle, parent.frame);
   if (CGRectIsEmpty(intersectionWithParent) && parent != container) {
-    CGSize containerSize = container.frame.size;
-    if ((CGSizeEqualToSize(parentFrame.size, containerSize) ||
-         // The size might be inverted in landscape
-         CGSizeEqualToSize(parentFrame.size, CGSizeMake(containerSize.height, containerSize.width))) &&
-        parent.elementType == XCUIElementTypeOther) {
-      // Special case (or XCTest bug). We need to shift the origin
-      currentRectangle.origin.x += parentFrame.origin.x;
-      currentRectangle.origin.y += parentFrame.origin.y;
-      intersectionWithParent = CGRectIntersection(currentRectangle, parentFrame);
-    }
     if (CGSizeEqualToSize(parentFrame.size, CGSizeZero) &&
         CGPointEqualToPoint(parentFrame.origin, CGPointZero) &&
         parent.elementType == XCUIElementTypeOther) {
       // Special case (or XCTest bug). Skip such parent
       intersectionWithParent = currentRectangle;
+    } else {
+      CGSize containerSize = container.frame.size;
+      CGRect selfFrame = self.frame;
+      if (CGPointEqualToPoint(selfFrame.origin, CGPointZero) &&
+          !CGSizeEqualToSize(selfFrame.size, CGSizeZero) &&
+          !CGPointEqualToPoint(parentFrame.origin, CGPointZero) &&
+          (CGSizeEqualToSize(parentFrame.size, containerSize) ||
+           // The size might be inverted in landscape
+           CGSizeEqualToSize(parentFrame.size, CGSizeMake(containerSize.height, containerSize.width))) &&
+          self.elementType == XCUIElementTypeOther &&
+          parent.elementType == XCUIElementTypeOther) {
+        // Special case (or XCTest bug). Shift the origin
+        currentRectangle.origin.x += parentFrame.origin.x;
+        currentRectangle.origin.y += parentFrame.origin.y;
+        intersectionWithParent = CGRectIntersection(currentRectangle, parentFrame);
+      }
     }
   }
   if (CGRectIsEmpty(intersectionWithParent) || parent == container) {
