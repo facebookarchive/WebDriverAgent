@@ -72,9 +72,7 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
 
 - (void)fb_resolve
 {
-  if ([self isKindOfClass:XCUIApplication.class]) {
-    [((XCUIApplication *)self) fb_resolve];
-  } else if (self.application.fb_isActivateSupported) {
+  if (self.application.fb_isActivateSupported) {
     [self.application fb_resolve];
   } else {
     [self query];
