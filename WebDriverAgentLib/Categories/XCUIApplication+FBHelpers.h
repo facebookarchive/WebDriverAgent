@@ -34,6 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSDictionary *)fb_accessibilityTree;
 
+/**
+ Makes sure the application is active and in the foreground
+ **/
+-(void) fb_resolve;
+
 @end
 
 NS_ASSUME_NONNULL_END

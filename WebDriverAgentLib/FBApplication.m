@@ -20,6 +20,7 @@
 #import "XCUIApplicationProcess.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
+#import "FBRuntimeUtils.h"
 
 @interface FBApplication ()
 @property (nonatomic, assign) BOOL fb_isObservingAppImplCurrentProcess;
@@ -41,8 +42,7 @@
   }
   FBApplication *application = [FBApplication fb_applicationWithPID:activeApplicationElement.processIdentifier];
   NSAssert(nil != application, @"Active application instance is not expected to be equal to nil", nil);
-  [application query];
-  [application resolve];
+  [application fb_resolve];
   return application;
 }
 
