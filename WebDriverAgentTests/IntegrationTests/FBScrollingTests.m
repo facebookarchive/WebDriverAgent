@@ -12,6 +12,7 @@
 #import "FBIntegrationTestCase.h"
 #import "FBTestMacros.h"
 
+#import "FBMacros.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBScrolling.h"
 

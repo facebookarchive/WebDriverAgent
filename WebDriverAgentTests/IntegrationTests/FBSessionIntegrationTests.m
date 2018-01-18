@@ -15,6 +15,7 @@
 #import "FBSession.h"
 #import "FBSpringboardApplication.h"
 #import "FBXCodeCompatibility.h"
+#import "FBTestMacros.h"
 
 @interface FBSessionIntegrationTests : FBIntegrationTestCase
 @property (nonatomic) FBSession *session;
@@ -54,8 +55,9 @@ static NSString *const SETTINGS_BUNDLE_ID = @"com.apple.Preferences";
     return;
   }
   [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID arguments:nil environment:nil];
+  FBAssertWaitTillBecomesTrue([SETTINGS_BUNDLE_ID isEqualToString:self.session.activeApplication.bundleID]);
   XCTAssertTrue([self.session terminateApplicationWithBundleId:SETTINGS_BUNDLE_ID]);
-  XCTAssertEqualObjects(SPRINGBOARD_BUNDLE_ID, self.session.activeApplication.bundleID);
+  FBAssertWaitTillBecomesTrue([SPRINGBOARD_BUNDLE_ID isEqualToString:self.session.activeApplication.bundleID]);
   [self.session launchApplicationWithBundleId:SETTINGS_BUNDLE_ID arguments:nil environment:nil];
   XCTAssertEqualObjects(SETTINGS_BUNDLE_ID, self.session.activeApplication.bundleID);
 }

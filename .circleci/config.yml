@@ -1,0 +1,317 @@
+version: 2
+
+jobs:
+  builds:
+    macos:
+      xcode: "9.1.0"
+    steps:
+      - checkout
+      - run:
+          name: Build Sim
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: build
+            TARGET: runner
+            SDK: sim
+      - run:
+          name: Build Device
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: build
+            TARGET: runner
+            SDK: device
+  analyze:
+    macos:
+      xcode: "9.1.0"
+    steps:
+      - checkout
+      - run:
+          name: Analyze Lib
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: analyze
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: Analyze Runner
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: analyze
+            TARGET: runner
+            SDK: sim
+  unit_tests_9_1:
+    macos:
+      xcode: "9.1.0"
+    steps:
+      - checkout
+      - run:
+          name: Unit Tests iPhone
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: unit_test
+            DEST: iphone
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: Unit Tests iPad
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: unit_test
+            DEST: ipad
+            TARGET: lib
+            SDK: sim
+  unit_tests_9_0:
+    macos:
+      xcode: "9.0"
+    steps:
+      - checkout
+      - run:
+          name: Unit Tests iPhone
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: unit_test
+            DEST: iphone
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: Unit Tests iPad
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: unit_test
+            DEST: ipad
+            TARGET: lib
+            SDK: sim
+  unit_tests_8_3:
+    macos:
+      xcode: "8.3.3"
+    steps:
+      - checkout
+      - run:
+          name: Install node@7
+          command: |
+            set +e
+            touch $BASH_ENV
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
+            echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
+            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
+            echo 'nvm install v7' >> $BASH_ENV
+            echo 'nvm alias default v7' >> $BASH_ENV
+      - run:
+          name: Unit Tests iPhone
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: unit_test
+            DEST: iphone
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: Unit Tests iPad
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: unit_test
+            DEST: ipad
+            TARGET: lib
+            SDK: sim
+  integration_tests_9_1:
+    macos:
+      xcode: "9.1.0"
+    steps:
+      - checkout
+      - run:
+          name: iPhone 1
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_1
+            DEST: iphone
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPhone 2
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_2
+            DEST: iphone
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPhone 3
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_3
+            DEST: iphone
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPad 1
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_1
+            DEST: ipad
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPad 2
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_2
+            DEST: ipad
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPad 3
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_3
+            DEST: ipad
+            TARGET: lib
+            SDK: sim
+  integration_tests_9_0:
+    macos:
+      xcode: "9.0"
+    steps:
+      - checkout
+      - run:
+          name: iPhone 1
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_1
+            DEST: iphone
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPhone 2
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_2
+            DEST: iphone
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPhone 3
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_3
+            DEST: iphone
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPad 1
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_1
+            DEST: ipad
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPad 2
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_2
+            DEST: ipad
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPad 3
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_3
+            DEST: ipad
+            TARGET: lib
+            SDK: sim
+  integration_tests_8_3:
+    macos:
+      xcode: "8.3.3"
+    steps:
+      - checkout
+      - run:
+          name: Install node@7
+          command: |
+            set +e
+            touch $BASH_ENV
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
+            echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
+            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
+            echo 'nvm install v7' >> $BASH_ENV
+            echo 'nvm alias default v7' >> $BASH_ENV
+      - run:
+          name: iPhone 1
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_1
+            DEST: iphone
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPhone 2
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_2
+            DEST: iphone
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPhone 3
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_3
+            DEST: iphone
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPad 1
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_1
+            DEST: ipad
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPad 2
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_2
+            DEST: ipad
+            TARGET: lib
+            SDK: sim
+      - run:
+          name: iPad 3
+          command: ./Scripts/build.sh
+          environment:
+            ACTION: int_test_3
+            DEST: ipad
+            TARGET: lib
+            SDK: sim
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - builds
+      - analyze
+      - unit_tests_9_1:
+          requires:
+              - builds
+              - analyze
+      - unit_tests_9_0:
+          requires:
+              - builds
+              - analyze
+      - unit_tests_8_3:
+          requires:
+              - builds
+              - analyze
+      - integration_tests_9_1:
+          requires:
+              - unit_tests_9_1
+              - unit_tests_9_0
+              - unit_tests_8_3
+      - integration_tests_9_0:
+          requires:
+              - unit_tests_9_1
+              - unit_tests_9_0
+              - unit_tests_8_3
+      - integration_tests_8_3:
+          requires:
+              - unit_tests_9_1
+              - unit_tests_9_0
+              - unit_tests_8_3
