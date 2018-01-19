@@ -61,7 +61,10 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
   if (isVisible && nil != ancestors) {
     // if an element is visible then all its ancestors must be visible as well
     for (XCElementSnapshot *ancestor in ancestors) {
-      [destination setObject:visibleObj forKey:[NSString stringWithFormat:@"%p", (void *)ancestor]];
+      NSString *ancestorId = [NSString stringWithFormat:@"%p", (void *)ancestor];
+      if (nil == [destination objectForKey:ancestorId]) {
+        [destination setObject:visibleObj forKey:ancestorId];
+      }
     }
   }
   return isVisible;
@@ -72,7 +75,7 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
   CGRect currentRectangle = nil == intersectionRectange ? self.frame : [intersectionRectange CGRectValue];
   XCElementSnapshot *parent = self.parent;
   CGRect parentFrame = parent.frame;
-  CGRect intersectionWithParent = CGRectIntersection(currentRectangle, parent.frame);
+  CGRect intersectionWithParent = CGRectIntersection(currentRectangle, parentFrame);
   if (CGRectIsEmpty(intersectionWithParent) && parent != container) {
     if (CGSizeEqualToSize(parentFrame.size, CGSizeZero) &&
         CGPointEqualToPoint(parentFrame.origin, CGPointZero) &&
@@ -135,8 +138,8 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
     return [cachedValue boolValue];
   }
   
-  CGRect frame = self.frame;
-  if (CGRectIsEmpty(frame)) {
+  CGRect selfFrame = self.frame;
+  if (CGRectIsEmpty(selfFrame)) {
     return [self fb_cacheVisibilityWithValue:NO forAncestors:nil];
   }
   
@@ -146,47 +149,50 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
   }
   
   XCElementSnapshot *parentWindow = nil;
-  NSMutableArray<XCElementSnapshot *> *ancestorsUntilWindow = [NSMutableArray array];
+  NSMutableArray<XCElementSnapshot *> *ancestors = [NSMutableArray array];
   XCElementSnapshot *parent = self.parent;
   while (parent) {
-    XCUIElementType type = parent.elementType;
-    if (type == XCUIElementTypeWindow) {
+    if (parent.elementType == XCUIElementTypeWindow) {
       parentWindow = parent;
-      break;
     }
-    [ancestorsUntilWindow addObject:parent];
+    [ancestors addObject:parent];
     parent = parent.parent;
-  }
-  if (nil == parentWindow) {
-    [ancestorsUntilWindow removeAllObjects];
   }
   
   CGRect appFrame = [self fb_rootElement].frame;
-  CGRect rectInContainer = nil == parentWindow ? self.frame : [self fb_frameInContainer:parentWindow hierarchyIntersection:nil];
+  CGRect rectInContainer = nil == parentWindow ? selfFrame : [self fb_frameInContainer:parentWindow hierarchyIntersection:nil];
   if (CGRectIsEmpty(rectInContainer)) {
-    return [self fb_cacheVisibilityWithValue:NO forAncestors:ancestorsUntilWindow];
-  }
-  BOOL hasChilren = self.children.count > 0;
-  if (hasChilren && self.fb_hasAnyVisibleLeafs) {
-    return [self fb_cacheVisibilityWithValue:YES forAncestors:ancestorsUntilWindow];
+    return [self fb_cacheVisibilityWithValue:NO forAncestors:ancestors.copy];
   }
   CGPoint midPoint = CGPointMake(rectInContainer.origin.x + rectInContainer.size.width / 2,
                                  rectInContainer.origin.y + rectInContainer.size.height / 2);
-  CGRect parentWindowFrame = parentWindow.frame;
-  if ((appFrame.size.height > appFrame.size.width && parentWindowFrame.size.height < parentWindowFrame.size.width) ||
-      (appFrame.size.height < appFrame.size.width && parentWindowFrame.size.height > parentWindowFrame.size.width)) {
+  CGRect windowFrame = nil == parentWindow ? selfFrame : parentWindow.frame;
+  if ((appFrame.size.height > appFrame.size.width && windowFrame.size.height < windowFrame.size.width) ||
+      (appFrame.size.height < appFrame.size.width && windowFrame.size.height > windowFrame.size.width)) {
     // This is the indication of the fact that transformation is broken and coordinates should be
     // recalculated manually.
     // However, upside-down case cannot be covered this way, which is not important for Appium
     midPoint = FBInvertPointForApplication(midPoint, appFrame.size, FBApplication.fb_activeApplication.interfaceOrientation);
   }
   XCElementSnapshot *hitElement = [self hitTest:midPoint];
-  if (nil == hitElement || self == hitElement || [ancestorsUntilWindow containsObject:hitElement] ||
-      (hasChilren && [self._allDescendants containsObject:hitElement])) {
-    return [self fb_cacheVisibilityWithValue:YES forAncestors:ancestorsUntilWindow];
+  if (nil != hitElement && (self == hitElement || [ancestors containsObject:hitElement])) {
+    return [self fb_cacheVisibilityWithValue:YES forAncestors:ancestors.copy];
   }
-  return [self fb_cacheVisibilityWithValue:NO forAncestors:ancestorsUntilWindow];
+  if (self.children.count > 0) {
+    if (nil != hitElement && [hitElement _isDescendantOfElement:self]) {
+      NSMutableArray<XCElementSnapshot *> *hitElementAncestors = [NSMutableArray array];
+      XCElementSnapshot *hitElementAncestor = hitElement.parent;
+      while (hitElementAncestor) {
+        [hitElementAncestors addObject:hitElementAncestor];
+        hitElementAncestor = hitElementAncestor.parent;
+      }
+      return [hitElement fb_cacheVisibilityWithValue:YES forAncestors:hitElementAncestors.copy];
+    }
+    if (self.fb_hasAnyVisibleLeafs) {
+      return [self fb_cacheVisibilityWithValue:YES forAncestors:ancestors.copy];
+    }
+  }
+  return [self fb_cacheVisibilityWithValue:NO forAncestors:ancestors.copy];
 }
 
 @end
-
