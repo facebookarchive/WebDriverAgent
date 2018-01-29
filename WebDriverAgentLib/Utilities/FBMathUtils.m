@@ -9,6 +9,8 @@
 
 #import "FBMathUtils.h"
 
+#import "FBMacros.h"
+
 CGFloat FBDefaultFrameFuzzyThreshold = 2.0;
 
 CGPoint FBRectGetCenter(CGRect rect)
@@ -87,7 +89,10 @@ NSData *FBAdjustScreenshotOrientationForApplication(NSData *screenshotData, UIIn
 {
   UIImage *image = [UIImage imageWithData:screenshotData];
   UIImageOrientation imageOrientation;
-  if (orientation == UIInterfaceOrientationLandscapeRight) {
+  if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+    // In iOS < 11.0 screenshots are already adjusted properly
+    imageOrientation = UIImageOrientationUp;
+  } else if (orientation == UIInterfaceOrientationLandscapeRight) {
     imageOrientation = UIImageOrientationLeft;
   } else if (orientation == UIInterfaceOrientationLandscapeLeft) {
     imageOrientation = UIImageOrientationRight;
