@@ -306,7 +306,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     }
     if ([root isKindOfClass:XCUIApplication.class]) {
       NSMutableArray<XCElementSnapshot *> *windowsSnapshots = [NSMutableArray array];
-      NSArray<XCUIElement *> *windows = [((XCUIElement *)root) childrenMatchingType:XCUIElementTypeWindow].allElementsBoundByIndex;
+      NSArray<XCUIElement *> *windows = [((XCUIElement *)root) childrenMatchingType:XCUIElementTypeAny].allElementsBoundByIndex;
       for (XCUIElement *window in windows) {
         [windowsSnapshots addObject:window.fb_lastSnapshot];
       }

@@ -91,6 +91,17 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
     return cellSnapshots;
 }
 
+- (NSArray<XCElementSnapshot *> *)fb_ancestors
+{
+  NSMutableArray<XCElementSnapshot *> *ancestors = [NSMutableArray array];
+  XCElementSnapshot *parent = self.parent;
+  while (parent) {
+    [ancestors addObject:parent];
+    parent = parent.parent;
+  }
+  return ancestors.copy;
+}
+
 - (XCElementSnapshot *)fb_parentCellSnapshot
 {
     XCElementSnapshot *targetCellSnapshot = self;

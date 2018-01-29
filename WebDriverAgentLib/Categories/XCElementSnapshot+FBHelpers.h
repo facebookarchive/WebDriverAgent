@@ -58,6 +58,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable XCElementSnapshot *)fb_parentMatchingOneOfTypes:(NSArray<NSNumber *> *)types filter:(BOOL(^)(XCElementSnapshot *snapshot))filter;
 
 /**
+ Retrieves the list of all element ancestors in the snapshot hierarchy.
+ 
+ @return the list of element ancestors or an empty list if the snapshot has no parent.
+ */
+- (NSArray<XCElementSnapshot *> *)fb_ancestors;
+
+/**
  Returns value for given accessibility property identifier.
 
  @param attribute attribute's accessibility identifier

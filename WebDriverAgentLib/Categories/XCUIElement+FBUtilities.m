@@ -155,13 +155,25 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   UIInterfaceOrientation orientation = self.application.interfaceOrientation;
   if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
     // Workaround XCTest bug when element frame is returned as in portrait mode even if the screenshot is rotated
-    XCElementSnapshot *parentWindow = [self.fb_lastSnapshot fb_parentMatchingType:XCUIElementTypeWindow];
-    CGRect appFrame = self.application.frame;
-    if (CGRectEqualToRect(appFrame, nil == parentWindow ? elementRect : parentWindow.frame)) {
-      CGPoint fixedOrigin = orientation == UIInterfaceOrientationLandscapeLeft ?
-        CGPointMake(appFrame.size.height - elementRect.origin.y - elementRect.size.height, elementRect.origin.x) :
-        CGPointMake(elementRect.origin.y, appFrame.size.width - elementRect.origin.x - elementRect.size.width);
-      elementRect = CGRectMake(fixedOrigin.x, fixedOrigin.y, elementRect.size.height, elementRect.size.width);
+    XCElementSnapshot *selfSnapshot = self.fb_lastSnapshot;
+    NSArray<XCElementSnapshot *> *ancestors = selfSnapshot.fb_ancestors;
+    XCElementSnapshot *parentWindow = nil;
+    if (1 == ancestors.count) {
+      parentWindow = selfSnapshot;
+    } else if (ancestors.count > 1) {
+      parentWindow = [ancestors objectAtIndex:ancestors.count - 2];
+    }
+    if (nil != parentWindow) {
+      CGRect appFrame = ancestors.lastObject.frame;
+      CGRect parentWindowFrame = parentWindow.frame;
+      if (CGRectEqualToRect(appFrame, parentWindowFrame)
+          || (appFrame.size.width > appFrame.size.height && parentWindowFrame.size.width > parentWindowFrame.size.height)
+          || (appFrame.size.width < appFrame.size.height && parentWindowFrame.size.width < parentWindowFrame.size.height)) {
+        CGPoint fixedOrigin = orientation == UIInterfaceOrientationLandscapeLeft ?
+          CGPointMake(appFrame.size.height - elementRect.origin.y - elementRect.size.height, elementRect.origin.x) :
+          CGPointMake(elementRect.origin.y, appFrame.size.width - elementRect.origin.x - elementRect.size.width);
+        elementRect = CGRectMake(fixedOrigin.x, fixedOrigin.y, elementRect.size.height, elementRect.size.width);
+      }
     }
   }
   [invocation setArgument:&elementRect atIndex:3];

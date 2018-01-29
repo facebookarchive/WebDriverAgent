@@ -108,11 +108,12 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
 
 - (CGRect)fb_frameInWindow
 {
-  XCElementSnapshot *parentWindow = [self fb_parentMatchingType:XCUIElementTypeWindow];
-  if (nil != parentWindow) {
-    return [self fb_frameInContainer:parentWindow hierarchyIntersection:nil];
+  NSArray<XCElementSnapshot *> *ancestors = self.fb_ancestors;
+  XCElementSnapshot *parentWindow = ancestors.count > 1 ? [ancestors objectAtIndex:ancestors.count - 2] : nil;
+  if (nil == parentWindow) {
+    return self.frame;
   }
-  return self.frame;
+  return [self fb_frameInContainer:parentWindow hierarchyIntersection:nil];
 }
 
 - (BOOL)fb_hasAnyVisibleLeafs
@@ -148,21 +149,14 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
     return [self fb_cacheVisibilityWithValue:isVisible forAncestors:nil];
   }
   
-  XCElementSnapshot *parentWindow = nil;
-  NSMutableArray<XCElementSnapshot *> *ancestors = [NSMutableArray array];
-  XCElementSnapshot *parent = self.parent;
-  while (parent) {
-    if (parent.elementType == XCUIElementTypeWindow) {
-      parentWindow = parent;
-    }
-    [ancestors addObject:parent];
-    parent = parent.parent;
-  }
+  NSArray<XCElementSnapshot *> *ancestors = self.fb_ancestors;
+  XCElementSnapshot *parentWindow = ancestors.count > 1 ? [ancestors objectAtIndex:ancestors.count - 2] : nil;
+  XCElementSnapshot *appElement = ancestors.count > 0 ? [ancestors lastObject] : self;
   
-  CGRect appFrame = [self fb_rootElement].frame;
+  CGRect appFrame = appElement.frame;
   CGRect rectInContainer = nil == parentWindow ? selfFrame : [self fb_frameInContainer:parentWindow hierarchyIntersection:nil];
   if (CGRectIsEmpty(rectInContainer)) {
-    return [self fb_cacheVisibilityWithValue:NO forAncestors:ancestors.copy];
+    return [self fb_cacheVisibilityWithValue:NO forAncestors:ancestors];
   }
   CGPoint midPoint = CGPointMake(rectInContainer.origin.x + rectInContainer.size.width / 2,
                                  rectInContainer.origin.y + rectInContainer.size.height / 2);
@@ -176,23 +170,21 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
   }
   XCElementSnapshot *hitElement = [self hitTest:midPoint];
   if (nil != hitElement && (self == hitElement || [ancestors containsObject:hitElement])) {
-    return [self fb_cacheVisibilityWithValue:YES forAncestors:ancestors.copy];
+    return [self fb_cacheVisibilityWithValue:YES forAncestors:ancestors];
   }
   if (self.children.count > 0) {
-    if (nil != hitElement && [hitElement _isDescendantOfElement:self]) {
-      NSMutableArray<XCElementSnapshot *> *hitElementAncestors = [NSMutableArray array];
-      XCElementSnapshot *hitElementAncestor = hitElement.parent;
-      while (hitElementAncestor) {
-        [hitElementAncestors addObject:hitElementAncestor];
-        hitElementAncestor = hitElementAncestor.parent;
-      }
-      return [hitElement fb_cacheVisibilityWithValue:YES forAncestors:hitElementAncestors.copy];
+    if (nil != hitElement && [self._allDescendants containsObject:hitElement]) {
+      return [hitElement fb_cacheVisibilityWithValue:YES forAncestors:hitElement.fb_ancestors];
     }
     if (self.fb_hasAnyVisibleLeafs) {
-      return [self fb_cacheVisibilityWithValue:YES forAncestors:ancestors.copy];
+      return [self fb_cacheVisibilityWithValue:YES forAncestors:ancestors];
     }
+  } else if (nil == hitElement) {
+    // Sometimes XCTest returns nil for leaf elements hit test even if such elements are hittable
+    // Assume such elements are visible if their rectInContainer is visible
+    return [self fb_cacheVisibilityWithValue:YES forAncestors:ancestors];
   }
-  return [self fb_cacheVisibilityWithValue:NO forAncestors:ancestors.copy];
+  return [self fb_cacheVisibilityWithValue:NO forAncestors:ancestors];
 }
 
 @end
