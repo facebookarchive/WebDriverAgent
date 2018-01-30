@@ -235,8 +235,7 @@
       @"options": @{
           @"x": @(elementFrame.origin.x + 1),
           @"y": @(elementFrame.origin.y + 1),
-          @"duration": @5,
-          @"pressure": @0.1
+          @"duration": @5
           }
       },
     @{

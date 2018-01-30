@@ -30,7 +30,6 @@ static NSString *const FB_ACTION_CANCEL = @"cancel";
 static NSString *const FB_ACTION_WAIT = @"wait";
 
 static NSString *const FB_OPTION_DURATION = @"duration";
-static NSString *const FB_OPTION_PRESSURE = @"pressure";
 static NSString *const FB_OPTION_COUNT = @"count";
 static NSString *const FB_OPTION_MS = @"ms";
 
@@ -154,27 +153,27 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return YES;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
+- (NSArray<XCPointerEventPath *> *)addToEventPath:(XCPointerEventPath *)eventPath allItems:(NSArray<FBBaseGestureItem *> *)allItems currentItemIndex:(NSUInteger)currentItemIndex error:(NSError **)error
 {
   NSTimeInterval currentOffset = FBMillisToSeconds(self.offset);
-  if (index > 0) {
-    [eventPath moveToPoint:self.atPosition atOffset:currentOffset];
-    [eventPath pressDownAtOffset:currentOffset];
-  }
+  NSMutableArray<XCPointerEventPath *> *result = [NSMutableArray array];
+  XCPointerEventPath *currentPath = [[XCPointerEventPath alloc] initForTouchAtPoint:self.atPosition offset:currentOffset];
+  [result addObject:currentPath];
   currentOffset += FBMillisToSeconds(FB_TAP_DURATION_MS);
-  [eventPath liftUpAtOffset:currentOffset];
+  [currentPath liftUpAtOffset:currentOffset];
   
   id options = [self.actionItem objectForKey:FB_OPTIONS_KEY];
   if ([options isKindOfClass:NSDictionary.class]) {
     NSNumber *tapCount = [options objectForKey:FB_OPTION_COUNT] ?: @1;
     for (NSInteger times = 1; times < tapCount.integerValue; ++times) {
       currentOffset += FBMillisToSeconds(FB_INTERTAP_MIN_DURATION_MS);
-      [eventPath pressDownAtOffset:currentOffset];
+      XCPointerEventPath *nextPath = [[XCPointerEventPath alloc] initForTouchAtPoint:self.atPosition offset:currentOffset];
+      [result addObject:nextPath];
       currentOffset += FBMillisToSeconds(FB_TAP_DURATION_MS);
-      [eventPath liftUpAtOffset:currentOffset];
+      [nextPath liftUpAtOffset:currentOffset];
     }
   }
-  return YES;
+  return result.copy;
 }
 
 - (double)durationWithOptions:(nullable NSDictionary<NSString *, id> *)options
@@ -200,20 +199,9 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return YES;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
+- (NSArray<XCPointerEventPath *> *)addToEventPath:(XCPointerEventPath *)eventPath allItems:(NSArray<FBBaseGestureItem *> *)allItems currentItemIndex:(NSUInteger)currentItemIndex error:(NSError **)error
 {
-  if (index > 0) {
-    [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
-  }
-  
-  id options = [self.actionItem objectForKey:FB_OPTIONS_KEY];
-  NSNumber *pressure = [options isKindOfClass:NSDictionary.class] ? [options objectForKey:FB_OPTION_PRESSURE] : nil;
-  if (nil == pressure) {
-    [eventPath pressDownAtOffset:FBMillisToSeconds(self.offset)];
-  } else {
-    [eventPath pressDownWithPressure:pressure.doubleValue atOffset:FBMillisToSeconds(self.offset)];
-  }
-  return YES;
+  return @[[[XCPointerEventPath alloc] initForTouchAtPoint:self.atPosition offset:FBMillisToSeconds(self.offset)]];
 }
 
 - (double)durationWithOptions:(nullable NSDictionary<NSString *, id> *)options
@@ -235,20 +223,9 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return YES;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
+- (NSArray<XCPointerEventPath *> *)addToEventPath:(XCPointerEventPath *)eventPath allItems:(NSArray<FBBaseGestureItem *> *)allItems currentItemIndex:(NSUInteger)currentItemIndex error:(NSError **)error
 {
-  if (index > 0) {
-    [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
-  }
-  
-  id options = [self.actionItem objectForKey:FB_OPTIONS_KEY];
-  NSNumber *pressure = [options isKindOfClass:NSDictionary.class] ? [options objectForKey:FB_OPTION_PRESSURE] : nil;
-  if (nil == pressure) {
-    [eventPath pressDownAtOffset:FBMillisToSeconds(self.offset)];
-  } else {
-    [eventPath pressDownWithPressure:pressure.doubleValue atOffset:FBMillisToSeconds(self.offset)];
-  }
-  return YES;
+  return @[[[XCPointerEventPath alloc] initForTouchAtPoint:self.atPosition offset:FBMillisToSeconds(self.offset)]];
 }
 
 - (double)durationWithOptions:(nullable NSDictionary<NSString *, id> *)options
@@ -272,12 +249,23 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return NO;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
+- (NSArray<XCPointerEventPath *> *)addToEventPath:(XCPointerEventPath *)eventPath allItems:(NSArray<FBBaseGestureItem *> *)allItems currentItemIndex:(NSUInteger)currentItemIndex error:(NSError **)error
 {
-  if (index == count - 1) {
-    [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
+  if (nil != eventPath) {
+    if (0 == currentItemIndex) {
+      return @[eventPath];
+    }
+    FBBaseGestureItem *preceedingItem = [allItems objectAtIndex:currentItemIndex - 1];
+    if (![preceedingItem isKindOfClass:FBReleaseItem.class] && currentItemIndex < allItems.count - 1) {
+      return @[eventPath];
+    }
   }
-  return YES;
+  NSTimeInterval currentOffset = FBMillisToSeconds(self.offset + self.duration);
+  XCPointerEventPath *result = [[XCPointerEventPath alloc] initForTouchAtPoint:self.atPosition offset:currentOffset];
+  if (currentItemIndex == allItems.count - 1) {
+    [result liftUpAtOffset:currentOffset];
+  }
+  return @[result];
 }
 
 - (double)durationWithOptions:(nullable NSDictionary<NSString *, id> *)options
@@ -301,10 +289,10 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return YES;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
+- (NSArray<XCPointerEventPath *> *)addToEventPath:(XCPointerEventPath *)eventPath allItems:(NSArray<FBBaseGestureItem *> *)allItems currentItemIndex:(NSUInteger)currentItemIndex error:(NSError **)error
 {
   [eventPath moveToPoint:self.atPosition atOffset:FBMillisToSeconds(self.offset)];
-  return YES;
+  return @[eventPath];
 }
 
 @end
@@ -321,10 +309,10 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return NO;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
+- (NSArray<XCPointerEventPath *> *)addToEventPath:(XCPointerEventPath *)eventPath allItems:(NSArray<FBBaseGestureItem *> *)allItems currentItemIndex:(NSUInteger)currentItemIndex error:(NSError **)error
 {
   [eventPath liftUpAtOffset:FBMillisToSeconds(self.offset)];
-  return YES;
+  return @[eventPath];
 }
 
 - (double)durationWithOptions:(nullable NSDictionary<NSString *, id> *)options
@@ -396,7 +384,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
   return [[result reverseObjectEnumerator] allObjects];
 }
 
-- (nullable XCPointerEventPath *)eventPathWithAction:(NSArray<NSDictionary<NSString *, id> *> *)action error:(NSError **)error
+- (nullable NSArray<XCPointerEventPath *> *)eventPathsWithAction:(NSArray<NSDictionary<NSString *, id> *> *)action error:(NSError **)error
 {
   static NSDictionary<NSString *, Class> *gestureItemsMapping;
   static dispatch_once_t onceToken;
@@ -456,7 +444,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
     [chain addItem:gestureItem];
   }
   
-  return [chain asEventPathWithError:error];
+  return [chain asEventPathsWithError:error];
 }
 
 - (nullable XCSynthesizedEventRecord *)synthesizeWithError:(NSError **)error
@@ -468,11 +456,13 @@ static NSString *const FB_ELEMENT_KEY = @"element";
                  interfaceOrientation:[FBXCTestDaemonsProxy orientationWithApplication:self.application]];
   for (NSArray<NSDictionary<NSString *, id> *> *action in (isMultiTouch ? self.actions : @[self.actions])) {
     NSArray<NSDictionary<NSString *, id> *> *preprocessedAction = [self preprocessAction:action];
-    XCPointerEventPath *eventPath = [self eventPathWithAction:preprocessedAction error:error];
-    if (nil == eventPath) {
+    NSArray<XCPointerEventPath *> *eventPaths = [self eventPathsWithAction:preprocessedAction error:error];
+    if (nil == eventPaths) {
       return nil;
     }
-    [eventRecord addPointerEventPath:eventPath];
+    for (XCPointerEventPath *eventPath in eventPaths) {
+      [eventRecord addPointerEventPath:eventPath];
+    }
   }
   return eventRecord;
 }

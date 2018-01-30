@@ -299,14 +299,6 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
       },
     @{
       @"action": @"release"
-      },
-    // Tapping cells immediately after scrolling may fail due to way UIKit is handling touches.
-    // We should wait till scroll view cools off, before continuing
-    @{
-      @"action": @"wait",
-      @"options": @{
-          @"ms": @(FBScrollCoolOffTime * 1000),
-          }
       }
     ];
   return [application fb_performAppiumTouchActions:gesture elementCache:nil error:error];

@@ -30,10 +30,10 @@
   return nil;
 }
 
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error
+- (NSArray<XCPointerEventPath *> *)addToEventPath:(XCPointerEventPath *)eventPath allItems:(NSArray<FBBaseGestureItem *> *)allItems currentItemIndex:(NSUInteger)currentItemIndex error:(NSError **)error
 {
   @throw [[FBErrorBuilder.builder withDescription:@"Override this method in subclasses"] build];
-  return NO;
+  return nil;
 }
 
 - (CGPoint)fixedHitPointWith:(CGPoint)hitPoint forSnapshot:(XCElementSnapshot *)snapshot
@@ -123,7 +123,7 @@
   @throw [[FBErrorBuilder.builder withDescription:@"Override this method in subclasses"] build];
 }
 
-- (nullable XCPointerEventPath *)asEventPathWithError:(NSError **)error
+- (nullable NSArray<XCPointerEventPath *> *)asEventPathsWithError:(NSError **)error
 {
   if (0 == self.items.count) {
     if (error) {
@@ -132,14 +132,25 @@
     return nil;
   }
   
-  XCPointerEventPath *result = [[XCPointerEventPath alloc] initForTouchAtPoint:self.items.firstObject.atPosition offset:0.0];
+  NSMutableArray<XCPointerEventPath *> *result = [NSMutableArray array];
+  XCPointerEventPath *previousEventPath = nil;
+  XCPointerEventPath *currentEventPath = nil;
   NSUInteger index = 0;
   for (FBBaseGestureItem *item in self.items.copy) {
-    if (![item addToEventPath:result index:index++ count:self.items.count error:error]) {
+    NSArray<XCPointerEventPath *> *currentEventPaths = [item addToEventPath:currentEventPath
+                                                                   allItems:self.items.copy
+                                                           currentItemIndex:index++
+                                                                      error:error];
+    if (currentEventPaths == nil) {
       return nil;
     }
+    currentEventPath = currentEventPaths.lastObject;
+    if (currentEventPath != previousEventPath) {
+      [result addObjectsFromArray:currentEventPaths];
+      previousEventPath = currentEventPath;
+    }
   }
-  return result;
+  return result.copy;
 }
 
 @end

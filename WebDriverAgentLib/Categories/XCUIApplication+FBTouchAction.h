@@ -42,7 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
  - 'tap': 'count' (defines count of taps to be performed in a row; 1 by default)
  - 'longPress': 'duration' (number of milliseconds to hold/move the virtual finger; 500.0 ms by default)
  - 'wait': 'ms' (number of milliseconds to wait for the preceeding action; 0.0 ms by default)
- - 'press', 'longPress': 'pressure' (float number, which defines pressure value; 0.0 by default)
  
  List of lists can be passed there is order to perform multi-finger touch action. Each single actions chain is going to be executed by a separate virtual finger in such case.
  

@@ -37,13 +37,13 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Add the current gesture to XCPointerEventPath instance. This method is expected to be overriden in subclasses.
  
- @param eventPath The destination XCPointerEventPath instance
- @param index The index of the current gesture in the chain. Starts from zero
- @param count The count of all gestures in the chain
+ @param eventPath The destination XCPointerEventPath instance. If nil value is passed then a new XCPointerEventPath instance is going to be created
+ @param allItems The existing actions chain to be transformed into event path
+ @param currentItemIndex The index of the current item in allItems array
  @param error If there is an error, upon return contains an NSError object that describes the problem
- @return YES if the gesture has been successully added to the XCPointerEventPath instance
+ @return the constructed XCPointerEventPath instance or nil in case of failure
  */
-- (BOOL)addToEventPath:(XCPointerEventPath*)eventPath index:(NSUInteger)index count:(NSUInteger)count error:(NSError **)error;
+- (nullable NSArray<XCPointerEventPath *> *)addToEventPath:(nullable XCPointerEventPath *)eventPath allItems:(NSArray<FBBaseGestureItem *> *)allItems currentItemIndex:(NSUInteger)currentItemIndex error:(NSError **)error;
 
 /**
  Returns fixed hit point coordinates for the case when XCTest fails to transform element snaapshot properly on screen rotation.
@@ -85,9 +85,9 @@ NS_ASSUME_NONNULL_BEGIN
  Represents the chain as XCPointerEventPath instance.
  
  @param error If there is an error, upon return contains an NSError object that describes the problem
- @return The constructed XCPointerEventPath instance or nil if there was a failure
+ @return The constructed array of XCPointerEventPath instances or nil if there was a failure
  */
-- (nullable XCPointerEventPath *)asEventPathWithError:(NSError **)error;
+- (nullable NSArray<XCPointerEventPath *> *)asEventPathsWithError:(NSError **)error;
 
 @end
 

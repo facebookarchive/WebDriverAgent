@@ -323,7 +323,7 @@
   [self verifyGesture:gesture orientation:UIDeviceOrientationLandscapeRight];
 }
 
-- (void)testLongPressWithPressure
+- (void)testLongPress
 {
   UIDeviceOrientation orientation = UIDeviceOrientationLandscapeLeft;
   [[XCUIDevice sharedDevice] fb_setDeviceInterfaceOrientation:orientation];
@@ -335,7 +335,7 @@
       @"parameters": @{@"pointerType": @"touch"},
       @"actions": @[
           @{@"type": @"pointerMove", @"duration": @0, @"x": @(elementFrame.origin.x + 1), @"y": @(elementFrame.origin.y + 1)},
-          @{@"type": @"pointerDown", @"pressure": @0.1},
+          @{@"type": @"pointerDown"},
           @{@"type": @"pause", @"duration": @500},
           @{@"type": @"pointerUp"},
           ],
@@ -411,7 +411,7 @@
       @"id": @"finger1",
       @"parameters": @{@"pointerType": @"touch"},
       @"actions": @[
-          @{@"type": @"pointerMove", @"duration": @0, @"origin": self.pickerWheel, @"x": @0, @"y": @0},
+          @{@"type": @"pointerMove", @"duration": @250, @"origin": self.pickerWheel, @"x": @0, @"y": @0},
           @{@"type": @"pointerDown"},
           @{@"type": @"pause", @"duration": @500},
           @{@"type": @"pointerMove", @"duration": @0, @"origin": @"pointer", @"x": @0, @"y": @(-pickerFrame.size.height / 2)},
