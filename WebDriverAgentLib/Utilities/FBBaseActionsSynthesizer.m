@@ -42,7 +42,8 @@
   if (interfaceOrientation == UIInterfaceOrientationPortrait) {
     return hitPoint;
   }
-  XCElementSnapshot *parentWindow = [snapshot fb_parentMatchingType:XCUIElementTypeWindow];
+  NSArray<XCElementSnapshot *> *ancestors = snapshot.fb_ancestors;
+  XCElementSnapshot *parentWindow = ancestors.count > 1 ? [ancestors objectAtIndex:ancestors.count - 2] : nil;
   CGRect parentWindowFrame = nil == parentWindow ? snapshot.frame : parentWindow.frame;
   CGRect appFrame = self.application.frame;
   if ((appFrame.size.height > appFrame.size.width && parentWindowFrame.size.height < parentWindowFrame.size.width) ||
@@ -72,6 +73,13 @@
   } else {
     // The offset relative to the element is defined
     XCElementSnapshot *snapshot = element.fb_lastSnapshot;
+    if (nil == positionOffset) {
+      @try {
+        return [NSValue valueWithCGPoint:[snapshot hitPoint]];
+      } @catch (NSException *e) {
+        [FBLogger logFmt:@"Failed to fetch hit point for %@ - %@. Will use element frame in window for hit point calculation instead", element.debugDescription, e.reason];
+      }
+    }
     CGRect frameInWindow = snapshot.fb_frameInWindow;
     if (CGRectIsEmpty(frameInWindow)) {
       [FBLogger log:self.application.fb_descriptionRepresentation];
@@ -82,11 +90,6 @@
       return nil;
     }
     if (nil == positionOffset) {
-      @try {
-        return [NSValue valueWithCGPoint:[snapshot hitPoint]];
-      } @catch (NSException *e) {
-        [FBLogger logFmt:@"Failed to fetch hit point for %@ - %@. Will use element frame in window for hit point calculation instead", element.debugDescription, e.reason];
-      }
       hitPoint = CGPointMake(frameInWindow.origin.x + frameInWindow.size.width / 2, frameInWindow.origin.y + frameInWindow.size.height / 2);
     } else {
       CGPoint origin = snapshot.frame.origin;

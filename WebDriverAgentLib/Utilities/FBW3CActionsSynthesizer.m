@@ -17,6 +17,7 @@
 #import "FBXCTestDaemonsProxy.h"
 #import "XCElementSnapshot+FBHitPoint.h"
 #import "XCElementSnapshot+FBHelpers.h"
+#import "XCUIApplication+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement.h"
@@ -134,8 +135,7 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
   XCElementSnapshot *snapshot = element.fb_lastSnapshot;
   CGRect frameInWindow = snapshot.fb_frameInWindow;
   if (CGRectIsEmpty(frameInWindow)) {
-    XCElementSnapshot *root = [snapshot fb_parentMatchingType:XCUIElementTypeWindow];
-    [FBLogger log:(nil == root ? snapshot : root).debugDescription];
+    [FBLogger log:self.application.fb_descriptionRepresentation];
     NSString *description = [NSString stringWithFormat:@"The element '%@' is not visible on the screen and thus is not interactable", element.description];
     if (error) {
       *error = [[FBErrorBuilder.builder withDescription:description] build];
