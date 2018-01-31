@@ -85,17 +85,19 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
     } else {
       CGSize containerSize = container.frame.size;
       CGRect selfFrame = self.frame;
-      if (CGPointEqualToPoint(selfFrame.origin, CGPointZero) &&
-          !CGSizeEqualToSize(selfFrame.size, CGSizeZero) &&
-          !CGPointEqualToPoint(parentFrame.origin, CGPointZero) &&
-          (CGSizeEqualToSize(parentFrame.size, containerSize) ||
-           // The size might be inverted in landscape
-           CGSizeEqualToSize(parentFrame.size, CGSizeMake(containerSize.height, containerSize.width))) &&
-          self.elementType == XCUIElementTypeOther &&
-          parent.elementType == XCUIElementTypeOther) {
+      if (self.elementType == XCUIElementTypeOther) {
         // Special case (or XCTest bug). Shift the origin
-        currentRectangle.origin.x += parentFrame.origin.x;
-        currentRectangle.origin.y += parentFrame.origin.y;
+        if (CGSizeEqualToSize(selfFrame.size, CGSizeZero)) {
+          // Covers ActivityListView case
+          currentRectangle.origin.x += parentFrame.origin.x;
+          currentRectangle.origin.y += parentFrame.origin.y;
+        } else if (CGSizeEqualToSize(parentFrame.size, containerSize) ||
+                   // The size might be inverted in landscape
+                   CGSizeEqualToSize(parentFrame.size, CGSizeMake(containerSize.height, containerSize.width))) {
+          // Covers ScrollView case
+          currentRectangle.origin.x -= selfFrame.origin.x;
+          currentRectangle.origin.y -= selfFrame.origin.y;
+        }
         intersectionWithParent = CGRectIntersection(currentRectangle, parentFrame);
       }
     }
