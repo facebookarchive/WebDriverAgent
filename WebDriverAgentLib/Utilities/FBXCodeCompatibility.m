@@ -81,7 +81,10 @@ static dispatch_once_t onceFirstMatchToken;
   dispatch_once(&onceFirstMatchToken, ^{
     FBShouldUseFirstMatchSelector = [self respondsToSelector:@selector(firstMatch)];
   });
-  if (FBShouldUseFirstMatchSelector) {
+  if (FBShouldUseFirstMatchSelector && [self isKindOfClass:XCUIApplication.class]) {
+    // Unfortunately, firstMatch property does not work properly if
+    // the lookup is not executed in application context:
+    // https://github.com/appium/appium/issues/10101
     XCUIElement* result = self.firstMatch;
     return result.exists ? result : nil;
   }
