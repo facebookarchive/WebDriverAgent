@@ -94,9 +94,15 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
         } else if (CGSizeEqualToSize(parentFrame.size, containerSize) ||
                    // The size might be inverted in landscape
                    CGSizeEqualToSize(parentFrame.size, CGSizeMake(containerSize.height, containerSize.width))) {
-          // Covers ScrollView case
-          currentRectangle.origin.x -= selfFrame.origin.x;
-          currentRectangle.origin.y -= selfFrame.origin.y;
+          if (CGPointEqualToPoint(parentFrame.origin, CGPointZero)) {
+            // Covers ScrollView case
+            currentRectangle.origin.x -= selfFrame.origin.x;
+            currentRectangle.origin.y -= selfFrame.origin.y;
+          } else {
+            // Covers RemoteBridgeView case
+            currentRectangle.origin.x += parentFrame.origin.x;
+            currentRectangle.origin.y += parentFrame.origin.y;
+          }
         }
         intersectionWithParent = CGRectIntersection(currentRectangle, parentFrame);
       }
