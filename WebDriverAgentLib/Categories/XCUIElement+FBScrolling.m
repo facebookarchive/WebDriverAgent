@@ -204,6 +204,11 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
 @implementation XCElementSnapshot (FBScrolling)
 
+- (CGRect)scrollingFrame
+{
+  return self.visibleFrame;
+}
+
 - (void)fb_scrollUpByNormalizedDistance:(CGFloat)distance inApplication:(XCUIApplication *)application
 {
   [self fb_scrollByNormalizedVector:CGVectorMake(0.0, distance) inApplication:application];
@@ -226,16 +231,16 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
 - (BOOL)fb_scrollByNormalizedVector:(CGVector)normalizedScrollVector inApplication:(XCUIApplication *)application
 {
-  CGVector scrollVector = CGVectorMake(CGRectGetWidth(self.frame) * normalizedScrollVector.dx,
-                                       CGRectGetHeight(self.frame) * normalizedScrollVector.dy
+  CGVector scrollVector = CGVectorMake(CGRectGetWidth(self.scrollingFrame) * normalizedScrollVector.dx,
+                                       CGRectGetHeight(self.scrollingFrame) * normalizedScrollVector.dy
                                        );
   return [self fb_scrollByVector:scrollVector inApplication:application error:nil];
 }
 
 - (BOOL)fb_scrollByVector:(CGVector)vector inApplication:(XCUIApplication *)application error:(NSError **)error
 {
-  CGVector scrollBoundingVector = CGVectorMake(CGRectGetWidth(self.frame) * FBScrollTouchProportion - FBScrollBoundingVelocityPadding,
-                                               CGRectGetHeight(self.frame)* FBScrollTouchProportion - FBScrollBoundingVelocityPadding
+  CGVector scrollBoundingVector = CGVectorMake(CGRectGetWidth(self.scrollingFrame) * FBScrollTouchProportion - FBScrollBoundingVelocityPadding,
+                                               CGRectGetHeight(self.scrollingFrame)* FBScrollTouchProportion - FBScrollBoundingVelocityPadding
                                                );
   scrollBoundingVector.dx = (CGFloat)floor(copysign(scrollBoundingVector.dx, vector.dx));
   scrollBoundingVector.dy = (CGFloat)floor(copysign(scrollBoundingVector.dy, vector.dy));
@@ -257,8 +262,8 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
 
 - (CGVector)fb_hitPointOffsetForScrollingVector:(CGVector)scrollingVector
 {
-  CGFloat x = CGRectGetMinX(self.frame) + CGRectGetWidth(self.frame) * (scrollingVector.dx < 0.0f ? FBScrollTouchProportion : (1 - FBScrollTouchProportion));
-  CGFloat y = CGRectGetMinY(self.frame) + CGRectGetHeight(self.frame) * (scrollingVector.dy < 0.0f ? FBScrollTouchProportion : (1 - FBScrollTouchProportion));
+  CGFloat x = CGRectGetMinX(self.scrollingFrame) + CGRectGetWidth(self.scrollingFrame) * (scrollingVector.dx < 0.0f ? FBScrollTouchProportion : (1 - FBScrollTouchProportion));
+  CGFloat y = CGRectGetMinY(self.scrollingFrame) + CGRectGetHeight(self.scrollingFrame) * (scrollingVector.dy < 0.0f ? FBScrollTouchProportion : (1 - FBScrollTouchProportion));
   return CGVectorMake((CGFloat)floor(x), (CGFloat)floor(y));
 }
 
