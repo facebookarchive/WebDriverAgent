@@ -51,19 +51,10 @@
   if (!urlString) {
     return FBResponseWithStatus(FBCommandStatusInvalidArgument, @"URL is required");
   }
-  NSURL *url = [NSURL URLWithString:urlString];
-  if (!url) {
-    return FBResponseWithStatus(
-      FBCommandStatusInvalidArgument,
-      [NSString stringWithFormat:@"%@ is not a valid URL", url]
-    );
+  NSError *error;
+  if (![XCUIDevice.sharedDevice fb_openUrl:urlString error:&error]) {
+    return FBResponseWithError(error);
   }
-  #pragma clang diagnostic push
-  #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-  if (![[UIApplication sharedApplication] openURL:url]) {
-    return FBResponseWithErrorFormat(@"Failed to open %@", url);
-  }
-  #pragma clang diagnostic pop
   return FBResponseWithOK();
 }
 

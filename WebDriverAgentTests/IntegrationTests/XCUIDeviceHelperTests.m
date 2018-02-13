@@ -9,8 +9,10 @@
 
 #import <XCTest/XCTest.h>
 
-#import "FBIntegrationTestCase.h"
 #import "FBApplication.h"
+#import "FBIntegrationTestCase.h"
+#import "FBMacros.h"
+#import "FBTestMacros.h"
 #import "XCUIDevice+FBHelpers.h"
 
 @interface XCUIDeviceHelperTests : FBIntegrationTestCase
@@ -62,6 +64,18 @@
   XCTAssertNil(error);
   XCTAssertTrue([[XCUIDevice sharedDevice] fb_unlockScreen:&error]);
   XCTAssertFalse([[XCUIDevice sharedDevice] fb_isScreenLocked]);
+  XCTAssertNil(error);
+}
+
+- (void)testUrlSchemeActivation
+{
+  if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+    return;
+  }
+  
+  NSError *error;
+  XCTAssertTrue([XCUIDevice.sharedDevice fb_openUrl:@"https://apple.com" error:&error]);
+  FBAssertWaitTillBecomesTrue([FBApplication.fb_activeApplication.bundleID isEqualToString:@"com.apple.mobilesafari"]);
   XCTAssertNil(error);
 }
 

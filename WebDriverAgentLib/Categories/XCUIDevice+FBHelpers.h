@@ -64,6 +64,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable NSString *)fb_wifiIPAddress;
 
+/**
+ Opens the particular url scheme using Siri voice recognition helpers.
+ This will only work since XCode 8.3/iOS 10.3
+ 
+ @param url The url scheme represented as a string, for example https://apple.com
+ @param error If there is an error, upon return contains an NSError object that describes the problem.
+ @return YES if the operation was successful
+ */
+- (BOOL)fb_openUrl:(NSString *)url error:(NSError **)error;
+
 @end
 
 NS_ASSUME_NONNULL_END
