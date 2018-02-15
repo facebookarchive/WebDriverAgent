@@ -7,8 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <Foundation/Foundation.h>
-#import <XCTest/XCUIElementTypes.h>
+#import <XCTest/XCTest.h>
 #import <WebDriverAgentLib/FBElement.h>
 #import <WebDriverAgentLib/XCElementSnapshot.h>
 
@@ -46,9 +45,10 @@ extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
  
  @param root the root element to execute XPath query for
  @param xpathQuery requested xpath query
- @return an array of descendants matching given xpath query
+ @return an array of descendants matching the given xpath query or an empty array if no matches were found
+ @throws NSException if there is an unexpected internal error during xml parsing
  */
-+ (nullable NSArray<XCElementSnapshot *> *)findMatchesIn:(XCElementSnapshot *)root xpathQuery:(NSString *)xpathQuery;
++ (NSArray<XCElementSnapshot *> *)matchesWithRootElement:(id<FBElement>)root forQuery:(NSString *)xpathQuery;
 
 /**
  Gets XML representation of XCElementSnapshot with all its descendants. This method generates the same
@@ -57,7 +57,7 @@ extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
  @param root the root element
  @return valid XML document as string or nil in case of failure
  */
-+ (nullable NSString *)xmlStringWithSnapshot:(XCElementSnapshot *)root;
++ (nullable NSString *)xmlStringWithRootElement:(id<FBElement>)root;
 
 @end
 

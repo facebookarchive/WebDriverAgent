@@ -26,7 +26,7 @@
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
   int buffersize;
   xmlChar *xmlbuff;
-  int rc = [FBXPath getSnapshotAsXML:(XCElementSnapshot *)element writer:writer elementStore:elementStore query:query];
+  int rc = [FBXPath xmlRepresentationWithRootElement:(XCElementSnapshot *)element writer:writer elementStore:elementStore query:query];
   if (0 == rc) {
     xmlDocDumpFormatMemory(doc, &xmlbuff, &buffersize, 1);
   }
@@ -35,7 +35,7 @@
   
   XCTAssertEqual(rc, 0);
   XCTAssertEqual(1, [elementStore count]);
-
+  
   return [NSString stringWithCString:(const char *)xmlbuff encoding:NSUTF8StringEncoding];
 }
 
@@ -66,32 +66,33 @@
 - (void)testSnapshotXPathResultsMatching
 {
   xmlDocPtr doc;
-
+  
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
   XCUIElementDouble *root = [XCUIElementDouble new];
   NSString *query = [NSString stringWithFormat:@"//%@", root.wdType];
-  int rc = [FBXPath getSnapshotAsXML:(XCElementSnapshot *)root writer:writer elementStore:elementStore query:query];
+  int rc = [FBXPath xmlRepresentationWithRootElement:(XCElementSnapshot *)root writer:writer elementStore:elementStore query:query];
   if (rc < 0) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
     XCTAssertEqual(rc, 0);
   }
-
+  
   xmlXPathObjectPtr queryResult = [FBXPath evaluate:query document:doc];
   if (NULL == queryResult) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
     XCTAssertNotEqual(NULL, queryResult);
   }
-
+  
   NSArray *matchingSnapshots = [FBXPath collectMatchingSnapshots:queryResult->nodesetval elementStore:elementStore];
   xmlXPathFreeObject(queryResult);
   xmlFreeTextWriter(writer);
   xmlFreeDoc(doc);
-
+  
   XCTAssertNotNil(matchingSnapshots);
   XCTAssertEqual(1, [matchingSnapshots count]);
 }
 
 @end
+
