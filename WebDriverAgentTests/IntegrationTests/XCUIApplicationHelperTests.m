@@ -11,6 +11,7 @@
 
 #import "FBApplication.h"
 #import "FBIntegrationTestCase.h"
+#import "FBElement.h"
 #import "FBTestMacros.h"
 #import "FBSpringboardApplication.h"
 #import "XCUIApplication+FBHelpers.h"
@@ -80,6 +81,17 @@
   XCTAssertTrue([FBApplication fb_activeApplication].buttons[@"Alerts"].fb_isVisible);
   [self goToSpringBoardFirstPage];
   XCTAssertTrue([FBApplication fb_activeApplication].icons[@"Safari"].fb_isVisible);
+}
+
+- (void)testActiveElement
+{
+  [self goToAttributesPage];
+  XCTAssertNil(self.testedApplication.fb_activeElement);
+  XCUIElement *textField = self.testedApplication.textFields[@"aIdentifier"];
+  [textField tap];
+  FBAssertWaitTillBecomesTrue(nil != self.testedApplication.fb_activeElement);
+  XCTAssertEqual(((id<FBElement>)self.testedApplication.fb_activeElement).wdUID,
+                 ((id<FBElement>)textField).wdUID);
 }
 
 @end

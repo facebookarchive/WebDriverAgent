@@ -126,4 +126,11 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
   return (0 == childrenDescriptions.count) ? self.debugDescription : [childrenDescriptions componentsJoinedByString:@"\n\n"];
 }
 
+- (XCUIElement *)fb_activeElement
+{
+  return [[[self descendantsMatchingType:XCUIElementTypeAny]
+           matchingPredicate:[NSPredicate predicateWithFormat:@"hasKeyboardFocus == YES"]]
+          fb_firstMatch];
+}
+
 @end

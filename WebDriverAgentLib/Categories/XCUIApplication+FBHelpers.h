@@ -44,6 +44,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)fb_descriptionRepresentation;
 
+/**
+ Returns the element, which currently holds the keyboard input focus or nil if there are no such elements.
+ */
+- (nullable XCUIElement *)fb_activeElement;
+
 @end
 
 NS_ASSUME_NONNULL_END

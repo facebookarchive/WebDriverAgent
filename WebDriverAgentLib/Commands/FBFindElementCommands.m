@@ -10,18 +10,18 @@
 #import "FBFindElementCommands.h"
 
 #import "FBAlert.h"
+#import "FBApplication.h"
 #import "FBConfiguration.h"
 #import "FBElementCache.h"
 #import "FBExceptionHandler.h"
-#import "FBRouteRequest.h"
 #import "FBMacros.h"
-#import "FBElementCache.h"
 #import "FBPredicate.h"
+#import "FBRouteRequest.h"
 #import "FBSession.h"
-#import "FBApplication.h"
+#import "XCUIApplication+FBHelpers.h"
+#import "XCUIElement+FBClassChain.h"
 #import "XCUIElement+FBFind.h"
 #import "XCUIElement+FBIsVisible.h"
-#import "XCUIElement+FBClassChain.h"
 
 static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteRequest *request)
 {
@@ -42,6 +42,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   return
   @[
     [[FBRoute POST:@"/element"] respondWithTarget:self action:@selector(handleFindElement:)],
+    [[FBRoute GET:@"/element/active"] respondWithTarget:self action:@selector(handleGetActiveElement:)],
     [[FBRoute POST:@"/elements"] respondWithTarget:self action:@selector(handleFindElements:)],
     [[FBRoute POST:@"/element/:uuid/element"] respondWithTarget:self action:@selector(handleFindSubElement:)],
     [[FBRoute POST:@"/element/:uuid/elements"] respondWithTarget:self action:@selector(handleFindSubElements:)],
@@ -98,6 +99,15 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
                          shouldReturnAfterFirstMatch:NO];
 
   return FBResponseWithCachedElements(foundElements, request.session.elementCache, FBConfiguration.shouldUseCompactResponses);
+}
+
++ (id<FBResponsePayload>)handleGetActiveElement:(FBRouteRequest *)request
+{
+  XCUIElement *element = request.session.activeApplication.fb_activeElement;
+  if (nil == element) {
+    return FBNoSuchElementErrorResponseForRequest(request);
+  }
+  return FBResponseWithCachedElement(element, request.session.elementCache, FBConfiguration.shouldUseCompactResponses);
 }
 
 
