@@ -93,9 +93,18 @@ static XCUIScreen *mainScreen;
 
 + (id<FBResponsePayload>)handleGetScreenshotWithScreenMeta:(UIInterfaceOrientation) orientation andScreenWidth:(CGFloat) screenWidth andScreenHeight:(CGFloat) screenHeight
 {
+  return [FBScreenshotCommands handleGetScreenshotWithScreenMeta:orientation andScreenWidth:screenWidth andScreenHeight:screenHeight andPrevScreenData:nil];
+}
+
++ (id<FBResponsePayload>)handleGetScreenshotWithScreenMeta:(UIInterfaceOrientation) orientation andScreenWidth:(CGFloat) screenWidth andScreenHeight:(CGFloat) screenHeight andPrevScreenData:(NSString*) prevScreenData
+{
   NSError *error;
   NSData *screenData = [[XCUIDevice sharedDevice] fb_screenshotWithError:&error withOrientation:orientation andScreenWidth:screenWidth andScreenHeight:screenHeight];
+  
   NSString *screenshot = [screenData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+  if((prevScreenData != (id)[NSNull null]) && [prevScreenData isEqualToString:screenshot]) {
+    return nil;
+  }
   NSString *height = [NSString stringWithFormat:@"%.0f", screenHeight];
   NSString *width = [NSString stringWithFormat:@"%.0f", screenWidth];
   NSString *screenOrientation = [NSString stringWithFormat:@"%.0ld", (long)orientation];

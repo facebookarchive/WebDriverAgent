@@ -10,6 +10,7 @@
 
 @interface WebSocketScreenCasting()
 @property (nonatomic, assign) BOOL isSocketConnected;
+@property (nonatomic, assign) NSString* prevScreenShotData;
 @end
 
 
@@ -20,12 +21,15 @@
 }
 
 -(void) pushScreenShot:(SocketIOClient*) clientSocket andOrientation:(UIInterfaceOrientation) orientation andScreenWidth:(CGFloat) screenWidth andScreenHeight:(CGFloat) screenHeight {
-  FBResponseJSONPayload *fbJSONPayload = [FBScreenshotCommands handleGetScreenshotWithScreenMeta:orientation andScreenWidth:screenWidth andScreenHeight:screenHeight];
-  NSData *jsonData = [NSJSONSerialization dataWithJSONObject:fbJSONPayload.dictionary
-                                                     options:NSJSONWritingPrettyPrinted
-                                                       error:nil];
-  NSArray *dataArray = [[NSArray alloc] initWithObjects:jsonData, nil];
-  [clientSocket emit:@"screenShot" with: dataArray];
+  FBResponseJSONPayload *fbJSONPayload = [FBScreenshotCommands handleGetScreenshotWithScreenMeta:orientation andScreenWidth:screenWidth andScreenHeight:screenHeight andPrevScreenData:self.prevScreenShotData];
+  if(fbJSONPayload != nil) {
+    self.prevScreenShotData = [[[fbJSONPayload dictionary]objectForKey:@"value"]objectForKey:@"base64EncodedImage"];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:fbJSONPayload.dictionary
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:nil];
+    NSArray *dataArray = [[NSArray alloc] initWithObjects:jsonData, nil];
+    [clientSocket emit:@"screenShot" with: dataArray];
+  }
 }
 
 -(void) startScreeing: (SocketIOClient*) clientSocket {
@@ -41,6 +45,7 @@
       WebSocketScreenCasting *strongSelf = weakSelf;
       [strongSelf pushScreenShot: clientSocket andOrientation:interfaceOrientation andScreenWidth:width andScreenHeight:height];
     }
+    self.prevScreenShotData = nil;
   });
 }
 

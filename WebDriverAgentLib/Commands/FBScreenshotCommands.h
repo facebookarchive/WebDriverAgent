@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (id<FBResponsePayload>)handleGetScreenshotWithScreenMeta:(UIInterfaceOrientation) orientation andScreenWidth:(CGFloat) screenWidth andScreenHeight:(CGFloat) screenHeight;
 
++ (id<FBResponsePayload>)handleGetScreenshotWithScreenMeta:(UIInterfaceOrientation) orientation andScreenWidth:(CGFloat) screenWidth andScreenHeight:(CGFloat) screenHeight andPrevScreenData:(NSString*) prevScreenData;
+
 @end
 
 NS_ASSUME_NONNULL_END
