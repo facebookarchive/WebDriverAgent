@@ -36,6 +36,10 @@ const DEVICE_BLOCKED = "deviceBlocked";
 const GET_CONNECTED_DEVICES = "getConnectedDevices";
 // Event to share ScreenShot data from Device to Client.
 const SCREEN_SHOT_DATA = "screenShot"
+// Event to share RawScreenShot data from Device to Client.
+const RAW_SCREEN_SHOT_DATA = "rawScreenShot"
+// Event to share DeviceOrientaionChange data from Device to Client.
+const DEVICE_ORIENTAION_CHANGE_DATA = "deviceOrientationChanged"
 // Event from Device to Register in Server.
 const REGISTER_DEVICE = "registerDevice"
 // Event to Perform Action from Client to Device.
@@ -116,6 +120,20 @@ io.on(ON_SOCKET_CLEINT_CONNECT, function(client) {
         if(connectedClient && data) {
             var decodedString = ab2str(data, 'utf8');
             connectedClient.emit(SCREEN_SHOT_DATA,decodedString);
+        }
+    });
+
+    client.on(RAW_SCREEN_SHOT_DATA, function(data) {
+        const connectedClient = client[KEY_CONNECTED_TO_CLIENT];
+        if(connectedClient && data) {
+            connectedClient.emit(RAW_SCREEN_SHOT_DATA,data);
+        }
+    });
+
+    client.on(DEVICE_ORIENTAION_CHANGE_DATA, function(data) {
+        const connectedClient = client[KEY_CONNECTED_TO_CLIENT];
+        if(connectedClient && data) {
+            connectedClient.emit(DEVICE_ORIENTAION_CHANGE_DATA,data);
         }
     });
 

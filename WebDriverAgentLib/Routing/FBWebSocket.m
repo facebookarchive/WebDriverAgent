@@ -141,6 +141,20 @@ static BOOL isConnectedToClient;
   [registerDict setObject:[[UIDevice currentDevice] systemVersion] forKey:@"osVersion"];
   [registerDict setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"deviceId"];
   [registerDict setObject:[SDVersion deviceNameString] forKey:@"deviceModel"];
+  
+  // Set Device Screen height and width.
+  CGSize screenSize = FBApplication.fb_activeApplication.frame.size;
+  NSNumber *screenWidth =[NSNumber numberWithFloat:screenSize.width];
+  NSNumber *screenHeight =[NSNumber numberWithFloat:screenSize.height];
+  [registerDict setObject:screenWidth forKey:@"screenWidth"];
+  [registerDict setObject:screenHeight forKey:@"screenHeight"];
+  
+  // Set SessionId.
+  NSString *sessionId = [FBSession activeSession].identifier ?: NSNull.null;
+  [registerDict setObject:sessionId forKey:@"sessionId"];
+
+  //TODO : send screen orientation "screenOrientation";
+  //TODO : Support Orientation "deviceOrientationChanged" should be triggered when orientation change.
   return registerDict;
 }
 

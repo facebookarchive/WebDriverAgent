@@ -7,10 +7,13 @@
 //
 
 #import "WebSocketScreenCasting.h"
+#import "XCUIDevice+FBHelpers.h"
 
 @interface WebSocketScreenCasting()
 @property (nonatomic, assign) BOOL isSocketConnected;
 @property (nonatomic, assign) NSString* prevScreenShotData;
+@property (nonatomic, assign) NSData* rawPrevScreenShotData;
+
 @end
 
 
@@ -32,9 +35,22 @@
   }
 }
 
+-(void) pushRawScreenShot:(SocketIOClient*) clientSocket andOrientation:(UIInterfaceOrientation) orientation andScreenWidth:(CGFloat) screenWidth andScreenHeight:(CGFloat) screenHeight {
+  NSError *error;
+  NSData *screenData = [[XCUIDevice sharedDevice] fb_screenshotWithError:&error withOrientation:orientation andScreenWidth:screenWidth andScreenHeight:screenHeight];
+  if(self.rawPrevScreenShotData != nil && [self.rawPrevScreenShotData isEqualToData:screenData]) {
+    // Do nothing as the previous screenshot is same as current.
+  }
+  else {
+    self.rawPrevScreenShotData = screenData;
+    NSArray *dataArray = [[NSArray alloc] initWithObjects:screenData, nil];
+    [clientSocket emit:@"rawScreenShot" with: dataArray];
+  }
+}
+
 -(void) startScreeing: (SocketIOClient*) clientSocket {
   dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
-  UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+  UIInterfaceOrientation interfaceOrientation = FBApplication.fb_activeApplication.interfaceOrientation;
   CGSize screenSize = FBApplication.fb_activeApplication.frame.size;
   CGFloat width = screenSize.width;
   CGFloat height = screenSize.height;
@@ -43,9 +59,11 @@
   dispatch_async(queue, ^{
     while(weakSelf.isSocketConnected) {
       WebSocketScreenCasting *strongSelf = weakSelf;
-      [strongSelf pushScreenShot: clientSocket andOrientation:interfaceOrientation andScreenWidth:width andScreenHeight:height];
+      //[strongSelf pushScreenShot: clientSocket andOrientation:interfaceOrientation andScreenWidth:width andScreenHeight:height];
+      [strongSelf pushRawScreenShot: clientSocket andOrientation:interfaceOrientation andScreenWidth:width andScreenHeight:height];
     }
     self.prevScreenShotData = nil;
+    self.rawPrevScreenShotData = nil;
   });
 }
 

@@ -27,6 +27,10 @@ const DEVICE_BLOCKED = "deviceBlocked";
 const GET_CONNECTED_DEVICES = "getConnectedDevices";
 // Event to share ScreenShot data from Device to Client.
 const SCREEN_SHOT_DATA = "screenShot"
+// Event to share RawScreenShot data from Device to Client.
+const RAW_SCREEN_SHOT_DATA = "rawScreenShot"
+// Event to share DeviceOrientaionChange data from Device to Client.
+const DEVICE_ORIENTAION_CHANGE_DATA = "deviceOrientationChanged"
 // Event to Perform Action from Client to Device.
 const PERFORM_ACTION = "performAction";
 
@@ -109,5 +113,14 @@ class Http {
   static onScreenShotData(callback) {
     registerEvent(SCREEN_SHOT_DATA, callback);
   }
+
+  static onRawScreenShotData(callback) {
+    registerEvent(RAW_SCREEN_SHOT_DATA, callback);
+  }
+
+  static onDeviceOrientationChange(callback) {
+    registerEvent(DEVICE_ORIENTAION_CHANGE_DATA, callback);
+  }
+
 }
 module.exports = Http;

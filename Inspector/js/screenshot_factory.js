@@ -30,6 +30,11 @@ class ScreenshotFactory {
     });
   }
 
+  static createScreenshotFromRawData(orientation, arrayBuffer, callback) {
+    let base64EncodedImage = ImageUtils.base64ArrayBuffer(arrayBuffer);
+    this.createScreenshot(orientation,base64EncodedImage,callback);
+  }
+
   static _shouldRotateImage(orientation) {
     return ((orientation === 'LANDSCAPE') || (orientation === 'UIA_DEVICE_ORIENTATION_LANDSCAPERIGHT'));
   }

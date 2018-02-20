@@ -45,6 +45,26 @@ class App extends React.Component {
       });
     });
 
+    HTTP.onDeviceOrientationChange((data) => {
+      let selectedDevice = this.state.selectedDevice;
+      selectedDevice.deviceMeta.screenOrientation = data;
+      this.setState({
+        selectedDevice : selectedDevice
+      })
+    });
+
+    HTTP.onRawScreenShotData((data) => {
+      let deviceMeta = this.state.selectedDevice.deviceMeta;
+      ScreenshotFactory.createScreenshotFromRawData(deviceMeta.screenOrientation, data, (screenshot) => {
+        this.setState({
+          screenshot: screenshot,
+          sessionId : deviceMeta.sessionId,
+          width : deviceMeta.screenWidth
+        });
+      });
+    });
+
+
     HTTP.onDeviceDisconnected((data) => {
       if(this.state.selectedDevice && (data.deviceMeta.deviceId == this.state.selectedDevice.deviceMeta.deviceId)) {
         alert("Device got Disconnected");
