@@ -105,6 +105,11 @@
   return self.fb_isVisible;
 }
 
+- (BOOL)isWDVisibleWithOrientation:(UIInterfaceOrientation)orientation appFrame:(CGRect)appFrame
+{
+  return [self fb_isVisibleWithOrientation:orientation appFrame:appFrame];
+}
+
 - (BOOL)isWDAccessible
 {
   // Special cases:
@@ -165,8 +170,8 @@
 {
   CGRect frame = self.wdFrame;
   return @{
-           @"x": @((frame.origin.x != INFINITY) ?frame.origin.x :0),
-           @"y": @((frame.origin.y != INFINITY) ?frame.origin.y :0),
+           @"x": @(isinf(frame.origin.x) ?0 :frame.origin.x),
+           @"y": @(isinf(frame.origin.y) ?0 :frame.origin.y),
            @"width": @(frame.size.width),
            @"height": @(frame.size.height),
            };
