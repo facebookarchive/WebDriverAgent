@@ -161,4 +161,15 @@
   };
 }
 
+- (NSDictionary *)wdRectNoInf
+{
+  CGRect frame = self.wdFrame;
+  return @{
+           @"x": @((frame.origin.x != INFINITY) ?frame.origin.x :0),
+           @"y": @((frame.origin.y != INFINITY) ?frame.origin.y :0),
+           @"width": @(frame.size.width),
+           @"height": @(frame.size.height),
+           };
+}
+
 @end
