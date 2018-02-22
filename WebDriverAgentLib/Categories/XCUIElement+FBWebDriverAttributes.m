@@ -105,11 +105,6 @@
   return self.fb_isVisible;
 }
 
-- (BOOL)isWDVisibleWithOrientation:(UIInterfaceOrientation)orientation appFrame:(CGRect)appFrame
-{
-  return [self fb_isVisibleWithOrientation:orientation appFrame:appFrame];
-}
-
 - (BOOL)isWDAccessible
 {
   // Special cases:
