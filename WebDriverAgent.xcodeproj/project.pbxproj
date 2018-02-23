@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		031C7FFE20400A81007E9768 /* RoutingHTTPServer.framework in Copy RoutingHTTPServer Framework */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		711084441DA3AA7500F913D6 /* FBXPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 711084421DA3AA7500F913D6 /* FBXPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		711084451DA3AA7500F913D6 /* FBXPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 711084431DA3AA7500F913D6 /* FBXPath.m */; };
 		7119E1EC1E891F8600D0B125 /* FBPickerWheelSelectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7119E1EB1E891F8600D0B125 /* FBPickerWheelSelectTests.m */; };
@@ -376,6 +377,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		031C7FFD20400A6E007E9768 /* Copy RoutingHTTPServer Framework */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = WebDriverAgentLib.framework/Frameworks;
+			dstSubfolderSpec = 10;
+			files = (
+				031C7FFE20400A81007E9768 /* RoutingHTTPServer.framework in Copy RoutingHTTPServer Framework */,
+			);
+			name = "Copy RoutingHTTPServer Framework";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EE93CFF41CCA501300708122 /* Copy frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1618,6 +1630,7 @@
 				EEF988271C486603005CA669 /* Frameworks */,
 				EEF988281C486603005CA669 /* Resources */,
 				EE93CFF41CCA501300708122 /* Copy frameworks */,
+				031C7FFD20400A6E007E9768 /* Copy RoutingHTTPServer Framework */,
 			);
 			buildRules = (
 			);
