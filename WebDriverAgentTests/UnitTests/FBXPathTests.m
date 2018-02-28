@@ -35,7 +35,7 @@
   
   XCTAssertEqual(rc, 0);
   XCTAssertEqual(1, [elementStore count]);
-  
+
   return [NSString stringWithCString:(const char *)xmlbuff encoding:NSUTF8StringEncoding];
 }
 
@@ -66,7 +66,7 @@
 - (void)testSnapshotXPathResultsMatching
 {
   xmlDocPtr doc;
-  
+
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
   XCUIElementDouble *root = [XCUIElementDouble new];
@@ -77,19 +77,19 @@
     xmlFreeDoc(doc);
     XCTAssertEqual(rc, 0);
   }
-  
+
   xmlXPathObjectPtr queryResult = [FBXPath evaluate:query document:doc];
   if (NULL == queryResult) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
     XCTAssertNotEqual(NULL, queryResult);
   }
-  
+
   NSArray *matchingSnapshots = [FBXPath collectMatchingSnapshots:queryResult->nodesetval elementStore:elementStore];
   xmlXPathFreeObject(queryResult);
   xmlFreeTextWriter(writer);
   xmlFreeDoc(doc);
-  
+
   XCTAssertNotNil(matchingSnapshots);
   XCTAssertEqual(1, [matchingSnapshots count]);
 }

@@ -120,7 +120,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
 + (NSArray<XCElementSnapshot *> *)matchesWithRootElement:(id<FBElement>)root forQuery:(NSString *)xpathQuery
 {
   xmlDocPtr doc;
-  
+
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
   if (NULL == writer) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlNewTextWriterDoc for XPath query \"%@\"", xpathQuery];
@@ -140,7 +140,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     xmlFreeDoc(doc);
     return [self throwException:XCElementSnapshotInvalidXPathException forQuery:xpathQuery];
   }
-  
+
   NSArray *matchingSnapshots = [self collectMatchingSnapshots:queryResult->nodesetval elementStore:elementStore];
   xmlXPathFreeObject(queryResult);
   xmlFreeTextWriter(writer);
@@ -219,17 +219,17 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   if (0 == input) {
     return NULL;
   }
-  
+
   xmlCharEncodingHandlerPtr handler = xmlFindCharEncodingHandler(_UTF8Encoding);
   if (!handler) {
     [FBLogger log:@"Failed to invoke libxml2>xmlFindCharEncodingHandler"];
     return NULL;
   }
-  
+
   int size = (int) strlen(input) + 1;
   int outputSize = size * 2 - 1;
   xmlChar *output = (unsigned char *) xmlMalloc((size_t) outputSize);
-  
+
   if (0 != output) {
     int temp = size - 1;
     int ret = handler->input(output, &outputSize, (const xmlChar *) input, &temp);
@@ -241,7 +241,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
       output[outputSize] = 0;
     }
   }
-  
+
   return output;
 }
 
@@ -253,7 +253,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
     return NULL;
   }
   xpathCtx->node = doc->children;
-  
+
   xmlXPathObjectPtr xpathObj = xmlXPathEvalExpression([self xmlCharPtrForInput:[xpathQuery cStringUsingEncoding:NSUTF8StringEncoding]], xpathCtx);
   if (NULL == xpathObj) {
     xmlXPathFreeContext(xpathCtx);
@@ -286,7 +286,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
       return rc;
     }
   }
-  
+
   if (nil != indexPath) {
     // index path is the special case
     return [FBIndexAttribute recordWithWriter:writer forValue:indexPath];
@@ -354,7 +354,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
       return rc;
     }
   }
-  
+
   rc = xmlTextWriterEndElement(writer);
   if (rc < 0) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlTextWriterEndElement. Error code: %d", rc];
