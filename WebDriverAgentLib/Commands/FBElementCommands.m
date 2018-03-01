@@ -460,8 +460,55 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
   if (shouldApplyOrientationWorkaround) {
     point = FBInvertPointForApplication(coordinate, application.frame.size, application.interfaceOrientation);
   }
-  XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:application normalizedOffset:CGVectorMake(0, 0)];
-  return [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(point.x, point.y)];
+  XCUIElement *element = application;
+  if (isSDKVersionGreaterThanOrEqualTo(@"11.0")) {
+    XCUIElement *window = [self findWindowInApplication:application];
+    if (window) element = window;
+  }
+  return [self gestureCoordinateWithCoordinate:point element:element];
+}
+
+/**
+ Returns gesture coordinate based on the specified element.
+ 
+ @param coordinate absolute coordinates based on the element
+ @param element the element in the current application under test
+ @return translated gesture coordinates ready to be passed to XCUICoordinate methods
+ */
++ (XCUICoordinate *)gestureCoordinateWithCoordinate:(CGPoint)coordinate element:(XCUIElement *)element
+{
+  XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:element normalizedOffset:CGVectorMake(0, 0)];
+  return [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(coordinate.x, coordinate.y)];
+}
+
+/**
+ Returns the first window element in the current application under test
+ 
+ @application the instance of current application under test
+ @return the first window element
+ 
+ If SDK >= 11, the tap coordinate based on application is not correct when
+ the application orientation is landscape and
+ tapX > application portrait width or tapY > application portrait height.
+ Pass the window element to the method [FBElementCommands gestureCoordinateWithCoordinate:element:]
+ will resolve the problem.
+ More details about the bug, please see the following issues:
+ #705: https://github.com/facebook/WebDriverAgent/issues/705
+ #798: https://github.com/facebook/WebDriverAgent/issues/798
+ #856: https://github.com/facebook/WebDriverAgent/issues/856
+ Notice: On iOS 10, if the application is not launched by wda, no elements will be found.
+ See issue #732: https://github.com/facebook/WebDriverAgent/issues/732
+ */
++ (XCUIElement *)findWindowInApplication:(XCUIApplication *)application {
+  NSArray<XCUIElement *> *allElements = application.windows.allElementsBoundByIndex;
+  XCUIElement *window = nil;
+  for (XCUIElement *e in allElements) {
+    if (e.elementType == XCUIElementTypeWindow) {
+      window = e;
+      break;
+    }
+  }
+  return window;
 }
 
 @end
