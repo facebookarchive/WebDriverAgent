@@ -85,7 +85,7 @@
 - (void)testAttributeWithNullScrollToVisible
 {
   NSError *error;
-  NSArray<XCUIElement *> *queryMatches = [self.testedApplication fb_descendantsMatchingClassChain:@"XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[60]" shouldReturnAfterFirstMatch:NO];
+  NSArray<XCUIElement *> *queryMatches = [self.testedApplication fb_descendantsMatchingClassChain:@"**/XCUIElementTypeTable/XCUIElementTypeCell[60]" shouldReturnAfterFirstMatch:NO];
   XCTAssertEqual(queryMatches.count, 1);
   XCUIElement *element = queryMatches.firstObject;
   XCTAssertFalse(element.fb_isVisible);
