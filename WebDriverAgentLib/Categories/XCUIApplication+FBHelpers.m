@@ -13,6 +13,7 @@
 #import "XCElementSnapshot.h"
 #import "FBElementTypeTransformer.h"
 #import "FBMacros.h"
+#import "FBMathUtils.h"
 #import "FBXCodeCompatibility.h"
 #import "FBXPath.h"
 #import "XCElementSnapshot+FBHelpers.h"
@@ -60,7 +61,10 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
   info[@"name"] = FBValueOrNull(snapshot.wdName);
   info[@"value"] = FBValueOrNull(snapshot.wdValue);
   info[@"label"] = FBValueOrNull(snapshot.wdLabel);
-  info[@"rect"] = snapshot.wdRect;
+  // It is mandatory to replace all Infinity values with zeroes to avoid JSON parsing
+  // exceptions like https://github.com/facebook/WebDriverAgent/issues/639#issuecomment-314421206
+  // caused by broken element dimensions returned by XCTest
+  info[@"rect"] = FBwdRectNoInf(snapshot.wdRect);
   info[@"frame"] = NSStringFromCGRect(snapshot.wdFrame);
   info[@"isEnabled"] = [@([snapshot isWDEnabled]) stringValue];
   info[@"isVisible"] = [@([snapshot isWDVisible]) stringValue];

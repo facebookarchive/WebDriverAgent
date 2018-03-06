@@ -39,3 +39,6 @@ CGSize FBAdjustDimensionsForApplication(CGSize actualSize, UIInterfaceOrientatio
 
 /*! Fixes the screenshot orientation if necessary to match current screen orientation */
 NSData *FBAdjustScreenshotOrientationForApplication(NSData *screenshotData, UIInterfaceOrientation orientation);
+
+/*! Replaces the wdRect dictionary passed as the argument with zero-size wdRect if any of its attributes equal to Infinity */
+NSDictionary<NSString *, NSNumber *> *FBwdRectNoInf(NSDictionary<NSString *, NSNumber *> *wdRect);

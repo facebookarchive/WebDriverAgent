@@ -111,3 +111,16 @@ NSData *FBAdjustScreenshotOrientationForApplication(NSData *screenshotData, UIIn
   // The resulting data should be a PNG image
   return (NSData *)UIImagePNGRepresentation(fixedImage);
 }
+
+NSDictionary<NSString *, NSNumber *> *FBwdRectNoInf(NSDictionary<NSString *, NSNumber *> *wdRect)
+{
+  NSMutableDictionary<NSString *, NSNumber *> *result = wdRect.mutableCopy;
+  if (isinf(result[@"x"].doubleValue) || isinf(result[@"y"].doubleValue) ||
+      isinf(result[@"width"].doubleValue) || isinf(result[@"height"].doubleValue)) {
+    [result setObject:@-1 forKey:@"x"];
+    [result setObject:@-1 forKey:@"y"];
+    [result setObject:@0 forKey:@"width"];
+    [result setObject:@0 forKey:@"height"];
+  }
+  return result.copy;
+}
