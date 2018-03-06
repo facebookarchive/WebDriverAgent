@@ -85,6 +85,15 @@ extern NSString *const FBAlertObstructingElementException;
  */
 - (nullable XCUIElement *)alertElement;
 
+/**
+ Types a text into an input inside the alert container, if it is present
+
+ @param text the text to type
+ @param error If there is an error, upon return contains an NSError object that describes the problem.
+ @return YES if the operation succeeds, otherwise NO.
+ */
+- (BOOL)typeText:(NSString *)text error:(NSError **)error;
+
 @end
 
 NS_ASSUME_NONNULL_END

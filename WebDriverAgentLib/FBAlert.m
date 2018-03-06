@@ -23,6 +23,7 @@
 #import "XCTestManager_ManagerInterface-Protocol.h"
 #import "XCUICoordinate.h"
 #import "XCUIElement+FBTap.h"
+#import "XCUIElement+FBTyping.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "XCUIElement.h"
@@ -108,6 +109,27 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   }
   // return null to reflect the fact there is an alert, but it does not contain any text
   return (id)[NSNull null];
+}
+
+- (BOOL)typeText:(NSString *)text error:(NSError **)error
+{
+  XCUIElement *alert = self.alertElement;
+  NSArray<XCUIElement *> *textFields = alert.textFields.allElementsBoundByIndex;
+  NSArray<XCUIElement *> *secureTextFiels = alert.secureTextFields.allElementsBoundByIndex;
+  if (textFields.count + secureTextFiels.count > 1) {
+    return [[[FBErrorBuilder builder]
+      withDescriptionFormat:@"The alert contains more than one input field"]
+     buildError:error];
+  }
+  if (0 == textFields.count + secureTextFiels.count) {
+    return [[[FBErrorBuilder builder]
+             withDescriptionFormat:@"The alert contains no input fields"]
+            buildError:error];
+  }
+  if (secureTextFiels.count > 0) {
+    return [secureTextFiels.firstObject fb_typeText:text error:error];
+  }
+  return [textFields.firstObject fb_typeText:text error:error];
 }
 
 - (NSArray *)buttonLabels

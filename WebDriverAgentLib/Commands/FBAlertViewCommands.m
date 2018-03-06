@@ -22,8 +22,9 @@
 {
   return
   @[
-    [[FBRoute GET:@"/alert/text"] respondWithTarget:self action:@selector(handleAlertTextCommand:)],
-    [[FBRoute POST:@"/alert/text"].withoutSession respondWithTarget:self action:@selector(handleAlertTextCommand:)],
+    [[FBRoute GET:@"/alert/text"] respondWithTarget:self action:@selector(handleAlertGetTextCommand:)],
+    [[FBRoute GET:@"/alert/text"].withoutSession respondWithTarget:self action:@selector(handleAlertGetTextCommand:)],
+    [[FBRoute POST:@"/alert/text"] respondWithTarget:self action:@selector(handleAlertSetTextCommand:)],
     [[FBRoute POST:@"/alert/accept"] respondWithTarget:self action:@selector(handleAlertAcceptCommand:)],
     [[FBRoute POST:@"/alert/accept"].withoutSession respondWithTarget:self action:@selector(handleAlertAcceptCommand:)],
     [[FBRoute POST:@"/alert/dismiss"] respondWithTarget:self action:@selector(handleAlertDismissCommand:)],
@@ -35,7 +36,7 @@
 
 #pragma mark - Commands
 
-+ (id<FBResponsePayload>)handleAlertTextCommand:(FBRouteRequest *)request
++ (id<FBResponsePayload>)handleAlertGetTextCommand:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
   NSString *alertText = [FBAlert alertWithApplication:session.activeApplication].text;
@@ -43,6 +44,28 @@
     return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
   }
   return FBResponseWithStatus(FBCommandStatusNoError, alertText);
+}
+
++ (id<FBResponsePayload>)handleAlertSetTextCommand:(FBRouteRequest *)request
+{
+  FBSession *session = request.session;
+  id value = request.arguments[@"value"];
+  if (!value) {
+    return FBResponseWithErrorFormat(@"Missing 'value' parameter");
+  }
+  FBAlert *alert = [FBAlert alertWithApplication:session.activeApplication];
+  if (!alert.isPresent) {
+    return FBResponseWithStatus(FBCommandStatusNoAlertPresent, nil);
+  }
+  NSString *textToType = value;
+  if ([value isKindOfClass:[NSArray class]]) {
+    textToType = [value componentsJoinedByString:@""];
+  }
+  NSError *error;
+  if (![alert typeText:textToType error:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleAlertAcceptCommand:(FBRouteRequest *)request
