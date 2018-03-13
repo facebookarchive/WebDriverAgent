@@ -15,7 +15,6 @@
 #import "FBMacros.h"
 #import "FBMathUtils.h"
 #import "FBXCTestDaemonsProxy.h"
-#import "XCElementSnapshot+FBHitPoint.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIApplication+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -124,14 +123,14 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
 
 - (nullable NSValue *)hitpointWithElement:(nullable XCUIElement *)element positionOffset:(nullable NSValue *)positionOffset error:(NSError **)error
 {
-  if (nil == element) {
+  if (nil == element || nil == positionOffset) {
     return [super hitpointWithElement:element positionOffset:positionOffset error:error];
   }
 
   // An offset relative to the element is defined
   XCElementSnapshot *snapshot = element.fb_lastSnapshot;
-  CGRect frameInWindow = snapshot.fb_frameInWindow;
-  if (CGRectIsEmpty(frameInWindow)) {
+  CGRect frame = snapshot.frame;
+  if (CGRectIsEmpty(frame)) {
     [FBLogger log:self.application.fb_descriptionRepresentation];
     NSString *description = [NSString stringWithFormat:@"The element '%@' is not visible on the screen and thus is not interactable", element.description];
     if (error) {
@@ -139,18 +138,11 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
     }
     return nil;
   }
-  CGRect frame = snapshot.frame;
-  CGPoint hitPoint;
   // W3C standard requires that relative element coordinates start at the center of the element's rectangle
-  if (nil == positionOffset) {
-    hitPoint = CGPointMake(frameInWindow.origin.x + frameInWindow.size.width / 2,
-                           frameInWindow.origin.y + frameInWindow.size.height / 2);
-  } else {
-    hitPoint = CGPointMake(frame.origin.x + frame.size.width / 2, frame.origin.y + frame.size.height / 2);
-    CGPoint offsetValue = [positionOffset CGPointValue];
-    hitPoint = CGPointMake(hitPoint.x + offsetValue.x, hitPoint.y + offsetValue.y);
-    // TODO: Shall we throw an exception if hitPoint is out of the element frame?
-  }
+  CGPoint hitPoint = CGPointMake(frame.origin.x + frame.size.width / 2, frame.origin.y + frame.size.height / 2);
+  CGPoint offsetValue = [positionOffset CGPointValue];
+  hitPoint = CGPointMake(hitPoint.x + offsetValue.x, hitPoint.y + offsetValue.y);
+  // TODO: Shall we throw an exception if hitPoint is out of the element frame?
   hitPoint = [self fixedHitPointWith:hitPoint forSnapshot:snapshot];
   return [NSValue valueWithCGPoint:hitPoint];
 }

@@ -80,8 +80,8 @@
         [FBLogger logFmt:@"Failed to fetch hit point for %@ - %@. Will use element frame in window for hit point calculation instead", element.debugDescription, e.reason];
       }
     }
-    CGRect frameInWindow = snapshot.fb_frameInWindow;
-    if (CGRectIsEmpty(frameInWindow)) {
+    CGRect frame = snapshot.frame;
+    if (CGRectIsEmpty(frame)) {
       [FBLogger log:self.application.fb_descriptionRepresentation];
       NSString *description = [NSString stringWithFormat:@"The element '%@' is not visible on the screen and thus is not interactable", element.description];
       if (error) {
@@ -90,7 +90,8 @@
       return nil;
     }
     if (nil == positionOffset) {
-      hitPoint = CGPointMake(frameInWindow.origin.x + frameInWindow.size.width / 2, frameInWindow.origin.y + frameInWindow.size.height / 2);
+      hitPoint = CGPointMake(frame.origin.x + frame.size.width / 2,
+                             frame.origin.y + frame.size.height / 2);
     } else {
       CGPoint origin = snapshot.frame.origin;
       hitPoint = CGPointMake(origin.x, origin.y);
