@@ -96,7 +96,7 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
     return CGRectIntersection(currentRectangle, containerFrame);
   }
   // Skip parent containers if they are outside of the viewport
-  CGRect intersectionWithParent = CGRectIntersectsRect(parentFrame, containerFrame)
+  CGRect intersectionWithParent = CGRectIntersectsRect(parentFrame, containerFrame) || parent.elementType != XCUIElementTypeOther
     ? CGRectIntersection(currentRectangle, parentFrame)
     : currentRectangle;
   if (CGRectIsEmpty(intersectionWithParent) &&
