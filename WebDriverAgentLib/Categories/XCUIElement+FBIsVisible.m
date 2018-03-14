@@ -66,45 +66,55 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
   return isVisible;
 }
 
-- (nullable NSValue *)fb_frameInContainer:(XCElementSnapshot *)container hierarchyIntersection:(nullable NSValue *)intersectionRectange
+- (CGRect)fb_frameInContainer:(XCElementSnapshot *)container hierarchyIntersection:(nullable NSValue *)intersectionRectange
 {
   CGRect currentRectangle = nil == intersectionRectange ? self.frame : [intersectionRectange CGRectValue];
   XCElementSnapshot *parent = self.parent;
   CGRect parentFrame = parent.frame;
-  CGRect intersectionWithParent = CGRectIntersection(currentRectangle, parentFrame);
-  if (CGRectIsEmpty(intersectionWithParent) && parent != container) {
-    CGRect selfFrame = self.frame;
-    XCUIElementType selfType = self.elementType;
-    if (CGSizeEqualToSize(parentFrame.size, CGSizeZero) &&
-        CGPointEqualToPoint(parentFrame.origin, CGPointZero) &&
-        parent.elementType == XCUIElementTypeOther) {
-      if (CGSizeEqualToSize(selfFrame.size, CGSizeZero) &&
-          CGPointEqualToPoint(selfFrame.origin, CGPointZero) &&
-          selfType == XCUIElementTypeOther) {
-        // Special case. We cannot reliably calculate visible frame
-        // for such element and rely on frame property provided by XCTest
-        return nil;
+  CGRect containerFrame = container.frame;
+  if (CGSizeEqualToSize(parentFrame.size, CGSizeZero) &&
+      CGPointEqualToPoint(parentFrame.origin, CGPointZero)) {
+    // Special case (or XCTest bug). Shift the origin and return immediately after shift
+    XCElementSnapshot *nextParent = parent.parent;
+    BOOL isGrandparent = YES;
+    while (nextParent && nextParent != container) {
+      CGRect nextParentFrame = nextParent.frame;
+      if (isGrandparent &&
+          CGSizeEqualToSize(nextParentFrame.size, CGSizeZero) &&
+          CGPointEqualToPoint(nextParentFrame.origin, CGPointZero)) {
+        // Double zero-size container inclusion means that element coordinates are absolute
+        return CGRectIntersection(currentRectangle, containerFrame);
       }
-      // Special case. Skip such parent
-      intersectionWithParent = currentRectangle;
-    } else {
-      CGSize containerSize = container.frame.size;
-      if (selfType == XCUIElementTypeOther) {
-        // Special case (or XCTest bug). Shift the origin
-        if (CGSizeEqualToSize(selfFrame.size, CGSizeZero) ||
-            CGSizeEqualToSize(parentFrame.size, containerSize) ||
-            // The size might be inverted in landscape
-            CGSizeEqualToSize(parentFrame.size, CGSizeMake(containerSize.height, containerSize.width))) {
-          // Covers ActivityListView and RemoteBridgeView cases
-          currentRectangle.origin.x += parentFrame.origin.x;
-          currentRectangle.origin.y += parentFrame.origin.y;
-        }
-        intersectionWithParent = CGRectIntersection(currentRectangle, parentFrame);
+      isGrandparent = NO;
+      if (!CGPointEqualToPoint(nextParentFrame.origin, CGPointZero)) {
+        currentRectangle.origin.x += nextParentFrame.origin.x;
+        currentRectangle.origin.y += nextParentFrame.origin.y;
+        return CGRectIntersection(currentRectangle, containerFrame);
       }
+      nextParent = nextParent.parent;
+    }
+    return CGRectIntersection(currentRectangle, containerFrame);
+  }
+  // Skip parent containers if they are outside of the viewport
+  CGRect intersectionWithParent = CGRectIntersectsRect(parentFrame, containerFrame)
+    ? CGRectIntersection(currentRectangle, parentFrame)
+    : currentRectangle;
+  if (CGRectIsEmpty(intersectionWithParent) &&
+      parent != container &&
+      self.elementType == XCUIElementTypeOther) {
+    // Special case (or XCTest bug). Shift the origin
+    if (CGSizeEqualToSize(parentFrame.size, containerFrame.size) ||
+        // The size might be inverted in landscape
+        CGSizeEqualToSize(parentFrame.size, CGSizeMake(containerFrame.size.height, containerFrame.size.width)) ||
+        CGSizeEqualToSize(self.frame.size, CGSizeZero)) {
+      // Covers ActivityListView and RemoteBridgeView cases
+      currentRectangle.origin.x += parentFrame.origin.x;
+      currentRectangle.origin.y += parentFrame.origin.y;
+      return CGRectIntersection(currentRectangle, containerFrame);
     }
   }
   if (CGRectIsEmpty(intersectionWithParent) || parent == container) {
-    return [NSValue valueWithCGRect:intersectionWithParent];
+    return intersectionWithParent;
   }
   return [parent fb_frameInContainer:container hierarchyIntersection:[NSValue valueWithCGRect:intersectionWithParent]];
 }
@@ -147,11 +157,10 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSNumber 
   XCElementSnapshot *appElement = ancestors.count > 0 ? [ancestors lastObject] : self;
 
   CGRect appFrame = appElement.frame;
-  NSValue *calculatedRect = nil;
+  CGRect visibleRect = selfFrame;
   if (nil != parentWindow) {
-    calculatedRect = [self fb_frameInContainer:parentWindow hierarchyIntersection:nil];
+    visibleRect = [self fb_frameInContainer:parentWindow hierarchyIntersection:nil];
   }
-  CGRect visibleRect = nil == calculatedRect ? selfFrame : calculatedRect.CGRectValue;
   if (CGRectIsEmpty(visibleRect)) {
     return [self fb_cacheVisibilityWithValue:NO forAncestors:ancestors];
   }
