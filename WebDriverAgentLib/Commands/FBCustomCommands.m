@@ -44,7 +44,9 @@
     [[FBRoute POST:@"/wda/unlock"] respondWithTarget:self action:@selector(handleUnlock:)],
     [[FBRoute GET:@"/wda/locked"].withoutSession respondWithTarget:self action:@selector(handleIsLocked:)],
     [[FBRoute GET:@"/wda/locked"] respondWithTarget:self action:@selector(handleIsLocked:)],
-    [[FBRoute GET:@"/wda/screen"] respondWithTarget:self action:@selector(handleGetScreen:)]
+    [[FBRoute GET:@"/wda/screen"] respondWithTarget:self action:@selector(handleGetScreen:)],
+    [[FBRoute GET:@"/wda/activeAppInfo"] respondWithTarget:self action:@selector(handleActiveAppInfo:)],
+    [[FBRoute GET:@"/wda/activeAppInfo"].withoutSession respondWithTarget:self action:@selector(handleActiveAppInfo:)]
   ];
 }
 
@@ -135,6 +137,16 @@
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleActiveAppInfo:(FBRouteRequest *)request
+{
+  XCUIApplication *app = FBApplication.fb_activeApplication;
+  return FBResponseWithStatus(FBCommandStatusNoError, @{
+    @"pid": @(app.processID),
+    @"bundleId": app.bundleID,
+    @"name": app.identifier
+  });
 }
 
 @end
