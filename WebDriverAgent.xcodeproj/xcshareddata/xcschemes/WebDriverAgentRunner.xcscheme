@@ -67,7 +67,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "USE_PORT"
-            value = "$(USE_PORT)"
+            value = "8100"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
