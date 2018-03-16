@@ -30,7 +30,7 @@ static const CGFloat FBRotationCoolOffTime = 1.f;
   NSInteger orientation = keysForRotationObj.firstObject.integerValue;
   FBApplication *application = FBApplication.fb_activeApplication;
   [XCUIDevice sharedDevice].orientation = orientation;
-  return [self waitUntilInterfaceIsAtOrientation:[XCUIDevice sharedDevice].orientation application:application];
+  return [self waitUntilInterfaceIsAtOrientation:orientation application:application];
 }
 
 - (BOOL)waitUntilInterfaceIsAtOrientation:(NSInteger)orientation application:(FBApplication *)application
