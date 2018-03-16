@@ -65,7 +65,7 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
 + (id<FBResponsePayload>)handleGetRotation:(FBRouteRequest *)request
 {
     XCUIDevice *device = [XCUIDevice sharedDevice];
-    UIDeviceOrientation orientation = device.orientation;
+    UIInterfaceOrientation orientation = request.session.activeApplication.interfaceOrientation;
     return FBResponseWithStatus(FBCommandStatusNoError, device.fb_rotationMapping[@(orientation)]);
 }
 
