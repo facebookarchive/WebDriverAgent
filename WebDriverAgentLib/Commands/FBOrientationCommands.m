@@ -50,7 +50,8 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
 + (id<FBResponsePayload>)handleGetOrientation:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  return FBResponseWithStatus(FBCommandStatusNoError, [self.class interfaceOrientationForApplication:session.activeApplication]);
+  NSString *orientation = [self.class interfaceOrientationForApplication:session.activeApplication];
+  return FBResponseWithStatus(FBCommandStatusNoError, [[self _wdOrientationsMapping] valueForKey:orientation]);
 }
 
 + (id<FBResponsePayload>)handleSetOrientation:(FBRouteRequest *)request
@@ -118,6 +119,22 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
       FBWDOrientationValues.portraitUpsideDown : @(UIDeviceOrientationPortraitUpsideDown),
       FBWDOrientationValues.landscapeLeft : @(UIDeviceOrientationLandscapeLeft),
       FBWDOrientationValues.landscapeRight : @(UIDeviceOrientationLandscapeRight),
+      };
+  });
+  return orientationMap;
+}
+
++ (NSDictionary *)_wdOrientationsMapping
+{
+  static NSDictionary *orientationMap;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    orientationMap =
+    @{
+      FBWDOrientationValues.portrait : FBWDOrientationValues.portrait,
+      FBWDOrientationValues.portraitUpsideDown : FBWDOrientationValues.portrait,
+      FBWDOrientationValues.landscapeLeft : FBWDOrientationValues.landscapeLeft,
+      FBWDOrientationValues.landscapeRight : FBWDOrientationValues.landscapeLeft,
       };
   });
   return orientationMap;
