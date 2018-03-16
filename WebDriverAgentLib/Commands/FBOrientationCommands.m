@@ -51,7 +51,7 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
 {
   FBSession *session = request.session;
   NSString *orientation = [self.class interfaceOrientationForApplication:session.activeApplication];
-  return FBResponseWithStatus(FBCommandStatusNoError, [[self _wdOrientationsMapping] valueForKey:orientation]);
+  return FBResponseWithStatus(FBCommandStatusNoError, [[self _wdOrientationsMapping] objectForKey:orientation]);
 }
 
 + (id<FBResponsePayload>)handleSetOrientation:(FBRouteRequest *)request
@@ -124,6 +124,12 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
   return orientationMap;
 }
 
+/*
+ We already have FBWDOrientationValues as orientation descriptions, however the strings are not valid
+ WebDriver responses. WebDriver can only receive 'portrait' or 'landscape'. So we can pass the keys
+ through this additional filter to ensure we get one of those. It's essentially a mapping from
+ FBWDOrientationValues to the valid subset of itself we can return to the client
+ */
 + (NSDictionary *)_wdOrientationsMapping
 {
   static NSDictionary *orientationMap;
