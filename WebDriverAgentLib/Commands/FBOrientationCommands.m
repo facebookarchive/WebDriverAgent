@@ -50,7 +50,8 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
 + (id<FBResponsePayload>)handleGetOrientation:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
-  return FBResponseWithStatus(FBCommandStatusNoError, [self.class interfaceOrientationForApplication:session.activeApplication]);
+  NSString *orientation = [self.class interfaceOrientationForApplication:session.activeApplication];
+  return FBResponseWithStatus(FBCommandStatusNoError, [[self _wdOrientationsMapping] objectForKey:orientation]);
 }
 
 + (id<FBResponsePayload>)handleSetOrientation:(FBRouteRequest *)request
@@ -65,7 +66,7 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
 + (id<FBResponsePayload>)handleGetRotation:(FBRouteRequest *)request
 {
     XCUIDevice *device = [XCUIDevice sharedDevice];
-    UIDeviceOrientation orientation = device.orientation;
+    UIInterfaceOrientation orientation = request.session.activeApplication.interfaceOrientation;
     return FBResponseWithStatus(FBCommandStatusNoError, device.fb_rotationMapping[@(orientation)]);
 }
 
@@ -118,6 +119,28 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
       FBWDOrientationValues.portraitUpsideDown : @(UIDeviceOrientationPortraitUpsideDown),
       FBWDOrientationValues.landscapeLeft : @(UIDeviceOrientationLandscapeLeft),
       FBWDOrientationValues.landscapeRight : @(UIDeviceOrientationLandscapeRight),
+      };
+  });
+  return orientationMap;
+}
+
+/*
+ We already have FBWDOrientationValues as orientation descriptions, however the strings are not valid
+ WebDriver responses. WebDriver can only receive 'portrait' or 'landscape'. So we can pass the keys
+ through this additional filter to ensure we get one of those. It's essentially a mapping from
+ FBWDOrientationValues to the valid subset of itself we can return to the client
+ */
++ (NSDictionary *)_wdOrientationsMapping
+{
+  static NSDictionary *orientationMap;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    orientationMap =
+    @{
+      FBWDOrientationValues.portrait : FBWDOrientationValues.portrait,
+      FBWDOrientationValues.portraitUpsideDown : FBWDOrientationValues.portrait,
+      FBWDOrientationValues.landscapeLeft : FBWDOrientationValues.landscapeLeft,
+      FBWDOrientationValues.landscapeRight : FBWDOrientationValues.landscapeLeft,
       };
   });
   return orientationMap;
