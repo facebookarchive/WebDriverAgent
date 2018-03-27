@@ -31,6 +31,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable XCUIElement *)elementForUUID:(NSString *__nullable)uuid;
 
+/**
+ Clears the cache
+ */
+- (void)clear;
+
+/**
+ Gets the number of elements in the cache
+ */
+@property (nonatomic, readonly) NSUInteger count;
 @end
 
 NS_ASSUME_NONNULL_END

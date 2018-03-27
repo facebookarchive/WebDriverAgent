@@ -38,6 +38,8 @@
     [[FBRoute POST:@"/wda/homescreen"].withoutSession respondWithTarget:self action:@selector(handleHomescreenCommand:)],
     [[FBRoute POST:@"/wda/deactivateApp"] respondWithTarget:self action:@selector(handleDeactivateAppCommand:)],
     [[FBRoute POST:@"/wda/keyboard/dismiss"] respondWithTarget:self action:@selector(handleDismissKeyboardCommand:)],
+    [[FBRoute GET:@"/wda/elementCache/size"] respondWithTarget:self action:@selector(handleGetElementCacheSizeCommand:)],
+    [[FBRoute POST:@"/wda/elementCache/clear"] respondWithTarget:self action:@selector(handleClearElementCacheCommand:)],
   ];
 }
 
@@ -93,4 +95,16 @@
   return FBResponseWithOK();
 }
 
++ (id<FBResponsePayload>)handleGetElementCacheSizeCommand:(FBRouteRequest *)request
+{
+  NSNumber *count = [NSNumber numberWithUnsignedInteger:[request.session.elementCache count]];
+  return FBResponseWithObject(count);
+}
+
++ (id<FBResponsePayload>)handleClearElementCacheCommand:(FBRouteRequest *)request
+{
+  FBElementCache *elementCache = request.session.elementCache;
+  [elementCache clear];
+  return FBResponseWithOK();
+}
 @end

@@ -47,4 +47,13 @@
   return element;
 }
 
+- (void)clear
+{
+  [self.elementCache removeAllObjects];
+}
+
+- (NSUInteger)count
+{
+  return [self.elementCache count];
+}
 @end
