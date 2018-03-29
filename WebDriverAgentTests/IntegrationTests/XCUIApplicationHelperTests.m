@@ -90,8 +90,8 @@
   XCUIElement *textField = self.testedApplication.textFields[@"aIdentifier"];
   [textField tap];
   FBAssertWaitTillBecomesTrue(nil != self.testedApplication.fb_activeElement);
-  XCTAssertEqual(((id<FBElement>)self.testedApplication.fb_activeElement).wdUID,
-                 ((id<FBElement>)textField).wdUID);
+  XCTAssertEqualObjects(((id<FBElement>)self.testedApplication.fb_activeElement).wdUID,
+                        ((id<FBElement>)textField).wdUID);
 }
 
 @end

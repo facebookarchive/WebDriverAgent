@@ -100,7 +100,7 @@
 
 - (void)testGetUidAttribute
 {
-  [self verifyGettingAttributeWithShortcut:@"UID" expectedValue:@(self.matchingElement.wdUID)];
+  [self verifyGettingAttributeWithShortcut:@"UID" expectedValue:self.matchingElement.wdUID];
 }
 
 - (void)testGetVisibleAttribute

@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface XCUIElement (FBUID)
 
 /*! Represents unique internal element identifier, which is the same for an element and its snapshot */
-@property (nonatomic, readonly) NSUInteger fb_uid;
+@property (nonatomic, readonly, copy) NSString *fb_uid;
 
 @end
 
@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface XCElementSnapshot (FBUID)
 
 /*! Represents unique internal element identifier, which is the same for an element and its snapshot */
-@property (nonatomic, readonly) NSUInteger fb_uid;
+@property (nonatomic, readonly, copy) NSString *fb_uid;
 
 @end
 

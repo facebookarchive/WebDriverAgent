@@ -14,7 +14,7 @@
 
 @implementation XCUIElement (FBUID)
 
-- (NSUInteger)fb_uid
+- (NSString *)fb_uid
 {
   return self.fb_lastSnapshot.fb_uid;
 }
@@ -23,7 +23,7 @@
 
 @implementation XCElementSnapshot (FBUID)
 
-- (NSUInteger)fb_uid
+- (NSString *)fb_uid
 {
   return [FBElementUtils uidWithAccessibilityElement:self.accessibilityElement];
 }

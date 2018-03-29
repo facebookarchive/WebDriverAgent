@@ -74,9 +74,9 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   if (0 == snapshots.count) {
     return @[];
   }
-  NSArray<NSNumber *> *matchedUids = [snapshots valueForKey:FBStringify(XCUIElement, wdUID)];
+  NSArray<NSString *> *matchedUids = [snapshots valueForKey:FBStringify(XCUIElement, wdUID)];
   NSMutableArray<XCUIElement *> *matchedElements = [NSMutableArray array];
-  if ([matchedUids containsObject:@(self.wdUID)]) {
+  if ([matchedUids containsObject:self.wdUID]) {
     if (1 == snapshots.count) {
       return @[self];
     }
@@ -101,7 +101,7 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   [snapshots enumerateObjectsUsingBlock:^(XCElementSnapshot *snapshot, NSUInteger snapshotIdx, BOOL *stopSnapshotEnum) {
     XCUIElement *matchedElement = nil;
     for (XCUIElement *element in matchedElements) {
-      if (element.wdUID == snapshot.wdUID) {
+      if ([element.wdUID isEqualToString:snapshot.wdUID]) {
         matchedElement = element;
         break;
       }

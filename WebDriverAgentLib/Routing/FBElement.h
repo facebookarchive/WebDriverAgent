@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, strong, nullable) NSString *wdValue;
 
 /*! Element's unique identifier */
-@property (nonatomic, readonly) NSUInteger wdUID;
+@property (nonatomic, readonly, copy) NSString *wdUID;
 
 /*! Whether element is enabled */
 @property (nonatomic, readonly, getter = isWDEnabled) BOOL wdEnabled;

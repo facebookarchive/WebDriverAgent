@@ -26,11 +26,14 @@
 
 - (void)testStoringElement
 {
-  NSString *firstUUID = [self.cache storeElement:(XCUIElement *)XCUIElementDouble.new];
-  NSString *secondUUID = [self.cache storeElement:(XCUIElement *)XCUIElementDouble.new];
-  XCTAssertNotNil(firstUUID, @"Stored index should be higher than 0");
-  XCTAssertNotNil(secondUUID, @"Stored index should be higher than 0");
-  XCTAssertNotEqualObjects(firstUUID, secondUUID, @"Stored indexes should be different");
+  XCUIElementDouble *el1 = XCUIElementDouble.new;
+  el1.wdUID = @"1";
+  XCUIElementDouble *el2 = XCUIElementDouble.new;
+  el2.wdUID = @"2";
+  NSString *firstUUID = [self.cache storeElement:(XCUIElement *)el1];
+  NSString *secondUUID = [self.cache storeElement:(XCUIElement *)el2];
+  XCTAssertEqualObjects(firstUUID, el1.wdUID);
+  XCTAssertEqualObjects(secondUUID, el2.wdUID);
 }
 
 - (void)testFetchingElement
@@ -60,7 +63,9 @@
   NSMutableArray *elements = [NSMutableArray arrayWithCapacity:ELEMENT_COUNT];
   NSMutableArray *elementIds = [NSMutableArray arrayWithCapacity:ELEMENT_COUNT];
   for(int i = 0; i < ELEMENT_COUNT; i++) {
-    [elements addObject:(XCUIElement *)XCUIElementDouble.new];
+    XCUIElementDouble *el = XCUIElementDouble.new;
+    el.wdUID = [NSString stringWithFormat:@"%@", @(i)];
+    [elements addObject:(XCUIElement *)el];
   }
   
   // The capacity of the cache is limited to 1024 elements. Add 1050
@@ -87,7 +92,9 @@
   NSMutableArray *elements = [NSMutableArray arrayWithCapacity:ELEMENT_COUNT];
   NSMutableArray *elementIds = [NSMutableArray arrayWithCapacity:ELEMENT_COUNT];
   for(int i = 0; i < ELEMENT_COUNT; i++) {
-    [elements addObject:(XCUIElement *)XCUIElementDouble.new];
+    XCUIElementDouble *el = XCUIElementDouble.new;
+    el.wdUID = [NSString stringWithFormat:@"%@", @(i)];
+    [elements addObject:(XCUIElement *)el];
   }
   
   // The capacity of the cache is limited to 1024 elements. Add 1050

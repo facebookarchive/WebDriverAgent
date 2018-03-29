@@ -111,15 +111,23 @@ static NSString *const OBJC_PROP_ATTRIBS_SEPARATOR = @",";
 
 static BOOL FBShouldUsePayloadForUIDExtraction = YES;
 static dispatch_once_t oncePayloadToken;
-+ (NSUInteger)uidWithAccessibilityElement:(XCAccessibilityElement *)element
++ (NSString *)uidWithAccessibilityElement:(XCAccessibilityElement *)element
 {
   dispatch_once(&oncePayloadToken, ^{
     FBShouldUsePayloadForUIDExtraction = [element respondsToSelector:@selector(payload)];
   });
+  unsigned long long elementId;
   if (FBShouldUsePayloadForUIDExtraction) {
-    return [[element.payload objectForKey:@"uid.elementID"] intValue];
+    elementId = [[element.payload objectForKey:@"uid.elementID"] longLongValue];
+  } else {
+    elementId = [[element valueForKey:@"_elementID"] longLongValue];
   }
-  return [[element valueForKey:@"_elementID"] intValue];
+  int processId = element.processIdentifier;
+  uint8_t b[16] = {0};
+  memcpy(b, &elementId, sizeof(long long));
+  memcpy(b + sizeof(long long), &processId, sizeof(int));
+  NSUUID *uuidValue = [[NSUUID alloc] initWithUUIDBytes:b];
+  return uuidValue.UUIDString;
 }
 
 @end

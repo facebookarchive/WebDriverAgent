@@ -13,6 +13,7 @@
 #import "FBAlert.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBUtilities.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 
 const int ELEMENT_CACHE_SIZE = 1024;
 
@@ -35,7 +36,7 @@ const int ELEMENT_CACHE_SIZE = 1024;
 
 - (NSString *)storeElement:(XCUIElement *)element
 {
-  NSString *uuid = [[NSUUID UUID] UUIDString];
+  NSString *uuid = element.wdUID;
   [self.elementCache setObject:element forKey:uuid];
   return uuid;
 }

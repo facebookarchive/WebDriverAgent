@@ -145,13 +145,13 @@ static NSMutableDictionary<NSNumber *, NSMutableDictionary<NSString *, NSMutable
   return [self fb_cachedValueWithAttributeName:@"wdType" valueGetter:getter];
 }
 
-- (NSUInteger)wdUID
+- (NSString *)wdUID
 {
   id (^getter)(void) = ^id(void) {
-    return @(self.fb_uid);
+    return self.fb_uid;
   };
   
-  return [[self fb_cachedValueWithAttributeName:@"wdUID" valueGetter:getter] integerValue];
+  return [self fb_cachedValueWithAttributeName:@"wdUID" valueGetter:getter];
 }
 
 - (CGRect)wdFrame
