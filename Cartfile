@@ -1,2 +1,5 @@
 # Used for HTTP routing
 github "marekcirkos/RoutingHTTPServer"
+
+# Used by the element cache
+github "ibireme/YYCache"

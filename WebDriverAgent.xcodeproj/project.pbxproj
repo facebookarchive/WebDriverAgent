@@ -77,6 +77,8 @@
 		ADDA07241D6BB2BF001700AC /* FBScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDA07231D6BB2BF001700AC /* FBScrollViewController.m */; };
 		ADEF63AD1D09DCCF0070A7E3 /* FBXPathCreatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */; };
 		ADEF63AF1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEF63AE1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m */; };
+		E456BF73206BC17F00963F9F /* YYCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E456BF72206BC17F00963F9F /* YYCache.framework */; };
+		E456BF75206BC35200963F9F /* YYCache.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = E456BF74206BC35200963F9F /* YYCache.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EE006EAD1EB99B15006900A4 /* FBElementVisibilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE006EAC1EB99B15006900A4 /* FBElementVisibilityTests.m */; };
 		EE006EB01EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = EE006EAE1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.h */; };
 		EE006EB11EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = EE006EAF1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.m */; };
@@ -411,6 +413,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				E456BF75206BC35200963F9F /* YYCache.framework in Copy Frameworks */,
 				AD35D01A1CF1418E00870A75 /* RoutingHTTPServer.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -491,6 +494,8 @@
 		ADDA07231D6BB2BF001700AC /* FBScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBScrollViewController.m; sourceTree = "<group>"; };
 		ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathCreatorTests.m; sourceTree = "<group>"; };
 		ADEF63AE1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRuntimeUtilsTests.m; sourceTree = "<group>"; };
+		E456BF72206BC17F00963F9F /* YYCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YYCache.framework; path = Carthage/Build/iOS/YYCache.framework; sourceTree = "<group>"; };
+		E456BF74206BC35200963F9F /* YYCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YYCache.framework; path = Carthage/Build/iOS/YYCache.framework; sourceTree = "<group>"; };
 		EE006EAC1EB99B15006900A4 /* FBElementVisibilityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementVisibilityTests.m; sourceTree = "<group>"; };
 		EE006EAE1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCElementSnapshot+FBHitPoint.h"; sourceTree = "<group>"; };
 		EE006EAF1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCElementSnapshot+FBHitPoint.m"; sourceTree = "<group>"; };
@@ -767,6 +772,7 @@
 			files = (
 				7174AF041D9D39AF008C8AD5 /* libxml2.tbd in Frameworks */,
 				AD35D0641CF1C2C300870A75 /* RoutingHTTPServer.framework in Frameworks */,
+				E456BF73206BC17F00963F9F /* YYCache.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -836,6 +842,7 @@
 		91F9DAE01B99DBC2001349B2 = {
 			isa = PBXGroup;
 			children = (
+				E456BF74206BC35200963F9F /* YYCache.framework */,
 				EEE5CABE1C80361500CBBDD9 /* Configurations */,
 				91F9DB731B99DDD8001349B2 /* PrivateHeaders */,
 				498495C81BB2E6FA009CC848 /* Resources */,
@@ -905,6 +912,7 @@
 		B6E83A410C45944B036B6B0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E456BF72206BC17F00963F9F /* YYCache.framework */,
 				7174AF031D9D39AF008C8AD5 /* libxml2.tbd */,
 				AD35D0671CF1C2DA00870A75 /* iOS */,
 			);

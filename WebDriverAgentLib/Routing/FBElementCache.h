@@ -13,6 +13,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// This constant defines the size of the element cache, which puts an upper limit
+// on the amount of elements which can be stored in the cache.
+// Based on the data in https://github.com/facebook/WebDriverAgent/pull/896, each
+// element consumes about 100KB of memory; so 1024 elements would consume 100 MB of
+// memory.
+extern const int ELEMENT_CACHE_SIZE;
+
 @interface FBElementCache : NSObject
 
 /**

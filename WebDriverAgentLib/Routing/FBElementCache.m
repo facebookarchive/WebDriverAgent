@@ -9,13 +9,15 @@
 
 #import "FBElementCache.h"
 
+#import <YYCache/YYCache.h>
 #import "FBAlert.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBUtilities.h"
 
+const int ELEMENT_CACHE_SIZE = 1024;
 
 @interface FBElementCache ()
-@property (atomic, strong) NSMutableDictionary *elementCache;
+@property (atomic, strong) YYMemoryCache *elementCache;
 @end
 
 @implementation FBElementCache
@@ -26,14 +28,15 @@
   if (!self) {
     return nil;
   }
-  _elementCache = [[NSMutableDictionary alloc] init];
+  _elementCache = [[YYMemoryCache alloc] init];
+  _elementCache.countLimit = ELEMENT_CACHE_SIZE;
   return self;
 }
 
 - (NSString *)storeElement:(XCUIElement *)element
 {
   NSString *uuid = [[NSUUID UUID] UUIDString];
-  self.elementCache[uuid] = element;
+  [self.elementCache setObject:element forKey:uuid];
   return uuid;
 }
 
@@ -42,7 +45,7 @@
   if (!uuid) {
     return nil;
   }
-  XCUIElement *element = self.elementCache[uuid];
+  XCUIElement *element = [self.elementCache objectForKey:uuid];
   [element resolve];
   return element;
 }
