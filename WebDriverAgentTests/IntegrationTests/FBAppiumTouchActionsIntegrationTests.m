@@ -174,6 +174,23 @@
   [self verifyGesture:gesture orientation:UIDeviceOrientationPortrait];
 }
 
+- (void)testTapByCoordinates
+{
+  CGRect elementRect = self.testedApplication.buttons[FBShowAlertButtonName].frame;
+  CGFloat x = elementRect.origin.x + elementRect.size.width / 2;
+  CGFloat y = elementRect.origin.y + elementRect.size.height / 2;
+  NSArray<NSDictionary<NSString *, id> *> *gesture =
+  @[@{
+      @"action": @"tap",
+      @"options": @{
+          @"x": @(x),
+          @"y": @(y)
+          }
+      }
+    ];
+  [self verifyGesture:gesture orientation:UIDeviceOrientationPortrait];
+}
+
 - (void)testDoubleTap
 {
   NSArray<NSDictionary<NSString *, id> *> *gesture =

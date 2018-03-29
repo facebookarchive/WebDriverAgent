@@ -73,13 +73,6 @@
   } else {
     // The offset relative to the element is defined
     XCElementSnapshot *snapshot = element.fb_lastSnapshot;
-    if (nil == positionOffset) {
-      @try {
-        return [NSValue valueWithCGPoint:[snapshot hitPoint]];
-      } @catch (NSException *e) {
-        [FBLogger logFmt:@"Failed to fetch hit point for %@ - %@. Will use element frame in window for hit point calculation instead", element.debugDescription, e.reason];
-      }
-    }
     CGRect frame = snapshot.frame;
     if (CGRectIsEmpty(frame)) {
       [FBLogger log:self.application.fb_descriptionRepresentation];
@@ -90,10 +83,20 @@
       return nil;
     }
     if (nil == positionOffset) {
+      @try {
+        // short circuit element hitpoint
+        return [NSValue valueWithCGPoint:[snapshot hitPoint]];
+      } @catch (NSException *e) {
+        [FBLogger logFmt:@"Failed to fetch hit point for %@ - %@. Will use element frame for hit point calculation instead", element.debugDescription, e.reason];
+      }
+    }
+    CGRect visibleFrame = snapshot.visibleFrame;
+    frame = CGRectIsEmpty(visibleFrame) ? frame : visibleFrame;
+    if (nil == positionOffset) {
       hitPoint = CGPointMake(frame.origin.x + frame.size.width / 2,
                              frame.origin.y + frame.size.height / 2);
     } else {
-      CGPoint origin = snapshot.frame.origin;
+      CGPoint origin = frame.origin;
       hitPoint = CGPointMake(origin.x, origin.y);
       CGPoint offsetValue = [positionOffset CGPointValue];
       hitPoint = CGPointMake(hitPoint.x + offsetValue.x, hitPoint.y + offsetValue.y);

@@ -138,6 +138,8 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
     }
     return nil;
   }
+  CGRect visibleFrame = snapshot.visibleFrame;
+  frame = CGRectIsEmpty(visibleFrame) ? frame : visibleFrame;
   // W3C standard requires that relative element coordinates start at the center of the element's rectangle
   CGPoint hitPoint = CGPointMake(frame.origin.x + frame.size.width / 2, frame.origin.y + frame.size.height / 2);
   CGPoint offsetValue = [positionOffset CGPointValue];
