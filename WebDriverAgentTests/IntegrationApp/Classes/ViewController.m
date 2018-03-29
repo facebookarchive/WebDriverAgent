@@ -10,6 +10,7 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *orentationLabel;
 @end
 
 @implementation ViewController
@@ -24,6 +25,35 @@
 - (IBAction)didTapButton:(UIButton *)button
 {
   button.selected = !button.selected;
+}
+
+- (void)viewDidLayoutSubviews
+{
+  [super viewDidLayoutSubviews];
+  [self updateOrentationLabel];
+}
+
+- (void)updateOrentationLabel
+{
+  NSString *orientation = nil;
+  switch (self.interfaceOrientation) {
+    case UIInterfaceOrientationPortrait:
+      orientation = @"Portrait";
+      break;
+    case UIInterfaceOrientationPortraitUpsideDown:
+      orientation = @"PortraitUpsideDown";
+      break;
+    case UIInterfaceOrientationLandscapeLeft:
+      orientation = @"LandscapeLeft";
+      break;
+    case UIInterfaceOrientationLandscapeRight:
+      orientation = @"LandscapeRight";
+      break;
+    case UIInterfaceOrientationUnknown:
+      orientation = @"Unknown";
+      break;
+  }
+  self.orentationLabel.text = orientation;
 }
 
 @end

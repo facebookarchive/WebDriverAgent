@@ -13,6 +13,8 @@
 
 #import "FBIntegrationTestCase.h"
 #import "FBTestMacros.h"
+#import "FBMacros.h"
+#import "XCUIElement+FBTap.h"
 
 @interface FBAlertTests : FBIntegrationTestCase
 @end
@@ -37,14 +39,14 @@
 
 - (void)showApplicationAlert
 {
-  [self.testedApplication.buttons[FBShowAlertButtonName] tap];
+  [self.testedApplication.buttons[FBShowAlertButtonName] fb_tapWithError:nil];
   FBAssertWaitTillBecomesTrue(self.testedApplication.alerts.count != 0);
 }
 
 - (void)showApplicationSheet
 {
-    [self.testedApplication.buttons[FBShowSheetAlertButtonName] tap];
-    FBAssertWaitTillBecomesTrue(self.testedApplication.sheets.count != 0);
+  [self.testedApplication.buttons[FBShowSheetAlertButtonName] fb_tapWithError:nil];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.sheets.count != 0);
 }
 
 - (void)testAlertException
@@ -161,6 +163,10 @@
 
 - (void)testSheetAlert
 {
+  if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+    // This test is unstable under Xcode8
+    return;
+  }
   FBAlert *alert = [FBAlert alertWithApplication:self.testedApplication];
   BOOL isIpad = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
   [self showApplicationSheet];

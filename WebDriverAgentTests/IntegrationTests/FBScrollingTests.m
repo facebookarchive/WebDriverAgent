@@ -35,7 +35,7 @@
 {
   [super setUp];
   [self launchApplication];
-  [self goToScrollPageWithCells:[self.class shouldShowCells]];
+  [self goToScrollPageWithCells:NO];
   self.scrollView = [[self.testedApplication.query descendantsMatchingType:XCUIElementTypeAny] matchingIdentifier:@"scrollView"].element;
   [self.scrollView resolve];
 }
@@ -86,18 +86,6 @@
   XCTAssertTrue([FBCellElementWithLabel(cellName) fb_scrollToVisibleWithError:&error]);
   XCTAssertNil(error);
   FBAssertVisibleCell(cellName);
-}
-
-@end
-
-@interface FBNoCellScrollingTests : FBScrollingTests
-@end
-
-@implementation FBNoCellScrollingTests
-
-+ (BOOL)shouldShowCells
-{
-  return NO;
 }
 
 @end

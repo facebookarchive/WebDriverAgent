@@ -50,4 +50,9 @@
   self.didResolve = YES;
 }
 
+- (id)lastSnapshot
+{
+  return self;
+}
+
 @end

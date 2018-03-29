@@ -53,7 +53,7 @@
 - (id)application;
 - (id)description;
 - (id)lastSnapshot;
-- (id)query;
+- (XCUIElementQuery *)query;
 - (void)clearQuery;
 - (void)resolveHandleUIInterruption:(BOOL)arg1;
 - (id)initPrivateWithPath:(id)arg1 bundleID:(id)arg2;
