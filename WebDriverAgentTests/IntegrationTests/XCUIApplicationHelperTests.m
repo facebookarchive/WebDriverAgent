@@ -57,8 +57,6 @@
 
 - (void)testApplicationTree
 {
-  [self.testedApplication query];
-  [self.testedApplication resolve];
   XCTAssertNotNil(self.testedApplication.fb_tree);
   XCTAssertNotNil(self.testedApplication.fb_accessibilityTree);
 }
@@ -67,8 +65,6 @@
 {
   // This test randomly causes:
   // Failure fetching attributes for element <XCAccessibilityElement: 0x6080008407b0> Device element: Error Domain=XCTDaemonErrorDomain Code=13 "Value for attribute 5017 is an error." UserInfo={NSLocalizedDescription=Value for attribute 5017 is an error.}
-  [self.testedApplication query];
-  [self.testedApplication resolve];
   NSError *error;
   XCTAssertTrue([self.testedApplication fb_deactivateWithDuration:1 error:&error]);
   XCTAssertNil(error);

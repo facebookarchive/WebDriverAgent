@@ -20,6 +20,7 @@
 #import "FBXCodeCompatibility.h"
 #import "XCAXClient_iOS.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
+#import "XCUIElementQuery.h"
 
 
 @implementation XCUIElement (FBUtilities)
@@ -62,9 +63,18 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   return YES;
 }
 
+static BOOL FBShouldUseSnapshotForDebugDescription = NO;
+static dispatch_once_t onceUseSnapshotForDebugDescriptionToken;
+
 - (XCElementSnapshot *)fb_lastSnapshot
 {
-  [self query];
+  XCUIElementQuery *query = [self query];
+  dispatch_once(&onceUseSnapshotForDebugDescriptionToken, ^{
+    FBShouldUseSnapshotForDebugDescription = [query respondsToSelector:NSSelectorFromString(@"elementSnapshotForDebugDescription")];
+  });
+  if (FBShouldUseSnapshotForDebugDescription) {
+    return (XCElementSnapshot *)[query valueForKey:@"elementSnapshotForDebugDescription"];
+  }
   [self resolve];
   return self.lastSnapshot;
 }
