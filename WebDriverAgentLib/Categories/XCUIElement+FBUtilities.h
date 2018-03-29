@@ -42,6 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (XCElementSnapshot *)fb_lastSnapshot;
 
 /**
+ Gets the most recent snapshot of the current element from the query snapshot that found the element.
+ 
+ @return The recent snapshot of the element
+ */
+- (XCElementSnapshot *)fb_lastSnapshotFromQuery;
+
+/**
  Filters elements by matching them to snapshots from the corresponding array
 
  @param snapshots Array of snapshots to be matched with

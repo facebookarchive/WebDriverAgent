@@ -13,6 +13,9 @@
 #import "FBResponseFilePayload.h"
 #import "FBResponseJSONPayload.h"
 #import "FBSession.h"
+#import "FBMathUtils.h"
+#import "FBConfiguration.h"
+#import "FBMacros.h"
 
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
@@ -89,9 +92,32 @@ inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element
   NSMutableDictionary *dictionary = [NSMutableDictionary new];
   dictionary[@"ELEMENT"] = elementUUID;
   if (!compact) {
-    XCElementSnapshot *snapshot = element.fb_lastSnapshot;
-    dictionary[@"type"] = snapshot.wdType;
-    dictionary[@"label"] = snapshot.wdLabel ?: [NSNull null];
+    NSArray *fields = [FBConfiguration.elementResponseFields componentsSeparatedByString:@","];
+    XCElementSnapshot *snapshot = element.fb_lastSnapshotFromQuery;
+    for(NSString *field in fields) {
+      if ([field isEqualToString: @"name"]) {
+        dictionary[field] = snapshot.wdType;
+      }
+      else if ([field isEqualToString: @"text"]) {
+        dictionary[field] = FBFirstNonEmptyValue(snapshot.wdValue, snapshot.wdLabel) ?: [NSNull null];
+      }
+      else if ([field isEqualToString: @"rect"]) {
+        dictionary[field] = FBwdRectNoInf(snapshot.wdRect);
+      }
+      else if ([field isEqualToString: @"enabled"]) {
+        dictionary[field] = @(snapshot.wdEnabled);
+      }
+      else if ([field isEqualToString: @"displayed"]) {
+        dictionary[field] = @(snapshot.wdVisible);
+      }
+      else if ([field isEqualToString: @"selected"]) {
+        dictionary[field] = @(snapshot.selected);
+      }
+      else if ([field hasPrefix: @"attribute/"]) {
+        NSString *attributeName = [field substringFromIndex:10];
+        dictionary[field] = [snapshot fb_valueForWDAttributeName:attributeName] ?: [NSNull null];
+      }
+    }
   }
   return dictionary.copy;
 }

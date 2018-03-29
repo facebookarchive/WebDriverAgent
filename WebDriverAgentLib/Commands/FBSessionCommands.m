@@ -70,6 +70,10 @@
   if (requirements[@"shouldUseCompactResponses"]) {
     [FBConfiguration setShouldUseCompactResponses:[requirements[@"shouldUseCompactResponses"] boolValue]];
   }
+  NSString *elementResponseFields = requirements[@"elementResponseFields"];
+  if (elementResponseFields) {
+    [FBConfiguration setElementResponseFields:elementResponseFields];
+  }
   if (requirements[@"maxTypingFrequency"]) {
     [FBConfiguration setMaxTypingFrequency:[requirements[@"maxTypingFrequency"] integerValue]];
   }

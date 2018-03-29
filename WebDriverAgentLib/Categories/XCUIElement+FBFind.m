@@ -18,6 +18,7 @@
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
+#import "XCUIElementQuery.h"
 #import "FBElementUtils.h"
 #import "FBXCodeCompatibility.h"
 #import "FBXPath.h"
@@ -27,7 +28,7 @@
 + (NSArray<XCUIElement *> *)fb_extractMatchingElementsFromQuery:(XCUIElementQuery *)query shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
   if (!shouldReturnAfterFirstMatch) {
-    return query.allElementsBoundByIndex;
+    return query.allElementsBoundByAccessibilityElement;
   }
   XCUIElement *matchedElement = query.fb_firstMatch;
   return matchedElement ? @[matchedElement] : @[];
