@@ -40,7 +40,7 @@
     // Health check might modify simulator state so it should only be called in-between testing sessions
     [[FBRoute GET:@"/wda/healthcheck"].withoutSession respondWithTarget:self action:@selector(handleGetHealthCheck:)],
     
-    //
+    // Settings endpoints
     [[FBRoute GET:@"/appium/settings"] respondWithTarget:self action:@selector(handleGetSettings:)],
     [[FBRoute POST:@"/appium/settings"] respondWithTarget:self action:@selector(handleSetSettings:)],
   ];
@@ -179,17 +179,19 @@
   );
 }
 
+// TODO if we get lots more settings, handling them with a series of if-statements will be unwieldy
+// and this should be refactored
 + (id<FBResponsePayload>)handleSetSettings:(FBRouteRequest *)request
 {
   NSDictionary* settings = request.arguments[@"settings"];
   
-  if ([settings valueForKey:@"shouldUseCompactResponses"]) {
-    BOOL shouldUseCompactResponses = [[settings valueForKey:@"shouldUseCompactResponses"] boolValue];
+  if ([settings objectForKey:@"shouldUseCompactResponses"]) {
+    BOOL shouldUseCompactResponses = [[settings objectForKey:@"shouldUseCompactResponses"] boolValue];
     [FBConfiguration setShouldUseCompactResponses:shouldUseCompactResponses];
   }
   
-  if ([settings valueForKey:@"elementResponseAttributes"]) {
-    NSString* elementResponseAttribute = [settings valueForKey:@"elementResponseAttributes"];
+  if ([settings objectForKey:@"elementResponseAttributes"]) {
+    NSString* elementResponseAttribute = [settings objectForKey:@"elementResponseAttributes"];
     [FBConfiguration setElementResponseAttributes:elementResponseAttribute];
   }
   

@@ -91,30 +91,15 @@ static dispatch_once_t onceUseSnapshotForDebugDescriptionToken;
     if (rootQuery != nil) {
       NSMutableArray *snapshots = [NSMutableArray arrayWithObject:rootQuery.rootElementSnapshot];
       [snapshots addObjectsFromArray:rootQuery.rootElementSnapshot._allDescendants];
-      NSMutableOrderedSet *matchingSnapshots = (NSMutableOrderedSet *)[self.query.transformer transform:[NSOrderedSet orderedSetWithArray:snapshots] relatedElements:nil];
+      NSOrderedSet *matchingSnapshots = (NSOrderedSet *)[self.query.transformer transform:[NSOrderedSet orderedSetWithArray:snapshots] relatedElements:nil];
       if (matchingSnapshots != nil && matchingSnapshots.count == 1) {
         snapshot = matchingSnapshots[0];
       }
     }
-  }
-  @catch (NSException *) {
+  } @catch (NSException *) {
     snapshot = nil;
   }
   return snapshot ?: self.fb_lastSnapshot;
-}
-
-- (XCElementSnapshot *)fb_findSnapshotInTree:(XCElementSnapshot *)tree
-{
-  if ([tree _matchesElement:self]) {
-    return tree;
-  }
-  for(XCElementSnapshot *child in tree.children) {
-    XCElementSnapshot *snapshot = [self fb_findSnapshotInTree:child];
-    if (snapshot != nil) {
-      return snapshot;
-    }
-  }
-  return nil;
 }
 
 - (NSArray<XCUIElement *> *)fb_filterDescendantsWithSnapshots:(NSArray<XCElementSnapshot *> *)snapshots
