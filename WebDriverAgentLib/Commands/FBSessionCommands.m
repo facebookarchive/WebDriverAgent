@@ -39,6 +39,10 @@
 
     // Health check might modify simulator state so it should only be called in-between testing sessions
     [[FBRoute GET:@"/wda/healthcheck"].withoutSession respondWithTarget:self action:@selector(handleGetHealthCheck:)],
+    
+    //
+    [[FBRoute GET:@"/appium/settings"] respondWithTarget:self action:@selector(handleGetSettings:)],
+    [[FBRoute POST:@"/appium/settings"] respondWithTarget:self action:@selector(handleSetSettings:)],
   ];
 }
 
@@ -70,9 +74,9 @@
   if (requirements[@"shouldUseCompactResponses"]) {
     [FBConfiguration setShouldUseCompactResponses:[requirements[@"shouldUseCompactResponses"] boolValue]];
   }
-  NSString *elementResponseFields = requirements[@"elementResponseFields"];
-  if (elementResponseFields) {
-    [FBConfiguration setElementResponseFields:elementResponseFields];
+  NSString *elementResponseAttributes = requirements[@"elementResponseAttributes"];
+  if (elementResponseAttributes) {
+    [FBConfiguration setElementResponseAttributes:elementResponseAttributes];
   }
   if (requirements[@"maxTypingFrequency"]) {
     [FBConfiguration setMaxTypingFrequency:[requirements[@"maxTypingFrequency"] integerValue]];
@@ -163,6 +167,33 @@
     return FBResponseWithErrorFormat(@"Health check failed");
   }
   return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleGetSettings:(FBRouteRequest *)request
+{
+  return FBResponseWithObject(
+    @{
+      @"shouldUseCompactResponses": @([FBConfiguration shouldUseCompactResponses]),
+      @"elementResponseAttributes": [FBConfiguration elementResponseAttributes]
+    }
+  );
+}
+
++ (id<FBResponsePayload>)handleSetSettings:(FBRouteRequest *)request
+{
+  NSDictionary* settings = request.arguments[@"settings"];
+  
+  if ([settings valueForKey:@"shouldUseCompactResponses"]) {
+    BOOL shouldUseCompactResponses = [[settings valueForKey:@"shouldUseCompactResponses"] boolValue];
+    [FBConfiguration setShouldUseCompactResponses:shouldUseCompactResponses];
+  }
+  
+  if ([settings valueForKey:@"elementResponseAttributes"]) {
+    NSString* elementResponseAttribute = [settings valueForKey:@"elementResponseAttributes"];
+    [FBConfiguration setElementResponseAttributes:elementResponseAttribute];
+  }
+  
+  return [self handleGetSettings:request];
 }
 
 

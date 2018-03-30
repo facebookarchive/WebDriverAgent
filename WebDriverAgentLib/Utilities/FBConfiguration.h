@@ -25,8 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)shouldUseCompactResponses;
 
 /*! If shouldUseCompactResponses == NO, is the comma-separated list of fields to return with each element. Defaults to "type,label". */
-+ (void)setElementResponseFields:(NSString *)value;
-+ (NSString *)elementResponseFields;
++ (void)setElementResponseAttributes:(NSString *)value;
++ (NSString *)elementResponseAttributes;
 
 /*! Disables remote query evaluation making Xcode 9.x tests behave same as Xcode 8.x test */
 + (void)disableRemoteQueryEvaluation;
