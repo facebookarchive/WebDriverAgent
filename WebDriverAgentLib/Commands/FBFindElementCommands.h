@@ -14,7 +14,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FBFindElementCommands : NSObject <FBCommandHandler>
-
 @end
 
 NS_ASSUME_NONNULL_END

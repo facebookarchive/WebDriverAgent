@@ -13,6 +13,8 @@
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "XCUIElement+FBFind.h"
 #import "FBElementUtils.h"
+#import "FBConfiguration.h"
+#import "FBResponsePayload.h"
 
 @interface XCUIElementAttributesTests : FBIntegrationTestCase
 @property (nonatomic, strong) XCUIElement *matchingElement;
@@ -116,6 +118,124 @@
 - (void)testGetInvalidAttribute
 {
   XCTAssertThrowsSpecificNamed([self verifyGettingAttributeWithShortcut:@"invalid" expectedValue:@"blabla"], NSException, FBUnknownAttributeException);
+}
+
+@end
+
+@interface XCUIElementFBFindTests_CompactResponses : FBIntegrationTestCase
+@end
+
+
+@implementation XCUIElementFBFindTests_CompactResponses
+
+- (void)setUp
+{
+  [super setUp];
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [self launchApplication];
+  });
+}
+
+- (void)testCompactResponseYes
+{
+  XCUIElement *alertsButton = self.testedApplication.buttons[@"Alerts"];
+  NSDictionary *fields = FBDictionaryResponseWithElement(alertsButton, @"DUMMY", YES);
+  XCTAssertEqualObjects(fields[@"ELEMENT"], @"DUMMY");
+  XCTAssertEqual(fields.count, 1);
+}
+
+- (void)testCompactResponseNo
+{
+  XCUIElement *alertsButton = self.testedApplication.buttons[@"Alerts"];
+  NSDictionary *fields = FBDictionaryResponseWithElement(alertsButton, @"DUMMY", NO);
+  XCTAssertEqualObjects(fields[@"ELEMENT"], @"DUMMY");
+  XCTAssertEqualObjects(fields[@"type"], @"XCUIElementTypeButton");
+  XCTAssertEqualObjects(fields[@"label"], @"Alerts");
+  XCTAssertEqual(fields.count, 3);
+}
+
+@end
+
+
+@interface XCUIElementFBFindTests_ResponseFields : FBIntegrationTestCase
+@end
+
+@implementation XCUIElementFBFindTests_ResponseFields
+
+- (void)setUp
+{
+  [super setUp];
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [self launchApplication];
+  });
+}
+
+- (void)testCompactResponseYesWithResponseAttributesSet
+{
+  [FBConfiguration setElementResponseAttributes:@"name,text,enabled"];
+  XCUIElement *alertsButton = self.testedApplication.buttons[@"Alerts"];
+  NSDictionary *fields = FBDictionaryResponseWithElement(alertsButton, @"DUMMY", YES);
+  XCTAssertEqualObjects(fields[@"ELEMENT"], @"DUMMY");
+  XCTAssertEqual(fields.count, 1);
+}
+
+- (void)testCompactResponseNoWithResponseAttributesSet
+{
+  [FBConfiguration setElementResponseAttributes:@"name,text,enabled"];
+  XCUIElement *alertsButton = self.testedApplication.buttons[@"Alerts"];
+  NSDictionary *fields = FBDictionaryResponseWithElement(alertsButton, @"DUMMY", NO);
+  XCTAssertEqualObjects(fields[@"ELEMENT"], @"DUMMY");
+  XCTAssertEqualObjects(fields[@"name"], @"XCUIElementTypeButton");
+  XCTAssertEqualObjects(fields[@"text"], @"Alerts");
+  XCTAssertEqualObjects(fields[@"enabled"], @(YES));
+  XCTAssertEqual(fields.count, 4);
+}
+
+- (void)testInvalidAttribute
+{
+  [FBConfiguration setElementResponseAttributes:@"invalid_field,name"];
+  XCUIElement *alertsButton = self.testedApplication.buttons[@"Alerts"];
+  NSDictionary *fields = FBDictionaryResponseWithElement(alertsButton, @"DUMMY", NO);
+  XCTAssertEqualObjects(fields[@"ELEMENT"], @"DUMMY");
+  XCTAssertEqualObjects(fields[@"name"], @"XCUIElementTypeButton");
+  XCTAssertEqual(fields.count, 2);
+}
+
+- (void)testKnownAttributes
+{
+  [FBConfiguration setElementResponseAttributes:@"name,type,label,text,rect,enabled,displayed,selected"];
+  XCUIElement *alertsButton = self.testedApplication.buttons[@"Alerts"];
+  NSDictionary *fields = FBDictionaryResponseWithElement(alertsButton, @"DUMMY", NO);
+  XCTAssertEqualObjects(fields[@"ELEMENT"], @"DUMMY");
+  XCTAssertEqualObjects(fields[@"name"], @"XCUIElementTypeButton");
+  XCTAssertEqualObjects(fields[@"type"], @"XCUIElementTypeButton");
+  XCTAssertEqualObjects(fields[@"label"], @"Alerts");
+  XCTAssertEqualObjects(fields[@"text"], @"Alerts");
+  XCTAssertTrue(matchesRegex([fields[@"rect"] description], @"\\{\\s*height = [0-9]+;\\s*width = [0-9]+;\\s*x = [0-9]+;\\s*y = [0-9]+;\\s*\\}"));
+  XCTAssertEqualObjects(fields[@"enabled"], @(YES));
+  XCTAssertEqualObjects(fields[@"displayed"], @(YES));
+  XCTAssertEqualObjects(fields[@"selected"], @(NO));
+  XCTAssertEqual(fields.count, 9);
+}
+
+- (void)testArbitraryAttributes
+{
+  [FBConfiguration setElementResponseAttributes:@"attribute/name,attribute/value"];
+  XCUIElement *alertsButton = self.testedApplication.buttons[@"Alerts"];
+  NSDictionary *fields = FBDictionaryResponseWithElement(alertsButton, @"DUMMY", NO);
+  XCTAssertEqualObjects(fields[@"ELEMENT"], @"DUMMY");
+  XCTAssertEqualObjects(fields[@"attribute/name"], @"Alerts");
+  XCTAssertEqualObjects(fields[@"attribute/value"], [NSNull null]);
+  XCTAssertEqual(fields.count, 3);
+}
+
+static BOOL matchesRegex(NSString *target, NSString *pattern) {
+  if (!target)
+    return NO;
+  NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:NULL];
+  return [regex numberOfMatchesInString:target options:0 range:NSMakeRange(0, target.length)] == 1;
 }
 
 @end

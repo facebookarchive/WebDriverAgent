@@ -42,6 +42,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (XCElementSnapshot *)fb_lastSnapshot;
 
 /**
+ Gets the most recent snapshot of the current element from the query snapshot that found the element.
+ fb_lastSnapshot actually resolves the query for that element, which then creates a new complete
+ snapshot from the device, and filters it down to the element. This is slow. This method on the other
+ hand finds the root query, obtains the rootSnapshot tree from that query, then applies the element's
+ query to each snapshot object to find it's corresponding snapshot.
+ 
+ @return The recent snapshot of the element
+ */
+- (XCElementSnapshot *)fb_lastSnapshotFromQuery;
+
+/**
  Filters elements by matching them to snapshots from the corresponding array
 
  @param snapshots Array of snapshots to be matched with

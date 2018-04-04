@@ -20,6 +20,7 @@ static NSUInteger const DefaultPortRange = 100;
 static BOOL FBShouldUseTestManagerForVisibilityDetection = NO;
 static BOOL FBShouldUseSingletonTestManager = YES;
 static BOOL FBShouldUseCompactResponses = YES;
+static NSString *FBElementResponseAttributes = @"type,label";
 static NSUInteger FBMaxTypingFrequency = 60;
 
 @implementation FBConfiguration
@@ -74,6 +75,16 @@ static NSUInteger FBMaxTypingFrequency = 60;
 + (BOOL)shouldUseCompactResponses
 {
   return FBShouldUseCompactResponses;
+}
+
++ (void)setElementResponseAttributes:(NSString *)value
+{
+  FBElementResponseAttributes = value;
+}
+
++ (NSString *)elementResponseAttributes
+{
+  return FBElementResponseAttributes;
 }
 
 + (void)setMaxTypingFrequency:(NSUInteger)value

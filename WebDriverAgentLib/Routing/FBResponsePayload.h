@@ -63,6 +63,12 @@ id<FBResponsePayload> FBResponseWithStatus(FBCommandStatus status, __nullable id
  */
 id<FBResponsePayload> FBResponseFileWithPath(NSString *path);
 
+/**
+ Returns a response payload as a NSDictionary for given element and elementUUID.
+ Set compact=NO to include further attributes (defined by FBConfiguration.elementResponseAttributes)
+ */
+NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSString *elementUUID, BOOL compact);
+
 
 /**
  Protocol for objects that can dispatch some kind of a payload for given 'response'
