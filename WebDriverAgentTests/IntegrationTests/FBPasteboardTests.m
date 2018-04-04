@@ -69,6 +69,19 @@
   XCTAssertEqualObjects(textField.value, [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding]);
 }
 
+- (void)testUrlCopyPaste
+{
+  NSString *urlString = @"http://appium.io?some=value";
+  NSError *error;
+  XCTAssertTrue([FBPasteboard setData:(NSData *)[urlString dataUsingEncoding:NSUTF8StringEncoding]
+                              forType:@"url"
+                              error:&error]);
+  XCTAssertNil(error);
+  NSData *result = [FBPasteboard dataForType:@"url" error:&error];
+  XCTAssertNil(error);
+  XCTAssertEqualObjects(urlString, [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding]);
+}
+
 @end
 
 
