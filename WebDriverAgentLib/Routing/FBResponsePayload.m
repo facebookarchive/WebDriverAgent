@@ -20,8 +20,7 @@
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 
-inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSString *elementUUID, BOOL compact);
-static NSString *arbitraryAttrPrefix = @"attribute/";
+NSString *arbitraryAttrPrefix = @"attribute/";
 
 id<FBResponsePayload> FBResponseWithOK()
 {
@@ -88,7 +87,7 @@ id<FBResponsePayload> FBResponseFileWithPath(NSString *path)
   return [[FBResponseFilePayload alloc] initWithFilePath:path];
 }
 
-inline static NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSString *elementUUID, BOOL compact)
+inline NSDictionary *FBDictionaryResponseWithElement(XCUIElement *element, NSString *elementUUID, BOOL compact)
 {
   NSMutableDictionary *dictionary = [NSMutableDictionary new];
   dictionary[@"ELEMENT"] = elementUUID;
