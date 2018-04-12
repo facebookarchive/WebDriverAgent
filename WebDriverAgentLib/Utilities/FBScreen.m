@@ -8,6 +8,8 @@
  */
 
 #import "FBScreen.h"
+#import "XCUIElement+FBIsVisible.h"
+#import "FBXCodeCompatibility.h"
 
 @implementation FBScreen
 
@@ -23,12 +25,8 @@
 
 + (CGSize)statusBarSizeForApplication:(XCUIApplication *)application
 {
-  NSArray<XCUIElement *> *statusBars = application.statusBars.allElementsBoundByIndex;
-  if (0 == statusBars.count) {
-    return CGSizeZero;
-  }
-  XCUIElement *mainStatusBar = [statusBars objectAtIndex:0];
-  if (!mainStatusBar.exists || CGRectIsEmpty(mainStatusBar.frame) || !mainStatusBar.hittable) {
+  XCUIElement *mainStatusBar = application.statusBars.fb_firstMatch;
+  if (!mainStatusBar || !mainStatusBar.fb_isVisible) {
     return CGSizeZero;
   }
   return mainStatusBar.frame.size;

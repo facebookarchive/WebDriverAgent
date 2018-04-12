@@ -18,6 +18,7 @@
 #import "FBXCodeCompatibility.h"
 #import "XCElementSnapshot.h"
 #import "XCUIElement+FBUtilities.h"
+#import "XCUIElement+FBIsVisible.h"
 #import "XCTestDriver.h"
 #import "FBLogger.h"
 #import "FBConfiguration.h"
@@ -48,7 +49,7 @@
 {
   BOOL (^keyboardIsVisible)(void) = ^BOOL(void) {
     XCUIElement *keyboard = [app descendantsMatchingType:XCUIElementTypeKeyboard].fb_firstMatch;
-    return keyboard && keyboard.hittable;
+    return keyboard && keyboard.fb_isVisible;
   };
   if (timeout <= 0) {
     return keyboardIsVisible();

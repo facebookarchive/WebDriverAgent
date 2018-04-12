@@ -96,7 +96,7 @@
     timeoutErrorMessage:errorDescription]
    spinUntilTrue:^BOOL{
      XCUIElement *foundKeyboard = [request.session.activeApplication descendantsMatchingType:XCUIElementTypeKeyboard].fb_firstMatch;
-     return !(foundKeyboard && foundKeyboard.hittable);
+     return !(foundKeyboard && foundKeyboard.fb_isVisible);
    }
    error:&error];
   if (!isKeyboardNotPresent) {
