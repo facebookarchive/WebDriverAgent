@@ -92,7 +92,7 @@ static dispatch_once_t onceFirstMatchToken;
   if (!self.element.exists) {
     return nil;
   }
-  return [self elementBoundByIndex:0];
+  return self.allElementsBoundByAccessibilityElement.firstObject;
 }
 
 @end

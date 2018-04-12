@@ -84,7 +84,7 @@
 
   NSPredicate *predicate = [FBPredicate predicateWithFormat:operation];
   XCUIElementQuery *query = [[self descendantsMatchingType:XCUIElementTypeAny] matchingPredicate:predicate];
-  NSArray *childElements = [query allElementsBoundByIndex];
+  NSArray *childElements = query.allElementsBoundByAccessibilityElement;
   [results addObjectsFromArray:childElements];
 }
 

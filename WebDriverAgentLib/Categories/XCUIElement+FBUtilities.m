@@ -125,7 +125,7 @@ static dispatch_once_t onceUseSnapshotForDebugDescriptionToken;
     XCUIElement *result = query.fb_firstMatch;
     return result ? @[result] : @[];
   }
-  [matchedElements addObjectsFromArray:query.allElementsBoundByIndex];
+  [matchedElements addObjectsFromArray:query.allElementsBoundByAccessibilityElement];
   if (matchedElements.count <= 1) {
     // There is no need to sort elements if count of matches is not greater than one
     return matchedElements.copy;

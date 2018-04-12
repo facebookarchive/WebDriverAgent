@@ -56,9 +56,9 @@
 
 - (void)testDescendantsFiltering
 {
-  NSArray<XCUIElement *> *buttons = [self.testedApplication.buttons allElementsBoundByIndex];
+  NSArray<XCUIElement *> *buttons = self.testedApplication.buttons.allElementsBoundByAccessibilityElement;
   XCTAssertTrue(buttons.count > 0);
-  NSArray<XCUIElement *> *windows = [self.testedApplication.windows allElementsBoundByIndex];
+  NSArray<XCUIElement *> *windows = self.testedApplication.windows.allElementsBoundByAccessibilityElement;
   XCTAssertTrue(windows.count > 0);
   
   NSMutableArray<XCUIElement *> *allElements = [NSMutableArray array];

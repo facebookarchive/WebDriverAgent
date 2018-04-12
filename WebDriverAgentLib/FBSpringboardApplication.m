@@ -39,7 +39,7 @@ NSString *const SPRINGBOARD_BUNDLE_ID = @"com.apple.springboard";
 - (BOOL)fb_tapApplicationWithIdentifier:(NSString *)identifier error:(NSError **)error
 {
   XCUIElementQuery *appElementsQuery = [[self descendantsMatchingType:XCUIElementTypeIcon] matchingIdentifier:identifier];
-  NSArray<XCUIElement *> *matchedAppElements = [appElementsQuery allElementsBoundByIndex];
+  NSArray<XCUIElement *> *matchedAppElements = appElementsQuery.allElementsBoundByAccessibilityElement;
   if (0 == matchedAppElements.count) {
     return [[[FBErrorBuilder builder]
       withDescriptionFormat:@"Cannot locate Springboard icon for '%@' application", identifier]

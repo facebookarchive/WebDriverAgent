@@ -93,7 +93,7 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   if (!alert) {
     return nil;
   }
-  NSArray<XCUIElement *> *staticTextList = [alert descendantsMatchingType:XCUIElementTypeStaticText].allElementsBoundByIndex;
+  NSArray<XCUIElement *> *staticTextList = [alert descendantsMatchingType:XCUIElementTypeStaticText].allElementsBoundByAccessibilityElement;
   NSMutableArray<NSString *> *resultText = [NSMutableArray array];
   for (XCUIElement *staticText in staticTextList) {
     if (staticText.isWDVisible) {
@@ -114,8 +114,8 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
 - (BOOL)typeText:(NSString *)text error:(NSError **)error
 {
   XCUIElement *alert = self.alertElement;
-  NSArray<XCUIElement *> *textFields = alert.textFields.allElementsBoundByIndex;
-  NSArray<XCUIElement *> *secureTextFiels = alert.secureTextFields.allElementsBoundByIndex;
+  NSArray<XCUIElement *> *textFields = alert.textFields.allElementsBoundByAccessibilityElement;
+  NSArray<XCUIElement *> *secureTextFiels = alert.secureTextFields.allElementsBoundByAccessibilityElement;
   if (textFields.count + secureTextFiels.count > 1) {
     return [[[FBErrorBuilder builder]
       withDescriptionFormat:@"The alert contains more than one input field"]
@@ -139,7 +139,7 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   if (!alertElement) {
     return nil;
   }
-  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
+  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByAccessibilityElement;
   for(XCUIElement *button in buttons) {
     [value addObject:[button wdLabel]];
   }
@@ -149,7 +149,7 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
 - (BOOL)acceptWithError:(NSError **)error
 {
   XCUIElement *alertElement = self.alertElement;
-  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
+  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByAccessibilityElement;
 
   XCUIElement *defaultButton;
   if (alertElement.elementType == XCUIElementTypeAlert) {
@@ -170,7 +170,7 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
 {
   XCUIElement *cancelButton;
   XCUIElement *alertElement = self.alertElement;
-  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
+  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByAccessibilityElement;
 
   if (alertElement.elementType == XCUIElementTypeAlert) {
     cancelButton = buttons.firstObject;
@@ -190,7 +190,7 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
 - (BOOL)clickAlertButton:(NSString *)label error:(NSError **)error {
 
   XCUIElement *alertElement = self.alertElement;
-  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
+  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByAccessibilityElement;
   XCUIElement *requestedButton;
 
   for(XCUIElement *button in buttons) {

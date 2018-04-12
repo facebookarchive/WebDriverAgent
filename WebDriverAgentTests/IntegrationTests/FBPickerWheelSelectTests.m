@@ -12,6 +12,7 @@
 #import "FBIntegrationTestCase.h"
 #import "XCUIElement+FBPickerWheel.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
+#import "FBXCodeCompatibility.h"
 
 @interface FBPickerWheelSelectTests : FBIntegrationTestCase
 @end
@@ -32,7 +33,7 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
 
 - (void)testSelectNextPickerValue
 {
-  XCUIElement *element = [self.testedApplication.pickerWheels elementBoundByIndex:0];
+  XCUIElement *element = self.testedApplication.pickerWheels.fb_firstMatch;
   XCTAssertTrue(element.exists);
   XCTAssertEqualObjects(element.wdType, @"XCUIElementTypePickerWheel");
   NSError *error;

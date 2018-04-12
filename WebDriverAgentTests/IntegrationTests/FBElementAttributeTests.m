@@ -14,6 +14,7 @@
 #import "XCUIElement+FBAccessibility.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
+#import "FBXCodeCompatibility.h"
 
 @interface FBElementAttributeTests : FBIntegrationTestCase
 @end
@@ -51,7 +52,7 @@
 - (void)testIgnoredAccessibilityAttributes
 {
   // Images are neither accessibility elements nor contain them, so both checks should fail
-  XCUIElement *imageElement = [self.testedApplication.images elementBoundByIndex:0];
+  XCUIElement *imageElement = self.testedApplication.images.fb_firstMatch;
   XCTAssertTrue(imageElement.exists);
   XCTAssertFalse(imageElement.fb_isAccessibilityElement);
   XCTAssertFalse(imageElement.isWDAccessibilityContainer);

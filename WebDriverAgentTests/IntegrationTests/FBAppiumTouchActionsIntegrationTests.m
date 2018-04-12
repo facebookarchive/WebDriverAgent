@@ -17,6 +17,7 @@
 #import "FBTestMacros.h"
 #import "XCUIDevice+FBRotation.h"
 #import "FBRunLoopSpinner.h"
+#import "FBXCodeCompatibility.h"
 
 @interface FBAppiumTouchActionsIntegrationTestsPart1 : FBIntegrationTestCase
 @end
@@ -281,7 +282,7 @@
     [self launchApplication];
     [self goToAttributesPage];
   });
-  self.pickerWheel = [self.testedApplication.pickerWheels elementBoundByIndex:0];
+  self.pickerWheel = self.testedApplication.pickerWheels.fb_firstMatch;
 }
 
 - (void)tearDown
