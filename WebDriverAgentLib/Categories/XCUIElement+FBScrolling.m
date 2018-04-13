@@ -280,8 +280,8 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   @[@{
       @"action": @"longPress",
       @"options": @{
-          @"x": @(startCoordinate.screenPoint.x),
-          @"y": @(startCoordinate.screenPoint.y),
+          @"x": @(startCoordinate.fb_screenPoint.x),
+          @"y": @(startCoordinate.fb_screenPoint.y),
           }
       },
     @{
@@ -293,8 +293,8 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
     @{
       @"action": @"moveTo",
       @"options": @{
-          @"x": @(endCoordinate.screenPoint.x),
-          @"y": @(endCoordinate.screenPoint.y),
+          @"x": @(endCoordinate.fb_screenPoint.x),
+          @"y": @(endCoordinate.fb_screenPoint.y),
           }
       },
     @{
