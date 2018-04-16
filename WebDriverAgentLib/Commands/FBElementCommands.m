@@ -10,6 +10,7 @@
 #import "FBElementCommands.h"
 
 #import "FBApplication.h"
+#import "FBConfiguration.h"
 #import "FBKeyboard.h"
 #import "FBPredicate.h"
 #import "FBRoute.h"
@@ -167,8 +168,9 @@
     [element adjustToNormalizedSliderPosition:sliderValue];
     return FBResponseWithOK();
   }
+  NSUInteger frequency = (NSUInteger)[request.arguments[@"frequency"] longLongValue] ?: [FBConfiguration maxTypingFrequency];
   NSError *error = nil;
-  if (![element fb_typeText:textToType error:&error]) {
+  if (![element fb_typeText:textToType frequency:frequency error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithElementUUID(elementUUID);
@@ -365,8 +367,9 @@
 + (id<FBResponsePayload>)handleKeys:(FBRouteRequest *)request
 {
   NSString *textToType = [request.arguments[@"value"] componentsJoinedByString:@""];
+  NSUInteger frequency = [request.arguments[@"frequency"] unsignedIntegerValue] ?: [FBConfiguration maxTypingFrequency];
   NSError *error;
-  if (![FBKeyboard typeText:textToType error:&error]) {
+  if (![FBKeyboard typeText:textToType frequency:frequency error:&error]) {
     return FBResponseWithError(error);
   }
   return FBResponseWithOK();
