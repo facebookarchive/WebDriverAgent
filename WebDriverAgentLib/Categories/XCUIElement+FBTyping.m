@@ -54,6 +54,10 @@
 
 - (BOOL)fb_clearTextWithError:(NSError **)error
 {
+  if (0 == [self.value fb_visualLength]) {
+    return YES;
+  }
+
   if (![self fb_prepareForTextInputWithError:error]) {
     return NO;
   }
@@ -67,7 +71,7 @@
     for (NSUInteger i = 0 ; i < preClearTextLength ; i++) {
       [textToType appendString:backspaceDeleteSequence];
     }
-    if (![FBKeyboard typeText:textToType error:error]) {
+    if (textToType.length > 0 && ![FBKeyboard typeText:textToType error:error]) {
       return NO;
     }
   }
