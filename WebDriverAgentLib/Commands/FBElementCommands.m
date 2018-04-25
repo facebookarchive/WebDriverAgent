@@ -24,12 +24,14 @@
 #import "FBMathUtils.h"
 #import "FBRuntimeUtils.h"
 #import "NSPredicate+FBFormat.h"
+#import "XCEventGenerator.h"
 #import "XCUICoordinate.h"
 #import "XCUIDevice.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBPickerWheel.h"
 #import "XCUIElement+FBScrolling.h"
 #import "XCUIElement+FBTap.h"
+#import "XCUIElement+FBForceTouch.h"
 #import "XCUIElement+FBTyping.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
@@ -73,7 +75,9 @@
     [[FBRoute POST:@"/wda/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHoldCoordinate:)],
     [[FBRoute POST:@"/wda/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
     [[FBRoute POST:@"/wda/keys"] respondWithTarget:self action:@selector(handleKeys:)],
-    [[FBRoute POST:@"/wda/pickerwheel/:uuid/select"] respondWithTarget:self action:@selector(handleWheelSelect:)]
+    [[FBRoute POST:@"/wda/pickerwheel/:uuid/select"] respondWithTarget:self action:@selector(handleWheelSelect:)],
+    [[FBRoute POST:@"/element/forceTouch/:uuid"] respondWithTarget:self action:@selector(handleForceTouch:)],
+    [[FBRoute POST:@"/element/forceTouchByCoordinate"] respondWithTarget:self action:@selector(handleForceTouchCoordinate:)]
   ];
 }
 
@@ -237,6 +241,24 @@
   CGPoint touchPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
   XCUICoordinate *pressCoordinate = [self.class gestureCoordinateWithCoordinate:touchPoint application:request.session.application shouldApplyOrientationWorkaround:isSDKVersionLessThan(@"11.0")];
   [pressCoordinate pressForDuration:[request.arguments[@"duration"] doubleValue]];
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleForceTouch:(FBRouteRequest *)request
+{
+  FBElementCache *elementCache = request.session.elementCache;
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+  NSError *error = nil;
+  if (![element fb_forceTouchWithError:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleForceTouchCoordinate:(FBRouteRequest *)request
+{
+  CGPoint forceTouchPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
+  [self.class performFourceTouchWithCoordinate:forceTouchPoint application:request.session.application shouldApplyOrientationWorkaround:isSDKVersionLessThan(@"11.0")];
   return FBResponseWithOK();
 }
 
@@ -465,6 +487,27 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
   }
   XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:application normalizedOffset:CGVectorMake(0, 0)];
   return [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(point.x, point.y)];
+}
+
+/**
+ Perform force touch with given absolute coordinate
+ 
+ @param coordinate absolute screen coordinates
+ @param application the instance of current application under test
+ @shouldApplyOrientationWorkaround whether to apply orientation workaround. This is to
+ handle XCTest bug where it does not translate screen coordinates for elements if
+ screen orientation is different from the default one (which is portrait).
+ Different iOS version have different behavior, for example iOS 9.3 returns correct
+ coordinates for elements in landscape, but iOS 10.0+ returns inverted coordinates as if
+ the current screen orientation would be portrait.
+ */
++ (void)performFourceTouchWithCoordinate:(CGPoint)coordinate application:(XCUIApplication *)application shouldApplyOrientationWorkaround:(BOOL)shouldApplyOrientationWorkaround
+{
+  CGPoint point = coordinate;
+  if (shouldApplyOrientationWorkaround) {
+    point = FBInvertPointForApplication(coordinate, application.frame.size, application.interfaceOrientation);
+  }
+  [[XCEventGenerator sharedGenerator] forcePressAtPoint:point orientation:application.interfaceOrientation handler:^{}];
 }
 
 @end

@@ -20,6 +20,7 @@
 #import "XCUIElement+FBIsVisible.h"
 
 NSString *const FBShowAlertButtonName = @"Create App Alert";
+NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
 NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
 
 @interface FBIntegrationTestCase ()

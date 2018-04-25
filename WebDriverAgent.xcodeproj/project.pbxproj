@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BD9A1222090A1D000038BB2 /* XCUIElement+FBForceTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BD9A1202090A1D000038BB2 /* XCUIElement+FBForceTouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0BD9A1232090A1D000038BB2 /* XCUIElement+FBForceTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD9A1212090A1D000038BB2 /* XCUIElement+FBForceTouch.m */; };
+		0BD9A1282090C5E900038BB2 /* FBForceTouchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD9A1252090C5DD00038BB2 /* FBForceTouchTests.m */; };
 		711084441DA3AA7500F913D6 /* FBXPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 711084421DA3AA7500F913D6 /* FBXPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		711084451DA3AA7500F913D6 /* FBXPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 711084431DA3AA7500F913D6 /* FBXPath.m */; };
 		7119E1EC1E891F8600D0B125 /* FBPickerWheelSelectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7119E1EB1E891F8600D0B125 /* FBPickerWheelSelectTests.m */; };
@@ -401,6 +404,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0BD9A1202090A1D000038BB2 /* XCUIElement+FBForceTouch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBForceTouch.h"; sourceTree = "<group>"; };
+		0BD9A1212090A1D000038BB2 /* XCUIElement+FBForceTouch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+FBForceTouch.m"; sourceTree = "<group>"; };
+		0BD9A1252090C5DD00038BB2 /* FBForceTouchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBForceTouchTests.m; sourceTree = "<group>"; };
 		44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceRotationTests.m; sourceTree = "<group>"; };
 		711084421DA3AA7500F913D6 /* FBXPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXPath.h; sourceTree = "<group>"; };
 		711084431DA3AA7500F913D6 /* FBXPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPath.m; sourceTree = "<group>"; };
@@ -923,6 +929,8 @@
 				EEE376401D59F81400ED88DD /* XCUIElement+FBUtilities.m */,
 				EEE376471D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.h */,
 				EEE376481D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.m */,
+				0BD9A1202090A1D000038BB2 /* XCUIElement+FBForceTouch.h */,
+				0BD9A1212090A1D000038BB2 /* XCUIElement+FBForceTouch.m */,
 			);
 			name = Categories;
 			path = WebDriverAgentLib/Categories;
@@ -1089,6 +1097,7 @@
 				71E504941DF59BAD0020C32A /* XCUIElementAttributesTests.m */,
 				EEBBD48D1D4785FC00656A81 /* XCUIElementFBFindTests.m */,
 				EE1E06E11D181CC9007CF043 /* XCUIElementHelperIntegrationTests.m */,
+				0BD9A1252090C5DD00038BB2 /* FBForceTouchTests.m */,
 			);
 			path = IntegrationTests;
 			sourceTree = "<group>";
@@ -1416,6 +1425,7 @@
 				711084441DA3AA7500F913D6 /* FBXPath.h in Headers */,
 				EE35AD771E3B77D600A02D78 /* XCUIRecorderTimingMessage.h in Headers */,
 				EE35AD271E3B77D600A02D78 /* XCApplicationMonitor.h in Headers */,
+				0BD9A1222090A1D000038BB2 /* XCUIElement+FBForceTouch.h in Headers */,
 				EE158AEA1CBD456F00A3E3F0 /* FBRuntimeUtils.h in Headers */,
 				7136A4791E8918E60024FC3D /* XCUIElement+FBPickerWheel.h in Headers */,
 				EE35AD511E3B77D600A02D78 /* XCTestObservation-Protocol.h in Headers */,
@@ -1772,6 +1782,7 @@
 				EE158AF81CBD456F00A3E3F0 /* FBSpringboardApplication.m in Sources */,
 				EE158AD91CBD456F00A3E3F0 /* FBResponseFilePayload.m in Sources */,
 				EEE3764A1D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.m in Sources */,
+				0BD9A1232090A1D000038BB2 /* XCUIElement+FBForceTouch.m in Sources */,
 				EE158ACB1CBD456F00A3E3F0 /* FBTouchIDCommands.m in Sources */,
 				EE158ABD1CBD456F00A3E3F0 /* FBDebugCommands.m in Sources */,
 				716E0BCF1E917E810087A825 /* NSString+FBXMLSafeString.m in Sources */,
@@ -1816,6 +1827,7 @@
 				EE2202131ECC612200A29571 /* FBIntegrationTestCase.m in Sources */,
 				EE22021E1ECC618900A29571 /* FBTapTest.m in Sources */,
 				7126FF0E1FD99C7E00DEFB38 /* FBElementScreenshotTests.m in Sources */,
+				0BD9A1282090C5E900038BB2 /* FBForceTouchTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
