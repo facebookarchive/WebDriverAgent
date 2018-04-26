@@ -250,50 +250,23 @@
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   double pressure = [request.arguments[@"pressure"] doubleValue];
   double duration = [request.arguments[@"duration"] doubleValue];
-  if (element) {
-    NSError *error = nil;
-    if (![element fb_forceTouchWithPressure:pressure duration:duration error:&error]) {
-      return FBResponseWithError(error);
-    }
-  } else {
-    [self handleForceTouchByCoordinate:request];
+  NSError *error = nil;
+  if (![element fb_forceTouchWithPressure:pressure duration:duration error:&error]) {
+    return FBResponseWithError(error);
   }
   return FBResponseWithOK();
-}
-
-+ (id<FBResponsePayload>)handleForceTouchByCoordinate:(FBRouteRequest *)request
-{
-  CGPoint forceTouchPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
-  double pressure = [request.arguments[@"pressure"] doubleValue];
-  double duration = [request.arguments[@"duration"] doubleValue];
-  NSError *error = nil;
-  BOOL success = [self.class performFourceTouchWithCoordinate:forceTouchPoint
-                                                  application:request.session.application
-                             shouldApplyOrientationWorkaround:isSDKVersionLessThan(@"11.0")
-                                                     pressure:pressure
-                                                     duration:duration
-                                                        error:&error];
-  if (!success) {
-    return FBResponseWithError(error);
-  } else {
-    return FBResponseWithOK();
-  }
 }
 
 + (id<FBResponsePayload>)handleForceTouchByCoordinateOnElement:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  if (element) {
-    double pressure = [request.arguments[@"pressure"] doubleValue];
-    double duration = [request.arguments[@"duration"] doubleValue];
-    CGPoint forceTouchPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
-    NSError *error = nil;
-    if (![element fb_forceTouchCoordinate:forceTouchPoint pressure:pressure duration:duration error:&error]) {
-      return FBResponseWithError(error);
-    }
-  } else {
-    [self handleForceTouchByCoordinate:request];
+  double pressure = [request.arguments[@"pressure"] doubleValue];
+  double duration = [request.arguments[@"duration"] doubleValue];
+  CGPoint forceTouchPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
+  NSError *error = nil;
+  if (![element fb_forceTouchCoordinate:forceTouchPoint pressure:pressure duration:duration error:&error]) {
+    return FBResponseWithError(error);
   }
   return FBResponseWithOK();
 }
