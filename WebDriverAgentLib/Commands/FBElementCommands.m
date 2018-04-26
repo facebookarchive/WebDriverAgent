@@ -24,12 +24,14 @@
 #import "FBMathUtils.h"
 #import "FBRuntimeUtils.h"
 #import "NSPredicate+FBFormat.h"
+#import "XCEventGenerator.h"
 #import "XCUICoordinate.h"
 #import "XCUIDevice.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBPickerWheel.h"
 #import "XCUIElement+FBScrolling.h"
 #import "XCUIElement+FBTap.h"
+#import "XCUIElement+FBForceTouch.h"
 #import "XCUIElement+FBTyping.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
@@ -73,7 +75,9 @@
     [[FBRoute POST:@"/wda/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHoldCoordinate:)],
     [[FBRoute POST:@"/wda/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
     [[FBRoute POST:@"/wda/keys"] respondWithTarget:self action:@selector(handleKeys:)],
-    [[FBRoute POST:@"/wda/pickerwheel/:uuid/select"] respondWithTarget:self action:@selector(handleWheelSelect:)]
+    [[FBRoute POST:@"/wda/pickerwheel/:uuid/select"] respondWithTarget:self action:@selector(handleWheelSelect:)],
+    [[FBRoute POST:@"/wda/element/forceTouch/:uuid"] respondWithTarget:self action:@selector(handleForceTouch:)],
+    [[FBRoute POST:@"/wda/element/forceTouchByCoordinate/:uuid"] respondWithTarget:self action:@selector(handleForceTouchByCoordinateOnElement:)]
   ];
 }
 
@@ -237,6 +241,33 @@
   CGPoint touchPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
   XCUICoordinate *pressCoordinate = [self.class gestureCoordinateWithCoordinate:touchPoint application:request.session.application shouldApplyOrientationWorkaround:isSDKVersionLessThan(@"11.0")];
   [pressCoordinate pressForDuration:[request.arguments[@"duration"] doubleValue]];
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleForceTouch:(FBRouteRequest *)request
+{
+  FBElementCache *elementCache = request.session.elementCache;
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+  double pressure = [request.arguments[@"pressure"] doubleValue];
+  double duration = [request.arguments[@"duration"] doubleValue];
+  NSError *error = nil;
+  if (![element fb_forceTouchWithPressure:pressure duration:duration error:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleForceTouchByCoordinateOnElement:(FBRouteRequest *)request
+{
+  FBElementCache *elementCache = request.session.elementCache;
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+  double pressure = [request.arguments[@"pressure"] doubleValue];
+  double duration = [request.arguments[@"duration"] doubleValue];
+  CGPoint forceTouchPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
+  NSError *error = nil;
+  if (![element fb_forceTouchCoordinate:forceTouchPoint pressure:pressure duration:duration error:&error]) {
+    return FBResponseWithError(error);
+  }
   return FBResponseWithOK();
 }
 

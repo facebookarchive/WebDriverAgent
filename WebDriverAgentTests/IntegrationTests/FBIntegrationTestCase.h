@@ -13,6 +13,7 @@
 
 extern NSString *const FBShowAlertButtonName;
 extern NSString *const FBShowSheetAlertButtonName;
+extern NSString *const FBShowAlertForceTouchButtonName;
 
 /**
  XCTestCase helper class used for integration tests

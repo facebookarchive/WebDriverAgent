@@ -20,12 +20,7 @@
 
 - (IBAction)createAppAlert:(UIButton *)sender
 {
-  UIAlertController *alerController =
-  [UIAlertController alertControllerWithTitle:@"Magic"
-                                      message:@"Should read"
-                               preferredStyle:UIAlertControllerStyleAlert];
-  [alerController addAction:[UIAlertAction actionWithTitle:@"Will do" style:UIAlertActionStyleDefault handler:nil]];
-  [self presentViewController:alerController animated:YES completion:nil];
+    [self presentAlertController];
 }
 
 - (IBAction)createAppSheet:(UIButton *)sender
@@ -55,6 +50,24 @@
 {
   self.locationManager = [CLLocationManager new];
   [self.locationManager requestAlwaysAuthorization];
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesMoved:touches withEvent:event];
+    for (UITouch *touch in touches) {
+        if (fabs(touch.maximumPossibleForce - touch.force) < 0.0001) {
+            [self presentAlertController];
+        }
+    }
+}
+
+- (void)presentAlertController {
+  UIAlertController *alerController =
+  [UIAlertController alertControllerWithTitle:@"Magic"
+                                      message:@"Should read"
+                               preferredStyle:UIAlertControllerStyleAlert];
+  [alerController addAction:[UIAlertAction actionWithTitle:@"Will do" style:UIAlertActionStyleDefault handler:nil]];
+  [self presentViewController:alerController animated:YES completion:nil];
 }
 
 @end
