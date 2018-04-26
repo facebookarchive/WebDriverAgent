@@ -30,7 +30,7 @@
   [[XCUIDevice sharedDevice] fb_setDeviceInterfaceOrientation:orientation];
   NSError *error;
   XCTAssertTrue(self.testedApplication.alerts.count == 0);
-  [self.testedApplication.buttons[FBShowAlertForceTouchButtonName] fb_forceTouchWithError:&error];
+  [self.testedApplication.buttons[FBShowAlertForceTouchButtonName] fb_forceTouchWithPressure:1.0 duration:1.0 error:&error];
   FBAssertWaitTillBecomesTrue(self.testedApplication.alerts.count > 0);
 }
 

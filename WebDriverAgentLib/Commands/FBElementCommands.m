@@ -76,8 +76,8 @@
     [[FBRoute POST:@"/wda/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
     [[FBRoute POST:@"/wda/keys"] respondWithTarget:self action:@selector(handleKeys:)],
     [[FBRoute POST:@"/wda/pickerwheel/:uuid/select"] respondWithTarget:self action:@selector(handleWheelSelect:)],
-    [[FBRoute POST:@"/element/forceTouch/:uuid"] respondWithTarget:self action:@selector(handleForceTouch:)],
-    [[FBRoute POST:@"/element/forceTouchByCoordinate"] respondWithTarget:self action:@selector(handleForceTouchCoordinate:)]
+    [[FBRoute POST:@"/wda/element/forceTouch/:uuid"] respondWithTarget:self action:@selector(handleForceTouch:)],
+    [[FBRoute POST:@"/wda/element/forceTouchByCoordinate/:uuid"] respondWithTarget:self action:@selector(handleForceTouchByCoordinateOnElement:)]
   ];
 }
 
@@ -248,17 +248,53 @@
 {
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  NSError *error = nil;
-  if (![element fb_forceTouchWithError:&error]) {
-    return FBResponseWithError(error);
+  double pressure = [request.arguments[@"pressure"] doubleValue];
+  double duration = [request.arguments[@"duration"] doubleValue];
+  if (element) {
+    NSError *error = nil;
+    if (![element fb_forceTouchWithPressure:pressure duration:duration error:&error]) {
+      return FBResponseWithError(error);
+    }
+  } else {
+    [self handleForceTouchByCoordinate:request];
   }
   return FBResponseWithOK();
 }
 
-+ (id<FBResponsePayload>)handleForceTouchCoordinate:(FBRouteRequest *)request
++ (id<FBResponsePayload>)handleForceTouchByCoordinate:(FBRouteRequest *)request
 {
   CGPoint forceTouchPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
-  [self.class performFourceTouchWithCoordinate:forceTouchPoint application:request.session.application shouldApplyOrientationWorkaround:isSDKVersionLessThan(@"11.0")];
+  double pressure = [request.arguments[@"pressure"] doubleValue];
+  double duration = [request.arguments[@"duration"] doubleValue];
+  NSError *error = nil;
+  BOOL success = [self.class performFourceTouchWithCoordinate:forceTouchPoint
+                                                  application:request.session.application
+                             shouldApplyOrientationWorkaround:isSDKVersionLessThan(@"11.0")
+                                                     pressure:pressure
+                                                     duration:duration
+                                                        error:&error];
+  if (!success) {
+    return FBResponseWithError(error);
+  } else {
+    return FBResponseWithOK();
+  }
+}
+
++ (id<FBResponsePayload>)handleForceTouchByCoordinateOnElement:(FBRouteRequest *)request
+{
+  FBElementCache *elementCache = request.session.elementCache;
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+  if (element) {
+    double pressure = [request.arguments[@"pressure"] doubleValue];
+    double duration = [request.arguments[@"duration"] doubleValue];
+    CGPoint forceTouchPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
+    NSError *error = nil;
+    if (![element fb_forceTouchCoordinate:forceTouchPoint pressure:pressure duration:duration error:&error]) {
+      return FBResponseWithError(error);
+    }
+  } else {
+    [self handleForceTouchByCoordinate:request];
+  }
   return FBResponseWithOK();
 }
 
@@ -487,27 +523,6 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
   }
   XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:application normalizedOffset:CGVectorMake(0, 0)];
   return [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(point.x, point.y)];
-}
-
-/**
- Perform force touch with given absolute coordinate
- 
- @param coordinate absolute screen coordinates
- @param application the instance of current application under test
- @shouldApplyOrientationWorkaround whether to apply orientation workaround. This is to
- handle XCTest bug where it does not translate screen coordinates for elements if
- screen orientation is different from the default one (which is portrait).
- Different iOS version have different behavior, for example iOS 9.3 returns correct
- coordinates for elements in landscape, but iOS 10.0+ returns inverted coordinates as if
- the current screen orientation would be portrait.
- */
-+ (void)performFourceTouchWithCoordinate:(CGPoint)coordinate application:(XCUIApplication *)application shouldApplyOrientationWorkaround:(BOOL)shouldApplyOrientationWorkaround
-{
-  CGPoint point = coordinate;
-  if (shouldApplyOrientationWorkaround) {
-    point = FBInvertPointForApplication(coordinate, application.frame.size, application.interfaceOrientation);
-  }
-  [[XCEventGenerator sharedGenerator] forcePressAtPoint:point orientation:application.interfaceOrientation handler:^{}];
 }
 
 @end

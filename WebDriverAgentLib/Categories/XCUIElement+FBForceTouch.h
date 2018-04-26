@@ -17,9 +17,22 @@ NS_ASSUME_NONNULL_BEGIN
  Waits for element to become stable (not move) and performs sync force touch on element
  
  @param error If there is an error, upon return contains an NSError object that describes the problem.
+ @param pressure The pressure of the force touch – valid values are [0, touch.maximumPossibleForce]
+ @param duration The duration of the gesture
  @return YES if the operation succeeds, otherwise NO.
  */
-- (BOOL)fb_forceTouchWithError:(NSError **)error;
+- (BOOL)fb_forceTouchWithPressure:(double)pressure duration:(double)duration error:(NSError **)error;
+
+/**
+ Waits for element to become stable (not move) and performs sync force touch on element
+ 
+ @param relativeCoordinate hit point coordinate relative to the current element position
+ @param pressure The pressure of the force touch – valid values are [0, touch.maximumPossibleForce]
+ @param duration The duration of the gesture
+ @param error If there is an error, upon return contains an NSError object that describes the problem.
+ @return YES if the operation succeeds, otherwise NO.
+ */
+- (BOOL)fb_forceTouchCoordinate:(CGPoint)relativeCoordinate pressure:(double)pressure duration:(double)duration error:(NSError **)error;
 
 @end
 
