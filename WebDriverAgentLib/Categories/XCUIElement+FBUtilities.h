@@ -42,6 +42,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (XCElementSnapshot *)fb_lastSnapshot;
 
 /**
+ Gets the most recent snapshot of the current element and already resolves the accessibility attributes
+ needed for creating the page source of this element. No additional calls to the accessibility layer
+ are required.
+ 
+ @return The recent snapshot of the element with the attributes resolved
+ */
+- (nullable XCElementSnapshot *)fb_snapshotWithAttributes;
+
+/**
  Gets the most recent snapshot of the current element from the query snapshot that found the element.
  fb_lastSnapshot actually resolves the query for that element, which then creates a new complete
  snapshot from the device, and filters it down to the element. This is slow. This method on the other

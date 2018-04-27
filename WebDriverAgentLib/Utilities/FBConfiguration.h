@@ -52,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (BOOL)verboseLoggingEnabled;
 
++ (BOOL)shouldLoadSnapshotWithAttributes;
+
 @end
 
 NS_ASSUME_NONNULL_END

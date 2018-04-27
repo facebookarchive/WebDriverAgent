@@ -50,7 +50,7 @@
 - (void)fetchParameterizedAttributeForElement:(id)arg1 attribute:(id)arg2 parameter:(id)arg3 reply:(CDUnknownBlockType)arg4;
 - (void)setAttribute:(id)arg1 value:(id)arg2 element:(id)arg3 reply:(CDUnknownBlockType)arg4;
 - (void)fetchAttributesForElement:(id)arg1 attributes:(id)arg2 reply:(CDUnknownBlockType)arg3;
-- (void)snapshotForElement:(id)arg1 attributes:(id)arg2 parameters:(id)arg3 reply:(CDUnknownBlockType)arg4;
+- (void)snapshotForElement:(id)arg1 attributes:(id)arg2 parameters:(id)arg3 reply:(void (^)(XCElementSnapshot *, NSError *))arg4;
 - (void)terminateApplicationWithBundleID:(id)arg1 completion:(CDUnknownBlockType)arg2;
 - (void)performAccessibilityAction:(int)arg1 onElement:(id)arg2 value:(id)arg3 reply:(CDUnknownBlockType)arg4;
 - (void)unregisterForAccessibilityNotification:(int)arg1 registrationToken:(id)arg2 reply:(CDUnknownBlockType)arg3;

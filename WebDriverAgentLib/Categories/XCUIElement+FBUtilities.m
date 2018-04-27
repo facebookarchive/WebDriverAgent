@@ -18,11 +18,14 @@
 #import "FBPredicate.h"
 #import "FBRunLoopSpinner.h"
 #import "FBXCodeCompatibility.h"
+#import "FBXCTestDaemonsProxy.h"
 #import "XCAXClient_iOS.h"
+#import "XCTElementSetTransformer-Protocol.h"
+#import "XCTestManager_ManagerInterface-Protocol.h"
+#import "XCTestPrivateSymbols.h"
+#import "XCTRunnerDaemonSession.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "XCUIElementQuery.h"
-#import "XCTElementSetTransformer-Protocol.h"
-
 
 @implementation XCUIElement (FBUtilities)
 
@@ -78,6 +81,64 @@ static dispatch_once_t onceUseSnapshotForDebugDescriptionToken;
   }
   [self resolve];
   return self.lastSnapshot;
+}
+
+- (nullable XCElementSnapshot *)fb_snapshotWithAttributes {
+  if (![FBConfiguration shouldLoadSnapshotWithAttributes]) {
+    return nil;
+  }
+  
+  [self resolve];
+  
+  static NSDictionary *defaultParameters;
+  static NSArray *axAttributes;
+  
+  static dispatch_once_t initializeAttributesAndParametersToken;
+  dispatch_once(&initializeAttributesAndParametersToken, ^{
+    defaultParameters = [[XCAXClient_iOS sharedClient] defaultParameters];
+    // Names of the properties to load. There won't be lazy loading for missing properties,
+    // thus missing properties will lead to wrong results
+    NSArray<NSString *> *propertyNames = @[
+                      @"identifier",
+                      @"value",
+                      @"label",
+                      @"frame",
+                      @"enabled",
+                      @"elementType"
+                      ];
+    
+    NSSet *attributes = [XCElementSnapshot snapshotAttributesForElementSnapshotKeyPaths:propertyNames];
+    
+    axAttributes = XCAXAccessibilityAttributesForStringAttributes(attributes);
+    if (![axAttributes containsObject:FB_XCAXAIsVisibleAttribute]) {
+      axAttributes = [axAttributes arrayByAddingObject:FB_XCAXAIsVisibleAttribute];
+    }
+  });
+  
+  __block XCElementSnapshot *snapshotWithAttributes = nil;
+  dispatch_group_t resolveGroup = dispatch_group_create();
+  dispatch_group_enter(resolveGroup);
+  
+  id<XCTestManager_ManagerInterface> proxy = [FBXCTestDaemonsProxy testRunnerProxy];
+  
+  [proxy _XCT_snapshotForElement:self.lastSnapshot.accessibilityElement
+                      attributes:axAttributes
+                      parameters:defaultParameters
+                           reply:^(XCElementSnapshot *snapshot, NSError *error) {
+                             if (error != nil) {
+                               dispatch_group_leave(resolveGroup);
+                               return;
+                             }
+                             snapshotWithAttributes = snapshot;
+                             dispatch_group_leave(resolveGroup);
+                           }];
+  
+  static const unsigned int SNAPSHOT_TIMEOUT_SEC = 5;
+  if (dispatch_group_wait(resolveGroup, dispatch_time(DISPATCH_TIME_NOW, SNAPSHOT_TIMEOUT_SEC * NSEC_PER_SEC)) != 0) {
+    [FBLogger logFmt:@"Getting the snapshot timed out after %u seconds", SNAPSHOT_TIMEOUT_SEC];
+    return nil;
+  }
+  return snapshotWithAttributes;
 }
 
 - (XCElementSnapshot *)fb_lastSnapshotFromQuery

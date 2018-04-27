@@ -13,6 +13,7 @@
 
 #include "TargetConditionals.h"
 #import "XCTestPrivateSymbols.h"
+#import "XCElementSnapshot.h"
 
 static NSUInteger const DefaultStartingPort = 8100;
 static NSUInteger const DefaultPortRange = 100;
@@ -105,6 +106,17 @@ static NSUInteger FBMaxTypingFrequency = 60;
 + (BOOL)shouldUseSingletonTestManager
 {
   return FBShouldUseSingletonTestManager;
+}
+
++ (BOOL)shouldLoadSnapshotWithAttributes {
+  static BOOL shouldLoadSnapshotWithAttributes = NO;
+  static dispatch_once_t shouldLoadSnapshotWithAttributesToken;
+  dispatch_once(&shouldLoadSnapshotWithAttributesToken, ^{
+    if ([XCElementSnapshot.class respondsToSelector:@selector(snapshotAttributesForElementSnapshotKeyPaths:)]) {
+      shouldLoadSnapshotWithAttributes = YES;
+    }
+  });
+  return shouldLoadSnapshotWithAttributes;
 }
 
 #pragma mark Private

@@ -43,7 +43,9 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
 - (NSDictionary *)fb_tree
 {
   [self fb_waitUntilSnapshotIsStable];
-  return [self.class dictionaryForElement:self.fb_lastSnapshot];
+  // If getting the snapshot with attributes fails we use the snapshot with lazily initialized attributes
+  XCElementSnapshot *snapshot = self.fb_snapshotWithAttributes ?: self.fb_lastSnapshot;
+  return [self.class dictionaryForElement:snapshot];
 }
 
 - (NSDictionary *)fb_accessibilityTree

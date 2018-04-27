@@ -23,6 +23,9 @@ extern id<XCDebugLogDelegate> (*XCDebugLogger)(void);
 /*! Setter for  XCTest logger */
 extern void (*XCSetDebugLogger)(id <XCDebugLogDelegate>);
 
+/*! Maps string attributes to AX Accesibility Attributes*/
+extern NSArray<NSNumber *> *(*XCAXAccessibilityAttributesForStringAttributes)(id stringAttributes);
+
 /**
  Method used to retrieve pointer for given symbol 'name' from given 'binary'
 
