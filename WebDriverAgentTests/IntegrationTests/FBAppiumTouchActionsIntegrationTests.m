@@ -269,6 +269,31 @@
   [self verifyGesture:gesture orientation:orientation];
 }
 
+- (void)testForcePress
+{
+  NSArray<NSDictionary<NSString *, id> *> *gesture =
+  @[@{
+      @"action": @"press",
+      @"options": @{
+          @"element": self.testedApplication.buttons[FBShowAlertForceTouchButtonName],
+          @"x": @1,
+          @"y": @1,
+          @"pressure": @1
+          }
+      },
+    @{
+      @"action": @"wait",
+      @"options": @{
+          @"ms": @300
+          }
+      },
+    @{
+      @"action": @"release"
+      }
+    ];
+  [self verifyGesture:gesture orientation:UIDeviceOrientationPortrait];
+}
+
 @end
 
 

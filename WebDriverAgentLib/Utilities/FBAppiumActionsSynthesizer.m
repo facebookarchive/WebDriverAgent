@@ -32,6 +32,7 @@ static NSString *const FB_ACTION_WAIT = @"wait";
 static NSString *const FB_OPTION_DURATION = @"duration";
 static NSString *const FB_OPTION_COUNT = @"count";
 static NSString *const FB_OPTION_MS = @"ms";
+static NSString *const FB_OPTION_PRESSURE = @"pressure";
 
 // Some useful constants might be found at
 // https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/view/ViewConfiguration.java
@@ -50,7 +51,7 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 @end
 
 @interface FBPressItem : FBAppiumGestureItem
-
+@property (nonatomic, nullable, readonly) NSNumber *pressure;
 @end
 
 @interface FBLongPressItem : FBAppiumGestureItem
@@ -189,6 +190,19 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 
 @implementation FBPressItem
 
+- (nullable instancetype)initWithActionItem:(NSDictionary<NSString *, id> *)item application:(XCUIApplication *)application atPosition:(nullable NSValue *)atPosition offset:(double)offset error:(NSError **)error
+{
+  self = [super initWithActionItem:item application:application atPosition:atPosition offset:offset error:error];
+  if (self) {
+    _pressure = nil;
+    id options = [item objectForKey:FB_OPTIONS_KEY];
+    if ([options isKindOfClass:NSDictionary.class]) {
+      _pressure = [options objectForKey:FB_OPTION_PRESSURE];
+    }
+  }
+  return self;
+}
+
 + (NSString *)actionName
 {
   return FB_ACTION_PRESS;
@@ -201,7 +215,11 @@ static NSString *const FB_ELEMENT_KEY = @"element";
 
 - (NSArray<XCPointerEventPath *> *)addToEventPath:(XCPointerEventPath *)eventPath allItems:(NSArray<FBBaseGestureItem *> *)allItems currentItemIndex:(NSUInteger)currentItemIndex error:(NSError **)error
 {
-  return @[[[XCPointerEventPath alloc] initForTouchAtPoint:self.atPosition offset:FBMillisToSeconds(self.offset)]];
+  XCPointerEventPath *result = [[XCPointerEventPath alloc] initForTouchAtPoint:self.atPosition offset:FBMillisToSeconds(self.offset)];
+  if (nil != self.pressure) {
+    [result pressDownWithPressure:self.pressure.doubleValue atOffset:self.offset];
+  }
+  return @[result];
 }
 
 - (double)durationWithOptions:(nullable NSDictionary<NSString *, id> *)options

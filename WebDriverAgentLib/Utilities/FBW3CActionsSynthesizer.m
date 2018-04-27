@@ -49,6 +49,7 @@ static NSString *const FB_ACTION_ITEM_KEY_DURATION = @"duration";
 static NSString *const FB_ACTION_ITEM_KEY_X = @"x";
 static NSString *const FB_ACTION_ITEM_KEY_Y = @"y";
 static NSString *const FB_ACTION_ITEM_KEY_BUTTON = @"button";
+static NSString *const FB_ACTION_ITEM_KEY_PRESSURE = @"pressure";
 
 static NSString *const FB_KEY_ID = @"id";
 static NSString *const FB_KEY_PARAMETERS = @"parameters";
@@ -62,7 +63,7 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
 @end
 
 @interface FBPointerDownItem : FBW3CGestureItem
-
+@property (nullable, readonly, nonatomic) NSNumber *pressure;
 @end
 
 @interface FBPauseItem : FBW3CGestureItem
@@ -153,6 +154,15 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
 
 @implementation FBPointerDownItem
 
+- (nullable instancetype)initWithActionItem:(NSDictionary<NSString *, id> *)actionItem application:(XCUIApplication *)application previousItem:(nullable FBBaseGestureItem *)previousItem offset:(double)offset error:(NSError **)error
+{
+  self = [super initWithActionItem:actionItem application:application previousItem:previousItem offset:offset error:error];
+  if (self) {
+    _pressure = [actionItem objectForKey:FB_ACTION_ITEM_KEY_PRESSURE];;
+  }
+  return self;
+}
+
 + (NSString *)actionName
 {
   return FB_ACTION_ITEM_TYPE_POINTER_DOWN;
@@ -166,7 +176,11 @@ static NSString *const FB_KEY_ACTIONS = @"actions";
       return @[eventPath];
     }
   }
-  return @[[[XCPointerEventPath alloc] initForTouchAtPoint:self.atPosition offset:FBMillisToSeconds(self.offset)]];
+  XCPointerEventPath *result = [[XCPointerEventPath alloc] initForTouchAtPoint:self.atPosition offset:FBMillisToSeconds(self.offset)];
+  if (nil != self.pressure) {
+    [result pressDownWithPressure:self.pressure.doubleValue atOffset:FBMillisToSeconds(self.offset)];
+  }
+  return @[result];
 }
 
 @end
