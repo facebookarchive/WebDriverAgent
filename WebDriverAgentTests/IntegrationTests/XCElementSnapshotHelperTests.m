@@ -53,14 +53,6 @@
   XCTAssertEqualObjects(types.lastObject, @(XCUIElementTypeButton), @"matchingSnapshots should contain only one type");
 }
 
-- (void)testDescendantsMatchingXPath
-{
-  NSArray<XCElementSnapshot *> *matchingSnapshots = [self.testedView.fb_lastSnapshot fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeButton[@label='Alerts']"];
-  XCTAssertEqual(matchingSnapshots.count, 1);
-  XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypeButton);
-  XCTAssertEqualObjects(matchingSnapshots.lastObject.label, @"Alerts");
-}
-
 - (void)testParentMatchingType
 {
   XCUIElement *button = self.testedApplication.buttons[@"Alerts"];

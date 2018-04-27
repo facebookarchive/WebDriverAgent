@@ -22,17 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type;
 
 /**
- Returns an array of descendants matching given xpath query. This method will always
- throw an exception if there is an error during XPath evaluation, so the returned array
- is never expected to be equal to nil
- 
- @param xpathQuery requested xpath query. Only XPath v1.0 libxml2-based implementation is supported
- @return an array of descendants matching given xpath query. Empty array will be retuned if
- no matches are found (XPath query should be still valid though)
- */
-- (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery;
-
-/**
  Returns first (going up element tree) parent that matches given type. If non found returns nil.
 
  @param type requested parent type

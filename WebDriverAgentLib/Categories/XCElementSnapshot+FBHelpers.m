@@ -10,7 +10,6 @@
 #import "XCElementSnapshot+FBHelpers.h"
 
 #import "FBFindElementCommands.h"
-#import "FBXPathCreator.h"
 #import "FBRunLoopSpinner.h"
 #import "FBLogger.h"
 #import "XCAXClient_iOS.h"
@@ -18,7 +17,6 @@
 #import "XCTestPrivateSymbols.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
-#import "FBXPath.h"
 
 inline static BOOL valuesAreEqual(id value1, id value2);
 inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, NSArray<NSNumber *> *types);
@@ -27,13 +25,9 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
 
 - (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingType:(XCUIElementType)type
 {
-  NSString *xpathQuery = [FBXPathCreator xpathWithSubelementsOfType:type];
-  return [self fb_descendantsMatchingXPathQuery:xpathQuery];
-}
-
-- (NSArray<XCElementSnapshot *> *)fb_descendantsMatchingXPathQuery:(NSString *)xpathQuery
-{
-  return [FBXPath matchesWithRootElement:self forQuery:xpathQuery];
+  return [self descendantsByFilteringWithBlock:^BOOL(XCElementSnapshot *snapshot) {
+    return snapshot.elementType == type;
+  }];
 }
 
 - (XCElementSnapshot *)fb_parentMatchingType:(XCUIElementType)type
