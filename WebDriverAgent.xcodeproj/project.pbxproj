@@ -78,7 +78,6 @@
 		ADBC39941D0782CD00327304 /* FBElementCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADBC39931D0782CD00327304 /* FBElementCacheTests.m */; };
 		ADBC39981D07842800327304 /* XCUIElementDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = ADBC39971D07842800327304 /* XCUIElementDouble.m */; };
 		ADDA07241D6BB2BF001700AC /* FBScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDA07231D6BB2BF001700AC /* FBScrollViewController.m */; };
-		ADEF63AD1D09DCCF0070A7E3 /* FBXPathCreatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */; };
 		ADEF63AF1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEF63AE1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m */; };
 		E456BF73206BC17F00963F9F /* YYCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E456BF72206BC17F00963F9F /* YYCache.framework */; };
 		EE006EAD1EB99B15006900A4 /* FBElementVisibilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE006EAC1EB99B15006900A4 /* FBElementVisibilityTests.m */; };
@@ -144,8 +143,6 @@
 		EE158AE91CBD456F00A3E3F0 /* FBElementTypeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7901CAEDF0C008C271F /* FBElementTypeTransformer.m */; };
 		EE158AEA1CBD456F00A3E3F0 /* FBRuntimeUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7911CAEDF0C008C271F /* FBRuntimeUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158AEB1CBD456F00A3E3F0 /* FBRuntimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7921CAEDF0C008C271F /* FBRuntimeUtils.m */; };
-		EE158AF11CBD456F00A3E3F0 /* FBXPathCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7981CAEDF0C008C271F /* FBXPathCreator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE158AF21CBD456F00A3E3F0 /* FBXPathCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7991CAEDF0C008C271F /* FBXPathCreator.m */; };
 		EE158AF51CBD456F00A3E3F0 /* FBApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9AB7661CAEDF0C008C271F /* FBApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE158AF61CBD456F00A3E3F0 /* FBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7671CAEDF0C008C271F /* FBApplication.m */; };
 		EE158AF71CBD456F00A3E3F0 /* FBSpringboardApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC088EA1CB5706D00B65968 /* FBSpringboardApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -500,7 +497,6 @@
 		ADBC39971D07842800327304 /* XCUIElementDouble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIElementDouble.m; sourceTree = "<group>"; };
 		ADDA07221D6BB2BF001700AC /* FBScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBScrollViewController.h; sourceTree = "<group>"; };
 		ADDA07231D6BB2BF001700AC /* FBScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBScrollViewController.m; sourceTree = "<group>"; };
-		ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathCreatorTests.m; sourceTree = "<group>"; };
 		ADEF63AE1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRuntimeUtilsTests.m; sourceTree = "<group>"; };
 		E456BF72206BC17F00963F9F /* YYCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YYCache.framework; path = Carthage/Build/iOS/YYCache.framework; sourceTree = "<group>"; };
 		EE006EAC1EB99B15006900A4 /* FBElementVisibilityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementVisibilityTests.m; sourceTree = "<group>"; };
@@ -719,8 +715,6 @@
 		EE9AB7901CAEDF0C008C271F /* FBElementTypeTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBElementTypeTransformer.m; sourceTree = "<group>"; };
 		EE9AB7911CAEDF0C008C271F /* FBRuntimeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRuntimeUtils.h; sourceTree = "<group>"; };
 		EE9AB7921CAEDF0C008C271F /* FBRuntimeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRuntimeUtils.m; sourceTree = "<group>"; };
-		EE9AB7981CAEDF0C008C271F /* FBXPathCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXPathCreator.h; sourceTree = "<group>"; };
-		EE9AB7991CAEDF0C008C271F /* FBXPathCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXPathCreator.m; sourceTree = "<group>"; };
 		EE9AB7FC1CAEE048008C271F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = WebDriverAgentRunner/Info.plist; sourceTree = SOURCE_ROOT; };
 		EE9AB7FD1CAEE048008C271F /* UITestingUITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UITestingUITests.m; path = WebDriverAgentRunner/UITestingUITests.m; sourceTree = SOURCE_ROOT; };
 		EE9AB8031CAEE182008C271F /* build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = "<group>"; };
@@ -1101,8 +1095,6 @@
 				712A0C861DA3E55D007D02E5 /* FBXPath-Private.h */,
 				711084421DA3AA7500F913D6 /* FBXPath.h */,
 				711084431DA3AA7500F913D6 /* FBXPath.m */,
-				EE9AB7981CAEDF0C008C271F /* FBXPathCreator.h */,
-				EE9AB7991CAEDF0C008C271F /* FBXPathCreator.m */,
 				EE6B64FB1D0F86EF00E85F5D /* XCTestPrivateSymbols.h */,
 				EE6B64FC1D0F86EF00E85F5D /* XCTestPrivateSymbols.m */,
 			);
@@ -1183,7 +1175,6 @@
 				714801D01FA9D9FA00DC5997 /* FBSDKVersionTests.m */,
 				EE6A89251D0B19E60083E92B /* FBSessionTests.m */,
 				716E0BD01E917F260087A825 /* FBXMLSafeStringTests.m */,
-				ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */,
 				712A0C841DA3E459007D02E5 /* FBXPathTests.m */,
 				EE9B76581CF7987300275851 /* Info.plist */,
 				7139145B1DF01A12005896C2 /* NSExpressionFBFormatTests.m */,
@@ -1438,7 +1429,6 @@
 				EEC9EED620064FAA00BC0D5B /* XCUICoordinate+FBFix.h in Headers */,
 				EE35AD371E3B77D600A02D78 /* XCSourceCodeTreeNodeEnumerator.h in Headers */,
 				EE158AB01CBD456F00A3E3F0 /* XCUIElement+FBIsVisible.h in Headers */,
-				EE158AF11CBD456F00A3E3F0 /* FBXPathCreator.h in Headers */,
 				EE158AB41CBD456F00A3E3F0 /* XCUIElement+FBTap.h in Headers */,
 				EE158ADC1CBD456F00A3E3F0 /* FBResponsePayload.h in Headers */,
 				EE158ACC1CBD456F00A3E3F0 /* FBUnknownCommands.h in Headers */,
@@ -1831,7 +1821,6 @@
 				EE3A18631CDE618F00DE4205 /* FBErrorBuilder.m in Sources */,
 				71A7EAF61E20516B001DA4F2 /* XCUIElement+FBClassChain.m in Sources */,
 				71555A3E1DEC460A007D4A8B /* NSExpression+FBFormat.m in Sources */,
-				EE158AF21CBD456F00A3E3F0 /* FBXPathCreator.m in Sources */,
 				AD6C269D1CF2494200F8B5FF /* XCUIApplication+FBHelpers.m in Sources */,
 				EE3A18671CDE734B00DE4205 /* FBKeyboard.m in Sources */,
 				713C6DD01DDC772A00285B92 /* FBElementUtils.m in Sources */,
@@ -1942,7 +1931,6 @@
 				ADBC39941D0782CD00327304 /* FBElementCacheTests.m in Sources */,
 				719FF5B91DAD21F5008E0099 /* FBElementUtilitiesTests.m in Sources */,
 				716E0BD11E917F260087A825 /* FBXMLSafeStringTests.m in Sources */,
-				ADEF63AD1D09DCCF0070A7E3 /* FBXPathCreatorTests.m in Sources */,
 				ADEF63AF1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m in Sources */,
 				EE9B76591CF7987800275851 /* FBRouteTests.m in Sources */,
 				7139145C1DF01A12005896C2 /* NSExpressionFBFormatTests.m in Sources */,
