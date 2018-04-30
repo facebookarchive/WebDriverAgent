@@ -50,6 +50,7 @@
     [[FBRoute GET:@"/wda/activeAppInfo"].withoutSession respondWithTarget:self action:@selector(handleActiveAppInfo:)],
     [[FBRoute POST:@"/wda/setPasteboard"] respondWithTarget:self action:@selector(handleSetPasteboard:)],
     [[FBRoute POST:@"/wda/getPasteboard"] respondWithTarget:self action:@selector(handleGetPasteboard:)],
+    [[FBRoute GET:@"/wda/batteryInfo"] respondWithTarget:self action:@selector(handleGetBatteryInfo:)],
   ];
 }
 
@@ -177,6 +178,17 @@
   }
   return FBResponseWithStatus(FBCommandStatusNoError,
                               [result base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength]);
+}
+
++ (id<FBResponsePayload>)handleGetBatteryInfo:(FBRouteRequest *)request
+{
+  if (![[UIDevice currentDevice] isBatteryMonitoringEnabled]) {
+    [[UIDevice currentDevice] setBatteryMonitoringEnabled:YES];
+  }
+  return FBResponseWithStatus(FBCommandStatusNoError, @{
+    @"level": @([UIDevice currentDevice].batteryLevel),
+    @"state": @([UIDevice currentDevice].batteryState)
+  });
 }
 
 @end
