@@ -23,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 /*! Element's frame in NSDictionary format */
 @property (nonatomic, readonly, copy) NSDictionary *wdRect;
 
+/*! Element's frame in NSDictionary format without INFINITY values */
+@property (nonatomic, readonly, copy) NSDictionary *wdRectNoInf;
+
 /*! Element's name */
 @property (nonatomic, readonly, copy) NSString *wdName;
 
