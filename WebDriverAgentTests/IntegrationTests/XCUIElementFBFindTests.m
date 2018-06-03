@@ -305,8 +305,6 @@
 
 @interface XCUIElementFBFindTests_AttributesPage : FBIntegrationTestCase
 @end
-
-
 @implementation XCUIElementFBFindTests_AttributesPage
 
 - (void)setUp
@@ -319,14 +317,6 @@
   });
 }
 
-- (void)testInvisibleDescendantWithXPathQuery
-{
-  NSArray<XCUIElement *> *matchingSnapshots = [self.testedApplication fb_descendantsMatchingXPathQuery:@"//XCUIElementTypePageIndicator[@visible='false']" shouldReturnAfterFirstMatch:NO];
-  XCTAssertEqual(matchingSnapshots.count, 1);
-  XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypePageIndicator);
-  XCTAssertFalse(matchingSnapshots.lastObject.fb_isVisible);
-}
-
 - (void)testNestedQueryWithClassChain
 {
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Button"].fb_isVisible);
@@ -334,6 +324,30 @@
   NSArray<XCUIElement *> *matches = [datePicker fb_descendantsMatchingClassChain:@"XCUIElementTypeOther" shouldReturnAfterFirstMatch:NO];
   XCTAssertEqual(matches.count, 1);
   XCTAssertEqual([matches firstObject].elementType, XCUIElementTypeOther);
+}
+
+@end
+
+@interface XCUIElementFBFindTests_ScrollPage : FBIntegrationTestCase
+@end
+@implementation XCUIElementFBFindTests_ScrollPage
+
+- (void)setUp
+{
+  [super setUp];
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [self launchApplication];
+    [self goToScrollPageWithCells:YES];
+  });
+}
+
+- (void)testInvisibleDescendantWithXPathQuery
+{
+  NSArray<XCUIElement *> *matchingSnapshots = [self.testedApplication fb_descendantsMatchingXPathQuery:@"//XCUIElementTypeStaticText[@visible='false']" shouldReturnAfterFirstMatch:NO];
+  XCTAssertGreaterThan(matchingSnapshots.count, 1);
+  XCTAssertEqual(matchingSnapshots.lastObject.elementType, XCUIElementTypeStaticText);
+  XCTAssertFalse(matchingSnapshots.lastObject.fb_isVisible);
 }
 
 @end
