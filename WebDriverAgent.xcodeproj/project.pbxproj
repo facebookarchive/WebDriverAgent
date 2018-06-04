@@ -281,6 +281,7 @@
 		EE7E271E1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = EE7E271A1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.h */; };
 		EE7E271F1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7E271B1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.m */; };
 		EE8BA97A1DCCED9A00A9DEF8 /* FBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8BA9791DCCED9A00A9DEF8 /* FBNavigationController.m */; };
+		EE8DDD7920C565FB004D4925 /* XCUIApplicationFBHelpersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8DDD7820C565FB004D4925 /* XCUIApplicationFBHelpersTests.m */; };
 		EE9AB8011CAEE048008C271F /* UITestingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7FD1CAEE048008C271F /* UITestingUITests.m */; };
 		EE9B76591CF7987800275851 /* FBRouteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9B76571CF7987300275851 /* FBRouteTests.m */; };
 		EE9B768E1CF7997600275851 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9B76831CF7997600275851 /* AppDelegate.m */; };
@@ -611,6 +612,7 @@
 		EE836C021C0F118600D87246 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE8BA9781DCCED9A00A9DEF8 /* FBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBNavigationController.h; sourceTree = "<group>"; };
 		EE8BA9791DCCED9A00A9DEF8 /* FBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBNavigationController.m; sourceTree = "<group>"; };
+		EE8DDD7820C565FB004D4925 /* XCUIApplicationFBHelpersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XCUIApplicationFBHelpersTests.m; sourceTree = "<group>"; };
 		EE9AB7451CAEDF0C008C271F /* XCUIElement+FBAccessibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBAccessibility.h"; sourceTree = "<group>"; };
 		EE9AB7461CAEDF0C008C271F /* XCUIElement+FBAccessibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+FBAccessibility.m"; sourceTree = "<group>"; };
 		EE9AB7471CAEDF0C008C271F /* XCUIElement+FBIsVisible.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBIsVisible.h"; sourceTree = "<group>"; };
@@ -1117,6 +1119,7 @@
 				EE9B76581CF7987300275851 /* Info.plist */,
 				7139145B1DF01A12005896C2 /* NSExpressionFBFormatTests.m */,
 				71A224E71DE326C500844D55 /* NSPredicateFBFormatTests.m */,
+				EE8DDD7820C565FB004D4925 /* XCUIApplicationFBHelpersTests.m */,
 				EEC9EED820077D8E00BC0D5B /* XCUICoordinateFix.m */,
 				713914591DF01989005896C2 /* XCUIElementHelpersTests.m */,
 			);
@@ -1849,6 +1852,7 @@
 				EE3F8D001D08B05F006F02CE /* FBElementTypeTransformerTests.m in Sources */,
 				EEE16E971D33A25500172525 /* FBConfigurationTests.m in Sources */,
 				ADBC39941D0782CD00327304 /* FBElementCacheTests.m in Sources */,
+				EE8DDD7920C565FB004D4925 /* XCUIApplicationFBHelpersTests.m in Sources */,
 				719FF5B91DAD21F5008E0099 /* FBElementUtilitiesTests.m in Sources */,
 				716E0BD11E917F260087A825 /* FBXMLSafeStringTests.m in Sources */,
 				ADEF63AD1D09DCCF0070A7E3 /* FBXPathCreatorTests.m in Sources */,

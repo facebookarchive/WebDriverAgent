@@ -59,7 +59,7 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
   info[@"name"] = FBValueOrNull(snapshot.wdName);
   info[@"value"] = FBValueOrNull(snapshot.wdValue);
   info[@"label"] = FBValueOrNull(snapshot.wdLabel);
-  info[@"rect"] = snapshot.wdRect;
+  info[@"rect"] = [XCUIApplication formattedRectWithFrame:snapshot.wdFrame];
   info[@"frame"] = NSStringFromCGRect(snapshot.wdFrame);
   info[@"isEnabled"] = [@([snapshot isWDEnabled]) stringValue];
   info[@"isVisible"] = [@([snapshot isWDVisible]) stringValue];
@@ -72,6 +72,16 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
     }
   }
   return info;
+}
+
++ (NSDictionary *)formattedRectWithFrame:(CGRect)frame
+{
+  return @{
+    @"x": @(isinf(CGRectGetMinX(frame)) ? 0: CGRectGetMinX(frame)),
+    @"y": @(isinf(CGRectGetMinY(frame)) ? 0: CGRectGetMinY(frame)),
+    @"width": @(isinf(CGRectGetWidth(frame)) ? 0 : CGRectGetWidth(frame)),
+    @"height": @(isinf(CGRectGetHeight(frame)) ? 0 : CGRectGetHeight(frame)),
+  };
 }
 
 + (NSDictionary *)accessibilityInfoForElement:(XCElementSnapshot *)snapshot
