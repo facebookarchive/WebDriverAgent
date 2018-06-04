@@ -12,7 +12,7 @@
 #import "FBAlert.h"
 #import "XCUIElement.h"
 #import "XCUIElement+FBUtilities.h"
-
+#import "XCAccessibilityElement.h"
 
 @interface FBElementCache ()
 @property (atomic, strong) NSMutableDictionary *elementCache;
@@ -32,7 +32,17 @@
 
 - (NSString *)storeElement:(XCUIElement *)element
 {
-  NSString *uuid = [[NSUUID UUID] UUIDString];
+  XCElementSnapshot *snapshot = element.fb_lastSnapshot;
+  XCAccessibilityElement *axElement = snapshot.accessibilityElement;
+  unsigned long long elementId = [axElement elementID];
+  int processId = [axElement processIdentifier];
+  
+  uint8_t b[16] = {0};
+  memcpy(b, &elementId, sizeof(long long));
+  memcpy(b + sizeof(long long), &processId, sizeof(int));
+  
+  NSUUID *uuidValue = [[NSUUID alloc] initWithUUIDBytes:b];
+  NSString *uuid = [uuidValue UUIDString];
   self.elementCache[uuid] = element;
   return uuid;
 }

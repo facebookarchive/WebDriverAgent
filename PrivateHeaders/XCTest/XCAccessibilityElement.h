@@ -13,11 +13,15 @@
     int _processIdentifier;
     struct __AXUIElement *_axElement;
     unsigned long long _elementType;
+    unsigned long long _elementOrHash;
+    unsigned long long _elementID;
 }
 @property(readonly) id payload; // @synthesize payload=_payload;
 @property(readonly) int processIdentifier; // @synthesize processIdentifier=_processIdentifier;
 @property(readonly) const struct __AXUIElement *AXUIElement; // @synthesize AXUIElement=_axElement;
 @property(readonly, getter=isNative) BOOL native;
+@property(readonly) unsigned long long elementID; // @synthesize elementID=_elementID;
+@property(readonly) unsigned long long elementOrHash; // @synthesize elementOrHash=_elementOrHash;
 
 + (id)elementWithAXUIElement:(struct __AXUIElement *)arg1;
 + (id)elementWithProcessIdentifier:(int)arg1;
