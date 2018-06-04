@@ -282,6 +282,9 @@
 		EE7E271F1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7E271B1D06C69F001BEC7B /* FBXCTestCaseImplementationFailureHoldingProxy.m */; };
 		EE8BA97A1DCCED9A00A9DEF8 /* FBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8BA9791DCCED9A00A9DEF8 /* FBNavigationController.m */; };
 		EE8DDD7920C565FB004D4925 /* XCUIApplicationFBHelpersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8DDD7820C565FB004D4925 /* XCUIApplicationFBHelpersTests.m */; };
+		EE8DDD7B20C57320004D4925 /* FBForceTouchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8DDD7A20C57320004D4925 /* FBForceTouchTests.m */; };
+		EE8DDD7E20C5733C004D4925 /* XCUIElement+FBForceTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8DDD7C20C5733B004D4925 /* XCUIElement+FBForceTouch.m */; };
+		EE8DDD7F20C5733C004D4925 /* XCUIElement+FBForceTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = EE8DDD7D20C5733C004D4925 /* XCUIElement+FBForceTouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE9AB8011CAEE048008C271F /* UITestingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7FD1CAEE048008C271F /* UITestingUITests.m */; };
 		EE9B76591CF7987800275851 /* FBRouteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9B76571CF7987300275851 /* FBRouteTests.m */; };
 		EE9B768E1CF7997600275851 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9B76831CF7997600275851 /* AppDelegate.m */; };
@@ -613,6 +616,9 @@
 		EE8BA9781DCCED9A00A9DEF8 /* FBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBNavigationController.h; sourceTree = "<group>"; };
 		EE8BA9791DCCED9A00A9DEF8 /* FBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBNavigationController.m; sourceTree = "<group>"; };
 		EE8DDD7820C565FB004D4925 /* XCUIApplicationFBHelpersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XCUIApplicationFBHelpersTests.m; sourceTree = "<group>"; };
+		EE8DDD7A20C57320004D4925 /* FBForceTouchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBForceTouchTests.m; sourceTree = "<group>"; };
+		EE8DDD7C20C5733B004D4925 /* XCUIElement+FBForceTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+FBForceTouch.m"; sourceTree = "<group>"; };
+		EE8DDD7D20C5733C004D4925 /* XCUIElement+FBForceTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBForceTouch.h"; sourceTree = "<group>"; };
 		EE9AB7451CAEDF0C008C271F /* XCUIElement+FBAccessibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBAccessibility.h"; sourceTree = "<group>"; };
 		EE9AB7461CAEDF0C008C271F /* XCUIElement+FBAccessibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+FBAccessibility.m"; sourceTree = "<group>"; };
 		EE9AB7471CAEDF0C008C271F /* XCUIElement+FBIsVisible.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBIsVisible.h"; sourceTree = "<group>"; };
@@ -911,6 +917,8 @@
 				71A7EAF41E20516B001DA4F2 /* XCUIElement+FBClassChain.m */,
 				EEBBD4891D47746D00656A81 /* XCUIElement+FBFind.h */,
 				EEBBD48A1D47746D00656A81 /* XCUIElement+FBFind.m */,
+				EE8DDD7D20C5733C004D4925 /* XCUIElement+FBForceTouch.h */,
+				EE8DDD7C20C5733B004D4925 /* XCUIElement+FBForceTouch.m */,
 				EE9AB7471CAEDF0C008C271F /* XCUIElement+FBIsVisible.h */,
 				EE9AB7481CAEDF0C008C271F /* XCUIElement+FBIsVisible.m */,
 				7136A4771E8918E60024FC3D /* XCUIElement+FBPickerWheel.h */,
@@ -1075,6 +1083,7 @@
 				7126FF0D1FD99C7E00DEFB38 /* FBElementScreenshotTests.m */,
 				EE006EAC1EB99B15006900A4 /* FBElementVisibilityTests.m */,
 				EE6A89361D0B35920083E92B /* FBFailureProofTestCaseTests.m */,
+				EE8DDD7A20C57320004D4925 /* FBForceTouchTests.m */,
 				EE1E06DB1D18090F007CF043 /* FBIntegrationTestCase.h */,
 				EE1E06D91D1808C2007CF043 /* FBIntegrationTestCase.m */,
 				EE05BAF91D13003C00A3EB00 /* FBKeyboardTests.m */,
@@ -1421,6 +1430,7 @@
 				711084441DA3AA7500F913D6 /* FBXPath.h in Headers */,
 				EE35AD771E3B77D600A02D78 /* XCUIRecorderTimingMessage.h in Headers */,
 				EE35AD271E3B77D600A02D78 /* XCApplicationMonitor.h in Headers */,
+				EE8DDD7F20C5733C004D4925 /* XCUIElement+FBForceTouch.h in Headers */,
 				EE158AEA1CBD456F00A3E3F0 /* FBRuntimeUtils.h in Headers */,
 				7136A4791E8918E60024FC3D /* XCUIElement+FBPickerWheel.h in Headers */,
 				EE35AD511E3B77D600A02D78 /* XCTestObservation-Protocol.h in Headers */,
@@ -1777,6 +1787,7 @@
 				EE158AF81CBD456F00A3E3F0 /* FBSpringboardApplication.m in Sources */,
 				EE158AD91CBD456F00A3E3F0 /* FBResponseFilePayload.m in Sources */,
 				EEE3764A1D59FAE900ED88DD /* XCUIElement+FBWebDriverAttributes.m in Sources */,
+				EE8DDD7E20C5733C004D4925 /* XCUIElement+FBForceTouch.m in Sources */,
 				EE158ACB1CBD456F00A3E3F0 /* FBTouchIDCommands.m in Sources */,
 				EE158ABD1CBD456F00A3E3F0 /* FBDebugCommands.m in Sources */,
 				716E0BCF1E917E810087A825 /* NSString+FBXMLSafeString.m in Sources */,
@@ -1821,6 +1832,7 @@
 				EE2202131ECC612200A29571 /* FBIntegrationTestCase.m in Sources */,
 				EE22021E1ECC618900A29571 /* FBTapTest.m in Sources */,
 				7126FF0E1FD99C7E00DEFB38 /* FBElementScreenshotTests.m in Sources */,
+				EE8DDD7B20C57320004D4925 /* FBForceTouchTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

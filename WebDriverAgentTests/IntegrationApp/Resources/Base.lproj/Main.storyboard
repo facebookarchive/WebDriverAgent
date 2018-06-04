@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nJd-IZ-bfU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nJd-IZ-bfU">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -380,10 +380,18 @@
                                     <action selector="createAppSheet:" destination="gK5-IX-eJx" eventType="touchUpInside" id="U6X-fw-xU2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7g-22-s49">
+                                <rect key="frame" x="69" y="360" width="182" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="TzV-CY-64y"/>
+                                </constraints>
+                                <state key="normal" title="Create Alert (Force Touch)"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="3Zk-wE-jwj" firstAttribute="centerX" secondItem="JWE-cA-TW0" secondAttribute="centerX" id="83u-1W-xLt"/>
+                            <constraint firstItem="D7g-22-s49" firstAttribute="centerX" secondItem="JWE-cA-TW0" secondAttribute="centerX" id="9nT-k0-9gf"/>
                             <constraint firstItem="ntr-45-Ycd" firstAttribute="top" secondItem="rG5-3k-LFe" secondAttribute="bottom" constant="8" id="DYt-NB-TSO"/>
                             <constraint firstItem="3Zk-wE-jwj" firstAttribute="top" secondItem="ntr-45-Ycd" secondAttribute="bottom" constant="8" id="Edq-zL-Soc"/>
                             <constraint firstItem="y1x-J5-Nkw" firstAttribute="centerX" secondItem="CZ1-7J-OGl" secondAttribute="centerX" constant="117.5" id="Ell-4O-Iqa"/>
@@ -392,6 +400,7 @@
                             <constraint firstItem="y1x-J5-Nkw" firstAttribute="centerX" secondItem="JWE-cA-TW0" secondAttribute="centerX" id="M6w-gn-nXE"/>
                             <constraint firstItem="ntr-45-Ycd" firstAttribute="centerX" secondItem="CZ1-7J-OGl" secondAttribute="centerX" constant="117.5" id="Qj1-d9-KDa"/>
                             <constraint firstItem="CZ1-7J-OGl" firstAttribute="top" secondItem="y1x-J5-Nkw" secondAttribute="bottom" constant="33" id="UHk-wV-Ehk"/>
+                            <constraint firstItem="D7g-22-s49" firstAttribute="top" secondItem="3Zk-wE-jwj" secondAttribute="bottom" constant="8" id="eML-6C-Von"/>
                             <constraint firstItem="plO-2e-XmX" firstAttribute="top" secondItem="y1x-J5-Nkw" secondAttribute="bottom" constant="37" id="f0Z-LP-5Dg"/>
                             <constraint firstItem="4VK-4B-FEF" firstAttribute="centerX" secondItem="CZ1-7J-OGl" secondAttribute="centerX" constant="117" id="fDG-Jl-VER"/>
                             <constraint firstItem="y1x-J5-Nkw" firstAttribute="top" secondItem="Ew1-ik-0G1" secondAttribute="bottom" constant="25" id="gaL-qu-PB6"/>
@@ -405,7 +414,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B30-xl-1JX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1216" y="-319"/>
+            <point key="canvasLocation" x="1215" y="-319.01408450704224"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="9RM-JC-4C4">
