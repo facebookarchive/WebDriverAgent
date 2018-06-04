@@ -20,7 +20,6 @@
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "FBXPath.h"
 
-inline static BOOL valuesAreEqual(id value1, id value2);
 inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, NSArray<NSNumber *> *types);
 
 @implementation XCElementSnapshot (FBHelpers)
@@ -66,12 +65,7 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
 
 - (BOOL)fb_framelessFuzzyMatchesElement:(XCElementSnapshot *)snapshot
 {
-  return self.elementType == snapshot.elementType &&
-    valuesAreEqual(self.identifier, snapshot.identifier) &&
-    valuesAreEqual(self.title, snapshot.title) &&
-    valuesAreEqual(self.label, snapshot.label) &&
-    valuesAreEqual(self.value, snapshot.value) &&
-    valuesAreEqual(self.placeholderValue, snapshot.placeholderValue);
+  return self.wdUID == snapshot.wdUID;
 }
 
 - (NSArray<XCElementSnapshot *> *)fb_descendantsCellSnapshots
@@ -105,11 +99,6 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
     return targetCellSnapshot;
 }
 @end
-
-inline static BOOL valuesAreEqual(id value1, id value2)
-{
-  return value1 == value2 || [value1 isEqual:value2];
-}
 
 inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, NSArray<NSNumber *> *types)
 {

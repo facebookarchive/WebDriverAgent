@@ -56,20 +56,9 @@
 
 + (BOOL)waitUntilVisibleWithError:(NSError **)error
 {
-  XCUIElement *keyboard =
-  [[[[FBRunLoopSpinner new]
-     timeout:5]
-    timeoutErrorMessage:@"Keyboard is not present"]
-   spinUntilNotNil:^id{
-     return [[FBApplication fb_activeApplication].query descendantsMatchingType:XCUIElementTypeKeyboard].fb_firstMatch;
-   }
-   error:error];
-
-  if (!keyboard) {
-    return NO;
-  }
-
-  if (![keyboard fb_waitUntilFrameIsStable]) {
+  FBApplication *application = [FBApplication fb_activeApplication];
+  
+  if (![application fb_waitUntilFrameIsStable]) {
     return
     [[[FBErrorBuilder builder]
       withDescription:@"Timeout waiting for keybord to stop animating"]
