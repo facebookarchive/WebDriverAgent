@@ -6,6 +6,7 @@
 
 #import <WebDriverAgentLib/CDStructures.h>
 
+#import <WebDriverAgentLib/XCUIHitPointResult.h>
 #import <XCTest/XCUIElementAttributes.h>
 
 @class NSArray, NSDictionary, NSString, XCAccessibilityElement, XCUIApplication;
@@ -62,8 +63,6 @@
 @property(readonly, copy) NSArray *identifiers;
 @property(nonatomic) unsigned long long generation; // @synthesize generation=_generation;
 @property(nonatomic) XCUIApplication *application; // @synthesize application=_application;
-@property(readonly) struct CGPoint hitPointForScrolling;
-@property(readonly) struct CGPoint hitPoint;
 
 - (id)_uniquelyIdentifyingObjectiveCCode;
 - (id)_uniquelyIdentifyingSwiftCode;
@@ -90,5 +89,9 @@
 - (XCElementSnapshot *)_rootElement;
 /*! DO NOT USE DIRECTLY! Please use fb_rootElement instead */
 - (XCElementSnapshot *)rootElement;
+
+/*! DO NOT USE DIRECTLY! Please use fb_hitPoint: instead */
+@property(readonly) struct CGPoint hitPoint;
+- (XCUIHitPointResult *)hitPoint:(NSError **)error;
 
 @end

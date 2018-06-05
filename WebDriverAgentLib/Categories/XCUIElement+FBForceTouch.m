@@ -9,6 +9,7 @@
 
 #import "XCUIElement+FBForceTouch.h"
 
+#import "FBElementHitPoint.h"
 #import "FBRunLoopSpinner.h"
 #import "FBLogger.h"
 #import "FBMacros.h"
@@ -24,12 +25,11 @@
 
 - (BOOL)fb_forceTouchWithPressure:(double)pressure duration:(double)duration error:(NSError **)error
 {
-  XCElementSnapshot *snapshot = self.fb_lastSnapshot;
-  CGPoint hitpoint = snapshot.fb_hitPoint;
-  if (CGPointEqualToPoint(hitpoint, CGPointMake(-1, -1))) {
-    hitpoint = [snapshot.suggestedHitpoints.lastObject CGPointValue];
+  FBElementHitPoint *hitpoint = [self.fb_lastSnapshot fb_hitPointWithAlternativeOnFailure:error];
+  if (!hitpoint) {
+    return NO;
   }
-  return [self fb_performFourceTouchAtPoint:hitpoint pressure:pressure duration:duration error:error];
+  return [self fb_performFourceTouchAtPoint:hitpoint.point pressure:pressure duration:duration error:error];
 }
 
 - (BOOL)fb_forceTouchCoordinate:(CGPoint)relativeCoordinate pressure:(double)pressure duration:(double)duration error:(NSError **)error

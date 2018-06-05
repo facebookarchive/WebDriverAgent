@@ -11,6 +11,7 @@
 
 #import "FBApplication.h"
 #import "FBConfiguration.h"
+#import "FBElementHitPoint.h"
 #import "FBMathUtils.h"
 #import "FBXCodeCompatibility.h"
 #import "XCElementSnapshot+FBHelpers.h"
@@ -50,7 +51,8 @@
   if (self == hitElement || [self._allDescendants.copy containsObject:hitElement]) {
     return YES;
   }
-  if (CGRectContainsPoint(appFrame, self.fb_hitPoint)) {
+  FBElementHitPoint *hitPoint = [self fb_hitPoint:nil];
+  if (hitPoint != nil && CGRectContainsPoint(appFrame, hitPoint.point)) {
     return YES;
   }
   for (XCElementSnapshot *elementSnapshot in self.children.copy) {

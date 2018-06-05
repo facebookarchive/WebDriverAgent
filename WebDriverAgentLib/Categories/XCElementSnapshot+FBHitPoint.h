@@ -7,15 +7,20 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+#import <WebDriverAgentLib/FBElementHitPoint.h>
 #import <WebDriverAgentLib/XCElementSnapshot.h>
 
 @interface XCElementSnapshot (FBHitPoint)
 
 /**
  Wrapper for Apple's hitpoint, thats resolves few known issues
-
- @return Element's hitpoint if exists {-1, -1} otherwise
  */
-- (CGPoint)fb_hitPoint;
+- (nullable FBElementHitPoint *)fb_hitPoint:(NSError **)error;
+
+/**
+ Wrapper for Apple's hitpoint, thats resolves few known issues
+ and will try provide alternatives in case of failure
+ */
+- (nullable FBElementHitPoint *)fb_hitPointWithAlternativeOnFailure:(NSError **)error;
 
 @end

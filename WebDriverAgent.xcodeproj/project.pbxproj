@@ -300,6 +300,9 @@
 		EE9B76AA1CF7A43900275851 /* FBMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9B76A51CF7A43900275851 /* FBMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEBBD48B1D47746D00656A81 /* XCUIElement+FBFind.h in Headers */ = {isa = PBXBuildFile; fileRef = EEBBD4891D47746D00656A81 /* XCUIElement+FBFind.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEBBD48C1D47746D00656A81 /* XCUIElement+FBFind.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBBD48A1D47746D00656A81 /* XCUIElement+FBFind.m */; };
+		EEC1950420C6CEA20094500B /* XCUIHitPointResult.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC1950320C6CEA10094500B /* XCUIHitPointResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEC1950720C6D0790094500B /* FBElementHitPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC1950520C6D0790094500B /* FBElementHitPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEC1950820C6D0790094500B /* FBElementHitPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC1950620C6D0790094500B /* FBElementHitPoint.m */; };
 		EEC9EED620064FAA00BC0D5B /* XCUICoordinate+FBFix.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC9EED420064FAA00BC0D5B /* XCUICoordinate+FBFix.h */; };
 		EEC9EED720064FAA00BC0D5B /* XCUICoordinate+FBFix.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC9EED520064FAA00BC0D5B /* XCUICoordinate+FBFix.m */; };
 		EEC9EED920077D8E00BC0D5B /* XCUICoordinateFix.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC9EED820077D8E00BC0D5B /* XCUICoordinateFix.m */; };
@@ -709,6 +712,9 @@
 		EEC088E71CB56DA400B65968 /* FBExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBExceptionHandler.m; sourceTree = "<group>"; };
 		EEC088EA1CB5706D00B65968 /* FBSpringboardApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBSpringboardApplication.h; path = WebDriverAgentLib/FBSpringboardApplication.h; sourceTree = SOURCE_ROOT; };
 		EEC088EB1CB5706D00B65968 /* FBSpringboardApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBSpringboardApplication.m; path = WebDriverAgentLib/FBSpringboardApplication.m; sourceTree = SOURCE_ROOT; };
+		EEC1950320C6CEA10094500B /* XCUIHitPointResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUIHitPointResult.h; sourceTree = "<group>"; };
+		EEC1950520C6D0790094500B /* FBElementHitPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBElementHitPoint.h; sourceTree = "<group>"; };
+		EEC1950620C6D0790094500B /* FBElementHitPoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBElementHitPoint.m; sourceTree = "<group>"; };
 		EEC9EED420064FAA00BC0D5B /* XCUICoordinate+FBFix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XCUICoordinate+FBFix.h"; sourceTree = "<group>"; };
 		EEC9EED520064FAA00BC0D5B /* XCUICoordinate+FBFix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XCUICoordinate+FBFix.m"; sourceTree = "<group>"; };
 		EEC9EED820077D8E00BC0D5B /* XCUICoordinateFix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XCUICoordinateFix.m; sourceTree = "<group>"; };
@@ -1027,6 +1033,8 @@
 				EE3A18611CDE618F00DE4205 /* FBErrorBuilder.m */,
 				EE6A89381D0B38640083E92B /* FBFailureProofTestCase.h */,
 				EE6A89391D0B38640083E92B /* FBFailureProofTestCase.m */,
+				EEC1950520C6D0790094500B /* FBElementHitPoint.h */,
+				EEC1950620C6D0790094500B /* FBElementHitPoint.m */,
 				EE9B76A31CF7A43900275851 /* FBLogger.h */,
 				EE9B76A41CF7A43900275851 /* FBLogger.m */,
 				EE9B76A51CF7A43900275851 /* FBMacros.h */,
@@ -1299,6 +1307,7 @@
 				EE35ACFF1E3B77D600A02D78 /* XCUIElementAsynchronousHandlerWrapper.h */,
 				EE35AD011E3B77D600A02D78 /* XCUIElementHitPointCoordinate.h */,
 				EE35AD021E3B77D600A02D78 /* XCUIElementQuery.h */,
+				EEC1950320C6CEA10094500B /* XCUIHitPointResult.h */,
 				EE35AD041E3B77D600A02D78 /* XCUIRecorderNodeFinder.h */,
 				EE35AD051E3B77D600A02D78 /* XCUIRecorderNodeFinderMatch.h */,
 				EE35AD061E3B77D600A02D78 /* XCUIRecorderTimingMessage.h */,
@@ -1342,6 +1351,7 @@
 				EE35AD341E3B77D600A02D78 /* XCPointerEventPath.h in Headers */,
 				EE158AE11CBD456F00A3E3F0 /* FBRouteRequest.h in Headers */,
 				EE35AD401E3B77D600A02D78 /* XCTest.h in Headers */,
+				EEC1950720C6D0790094500B /* FBElementHitPoint.h in Headers */,
 				EE35AD241E3B77D600A02D78 /* XCAccessibilityElement.h in Headers */,
 				EE158AE41CBD456F00A3E3F0 /* FBSession.h in Headers */,
 				EE35AD0F1E3B77D600A02D78 /* _XCTestImplementation.h in Headers */,
@@ -1481,6 +1491,7 @@
 				EE35AD571E3B77D600A02D78 /* XCTestSuiteRun.h in Headers */,
 				EE35AD701E3B77D600A02D78 /* XCUIElementAsynchronousHandlerWrapper.h in Headers */,
 				EE35AD4C1E3B77D600A02D78 /* XCTestLog.h in Headers */,
+				EEC1950420C6CEA20094500B /* XCUIHitPointResult.h in Headers */,
 				EE35AD231E3B77D600A02D78 /* UITapGestureRecognizer-RecordingAdditions.h in Headers */,
 				EE35AD2A1E3B77D600A02D78 /* XCDebugLogDelegate-Protocol.h in Headers */,
 				EE35AD1C1E3B77D600A02D78 /* NSString-XCTAdditions.h in Headers */,
@@ -1768,6 +1779,7 @@
 				AD6C269D1CF2494200F8B5FF /* XCUIApplication+FBHelpers.m in Sources */,
 				EE3A18671CDE734B00DE4205 /* FBKeyboard.m in Sources */,
 				713C6DD01DDC772A00285B92 /* FBElementUtils.m in Sources */,
+				EEC1950820C6D0790094500B /* FBElementHitPoint.m in Sources */,
 				EE158AFA1CBD456F00A3E3F0 /* FBApplicationProcessProxy.m in Sources */,
 				EE6A893B1D0B38640083E92B /* FBFailureProofTestCase.m in Sources */,
 				EE158AB11CBD456F00A3E3F0 /* XCUIElement+FBIsVisible.m in Sources */,
