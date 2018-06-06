@@ -70,7 +70,6 @@ function build_inspector() {
   npm install
 
   echo "Validating Inspector"
-  "$INSPECTOR_DIR"/node_modules/.bin/flow
   "$INSPECTOR_DIR"/node_modules/.bin/eslint js/*
 
   echo "Building Inspector..."
