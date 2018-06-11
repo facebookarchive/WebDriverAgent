@@ -10,6 +10,8 @@
 #import <WebDriverAgentLib/FBElementHitPoint.h>
 #import <WebDriverAgentLib/XCElementSnapshot.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface XCElementSnapshot (FBHitPoint)
 
 /**
@@ -24,3 +26,5 @@
 - (nullable FBElementHitPoint *)fb_hitPointWithAlternativeOnFailure:(NSError **)error;
 
 @end
+
+NS_ASSUME_NONNULL_END
