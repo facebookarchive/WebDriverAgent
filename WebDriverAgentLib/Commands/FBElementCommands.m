@@ -512,7 +512,11 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
   XCUIElement *element = application;
   if (isSDKVersionGreaterThanOrEqualTo(@"11.0")) {
     XCUIElement *window = application.windows.fb_firstMatch;
-    if (window) element = window;
+    if (window) {
+      element = window;
+      point.x -= element.frame.origin.x;
+      point.y -= element.frame.origin.y;
+    }
   }
   return [self gestureCoordinateWithCoordinate:point element:element];
 }
