@@ -67,6 +67,11 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
 - (XCElementSnapshot *)fb_lastSnapshot
 {
   [self resolve];
+  XCUIElementQuery *webviews = [self webViews];
+  NSArray *array = [webviews allElementsBoundByIndex];
+  for (XCUIElement *wv in array) {
+    [wv resolve];
+  }
   return [[self query] elementSnapshotForDebugDescription];
 }
 
