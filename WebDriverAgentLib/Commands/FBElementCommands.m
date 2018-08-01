@@ -584,6 +584,7 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
 }
 #endif
 
+#if !TARGET_OS_TV
 /**
  Returns gesture coordinate based on the specified element.
  
@@ -596,5 +597,6 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
   XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:element normalizedOffset:CGVectorMake(0, 0)];
   return [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(coordinate.x, coordinate.y)];
 }
+#endif
 
 @end
