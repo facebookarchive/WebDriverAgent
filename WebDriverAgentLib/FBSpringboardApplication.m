@@ -44,37 +44,43 @@ NSString *const SPRINGBOARD_BUNDLE_ID = @"com.apple.springboard";
   NSArray<XCUIElement *> *matchedAppElements = [appElementsQuery allElementsBoundByIndex];
   if (0 == matchedAppElements.count) {
     return [[[FBErrorBuilder builder]
-      withDescriptionFormat:@"Cannot locate Springboard icon for '%@' application", identifier]
-     buildError:error];
+             withDescriptionFormat:@"Cannot locate Springboard icon for '%@' application", identifier]
+            buildError:error];
   }
   // Select the most recent installed application if there are multiple matches
   XCUIElement *appElement = [matchedAppElements lastObject];
   if (!appElement.fb_isVisible) {
     CGRect startFrame = appElement.frame;
+#if !TARGET_OS_TV
     BOOL shouldSwipeToTheRight = startFrame.origin.x < 0;
+#endif
     NSString *errorDescription = [NSString stringWithFormat:@"Cannot scroll to Springboard icon for '%@' application", identifier];
     do {
+#if !TARGET_OS_TV
       if (shouldSwipeToTheRight) {
         [self swipeRight];
       } else {
         [self swipeLeft];
       }
+#endif
       BOOL isSwipeSuccessful = [appElement fb_waitUntilFrameIsStable] &&
-        [[[[FBRunLoopSpinner new]
-           timeout:1]
-          timeoutErrorMessage:errorDescription]
-         spinUntilTrue:^BOOL{
-           return !FBRectFuzzyEqualToRect(startFrame, appElement.frame, FBDefaultFrameFuzzyThreshold);
-         }
-         error:error];
+      [[[[FBRunLoopSpinner new]
+         timeout:1]
+        timeoutErrorMessage:errorDescription]
+       spinUntilTrue:^BOOL{
+         return !FBRectFuzzyEqualToRect(startFrame, appElement.frame, FBDefaultFrameFuzzyThreshold);
+       }
+       error:error];
       if (!isSwipeSuccessful) {
         return NO;
       }
     } while (!appElement.fb_isVisible);
   }
+#if TARGET_OS_IOS
   if (![appElement fb_tapWithError:error]) {
     return NO;
   }
+#endif
   return
   [[[[FBRunLoopSpinner new]
      interval:0.3]
@@ -82,7 +88,7 @@ NSString *const SPRINGBOARD_BUNDLE_ID = @"com.apple.springboard";
    spinUntilTrue:^BOOL{
      FBApplication *activeApp = [FBApplication fb_activeApplication];
      return activeApp &&
-        activeApp.processID != self.processID &&
+     activeApp.processID != self.processID &&
      activeApp.fb_isVisible;
    } error:error];
 }

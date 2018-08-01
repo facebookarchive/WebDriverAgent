@@ -55,21 +55,25 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
     }
     return result;
   }
-
+  
   XCUIApplication *app = FBApplication.fb_activeApplication;
+#if TARGET_OS_IOS
   CGSize screenSize = FBAdjustDimensionsForApplication(app.frame.size, app.interfaceOrientation);
+#else
+  CGSize screenSize = app.frame.size;
+#endif
   // https://developer.apple.com/documentation/xctest/xctimagequality?language=objc
   // Select lower quality, since XCTest crashes randomly if the maximum quality (zero value) is selected
   // and the resulting screenshot does not fit the memory buffer preallocated for it by the operating system
   NSUInteger quality = 1;
   CGRect screenRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
-
+  
   XCUIScreen *mainScreen = (XCUIScreen *)[xcScreenClass mainScreen];
   NSData *result = [mainScreen screenshotDataForQuality:quality rect:screenRect error:error];
   if (nil == result) {
     return nil;
   }
-
+  
   // The resulting data is a JPEG image, so we need to convert it to PNG representation
   UIImage *image = [UIImage imageWithData:result];
   return (NSData *)UIImagePNGRepresentation(image);
@@ -95,7 +99,7 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
     freeifaddrs(interfaces);
     return nil;
   }
-
+  
   NSString *address = nil;
   temp_addr = interfaces;
   while(temp_addr != NULL) {

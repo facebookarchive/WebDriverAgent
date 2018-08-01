@@ -11,12 +11,12 @@
 #import <WebDriverAgentLib/FBApplication.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+#if !TARGET_OS_TV
 @interface XCUIDevice (FBRotation)
 
 /**
  Sets requested device interface orientation.
-
+ 
  @param orientation The interface orientation.
  @return YES if the operation succeeds, otherwise NO.
  */
@@ -34,5 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) NSDictionary *fb_rotationMapping;
 
 @end
+#endif
 
 NS_ASSUME_NONNULL_END

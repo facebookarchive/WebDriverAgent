@@ -34,7 +34,7 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
   return
   [[[FBRunLoopSpinner new]
-     timeout:10.]
+    timeout:10.]
    spinUntilTrue:^BOOL{
      [self resolve];
      const BOOL isSameFrame = FBRectFuzzyEqualToRect(self.wdFrame, frame, FBDefaultFrameFuzzyThreshold);
@@ -135,7 +135,7 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
     }
     return nil;
   }
-
+  
   Class xcScreenClass = objc_lookUpClass("XCUIScreen");
   if (nil == xcScreenClass) {
     if (error) {
@@ -143,16 +143,17 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
     }
     return nil;
   }
-
+  
   XCUIScreen *mainScreen = (XCUIScreen *)[xcScreenClass mainScreen];
   NSData *result = [mainScreen screenshotDataForQuality:1 rect:self.frame error:error];
   if (nil == result) {
     return nil;
   }
-
+  
   UIImage *image = [UIImage imageWithData:result];
-  UIInterfaceOrientation orientation = self.application.interfaceOrientation;
   UIImageOrientation imageOrientation = UIImageOrientationUp;
+#if !TARGET_OS_TV
+  UIInterfaceOrientation orientation = self.application.interfaceOrientation;
   // The received element screenshot will be rotated, if the current interface orientation differs from portrait, so we need to fix that first
   if (orientation == UIInterfaceOrientationLandscapeRight) {
     imageOrientation = UIImageOrientationLeft;
@@ -161,12 +162,14 @@ static const NSTimeInterval FBANIMATION_TIMEOUT = 5.0;
   } else if (orientation == UIInterfaceOrientationPortraitUpsideDown) {
     imageOrientation = UIImageOrientationDown;
   }
+#endif
+  
   CGSize size = image.size;
   UIGraphicsBeginImageContext(CGSizeMake(size.width, size.height));
   [[UIImage imageWithCGImage:(CGImageRef)[image CGImage] scale:1.0 orientation:imageOrientation] drawInRect:CGRectMake(0, 0, size.width, size.height)];
   UIImage *fixedImage = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
-
+  
   // The resulting data is a JPEG image, so we need to convert it to PNG representation
   return (NSData *)UIImagePNGRepresentation(fixedImage);
 }

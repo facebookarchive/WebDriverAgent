@@ -41,7 +41,11 @@
     return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
   }
   CGRect appFrame = [self fb_rootElement].frame;
+#if TARGET_OS_IOS
   CGSize screenSize = FBAdjustDimensionsForApplication(appFrame.size, self.application.interfaceOrientation);
+#else
+  CGSize screenSize = appFrame.size;
+#endif
   CGRect screenFrame = CGRectMake(0, 0, screenSize.width, screenSize.height);
   if (!CGRectIntersectsRect(frame, screenFrame)) {
     return NO;

@@ -26,10 +26,10 @@
 static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteRequest *request)
 {
   NSDictionary *errorDetails = @{
-    @"description": @"unable to find an element",
-    @"using": request.arguments[@"using"] ?: @"",
-    @"value": request.arguments[@"value"] ?: @"",
-  };
+                                 @"description": @"unable to find an element",
+                                 @"using": request.arguments[@"using"] ?: @"",
+                                 @"value": request.arguments[@"value"] ?: @"",
+                                 };
   return FBResponseWithStatus(FBCommandStatusNoSuchElement, errorDetails);
 }
 
@@ -46,7 +46,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     [[FBRoute POST:@"/element/:uuid/element"] respondWithTarget:self action:@selector(handleFindSubElement:)],
     [[FBRoute POST:@"/element/:uuid/elements"] respondWithTarget:self action:@selector(handleFindSubElements:)],
     [[FBRoute GET:@"/wda/element/:uuid/getVisibleCells"] respondWithTarget:self action:@selector(handleFindVisibleCells:)],
-  ];
+    ];
 }
 
 
@@ -96,7 +96,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   NSArray *foundElements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element
                          shouldReturnAfterFirstMatch:NO];
-
+  
   return FBResponseWithCachedElements(foundElements, request.session.elementCache, FBConfiguration.shouldUseCompactResponses);
 }
 
