@@ -15,6 +15,13 @@
 		1C19546A2111DC1400A99F21 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1954682111DC0800A99F21 /* libxml2.tbd */; };
 		1C1954732112EF9100A99F21 /* FBTvRemoteCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C1954712112EF9100A99F21 /* FBTvRemoteCommands.h */; };
 		1C1954742112EF9100A99F21 /* FBTvRemoteCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954722112EF9100A99F21 /* FBTvRemoteCommands.m */; };
+		1C1954B421133DDC00A99F21 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954B321133DDC00A99F21 /* AppDelegate.m */; };
+		1C1954B721133DDC00A99F21 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954B621133DDC00A99F21 /* ViewController.m */; };
+		1C1954BA21133DDC00A99F21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C1954B821133DDC00A99F21 /* Main.storyboard */; };
+		1C1954BF21133DDD00A99F21 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954BE21133DDD00A99F21 /* main.m */; };
+		1C1954D52113454F00A99F21 /* FBAlertsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954D42113454F00A99F21 /* FBAlertsViewController.m */; };
+		1C1954D82113540000A99F21 /* FBIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954D72113540000A99F21 /* FBIntegrationTestCase.m */; };
+		1C1954DA2113554400A99F21 /* FBRAlertTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954D92113554400A99F21 /* FBRAlertTests.m */; };
 		1C8F1A322100B24400F6FEF4 /* FBScreenshotCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB75F1CAEDF0C008C271F /* FBScreenshotCommands.m */; };
 		1C8F1A332100B24400F6FEF4 /* FBPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC7C911F21F27A0053426C /* FBPredicate.m */; };
 		1C8F1A342100B24400F6FEF4 /* XCUIElement+FBPickerWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7136A4781E8918E60024FC3D /* XCUIElement+FBPickerWheel.m */; };
@@ -585,6 +592,13 @@
 			remoteGlobalIDString = 1C8F1A302100B24400F6FEF4;
 			remoteInfo = WebDriverAgentLib_tvOS;
 		};
+		1C1954C521133DDD00A99F21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C1954AF21133DDC00A99F21;
+			remoteInfo = IntegrationApp_tvOS;
+		};
 		AD8D96F01D3C12960061268E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
@@ -696,6 +710,21 @@
 		1C1954682111DC0800A99F21 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/usr/lib/libxml2.tbd; sourceTree = DEVELOPER_DIR; };
 		1C1954712112EF9100A99F21 /* FBTvRemoteCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBTvRemoteCommands.h; sourceTree = "<group>"; };
 		1C1954722112EF9100A99F21 /* FBTvRemoteCommands.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTvRemoteCommands.m; sourceTree = "<group>"; };
+		1C19549321133B9000A99F21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1C1954B021133DDC00A99F21 /* IntegrationApp_tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntegrationApp_tvOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C1954B221133DDC00A99F21 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1C1954B321133DDC00A99F21 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1C1954B521133DDC00A99F21 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		1C1954B621133DDC00A99F21 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		1C1954B921133DDC00A99F21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1C1954BD21133DDD00A99F21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1C1954BE21133DDD00A99F21 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1C1954C421133DDD00A99F21 /* IntegrationTests_tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests_tvOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C1954D32113454F00A99F21 /* FBAlertsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBAlertsViewController.h; sourceTree = "<group>"; };
+		1C1954D42113454F00A99F21 /* FBAlertsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBAlertsViewController.m; sourceTree = "<group>"; };
+		1C1954D62113540000A99F21 /* FBIntegrationTestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBIntegrationTestCase.h; sourceTree = "<group>"; };
+		1C1954D72113540000A99F21 /* FBIntegrationTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBIntegrationTestCase.m; sourceTree = "<group>"; };
+		1C1954D92113554400A99F21 /* FBRAlertTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBRAlertTests.m; sourceTree = "<group>"; };
 		1C8F1B312100B24400F6FEF4 /* WebDriverAgentLib_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WebDriverAgentLib_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CDC566C2111C26F00868007 /* WebDriverAgentRunner_tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentRunner_tvOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceRotationTests.m; sourceTree = "<group>"; };
@@ -1030,6 +1059,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1C1954AD21133DDC00A99F21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1C1954C121133DDD00A99F21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1C8F1A752100B24400F6FEF4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1111,6 +1154,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C19549021133B9000A99F21 /* IntegrationTests_tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				1C1954D62113540000A99F21 /* FBIntegrationTestCase.h */,
+				1C1954D72113540000A99F21 /* FBIntegrationTestCase.m */,
+				1C1954D92113554400A99F21 /* FBRAlertTests.m */,
+				1C19549321133B9000A99F21 /* Info.plist */,
+			);
+			path = IntegrationTests_tvOS;
+			sourceTree = "<group>";
+		};
+		1C1954B121133DDC00A99F21 /* IntegrationApp_tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				1C1954D121133E7500A99F21 /* Classes */,
+				1C1954D221133E7C00A99F21 /* Resources */,
+				1C1954BD21133DDD00A99F21 /* Info.plist */,
+				1C1954BE21133DDD00A99F21 /* main.m */,
+			);
+			name = IntegrationApp_tvOS;
+			path = ../IntegrationApp_tvOS;
+			sourceTree = "<group>";
+		};
+		1C1954D121133E7500A99F21 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1C1954B221133DDC00A99F21 /* AppDelegate.h */,
+				1C1954B321133DDC00A99F21 /* AppDelegate.m */,
+				1C1954D32113454F00A99F21 /* FBAlertsViewController.h */,
+				1C1954D42113454F00A99F21 /* FBAlertsViewController.m */,
+				1C1954B521133DDC00A99F21 /* ViewController.h */,
+				1C1954B621133DDC00A99F21 /* ViewController.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		1C1954D221133E7C00A99F21 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1C1954B821133DDC00A99F21 /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		498495C81BB2E6FA009CC848 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1151,6 +1238,8 @@
 				EE22021C1ECC612200A29571 /* IntegrationTests_3.xctest */,
 				1C8F1B312100B24400F6FEF4 /* WebDriverAgentLib_tvOS.framework */,
 				1CDC566C2111C26F00868007 /* WebDriverAgentRunner_tvOS.xctest */,
+				1C1954B021133DDC00A99F21 /* IntegrationApp_tvOS.app */,
+				1C1954C421133DDD00A99F21 /* IntegrationTests_tvOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1387,8 +1476,10 @@
 		EE9B75F91CF7964100275851 /* WebDriverAgentTests */ = {
 			isa = PBXGroup;
 			children = (
+				1C1954B121133DDC00A99F21 /* IntegrationApp_tvOS */,
 				EE9B76801CF7997600275851 /* IntegrationApp */,
 				EE9B76541CF7987300275851 /* IntegrationTests */,
+				1C19549021133B9000A99F21 /* IntegrationTests_tvOS */,
 				EE9B76561CF7987300275851 /* UnitTests */,
 			);
 			path = WebDriverAgentTests;
@@ -2021,6 +2112,41 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		1C1954AF21133DDC00A99F21 /* IntegrationApp_tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C1954CB21133DDE00A99F21 /* Build configuration list for PBXNativeTarget "IntegrationApp_tvOS" */;
+			buildPhases = (
+				1C1954AC21133DDC00A99F21 /* Sources */,
+				1C1954AD21133DDC00A99F21 /* Frameworks */,
+				1C1954AE21133DDC00A99F21 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IntegrationApp_tvOS;
+			productName = IntegrationApp_tvOS;
+			productReference = 1C1954B021133DDC00A99F21 /* IntegrationApp_tvOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1C1954C321133DDD00A99F21 /* IntegrationTests_tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C1954CE21133DDE00A99F21 /* Build configuration list for PBXNativeTarget "IntegrationTests_tvOS" */;
+			buildPhases = (
+				1C1954C021133DDD00A99F21 /* Sources */,
+				1C1954C121133DDD00A99F21 /* Frameworks */,
+				1C1954C221133DDD00A99F21 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1C1954C621133DDD00A99F21 /* PBXTargetDependency */,
+			);
+			name = IntegrationTests_tvOS;
+			productName = IntegrationApp_tvOSUITests;
+			productReference = 1C1954C421133DDD00A99F21 /* IntegrationTests_tvOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		1C8F1A302100B24400F6FEF4 /* WebDriverAgentLib_tvOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C8F1B2E2100B24400F6FEF4 /* Build configuration list for PBXNativeTarget "WebDriverAgentLib_tvOS" */;
@@ -2199,6 +2325,15 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
+					1C1954AF21133DDC00A99F21 = {
+						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
+					};
+					1C1954C321133DDD00A99F21 = {
+						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 1C1954AF21133DDC00A99F21;
+					};
 					1C8F1A302100B24400F6FEF4 = {
 						DevelopmentTeam = U9WLLAC7UL;
 					};
@@ -2248,11 +2383,28 @@
 				EE5095DD1EBCC9090028E2FE /* IntegrationTests_2 */,
 				EE2202031ECC612200A29571 /* IntegrationTests_3 */,
 				EE9B75D31CF7956C00275851 /* IntegrationApp */,
+				1C1954AF21133DDC00A99F21 /* IntegrationApp_tvOS */,
+				1C1954C321133DDD00A99F21 /* IntegrationTests_tvOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1C1954AE21133DDC00A99F21 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C1954BA21133DDC00A99F21 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1C1954C221133DDD00A99F21 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1C8F1B2A2100B24400F6FEF4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2322,6 +2474,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1C1954AC21133DDC00A99F21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C1954B721133DDC00A99F21 /* ViewController.m in Sources */,
+				1C1954D52113454F00A99F21 /* FBAlertsViewController.m in Sources */,
+				1C1954BF21133DDD00A99F21 /* main.m in Sources */,
+				1C1954B421133DDC00A99F21 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1C1954C021133DDD00A99F21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C1954DA2113554400A99F21 /* FBRAlertTests.m in Sources */,
+				1C1954D82113540000A99F21 /* FBIntegrationTestCase.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1C8F1A312100B24400F6FEF4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2583,6 +2755,11 @@
 			target = 1C8F1A302100B24400F6FEF4 /* WebDriverAgentLib_tvOS */;
 			targetProxy = 1C0EE1122111C4A9009EDBB1 /* PBXContainerItemProxy */;
 		};
+		1C1954C621133DDD00A99F21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C1954AF21133DDC00A99F21 /* IntegrationApp_tvOS */;
+			targetProxy = 1C1954C521133DDD00A99F21 /* PBXContainerItemProxy */;
+		};
 		AD8D96F11D3C12960061268E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EE158A981CBD452B00A3E3F0 /* WebDriverAgentLib */;
@@ -2626,6 +2803,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		1C1954B821133DDC00A99F21 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1C1954B921133DDC00A99F21 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		EE9B768C1CF7997600275851 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2637,6 +2822,100 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1C1954CC21133DDE00A99F21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = IntegrationApp_tvOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.wda.integrationApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = Debug;
+		};
+		1C1954CD21133DDE00A99F21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = IntegrationApp_tvOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.wda.integrationApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = Release;
+		};
+		1C1954CF21133DDE00A99F21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WebDriverAgentTests/IntegrationTests_tvOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.wda.IntegrationApp-tvOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_TARGET_NAME = IntegrationApp_tvOS;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = Debug;
+		};
+		1C1954D021133DDE00A99F21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WebDriverAgentTests/IntegrationTests_tvOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.wda.IntegrationApp-tvOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_TARGET_NAME = IntegrationApp_tvOS;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = Release;
+		};
 		1C8F1B2F2100B24400F6FEF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */;
@@ -3130,6 +3409,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1C1954CB21133DDE00A99F21 /* Build configuration list for PBXNativeTarget "IntegrationApp_tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C1954CC21133DDE00A99F21 /* Debug */,
+				1C1954CD21133DDE00A99F21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1C1954CE21133DDE00A99F21 /* Build configuration list for PBXNativeTarget "IntegrationTests_tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C1954CF21133DDE00A99F21 /* Debug */,
+				1C1954D021133DDE00A99F21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1C8F1B2E2100B24400F6FEF4 /* Build configuration list for PBXNativeTarget "WebDriverAgentLib_tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
