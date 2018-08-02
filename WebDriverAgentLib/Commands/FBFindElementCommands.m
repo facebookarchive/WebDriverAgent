@@ -46,6 +46,9 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     [[FBRoute POST:@"/element/:uuid/element"] respondWithTarget:self action:@selector(handleFindSubElement:)],
     [[FBRoute POST:@"/element/:uuid/elements"] respondWithTarget:self action:@selector(handleFindSubElements:)],
     [[FBRoute GET:@"/wda/element/:uuid/getVisibleCells"] respondWithTarget:self action:@selector(handleFindVisibleCells:)],
+#if TARGET_OS_TV
+    [[FBRoute GET:@"/wda/element/focused"] respondWithTarget:self action:@selector(handleFindFocusedElement:)],
+#endif
     ];
 }
 
@@ -98,6 +101,14 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
                          shouldReturnAfterFirstMatch:NO];
   
   return FBResponseWithCachedElements(foundElements, request.session.elementCache, FBConfiguration.shouldUseCompactResponses);
+}
+
++ (id<FBResponsePayload>)handleFindFocusedElement:(FBRouteRequest *)request
+{
+  FBElementCache *elementCache = request.session.elementCache;
+  XCUIElementQuery *query = [[FBApplication fb_activeApplication] descendantsMatchingType:XCUIElementTypeAny];
+  XCUIElement *element = [query elementMatchingPredicate: [NSPredicate predicateWithFormat:@"hasFocus == true"]];
+  return FBResponseWithElementUUID([elementCache storeElement:element]);
 }
 
 
