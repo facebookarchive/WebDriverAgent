@@ -13,6 +13,8 @@
 		1C1954642111CF0E00A99F21 /* RoutingHTTPServer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1954632111CF0E00A99F21 /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1C1954662111D7FD00A99F21 /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1954632111CF0E00A99F21 /* RoutingHTTPServer.framework */; };
 		1C19546A2111DC1400A99F21 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1954682111DC0800A99F21 /* libxml2.tbd */; };
+		1C1954732112EF9100A99F21 /* FBTvRemoteCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C1954712112EF9100A99F21 /* FBTvRemoteCommands.h */; };
+		1C1954742112EF9100A99F21 /* FBTvRemoteCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954722112EF9100A99F21 /* FBTvRemoteCommands.m */; };
 		1C8F1A322100B24400F6FEF4 /* FBScreenshotCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB75F1CAEDF0C008C271F /* FBScreenshotCommands.m */; };
 		1C8F1A332100B24400F6FEF4 /* FBPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC7C911F21F27A0053426C /* FBPredicate.m */; };
 		1C8F1A342100B24400F6FEF4 /* XCUIElement+FBPickerWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7136A4781E8918E60024FC3D /* XCUIElement+FBPickerWheel.m */; };
@@ -692,6 +694,8 @@
 /* Begin PBXFileReference section */
 		1C1954632111CF0E00A99F21 /* RoutingHTTPServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RoutingHTTPServer.framework; path = Carthage/Build/tvOS/RoutingHTTPServer.framework; sourceTree = "<group>"; };
 		1C1954682111DC0800A99F21 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/usr/lib/libxml2.tbd; sourceTree = DEVELOPER_DIR; };
+		1C1954712112EF9100A99F21 /* FBTvRemoteCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBTvRemoteCommands.h; sourceTree = "<group>"; };
+		1C1954722112EF9100A99F21 /* FBTvRemoteCommands.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTvRemoteCommands.m; sourceTree = "<group>"; };
 		1C8F1B312100B24400F6FEF4 /* WebDriverAgentLib_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WebDriverAgentLib_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CDC566C2111C26F00868007 /* WebDriverAgentRunner_tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentRunner_tvOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceRotationTests.m; sourceTree = "<group>"; };
@@ -1276,6 +1280,8 @@
 				EE9AB7631CAEDF0C008C271F /* FBTouchIDCommands.m */,
 				EE9AB7641CAEDF0C008C271F /* FBUnknownCommands.h */,
 				EE9AB7651CAEDF0C008C271F /* FBUnknownCommands.m */,
+				1C1954712112EF9100A99F21 /* FBTvRemoteCommands.h */,
+				1C1954722112EF9100A99F21 /* FBTvRemoteCommands.m */,
 			);
 			name = Commands;
 			path = WebDriverAgentLib/Commands;
@@ -1671,6 +1677,7 @@
 				1C8F1A8E2100B24400F6FEF4 /* XCTestProbe.h in Headers */,
 				1C8F1A8F2100B24400F6FEF4 /* XCApplicationQuery.h in Headers */,
 				1C8F1A902100B24400F6FEF4 /* XCTAsyncActivity.h in Headers */,
+				1C1954732112EF9100A99F21 /* FBTvRemoteCommands.h in Headers */,
 				1C8F1A912100B24400F6FEF4 /* XCTestMisuseObserver.h in Headers */,
 				1C8F1A922100B24400F6FEF4 /* XCTRunnerDaemonSession.h in Headers */,
 				1C8F1A932100B24400F6FEF4 /* FBApplication.h in Headers */,
@@ -2374,6 +2381,7 @@
 				1C8F1A662100B24400F6FEF4 /* FBSessionCommands.m in Sources */,
 				1C8F1A672100B24400F6FEF4 /* FBInspectorCommands.m in Sources */,
 				1C8F1A682100B24400F6FEF4 /* XCElementSnapshot+FBHitPoint.m in Sources */,
+				1C1954742112EF9100A99F21 /* FBTvRemoteCommands.m in Sources */,
 				1C8F1A692100B24400F6FEF4 /* FBConfiguration.m in Sources */,
 				1C8F1A6A2100B24400F6FEF4 /* FBElementCache.m in Sources */,
 				1C8F1A6B2100B24400F6FEF4 /* FBAlert.m in Sources */,
