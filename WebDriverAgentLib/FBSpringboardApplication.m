@@ -23,6 +23,7 @@
 #import "XCUIElementQuery.h"
 
 NSString *const SPRINGBOARD_BUNDLE_ID = @"com.apple.springboard";
+NSString *const HEADBOARD_BUNDLE_ID = @"com.apple.HeadBoard";
 
 @implementation FBSpringboardApplication
 
@@ -31,7 +32,12 @@ NSString *const SPRINGBOARD_BUNDLE_ID = @"com.apple.springboard";
   static FBSpringboardApplication *_springboardApp;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
+#if TARGET_OS_IOS
     _springboardApp = [[FBSpringboardApplication alloc] initPrivateWithPath:nil bundleID:SPRINGBOARD_BUNDLE_ID];
+#elif TARGET_OS_TV
+    _springboardApp = [[FBSpringboardApplication alloc] initPrivateWithPath:nil bundleID:HEADBOARD_BUNDLE_ID];
+#endif
+
   });
   [_springboardApp query];
   [_springboardApp resolve];
@@ -51,10 +57,10 @@ NSString *const SPRINGBOARD_BUNDLE_ID = @"com.apple.springboard";
   XCUIElement *appElement = [matchedAppElements lastObject];
   if (!appElement.fb_isVisible) {
     CGRect startFrame = appElement.frame;
+    NSString *errorDescription = [NSString stringWithFormat:@"Cannot scroll to Springboard icon for '%@' application", identifier];
 #if !TARGET_OS_TV
     BOOL shouldSwipeToTheRight = startFrame.origin.x < 0;
 #endif
-    NSString *errorDescription = [NSString stringWithFormat:@"Cannot scroll to Springboard icon for '%@' application", identifier];
     do {
 #if !TARGET_OS_TV
       if (shouldSwipeToTheRight) {
@@ -107,9 +113,14 @@ NSString *const SPRINGBOARD_BUNDLE_ID = @"com.apple.springboard";
 - (BOOL)fb_isApplicationBoardVisible
 {
   [self resolve];
+#if TARGET_OS_IOS
   // the dock (and other icons) don't seem to be consistently reported as
   // visible. esp on iOS 11 but also on 10.3.3
   return self.otherElements[@"Dock"].isEnabled;
+#endif
+#if TARGET_OS_TV
+  return self.collectionViews[@"GridCollectionView"].isEnabled;
+#endif
 }
 
 @end

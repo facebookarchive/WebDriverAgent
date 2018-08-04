@@ -24,9 +24,17 @@
 
 - (BOOL)fb_typeText:(NSString *)text frequency:(NSUInteger)frequency error:(NSError **)error
 {
+// There is no ability to open text field via tap
+#if TARGET_OS_TV
+  if (!self.hasKeyboardFocus) {
+    [[[FBErrorBuilder builder] withDescription:@"Keyboard is not opened."] buildError:error];;
+    return NO;
+  }
+#else
   if (!self.hasKeyboardFocus && ![self fb_tapWithError:error]) {
     return NO;
   }
+#endif
   if (![FBKeyboard typeText:text frequency:frequency error:error]) {
     return NO;
   }
@@ -38,6 +46,7 @@
   NSUInteger preClearTextLength = 0;
   NSData *encodedSequence = [@"\\u0008\\u007F" dataUsingEncoding:NSASCIIStringEncoding];
   NSString *backspaceDeleteSequence = [[NSString alloc] initWithData:encodedSequence encoding:NSNonLossyASCIIStringEncoding];
+  NSLog(@"DEBUG: length=%lu", [self.value fb_visualLength]);
   while ([self.value fb_visualLength] != preClearTextLength) {
     NSMutableString *textToType = @"".mutableCopy;
     preClearTextLength = [self.value fb_visualLength];

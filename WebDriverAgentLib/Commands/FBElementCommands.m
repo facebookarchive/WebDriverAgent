@@ -63,6 +63,7 @@
     [[FBRoute GET:@"/element/:uuid/screenshot"] respondWithTarget:self action:@selector(handleElementScreenshot:)],
     [[FBRoute GET:@"/wda/element/:uuid/accessible"] respondWithTarget:self action:@selector(handleGetAccessible:)],
     [[FBRoute GET:@"/wda/element/:uuid/accessibilityContainer"] respondWithTarget:self action:@selector(handleGetIsAccessibilityContainer:)],
+    [[FBRoute POST:@"/wda/keys"] respondWithTarget:self action:@selector(handleKeys:)],
 #if TARGET_OS_TV
     [[FBRoute GET:@"/element/:uuid/focused"] respondWithTarget:self action:@selector(handleGetFocused:)],
 #endif
@@ -81,7 +82,6 @@
     [[FBRoute POST:@"/wda/element/:uuid/twoFingerTap"] respondWithTarget:self action:@selector(handleTwoFingerTap:)],
     [[FBRoute POST:@"/wda/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTapCoordinate:)],
     
-    [[FBRoute POST:@"/wda/keys"] respondWithTarget:self action:@selector(handleKeys:)],
     [[FBRoute POST:@"/wda/pickerwheel/:uuid/select"] respondWithTarget:self action:@selector(handleWheelSelect:)],
     [[FBRoute POST:@"/wda/element/forceTouch/:uuid"] respondWithTarget:self action:@selector(handleForceTouch:)],
     [[FBRoute POST:@"/wda/element/forceTouchByCoordinate/:uuid"] respondWithTarget:self action:@selector(handleForceTouchByCoordinateOnElement:)]
@@ -155,6 +155,16 @@
   return FBResponseWithStatus(FBCommandStatusNoError, type);
 }
 
+#if TARGET_OS_TV
++ (id<FBResponsePayload>)handleGetFocused:(FBRouteRequest *)request
+{
+  FBElementCache *elementCache = request.session.elementCache;
+  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
+  BOOL isFocused = element.hasFocus;
+  return FBResponseWithStatus(FBCommandStatusNoError, isFocused ? @YES : @NO);
+}
+#endif
+
 + (id<FBResponsePayload>)handleSetValue:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
@@ -190,22 +200,6 @@
   return FBResponseWithElementUUID(elementUUID);
 }
 
-+ (id<FBResponsePayload>)handleClick:(FBRouteRequest *)request
-{
-  NSString *elementUUID = request.parameters[@"uuid"];
-#if TARGET_OS_IOS
-  FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForUUID:elementUUID];
-  NSError *error = nil;
-  if (![element fb_tapWithError:&error]) {
-    return FBResponseWithError(error);
-  }
-#else
-  [NSException raise:@"NotImplemented" format:@"tvOS logic is not implemented."];
-#endif
-  return FBResponseWithElementUUID(elementUUID);
-}
-
 + (id<FBResponsePayload>)handleClear:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
@@ -219,6 +213,18 @@
 }
 
 #if TARGET_OS_IOS
++ (id<FBResponsePayload>)handleClick:(FBRouteRequest *)request
+{
+  NSString *elementUUID = request.parameters[@"uuid"];
+  FBElementCache *elementCache = request.session.elementCache;
+  XCUIElement *element = [elementCache elementForUUID:elementUUID];
+  NSError *error = nil;
+  if (![element fb_tapWithError:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithElementUUID(elementUUID);
+}
+
 + (id<FBResponsePayload>)handleDoubleTap:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
@@ -226,9 +232,7 @@
   [element doubleTap];
   return FBResponseWithOK();
 }
-#endif
 
-#if TARGET_OS_IOS
 + (id<FBResponsePayload>)handleDoubleTapCoordinate:(FBRouteRequest *)request
 {
   CGPoint doubleTapPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
@@ -236,9 +240,7 @@
   [doubleTapCoordinate doubleTap];
   return FBResponseWithOK();
 }
-#endif
 
-#if TARGET_OS_IOS
 + (id<FBResponsePayload>)handleTwoFingerTap:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
@@ -246,33 +248,23 @@
   [element twoFingerTap];
   return FBResponseWithOK();
 }
-#endif
 
 + (id<FBResponsePayload>)handleTouchAndHold:(FBRouteRequest *)request
 {
-#if TARGET_OS_IOS
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   [element pressForDuration:[request.arguments[@"duration"] doubleValue]];
-#else
-  [NSException raise:@"NotImplemented" format:@"tvOS logic is not implemented."];
-#endif
   return FBResponseWithOK();
 }
 
 + (id<FBResponsePayload>)handleTouchAndHoldCoordinate:(FBRouteRequest *)request
 {
-#if TARGET_OS_IOS
   CGPoint touchPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
   XCUICoordinate *pressCoordinate = [self.class gestureCoordinateWithCoordinate:touchPoint application:request.session.application shouldApplyOrientationWorkaround:isSDKVersionLessThan(@"11.0")];
   [pressCoordinate pressForDuration:[request.arguments[@"duration"] doubleValue]];
-#else
-  [NSException raise:@"NotImplemented" format:@"tvOS logic is not implemented."];
-#endif
   return FBResponseWithOK();
 }
 
-#if TARGET_OS_IOS
 + (id<FBResponsePayload>)handleForceTouch:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
@@ -285,9 +277,7 @@
   }
   return FBResponseWithOK();
 }
-#endif
 
-#if TARGET_OS_IOS
 + (id<FBResponsePayload>)handleForceTouchByCoordinateOnElement:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
@@ -301,7 +291,6 @@
   }
   return FBResponseWithOK();
 }
-#endif
 
 + (id<FBResponsePayload>)handleScroll:(FBRouteRequest *)request
 {
@@ -321,7 +310,6 @@
   
   NSString *const direction = request.arguments[@"direction"];
   if (direction) {
-#if TARGET_OS_IOS
     NSString *const distanceString = request.arguments[@"distance"] ?: @"1.0";
     CGFloat distance = (CGFloat)distanceString.doubleValue;
     if ([direction isEqualToString:@"up"]) {
@@ -333,9 +321,6 @@
     } else if ([direction isEqualToString:@"right"]) {
       [element fb_scrollRightByNormalizedDistance:distance];
     }
-#else
-    [NSException raise:@"NotImplemented" format:@"tvOS logic is not implemented."];
-#endif
     return FBResponseWithOK();
   }
   
@@ -355,7 +340,6 @@
   return FBResponseWithErrorFormat(@"Unsupported scroll type");
 }
 
-#if TARGET_OS_IOS
 + (id<FBResponsePayload>)handleDragCoordinate:(FBRouteRequest *)request
 {
   FBSession *session = request.session;
@@ -383,11 +367,9 @@
   [startCoordinate pressForDuration:duration thenDragToCoordinate:endCoordinate];
   return FBResponseWithOK();
 }
-#endif
 
 + (id<FBResponsePayload>)handleSwipe:(FBRouteRequest *)request
 {
-#if TARGET_OS_IOS
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   NSString *const direction = request.arguments[@"direction"];
@@ -405,40 +387,27 @@
   } else {
     return FBResponseWithErrorFormat(@"Unsupported swipe type");
   }
-#else
-  [NSException raise:@"NotImplemented" format:@"tvOS logic is not implemented."];
-#endif
   return FBResponseWithOK();
 }
 
+
 + (id<FBResponsePayload>)handleTap:(FBRouteRequest *)request
 {
-#if TARGET_OS_IOS
   CGPoint tapPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
-#endif
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   if (nil == element) {
-#if TARGET_OS_IOS
     XCUICoordinate *tapCoordinate = [self.class gestureCoordinateWithCoordinate:tapPoint application:request.session.application shouldApplyOrientationWorkaround:isSDKVersionLessThan(@"11.0")];
     [tapCoordinate tap];
-#else
-    [NSException raise:@"NotImplemented" format:@"tvOS logic is not implemented."];
-#endif
   } else {
-#if TARGET_OS_IOS
     NSError *error;
     if (![element fb_tapCoordinate:tapPoint error:&error]) {
       return FBResponseWithError(error);
     }
-#else
-    [NSException raise:@"NotImplemented" format:@"tvOS logic is not implemented."];
-#endif
   }
   return FBResponseWithOK();
 }
 
-#if TARGET_OS_IOS
 + (id<FBResponsePayload>)handlePinch:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
@@ -448,7 +417,7 @@
   [element pinchWithScale:scale velocity:velocity];
   return FBResponseWithOK();
 }
-#endif
+#endif // TARGET_OS_IOS
 
 + (id<FBResponsePayload>)handleKeys:(FBRouteRequest *)request
 {
@@ -520,17 +489,6 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
   }
   return FBResponseWithOK();
 }
-#endif
-
-#if TARGET_OS_TV
-+ (id<FBResponsePayload>)handleGetFocused:(FBRouteRequest *)request
-{
-  FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
-  BOOL isFocused = element.hasFocus;
-  return FBResponseWithStatus(FBCommandStatusNoError, isFocused ? @YES : @NO);
-}
-#endif
 
 #pragma mark - Helpers
 
@@ -539,14 +497,10 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
   if (!element.exists) {
     return FBResponseWithErrorFormat(@"Can't scroll to element that does not exist");
   }
-#if TARGET_OS_IOS
   NSError *error;
   if (![element fb_scrollToVisibleWithError:&error]) {
     return FBResponseWithError(error);
   }
-#else
-  [NSException raise:@"NotImplemented" format:@"tvOS logic is not implemented."];
-#endif
   return FBResponseWithOK();
 }
 
@@ -563,7 +517,6 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
  the current screen orientation would be portrait.
  @return translated gesture coordinates ready to be passed to XCUICoordinate methods
  */
-#if TARGET_OS_IOS
 + (XCUICoordinate *)gestureCoordinateWithCoordinate:(CGPoint)coordinate application:(XCUIApplication *)application shouldApplyOrientationWorkaround:(BOOL)shouldApplyOrientationWorkaround
 {
   CGPoint point = coordinate;
@@ -595,9 +548,7 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
   }
   return [self gestureCoordinateWithCoordinate:point element:element];
 }
-#endif
 
-#if !TARGET_OS_TV
 /**
  Returns gesture coordinate based on the specified element.
  
@@ -610,6 +561,6 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
   XCUICoordinate *appCoordinate = [[XCUICoordinate alloc] initWithElement:element normalizedOffset:CGVectorMake(0, 0)];
   return [[XCUICoordinate alloc] initWithCoordinate:appCoordinate pointsOffset:CGVectorMake(coordinate.x, coordinate.y)];
 }
-#endif
+#endif // TARGET_OS_IOS
 
 @end

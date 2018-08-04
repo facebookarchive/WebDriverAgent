@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FBTvRemoteCommands : NSObject <FBCommandHandler>
+@interface FBRemoteControlCommands : NSObject <FBCommandHandler>
 
 @end
 

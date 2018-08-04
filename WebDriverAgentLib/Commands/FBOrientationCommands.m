@@ -15,7 +15,6 @@
 #import "FBApplication.h"
 #import "XCUIDevice.h"
 
-#if TARGET_OS_IOS
 extern const struct FBWDOrientationValues {
   FBLiteralString portrait;
   FBLiteralString landscapeLeft;
@@ -125,5 +124,3 @@ const struct FBWDOrientationValues FBWDOrientationValues = {
 }
 
 @end
-
-#endif

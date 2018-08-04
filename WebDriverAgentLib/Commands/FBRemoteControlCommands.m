@@ -7,14 +7,14 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBTvRemoteCommands.h"
+#import "FBRemoteControlCommands.h"
 
 #import <XCTest/XCUIRemote.h>
 
 #import "FBRoute.h"
 #import "FBRouteRequest.h"
 
-@implementation FBTvRemoteCommands
+@implementation FBRemoteControlCommands
 
 #pragma mark - <FBCommandHandler>
 
