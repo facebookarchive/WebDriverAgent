@@ -22,6 +22,7 @@
 #import "XCUIElement+FBFind.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBClassChain.h"
+#import "XCUIApplication+FBFocused.h"
 
 static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteRequest *request)
 {
@@ -103,13 +104,14 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   return FBResponseWithCachedElements(foundElements, request.session.elementCache, FBConfiguration.shouldUseCompactResponses);
 }
 
+#if TARGET_OS_TV
 + (id<FBResponsePayload>)handleFindFocusedElement:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  XCUIElementQuery *query = [[FBApplication fb_activeApplication] descendantsMatchingType:XCUIElementTypeAny];
-  XCUIElement *element = [query elementMatchingPredicate: [NSPredicate predicateWithFormat:@"hasFocus == true"]];
+  XCUIElement *element = [[FBApplication fb_activeApplication] fb_focusedElement];
   return FBResponseWithElementUUID([elementCache storeElement:element]);
 }
+#endif
 
 
 #pragma mark - Helpers

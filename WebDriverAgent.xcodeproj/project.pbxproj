@@ -24,6 +24,8 @@
 		1C3C6FA121145D7700FAFD69 /* WebDriverAgentLib_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C8F1B312100B24400F6FEF4 /* WebDriverAgentLib_tvOS.framework */; };
 		1C3C6FA221145D7E00FAFD69 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1954682111DC0800A99F21 /* libxml2.tbd */; };
 		1C3C6FA321145D8A00FAFD69 /* FBRAlertTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954D92113554400A99F21 /* FBRAlertTests.m */; };
+		1C3C6FA6211827D600FAFD69 /* XCUIApplication+FBFocused.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C3C6FA4211827D600FAFD69 /* XCUIApplication+FBFocused.h */; };
+		1C3C6FA7211827D600FAFD69 /* XCUIApplication+FBFocused.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C6FA5211827D600FAFD69 /* XCUIApplication+FBFocused.m */; };
 		1C8F1A322100B24400F6FEF4 /* FBScreenshotCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB75F1CAEDF0C008C271F /* FBScreenshotCommands.m */; };
 		1C8F1A332100B24400F6FEF4 /* FBPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC7C911F21F27A0053426C /* FBPredicate.m */; };
 		1C8F1A342100B24400F6FEF4 /* XCUIElement+FBPickerWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7136A4781E8918E60024FC3D /* XCUIElement+FBPickerWheel.m */; };
@@ -728,6 +730,8 @@
 		1C1954D62113540000A99F21 /* FBTvIntegrationTestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBTvIntegrationTestCase.h; sourceTree = "<group>"; };
 		1C1954D72113540000A99F21 /* FBTvIntegrationTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTvIntegrationTestCase.m; sourceTree = "<group>"; };
 		1C1954D92113554400A99F21 /* FBRAlertTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBRAlertTests.m; sourceTree = "<group>"; };
+		1C3C6FA4211827D600FAFD69 /* XCUIApplication+FBFocused.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XCUIApplication+FBFocused.h"; sourceTree = "<group>"; };
+		1C3C6FA5211827D600FAFD69 /* XCUIApplication+FBFocused.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XCUIApplication+FBFocused.m"; sourceTree = "<group>"; };
 		1C8F1B312100B24400F6FEF4 /* WebDriverAgentLib_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WebDriverAgentLib_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CDC566C2111C26F00868007 /* WebDriverAgentRunner_tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentRunner_tvOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceRotationTests.m; sourceTree = "<group>"; };
@@ -1312,6 +1316,8 @@
 				EE006EAF1EBA1AA9006900A4 /* XCElementSnapshot+FBHitPoint.m */,
 				AD6C269A1CF2494200F8B5FF /* XCUIApplication+FBHelpers.h */,
 				AD6C269B1CF2494200F8B5FF /* XCUIApplication+FBHelpers.m */,
+				1C3C6FA4211827D600FAFD69 /* XCUIApplication+FBFocused.h */,
+				1C3C6FA5211827D600FAFD69 /* XCUIApplication+FBFocused.m */,
 				EEC9EED420064FAA00BC0D5B /* XCUICoordinate+FBFix.h */,
 				EEC9EED520064FAA00BC0D5B /* XCUICoordinate+FBFix.m */,
 				EEDFE11F1D9C06F800E6FFE5 /* XCUIDevice+FBHealthCheck.h */,
@@ -1823,6 +1829,7 @@
 				1C8F1AC12100B24400F6FEF4 /* XCTestCaseRun.h in Headers */,
 				1C8F1AC22100B24400F6FEF4 /* XCTestConfiguration.h in Headers */,
 				1C8F1AC32100B24400F6FEF4 /* _XCTDarwinNotificationExpectationImplementation.h in Headers */,
+				1C3C6FA6211827D600FAFD69 /* XCUIApplication+FBFocused.h in Headers */,
 				1C8F1AC42100B24400F6FEF4 /* XCTestExpectation.h in Headers */,
 				1C8F1AC52100B24400F6FEF4 /* FBElementTypeTransformer.h in Headers */,
 				1C8F1AC62100B24400F6FEF4 /* FBElementCache.h in Headers */,
@@ -2330,6 +2337,7 @@
 				TargetAttributes = {
 					1C1954AF21133DDC00A99F21 = {
 						CreatedOnToolsVersion = 10.0;
+						DevelopmentTeam = U9WLLAC7UL;
 						ProvisioningStyle = Automatic;
 					};
 					1C1954C321133DDD00A99F21 = {
@@ -2560,6 +2568,7 @@
 				1C8F1A6C2100B24400F6FEF4 /* FBElementCommands.m in Sources */,
 				1C8F1A6D2100B24400F6FEF4 /* FBExceptionHandler.m in Sources */,
 				1C8F1A6E2100B24400F6FEF4 /* FBXCodeCompatibility.m in Sources */,
+				1C3C6FA7211827D600FAFD69 /* XCUIApplication+FBFocused.m in Sources */,
 				1C8F1A6F2100B24400F6FEF4 /* XCElementSnapshot+FBHelpers.m in Sources */,
 				1C8F1A702100B24400F6FEF4 /* FBElementTypeTransformer.m in Sources */,
 				1C8F1A712100B24400F6FEF4 /* FBApplication.m in Sources */,
@@ -2840,6 +2849,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = U9WLLAC7UL;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = IntegrationApp_tvOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2848,7 +2858,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -2864,6 +2874,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U9WLLAC7UL;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = IntegrationApp_tvOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2871,7 +2882,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
@@ -2950,6 +2961,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
 				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2983,6 +2995,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
 				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
