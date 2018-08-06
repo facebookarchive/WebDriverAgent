@@ -21,6 +21,7 @@
 #import "XCUIElement+FBScrolling.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
+#import "XCUIApplication+FBFocused.h"
 
 NSString *const SPRINGBOARD_BUNDLE_ID = @"com.apple.springboard";
 NSString *const HEADBOARD_BUNDLE_ID = @"com.apple.HeadBoard";
@@ -44,6 +45,8 @@ NSString *const HEADBOARD_BUNDLE_ID = @"com.apple.HeadBoard";
   return _springboardApp;
 }
 
+#if TARGET_OS_IOS
+
 - (BOOL)fb_tapApplicationWithIdentifier:(NSString *)identifier error:(NSError **)error
 {
   XCUIElementQuery *appElementsQuery = [[self descendantsMatchingType:XCUIElementTypeIcon] matchingIdentifier:identifier];
@@ -58,17 +61,14 @@ NSString *const HEADBOARD_BUNDLE_ID = @"com.apple.HeadBoard";
   if (!appElement.fb_isVisible) {
     CGRect startFrame = appElement.frame;
     NSString *errorDescription = [NSString stringWithFormat:@"Cannot scroll to Springboard icon for '%@' application", identifier];
-#if !TARGET_OS_TV
     BOOL shouldSwipeToTheRight = startFrame.origin.x < 0;
-#endif
     do {
-#if !TARGET_OS_TV
       if (shouldSwipeToTheRight) {
         [self swipeRight];
       } else {
         [self swipeLeft];
       }
-#endif
+
       BOOL isSwipeSuccessful = [appElement fb_waitUntilFrameIsStable] &&
       [[[[FBRunLoopSpinner new]
          timeout:1]
@@ -82,11 +82,9 @@ NSString *const HEADBOARD_BUNDLE_ID = @"com.apple.HeadBoard";
       }
     } while (!appElement.fb_isVisible);
   }
-#if TARGET_OS_IOS
   if (![appElement fb_tapWithError:error]) {
     return NO;
   }
-#endif
   return
   [[[[FBRunLoopSpinner new]
      interval:0.3]
@@ -98,6 +96,36 @@ NSString *const HEADBOARD_BUNDLE_ID = @"com.apple.HeadBoard";
      activeApp.fb_isVisible;
    } error:error];
 }
+
+#elif TARGET_OS_TV
+
+- (BOOL)fb_selectApplicationWithIdentifier:(NSString *)identifier error:(NSError **)error
+{
+  XCUIElementQuery *appElementsQuery = [[self descendantsMatchingType:XCUIElementTypeIcon] matchingIdentifier:identifier];
+  NSArray<XCUIElement *> *matchedAppElements = [appElementsQuery allElementsBoundByIndex];
+  if (0 == matchedAppElements.count) {
+    return [[[FBErrorBuilder builder]
+             withDescriptionFormat:@"Cannot locate Headboard icon for '%@' application", identifier]
+            buildError:error];
+  }
+  // Select the most recent installed application if there are multiple matches
+  XCUIElement *appElement = [matchedAppElements lastObject];
+  if (![self findElementOnGrid: appElement withError: error]) {
+    return NO;
+  }
+  [[XCUIRemote sharedRemote] pressButton: XCUIRemoteButtonSelect];
+  return
+  [[[[FBRunLoopSpinner new]
+     interval:0.3]
+    timeoutErrorMessage:@"Timeout waiting for application to activate"]
+   spinUntilTrue:^BOOL{
+     FBApplication *activeApp = [FBApplication fb_activeApplication];
+     return activeApp &&
+     activeApp.processID != self.processID &&
+     activeApp.fb_isVisible;
+   } error:error];
+}
+#endif
 
 - (BOOL)fb_waitUntilApplicationBoardIsVisible:(NSError **)error
 {
@@ -117,10 +145,44 @@ NSString *const HEADBOARD_BUNDLE_ID = @"com.apple.HeadBoard";
   // the dock (and other icons) don't seem to be consistently reported as
   // visible. esp on iOS 11 but also on 10.3.3
   return self.otherElements[@"Dock"].isEnabled;
-#endif
-#if TARGET_OS_TV
+#elif TARGET_OS_TV
   return self.collectionViews[@"GridCollectionView"].isEnabled;
 #endif
 }
+
+#pragma mark - Helpers
+
+#if TARGET_OS_TV
+- (BOOL) findElementOnGrid:(XCUIElement*) element withError:(NSError **)error {
+  BOOL isMovingRight = YES;
+  XCUIElement *current;
+  XCUIElement *previous;
+  BOOL isEndReached = NO;
+  
+  while (!element.exists || !element.hasFocus) {
+    XCUIRemoteButton button = isMovingRight ? XCUIRemoteButtonRight : XCUIRemoteButtonLeft;
+    [[XCUIRemote sharedRemote] pressButton: button];
+    current = [self fb_focusedElement];
+
+    if (previous && [current isEqual:previous]) {
+      // line end reached
+      [[XCUIRemote sharedRemote] pressButton: XCUIRemoteButtonDown];
+      isMovingRight = !isMovingRight;
+      current = [self fb_focusedElement];
+      if ([current isEqual: previous]) {
+        if (isEndReached) {
+          return [[[FBErrorBuilder builder]
+            withDescription:@"Cannot navigate to Headboard icon for application"]
+           buildError:error];
+        } else {
+          isEndReached = YES;
+        }
+      }
+    }
+    previous = current;
+  }
+  return YES;
+}
+#endif
 
 @end

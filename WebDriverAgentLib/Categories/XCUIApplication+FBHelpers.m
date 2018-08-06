@@ -35,7 +35,14 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
     [self fb_activate];
     return YES;
   }
-  return [[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:error];
+#if TARGET_OS_IOS
+  return [[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:applicationIdentifier
+                                                                              error:error];
+#elif TARGET_OS_TV
+  return [[FBSpringboardApplication fb_springboard] fb_selectApplicationWithIdentifier:applicationIdentifier
+                                                                                 error:error];
+#endif
+  
 }
 
 - (NSDictionary *)fb_tree
