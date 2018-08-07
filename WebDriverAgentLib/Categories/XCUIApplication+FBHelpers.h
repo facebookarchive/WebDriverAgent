@@ -34,6 +34,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSDictionary *)fb_accessibilityTree;
 
+/**
+ Return application elements tree in form of xml string
+ */
+- (nullable NSString *)fb_xmlRepresentation;
+
+/**
+ Return application elements tree in form of internal XCTest debugDescription string
+ */
+- (NSString *)fb_descriptionRepresentation;
+
 @end
 
 NS_ASSUME_NONNULL_END

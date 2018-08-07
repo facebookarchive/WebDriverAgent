@@ -26,7 +26,7 @@
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
   int buffersize;
   xmlChar *xmlbuff;
-  int rc = [FBXPath getSnapshotAsXML:(XCElementSnapshot *)element writer:writer elementStore:elementStore query:query];
+  int rc = [FBXPath xmlRepresentationWithRootElement:(XCElementSnapshot *)element writer:writer elementStore:elementStore query:query];
   if (0 == rc) {
     xmlDocDumpFormatMemory(doc, &xmlbuff, &buffersize, 1);
   }
@@ -71,7 +71,7 @@
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
   XCUIElementDouble *root = [XCUIElementDouble new];
   NSString *query = [NSString stringWithFormat:@"//%@", root.wdType];
-  int rc = [FBXPath getSnapshotAsXML:(XCElementSnapshot *)root writer:writer elementStore:elementStore query:query];
+  int rc = [FBXPath xmlRepresentationWithRootElement:(XCElementSnapshot *)root writer:writer elementStore:elementStore query:query];
   if (rc < 0) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
@@ -95,3 +95,4 @@
 }
 
 @end
+

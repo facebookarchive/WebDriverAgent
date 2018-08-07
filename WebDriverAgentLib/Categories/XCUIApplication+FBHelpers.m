@@ -14,6 +14,7 @@
 #import "FBElementTypeTransformer.h"
 #import "FBMacros.h"
 #import "FBXCodeCompatibility.h"
+#import "FBXPath.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIDevice+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -116,6 +117,23 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
     return nil;
   }
   return info;
+}
+
+- (NSString *)fb_xmlRepresentation
+{
+  return [FBXPath xmlStringWithRootElement:self];
+}
+
+- (NSString *)fb_descriptionRepresentation
+{
+  NSMutableArray<NSString *> *childrenDescriptions = [NSMutableArray array];
+  for (XCUIElement *child in [self childrenMatchingType:XCUIElementTypeAny].allElementsBoundByIndex) {
+    [childrenDescriptions addObject:child.debugDescription];
+  }
+  // debugDescription property of XCUIApplication instance shows descendants addresses in memory
+  // instead of the actual information about them, however the representation works properly
+  // for all descendant elements
+  return (0 == childrenDescriptions.count) ? self.debugDescription : [childrenDescriptions componentsJoinedByString:@"\n\n"];
 }
 
 @end
