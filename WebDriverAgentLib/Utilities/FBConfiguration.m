@@ -43,7 +43,8 @@ static NSUInteger FBMaxTypingFrequency = 60;
   }
 
   // Existence of USE_PORT in the environment implies the port range is managed by the launching process.
-  if (NSProcessInfo.processInfo.environment[@"USE_PORT"]) {
+  if (NSProcessInfo.processInfo.environment[@"USE_PORT"] &&
+      [NSProcessInfo.processInfo.environment[@"USE_PORT"] length] > 0) {
     return NSMakeRange([NSProcessInfo.processInfo.environment[@"USE_PORT"] integerValue] , 1);
   }
 
