@@ -25,6 +25,8 @@
   return proxy;
 }
 
+#pragma mark - Override XCUIApplicationProcess methods
+
 - (void)waitForQuiescence
 {
   if (!self.shouldWaitForQuiescence) {
@@ -45,9 +47,28 @@
   [self.applicationProcess waitForQuiescenceIncludingAnimationsIdle:includeAnimations];
 }
 
+#pragma mark - Forward not implemented methods to applicationProcess
+
 - (id)forwardingTargetForSelector:(SEL)aSelector
 {
   return self.applicationProcess;
+}
+
+#pragma mark - Forward NSKeyValueObserverRegistration methods to applicationProcess
+
+- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(nullable void *)context
+{
+  [self.applicationProcess addObserver:observer forKeyPath:keyPath options:options context:context];
+}
+
+- (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath context:(nullable void *)context
+{
+  [self.applicationProcess removeObserver:observer forKeyPath:keyPath context:context];
+}
+
+- (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath
+{
+  [self.applicationProcess removeObserver:observer forKeyPath:keyPath];
 }
 
 @end
