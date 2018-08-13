@@ -33,11 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  The exception happends if the provided XPath expession cannot be compiled because of a syntax error
  */
-extern NSString *const XCElementSnapshotInvalidXPathException;
+extern NSString *const FBInvalidXPathException;
 /**
  The exception happends if any internal error is triggered during XPath matching procedure
  */
-extern NSString *const XCElementSnapshotXPathQueryEvaluationException;
+extern NSString *const FBXPathQueryEvaluationException;
 
 @interface FBXPath : NSObject
 
