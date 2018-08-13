@@ -88,8 +88,8 @@ const static char *_UTF8Encoding = "UTF-8";
 
 static NSString *const kXMLIndexPathKey = @"private_indexPath";
 static NSString *const topNodeIndexPath = @"top";
-NSString *const XCElementSnapshotInvalidXPathException = @"XCElementSnapshotInvalidXPathException";
-NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnapshotXPathQueryEvaluationException";
+NSString *const FBInvalidXPathException = @"FBInvalidXPathException";
+NSString *const FBXPathQueryEvaluationException = @"FBXPathQueryEvaluationException";
 
 @implementation FBXPath
 
@@ -124,7 +124,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   xmlTextWriterPtr writer = xmlNewTextWriterDoc(&doc, 0);
   if (NULL == writer) {
     [FBLogger logFmt:@"Failed to invoke libxml2>xmlNewTextWriterDoc for XPath query \"%@\"", xpathQuery];
-    [FBXPath throwException:XCElementSnapshotXPathQueryEvaluationException forQuery:xpathQuery];
+    [FBXPath throwException:FBXPathQueryEvaluationException forQuery:xpathQuery];
     return nil;
   }
   NSMutableDictionary *elementStore = [NSMutableDictionary dictionary];
@@ -132,7 +132,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   if (rc < 0) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
-    [FBXPath throwException:XCElementSnapshotXPathQueryEvaluationException forQuery:xpathQuery];
+    [FBXPath throwException:FBXPathQueryEvaluationException forQuery:xpathQuery];
     return nil;
   }
 
@@ -140,7 +140,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   if (NULL == queryResult) {
     xmlFreeTextWriter(writer);
     xmlFreeDoc(doc);
-    [FBXPath throwException:XCElementSnapshotInvalidXPathException forQuery:xpathQuery];
+    [FBXPath throwException:FBInvalidXPathException forQuery:xpathQuery];
     return nil;
   }
 
@@ -149,7 +149,7 @@ NSString *const XCElementSnapshotXPathQueryEvaluationException = @"XCElementSnap
   xmlFreeTextWriter(writer);
   xmlFreeDoc(doc);
   if (nil == matchingSnapshots) {
-    [FBXPath throwException:XCElementSnapshotXPathQueryEvaluationException forQuery:xpathQuery];
+    [FBXPath throwException:FBXPathQueryEvaluationException forQuery:xpathQuery];
     return nil;
   }
   return matchingSnapshots;
