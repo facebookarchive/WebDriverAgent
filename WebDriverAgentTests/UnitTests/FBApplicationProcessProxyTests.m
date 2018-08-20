@@ -25,7 +25,7 @@
 @end
 
 @interface FBApplicationProcessProxy (ProxiedMethod)
-- (NSInteger)proxiedMethod;
+- (int)proxiedMethod;
 @end
 
 @interface XCUIApplicationProcess (TestableMethods)
