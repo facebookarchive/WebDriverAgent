@@ -137,13 +137,13 @@
 - (void)testDescendantsWithWrongXPathQuery
 {
   XCTAssertThrowsSpecificNamed([self.testedView fb_descendantsMatchingXPathQuery:@"//*[blabla(@label, Scrolling')]" shouldReturnAfterFirstMatch:NO],
-                               NSException, XCElementSnapshotInvalidXPathException);
+                               NSException, FBInvalidXPathException);
 }
 
 - (void)testFirstDescendantWithWrongXPathQuery
 {
   XCTAssertThrowsSpecificNamed([self.testedView fb_descendantsMatchingXPathQuery:@"//*[blabla(@label, Scrolling')]" shouldReturnAfterFirstMatch:YES],
-                               NSException, XCElementSnapshotInvalidXPathException);
+                               NSException, FBInvalidXPathException);
 }
 
 - (void)testVisibleDescendantWithXPathQuery
