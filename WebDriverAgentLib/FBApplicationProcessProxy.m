@@ -54,6 +54,11 @@
 
 #pragma mark - Forward not implemented methods to applicationProcess
 
+- (id)forwardingTargetForSelector:(SEL)aSelector
+{
+  return self.applicationProcess;
+}
+
 - (void)forwardInvocation:(NSInvocation *)invocation
 {
   [invocation invokeWithTarget:self.applicationProcess];
