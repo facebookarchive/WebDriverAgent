@@ -12,7 +12,7 @@
 @interface WebSocketScreenCasting()
 @property (nonatomic, assign) BOOL isSocketConnected;
 @property (nonatomic, assign) NSString* prevScreenShotData;
-@property (nonatomic, assign) NSData* rawPrevScreenShotData;
+@property (nonatomic, retain) NSData* rawPrevScreenShotData;
 
 @end
 
@@ -36,6 +36,7 @@
 }
 
 -(void) pushRawScreenShot:(SocketIOClient*) clientSocket andOrientation:(UIInterfaceOrientation) orientation andScreenWidth:(CGFloat) screenWidth andScreenHeight:(CGFloat) screenHeight {
+  //[NSThread sleepForTimeInterval:0.10f]; // decreases CPU usage but decreases frame rate
   NSError *error;
   NSData *screenData = [[XCUIDevice sharedDevice] fb_screenshotWithError:&error withOrientation:orientation andScreenWidth:screenWidth andScreenHeight:screenHeight];
   if(self.rawPrevScreenShotData != nil && [self.rawPrevScreenShotData isEqualToData:screenData]) {
@@ -44,7 +45,9 @@
   else {
     self.rawPrevScreenShotData = screenData;
     NSArray *dataArray = [[NSArray alloc] initWithObjects:screenData, nil];
-    [clientSocket emit:@"rawScreenShot" with: dataArray];
+    @autoreleasepool {
+      [clientSocket emit:@"rawScreenShot" with: dataArray];
+    }
   }
 }
 
