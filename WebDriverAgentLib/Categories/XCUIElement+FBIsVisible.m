@@ -55,11 +55,13 @@
   if (hitPoint != nil && CGRectContainsPoint(appFrame, hitPoint.point)) {
     return YES;
   }
-  for (XCElementSnapshot *elementSnapshot in self.children.copy) {
-    if (elementSnapshot.fb_isVisible) {
-      return YES;
-    }
-  }
+  
+  // the following fallback check is unnecessary and it is adding a lot of overhead when there is a system dialog up
+//  for (XCElementSnapshot *elementSnapshot in self.children.copy) {
+//    if (elementSnapshot.fb_isVisible) {
+//      return YES;
+//    }
+//  }
   return NO;
 }
 

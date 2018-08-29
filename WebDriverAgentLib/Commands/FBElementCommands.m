@@ -322,6 +322,12 @@
 
 + (id<FBResponsePayload>)handleDragCoordinate:(FBRouteRequest *)request
 {
+  XCUIApplication *app = [[XCUIApplication alloc] initWithBundleIdentifier: @"com.apple.springboard"];
+  NSArray *alerts = [[app alerts] allElementsBoundByIndex];
+  if (alerts.count > 0) {
+    return FBResponseWithStatus(FBCommandStatusUnexpectedAlertPresent, @"A modal dialog was open, blocking this operation");
+  }
+  
   FBSession *session = request.session;
   CGPoint startPoint = CGPointMake((CGFloat)[request.arguments[@"fromX"] doubleValue], (CGFloat)[request.arguments[@"fromY"] doubleValue]);
   CGPoint endPoint = CGPointMake((CGFloat)[request.arguments[@"toX"] doubleValue], (CGFloat)[request.arguments[@"toY"] doubleValue]);
@@ -371,8 +377,42 @@
 
 + (id<FBResponsePayload>)handleTap:(FBRouteRequest *)request
 {
-  FBElementCache *elementCache = request.session.elementCache;
   CGPoint tapPoint = CGPointMake((CGFloat)[request.arguments[@"x"] doubleValue], (CGFloat)[request.arguments[@"y"] doubleValue]);
+  
+  XCUIApplication *app = [[XCUIApplication alloc] initWithBundleIdentifier: @"com.apple.springboard"];
+  NSArray *alerts = [[app alerts] allElementsBoundByIndex];
+  if (alerts.count > 0) {
+    XCUIElement *alert = alerts[0];
+    NSArray *texts = [[alert staticTexts] allElementsBoundByIndex];
+    NSString *title = [texts[0] label];
+    NSString *subtitle = [texts[1] label];
+    NSArray *buttons = [[alert buttons] allElementsBoundByIndex];
+    for (XCUIElement *button in buttons) {
+      if (CGRectContainsPoint(button.frame, tapPoint)) {
+        NSString *label = [button label];
+        [button tap];
+        return FBResponseWithStatus(FBCommandStatusNoError, @{
+                                                              @"action": @"tap",
+                                                              @"element": @"button",
+                                                              @"id": label,
+                                                              @"point": @{
+                                                                  @"x": @(tapPoint.x),
+                                                                  @"y": @(tapPoint.y)
+                                                              },
+                                                              @"alert":@{
+                                                                  @"title" : title != nil ? title : @"",
+                                                                  @"subtitle" : subtitle != nil ? subtitle : @""
+                                                                  }
+                                                              });
+      }
+    }
+    
+    if (alerts.count > 0) {
+      return FBResponseWithStatus(FBCommandStatusUnexpectedAlertPresent, @"A modal dialog was open, blocking this operation");
+    }
+  }
+  
+  FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   if (nil == element) {
     XCUICoordinate *tapCoordinate = [self.class gestureCoordinateWithCoordinate:tapPoint application:request.session.application shouldApplyOrientationWorkaround:isSDKVersionLessThan(@"11.0")];
