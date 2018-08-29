@@ -36,7 +36,7 @@
 }
 
 -(void) pushRawScreenShot:(SocketIOClient*) clientSocket andOrientation:(UIInterfaceOrientation) orientation andScreenWidth:(CGFloat) screenWidth andScreenHeight:(CGFloat) screenHeight {
-  [NSThread sleepForTimeInterval:0.10f]; // decreases CPU usage
+  //[NSThread sleepForTimeInterval:0.10f]; // decreases CPU usage but decreases frame rate
   NSError *error;
   NSData *screenData = [[XCUIDevice sharedDevice] fb_screenshotWithError:&error withOrientation:orientation andScreenWidth:screenWidth andScreenHeight:screenHeight];
   if(self.rawPrevScreenShotData != nil && [self.rawPrevScreenShotData isEqualToData:screenData]) {
