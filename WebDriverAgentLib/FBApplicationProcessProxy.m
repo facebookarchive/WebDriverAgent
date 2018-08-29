@@ -20,10 +20,17 @@
 + (instancetype)proxyWithApplicationProcess:(XCUIApplicationProcess *)applicationProcess
 {
   NSParameterAssert(applicationProcess);
-  FBApplicationProcessProxy *proxy = [self.class new];
+  NSParameterAssert([[applicationProcess class] isEqual:XCUIApplicationProcess.class]);
+  FBApplicationProcessProxy *proxy = [[self.class alloc] init];
   proxy.applicationProcess = applicationProcess;
   return proxy;
 }
+
+- (instancetype)init {
+  return self;
+}
+
+#pragma mark - Override XCUIApplicationProcess methods
 
 - (void)waitForQuiescence
 {
@@ -45,9 +52,21 @@
   [self.applicationProcess waitForQuiescenceIncludingAnimationsIdle:includeAnimations];
 }
 
+#pragma mark - Forward not implemented methods to applicationProcess
+
 - (id)forwardingTargetForSelector:(SEL)aSelector
 {
   return self.applicationProcess;
+}
+
+- (void)forwardInvocation:(NSInvocation *)invocation
+{
+  [invocation invokeWithTarget:self.applicationProcess];
+}
+
+- (nullable NSMethodSignature *)methodSignatureForSelector:(SEL)sel
+{
+  return [self.applicationProcess methodSignatureForSelector:sel];
 }
 
 @end
