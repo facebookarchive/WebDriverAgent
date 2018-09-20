@@ -27,7 +27,7 @@
 // There is no ability to open text field via tap
 #if TARGET_OS_TV
   if (!self.hasKeyboardFocus) {
-    [[[FBErrorBuilder builder] withDescription:@"Keyboard is not opened."] buildError:error];;
+    [[[FBErrorBuilder builder] withDescription:@"Keyboard is not opened."] buildError:error];
     return NO;
   }
 #else

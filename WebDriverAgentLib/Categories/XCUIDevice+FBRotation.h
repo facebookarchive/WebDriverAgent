@@ -11,7 +11,9 @@
 #import <WebDriverAgentLib/FBApplication.h>
 
 NS_ASSUME_NONNULL_BEGIN
-#if !TARGET_OS_TV
+
+#if TARGET_OS_IOS
+
 @interface XCUIDevice (FBRotation)
 
 /**
@@ -34,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) NSDictionary *fb_rotationMapping;
 
 @end
+
 #endif
 
 NS_ASSUME_NONNULL_END
