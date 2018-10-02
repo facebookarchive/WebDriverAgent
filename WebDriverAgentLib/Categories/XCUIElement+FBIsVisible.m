@@ -13,12 +13,18 @@
 #import "FBConfiguration.h"
 #import "FBElementHitPoint.h"
 #import "FBMathUtils.h"
+#import "FBXCTestDaemonsProxy.h"
+#import "XCAccessibilityElement+FBComparison.h"
 #import "FBXCodeCompatibility.h"
 #import "XCElementSnapshot+FBHelpers.h"
 #import "XCUIElement+FBUtilities.h"
+#import "XCTestManager_ManagerInterface-Protocol.h"
 #import "XCTestPrivateSymbols.h"
 #import <XCTest/XCUIDevice.h>
 #import "XCElementSnapshot+FBHitPoint.h"
+#import "XCTRunnerDaemonSession.h"
+
+static const NSTimeInterval AX_TIMEOUT = 1.0;
 
 @implementation XCUIElement (FBIsVisible)
 
@@ -31,6 +37,31 @@
 
 @implementation XCElementSnapshot (FBIsVisible)
 
+
+- (XCAccessibilityElement *)elementAtPoint:(CGPoint)point
+{
+  __block XCAccessibilityElement *result = nil;
+  __block NSError *innerError = nil;
+  id<XCTestManager_ManagerInterface> proxy = [FBXCTestDaemonsProxy testRunnerProxy];
+  dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+  [proxy _XCT_setAXTimeout:AX_TIMEOUT reply:^(int res) {
+    [proxy _XCT_requestElementAtPoint:point
+                                reply:^(XCAccessibilityElement *element, NSError *error) {
+                                  if (nil == error) {
+                                    result = element;
+                                  } else {
+                                    innerError = error;
+                                  }
+                                  dispatch_semaphore_signal(sem);
+                                }];
+  }];
+  dispatch_semaphore_wait(sem, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(AX_TIMEOUT * NSEC_PER_SEC)));
+  if (nil != innerError) {
+    [FBLogger logFmt:@"Cannot get the accessibility element for the point where %@ snapshot is located. Original error: '%@'", innerError.description, self.description];
+  }
+  return result;
+}
+
 - (BOOL)fb_isVisible
 {
   CGRect frame = self.frame;
@@ -41,6 +72,7 @@
     return [(NSNumber *)[self fb_attributeValue:FB_XCAXAIsVisibleAttribute] boolValue];
   }
   CGRect appFrame = [self fb_rootElement].frame;
+  NSArray<XCElementSnapshot *> *ancestors = self.fb_ancestors;
 #if TARGET_OS_IOS
   CGSize screenSize = FBAdjustDimensionsForApplication(appFrame.size, self.application.interfaceOrientation);
 #else
@@ -50,10 +82,18 @@
   if (!CGRectIntersectsRect(frame, screenFrame)) {
     return NO;
   }
+  
   CGPoint midPoint = [self.suggestedHitpoints.lastObject CGPointValue];
-  XCElementSnapshot *hitElement = [self hitTest:midPoint];
-  if (self == hitElement || [self._allDescendants.copy containsObject:hitElement]) {
-    return YES;
+  XCAccessibilityElement *hitElement = [self elementAtPoint:midPoint];
+  if (nil != hitElement) {
+    if ([self.accessibilityElement isEqualToElement:hitElement]) {
+      return YES;
+    }
+    for (XCElementSnapshot *ancestor in ancestors) {
+      if ([hitElement isEqualToElement:ancestor.accessibilityElement]) {
+        return YES;
+      }
+    }
   }
   FBElementHitPoint *hitPoint = [self fb_hitPoint:nil];
   if (hitPoint != nil && CGRectContainsPoint(appFrame, hitPoint.point)) {
