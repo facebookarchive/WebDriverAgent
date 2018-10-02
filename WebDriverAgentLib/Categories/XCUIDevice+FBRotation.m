@@ -9,7 +9,8 @@
 
 #import "XCUIDevice+FBRotation.h"
 
-#if !TARGET_OS_TV
+#if TARGET_OS_IOS
+
 static const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
 static const CGFloat FBRotationCoolOffTime = 1.f;
 
@@ -70,4 +71,5 @@ static const CGFloat FBRotationCoolOffTime = 1.f;
 }
 
 @end
+
 #endif

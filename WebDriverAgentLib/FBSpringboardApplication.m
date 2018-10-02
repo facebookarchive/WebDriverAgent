@@ -41,7 +41,9 @@ NSString *const HEADBOARD_BUNDLE_ID = @"com.apple.HeadBoard";
 
   });
   [_springboardApp query];
+#if TARGET_OS_IOS
   [_springboardApp resolve];
+#endif
   return _springboardApp;
 }
 

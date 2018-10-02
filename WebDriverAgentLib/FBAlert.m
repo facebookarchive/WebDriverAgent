@@ -27,6 +27,8 @@
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
+#import "XCUIApplication+FBFocused.h"
+#import "XCUIElement+FBTVInteract.h"
 
 NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElementException";
 
@@ -99,6 +101,19 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
       [resultText addObject:[NSString stringWithFormat:@"%@", staticText.wdLabel]];
     }
   }
+#if TARGET_OS_TV
+  // Application and sheet alerts have text in the other elements, not in the the static text
+  if (!resultText.count) {
+    NSArray<XCUIElement *> *otherElements = [alert descendantsMatchingType:XCUIElementTypeOther].allElementsBoundByIndex;
+    for (XCUIElement *otherElement in otherElements) {
+      // element should be visible, with text and no children
+      if (otherElement.wdLabel && otherElement.isWDVisible && ![otherElement descendantsMatchingType:XCUIElementTypeAny].count) {
+        [resultText addObject:[NSString stringWithFormat:@"%@", otherElement.wdLabel]];
+      }
+    }
+  }
+#endif
+  
   if (resultText.count) {
     return [resultText componentsJoinedByString:@"\n"];
   }
@@ -137,7 +152,7 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
       withDescriptionFormat:@"Failed to find accept button for alert: %@", alertElement]
      buildError:error];
   }
-  return [defaultButton fb_tapWithError:error];
+  return [self submitAlertButton:defaultButton withError:error];
 }
 
 - (BOOL)dismissWithError:(NSError **)error
@@ -158,7 +173,7 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
      buildError:error];
     return NO;
   }
-  return [cancelButton fb_tapWithError:error];
+  return [self submitAlertButton:cancelButton withError:error];
 }
 
 - (BOOL)clickAlertButton:(NSString *)label error:(NSError **)error {
@@ -180,8 +195,7 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
       withDescriptionFormat:@"Failed to find button with label %@ for alert: %@", label, alertElement]
      buildError:error];
   }
-  
-  return [requestedButton fb_tapWithError:error];
+  return [self submitAlertButton:requestedButton withError:error];
 }
 
 + (BOOL)isElementObstructedByAlertView:(XCUIElement *)element alert:(XCUIElement *)alert
@@ -230,4 +244,14 @@ NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElement
   return alert;
 }
 
+- (BOOL) submitAlertButton: (XCUIElement *) button withError:(NSError **) error {
+#if TARGET_OS_IOS
+  return [button fb_tapWithError:error];
+#elif TARGET_OS_TV
+  if ([button fb_focuseInRowWithError:error]) {
+    [[XCUIRemote sharedRemote] pressButton:XCUIRemoteButtonSelect];
+  }
+  return NO;
+#endif
+}
 @end
