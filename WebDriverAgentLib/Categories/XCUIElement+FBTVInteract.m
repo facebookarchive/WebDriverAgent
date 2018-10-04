@@ -11,27 +11,38 @@
 #import "XCUIApplication+FBFocused.h"
 #import "FBApplication.h"
 #import "FBErrorBuilder.h"
+#import <XCTest/XCUIRemote.h>
+#import "XCUIElement+FBWebDriverAttributes.h"
 
 
 @implementation XCUIElement (FBTVInteract)
 
--(BOOL) fb_focuseInRowWithError:(NSError**) error {
-  
+-(BOOL) fb_focuseInRowWithError:(NSError**) error
+{
   BOOL isEndReached = NO;
   FBApplication *app = [FBApplication fb_activeApplication];
   while (!self.exists || !self.hasFocus) {
-    NSString *previous = [[app fb_focusedElement] description];
+    NSUInteger previous = [app fb_focusedElement].wdUID;
     [[XCUIRemote sharedRemote] pressButton: isEndReached ? XCUIRemoteButtonUp: XCUIRemoteButtonDown];
-    NSString *current = [[app fb_focusedElement] description];
+    NSUInteger current = [app fb_focusedElement].wdUID;
     if (previous == current) {
       if (isEndReached) {
         [[[FBErrorBuilder builder] withDescription:@"Element was not found in column or could not be focused."]
          buildError:error];
         return NO;
-      isEndReached = YES;
       }
+      isEndReached = YES;
     }
   }
   return YES;
+}
+
+-(BOOL) fb_selectInRowWithError:(NSError**) error
+{
+  BOOL result = [self fb_focuseInRowWithError: error];
+  if (result) {
+    [[XCUIRemote sharedRemote] pressButton:XCUIRemoteButtonSelect];
+  }
+  return result;
 }
 @end

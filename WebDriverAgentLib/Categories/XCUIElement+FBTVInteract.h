@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(BOOL) fb_focuseInRowWithError:(NSError**) error;
 
+-(BOOL) fb_selectInRowWithError:(NSError**) error;
+
 @end
 
 NS_ASSUME_NONNULL_END
