@@ -9,7 +9,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import "FBSpringboardApplication.h"
+#import "FBHomeboardApplication.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,9 +20,9 @@ extern NSString *const FBShowAlertForceTouchButtonName;
 /**
  XCTestCase helper class used for integration tests
  */
-@interface FBTvIntegrationTestCase : XCTestCase
+@interface FBTVIntegrationTestCase : XCTestCase
 @property (nonatomic, strong, readonly) XCUIApplication *testedApplication;
-@property (nonatomic, strong, readonly) FBSpringboardApplication *springboard;
+@property (nonatomic, strong, readonly) FBHomeboardApplication *homeboard;
 
 /**
  Launches application and resets side effects of testing like orientation etc.
@@ -42,17 +42,13 @@ extern NSString *const FBShowAlertForceTouchButtonName;
 /**
  Navigates to SpringBoard first page
  */
-- (void)goToSpringBoardFirstPage;
+- (void)goToHeadBoardFirstPage;
 
-///**
-// Navigates to SpringBoard path with Extras folder
-// */
-//- (void)goToSpringBoardExtras;
-//
-///**
-// Navigates to SpringBoard's dashboard
-// */
-//- (void)goToSpringBoardDashboard;
+/**
+ Select tv element in vertical row
+ */
+- (void)select:(XCUIElement*) element;
+
 @end
 
 NS_ASSUME_NONNULL_END

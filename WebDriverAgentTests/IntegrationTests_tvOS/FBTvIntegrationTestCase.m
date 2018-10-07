@@ -83,25 +83,4 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
   XCTAssertNil(error);
 }
 
-//- (void)goToSpringBoardExtras
-//{
-//  [self goToSpringBoardFirstPage];
-//  [self.springboard swipeLeft];
-//  FBAssertWaitTillBecomesTrue(self.springboard.icons[@"Extras"].fb_isVisible);
-//}
-
-//- (void)goToSpringBoardDashboard
-//{
-//  [self goToSpringBoardFirstPage];
-//  [self.springboard swipeRight];
-//  NSPredicate *predicate =
-//  [NSPredicate predicateWithFormat:
-//   @"%K IN %@",
-//   FBStringify(XCUIElement, identifier),
-//   @[@"SBSearchEtceteraIsolatedView", @"SpotlightSearchField"]
-//   ];
-//  FBAssertWaitTillBecomesTrue([[self.springboard descendantsMatchingType:XCUIElementTypeAny] elementMatchingPredicate:predicate].fb_isVisible);
-//  FBAssertWaitTillBecomesTrue(!self.springboard.icons[@"Calendar"].fb_isVisible);
-//}
-
 @end
