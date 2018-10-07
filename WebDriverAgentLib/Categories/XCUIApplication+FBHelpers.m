@@ -9,7 +9,7 @@
 
 #import "XCUIApplication+FBHelpers.h"
 
-#import "FBSpringboardApplication.h"
+#import "FBHomeboardApplication.h"
 #import "XCElementSnapshot.h"
 #import "FBElementTypeTransformer.h"
 #import "FBMacros.h"
@@ -36,10 +36,10 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
     return YES;
   }
 #if TARGET_OS_IOS
-  return [[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:applicationIdentifier
+  return [[FBHomeboardApplication fb_homeboard] fb_tapApplicationWithIdentifier:applicationIdentifier
                                                                               error:error];
 #elif TARGET_OS_TV
-  return [[FBSpringboardApplication fb_springboard] fb_selectApplicationWithIdentifier:applicationIdentifier
+  return [[FBHomeboardApplication fb_homeboard] fb_selectApplicationWithIdentifier:applicationIdentifier
                                                                                  error:error];
 #endif
   

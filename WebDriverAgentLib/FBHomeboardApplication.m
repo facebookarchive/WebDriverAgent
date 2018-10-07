@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBSpringboardApplication.h"
+#import "FBHomeboardApplication.h"
 
 #import "FBErrorBuilder.h"
 #import "FBMathUtils.h"
@@ -22,29 +22,27 @@
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 #import "XCUIApplication+FBFocused.h"
+#import "FBLogger.h"
 
-NSString *const SPRINGBOARD_BUNDLE_ID = @"com.apple.springboard";
-NSString *const HEADBOARD_BUNDLE_ID = @"com.apple.HeadBoard";
+#if TARGET_OS_IOS
+NSString *const HOMEBOARD_BUNDLE_ID = @"com.apple.springboard";
+#elif TARGET_OS_TV
+NSString *const HOMEBOARD_BUNDLE_ID = @"com.apple.HeadBoard";
+#endif
 
-@implementation FBSpringboardApplication
+@implementation FBHomeboardApplication
 
-+ (instancetype)fb_springboard
++ (instancetype)fb_homeboard
 {
-  static FBSpringboardApplication *_springboardApp;
+  static FBHomeboardApplication *_homeboardApp;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-#if TARGET_OS_IOS
-    _springboardApp = [[FBSpringboardApplication alloc] initPrivateWithPath:nil bundleID:SPRINGBOARD_BUNDLE_ID];
-#elif TARGET_OS_TV
-    _springboardApp = [[FBSpringboardApplication alloc] initPrivateWithPath:nil bundleID:HEADBOARD_BUNDLE_ID];
-#endif
-
+    _homeboardApp = [[FBHomeboardApplication alloc] initPrivateWithPath:nil bundleID:HOMEBOARD_BUNDLE_ID];
   });
-  [_springboardApp query];
-#if TARGET_OS_IOS
-  [_springboardApp resolve];
-#endif
-  return _springboardApp;
+  [_homeboardApp query];
+  _homeboardApp.safeQueryResolutionEnabled = YES;
+  [_homeboardApp resolve];
+  return _homeboardApp;
 }
 
 #if TARGET_OS_IOS

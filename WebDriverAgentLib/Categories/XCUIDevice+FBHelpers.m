@@ -14,7 +14,7 @@
 #include <notify.h>
 #import <objc/runtime.h>
 
-#import "FBSpringboardApplication.h"
+#import "FBHomeboardApplication.h"
 #import "FBErrorBuilder.h"
 #import "FBMathUtils.h"
 #import "FBXCodeCompatibility.h"
@@ -36,7 +36,7 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   // On 9.3 pressButton:XCUIDeviceButtonHome can be slightly delayed.
   // Causing waitUntilApplicationBoardIsVisible not to work properly in some edge cases e.g. like starting session right after this call, while being on home screen
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBHomeButtonCoolOffTime]];
-  if (![[FBSpringboardApplication fb_springboard] fb_waitUntilApplicationBoardIsVisible:error]) {
+  if (![[FBHomeboardApplication fb_homeboard] fb_waitUntilApplicationBoardIsVisible:error]) {
     return NO;
   }
   return YES;

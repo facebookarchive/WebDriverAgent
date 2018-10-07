@@ -11,12 +11,10 @@
 
 #import <WebDriverAgentLib/FBAlert.h>
 
-#import "FBTvIntegrationTestCase.h"
+#import "FBTVIntegrationTestCase.h"
 #import "FBTestMacros.h"
-#import "XCUIElement+FBTap.h"
 
-
-@interface FBRAlertTests : FBTvIntegrationTestCase
+@interface FBRAlertTests : FBTVIntegrationTestCase
 @end
 
 @implementation FBRAlertTests
@@ -39,14 +37,14 @@
 
 - (void)showApplicationAlert
 {
-  [self selectElement: self.testedApplication.buttons[FBShowAlertButtonName]];
+  [self select: self.testedApplication.buttons[FBShowAlertButtonName]];
   XCUIElementQuery* query = self.testedApplication.alerts;
   FBAssertWaitTillBecomesTrue(query.count != 0);
 }
 
 - (void)showApplicationSheet
 {
-  [self selectElement: self.testedApplication.buttons[FBShowSheetAlertButtonName]];
+  [self select: self.testedApplication.buttons[FBShowSheetAlertButtonName]];
   FBAssertWaitTillBecomesTrue(self.testedApplication.sheets.count != 0);
 }
 
@@ -132,7 +130,7 @@
 {
   FBAlert *alert = [FBAlert alertWithApplication:self.testedApplication];
   XCTAssertNil(alert.text);
-  [self selectElement: self.testedApplication.buttons[@"Create Camera Roll Alert"]];
+  [self select: self.testedApplication.buttons[@"Create Photo Lib access Alert"]];
   FBAssertWaitTillBecomesTrue(alert.isPresent);
   
   XCTAssertTrue([alert.text containsString:@"Would Like to Access Your Photos"]);
@@ -143,7 +141,7 @@
   FBAlert *alert = [FBAlert alertWithApplication:self.testedApplication];
   XCTAssertNil(alert.text);
   
-  [self selectElement: self.testedApplication.buttons[@"Create GPS access Alert"]];
+  [self select: self.testedApplication.buttons[@"Create GPS access Alert"]];
   FBAssertWaitTillBecomesTrue(alert.isPresent);
   
   XCTAssertTrue([alert.text containsString:@"to access your location"]);

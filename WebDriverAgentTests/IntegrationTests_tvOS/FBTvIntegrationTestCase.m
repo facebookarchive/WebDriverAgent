@@ -7,11 +7,10 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBTvIntegrationTestCase.h"
+#import "FBTVIntegrationTestCase.h"
 
-#import "FBSpringboardApplication.h"
+#import "FBHomeboardApplication.h"
 #import "FBTestMacros.h"
-#import "FBTvIntegrationTestCase.h"
 #import "FBConfiguration.h"
 #import "FBMacros.h"
 #import "FBRunLoopSpinner.h"
@@ -19,20 +18,19 @@
 #import "XCUIElement.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIApplication+FBFocused.h"
-//#import "XCUIElement+FBTVInteract.h"
-//#import "XCUIElement+FBFocuse.h"
-
+#import "XCUIElement+FBTVInteract.h"
+#import "XCUIElement+FBUtilities.h"
 
 NSString *const FBShowAlertButtonName = @"Create App Alert";
 NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
 NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
 
-@interface FBTvIntegrationTestCase ()
+@interface FBTVIntegrationTestCase ()
 @property (nonatomic, strong) XCUIApplication *testedApplication;
-@property (nonatomic, strong) FBSpringboardApplication *springboard;
+@property (nonatomic, strong) FBHomeboardApplication *homeboard;
 @end
 
-@implementation FBTvIntegrationTestCase
+@implementation FBTVIntegrationTestCase
 
 - (void)setUp
 {
@@ -40,7 +38,7 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
   [FBConfiguration disableRemoteQueryEvaluation];
   [FBConfiguration disableAttributeKeyPathAnalysis];
   self.continueAfterFailure = NO;
-  self.springboard = [FBSpringboardApplication fb_springboard];
+  self.homeboard = [FBHomeboardApplication fb_homeboard];
   self.testedApplication = [XCUIApplication new];
 }
 
@@ -69,12 +67,20 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[FBShowSheetAlertButtonName].fb_isVisible);
 }
 
-- (void)goToSpringBoardFirstPage
+- (void)goToHeadBoardFirstPage
 {
   [[XCUIRemote sharedRemote] pressButton:XCUIRemoteButtonHome];
-  FBAssertWaitTillBecomesTrue([FBSpringboardApplication fb_springboard].icons[@"Settings"].exists);
+  FBAssertWaitTillBecomesTrue([FBHomeboardApplication fb_homeboard].icons[@"Settings"].exists);
 //  [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
 //  FBAssertWaitTillBecomesTrue([FBSpringboardApplication fb_springboard].icons[@"Calendar"].fb_isVisible);
+}
+
+- (void)select:(XCUIElement*) element
+{
+  [self.testedApplication fb_waitUntilSnapshotIsStable];
+  NSError *error;
+  [element fb_selectInRowWithError:&error];
+  XCTAssertNil(error);
 }
 
 //- (void)goToSpringBoardExtras
@@ -97,10 +103,5 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
 //  FBAssertWaitTillBecomesTrue([[self.springboard descendantsMatchingType:XCUIElementTypeAny] elementMatchingPredicate:predicate].fb_isVisible);
 //  FBAssertWaitTillBecomesTrue(!self.springboard.icons[@"Calendar"].fb_isVisible);
 //}
-
-- (void) selectElement: (XCUIElement*) element {
-  
-  [[XCUIRemote sharedRemote] pressButton: XCUIRemoteButtonSelect];
-}
 
 @end

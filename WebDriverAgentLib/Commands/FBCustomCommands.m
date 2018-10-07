@@ -21,7 +21,7 @@
 #import "FBRunLoopSpinner.h"
 #import "FBSession.h"
 #import "FBXCodeCompatibility.h"
-#import "FBSpringboardApplication.h"
+#import "FBHomeboardApplication.h"
 #import "XCUIApplication+FBHelpers.h"
 #import "XCUIDevice+FBHelpers.h"
 #import "XCUIElement.h"

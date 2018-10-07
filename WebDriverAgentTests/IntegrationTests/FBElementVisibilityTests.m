@@ -11,7 +11,7 @@
 
 #import "FBApplication.h"
 #import "FBIntegrationTestCase.h"
-#import "FBSpringboardApplication.h"
+#import "FBHomeboardApplication.h"
 #import "FBTestMacros.h"
 #import "FBXCodeCompatibility.h"
 #import "XCUIElement+FBIsVisible.h"
