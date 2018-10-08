@@ -33,7 +33,7 @@
 - (void)testElementAccessibilityAttributes
 {
   // "Button" is accessibility element, and therefore isn't accessibility container
-  XCUIElement *buttonElement = self.testedApplication.buttons[@"Button"];
+  XCUIElement *buttonElement = self.testedApplication.buttons[@"Select me"];
   XCTAssertTrue(buttonElement.exists);
   XCTAssertTrue(buttonElement.fb_isAccessibilityElement);
   XCTAssertFalse(buttonElement.isWDAccessibilityContainer);
@@ -42,7 +42,7 @@
 - (void)testContainerAccessibilityAttributes
 {
   // "not_accessible" isn't accessibility element, but contains accessibility elements, so it is accessibility container
-  XCUIElement *inaccessibleButtonElement = self.testedApplication.buttons[@"not_accessible"];
+  XCUIElement *inaccessibleButtonElement = self.testedApplication.buttons[@"Not accessible"];
   XCTAssertTrue(inaccessibleButtonElement.exists);
   XCTAssertFalse(inaccessibleButtonElement.fb_isAccessibilityElement);
   XCTAssertTrue(inaccessibleButtonElement.isWDAccessibilityContainer);
@@ -59,11 +59,11 @@
 
 - (void)testButtonAttributes
 {
-  XCUIElement *element = self.testedApplication.buttons[@"Button"];
+  XCUIElement *element = self.testedApplication.buttons[@"Select me"];
   XCTAssertTrue(element.exists);
   XCTAssertEqualObjects(element.wdType, @"XCUIElementTypeButton");
-  XCTAssertEqualObjects(element.wdName, @"Button");
-  XCTAssertEqualObjects(element.wdLabel, @"Button");
+  XCTAssertEqualObjects(element.wdName, @"Select me");
+  XCTAssertEqualObjects(element.wdLabel, @"Select me");
   XCTAssertNil(element.wdValue);
   [self select:element];
   [element resolve];
@@ -72,12 +72,12 @@
 
 - (void)testLabelAttributes
 {
-  XCUIElement *element = self.testedApplication.staticTexts[@"Label"];
+  XCUIElement *element = self.testedApplication.staticTexts[@"Text Field"];
   XCTAssertTrue(element.exists);
   XCTAssertEqualObjects(element.wdType, @"XCUIElementTypeStaticText");
-  XCTAssertEqualObjects(element.wdName, @"Label");
-  XCTAssertEqualObjects(element.wdLabel, @"Label");
-  XCTAssertEqualObjects(element.wdValue, @"Label");
+  XCTAssertEqualObjects(element.wdName, @"Text Field");
+  XCTAssertEqualObjects(element.wdLabel, @"Text Field");
+  XCTAssertEqualObjects(element.wdValue, @"Text Field");
 }
 
 - (void)testTextFieldAttributes
@@ -110,16 +110,6 @@
   XCTAssertNil(element.wdValue);
 }
 
-- (void)testSliderAttributes
-{
-  XCUIElement *element = self.testedApplication.sliders.element;
-  XCTAssertTrue(element.exists);
-  XCTAssertEqualObjects(element.wdType, @"XCUIElementTypeSlider");
-  XCTAssertNil(element.wdName);
-  XCTAssertNil(element.wdLabel);
-  XCTAssertEqualObjects(element.wdValue, @"50%");
-}
-
 - (void)testActivityIndicatorAttributes
 {
   XCUIElement *element = self.testedApplication.activityIndicators.element;
@@ -128,29 +118,6 @@
   XCTAssertEqualObjects(element.wdName, @"Progress halted");
   XCTAssertEqualObjects(element.wdLabel, @"Progress halted");
   XCTAssertEqualObjects(element.wdValue, @"0");
-}
-
-- (void)testSwitchAttributes
-{
-  XCUIElement *element = self.testedApplication.switches.element;
-  XCTAssertTrue(element.exists);
-  XCTAssertEqualObjects(element.wdType, @"XCUIElementTypeSwitch");
-  XCTAssertNil(element.wdName);
-  XCTAssertNil(element.wdLabel);
-  XCTAssertEqualObjects(element.wdValue, @"1");
-  [self select:element];
-  [element resolve];
-  XCTAssertEqualObjects(element.wdValue, @"0");
-}
-
-- (void)testPickerWheelAttributes
-{
-  XCUIElement *element = self.testedApplication.pickerWheels[@"Today"];
-  XCTAssertTrue(element.exists);
-  XCTAssertEqualObjects(element.wdType, @"XCUIElementTypePickerWheel");
-  XCTAssertNil(element.wdName);
-  XCTAssertNil(element.wdLabel);
-  XCTAssertEqualObjects(element.wdValue, @"Today");
 }
 
 - (void)testPageIndicatorAttributes
