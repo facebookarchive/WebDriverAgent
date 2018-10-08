@@ -57,7 +57,7 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
 {
   [[XCUIRemote sharedRemote] pressButton:XCUIRemoteButtonDown];
   [[XCUIRemote sharedRemote] pressButton:XCUIRemoteButtonSelect];
-  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Button"].fb_isVisible);
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Select me"].fb_isVisible);
 }
 
 - (void)goToNavigationPage
