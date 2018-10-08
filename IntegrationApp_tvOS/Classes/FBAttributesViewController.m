@@ -7,18 +7,17 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "ViewController.h"
+#import "FBAttributesViewController.h"
 
-@interface ViewController ()
+@interface FBAttributesViewController ()
 
 @end
 
-@implementation ViewController
+@implementation FBAttributesViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+- (IBAction)didTapButton:(UIButton *)button
+{
+  button.selected = !button.selected;
 }
-
 
 @end

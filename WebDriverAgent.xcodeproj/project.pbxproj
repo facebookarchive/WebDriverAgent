@@ -16,7 +16,6 @@
 		1C1954732112EF9100A99F21 /* FBRemoteControlCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C1954712112EF9100A99F21 /* FBRemoteControlCommands.h */; };
 		1C1954742112EF9100A99F21 /* FBRemoteControlCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954722112EF9100A99F21 /* FBRemoteControlCommands.m */; };
 		1C1954B421133DDC00A99F21 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954B321133DDC00A99F21 /* AppDelegate.m */; };
-		1C1954B721133DDC00A99F21 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954B621133DDC00A99F21 /* ViewController.m */; };
 		1C1954BA21133DDC00A99F21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C1954B821133DDC00A99F21 /* Main.storyboard */; };
 		1C1954BF21133DDD00A99F21 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954BE21133DDD00A99F21 /* main.m */; };
 		1C1954D52113454F00A99F21 /* FBAlertsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954D42113454F00A99F21 /* FBAlertsViewController.m */; };
@@ -29,6 +28,7 @@
 		1C3C6FA6211827D600FAFD69 /* XCUIApplication+FBFocused.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C3C6FA4211827D600FAFD69 /* XCUIApplication+FBFocused.h */; };
 		1C3C6FA7211827D600FAFD69 /* XCUIApplication+FBFocused.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C6FA5211827D600FAFD69 /* XCUIApplication+FBFocused.m */; };
 		1C44859F216B613800D2B2D8 /* Templates.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C44859E216B613800D2B2D8 /* Templates.storyboard */; };
+		1C4485A5216BBD7300D2B2D8 /* FBAttributesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4485A4216BBD7300D2B2D8 /* FBAttributesViewController.m */; };
 		1C88FDF4214AAD0700202D0D /* XCUIElement+FBTVFocuse.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C88FDF2214AAD0700202D0D /* XCUIElement+FBTVFocuse.h */; };
 		1C88FDF5214AAD0700202D0D /* XCUIElement+FBTVFocuse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C88FDF3214AAD0700202D0D /* XCUIElement+FBTVFocuse.m */; };
 		1C8F1A322100B24400F6FEF4 /* FBScreenshotCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB75F1CAEDF0C008C271F /* FBScreenshotCommands.m */; };
@@ -745,8 +745,6 @@
 		1C1954B021133DDC00A99F21 /* IntegrationApp_tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntegrationApp_tvOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C1954B221133DDC00A99F21 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1C1954B321133DDC00A99F21 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1C1954B521133DDC00A99F21 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		1C1954B621133DDC00A99F21 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		1C1954B921133DDC00A99F21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1C1954BD21133DDD00A99F21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C1954BE21133DDD00A99F21 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -762,6 +760,8 @@
 		1C3C6FA5211827D600FAFD69 /* XCUIApplication+FBFocused.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XCUIApplication+FBFocused.m"; sourceTree = "<group>"; };
 		1C3C6FBD21184F2D00FAFD69 /* IntegrationTests_1_tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests_1_tvOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C44859E216B613800D2B2D8 /* Templates.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Templates.storyboard; sourceTree = "<group>"; };
+		1C4485A3216BBD7300D2B2D8 /* FBAttributesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBAttributesViewController.h; sourceTree = "<group>"; };
+		1C4485A4216BBD7300D2B2D8 /* FBAttributesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBAttributesViewController.m; sourceTree = "<group>"; };
 		1C88FDF2214AAD0700202D0D /* XCUIElement+FBTVFocuse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBTVFocuse.h"; sourceTree = "<group>"; };
 		1C88FDF3214AAD0700202D0D /* XCUIElement+FBTVFocuse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+FBTVFocuse.m"; sourceTree = "<group>"; };
 		1C8F1B312100B24400F6FEF4 /* WebDriverAgentLib_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WebDriverAgentLib_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1245,8 +1245,8 @@
 				1C1954B321133DDC00A99F21 /* AppDelegate.m */,
 				1C1954D32113454F00A99F21 /* FBAlertsViewController.h */,
 				1C1954D42113454F00A99F21 /* FBAlertsViewController.m */,
-				1C1954B521133DDC00A99F21 /* ViewController.h */,
-				1C1954B621133DDC00A99F21 /* ViewController.m */,
+				1C4485A3216BBD7300D2B2D8 /* FBAttributesViewController.h */,
+				1C4485A4216BBD7300D2B2D8 /* FBAttributesViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -2582,8 +2582,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C1954B721133DDC00A99F21 /* ViewController.m in Sources */,
 				1C1954D52113454F00A99F21 /* FBAlertsViewController.m in Sources */,
+				1C4485A5216BBD7300D2B2D8 /* FBAttributesViewController.m in Sources */,
 				1C1954BF21133DDD00A99F21 /* main.m in Sources */,
 				1C1954B421133DDC00A99F21 /* AppDelegate.m in Sources */,
 			);
