@@ -18,7 +18,7 @@
 #import "XCUIElement.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIApplication+FBFocused.h"
-#import "XCUIElement+FBTVInteract.h"
+#import "XCUIElement+FBTVFocuse.h"
 #import "XCUIElement+FBUtilities.h"
 
 NSString *const FBShowAlertButtonName = @"Create App Alert";
@@ -60,6 +60,14 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"Button"].fb_isVisible);
 }
 
+- (void)goToNavigationPage
+{
+  [[XCUIRemote sharedRemote] pressButton:XCUIRemoteButtonDown];
+  [[XCUIRemote sharedRemote] pressButton:XCUIRemoteButtonDown];
+  [[XCUIRemote sharedRemote] pressButton:XCUIRemoteButtonSelect];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.staticTexts[@"Select template"].fb_isVisible);
+}
+
 - (void)goToAlertsPage
 {
   [[XCUIRemote sharedRemote] pressButton:XCUIRemoteButtonSelect];
@@ -79,7 +87,7 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
 {
   [self.testedApplication fb_waitUntilSnapshotIsStable];
   NSError *error;
-  [element fb_selectInRowWithError:&error];
+  [element fb_selectWithError:&error];
   XCTAssertNil(error);
 }
 

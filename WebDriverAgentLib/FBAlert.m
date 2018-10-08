@@ -28,7 +28,7 @@
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
 #import "XCUIApplication+FBFocused.h"
-#import "XCUIElement+FBTVInteract.h"
+#import "XCUIElement+FBTVFocuse.h"
 
 NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElementException";
 NSString *const FBAlertWindowIdentifier = @"dialogWindow";
@@ -297,7 +297,7 @@ NSString *const FBAlertWindowIdentifier = @"dialogWindow";
 #if TARGET_OS_IOS
   return [button fb_tapWithError:error];
 #elif TARGET_OS_TV
-  return [button fb_selectInRowWithError:error];
+  return [button fb_selectWithError:error];
 #endif
 }
 

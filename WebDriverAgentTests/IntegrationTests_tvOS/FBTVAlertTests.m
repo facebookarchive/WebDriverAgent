@@ -14,10 +14,10 @@
 #import "FBTVIntegrationTestCase.h"
 #import "FBTestMacros.h"
 
-@interface FBRAlertTests : FBTVIntegrationTestCase
+@interface FBTVAlertTests : FBTVIntegrationTestCase
 @end
 
-@implementation FBRAlertTests
+@implementation FBTVAlertTests
 
 - (void)setUp
 {
