@@ -35,6 +35,7 @@
 #import "XCUIElement+FBTyping.h"
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBWebDriverAttributes.h"
+#import "XCUIElement+FBTVFocuse.h"
 #import "FBElementTypeTransformer.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
@@ -64,6 +65,7 @@
     [[FBRoute GET:@"/wda/element/:uuid/accessible"] respondWithTarget:self action:@selector(handleGetAccessible:)],
     [[FBRoute GET:@"/wda/element/:uuid/accessibilityContainer"] respondWithTarget:self action:@selector(handleGetIsAccessibilityContainer:)],
     [[FBRoute POST:@"/wda/keys"] respondWithTarget:self action:@selector(handleKeys:)],
+    [[FBRoute POST:@"/element/:uuid/click"] respondWithTarget:self action:@selector(handleClick:)],
 #if TARGET_OS_TV
     [[FBRoute GET:@"/element/:uuid/focused"] respondWithTarget:self action:@selector(handleGetFocused:)],
 #endif
@@ -73,7 +75,6 @@
     [[FBRoute POST:@"/wda/element/:uuid/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
     [[FBRoute POST:@"/wda/tap/:uuid"] respondWithTarget:self action:@selector(handleTap:)],
     [[FBRoute POST:@"/wda/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHoldCoordinate:)],
-    [[FBRoute POST:@"/element/:uuid/click"] respondWithTarget:self action:@selector(handleClick:)],
     [[FBRoute POST:@"/wda/element/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
     [[FBRoute POST:@"/wda/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDragCoordinate:)],
     [[FBRoute POST:@"/wda/element/:uuid/pinch"] respondWithTarget:self action:@selector(handlePinch:)],
@@ -212,19 +213,25 @@
   return FBResponseWithElementUUID(elementUUID);
 }
 
-#if TARGET_OS_IOS
+
 + (id<FBResponsePayload>)handleClick:(FBRouteRequest *)request
 {
   NSString *elementUUID = request.parameters[@"uuid"];
   FBElementCache *elementCache = request.session.elementCache;
   XCUIElement *element = [elementCache elementForUUID:elementUUID];
   NSError *error = nil;
+#if TARGET_OS_IOS
   if (![element fb_tapWithError:&error]) {
+#elif TARGET_OS_TV
+  if (![element fb_selectWithError:&error]) {
+#endif
     return FBResponseWithError(error);
   }
   return FBResponseWithElementUUID(elementUUID);
 }
-
+  
+#if TARGET_OS_IOS
+  
 + (id<FBResponsePayload>)handleDoubleTap:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
