@@ -40,6 +40,11 @@ extern NSString *const FBShowAlertForceTouchButtonName;
 - (void)goToAlertsPage;
 
 /**
+ Navigates integration app to navigation page
+ */
+- (void)goToNavigationPage;
+
+/**
  Navigates to SpringBoard first page
  */
 - (void)goToHeadBoardFirstPage;
