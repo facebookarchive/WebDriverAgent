@@ -67,6 +67,7 @@
     [[FBRoute POST:@"/wda/keys"] respondWithTarget:self action:@selector(handleKeys:)],
     [[FBRoute POST:@"/element/:uuid/click"] respondWithTarget:self action:@selector(handleClick:)],
 #if TARGET_OS_TV
+    [[FBRoute POST:@"/element/:uuid/focuse"] respondWithTarget:self action:@selector(handleFocuse:)],
     [[FBRoute GET:@"/element/:uuid/focused"] respondWithTarget:self action:@selector(handleGetFocused:)],
 #endif
 #if TARGET_OS_IOS
@@ -163,6 +164,18 @@
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   BOOL isFocused = element.hasFocus;
   return FBResponseWithStatus(FBCommandStatusNoError, isFocused ? @YES : @NO);
+}
+
++ (id<FBResponsePayload>)handleFocuse:(FBRouteRequest *)request
+{
+  NSString *elementUUID = request.parameters[@"uuid"];
+  FBElementCache *elementCache = request.session.elementCache;
+  XCUIElement *element = [elementCache elementForUUID:elementUUID];
+  NSError *error;
+  if (![element fb_focuseWithError:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithElementUUID(elementUUID);
 }
 #endif
 
