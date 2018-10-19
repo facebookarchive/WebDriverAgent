@@ -31,6 +31,7 @@
 		1C4485A5216BBD7300D2B2D8 /* FBAttributesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4485A4216BBD7300D2B2D8 /* FBAttributesViewController.m */; };
 		1C4485A7216BF07B00D2B2D8 /* FBTVElementScreenshotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4485A6216BF07B00D2B2D8 /* FBTVElementScreenshotTests.m */; };
 		1C604D242179CB05004F535F /* FBTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55B3231D1D5388003AAAEC /* FBTableDataSource.m */; };
+		1C604D272179CC4B004F535F /* FBTVElementVisibilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C604D262179CC4B004F535F /* FBTVElementVisibilityTests.m */; };
 		1C88FDF4214AAD0700202D0D /* XCUIElement+FBTVFocuse.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C88FDF2214AAD0700202D0D /* XCUIElement+FBTVFocuse.h */; };
 		1C88FDF5214AAD0700202D0D /* XCUIElement+FBTVFocuse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C88FDF3214AAD0700202D0D /* XCUIElement+FBTVFocuse.m */; };
 		1C8F1A322100B24400F6FEF4 /* FBScreenshotCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB75F1CAEDF0C008C271F /* FBScreenshotCommands.m */; };
@@ -765,6 +766,7 @@
 		1C4485A3216BBD7300D2B2D8 /* FBAttributesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBAttributesViewController.h; sourceTree = "<group>"; };
 		1C4485A4216BBD7300D2B2D8 /* FBAttributesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBAttributesViewController.m; sourceTree = "<group>"; };
 		1C4485A6216BF07B00D2B2D8 /* FBTVElementScreenshotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVElementScreenshotTests.m; sourceTree = "<group>"; };
+		1C604D262179CC4B004F535F /* FBTVElementVisibilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVElementVisibilityTests.m; sourceTree = "<group>"; };
 		1C88FDF2214AAD0700202D0D /* XCUIElement+FBTVFocuse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBTVFocuse.h"; sourceTree = "<group>"; };
 		1C88FDF3214AAD0700202D0D /* XCUIElement+FBTVFocuse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+FBTVFocuse.m"; sourceTree = "<group>"; };
 		1C8F1B312100B24400F6FEF4 /* WebDriverAgentLib_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WebDriverAgentLib_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1226,6 +1228,7 @@
 				1C26DB9E216AAAC300C1D250 /* FBTVElementSelectTests.m */,
 				1C4485A6216BF07B00D2B2D8 /* FBTVElementScreenshotTests.m */,
 				1C19549321133B9000A99F21 /* Info.plist */,
+				1C604D262179CC4B004F535F /* FBTVElementVisibilityTests.m */,
 			);
 			path = IntegrationTests_tvOS;
 			sourceTree = "<group>";
@@ -2605,6 +2608,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C604D272179CC4B004F535F /* FBTVElementVisibilityTests.m in Sources */,
 				1C26DB9D216A4BC600C1D250 /* FBTVElementAttributeTests.m in Sources */,
 				1C292F672164C377002E8D40 /* FBTVIntegrationTestCase.m in Sources */,
 				1C26DB9F216AAAC300C1D250 /* FBTVElementSelectTests.m in Sources */,

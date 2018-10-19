@@ -27,7 +27,7 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
 
 @interface FBTVIntegrationTestCase ()
 @property (nonatomic, strong) XCUIApplication *testedApplication;
-@property (nonatomic, strong) FBHomeboardApplication *homeboard;
+@property (nonatomic, strong, getter = homeboard) FBHomeboardApplication *homeboard;
 @end
 
 @implementation FBTVIntegrationTestCase
@@ -38,8 +38,11 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
   [FBConfiguration disableRemoteQueryEvaluation];
   [FBConfiguration disableAttributeKeyPathAnalysis];
   self.continueAfterFailure = NO;
-  self.homeboard = [FBHomeboardApplication fb_homeboard];
   self.testedApplication = [XCUIApplication new];
+}
+
+- (FBHomeboardApplication*) homeboard {
+  return [FBHomeboardApplication fb_homeboard];
 }
 
 - (void)launchApplication
@@ -75,12 +78,16 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
   FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[FBShowSheetAlertButtonName].fb_isVisible);
 }
 
-- (void)goToHeadBoardFirstPage
+- (void)goToHeadBoardPage
 {
   [[XCUIRemote sharedRemote] pressButton:XCUIRemoteButtonHome];
   FBAssertWaitTillBecomesTrue([FBHomeboardApplication fb_homeboard].icons[@"Settings"].exists);
-//  [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
-//  FBAssertWaitTillBecomesTrue([FBSpringboardApplication fb_springboard].icons[@"Calendar"].fb_isVisible);
+}
+
+- (void)goToScrollPage
+{
+  [self select:self.testedApplication.buttons[@"Scrolling"]];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.staticTexts[@"3"].fb_isVisible);
 }
 
 - (void)select:(XCUIElement*) element

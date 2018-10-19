@@ -22,7 +22,7 @@ extern NSString *const FBShowAlertForceTouchButtonName;
  */
 @interface FBTVIntegrationTestCase : XCTestCase
 @property (nonatomic, strong, readonly) XCUIApplication *testedApplication;
-@property (nonatomic, strong, readonly) FBHomeboardApplication *homeboard;
+@property (nonatomic, strong, readonly, getter = homeboard) FBHomeboardApplication *homeboard;
 
 /**
  Launches application and resets side effects of testing like orientation etc.
@@ -45,14 +45,19 @@ extern NSString *const FBShowAlertForceTouchButtonName;
 - (void)goToNavigationPage;
 
 /**
- Navigates to SpringBoard first page
+ Navigates to HeadBoard first page
  */
-- (void)goToHeadBoardFirstPage;
+- (void)goToHeadBoardPage;
 
 /**
  Select tv element in vertical row
  */
 - (void)select:(XCUIElement*) element;
+
+/**
+ Navigates integration app to scrolling page
+ */
+- (void)goToScrollPage;
 
 @end
 
