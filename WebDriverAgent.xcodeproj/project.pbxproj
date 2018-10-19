@@ -30,6 +30,7 @@
 		1C44859F216B613800D2B2D8 /* Templates.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C44859E216B613800D2B2D8 /* Templates.storyboard */; };
 		1C4485A5216BBD7300D2B2D8 /* FBAttributesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4485A4216BBD7300D2B2D8 /* FBAttributesViewController.m */; };
 		1C4485A7216BF07B00D2B2D8 /* FBTVElementScreenshotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4485A6216BF07B00D2B2D8 /* FBTVElementScreenshotTests.m */; };
+		1C604D242179CB05004F535F /* FBTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55B3231D1D5388003AAAEC /* FBTableDataSource.m */; };
 		1C88FDF4214AAD0700202D0D /* XCUIElement+FBTVFocuse.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C88FDF2214AAD0700202D0D /* XCUIElement+FBTVFocuse.h */; };
 		1C88FDF5214AAD0700202D0D /* XCUIElement+FBTVFocuse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C88FDF3214AAD0700202D0D /* XCUIElement+FBTVFocuse.m */; };
 		1C8F1A322100B24400F6FEF4 /* FBScreenshotCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB75F1CAEDF0C008C271F /* FBScreenshotCommands.m */; };
@@ -2588,6 +2589,7 @@
 				1C1954D52113454F00A99F21 /* FBAlertsViewController.m in Sources */,
 				1C4485A5216BBD7300D2B2D8 /* FBAttributesViewController.m in Sources */,
 				1C1954BF21133DDD00A99F21 /* main.m in Sources */,
+				1C604D242179CB05004F535F /* FBTableDataSource.m in Sources */,
 				1C1954B421133DDC00A99F21 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

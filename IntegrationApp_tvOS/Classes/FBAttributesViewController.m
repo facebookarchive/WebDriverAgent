@@ -15,7 +15,7 @@
 
 @implementation FBAttributesViewController
 
-- (IBAction)didTapButton:(UIButton *)button
+- (IBAction)didSelectButton:(UIButton *)button
 {
   button.selected = !button.selected;
 }
