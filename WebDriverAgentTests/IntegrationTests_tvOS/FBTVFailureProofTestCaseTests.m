@@ -9,14 +9,14 @@
 
 #import <XCTest/XCTest.h>
 
-#import "FBTVIntegrationTestCase.h"
+#import "FBFailureProofTestCase.h"
 #import "FBExceptionHandler.h"
 #import "XCUIElement+FBTVFocuse.h"
 
-@interface FBTVSearchFailureTests : FBTVIntegrationTestCase
+@interface FBTVFailureProofTestCaseTests : FBFailureProofTestCase
 @end
 
-@implementation FBTVSearchFailureTests
+@implementation FBTVFailureProofTestCaseTests
 
 - (void)setUp
 {
@@ -26,17 +26,19 @@
 
 - (void)testPreventElementSearchFailure
 {
-  NSError *error;
-  [[XCUIApplication new].buttons[@"kaboom"] fb_selectWithError:&error];
-  XCTAssertNotNil(error);
+
+  [[XCUIApplication new].buttons[@"kaboom"] typeText:@"kaboom"];
 }
 
 - (void)testInactiveAppSearch
 {
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
-  NSError *error;
-  [[XCUIApplication new].buttons[@"kaboom"] fb_selectWithError:&error];
-  XCTAssertNotNil(error);
+  [[XCUIApplication new].buttons[@"kaboom"] typeText:@"kaboom"];
+}
+
+- (void)testPreventAssertFailure
+{
+  XCTAssertNotNil(nil);
 }
 
 

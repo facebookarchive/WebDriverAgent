@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "FBTIntegrationTestCase.h"
+#import "FBTVIntegrationTestCase.h"
 
 #import "FBHomeboardApplication.h"
 #import "FBTestMacros.h"
@@ -25,12 +25,12 @@ NSString *const FBShowAlertButtonName = @"Create App Alert";
 NSString *const FBShowSheetAlertButtonName = @"Create Sheet Alert";
 NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
 
-@interface FBTIntegrationTestCase ()
+@interface FBTVIntegrationTestCase ()
 @property (nonatomic, strong) XCUIApplication *testedApplication;
 @property (nonatomic, strong, getter = homeboard) FBHomeboardApplication *homeboard;
 @end
 
-@implementation FBTIntegrationTestCase
+@implementation FBTVIntegrationTestCase
 
 - (void)setUp
 {

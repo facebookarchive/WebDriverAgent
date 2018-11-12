@@ -279,7 +279,8 @@
 		1CD0FBE2211850B80092C929 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1954682111DC0800A99F21 /* libxml2.tbd */; };
 		1CD0FBE3211850BD0092C929 /* WebDriverAgentLib_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C8F1B312100B24400F6FEF4 /* WebDriverAgentLib_tvOS.framework */; };
 		1CDC56622111C26F00868007 /* UITestingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7FD1CAEE048008C271F /* UITestingUITests.m */; };
-		1CEC817E2199A0990071306F /* FBTVSearchFailureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC817D2199A0990071306F /* FBTVSearchFailureTests.m */; };
+		1CEC817E2199A0990071306F /* FBTVFailureProofTestCaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC817D2199A0990071306F /* FBTVFailureProofTestCaseTests.m */; };
+		1CEC81802199A8170071306F /* FBTVKeyboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC817F2199A8170071306F /* FBTVKeyboardTests.m */; };
 		1FC3B2E32121ECF600B61EE0 /* FBApplicationProcessProxyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3B2E12121EC8C00B61EE0 /* FBApplicationProcessProxyTests.m */; };
 		711084441DA3AA7500F913D6 /* FBXPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 711084421DA3AA7500F913D6 /* FBXPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		711084451DA3AA7500F913D6 /* FBXPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 711084431DA3AA7500F913D6 /* FBXPath.m */; };
@@ -774,7 +775,8 @@
 		1C9365372163BA8A00926F2C /* XCAccessibilityElement+FBComparison.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XCAccessibilityElement+FBComparison.h"; sourceTree = "<group>"; };
 		1C9365382163BA8A00926F2C /* XCAccessibilityElement+FBComparison.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XCAccessibilityElement+FBComparison.m"; sourceTree = "<group>"; };
 		1CDC566C2111C26F00868007 /* WebDriverAgentRunner_tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentRunner_tvOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1CEC817D2199A0990071306F /* FBTVSearchFailureTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVSearchFailureTests.m; sourceTree = "<group>"; };
+		1CEC817D2199A0990071306F /* FBTVFailureProofTestCaseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVFailureProofTestCaseTests.m; sourceTree = "<group>"; };
+		1CEC817F2199A8170071306F /* FBTVKeyboardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVKeyboardTests.m; sourceTree = "<group>"; };
 		1FC3B2E12121EC8C00B61EE0 /* FBApplicationProcessProxyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBApplicationProcessProxyTests.m; sourceTree = "<group>"; };
 		44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceRotationTests.m; sourceTree = "<group>"; };
 		711084421DA3AA7500F913D6 /* FBXPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXPath.h; sourceTree = "<group>"; };
@@ -1231,7 +1233,8 @@
 				1C4485A6216BF07B00D2B2D8 /* FBTVElementScreenshotTests.m */,
 				1C19549321133B9000A99F21 /* Info.plist */,
 				1C604D262179CC4B004F535F /* FBTVElementVisibilityTests.m */,
-				1CEC817D2199A0990071306F /* FBTVSearchFailureTests.m */,
+				1CEC817D2199A0990071306F /* FBTVFailureProofTestCaseTests.m */,
+				1CEC817F2199A8170071306F /* FBTVKeyboardTests.m */,
 			);
 			path = IntegrationTests_tvOS;
 			sourceTree = "<group>";
@@ -2611,10 +2614,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CEC817E2199A0990071306F /* FBTVSearchFailureTests.m in Sources */,
+				1CEC817E2199A0990071306F /* FBTVFailureProofTestCaseTests.m in Sources */,
 				1C604D272179CC4B004F535F /* FBTVElementVisibilityTests.m in Sources */,
 				1C26DB9D216A4BC600C1D250 /* FBTVElementAttributeTests.m in Sources */,
 				1C292F672164C377002E8D40 /* FBTVIntegrationTestCase.m in Sources */,
+				1CEC81802199A8170071306F /* FBTVKeyboardTests.m in Sources */,
 				1C26DB9F216AAAC300C1D250 /* FBTVElementSelectTests.m in Sources */,
 				1C292F682164C399002E8D40 /* FBTVAlertTests.m in Sources */,
 				1C4485A7216BF07B00D2B2D8 /* FBTVElementScreenshotTests.m in Sources */,
