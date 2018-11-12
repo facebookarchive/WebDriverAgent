@@ -23,8 +23,6 @@
 		1C26DB9F216AAAC300C1D250 /* FBTVElementSelectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C26DB9E216AAAC300C1D250 /* FBTVElementSelectTests.m */; };
 		1C292F672164C377002E8D40 /* FBTVIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954D72113540000A99F21 /* FBTVIntegrationTestCase.m */; };
 		1C292F682164C399002E8D40 /* FBTVAlertTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954D92113554400A99F21 /* FBTVAlertTests.m */; };
-		1C3C6FA121145D7700FAFD69 /* WebDriverAgentLib_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C8F1B312100B24400F6FEF4 /* WebDriverAgentLib_tvOS.framework */; };
-		1C3C6FA221145D7E00FAFD69 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1954682111DC0800A99F21 /* libxml2.tbd */; };
 		1C3C6FA6211827D600FAFD69 /* XCUIApplication+FBFocused.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C3C6FA4211827D600FAFD69 /* XCUIApplication+FBFocused.h */; };
 		1C3C6FA7211827D600FAFD69 /* XCUIApplication+FBFocused.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C6FA5211827D600FAFD69 /* XCUIApplication+FBFocused.m */; };
 		1C44859F216B613800D2B2D8 /* Templates.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C44859E216B613800D2B2D8 /* Templates.storyboard */; };
@@ -281,6 +279,10 @@
 		1CDC56622111C26F00868007 /* UITestingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB7FD1CAEE048008C271F /* UITestingUITests.m */; };
 		1CEC817E2199A0990071306F /* FBTVFailureProofTestCaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC817D2199A0990071306F /* FBTVFailureProofTestCaseTests.m */; };
 		1CEC81802199A8170071306F /* FBTVKeyboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC817F2199A8170071306F /* FBTVKeyboardTests.m */; };
+		1CEC818A2199B6630071306F /* FBTVIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1954D72113540000A99F21 /* FBTVIntegrationTestCase.m */; };
+		1CEC81902199B6630071306F /* WebDriverAgentLib_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C8F1B312100B24400F6FEF4 /* WebDriverAgentLib_tvOS.framework */; };
+		1CEC81912199B6630071306F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1954682111DC0800A99F21 /* libxml2.tbd */; };
+		1CEC81992199B79F0071306F /* FBTVTypingTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC81982199B79F0071306F /* FBTVTypingTest.m */; };
 		1FC3B2E32121ECF600B61EE0 /* FBApplicationProcessProxyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3B2E12121EC8C00B61EE0 /* FBApplicationProcessProxyTests.m */; };
 		711084441DA3AA7500F913D6 /* FBXPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 711084421DA3AA7500F913D6 /* FBXPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		711084451DA3AA7500F913D6 /* FBXPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 711084431DA3AA7500F913D6 /* FBXPath.m */; };
@@ -607,20 +609,6 @@
 			remoteGlobalIDString = 1C8F1A302100B24400F6FEF4;
 			remoteInfo = WebDriverAgentLib_tvOS;
 		};
-		1C1954C521133DDD00A99F21 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1C1954AF21133DDC00A99F21;
-			remoteInfo = IntegrationApp_tvOS;
-		};
-		1C3C6F9F21145D6700FAFD69 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1C8F1A302100B24400F6FEF4;
-			remoteInfo = WebDriverAgentLib_tvOS;
-		};
 		1C3C6FBF21184F8400FAFD69 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
@@ -634,6 +622,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1C8F1A302100B24400F6FEF4;
 			remoteInfo = WebDriverAgentLib_tvOS;
+		};
+		1CEC81832199B6630071306F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C8F1A302100B24400F6FEF4;
+			remoteInfo = WebDriverAgentLib_tvOS;
+		};
+		1CEC81852199B6630071306F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C1954AF21133DDC00A99F21;
+			remoteInfo = IntegrationApp_tvOS;
 		};
 		AD8D96F01D3C12960061268E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -753,7 +755,6 @@
 		1C1954B921133DDC00A99F21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1C1954BD21133DDD00A99F21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C1954BE21133DDD00A99F21 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1C1954C421133DDD00A99F21 /* IntegrationTests_tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests_tvOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C1954D32113454F00A99F21 /* FBAlertsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBAlertsViewController.h; sourceTree = "<group>"; };
 		1C1954D42113454F00A99F21 /* FBAlertsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBAlertsViewController.m; sourceTree = "<group>"; };
 		1C1954D62113540000A99F21 /* FBTVIntegrationTestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBTVIntegrationTestCase.h; sourceTree = "<group>"; };
@@ -777,6 +778,8 @@
 		1CDC566C2111C26F00868007 /* WebDriverAgentRunner_tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentRunner_tvOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CEC817D2199A0990071306F /* FBTVFailureProofTestCaseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVFailureProofTestCaseTests.m; sourceTree = "<group>"; };
 		1CEC817F2199A8170071306F /* FBTVKeyboardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVKeyboardTests.m; sourceTree = "<group>"; };
+		1CEC81962199B6630071306F /* IntegrationTests_2_tvOS .xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IntegrationTests_2_tvOS .xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CEC81982199B79F0071306F /* FBTVTypingTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVTypingTest.m; sourceTree = "<group>"; };
 		1FC3B2E12121EC8C00B61EE0 /* FBApplicationProcessProxyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBApplicationProcessProxyTests.m; sourceTree = "<group>"; };
 		44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceRotationTests.m; sourceTree = "<group>"; };
 		711084421DA3AA7500F913D6 /* FBXPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXPath.h; sourceTree = "<group>"; };
@@ -1119,15 +1122,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1C1954C121133DDD00A99F21 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1C3C6FA221145D7E00FAFD69 /* libxml2.tbd in Frameworks */,
-				1C3C6FA121145D7700FAFD69 /* WebDriverAgentLib_tvOS.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1C3C6FB621184F2D00FAFD69 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1153,6 +1147,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C0EE1142111C4B3009EDBB1 /* WebDriverAgentLib_tvOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1CEC818F2199B6630071306F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CEC81902199B6630071306F /* WebDriverAgentLib_tvOS.framework in Frameworks */,
+				1CEC81912199B6630071306F /* libxml2.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1235,6 +1238,7 @@
 				1C604D262179CC4B004F535F /* FBTVElementVisibilityTests.m */,
 				1CEC817D2199A0990071306F /* FBTVFailureProofTestCaseTests.m */,
 				1CEC817F2199A8170071306F /* FBTVKeyboardTests.m */,
+				1CEC81982199B79F0071306F /* FBTVTypingTest.m */,
 			);
 			path = IntegrationTests_tvOS;
 			sourceTree = "<group>";
@@ -1314,8 +1318,8 @@
 				1C8F1B312100B24400F6FEF4 /* WebDriverAgentLib_tvOS.framework */,
 				1CDC566C2111C26F00868007 /* WebDriverAgentRunner_tvOS.xctest */,
 				1C1954B021133DDC00A99F21 /* IntegrationApp_tvOS.app */,
-				1C1954C421133DDD00A99F21 /* IntegrationTests_tvOS.xctest */,
 				1C3C6FBD21184F2D00FAFD69 /* IntegrationTests_1_tvOS.xctest */,
+				1CEC81962199B6630071306F /* IntegrationTests_2_tvOS .xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2213,25 +2217,6 @@
 			productReference = 1C1954B021133DDC00A99F21 /* IntegrationApp_tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		1C1954C321133DDD00A99F21 /* IntegrationTests_tvOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1C1954CE21133DDE00A99F21 /* Build configuration list for PBXNativeTarget "IntegrationTests_tvOS" */;
-			buildPhases = (
-				1C1954C021133DDD00A99F21 /* Sources */,
-				1C1954C121133DDD00A99F21 /* Frameworks */,
-				1C1954C221133DDD00A99F21 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1C3C6FA021145D6700FAFD69 /* PBXTargetDependency */,
-				1C1954C621133DDD00A99F21 /* PBXTargetDependency */,
-			);
-			name = IntegrationTests_tvOS;
-			productName = IntegrationApp_tvOSUITests;
-			productReference = 1C1954C421133DDD00A99F21 /* IntegrationTests_tvOS.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		1C3C6FA821184F2D00FAFD69 /* IntegrationTests_1_tvOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C3C6FBA21184F2D00FAFD69 /* Build configuration list for PBXNativeTarget "IntegrationTests_1_tvOS" */;
@@ -2287,6 +2272,25 @@
 			name = WebDriverAgentRunner_tvOS;
 			productName = XCTUITestRunner;
 			productReference = 1CDC566C2111C26F00868007 /* WebDriverAgentRunner_tvOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		1CEC81812199B6630071306F /* IntegrationTests_2_tvOS  */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CEC81932199B6630071306F /* Build configuration list for PBXNativeTarget "IntegrationTests_2_tvOS " */;
+			buildPhases = (
+				1CEC81862199B6630071306F /* Sources */,
+				1CEC818F2199B6630071306F /* Frameworks */,
+				1CEC81922199B6630071306F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1CEC81822199B6630071306F /* PBXTargetDependency */,
+				1CEC81842199B6630071306F /* PBXTargetDependency */,
+			);
+			name = "IntegrationTests_2_tvOS ";
+			productName = EvalUITests;
+			productReference = 1CEC81962199B6630071306F /* IntegrationTests_2_tvOS .xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		EE158A981CBD452B00A3E3F0 /* WebDriverAgentLib */ = {
@@ -2434,11 +2438,6 @@
 						DevelopmentTeam = U9WLLAC7UL;
 						ProvisioningStyle = Automatic;
 					};
-					1C1954C321133DDD00A99F21 = {
-						CreatedOnToolsVersion = 10.0;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 1C1954AF21133DDC00A99F21;
-					};
 					1C3C6FA821184F2D00FAFD69 = {
 						TestTargetID = 1C1954AF21133DDC00A99F21;
 					};
@@ -2447,6 +2446,9 @@
 					};
 					1CDC565E2111C26F00868007 = {
 						DevelopmentTeam = U9WLLAC7UL;
+					};
+					1CEC81812199B6630071306F = {
+						TestTargetID = 1C1954AF21133DDC00A99F21;
 					};
 					EE158A981CBD452B00A3E3F0 = {
 						CreatedOnToolsVersion = 7.3;
@@ -2490,10 +2492,10 @@
 				EE9B75EB1CF7956C00275851 /* IntegrationTests_1 */,
 				EE5095DD1EBCC9090028E2FE /* IntegrationTests_2 */,
 				EE2202031ECC612200A29571 /* IntegrationTests_3 */,
-				1C1954C321133DDD00A99F21 /* IntegrationTests_tvOS */,
+				1C3C6FA821184F2D00FAFD69 /* IntegrationTests_1_tvOS */,
+				1CEC81812199B6630071306F /* IntegrationTests_2_tvOS  */,
 				EE9B75D31CF7956C00275851 /* IntegrationApp */,
 				1C1954AF21133DDC00A99F21 /* IntegrationApp_tvOS */,
-				1C3C6FA821184F2D00FAFD69 /* IntegrationTests_1_tvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -2505,13 +2507,6 @@
 			files = (
 				1C44859F216B613800D2B2D8 /* Templates.storyboard in Resources */,
 				1C1954BA21133DDC00A99F21 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1C1954C221133DDD00A99F21 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2531,6 +2526,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		1CDC56652111C26F00868007 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1CEC81922199B6630071306F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2600,13 +2602,6 @@
 				1C1954BF21133DDD00A99F21 /* main.m in Sources */,
 				1C604D242179CB05004F535F /* FBTableDataSource.m in Sources */,
 				1C1954B421133DDC00A99F21 /* AppDelegate.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1C1954C021133DDD00A99F21 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2703,6 +2698,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CDC56622111C26F00868007 /* UITestingUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1CEC81862199B6630071306F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CEC81992199B79F0071306F /* FBTVTypingTest.m in Sources */,
+				1CEC818A2199B6630071306F /* FBTVIntegrationTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2886,16 +2890,6 @@
 			target = 1C8F1A302100B24400F6FEF4 /* WebDriverAgentLib_tvOS */;
 			targetProxy = 1C0EE1122111C4A9009EDBB1 /* PBXContainerItemProxy */;
 		};
-		1C1954C621133DDD00A99F21 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1C1954AF21133DDC00A99F21 /* IntegrationApp_tvOS */;
-			targetProxy = 1C1954C521133DDD00A99F21 /* PBXContainerItemProxy */;
-		};
-		1C3C6FA021145D6700FAFD69 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1C8F1A302100B24400F6FEF4 /* WebDriverAgentLib_tvOS */;
-			targetProxy = 1C3C6F9F21145D6700FAFD69 /* PBXContainerItemProxy */;
-		};
 		1C3C6FC021184F8400FAFD69 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1C1954AF21133DDC00A99F21 /* IntegrationApp_tvOS */;
@@ -2905,6 +2899,16 @@
 			isa = PBXTargetDependency;
 			target = 1C8F1A302100B24400F6FEF4 /* WebDriverAgentLib_tvOS */;
 			targetProxy = 1CD0FBE0211850A90092C929 /* PBXContainerItemProxy */;
+		};
+		1CEC81822199B6630071306F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C8F1A302100B24400F6FEF4 /* WebDriverAgentLib_tvOS */;
+			targetProxy = 1CEC81832199B6630071306F /* PBXContainerItemProxy */;
+		};
+		1CEC81842199B6630071306F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C1954AF21133DDC00A99F21 /* IntegrationApp_tvOS */;
+			targetProxy = 1CEC81852199B6630071306F /* PBXContainerItemProxy */;
 		};
 		AD8D96F11D3C12960061268E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3015,52 +3019,6 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
-			};
-			name = Release;
-		};
-		1C1954CF21133DDE00A99F21 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = WebDriverAgentTests/IntegrationTests_tvOS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.wda.IntegrationApp-tvOSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TARGETED_DEVICE_FAMILY = 3;
-				TEST_TARGET_NAME = IntegrationApp_tvOS;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
-			};
-			name = Debug;
-		};
-		1C1954D021133DDE00A99F21 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = WebDriverAgentTests/IntegrationTests_tvOS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.wda.IntegrationApp-tvOSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TARGETED_DEVICE_FAMILY = 3;
-				TEST_TARGET_NAME = IntegrationApp_tvOS;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -3217,6 +3175,39 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+		1CEC81942199B6630071306F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = WebDriverAgentTests/IntegrationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.IntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_TARGET_NAME = IntegrationApp_tvOS;
+			};
+			name = Debug;
+		};
+		1CEC81952199B6630071306F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = WebDriverAgentTests/IntegrationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.IntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_TARGET_NAME = IntegrationApp_tvOS;
 			};
 			name = Release;
 		};
@@ -3604,15 +3595,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1C1954CE21133DDE00A99F21 /* Build configuration list for PBXNativeTarget "IntegrationTests_tvOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1C1954CF21133DDE00A99F21 /* Debug */,
-				1C1954D021133DDE00A99F21 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		1C3C6FBA21184F2D00FAFD69 /* Build configuration list for PBXNativeTarget "IntegrationTests_1_tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -3636,6 +3618,15 @@
 			buildConfigurations = (
 				1CDC566A2111C26F00868007 /* Debug */,
 				1CDC566B2111C26F00868007 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1CEC81932199B6630071306F /* Build configuration list for PBXNativeTarget "IntegrationTests_2_tvOS " */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CEC81942199B6630071306F /* Debug */,
+				1CEC81952199B6630071306F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
