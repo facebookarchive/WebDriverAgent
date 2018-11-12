@@ -84,9 +84,11 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
   FBAssertWaitTillBecomesTrue([FBHomeboardApplication fb_homeboard].icons[@"Settings"].exists);
 }
 
-- (void)goToScrollPage
+- (void)goToScrollPageWithCells:(BOOL)showCells
 {
   [self select:self.testedApplication.buttons[@"Scrolling"]];
+  FBAssertWaitTillBecomesTrue(self.testedApplication.buttons[@"TableView"].fb_isVisible);
+  [self select:self.testedApplication.buttons[showCells ? @"TableView": @"ScrollView"]];
   FBAssertWaitTillBecomesTrue(self.testedApplication.staticTexts[@"3"].fb_isVisible);
 }
 

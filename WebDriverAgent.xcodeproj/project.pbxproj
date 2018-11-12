@@ -27,9 +27,9 @@
 		1C3C6FA7211827D600FAFD69 /* XCUIApplication+FBFocused.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C6FA5211827D600FAFD69 /* XCUIApplication+FBFocused.m */; };
 		1C44859F216B613800D2B2D8 /* Templates.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C44859E216B613800D2B2D8 /* Templates.storyboard */; };
 		1C4485A5216BBD7300D2B2D8 /* FBAttributesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4485A4216BBD7300D2B2D8 /* FBAttributesViewController.m */; };
-		1C4485A7216BF07B00D2B2D8 /* FBTVElementScreenshotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4485A6216BF07B00D2B2D8 /* FBTVElementScreenshotTests.m */; };
 		1C604D242179CB05004F535F /* FBTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55B3231D1D5388003AAAEC /* FBTableDataSource.m */; };
 		1C604D272179CC4B004F535F /* FBTVElementVisibilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C604D262179CC4B004F535F /* FBTVElementVisibilityTests.m */; };
+		1C73658F219A1689009BC01A /* FBScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDA07231D6BB2BF001700AC /* FBScrollViewController.m */; };
 		1C88FDF4214AAD0700202D0D /* XCUIElement+FBTVFocuse.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C88FDF2214AAD0700202D0D /* XCUIElement+FBTVFocuse.h */; };
 		1C88FDF5214AAD0700202D0D /* XCUIElement+FBTVFocuse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C88FDF3214AAD0700202D0D /* XCUIElement+FBTVFocuse.m */; };
 		1C8F1A322100B24400F6FEF4 /* FBScreenshotCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB75F1CAEDF0C008C271F /* FBScreenshotCommands.m */; };
@@ -284,6 +284,8 @@
 		1CEC81912199B6630071306F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1954682111DC0800A99F21 /* libxml2.tbd */; };
 		1CEC81992199B79F0071306F /* FBTVTypingTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC81982199B79F0071306F /* FBTVTypingTest.m */; };
 		1CEC819B2199BA400071306F /* FBTVXPathIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC819A2199BA400071306F /* FBTVXPathIntegrationTests.m */; };
+		1CEC819C2199C2030071306F /* FBTVElementScreenshotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4485A6216BF07B00D2B2D8 /* FBTVElementScreenshotTests.m */; };
+		1CEC819E2199CC460071306F /* TVXCElementSnapshotHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC819D2199CC460071306F /* TVXCElementSnapshotHelperTests.m */; };
 		1FC3B2E32121ECF600B61EE0 /* FBApplicationProcessProxyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3B2E12121EC8C00B61EE0 /* FBApplicationProcessProxyTests.m */; };
 		711084441DA3AA7500F913D6 /* FBXPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 711084421DA3AA7500F913D6 /* FBXPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		711084451DA3AA7500F913D6 /* FBXPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 711084431DA3AA7500F913D6 /* FBXPath.m */; };
@@ -782,6 +784,7 @@
 		1CEC81962199B6630071306F /* IntegrationTests_2_tvOS .xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IntegrationTests_2_tvOS .xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CEC81982199B79F0071306F /* FBTVTypingTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVTypingTest.m; sourceTree = "<group>"; };
 		1CEC819A2199BA400071306F /* FBTVXPathIntegrationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVXPathIntegrationTests.m; sourceTree = "<group>"; };
+		1CEC819D2199CC460071306F /* TVXCElementSnapshotHelperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVXCElementSnapshotHelperTests.m; sourceTree = "<group>"; };
 		1FC3B2E12121EC8C00B61EE0 /* FBApplicationProcessProxyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBApplicationProcessProxyTests.m; sourceTree = "<group>"; };
 		44757A831D42CE8300ECF35E /* XCUIDeviceRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCUIDeviceRotationTests.m; sourceTree = "<group>"; };
 		711084421DA3AA7500F913D6 /* FBXPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXPath.h; sourceTree = "<group>"; };
@@ -1242,6 +1245,7 @@
 				1CEC817F2199A8170071306F /* FBTVKeyboardTests.m */,
 				1CEC81982199B79F0071306F /* FBTVTypingTest.m */,
 				1CEC819A2199BA400071306F /* FBTVXPathIntegrationTests.m */,
+				1CEC819D2199CC460071306F /* TVXCElementSnapshotHelperTests.m */,
 			);
 			path = IntegrationTests_tvOS;
 			sourceTree = "<group>";
@@ -2605,6 +2609,7 @@
 				1C1954BF21133DDD00A99F21 /* main.m in Sources */,
 				1C604D242179CB05004F535F /* FBTableDataSource.m in Sources */,
 				1C1954B421133DDC00A99F21 /* AppDelegate.m in Sources */,
+				1C73658F219A1689009BC01A /* FBScrollViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2619,7 +2624,6 @@
 				1CEC81802199A8170071306F /* FBTVKeyboardTests.m in Sources */,
 				1C26DB9F216AAAC300C1D250 /* FBTVElementSelectTests.m in Sources */,
 				1C292F682164C399002E8D40 /* FBTVAlertTests.m in Sources */,
-				1C4485A7216BF07B00D2B2D8 /* FBTVElementScreenshotTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2708,8 +2712,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CEC819C2199C2030071306F /* FBTVElementScreenshotTests.m in Sources */,
 				1CEC81992199B79F0071306F /* FBTVTypingTest.m in Sources */,
 				1CEC819B2199BA400071306F /* FBTVXPathIntegrationTests.m in Sources */,
+				1CEC819E2199CC460071306F /* TVXCElementSnapshotHelperTests.m in Sources */,
 				1CEC818A2199B6630071306F /* FBTVIntegrationTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

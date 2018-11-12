@@ -33,7 +33,7 @@
 - (void)testTableViewCells
 {
   [self launchApplication];
-  [self goToScrollPage];
+  [self goToScrollPageWithCells:true];
   XCUIElement *table = self.testedApplication.tables.allElementsBoundByIndex.firstObject;
   for (int i = 0 ; i < 10 ; i++) {
     FBAssertWaitTillBecomesTrue(table.cells.allElementsBoundByIndex[i].fb_isVisible);

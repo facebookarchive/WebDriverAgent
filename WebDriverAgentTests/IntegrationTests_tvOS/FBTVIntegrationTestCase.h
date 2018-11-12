@@ -56,8 +56,9 @@ extern NSString *const FBShowAlertForceTouchButtonName;
 
 /**
  Navigates integration app to scrolling page
+ @param showCells whether should navigate to view with cell or plain scrollview
  */
-- (void)goToScrollPage;
+- (void)goToScrollPageWithCells:(BOOL)showCells;
 
 @end
 
