@@ -34,13 +34,14 @@
 {
   [self launchApplication];
   [self goToScrollPage];
+  XCUIElement *table = self.testedApplication.tables.allElementsBoundByIndex.firstObject;
   for (int i = 0 ; i < 10 ; i++) {
-    FBAssertWaitTillBecomesTrue(self.testedApplication.cells.allElementsBoundByIndex[i].fb_isVisible);
-    FBAssertWaitTillBecomesTrue(self.testedApplication.staticTexts.allElementsBoundByIndex[i].fb_isVisible);
+    FBAssertWaitTillBecomesTrue(table.cells.allElementsBoundByIndex[i].fb_isVisible);
+    FBAssertWaitTillBecomesTrue(table.staticTexts.allElementsBoundByIndex[i].fb_isVisible);
   }
   for (int i = 30 ; i < 40 ; i++) {
-    FBAssertWaitTillBecomesTrue(!self.testedApplication.cells.allElementsBoundByIndex[i].fb_isVisible);
-    FBAssertWaitTillBecomesTrue(!self.testedApplication.staticTexts.allElementsBoundByIndex[i].fb_isVisible);
+    FBAssertWaitTillBecomesTrue(!table.cells.allElementsBoundByIndex[i].fb_isVisible);
+    FBAssertWaitTillBecomesTrue(!table.staticTexts.allElementsBoundByIndex[i].fb_isVisible);
   }
 }
 
