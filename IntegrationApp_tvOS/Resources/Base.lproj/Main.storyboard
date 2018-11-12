@@ -87,7 +87,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="5HW-8z-6dT">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="5HW-8z-6dT" userLabel="Buttons">
                                 <rect key="frame" x="672" y="80" width="576" height="404"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fqe-ro-vKy">
@@ -126,6 +126,7 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <accessibility key="accessibilityConfiguration" label="MainView"/>
                         <constraints>
                             <constraint firstItem="5HW-8z-6dT" firstAttribute="centerX" secondItem="wu6-TO-1qx" secondAttribute="centerX" id="VB1-9W-gGr"/>
                             <constraint firstItem="5HW-8z-6dT" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.3" id="VTh-VQ-YVl"/>
