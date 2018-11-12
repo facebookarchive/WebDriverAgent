@@ -36,7 +36,7 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
   [FBConfiguration disableRemoteQueryEvaluation];
   [FBConfiguration disableAttributeKeyPathAnalysis];
   self.continueAfterFailure = NO;
-  self.springboard = [FBHomeboardApplication fb_springboard];
+  self.springboard = [FBHomeboardApplication fb_homeboard];
   self.testedApplication = [XCUIApplication new];
 }
 
@@ -70,9 +70,9 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
 - (void)goToSpringBoardFirstPage
 {
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
-  FBAssertWaitTillBecomesTrue([FBHomeboardApplication fb_springboard].icons[@"Safari"].exists);
+  FBAssertWaitTillBecomesTrue([FBHomeboardApplication fb_homeboard].icons[@"Safari"].exists);
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
-  FBAssertWaitTillBecomesTrue([FBHomeboardApplication fb_springboard].icons[@"Calendar"].fb_isVisible);
+  FBAssertWaitTillBecomesTrue([FBHomeboardApplication fb_homeboard].icons[@"Calendar"].fb_isVisible);
 }
 
 - (void)goToSpringBoardExtras
