@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015-present, Facebook, Inc.
+ * Copyright (c) 2018-present, Facebook, Inc.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
@@ -10,16 +10,16 @@
 #import <XCTest/XCTest.h>
 
 #import "FBApplication.h"
-#import "FBIntegrationTestCase.h"
+#import "FBTVIntegrationTestCase.h"
 #import "FBTestMacros.h"
 #import "FBHomeboardApplication.h"
 #import "XCUIApplication+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
 
-@interface XCUIApplicationHelperTests : FBIntegrationTestCase
+@interface TVXCUIApplicationHelperTests : FBTVIntegrationTestCase
 @end
 
-@implementation XCUIApplicationHelperTests
+@implementation TVXCUIApplicationHelperTests
 
 - (void)setUp
 {
@@ -29,18 +29,17 @@
 
 - (void)testQueringSpringboard
 {
-  [self goToSpringBoardFirstPage];
-  XCTAssertTrue([FBHomeboardApplication fb_homeboard].icons[@"Safari"].exists);
-  XCTAssertTrue([FBHomeboardApplication fb_homeboard].icons[@"Calendar"].exists);
+  [self goToHeadBoardPage];
+  XCTAssertTrue([FBHomeboardApplication fb_homeboard].icons[@"Settings"].exists);
 }
 
 - (void)testTappingAppOnSpringboard
 {
-  [self goToSpringBoardFirstPage];
+  [self goToHeadBoardPage];
   NSError *error;
-  XCTAssertTrue([[FBHomeboardApplication fb_homeboard] fb_tapApplicationWithIdentifier:@"Safari" error:&error]);
+  XCTAssertTrue([[FBHomeboardApplication fb_homeboard] fb_selectApplicationWithIdentifier:@"Settings" error:&error]);
   XCTAssertNil(error);
-  XCTAssertTrue([FBApplication fb_activeApplication].buttons[@"URL"].exists);
+  XCTAssertTrue([FBApplication fb_activeApplication].cells[@"General"].exists);
 }
 
 - (void)testWaitingForSpringboard
@@ -49,7 +48,7 @@
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
   XCTAssertTrue([[FBHomeboardApplication fb_homeboard] fb_waitUntilApplicationBoardIsVisible:&error]);
   XCTAssertNil(error);
-  XCTAssertTrue([FBHomeboardApplication fb_homeboard].icons[@"Safari"].fb_isVisible);
+  XCTAssertTrue([FBHomeboardApplication fb_homeboard].icons[@"Settings"].fb_isVisible);
 }
 
 - (void)testApplicationTree
@@ -74,8 +73,8 @@
 - (void)testActiveApplication
 {
   XCTAssertTrue([FBApplication fb_activeApplication].buttons[@"Alerts"].fb_isVisible);
-  [self goToSpringBoardFirstPage];
-  XCTAssertTrue([FBApplication fb_activeApplication].icons[@"Safari"].fb_isVisible);
+  [self goToHeadBoardPage];
+  XCTAssertTrue([FBApplication fb_activeApplication].icons[@"Settings"].fb_isVisible);
 }
 
 @end
