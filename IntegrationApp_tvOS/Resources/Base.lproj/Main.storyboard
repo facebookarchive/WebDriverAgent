@@ -199,6 +199,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VNh-vi-mmb">
+                                <rect key="frame" x="10" y="10" width="30" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="testView">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="9XC-nR-bJd"/>
+                                    <constraint firstAttribute="height" constant="30" id="H6u-Y4-O28"/>
+                                </constraints>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="MSP-5w-Dr8">
                                 <rect key="frame" x="120" y="80" width="1770" height="840"/>
                                 <subviews>
@@ -414,6 +425,8 @@
                             <constraint firstItem="MSP-5w-Dr8" firstAttribute="leading" secondItem="BqE-TL-DXu" secondAttribute="leading" constant="30" id="HWk-iX-Yqp"/>
                             <constraint firstItem="MSP-5w-Dr8" firstAttribute="top" secondItem="yID-bc-7lY" secondAttribute="bottom" constant="20" id="VCe-wA-gGx"/>
                             <constraint firstItem="KZL-e3-IMb" firstAttribute="top" secondItem="MSP-5w-Dr8" secondAttribute="bottom" constant="100" id="mcu-wf-Wbt"/>
+                            <constraint firstItem="VNh-vi-mmb" firstAttribute="leading" secondItem="6AW-gb-wo5" secondAttribute="leading" constant="10" id="vBC-TW-lXO"/>
+                            <constraint firstItem="VNh-vi-mmb" firstAttribute="top" secondItem="6AW-gb-wo5" secondAttribute="top" constant="10" id="vPY-RY-PmS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BqE-TL-DXu"/>
                     </view>

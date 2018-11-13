@@ -32,7 +32,7 @@
 
 - (void)testElementAccessibilityAttributes
 {
-  // "Button" is accessibility element, and therefore isn't accessibility container
+  // "Select me" is accessibility element, and therefore isn't accessibility container
   XCUIElement *buttonElement = self.testedApplication.buttons[@"Select me"];
   XCTAssertTrue(buttonElement.exists);
   XCTAssertTrue(buttonElement.fb_isAccessibilityElement);
@@ -41,7 +41,7 @@
 
 - (void)testContainerAccessibilityAttributes
 {
-  // "not_accessible" isn't accessibility element, but contains accessibility elements, so it is accessibility container
+  // "Not accessible" isn't accessibility element, but contains accessibility elements, so it is accessibility container
   XCUIElement *inaccessibleButtonElement = self.testedApplication.buttons[@"Not accessible"];
   XCTAssertTrue(inaccessibleButtonElement.exists);
   XCTAssertFalse(inaccessibleButtonElement.fb_isAccessibilityElement);
