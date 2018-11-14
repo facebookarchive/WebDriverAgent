@@ -29,8 +29,8 @@ function define_xc_macros_ios() {
   esac
 
   case "${DEST:-}" in
-    "iphone" ) XC_DESTINATION="-destination \"name=iPhone SE,OS=11.2\"";;
-    "ipad" ) XC_DESTINATION="-destination \"name=iPad Air 2,OS=11.2\"";;
+    "iphone" ) XC_DESTINATION="-destination \"name=iPhone SE,OS=12.1\"";;
+    "ipad" ) XC_DESTINATION="-destination \"name=iPad Air 2,OS=12.1\"";;
   esac
 
   case "$ACTION" in
@@ -60,7 +60,7 @@ function define_xc_macros_tvos() {
     *) echo "Unknown TARGET"; exit 1 ;;
   esac
 
-  XC_DESTINATION="-destination \"name=Apple TV,OS=11.2\""
+  XC_DESTINATION="-destination \"name=Apple TV,OS=12.1\""
 
   case "$ACTION" in
     "build" ) XC_ACTION="build";;
