@@ -46,7 +46,6 @@
   NSUInteger preClearTextLength = 0;
   NSData *encodedSequence = [@"\\u0008\\u007F" dataUsingEncoding:NSASCIIStringEncoding];
   NSString *backspaceDeleteSequence = [[NSString alloc] initWithData:encodedSequence encoding:NSNonLossyASCIIStringEncoding];
-  NSLog(@"DEBUG: length=%lu", [self.value fb_visualLength]);
   while ([self.value fb_visualLength] != preClearTextLength) {
     NSMutableString *textToType = @"".mutableCopy;
     preClearTextLength = [self.value fb_visualLength];
