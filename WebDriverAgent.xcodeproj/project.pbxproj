@@ -836,7 +836,7 @@
 		1CDC566C2111C26F00868007 /* WebDriverAgentRunner_tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentRunner_tvOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CEC817D2199A0990071306F /* FBTVFailureProofTestCaseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVFailureProofTestCaseTests.m; sourceTree = "<group>"; };
 		1CEC817F2199A8170071306F /* FBTVKeyboardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVKeyboardTests.m; sourceTree = "<group>"; };
-		1CEC81962199B6630071306F /* IntegrationTests_2_tvOS .xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IntegrationTests_2_tvOS .xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CEC81962199B6630071306F /* IntegrationTests_2_tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests_2_tvOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CEC81982199B79F0071306F /* FBTVTypingTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVTypingTest.m; sourceTree = "<group>"; };
 		1CEC819A2199BA400071306F /* FBTVXPathIntegrationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVXPathIntegrationTests.m; sourceTree = "<group>"; };
 		1CEC819D2199CC460071306F /* TVXCElementSnapshotHelperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVXCElementSnapshotHelperTests.m; sourceTree = "<group>"; };
@@ -1398,7 +1398,7 @@
 				1CDC566C2111C26F00868007 /* WebDriverAgentRunner_tvOS.xctest */,
 				1C1954B021133DDC00A99F21 /* IntegrationApp_tvOS.app */,
 				1C3C6FBD21184F2D00FAFD69 /* IntegrationTests_1_tvOS.xctest */,
-				1CEC81962199B6630071306F /* IntegrationTests_2_tvOS .xctest */,
+				1CEC81962199B6630071306F /* IntegrationTests_2_tvOS.xctest */,
 				1C7365CD219C6660009BC01A /* UnitTests_tvOS.xctest */,
 			);
 			name = Products;
@@ -2378,9 +2378,9 @@
 			productReference = 1CDC566C2111C26F00868007 /* WebDriverAgentRunner_tvOS.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		1CEC81812199B6630071306F /* IntegrationTests_2_tvOS  */ = {
+		1CEC81812199B6630071306F /* IntegrationTests_2_tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1CEC81932199B6630071306F /* Build configuration list for PBXNativeTarget "IntegrationTests_2_tvOS " */;
+			buildConfigurationList = 1CEC81932199B6630071306F /* Build configuration list for PBXNativeTarget "IntegrationTests_2_tvOS" */;
 			buildPhases = (
 				1CEC81862199B6630071306F /* Sources */,
 				1CEC818F2199B6630071306F /* Frameworks */,
@@ -2392,9 +2392,9 @@
 				1CEC81822199B6630071306F /* PBXTargetDependency */,
 				1CEC81842199B6630071306F /* PBXTargetDependency */,
 			);
-			name = "IntegrationTests_2_tvOS ";
+			name = IntegrationTests_2_tvOS;
 			productName = EvalUITests;
-			productReference = 1CEC81962199B6630071306F /* IntegrationTests_2_tvOS .xctest */;
+			productReference = 1CEC81962199B6630071306F /* IntegrationTests_2_tvOS.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		EE158A981CBD452B00A3E3F0 /* WebDriverAgentLib */ = {
@@ -2598,7 +2598,7 @@
 				EE5095DD1EBCC9090028E2FE /* IntegrationTests_2 */,
 				EE2202031ECC612200A29571 /* IntegrationTests_3 */,
 				1C3C6FA821184F2D00FAFD69 /* IntegrationTests_1_tvOS */,
-				1CEC81812199B6630071306F /* IntegrationTests_2_tvOS  */,
+				1CEC81812199B6630071306F /* IntegrationTests_2_tvOS */,
 				EE9B75D31CF7956C00275851 /* IntegrationApp */,
 				1C1954AF21133DDC00A99F21 /* IntegrationApp_tvOS */,
 			);
@@ -3826,7 +3826,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1CEC81932199B6630071306F /* Build configuration list for PBXNativeTarget "IntegrationTests_2_tvOS " */ = {
+		1CEC81932199B6630071306F /* Build configuration list for PBXNativeTarget "IntegrationTests_2_tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1CEC81942199B6630071306F /* Debug */,

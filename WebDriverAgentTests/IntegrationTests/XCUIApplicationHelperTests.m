@@ -40,7 +40,7 @@
   NSError *error;
   XCTAssertTrue([[FBHomeboardApplication fb_homeboard] fb_tapApplicationWithIdentifier:@"Safari" error:&error]);
   XCTAssertNil(error);
-  XCTAssertTrue([FBApplication fb_activeApplication].buttons[@"URL"].exists);
+  FBAssertWaitTillBecomesTrue([FBApplication fb_activeApplication].buttons[@"URL"].exists);
 }
 
 - (void)testWaitingForSpringboard

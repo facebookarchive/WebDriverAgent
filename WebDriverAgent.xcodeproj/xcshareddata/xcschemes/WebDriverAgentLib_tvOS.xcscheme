@@ -44,8 +44,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1CEC81812199B6630071306F"
-               BuildableName = "IntegrationTests_2_tvOS .xctest"
-               BlueprintName = "IntegrationTests_2_tvOS "
+               BuildableName = "IntegrationTests_2_tvOS.xctest"
+               BlueprintName = "IntegrationTests_2_tvOS"
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
             </BuildableReference>
          </TestableReference>
