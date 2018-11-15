@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1CDC565E2111C26F00868007"
-               BuildableName = "WebDriverAgentRunner_tvOS.xctest"
-               BlueprintName = "WebDriverAgentRunner_tvOS"
+               BlueprintIdentifier = "1C1954AF21133DDC00A99F21"
+               BuildableName = "IntegrationApp_tvOS.app"
+               BlueprintName = "IntegrationApp_tvOS"
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,13 +32,32 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1CDC565E2111C26F00868007"
-               BuildableName = "WebDriverAgentRunner_tvOS.xctest"
-               BlueprintName = "WebDriverAgentRunner_tvOS"
+               BlueprintIdentifier = "1C1954C321133DDD00A99F21"
+               BuildableName = "IntegrationTests_tvOS.xctest"
+               BlueprintName = "IntegrationTests_tvOS"
+               ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1C1954C321133DDD00A99F21"
+               BuildableName = "IntegrationTests_tvOS.xctest"
+               BlueprintName = "IntegrationTests_tvOS"
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "1C1954AF21133DDC00A99F21"
+            BuildableName = "IntegrationApp_tvOS.app"
+            BlueprintName = "IntegrationApp_tvOS"
+            ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -52,15 +71,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1CDC565E2111C26F00868007"
-            BuildableName = "WebDriverAgentRunner_tvOS.xctest"
-            BlueprintName = "WebDriverAgentRunner_tvOS"
+            BlueprintIdentifier = "1C1954AF21133DDC00A99F21"
+            BuildableName = "IntegrationApp_tvOS.app"
+            BlueprintName = "IntegrationApp_tvOS"
             ReferencedContainer = "container:WebDriverAgent.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -70,6 +90,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "1C1954AF21133DDC00A99F21"
+            BuildableName = "IntegrationApp_tvOS.app"
+            BlueprintName = "IntegrationApp_tvOS"
+            ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

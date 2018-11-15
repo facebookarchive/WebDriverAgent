@@ -19,9 +19,9 @@
 #import "XCUIElement+FBUtilities.h"
 #import "XCUIElement+FBTap.h"
 #import "XCUIElement+FBScrolling.h"
+#import "XCUIElement+FBTVFocuse.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
-#import "XCUIApplication+FBFocused.h"
 #import "FBLogger.h"
 
 #if TARGET_OS_IOS
@@ -110,7 +110,7 @@ NSString *const HOMEBOARD_BUNDLE_ID = @"com.apple.HeadBoard";
   }
   // Select the most recent installed application if there are multiple matches
   XCUIElement *appElement = [matchedAppElements lastObject];
-  if (![self findElementOnGrid: appElement withError: error]) {
+  if (![appElement fb_selectWithError:error]) {
     return NO;
   }
   [[XCUIRemote sharedRemote] pressButton: XCUIRemoteButtonSelect];
@@ -149,40 +149,5 @@ NSString *const HOMEBOARD_BUNDLE_ID = @"com.apple.HeadBoard";
   return self.collectionViews[@"GridCollectionView"].isEnabled;
 #endif
 }
-
-#pragma mark - Helpers
-
-#if TARGET_OS_TV
-- (BOOL) findElementOnGrid:(XCUIElement*) element withError:(NSError **)error {
-  BOOL isMovingRight = YES;
-  XCUIElement *current;
-  XCUIElement *previous;
-  BOOL isEndReached = NO;
-  
-  while (!element.exists || !element.hasFocus) {
-    XCUIRemoteButton button = isMovingRight ? XCUIRemoteButtonRight : XCUIRemoteButtonLeft;
-    [[XCUIRemote sharedRemote] pressButton: button];
-    current = [self fb_focusedElement];
-
-    if (previous && [current isEqual:previous]) {
-      // line end reached
-      [[XCUIRemote sharedRemote] pressButton: XCUIRemoteButtonDown];
-      isMovingRight = !isMovingRight;
-      current = [self fb_focusedElement];
-      if ([current isEqual: previous]) {
-        if (isEndReached) {
-          return [[[FBErrorBuilder builder]
-            withDescription:@"Cannot navigate to Headboard icon for application"]
-           buildError:error];
-        } else {
-          isEndReached = YES;
-        }
-      }
-    }
-    previous = current;
-  }
-  return YES;
-}
-#endif
 
 @end

@@ -43,18 +43,6 @@
   return self;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
-  self = [self init];
-  self.wdFrame = frame;
-  self.wdRect = @{@"x": [NSNumber numberWithInt: CGRectGetMinX(frame)],
-                  @"y": [NSNumber numberWithInt: CGRectGetMinY(frame)],
-                  @"width": [NSNumber numberWithInt: CGRectGetWidth(frame)],
-                  @"height": [NSNumber numberWithInt: CGRectGetHeight(frame)],
-                  };
-  return self;
-}
-
 - (id)fb_valueForWDAttributeName:(NSString *)name
 {
   return @"test";

@@ -8,6 +8,7 @@
  */
 
 #import <XCTest/XCTest.h>
+#import "FBElement.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Return current focused element
   */
-- (XCUIElement*) fb_focusedElement;
+- (id<FBElement>) fb_focusedElement;
 
 @end
 

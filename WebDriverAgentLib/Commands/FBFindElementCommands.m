@@ -22,6 +22,7 @@
 #import "XCUIElement+FBFind.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBClassChain.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 #import "XCUIApplication+FBFocused.h"
 
 static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteRequest *request)
@@ -108,8 +109,8 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
 + (id<FBResponsePayload>)handleFindFocusedElement:(FBRouteRequest *)request
 {
   FBElementCache *elementCache = request.session.elementCache;
-  XCUIElement *element = [[FBApplication fb_activeApplication] fb_focusedElement];
-  return FBResponseWithElementUUID([elementCache storeElement:element]);
+  id<FBElement> element = [[FBApplication fb_activeApplication] fb_focusedElement];
+  return FBResponseWithElementUUID([elementCache storeElement:(XCUIElement *)element]);
 }
 #endif
 

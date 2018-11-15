@@ -39,6 +39,4 @@
 // Checks
 @property (nonatomic, assign, readonly) BOOL didResolve;
 
-- (instancetype)initWithFrame:(CGRect)frame;
-
 @end

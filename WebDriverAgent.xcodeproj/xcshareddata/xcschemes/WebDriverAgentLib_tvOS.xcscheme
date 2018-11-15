@@ -26,15 +26,36 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      codeCoverageEnabled = "YES"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1CDC565E2111C26F00868007"
-               BuildableName = "WebDriverAgentRunner_tvOS.xctest"
-               BlueprintName = "WebDriverAgentRunner_tvOS"
+               BlueprintIdentifier = "1C3C6FA821184F2D00FAFD69"
+               BuildableName = "IntegrationTests_1_tvOS.xctest"
+               BlueprintName = "IntegrationTests_1_tvOS"
+               ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1CEC81812199B6630071306F"
+               BuildableName = "IntegrationTests_2_tvOS .xctest"
+               BlueprintName = "IntegrationTests_2_tvOS "
+               ReferencedContainer = "container:WebDriverAgent.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1C7365AA219C6660009BC01A"
+               BuildableName = "UnitTests_tvOS.xctest"
+               BlueprintName = "UnitTests_tvOS"
                ReferencedContainer = "container:WebDriverAgent.xcodeproj">
             </BuildableReference>
          </TestableReference>

@@ -8,10 +8,11 @@
  */
 
 #import "XCUIApplication+FBFocused.h"
+#import "XCUIElement+FBWebDriverAttributes.h"
 
 @implementation XCUIApplication (FBFocused)
 
-- (XCUIElement*) fb_focusedElement {
+- (id<FBElement>) fb_focusedElement {
   XCUIElementQuery *query = [self descendantsMatchingType:XCUIElementTypeAny];
   return [query elementMatchingPredicate: [NSPredicate predicateWithFormat:@"hasFocus == true"]];
 }
