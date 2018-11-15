@@ -37,16 +37,6 @@
   XCTAssertFalse(self.springboard.icons[@"IntegrationApp"].fb_isVisible);
 }
 
-- (void)testSpringBoardSubfolder
-{
-  if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-    return;
-  }
-  [self launchApplication];
-  [self goToSpringBoardExtras];
-  XCTAssertFalse(self.springboard.icons[@"Extras"].otherElements[@"Contacts"].fb_isVisible);
-}
-
 - (void)testIconsFromSearchDashboard
 {
   [self launchApplication];
