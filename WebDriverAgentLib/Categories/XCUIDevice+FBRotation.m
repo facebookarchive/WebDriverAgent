@@ -16,14 +16,12 @@ static const CGFloat FBRotationCoolOffTime = 1.f;
 
 @implementation XCUIDevice (FBRotation)
 
-
 - (BOOL)fb_setDeviceInterfaceOrientation:(UIDeviceOrientation)orientation
 {
   FBApplication *application = FBApplication.fb_activeApplication;
   [XCUIDevice sharedDevice].orientation = orientation;
   return [self waitUntilInterfaceIsAtOrientation:orientation application:application];
 }
-
 
 - (BOOL)fb_setDeviceRotation:(NSDictionary *)rotationObj
 {

@@ -45,6 +45,15 @@ NSString *const HOMEBOARD_BUNDLE_ID = @"com.apple.HeadBoard";
   return _homeboardApp;
 }
 
+- (BOOL)fb_openApplicationWithIdentifier:(NSString *)identifier error:(NSError **)error
+{
+#if TARGET_OS_IOS
+  return [self fb_tapApplicationWithIdentifier:identifier error:error];
+#else
+  return [self fb_selectApplicationWithIdentifier:identifier error:error];
+#endif
+}
+
 #if TARGET_OS_IOS
 
 - (BOOL)fb_tapApplicationWithIdentifier:(NSString *)identifier error:(NSError **)error

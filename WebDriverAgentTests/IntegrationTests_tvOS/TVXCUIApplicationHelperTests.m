@@ -37,7 +37,7 @@
 {
   [self goToHeadBoardPage];
   NSError *error;
-  XCTAssertTrue([[FBHomeboardApplication fb_homeboard] fb_selectApplicationWithIdentifier:@"Settings" error:&error]);
+  XCTAssertTrue([[FBHomeboardApplication fb_homeboard] fb_openApplicationWithIdentifier:@"Settings" error:&error]);
   XCTAssertNil(error);
   XCTAssertTrue([FBApplication fb_activeApplication].cells[@"General"].exists);
 }

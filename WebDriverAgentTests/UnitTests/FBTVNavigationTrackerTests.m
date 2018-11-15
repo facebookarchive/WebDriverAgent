@@ -14,7 +14,8 @@
 
 @implementation FBTVNavigationTracker (FBTVNavigationTrackerTests)
 
-+ (void)load {
++ (void)load
+{
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     Class class = [self class];
@@ -41,7 +42,8 @@
 
 #pragma mark - Method Swizzling
 
-- (id<FBElement>)testFocusedElement {
+- (id<FBElement>)testFocusedElement
+{
   XCUIElementDouble *focused = XCUIElementDouble.new;
   focused.wdFrame = CGRectMake(100, 100,  100, 100);;
   return focused;
@@ -54,63 +56,72 @@
 
 @implementation FBTVNavigationTrackerTests
 
-- (void)testSimpleLeftNavigation {
+- (void)testSimpleLeftNavigation
+{
   XCUIElementDouble *targetElement = XCUIElementDouble.new;
   targetElement.wdFrame = CGRectMake(0, 100,  100, 100);
   FBTVNavigationTracker *tracker = [FBTVNavigationTracker trackerWithTargetElement:targetElement];
   XCTAssertEqual(tracker.directionToMoveFocuse, FBTVDirectionLeft);
 }
 
-- (void)testSimpleRightNavigation {
+- (void)testSimpleRightNavigation
+{
   XCUIElementDouble *targetElement = XCUIElementDouble.new;
   targetElement.wdFrame = CGRectMake(200, 100,  100, 100);
   FBTVNavigationTracker *tracker = [FBTVNavigationTracker trackerWithTargetElement:targetElement];
   XCTAssertEqual(tracker.directionToMoveFocuse, FBTVDirectionRight);
 }
 
-- (void)testSimpleUpNavigation {
+- (void)testSimpleUpNavigation
+{
   XCUIElementDouble *targetElement = XCUIElementDouble.new;
   targetElement.wdFrame = CGRectMake(100, 0,  100, 100);
   FBTVNavigationTracker *tracker = [FBTVNavigationTracker trackerWithTargetElement:targetElement];
   XCTAssertEqual(tracker.directionToMoveFocuse, FBTVDirectionUp);
 }
 
-- (void)testSimpleDownNavigation {
+- (void)testSimpleDownNavigation
+{
   XCUIElementDouble *targetElement = XCUIElementDouble.new;
   targetElement.wdFrame = CGRectMake(100, 200,  100, 100);
   FBTVNavigationTracker *tracker = [FBTVNavigationTracker trackerWithTargetElement:targetElement];
   XCTAssertEqual(tracker.directionToMoveFocuse, FBTVDirectionDown);
 }
 
-- (void)testComplexLeftNavigation {
+- (void)testComplexLeftNavigation
+{
   XCUIElementDouble *targetElement = XCUIElementDouble.new;
   targetElement.wdFrame = CGRectMake(0, 50,  100, 100);
   FBTVNavigationTracker *tracker = [FBTVNavigationTracker trackerWithTargetElement:targetElement];
   XCTAssertEqual(tracker.directionToMoveFocuse, FBTVDirectionLeft);
 }
 
-- (void)testComplexRightNavigation {
+- (void)testComplexRightNavigation
+{
   XCUIElementDouble *targetElement = XCUIElementDouble.new;
   targetElement.wdFrame = CGRectMake(200, 50,  100, 100);
   FBTVNavigationTracker *tracker = [FBTVNavigationTracker trackerWithTargetElement:targetElement];
   XCTAssertEqual(tracker.directionToMoveFocuse, FBTVDirectionRight);
 }
 
-- (void)testComplexUpNavigation {
+- (void)testComplexUpNavigation
+{
   XCUIElementDouble *targetElement = XCUIElementDouble.new;
   targetElement.wdFrame = CGRectMake(50, 0,  100, 100);
   FBTVNavigationTracker *tracker = [FBTVNavigationTracker trackerWithTargetElement:targetElement];
   XCTAssertEqual(tracker.directionToMoveFocuse, FBTVDirectionUp);
 }
 
-- (void)testComplexDownNavigation {
+- (void)testComplexDownNavigation
+{
   XCUIElementDouble *targetElement = XCUIElementDouble.new;
   targetElement.wdFrame = CGRectMake(50, 200,  100, 100);
   FBTVNavigationTracker *tracker = [FBTVNavigationTracker trackerWithTargetElement:targetElement];
   XCTAssertEqual(tracker.directionToMoveFocuse, FBTVDirectionDown);
 }
 
-- (void)testOneDirectionSimpleNavigation {
+- (void)testOneDirectionSimpleNavigation
+{
   XCUIElementDouble *targetElement = XCUIElementDouble.new;
   targetElement.wdFrame = CGRectMake(0, 100,  100, 100);
   FBTVNavigationTracker *tracker = [FBTVNavigationTracker trackerWithTargetElement:targetElement];
@@ -118,7 +129,8 @@
   XCTAssertEqual(tracker.directionToMoveFocuse, FBTVDirectionNone);
 }
 
-- (void)testOneDirectionComplexWhereXGraterNavigation {
+- (void)testOneDirectionComplexWhereXGraterNavigation
+{
   XCUIElementDouble *targetElement = XCUIElementDouble.new;
   targetElement.wdFrame = CGRectMake(0, 50,  100, 100);
   FBTVNavigationTracker *tracker = [FBTVNavigationTracker trackerWithTargetElement:targetElement];
@@ -127,7 +139,8 @@
   XCTAssertEqual(tracker.directionToMoveFocuse, FBTVDirectionNone);
 }
 
-- (void)testOneDirectionComplexWhereYGraterNavigation {
+- (void)testOneDirectionComplexWhereYGraterNavigation
+{
   XCUIElementDouble *targetElement = XCUIElementDouble.new;
   targetElement.wdFrame = CGRectMake(50, 0,  100, 100);
   FBTVNavigationTracker *tracker = [FBTVNavigationTracker trackerWithTargetElement:targetElement];

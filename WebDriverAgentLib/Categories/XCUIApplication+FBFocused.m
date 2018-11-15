@@ -12,7 +12,8 @@
 
 @implementation XCUIApplication (FBFocused)
 
-- (id<FBElement>) fb_focusedElement {
+- (id<FBElement>) fb_focusedElement
+{
   XCUIElementQuery *query = [self descendantsMatchingType:XCUIElementTypeAny];
   return [query elementMatchingPredicate: [NSPredicate predicateWithFormat:@"hasFocus == true"]];
 }

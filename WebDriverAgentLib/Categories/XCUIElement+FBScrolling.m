@@ -101,15 +101,11 @@ const CGFloat FBMinimumTouchEventDelay = 0.1f;
   XCElementSnapshot *elementSnapshot = self.fb_lastSnapshot;
   XCElementSnapshot *scrollView = [elementSnapshot fb_parentMatchingOneOfTypes:acceptedParents
                                                                         filter:^(XCElementSnapshot *snapshot) {
-                                                                          
                                                                           if (![snapshot isWDVisible]) {
                                                                             return NO;
                                                                           }
-                                                                          
                                                                           cellSnapshots = [snapshot fb_descendantsCellSnapshots];
-                                                                          
                                                                           visibleCellSnapshots = [cellSnapshots filteredArrayUsingPredicate:[FBPredicate predicateWithFormat:@"%K == YES", FBStringify(XCUIElement, fb_isVisible)]];
-                                                                          
                                                                           if (visibleCellSnapshots.count > 1) {
                                                                             return YES;
                                                                           }

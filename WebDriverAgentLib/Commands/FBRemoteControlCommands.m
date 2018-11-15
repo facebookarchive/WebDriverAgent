@@ -18,7 +18,8 @@
 
 #pragma mark - <FBCommandHandler>
 
-+ (nonnull NSArray *)routes {
++ (nonnull NSArray *)routes
+{
   return
   @[
     [[FBRoute POST:@"/remote/press/:button"].withoutSession respondWithTarget:self action:@selector(handlePress:)],
@@ -39,11 +40,12 @@
   }
 }
 
-+ (BOOL) isValid: (NSNumber *) buttonId {
++ (BOOL) isValid: (NSNumber *) buttonId
+{
   if (buttonId) {
     return buttonId.intValue >= 0 && buttonId.intValue <= 8;
   } else {
-    return false;
+    return NO;
   }
 }
 

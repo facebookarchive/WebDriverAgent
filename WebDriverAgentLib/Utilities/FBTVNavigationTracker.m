@@ -19,17 +19,17 @@
 @property (nonatomic, assign) NSUInteger uid;
 @property (nonatomic, strong) NSMutableSet<NSNumber *>* directions;
 
-+(instancetype)itemWithUid:(NSUInteger) uid;
++ (instancetype)itemWithUid:(NSUInteger) uid;
 @end
 
 @implementation FBTVNavigationItem
 
-+(instancetype)itemWithUid:(NSUInteger) uid
++ (instancetype)itemWithUid:(NSUInteger) uid
 {
   return [[FBTVNavigationItem alloc] initWithUid:uid];
 }
 
--(instancetype)initWithUid:(NSUInteger) uid
+- (instancetype)initWithUid:(NSUInteger) uid
 {
   self = [super init];
   if(self) {
@@ -49,14 +49,14 @@
 
 @implementation FBTVNavigationTracker
 
-+(instancetype)trackerWithTargetElement: (id<FBElement>) targetElement
++ (instancetype)trackerWithTargetElement:(id<FBElement>)targetElement
 {
   FBTVNavigationTracker *tracker = [[FBTVNavigationTracker alloc] initWithTargetElement:targetElement];
   tracker.targetElement = targetElement;
   return tracker;
 }
 
--(instancetype)initWithTargetElement: (id<FBElement>) targetElement
+- (instancetype)initWithTargetElement:(id<FBElement>)targetElement
 {
   self = [super init];
   if(self) {
@@ -67,7 +67,7 @@
   return self;
 }
 
--(FBTVDirection)directionToMoveFocuse
+- (FBTVDirection)directionToMoveFocuse
 {
   id<FBElement> focused = self.focusedElement;
   CGPoint focusedCenter = FBRectGetCenter(focused.wdFrame);
@@ -91,12 +91,12 @@
 }
 
 #pragma mark - Utilities
--(id<FBElement>) focusedElement
+- (id<FBElement>)focusedElement
 {
   return [FBApplication fb_activeApplication].fb_focusedElement;
 }
 
--(FBTVNavigationItem*) navigationItemFromElement:(id<FBElement>) element
+-(FBTVNavigationItem*) navigationItemFromElement:(id<FBElement>)element
 
 {
   NSNumber *key = [NSNumber numberWithUnsignedInteger:element.wdUID];
@@ -109,7 +109,7 @@
   return item;
 }
 
--(FBTVDirection)getHorizontalDirectionForItem:(FBTVNavigationItem *)item withDelta:(CGFloat)delta {
+- (FBTVDirection)getHorizontalDirectionForItem:(FBTVNavigationItem *)item withDelta:(CGFloat)delta {
   if (delta > 0) {
     if(![item.directions containsObject: [NSNumber numberWithInteger: FBTVDirectionRight]]) {
       [item.directions addObject: [NSNumber numberWithInteger: FBTVDirectionRight]];
@@ -125,7 +125,7 @@
   return FBTVDirectionNone;
 }
 
--(FBTVDirection)getVerticalDirectionForItem:(FBTVNavigationItem *)item withDelta:(CGFloat)delta {
+- (FBTVDirection)getVerticalDirectionForItem:(FBTVNavigationItem *)item withDelta:(CGFloat)delta {
   if (delta > 0) {
     if(![item.directions containsObject: [NSNumber numberWithInteger: FBTVDirectionDown]]) {
       [item.directions addObject: [NSNumber numberWithInteger: FBTVDirectionDown]];

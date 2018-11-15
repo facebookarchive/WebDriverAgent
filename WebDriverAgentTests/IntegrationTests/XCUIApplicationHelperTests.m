@@ -38,7 +38,7 @@
 {
   [self goToSpringBoardFirstPage];
   NSError *error;
-  XCTAssertTrue([[FBHomeboardApplication fb_homeboard] fb_tapApplicationWithIdentifier:@"Safari" error:&error]);
+  XCTAssertTrue([[FBHomeboardApplication fb_homeboard] fb_openApplicationWithIdentifier:@"Safari" error:&error]);
   XCTAssertNil(error);
   FBAssertWaitTillBecomesTrue([FBApplication fb_activeApplication].buttons[@"URL"].exists);
 }

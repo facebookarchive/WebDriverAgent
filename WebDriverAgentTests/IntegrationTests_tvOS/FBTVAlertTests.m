@@ -154,13 +154,8 @@
   BOOL isIpad = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
   [self showApplicationSheet];
   XCUIElement *showSheetButton = self.testedApplication.buttons[FBShowSheetAlertButtonName];
-  //On iphone this filterObstructedElements will throw an exception.
-  if (isIpad) {
-    NSArray *filteredElements = [alert filterObstructedElements:@[showSheetButton]];
-    XCTAssertEqualObjects(filteredElements, @[showSheetButton]);
-  } else {
-    XCTAssertThrowsSpecificNamed([alert filterObstructedElements:@[showSheetButton]], NSException, FBAlertObstructingElementException, @"should throw FBAlertObstructingElementException");
-  }
+  XCTAssertThrowsSpecificNamed([alert filterObstructedElements:@[showSheetButton]], NSException, FBAlertObstructingElementException, @"should throw FBAlertObstructingElementException");
+  
 }
 
 @end

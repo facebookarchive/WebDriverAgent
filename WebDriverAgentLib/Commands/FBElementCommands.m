@@ -495,7 +495,7 @@ static const CGFloat DEFAULT_OFFSET = (CGFloat)0.2;
       return FBResponseWithErrorFormat(@"'offset' value is expected to be in range (0.0, 0.5]. '%@' was given instead", request.arguments[@"offset"]);
     }
   }
-  BOOL isSuccessful = false;
+  BOOL isSuccessful = NO;
   NSError *error;
   if ([order isEqualToString:@"next"]) {
     isSuccessful = [element fb_selectNextOptionWithOffset:offset error:&error];

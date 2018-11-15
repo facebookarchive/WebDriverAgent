@@ -195,7 +195,8 @@ NSString *const FBAlertWindowIdentifier = @"dialogWindow";
   return [self submitAlertButton:cancelButton withError:error];
 }
 
-- (BOOL)clickAlertButton:(NSString *)label error:(NSError **)error {
+- (BOOL)clickAlertButton:(NSString *)label error:(NSError **)error
+{
   
   XCUIElement *alertElement = self.alertElement;
   NSArray<XCUIElement *> *buttons = [self alertButtons];
@@ -253,7 +254,8 @@ NSString *const FBAlertWindowIdentifier = @"dialogWindow";
   return elementBox.copy;
 }
 
-- (NSArray<XCUIElement *> *)alertButtons {
+- (NSArray<XCUIElement *> *)alertButtons
+{
   XCUIElement *alertElement = self.alertElement;
   NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
 #if TARGET_OS_IOS
@@ -293,7 +295,8 @@ NSString *const FBAlertWindowIdentifier = @"dialogWindow";
   return alert;
 }
 
-- (BOOL) submitAlertButton: (XCUIElement *) button withError:(NSError **) error {
+- (BOOL) submitAlertButton: (XCUIElement *) button withError:(NSError **) error
+{
 #if TARGET_OS_IOS
   return [button fb_tapWithError:error];
 #elif TARGET_OS_TV

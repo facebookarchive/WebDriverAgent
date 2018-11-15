@@ -44,7 +44,8 @@
   [self.locationManager requestWhenInUseAuthorization];
 }
 
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
   [super touchesMoved:touches withEvent:event];
   for (UITouch *touch in touches) {
     if (fabs(touch.maximumPossibleForce - touch.force) < 0.0001) {
