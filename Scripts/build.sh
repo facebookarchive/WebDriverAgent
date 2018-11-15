@@ -68,7 +68,7 @@ function define_xc_macros_tvos() {
       XC_ACTION="analyze"
       XC_MACROS="${XC_MACROS} CLANG_ANALYZER_OUTPUT=plist-html CLANG_ANALYZER_OUTPUT_DIR=\"$(pwd)/clang\""
     ;;
-    "unit_test" ) XC_ACTION="test -only-testing:UnitTests";;
+    "unit_test" ) XC_ACTION="test -only-testing:UnitTests_tvOS";;
     "int_test_1" ) XC_ACTION="test -only-testing:IntegrationTests_1_tvOS";;
     "int_test_2" ) XC_ACTION="test -only-testing:IntegrationTests_2_tvOS";;
     *) echo "Unknown ACTION"; exit 1 ;;
