@@ -9,13 +9,8 @@
 
 #import <XCTest/XCTest.h>
 
-#if !TARGET_OS_TV
-
 @interface XCUICoordinate (FBFix)
 
 - (CGPoint)fb_screenPoint;
 
 @end
-
-#endif
-

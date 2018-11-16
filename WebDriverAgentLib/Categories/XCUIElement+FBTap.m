@@ -20,7 +20,6 @@
 #import "XCPointerEventPath.h"
 #import "XCTRunnerDaemonSession.h"
 
-#if !TARGET_OS_TV
 const CGFloat FBTapDuration = 0.01f;
 
 @implementation XCUIElement (FBTap)
@@ -63,7 +62,7 @@ const CGFloat FBTapDuration = 0.01f;
       didSucceed = (commandError == nil);
       completion();
     };
-    
+
     XCSynthesizedEventRecord *event = [self fb_generateTapEvent:hitPoint orientation:self.interfaceOrientation];
     [[XCTRunnerDaemonSession sharedSession] synthesizeEvent:event completion:^(NSError *invokeError){
       handlerBlock(event, invokeError);
@@ -88,5 +87,3 @@ const CGFloat FBTapDuration = 0.01f;
 }
 
 @end
-
-#endif

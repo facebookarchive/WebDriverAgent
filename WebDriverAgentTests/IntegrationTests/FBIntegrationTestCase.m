@@ -9,7 +9,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import "FBHomeboardApplication.h"
+#import "FBSpringboardApplication.h"
 #import "FBTestMacros.h"
 #import "FBIntegrationTestCase.h"
 #import "FBConfiguration.h"
@@ -25,7 +25,7 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
 
 @interface FBIntegrationTestCase ()
 @property (nonatomic, strong) XCUIApplication *testedApplication;
-@property (nonatomic, strong) FBHomeboardApplication *springboard;
+@property (nonatomic, strong) FBSpringboardApplication *springboard;
 @end
 
 @implementation FBIntegrationTestCase
@@ -36,7 +36,7 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
   [FBConfiguration disableRemoteQueryEvaluation];
   [FBConfiguration disableAttributeKeyPathAnalysis];
   self.continueAfterFailure = NO;
-  self.springboard = [FBHomeboardApplication fb_homeboard];
+  self.springboard = [FBSpringboardApplication fb_springboard];
   self.testedApplication = [XCUIApplication new];
 }
 
@@ -70,9 +70,9 @@ NSString *const FBShowAlertForceTouchButtonName = @"Create Alert (Force Touch)";
 - (void)goToSpringBoardFirstPage
 {
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
-  FBAssertWaitTillBecomesTrue([FBHomeboardApplication fb_homeboard].icons[@"Safari"].exists);
+  FBAssertWaitTillBecomesTrue([FBSpringboardApplication fb_springboard].icons[@"Safari"].exists);
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
-  FBAssertWaitTillBecomesTrue([FBHomeboardApplication fb_homeboard].icons[@"Calendar"].fb_isVisible);
+  FBAssertWaitTillBecomesTrue([FBSpringboardApplication fb_springboard].icons[@"Calendar"].fb_isVisible);
 }
 
 - (void)goToSpringBoardExtras

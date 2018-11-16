@@ -130,7 +130,7 @@
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     [self launchApplication];
-    [self goToScrollPageWithCells:NO];
+    [self goToScrollPageWithCells:false];
   });
 }
 

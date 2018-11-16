@@ -57,17 +57,6 @@ inline static BOOL isSnapshotTypeAmongstGivenTypes(XCElementSnapshot* snapshot, 
   return snapshot;
 }
 
-- (NSArray<XCElementSnapshot *> *)fb_ancestors
-{
-  NSMutableArray<XCElementSnapshot *> *ancestors = [NSMutableArray array];
-  XCElementSnapshot *parent = self.parent;
-  while (parent) {
-    [ancestors addObject:parent];
-    parent = parent.parent;
-  }
-  return ancestors.copy;
-}
-
 - (id)fb_attributeValue:(NSNumber *)attribute
 {
   NSDictionary *attributesResult = [[XCAXClient_iOS sharedClient] attributesForElementSnapshot:self attributeList:@[attribute]];

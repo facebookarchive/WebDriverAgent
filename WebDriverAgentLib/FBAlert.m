@@ -14,7 +14,7 @@
 #import "FBApplication.h"
 #import "FBErrorBuilder.h"
 #import "FBFindElementCommands.h"
-#import "FBHomeboardApplication.h"
+#import "FBSpringboardApplication.h"
 #import "FBLogger.h"
 #import "FBXCodeCompatibility.h"
 #import "XCAXClient_iOS.h"
@@ -27,11 +27,8 @@
 #import "XCUIElement+FBWebDriverAttributes.h"
 #import "XCUIElement.h"
 #import "XCUIElementQuery.h"
-#import "XCUIApplication+FBFocused.h"
-#import "XCUIElement+FBTVFocuse.h"
 
 NSString *const FBAlertObstructingElementException = @"FBAlertObstructingElementException";
-NSString *const FBAlertWindowIdentifier = @"dialogWindow";
 
 @interface XCUIApplication (FBAlert)
 
@@ -61,16 +58,6 @@ NSString *const FBAlertWindowIdentifier = @"dialogWindow";
       return alert;
     }
   }
-
-#if TARGET_OS_TV
-
-  alert = self.windows[FBAlertWindowIdentifier];
-  if (alert.exists) {
-    return alert;
-  }
-  
-#endif
-  
   return nil;
 }
 
@@ -112,27 +99,6 @@ NSString *const FBAlertWindowIdentifier = @"dialogWindow";
       [resultText addObject:[NSString stringWithFormat:@"%@", staticText.wdLabel]];
     }
   }
-#if TARGET_OS_TV
-  // System alerts has description text in the text views
-  NSArray<XCUIElement *> *textList = [alert descendantsMatchingType:XCUIElementTypeTextView].allElementsBoundByIndex;
-  for (XCUIElement *textView in textList) {
-    if (textView.wdValue && textView.isWDVisible) {
-      [resultText addObject:[NSString stringWithFormat:@"%@", textView.wdValue]];
-    }
-  }
-  
-  // Application and sheet alerts have text in the other elements, not in the the static text
-  if (!resultText.count) {
-    NSArray<XCUIElement *> *otherElements = [alert descendantsMatchingType:XCUIElementTypeOther].allElementsBoundByIndex;
-    for (XCUIElement *otherElement in otherElements) {
-      // element should be visible, with text and no children
-      if (otherElement.wdLabel && otherElement.isWDVisible && ![otherElement descendantsMatchingType:XCUIElementTypeAny].count) {
-        [resultText addObject:[NSString stringWithFormat:@"%@", otherElement.wdLabel]];
-      }
-    }
-  }
-#endif
-  
   if (resultText.count) {
     return [resultText componentsJoinedByString:@"\n"];
   }
@@ -147,7 +113,7 @@ NSString *const FBAlertWindowIdentifier = @"dialogWindow";
   if (!alertElement) {
     return nil;
   }
-  NSArray<XCUIElement *> *buttons = [self alertButtons];
+  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
   for(XCUIElement *button in buttons) {
     [value addObject:[button wdLabel]];
   }
@@ -157,7 +123,7 @@ NSString *const FBAlertWindowIdentifier = @"dialogWindow";
 - (BOOL)acceptWithError:(NSError **)error
 {
   XCUIElement *alertElement = self.alertElement;
-  NSArray<XCUIElement *> *buttons = [self alertButtons];
+  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
 
   XCUIElement *defaultButton;
   if (alertElement.elementType == XCUIElementTypeAlert) {
@@ -171,14 +137,14 @@ NSString *const FBAlertWindowIdentifier = @"dialogWindow";
       withDescriptionFormat:@"Failed to find accept button for alert: %@", alertElement]
      buildError:error];
   }
-  return [self submitAlertButton:defaultButton withError:error];
+  return [defaultButton fb_tapWithError:error];
 }
 
 - (BOOL)dismissWithError:(NSError **)error
 {
   XCUIElement *cancelButton;
   XCUIElement *alertElement = self.alertElement;
-  NSArray<XCUIElement *> *buttons = [self alertButtons];
+  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
 
   if (alertElement.elementType == XCUIElementTypeAlert) {
     cancelButton = buttons.firstObject;
@@ -192,14 +158,13 @@ NSString *const FBAlertWindowIdentifier = @"dialogWindow";
      buildError:error];
     return NO;
   }
-  return [self submitAlertButton:cancelButton withError:error];
+  return [cancelButton fb_tapWithError:error];
 }
 
-- (BOOL)clickAlertButton:(NSString *)label error:(NSError **)error
-{
+- (BOOL)clickAlertButton:(NSString *)label error:(NSError **)error {
   
   XCUIElement *alertElement = self.alertElement;
-  NSArray<XCUIElement *> *buttons = [self alertButtons];
+  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
   XCUIElement *requestedButton;
   
   for(XCUIElement *button in buttons) {
@@ -215,7 +180,8 @@ NSString *const FBAlertWindowIdentifier = @"dialogWindow";
       withDescriptionFormat:@"Failed to find button with label %@ for alert: %@", label, alertElement]
      buildError:error];
   }
-  return [self submitAlertButton:requestedButton withError:error];
+  
+  return [requestedButton fb_tapWithError:error];
 }
 
 + (BOOL)isElementObstructedByAlertView:(XCUIElement *)element alert:(XCUIElement *)alert
@@ -254,69 +220,14 @@ NSString *const FBAlertWindowIdentifier = @"dialogWindow";
   return elementBox.copy;
 }
 
-- (NSArray<XCUIElement *> *)alertButtons
-{
-  XCUIElement *alertElement = self.alertElement;
-  NSArray<XCUIElement *> *buttons = [alertElement descendantsMatchingType:XCUIElementTypeButton].allElementsBoundByIndex;
-#if TARGET_OS_IOS
-  return buttons;
-#elif TARGET_OS_TV
-  if ([self isAnyFocused:buttons]) {
-    return buttons;
-  }
-  
-  // Focusable button elements on some alerts has type XCUIElementTypeOther
-  NSMutableArray<NSString *> *buttonsName = [NSMutableArray array];
-  [buttons enumerateObjectsUsingBlock:^(XCUIElement *element, NSUInteger idx, BOOL *stop) {
-    NSString *name = element.wdName;
-    [buttonsName addObject:name];
-  }];
-  
-  NSMutableArray<XCUIElement *> *buttonsAlt = [NSMutableArray array];
-  [buttonsName enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL *stop) {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type == 'XCUIElementTypeOther' AND name == %@", name];
-    NSArray<XCUIElement *> *matchedElements = [alertElement fb_descendantsMatchingPredicate:predicate shouldReturnAfterFirstMatch:YES];
-    [buttonsAlt addObjectsFromArray:matchedElements];
-  }];
-  if (![self isAnyFocused:buttonsAlt]) {
-    NSLog(@"FAIL");
-  }
-  return buttonsAlt;
-#endif
-}
-
 - (XCUIElement *)alertElement
 {
-  XCUIElement *alert = self.application.fb_alertElement ?: [FBApplication fb_activeApplication].fb_alertElement;
+  XCUIElement *alert = self.application.fb_alertElement ?: [FBSpringboardApplication fb_springboard].fb_alertElement;
   if (!alert.exists) {
     return nil;
   }
   [alert resolve];
   return alert;
 }
-
-- (BOOL) submitAlertButton: (XCUIElement *) button withError:(NSError **) error
-{
-#if TARGET_OS_IOS
-  return [button fb_tapWithError:error];
-#elif TARGET_OS_TV
-  return [button fb_selectWithError:error];
-#endif
-}
-
-#pragma mark - Utilities
-
-#if TARGET_OS_TV
-
-- (BOOL) isAnyFocused:(NSArray<XCUIElement *> *) elements {
-  for(XCUIElement *element in elements) {
-    if(element.hasFocus == YES) {
-      return YES;
-    }
-  }
-  return NO;
-}
-
-#endif
 
 @end

@@ -33,7 +33,7 @@
 
 + (BOOL)typeText:(NSString *)text frequency:(NSUInteger)frequency error:(NSError **)error
 {
-  if (![FBKeyboard waitUntilStableWithError:error]) {
+  if (![FBKeyboard waitUntilVisibleWithError:error]) {
     return NO;
   }
   __block BOOL didSucceed = NO;
@@ -54,38 +54,17 @@
   return didSucceed;
 }
 
-+ (BOOL)waitUntilStableWithError:(NSError **)error
++ (BOOL)waitUntilVisibleWithError:(NSError **)error
 {
-  FBApplication *app = [FBApplication fb_activeApplication];
+  FBApplication *application = [FBApplication fb_activeApplication];
   
-  if (![FBKeyboard waitUntilVisibleForApplication:app timeout:3 error:error]) {
-    return NO;
-  }
-  
-  if (![app fb_waitUntilFrameIsStable]) {
+  if (![application fb_waitUntilFrameIsStable]) {
     return
     [[[FBErrorBuilder builder]
       withDescription:@"Timeout waiting for keybord to stop animating"]
      buildError:error];
   }
   return YES;
-}
-
-+ (BOOL)waitUntilVisibleForApplication:(XCUIApplication *)app timeout:(NSTimeInterval)timeout error:(NSError **)error
-{
-  BOOL (^keyboardIsVisible)(void) = ^BOOL(void) {
-    XCUIElement *keyboard = [app descendantsMatchingType:XCUIElementTypeKeyboard].fb_firstMatch;
-    return keyboard && keyboard.fb_isVisible;
-  };
-  if (timeout <= 0) {
-    return keyboardIsVisible();
-  }
-  return
-  [[[[FBRunLoopSpinner new]
-     timeout:timeout]
-    timeoutErrorMessage:@"Keyboard is not present"]
-   spinUntilTrue:keyboardIsVisible
-   error:error];
 }
 
 @end

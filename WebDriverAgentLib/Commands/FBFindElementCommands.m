@@ -22,16 +22,14 @@
 #import "XCUIElement+FBFind.h"
 #import "XCUIElement+FBIsVisible.h"
 #import "XCUIElement+FBClassChain.h"
-#import "XCUIElement+FBWebDriverAttributes.h"
-#import "XCUIApplication+FBFocused.h"
 
 static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteRequest *request)
 {
   NSDictionary *errorDetails = @{
-                                 @"description": @"unable to find an element",
-                                 @"using": request.arguments[@"using"] ?: @"",
-                                 @"value": request.arguments[@"value"] ?: @"",
-                                 };
+    @"description": @"unable to find an element",
+    @"using": request.arguments[@"using"] ?: @"",
+    @"value": request.arguments[@"value"] ?: @"",
+  };
   return FBResponseWithStatus(FBCommandStatusNoSuchElement, errorDetails);
 }
 
@@ -48,10 +46,7 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     [[FBRoute POST:@"/element/:uuid/element"] respondWithTarget:self action:@selector(handleFindSubElement:)],
     [[FBRoute POST:@"/element/:uuid/elements"] respondWithTarget:self action:@selector(handleFindSubElements:)],
     [[FBRoute GET:@"/wda/element/:uuid/getVisibleCells"] respondWithTarget:self action:@selector(handleFindVisibleCells:)],
-#if TARGET_OS_TV
-    [[FBRoute GET:@"/wda/element/focused"] respondWithTarget:self action:@selector(handleFindFocusedElement:)],
-#endif
-    ];
+  ];
 }
 
 
@@ -101,18 +96,9 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
   XCUIElement *element = [elementCache elementForUUID:request.parameters[@"uuid"]];
   NSArray *foundElements = [self.class elementsUsing:request.arguments[@"using"] withValue:request.arguments[@"value"] under:element
                          shouldReturnAfterFirstMatch:NO];
-  
+
   return FBResponseWithCachedElements(foundElements, request.session.elementCache, FBConfiguration.shouldUseCompactResponses);
 }
-
-#if TARGET_OS_TV
-+ (id<FBResponsePayload>)handleFindFocusedElement:(FBRouteRequest *)request
-{
-  FBElementCache *elementCache = request.session.elementCache;
-  id<FBElement> element = [[FBApplication fb_activeApplication] fb_focusedElement];
-  return FBResponseWithElementUUID([elementCache storeElement:(XCUIElement *)element]);
-}
-#endif
 
 
 #pragma mark - Helpers

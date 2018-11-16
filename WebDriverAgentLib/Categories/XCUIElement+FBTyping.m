@@ -24,17 +24,9 @@
 
 - (BOOL)fb_typeText:(NSString *)text frequency:(NSUInteger)frequency error:(NSError **)error
 {
-// There is no ability to open text field via tap
-#if TARGET_OS_TV
-  if (!self.hasKeyboardFocus) {
-    [[[FBErrorBuilder builder] withDescription:@"Keyboard is not opened."] buildError:error];
-    return NO;
-  }
-#else
   if (!self.hasKeyboardFocus && ![self fb_tapWithError:error]) {
     return NO;
   }
-#endif
   if (![FBKeyboard typeText:text frequency:frequency error:error]) {
     return NO;
   }

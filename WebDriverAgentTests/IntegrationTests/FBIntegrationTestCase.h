@@ -9,7 +9,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import "FBHomeboardApplication.h"
+#import "FBSpringboardApplication.h"
 
 extern NSString *const FBShowAlertButtonName;
 extern NSString *const FBShowSheetAlertButtonName;
@@ -20,7 +20,7 @@ extern NSString *const FBShowAlertForceTouchButtonName;
  */
 @interface FBIntegrationTestCase : XCTestCase
 @property (nonatomic, strong, readonly) XCUIApplication *testedApplication;
-@property (nonatomic, strong, readonly) FBHomeboardApplication *springboard;
+@property (nonatomic, strong, readonly) FBSpringboardApplication *springboard;
 
 /**
  Launches application and resets side effects of testing like orientation etc.

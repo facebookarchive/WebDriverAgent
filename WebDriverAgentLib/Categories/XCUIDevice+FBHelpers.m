@@ -14,7 +14,7 @@
 #include <notify.h>
 #import <objc/runtime.h>
 
-#import "FBHomeboardApplication.h"
+#import "FBSpringboardApplication.h"
 #import "FBErrorBuilder.h"
 #import "FBMathUtils.h"
 #import "FBXCodeCompatibility.h"
@@ -36,7 +36,7 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
   // On 9.3 pressButton:XCUIDeviceButtonHome can be slightly delayed.
   // Causing waitUntilApplicationBoardIsVisible not to work properly in some edge cases e.g. like starting session right after this call, while being on home screen
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:FBHomeButtonCoolOffTime]];
-  if (![[FBHomeboardApplication fb_homeboard] fb_waitUntilApplicationBoardIsVisible:error]) {
+  if (![[FBSpringboardApplication fb_springboard] fb_waitUntilApplicationBoardIsVisible:error]) {
     return NO;
   }
   return YES;
@@ -55,25 +55,21 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
     }
     return result;
   }
-  
+
   XCUIApplication *app = FBApplication.fb_activeApplication;
-#if TARGET_OS_IOS
   CGSize screenSize = FBAdjustDimensionsForApplication(app.frame.size, app.interfaceOrientation);
-#else
-  CGSize screenSize = app.frame.size;
-#endif
   // https://developer.apple.com/documentation/xctest/xctimagequality?language=objc
   // Select lower quality, since XCTest crashes randomly if the maximum quality (zero value) is selected
   // and the resulting screenshot does not fit the memory buffer preallocated for it by the operating system
   NSUInteger quality = 1;
   CGRect screenRect = CGRectMake(0, 0, screenSize.width, screenSize.height);
-  
+
   XCUIScreen *mainScreen = (XCUIScreen *)[xcScreenClass mainScreen];
   NSData *result = [mainScreen screenshotDataForQuality:quality rect:screenRect error:error];
   if (nil == result) {
     return nil;
   }
-  
+
   // The resulting data is a JPEG image, so we need to convert it to PNG representation
   UIImage *image = [UIImage imageWithData:result];
   return (NSData *)UIImagePNGRepresentation(image);
@@ -99,7 +95,7 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
     freeifaddrs(interfaces);
     return nil;
   }
-  
+
   NSString *address = nil;
   temp_addr = interfaces;
   while(temp_addr != NULL) {

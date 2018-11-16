@@ -12,7 +12,6 @@
 #import "FBRunLoopSpinner.h"
 #import "XCUICoordinate.h"
 
-#if !TARGET_OS_TV
 @implementation XCUIElement (FBPickerWheel)
 
 static const NSTimeInterval VALUE_CHANGE_TIMEOUT = 2;
@@ -24,13 +23,13 @@ static const NSTimeInterval VALUE_CHANGE_TIMEOUT = 2;
   XCUICoordinate *endCoord = [startCoord coordinateWithOffset:CGVectorMake(0.0, relativeHeightOffset * self.frame.size.height)];
   [endCoord tap];
   return [[[[FBRunLoopSpinner new]
-            timeout:VALUE_CHANGE_TIMEOUT]
-           timeoutErrorMessage:[NSString stringWithFormat:@"Picker wheel value has not been changed after %@ seconds timeout", @(VALUE_CHANGE_TIMEOUT)]]
-          spinUntilTrue:^BOOL{
-            [self resolve];
-            return ![self.value isEqualToString:previousValue];
-          }
-          error:error];
+     timeout:VALUE_CHANGE_TIMEOUT]
+    timeoutErrorMessage:[NSString stringWithFormat:@"Picker wheel value has not been changed after %@ seconds timeout", @(VALUE_CHANGE_TIMEOUT)]]
+   spinUntilTrue:^BOOL{
+     [self resolve];
+     return ![self.value isEqualToString:previousValue];
+   }
+   error:error];
 }
 
 - (BOOL)fb_selectNextOptionWithOffset:(CGFloat)offset error:(NSError **)error
@@ -44,4 +43,3 @@ static const NSTimeInterval VALUE_CHANGE_TIMEOUT = 2;
 }
 
 @end
-#endif

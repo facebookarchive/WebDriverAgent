@@ -9,7 +9,7 @@
 
 #import "XCUIApplication+FBHelpers.h"
 
-#import "FBHomeboardApplication.h"
+#import "FBSpringboardApplication.h"
 #import "XCElementSnapshot.h"
 #import "FBElementTypeTransformer.h"
 #import "FBMacros.h"
@@ -35,8 +35,7 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
     [self fb_activate];
     return YES;
   }
-  return [[FBHomeboardApplication fb_homeboard] fb_openApplicationWithIdentifier:applicationIdentifier
-                                                                                 error:error];
+  return [[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:applicationIdentifier error:error];
 }
 
 - (NSDictionary *)fb_tree
@@ -64,9 +63,6 @@ const static NSTimeInterval FBMinimumAppSwitchWait = 3.0;
   info[@"frame"] = NSStringFromCGRect(snapshot.wdFrame);
   info[@"isEnabled"] = [@([snapshot isWDEnabled]) stringValue];
   info[@"isVisible"] = [@([snapshot isWDVisible]) stringValue];
-#if TARGET_OS_TV
-  info[@"isFocused"] = [@([snapshot isWDFocused]) stringValue];
-#endif
 
   NSArray *childElements = snapshot.children;
   if ([childElements count]) {

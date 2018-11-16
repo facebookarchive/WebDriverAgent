@@ -13,8 +13,6 @@
 #import "XCUIElement+FBUtilities.h"
 #import "XCElementSnapshot+FBHitPoint.h"
 
-#if !TARGET_OS_TV
-
 @implementation XCUICoordinate (FBFix)
 
 - (CGPoint)fb_screenPoint
@@ -39,5 +37,3 @@
 }
 
 @end
-
-#endif
