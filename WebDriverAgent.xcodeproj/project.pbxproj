@@ -19,33 +19,7 @@
 		1C3C6FA7211827D600FAFD69 /* XCUIApplication+FBFocused.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C6FA5211827D600FAFD69 /* XCUIApplication+FBFocused.m */; };
 		1C7365A6219C5943009BC01A /* FBTVNavigationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C7365A4219C5942009BC01A /* FBTVNavigationTracker.h */; };
 		1C7365A7219C5943009BC01A /* FBTVNavigationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7365A5219C5942009BC01A /* FBTVNavigationTracker.m */; };
-		1C7365AE219C6660009BC01A /* FBRunLoopSpinnerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3F8CFD1D08AA17006F02CE /* FBRunLoopSpinnerTests.m */; };
-		1C7365AF219C6660009BC01A /* FBSDKVersionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 714801D01FA9D9FA00DC5997 /* FBSDKVersionTests.m */; };
-		1C7365B0219C6660009BC01A /* FBElementTypeTransformerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3F8CFF1D08B05F006F02CE /* FBElementTypeTransformerTests.m */; };
-		1C7365B1219C6660009BC01A /* FBApplicationProcessProxyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3B2E12121EC8C00B61EE0 /* FBApplicationProcessProxyTests.m */; };
-		1C7365B2219C6660009BC01A /* FBConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE16E961D33A25500172525 /* FBConfigurationTests.m */; };
-		1C7365B3219C6660009BC01A /* FBElementCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADBC39931D0782CD00327304 /* FBElementCacheTests.m */; };
-		1C7365B4219C6660009BC01A /* XCUIApplicationFBHelpersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8DDD7820C565FB004D4925 /* XCUIApplicationFBHelpersTests.m */; };
-		1C7365B5219C6660009BC01A /* FBElementUtilitiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 719FF5B81DAD21F5008E0099 /* FBElementUtilitiesTests.m */; };
-		1C7365B6219C6660009BC01A /* FBXMLSafeStringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 716E0BD01E917F260087A825 /* FBXMLSafeStringTests.m */; };
-		1C7365B7219C6660009BC01A /* FBXPathCreatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEF63AC1D09DCCF0070A7E3 /* FBXPathCreatorTests.m */; };
-		1C7365B8219C6660009BC01A /* FBRuntimeUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEF63AE1D09DEBE0070A7E3 /* FBRuntimeUtilsTests.m */; };
-		1C7365B9219C6660009BC01A /* FBRouteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9B76571CF7987300275851 /* FBRouteTests.m */; };
-		1C7365BA219C6660009BC01A /* NSExpressionFBFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7139145B1DF01A12005896C2 /* NSExpressionFBFormatTests.m */; };
-		1C7365BB219C6660009BC01A /* NSPredicateFBFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A224E71DE326C500844D55 /* NSPredicateFBFormatTests.m */; };
-		1C7365BC219C6660009BC01A /* FBApplicationDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6A89281D0B257B0083E92B /* FBApplicationDouble.m */; };
-		1C7365BD219C6660009BC01A /* FBErrorBuilderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6A892C1D0B2AF40083E92B /* FBErrorBuilderTests.m */; };
-		1C7365BE219C6660009BC01A /* FBXPathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 712A0C841DA3E459007D02E5 /* FBXPathTests.m */; };
-		1C7365BF219C6660009BC01A /* XCUIElementDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = ADBC39971D07842800327304 /* XCUIElementDouble.m */; };
-		1C7365C0219C6660009BC01A /* XCUIElementHelpersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 713914591DF01989005896C2 /* XCUIElementHelpersTests.m */; };
-		1C7365C1219C6660009BC01A /* FBSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6A89251D0B19E60083E92B /* FBSessionTests.m */; };
-		1C7365C3219C6660009BC01A /* FBClassChainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A7EAFB1E229302001DA4F2 /* FBClassChainTests.m */; };
-		1C7365C4219C6660009BC01A /* FBMathUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE18883C1DA663EB00307AA8 /* FBMathUtilsTests.m */; };
-		1C7365CF219C66B8009BC01A /* FBTVNavigationTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7365A8219C5E33009BC01A /* FBTVNavigationTrackerTests.m */; };
 		1C7365D0219C6746009BC01A /* XCUICoordinateFix.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC9EED820077D8E00BC0D5B /* XCUICoordinateFix.m */; };
-		1C7365D1219C67C6009BC01A /* WebDriverAgentLib_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C8F1B312100B24400F6FEF4 /* WebDriverAgentLib_tvOS.framework */; };
-		1C7365D3219C67D3009BC01A /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7365D2219C67D3009BC01A /* libxml2.tbd */; };
-		1C7365D5219C67DE009BC01A /* libAccessibility.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7365D4219C67DE009BC01A /* libAccessibility.tbd */; };
 		1C88FDF4214AAD0700202D0D /* XCUIElement+FBTVFocuse.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C88FDF2214AAD0700202D0D /* XCUIElement+FBTVFocuse.h */; };
 		1C88FDF5214AAD0700202D0D /* XCUIElement+FBTVFocuse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C88FDF3214AAD0700202D0D /* XCUIElement+FBTVFocuse.m */; };
 		1C8F1A322100B24400F6FEF4 /* FBScreenshotCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB75F1CAEDF0C008C271F /* FBScreenshotCommands.m */; };
@@ -616,13 +590,6 @@
 			remoteGlobalIDString = 1C8F1A302100B24400F6FEF4;
 			remoteInfo = WebDriverAgentLib_tvOS;
 		};
-		1C7365D6219C67EB009BC01A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1C8F1A302100B24400F6FEF4;
-			remoteInfo = WebDriverAgentLib_tvOS;
-		};
 		AD8D96F01D3C12960061268E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 91F9DAE11B99DBC2001349B2 /* Project object */;
@@ -738,8 +705,6 @@
 		1C3C6FA5211827D600FAFD69 /* XCUIApplication+FBFocused.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XCUIApplication+FBFocused.m"; sourceTree = "<group>"; };
 		1C7365A4219C5942009BC01A /* FBTVNavigationTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBTVNavigationTracker.h; sourceTree = "<group>"; };
 		1C7365A5219C5942009BC01A /* FBTVNavigationTracker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVNavigationTracker.m; sourceTree = "<group>"; };
-		1C7365A8219C5E33009BC01A /* FBTVNavigationTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTVNavigationTrackerTests.m; sourceTree = "<group>"; };
-		1C7365CD219C6660009BC01A /* UnitTests_tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests_tvOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7365D2219C67D3009BC01A /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.1.sdk/usr/lib/libxml2.tbd; sourceTree = DEVELOPER_DIR; };
 		1C7365D4219C67DE009BC01A /* libAccessibility.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libAccessibility.tbd; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.1.sdk/usr/lib/libAccessibility.tbd; sourceTree = DEVELOPER_DIR; };
 		1C88FDF2214AAD0700202D0D /* XCUIElement+FBTVFocuse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+FBTVFocuse.h"; sourceTree = "<group>"; };
@@ -1083,16 +1048,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1C7365C5219C6660009BC01A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1C7365D5219C67DE009BC01A /* libAccessibility.tbd in Frameworks */,
-				1C7365D3219C67D3009BC01A /* libxml2.tbd in Frameworks */,
-				1C7365D1219C67C6009BC01A /* WebDriverAgentLib_tvOS.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1C8F1A752100B24400F6FEF4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1218,7 +1173,6 @@
 				EE22021C1ECC612200A29571 /* IntegrationTests_3.xctest */,
 				1C8F1B312100B24400F6FEF4 /* WebDriverAgentLib_tvOS.framework */,
 				1CDC566C2111C26F00868007 /* WebDriverAgentRunner_tvOS.xctest */,
-				1C7365CD219C6660009BC01A /* UnitTests_tvOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1531,7 +1485,6 @@
 				EE8DDD7820C565FB004D4925 /* XCUIApplicationFBHelpersTests.m */,
 				EEC9EED820077D8E00BC0D5B /* XCUICoordinateFix.m */,
 				713914591DF01989005896C2 /* XCUIElementHelpersTests.m */,
-				1C7365A8219C5E33009BC01A /* FBTVNavigationTrackerTests.m */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -2103,24 +2056,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		1C7365AA219C6660009BC01A /* UnitTests_tvOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1C7365CA219C6660009BC01A /* Build configuration list for PBXNativeTarget "UnitTests_tvOS" */;
-			buildPhases = (
-				1C7365AD219C6660009BC01A /* Sources */,
-				1C7365C5219C6660009BC01A /* Frameworks */,
-				1C7365C9219C6660009BC01A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1C7365D7219C67EB009BC01A /* PBXTargetDependency */,
-			);
-			name = UnitTests_tvOS;
-			productName = WebDriverAgentCoreTests;
-			productReference = 1C7365CD219C6660009BC01A /* UnitTests_tvOS.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		1C8F1A302100B24400F6FEF4 /* WebDriverAgentLib_tvOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C8F1B2E2100B24400F6FEF4 /* Build configuration list for PBXNativeTarget "WebDriverAgentLib_tvOS" */;
@@ -2344,7 +2279,6 @@
 				EEF988291C486603005CA669 /* WebDriverAgentRunner */,
 				1CDC565E2111C26F00868007 /* WebDriverAgentRunner_tvOS */,
 				EE836C011C0F118600D87246 /* UnitTests */,
-				1C7365AA219C6660009BC01A /* UnitTests_tvOS */,
 				EE9B75EB1CF7956C00275851 /* IntegrationTests_1 */,
 				EE5095DD1EBCC9090028E2FE /* IntegrationTests_2 */,
 				EE2202031ECC612200A29571 /* IntegrationTests_3 */,
@@ -2354,13 +2288,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1C7365C9219C6660009BC01A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1C8F1B2A2100B24400F6FEF4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2430,36 +2357,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1C7365AD219C6660009BC01A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1C7365AE219C6660009BC01A /* FBRunLoopSpinnerTests.m in Sources */,
-				1C7365AF219C6660009BC01A /* FBSDKVersionTests.m in Sources */,
-				1C7365B0219C6660009BC01A /* FBElementTypeTransformerTests.m in Sources */,
-				1C7365B1219C6660009BC01A /* FBApplicationProcessProxyTests.m in Sources */,
-				1C7365B2219C6660009BC01A /* FBConfigurationTests.m in Sources */,
-				1C7365B3219C6660009BC01A /* FBElementCacheTests.m in Sources */,
-				1C7365B4219C6660009BC01A /* XCUIApplicationFBHelpersTests.m in Sources */,
-				1C7365B5219C6660009BC01A /* FBElementUtilitiesTests.m in Sources */,
-				1C7365B6219C6660009BC01A /* FBXMLSafeStringTests.m in Sources */,
-				1C7365B7219C6660009BC01A /* FBXPathCreatorTests.m in Sources */,
-				1C7365B8219C6660009BC01A /* FBRuntimeUtilsTests.m in Sources */,
-				1C7365B9219C6660009BC01A /* FBRouteTests.m in Sources */,
-				1C7365BA219C6660009BC01A /* NSExpressionFBFormatTests.m in Sources */,
-				1C7365BB219C6660009BC01A /* NSPredicateFBFormatTests.m in Sources */,
-				1C7365BC219C6660009BC01A /* FBApplicationDouble.m in Sources */,
-				1C7365BD219C6660009BC01A /* FBErrorBuilderTests.m in Sources */,
-				1C7365CF219C66B8009BC01A /* FBTVNavigationTrackerTests.m in Sources */,
-				1C7365BE219C6660009BC01A /* FBXPathTests.m in Sources */,
-				1C7365BF219C6660009BC01A /* XCUIElementDouble.m in Sources */,
-				1C7365C0219C6660009BC01A /* XCUIElementHelpersTests.m in Sources */,
-				1C7365C1219C6660009BC01A /* FBSessionTests.m in Sources */,
-				1C7365C3219C6660009BC01A /* FBClassChainTests.m in Sources */,
-				1C7365C4219C6660009BC01A /* FBMathUtilsTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1C8F1A312100B24400F6FEF4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2722,11 +2619,6 @@
 			target = 1C8F1A302100B24400F6FEF4 /* WebDriverAgentLib_tvOS */;
 			targetProxy = 1C0EE1122111C4A9009EDBB1 /* PBXContainerItemProxy */;
 		};
-		1C7365D7219C67EB009BC01A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1C8F1A302100B24400F6FEF4 /* WebDriverAgentLib_tvOS */;
-			targetProxy = 1C7365D6219C67EB009BC01A /* PBXContainerItemProxy */;
-		};
 		AD8D96F11D3C12960061268E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EE158A981CBD452B00A3E3F0 /* WebDriverAgentLib */;
@@ -2781,43 +2673,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		1C7365CB219C6660009BC01A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = WebDriverAgentTests/UnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.WebDriverAgentCoreTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
-				TARGETED_DEVICE_FAMILY = 3;
-			};
-			name = Debug;
-		};
-		1C7365CC219C6660009BC01A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = WebDriverAgentTests/UnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.WebDriverAgentCoreTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
-				TARGETED_DEVICE_FAMILY = 3;
-			};
-			name = Release;
-		};
 		1C8F1B2F2100B24400F6FEF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EEE5CABF1C80361500CBBDD9 /* ProjectSettings.xcconfig */;
@@ -3316,15 +3171,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1C7365CA219C6660009BC01A /* Build configuration list for PBXNativeTarget "UnitTests_tvOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1C7365CB219C6660009BC01A /* Debug */,
-				1C7365CC219C6660009BC01A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		1C8F1B2E2100B24400F6FEF4 /* Build configuration list for PBXNativeTarget "WebDriverAgentLib_tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

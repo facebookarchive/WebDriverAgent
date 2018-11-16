@@ -43,11 +43,7 @@
 {
   XCUIElementDouble *element = [XCUIElementDouble new];
   NSString *resultXml = [self xmlStringWithElement:element xpathQuery:nil];
-#if TARGET_OS_TV
-  NSString *expectedXml = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<%@ type=\"%@\" value=\"%@\" name=\"%@\" label=\"%@\" enabled=\"%@\" visible=\"%@\" focused=\"%@\" x=\"%@\" y=\"%@\" width=\"%@\" height=\"%@\" private_indexPath=\"top\"/>\n", element.wdType, element.wdType, element.wdValue, element.wdName, element.wdLabel,  element.wdEnabled ? @"true" : @"false", element.wdVisible ? @"true" : @"false", element.wdFocused ? @"true" : @"false", element.wdRect[@"x"], element.wdRect[@"y"], element.wdRect[@"width"], element.wdRect[@"height"]];
-#else
   NSString *expectedXml = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<%@ type=\"%@\" value=\"%@\" name=\"%@\" label=\"%@\" enabled=\"%@\" visible=\"%@\" x=\"%@\" y=\"%@\" width=\"%@\" height=\"%@\" private_indexPath=\"top\"/>\n", element.wdType, element.wdType, element.wdValue, element.wdName, element.wdLabel,  element.wdEnabled ? @"true" : @"false", element.wdVisible ? @"true" : @"false", element.wdRect[@"x"], element.wdRect[@"y"], element.wdRect[@"width"], element.wdRect[@"height"]];
-#endif
   XCTAssertTrue([resultXml isEqualToString: expectedXml]);
 }
 
@@ -55,11 +51,7 @@
 {
   XCUIElementDouble *element = [XCUIElementDouble new];
   NSString *resultXml = [self xmlStringWithElement:element xpathQuery:[NSString stringWithFormat:@"//%@[@*]", element.wdType]];
-#if TARGET_OS_TV
-  NSString *expectedXml = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<%@ type=\"%@\" value=\"%@\" name=\"%@\" label=\"%@\" enabled=\"%@\" visible=\"%@\" focused=\"%@\" x=\"%@\" y=\"%@\" width=\"%@\" height=\"%@\" private_indexPath=\"top\"/>\n", element.wdType, element.wdType, element.wdValue, element.wdName, element.wdLabel,  element.wdEnabled ? @"true" : @"false", element.wdVisible ? @"true" : @"false", element.wdFocused ? @"true" : @"false", element.wdRect[@"x"], element.wdRect[@"y"], element.wdRect[@"width"], element.wdRect[@"height"]];
-#else
   NSString *expectedXml = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<%@ type=\"%@\" value=\"%@\" name=\"%@\" label=\"%@\" enabled=\"%@\" visible=\"%@\" x=\"%@\" y=\"%@\" width=\"%@\" height=\"%@\" private_indexPath=\"top\"/>\n", element.wdType, element.wdType, element.wdValue, element.wdName, element.wdLabel,  element.wdEnabled ? @"true" : @"false", element.wdVisible ? @"true" : @"false", element.wdRect[@"x"], element.wdRect[@"y"], element.wdRect[@"width"], element.wdRect[@"height"]];
-#endif
   XCTAssertTrue([resultXml isEqualToString: expectedXml]);
 }
 

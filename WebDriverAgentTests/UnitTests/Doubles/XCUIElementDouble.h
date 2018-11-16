@@ -27,9 +27,6 @@
 @property (nonatomic, readwrite, getter=isWDEnabled) BOOL wdEnabled;
 @property (nonatomic, readwrite, getter=isWDVisible) BOOL wdVisible;
 @property (nonatomic, readwrite, getter=isWDAccessible) BOOL wdAccessible;
-#if TARGET_OS_TV
-@property (nonatomic, readwrite, getter=isWDFocused) BOOL wdFocused;
-#endif
 @property (copy, nonnull) NSArray *children;
 @property (nonatomic, readwrite, assign) XCUIElementType elementType;
 @property (nonatomic, readwrite, getter=isWDAccessibilityContainer) BOOL wdAccessibilityContainer;

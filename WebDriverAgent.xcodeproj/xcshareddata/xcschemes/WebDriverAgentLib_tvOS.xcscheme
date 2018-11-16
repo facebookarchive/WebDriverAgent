@@ -29,16 +29,6 @@
       codeCoverageEnabled = "YES"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1C7365AA219C6660009BC01A"
-               BuildableName = "UnitTests_tvOS.xctest"
-               BlueprintName = "UnitTests_tvOS"
-               ReferencedContainer = "container:WebDriverAgent.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
