@@ -56,7 +56,6 @@ class Inspector extends React.Component {
         {this.renderField('Rect', attributes.rect)}
         {this.renderField('isEnabled', boolToString(attributes.isEnabled))}
         {this.renderField('isVisible', boolToString(attributes.isVisible))}
-        {this.renderField('isFocused', attributes.isFocused === undefined ? null : boolToString(attributes.isFocused))}
         {this.renderField('Tap', tapButton, false)}
      </div>
     );
