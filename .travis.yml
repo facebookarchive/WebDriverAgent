@@ -12,6 +12,7 @@ script: ./Scripts/build.sh
 branches:
   only:
     - master
+    - /fb-merge\/.*/
 
 env:
 # Builds
