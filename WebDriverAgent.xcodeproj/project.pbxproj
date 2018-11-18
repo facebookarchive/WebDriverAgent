@@ -10,7 +10,7 @@
 		18033EFF208761FC00FED81D /* RoutingHTTPServer.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = AD42DD2B1CF1238500806E5D /* RoutingHTTPServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1C7365D0219C6746009BC01A /* XCUICoordinateFix.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC9EED820077D8E00BC0D5B /* XCUICoordinateFix.m */; };
 		1C93653D2163DBB800926F2C /* FBFailureProofTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6A89391D0B38640083E92B /* FBFailureProofTestCase.m */; };
-		1CCB1DCF219EBE2E001BF660 /* FBSpringboardApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CCB1DCD219EBE2E001BF660 /* FBSpringboardApplication.h */; };
+		1CCB1DCF219EBE2E001BF660 /* FBSpringboardApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CCB1DCD219EBE2E001BF660 /* FBSpringboardApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1CCB1DD0219EBE2E001BF660 /* FBSpringboardApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CCB1DCE219EBE2E001BF660 /* FBSpringboardApplication.m */; };
 		1FC3B2E32121ECF600B61EE0 /* FBApplicationProcessProxyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3B2E12121EC8C00B61EE0 /* FBApplicationProcessProxyTests.m */; };
 		711084441DA3AA7500F913D6 /* FBXPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 711084421DA3AA7500F913D6 /* FBXPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
