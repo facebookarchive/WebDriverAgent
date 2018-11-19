@@ -24,8 +24,8 @@ typedef void (^XCEventGeneratorHandler)(XCSynthesizedEventRecord *record, NSErro
 + (id)sharedGenerator;
 @property unsigned long long generation; // @synthesize generation=_generation;
 //@property(readonly) NSObject<OS_dispatch_queue> *eventQueue; // @synthesize eventQueue=_eventQueue;
-
-#if TARGET_OS_IPHONE
+#if TARGET_OS_TV
+#elif TARGET_OS_IPHONE
 - (double)rotateInRect:(CGRect)arg1 withRotation:(double)arg2 velocity:(double)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
 - (double)pinchInRect:(CGRect)arg1 withScale:(double)arg2 velocity:(double)arg3 orientation:(UIInterfaceOrientation)arg4 handler:(XCEventGeneratorHandler)arg5;
 - (double)pressAtPoint:(CGPoint)arg1 forDuration:(double)arg2 liftAtPoint:(CGPoint)arg3 velocity:(double)arg4 orientation:(UIInterfaceOrientation)arg5 name:(NSString *)arg6 handler:(XCEventGeneratorHandler)arg7;
