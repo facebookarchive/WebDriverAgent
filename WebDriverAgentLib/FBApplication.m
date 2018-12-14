@@ -115,6 +115,9 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *, id> *)change context:(void *)context
 {
+  if (object != self.fb_appImpl) {
+    return;
+  }
   if (![keyPath isEqualToString:FBStringify(XCUIApplicationImpl, currentProcess)]) {
     return;
   }
@@ -125,7 +128,11 @@
   if (!applicationProcess || [applicationProcess isProxy] || ![applicationProcess isMemberOfClass:XCUIApplicationProcess.class]) {
     return;
   }
-  [object setValue:[FBApplicationProcessProxy proxyWithApplicationProcess:applicationProcess] forKey:keyPath];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    // Dispatching this call out of KVO call stack will trigger additional KVO call,
+    // which is required in case there are already registered observers.
+    self.fb_appImpl.currentProcess = (XCUIApplicationProcess *)[FBApplicationProcessProxy proxyWithApplicationProcess:applicationProcess];
+  });
 }
 
 
