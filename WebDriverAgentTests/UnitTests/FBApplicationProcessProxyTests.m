@@ -9,6 +9,7 @@
 
 #import <XCTest/XCTest.h>
 #import "FBApplicationProcessProxy.h"
+#import "FBMacros.h"
 #import "XCUIApplicationProcess.h"
 
 @interface FBApplicationProcessProxy (NonProxiedMethod)
@@ -49,8 +50,20 @@
 
 @end
 
-@interface FBApplicationProcessProxyTest : XCTestCase
+@interface __FBObserver: NSObject
+@property (nonatomic, weak) id observedObject;
+@property (nonatomic, assign) BOOL observerInvoked;
+@end
+@implementation __FBObserver
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+  if (object == self.observedObject) {
+    self.observerInvoked = YES;
+  }
+}
+@end
 
+@interface FBApplicationProcessProxyTest : XCTestCase
 @end
 
 @implementation FBApplicationProcessProxyTest
@@ -77,6 +90,17 @@
   XCUIApplicationProcess *applicationProcess = [[XCUIApplicationProcess alloc] init];
   id proxy = (id)[FBApplicationProcessProxy proxyWithApplicationProcess:applicationProcess];
   XCTAssertThrows([FBApplicationProcessProxy proxyWithApplicationProcess:proxy]);
+}
+
+- (void)testObservingProxy {
+  XCUIApplicationProcess *applicationProcess = [[XCUIApplicationProcess alloc] init];
+  id proxy = (id)[FBApplicationProcessProxy proxyWithApplicationProcess:applicationProcess];
+  __FBObserver *observer = [__FBObserver new];
+  observer.observedObject = proxy;
+  [proxy addObserver:observer forKeyPath:FBStringify(XCUIApplicationProcess, hasCrashReport) options:NSKeyValueObservingOptionNew context:NULL];
+  applicationProcess.hasCrashReport = YES;
+  [proxy removeObserver:observer forKeyPath:FBStringify(XCUIApplicationProcess, hasCrashReport)];
+  XCTAssertTrue(observer.observerInvoked);
 }
 
 @end
