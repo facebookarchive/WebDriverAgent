@@ -2,6 +2,21 @@
 
 WebDriverAgent is a [WebDriver server](https://w3c.github.io/webdriver/webdriver-spec.html) implementation for iOS that can be used to remote control iOS devices. It allows you to launch & kill applications, tap & scroll views or confirm view presence on a screen. This makes it a perfect tool for application end-to-end testing or general purpose device automation. It works by linking `XCTest.framework` and calling Apple's API to execute commands directly on a device. WebDriverAgent is developed and used at Facebook for end-to-end testing and is successfully adopted by [Appium](http://appium.io).
 
+## Archiving
+
+We are archiving WebDriverAgent. Thanks to the community who have used it! The code will remain here for your future use, but will no longer be actively supported by Facebook.
+
+In May 2019, we open sourced IDB, “iOS Development Bridge”, a command line interface for automating iOS Simulators and Devices. We are currently migrating our own internal projects from WDA to IDB, and suggest checking it out as an alternative. 
+
+More information on IDB:
+ * [Project on GitHub](https://github.com/facebook/idb/)
+ * [Talk from 2019 F8](https://developers.facebook.com/videos/2019/reliable-code-at-scale/)
+
+## Overview
+
+WebDriverAgent is a [WebDriver server](https://w3c.github.io/webdriver/webdriver-spec.html) implementation for iOS that can be used to remote control iOS devices. It allows you to launch & kill applications, tap & scroll views or confirm view presence on a screen. This makes it a perfect tool for application end-to-end testing or general purpose device automation. It works by linking `XCTest.framework` and calling Apple's API to execute commands directly on a device. WebDriverAgent was developed and used at Facebook for end-to-end testing and is successfully adopted by [Appium](http://appium.io).
+
+
 ## Features
  * Works with device & simulator
  * Implements most of [WebDriver Spec](https://w3c.github.io/webdriver/webdriver-spec.html)
