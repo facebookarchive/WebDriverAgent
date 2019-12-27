@@ -15,7 +15,7 @@
 #import "FBApplication.h"
 #import "FBElementCache.h"
 #import "FBMacros.h"
-#import "FBSpringboardApplication.h"
+#import "FBHomeboardApplication.h"
 #import "XCAccessibilityElement.h"
 #import "XCAXClient_iOS.h"
 #import "XCUIElement.h"

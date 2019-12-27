@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nJd-IZ-bfU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nJd-IZ-bfU">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -64,7 +63,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Orientation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uiD-R4-b34">
-                                <rect key="frame" x="118" y="245" width="85" height="21"/>
+                                <rect key="frame" x="117.5" y="245" width="85" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -220,7 +219,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GsS-jO-scK">
-                                <rect key="frame" x="170" y="216" width="101" height="30"/>
+                                <rect key="frame" x="170" y="210" width="101" height="30"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <bool key="isElement" value="NO"/>
                                 </accessibility>
@@ -246,17 +245,15 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="GsS-jO-scK" firstAttribute="leading" secondItem="Ucg-Ag-VpP" secondAttribute="leadingMargin" constant="154" id="1RA-Fx-3Jh"/>
+                            <constraint firstItem="GsS-jO-scK" firstAttribute="leading" secondItem="Ucg-Ag-VpP" secondAttribute="leading" constant="170" id="1RA-Fx-3Jh"/>
                             <constraint firstItem="SjL-dx-Zsi" firstAttribute="top" secondItem="U7D-NR-20N" secondAttribute="bottom" constant="8" id="3NW-Hc-tPr"/>
                             <constraint firstItem="mxs-lj-ChP" firstAttribute="top" secondItem="dDG-qA-kaN" secondAttribute="bottom" constant="11" id="4Fw-0B-UwC"/>
-                            <constraint firstItem="GsS-jO-scK" firstAttribute="top" secondItem="vt6-b1-U0h" secondAttribute="bottom" constant="1" id="4cH-4W-5qo"/>
                             <constraint firstItem="dxw-sJ-Dkr" firstAttribute="trailing" secondItem="Ucg-Ag-VpP" secondAttribute="trailingMargin" id="7fI-ha-3sR"/>
                             <constraint firstItem="mxs-lj-ChP" firstAttribute="leading" secondItem="Ucg-Ag-VpP" secondAttribute="leadingMargin" id="8mv-f6-WQ6"/>
                             <constraint firstItem="Rab-I8-2aU" firstAttribute="leading" secondItem="Ucg-Ag-VpP" secondAttribute="leadingMargin" id="AcZ-6f-OjT"/>
                             <constraint firstItem="LZF-72-rfb" firstAttribute="trailing" secondItem="Ucg-Ag-VpP" secondAttribute="trailingMargin" id="BPl-7D-KX8"/>
                             <constraint firstItem="dxw-sJ-Dkr" firstAttribute="top" secondItem="w6h-ic-qpa" secondAttribute="bottom" constant="8" id="CdC-6B-Sak"/>
                             <constraint firstItem="LZF-72-rfb" firstAttribute="leading" secondItem="Ucg-Ag-VpP" secondAttribute="leadingMargin" id="FXH-2O-HhB"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GsS-jO-scK" secondAttribute="trailingMargin" id="GOy-RG-tCC"/>
                             <constraint firstItem="w6h-ic-qpa" firstAttribute="centerX" secondItem="Ucg-Ag-VpP" secondAttribute="centerX" constant="2" id="JAL-PW-u0w"/>
                             <constraint firstItem="i3S-l1-3Mf" firstAttribute="top" secondItem="LZF-72-rfb" secondAttribute="bottom" constant="36" id="K1W-hh-eAI"/>
                             <constraint firstItem="Exq-MB-zeu" firstAttribute="centerX" secondItem="Ucg-Ag-VpP" secondAttribute="centerX" constant="-80.5" id="KBS-g2-6jH"/>
@@ -269,6 +266,7 @@
                             <constraint firstItem="w6h-ic-qpa" firstAttribute="top" secondItem="SjL-dx-Zsi" secondAttribute="bottom" constant="8" id="YmL-M2-lGN"/>
                             <constraint firstItem="Exq-MB-zeu" firstAttribute="top" secondItem="Rab-I8-2aU" secondAttribute="bottom" constant="26" id="aLQ-Gz-cjx"/>
                             <constraint firstItem="dxw-sJ-Dkr" firstAttribute="leading" secondItem="Ucg-Ag-VpP" secondAttribute="leadingMargin" id="amt-aZ-NnD"/>
+                            <constraint firstItem="GsS-jO-scK" firstAttribute="top" secondItem="Ucg-Ag-VpP" secondAttribute="top" constant="210" id="b7c-YH-vh1"/>
                             <constraint firstItem="mxs-lj-ChP" firstAttribute="trailing" secondItem="Ucg-Ag-VpP" secondAttribute="trailingMargin" id="b9B-Xj-ypz"/>
                             <constraint firstItem="SjL-dx-Zsi" firstAttribute="centerX" secondItem="Ucg-Ag-VpP" secondAttribute="centerX" constant="52.5" id="c5J-nU-AFi"/>
                             <constraint firstItem="bQv-RY-wkj" firstAttribute="top" secondItem="Wim-fT-xNl" secondAttribute="bottom" constant="25" id="dOt-dS-sb7"/>

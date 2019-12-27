@@ -13,6 +13,15 @@ set -eu
 function define_xc_macros() {
   XC_MACROS="CODE_SIGN_IDENTITY=\"\" CODE_SIGNING_REQUIRED=NO"
 
+  case "$PLATFORM" in
+    "ios" ) define_xc_macros_ios;;
+    "tvos" ) define_xc_macros_tvos;;
+    *) echo "Unknown PLATFORM"; exit 1 ;;
+  esac
+
+}
+
+function define_xc_macros_ios() {
   case "$TARGET" in
     "lib" ) XC_TARGET="WebDriverAgentLib";;
     "runner" ) XC_TARGET="WebDriverAgentRunner";;
@@ -20,8 +29,8 @@ function define_xc_macros() {
   esac
 
   case "${DEST:-}" in
-    "iphone" ) XC_DESTINATION="-destination \"name=iPhone SE,OS=11.2\"";;
-    "ipad" ) XC_DESTINATION="-destination \"name=iPad Air 2,OS=11.2\"";;
+    "iphone" ) XC_DESTINATION="-destination \"name=iPhone X,OS=12.1\"";;
+    "ipad" ) XC_DESTINATION="-destination \"name=iPad Air 2,OS=12.1\"";;
   esac
 
   case "$ACTION" in
@@ -40,6 +49,34 @@ function define_xc_macros() {
   case "$SDK" in
     "sim" ) XC_SDK="iphonesimulator";;
     "device" ) XC_SDK="iphoneos";;
+    *) echo "Unknown SDK"; exit 1 ;;
+  esac
+}
+
+function define_xc_macros_tvos() {
+  case "$TARGET" in
+    "lib" ) XC_TARGET="WebDriverAgentLib_tvOS";;
+    "runner" ) XC_TARGET="WebDriverAgentRunner_tvOS";;
+    *) echo "Unknown TARGET"; exit 1 ;;
+  esac
+
+  XC_DESTINATION="-destination \"name=Apple TV,OS=12.1\""
+
+  case "$ACTION" in
+    "build" ) XC_ACTION="build";;
+    "analyze" )
+      XC_ACTION="analyze"
+      XC_MACROS="${XC_MACROS} CLANG_ANALYZER_OUTPUT=plist-html CLANG_ANALYZER_OUTPUT_DIR=\"$(pwd)/clang\""
+    ;;
+    "unit_test" ) XC_ACTION="test -only-testing:UnitTests_tvOS";;
+    "int_test_1" ) XC_ACTION="test -only-testing:IntegrationTests_1_tvOS";;
+    "int_test_2" ) XC_ACTION="test -only-testing:IntegrationTests_2_tvOS";;
+    *) echo "Unknown ACTION"; exit 1 ;;
+  esac
+
+  case "$SDK" in
+    "sim" ) XC_SDK="appletvsimulator";;
+    "device" ) XC_SDK="appletvos";;
     *) echo "Unknown SDK"; exit 1 ;;
   esac
 }

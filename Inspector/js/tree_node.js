@@ -60,6 +60,7 @@ class TreeNode {
       rect: node.frame,
       isEnabled: node.isEnabled,
       isVisible: node.isVisible,
+      isFocused: node.isFocused,
     };
   }
 }

@@ -11,7 +11,7 @@
 
 #import "FBApplication.h"
 #import "FBIntegrationTestCase.h"
-#import "FBSpringboardApplication.h"
+#import "FBHomeboardApplication.h"
 #import "FBTestMacros.h"
 #import "FBXCodeCompatibility.h"
 #import "XCUIElement+FBIsVisible.h"
@@ -37,16 +37,6 @@
   XCTAssertFalse(self.springboard.icons[@"IntegrationApp"].fb_isVisible);
 }
 
-- (void)testSpringBoardSubfolder
-{
-  if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-    return;
-  }
-  [self launchApplication];
-  [self goToSpringBoardExtras];
-  XCTAssertFalse(self.springboard.icons[@"Extras"].otherElements[@"Contacts"].fb_isVisible);
-}
-
 - (void)testIconsFromSearchDashboard
 {
   [self launchApplication];
@@ -61,13 +51,14 @@
 {
   [self launchApplication];
   [self goToScrollPageWithCells:YES];
+  XCUIElement *table = self.testedApplication.tables.allElementsBoundByIndex.firstObject;
   for (int i = 0 ; i < 10 ; i++) {
-    FBAssertWaitTillBecomesTrue(self.testedApplication.cells.allElementsBoundByIndex[i].fb_isVisible);
-    FBAssertWaitTillBecomesTrue(self.testedApplication.staticTexts.allElementsBoundByIndex[i].fb_isVisible);
+    FBAssertWaitTillBecomesTrue(table.cells.allElementsBoundByIndex[i].fb_isVisible);
+    FBAssertWaitTillBecomesTrue(table.staticTexts.allElementsBoundByIndex[i].fb_isVisible);
   }
   for (int i = 30 ; i < 40 ; i++) {
-    FBAssertWaitTillBecomesTrue(!self.testedApplication.cells.allElementsBoundByIndex[i].fb_isVisible);
-    FBAssertWaitTillBecomesTrue(!self.testedApplication.staticTexts.allElementsBoundByIndex[i].fb_isVisible);
+    FBAssertWaitTillBecomesTrue(!table.cells.allElementsBoundByIndex[i].fb_isVisible);
+    FBAssertWaitTillBecomesTrue(!table.staticTexts.allElementsBoundByIndex[i].fb_isVisible);
   }
 }
 

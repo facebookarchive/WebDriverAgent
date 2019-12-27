@@ -9,6 +9,7 @@
 
 #import <Foundation/Foundation.h>
 #import <WebDriverAgentLib/FBElement.h>
+#import "XCAccessibilityElement.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,6 +47,13 @@ extern NSString *const FBUnknownAttributeException;
  */
 + (NSDictionary<NSString *, NSString *> *)wdAttributeNamesMapping;
 
+/**
+ Gets the unique identifier of the particular XCAccessibilityElement instance.
+ 
+ @param element accessiblity element instance
+ @return the unique element identifier
+ */
++ (NSString *)uidWithAccessibilityElement:(XCAccessibilityElement *)element;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -31,7 +31,9 @@
 @property(getter=isIdleAnimationWaitEnabled) BOOL idleAnimationWaitEnabled; // @synthesize idleAnimationWaitEnabled=_idleAnimationWaitEnabled;
 @property(nonatomic) BOOL doesNotHandleUIInterruptions; // @synthesize doesNotHandleUIInterruptions=_doesNotHandleUIInterruptions;
 @property(readonly) BOOL fauxCollectionViewCellsEnabled;
+#if !TARGET_OS_TV
 @property(readonly, nonatomic) UIInterfaceOrientation interfaceOrientation; //TODO tvos
+#endif
 @property(readonly, nonatomic) BOOL running;
 @property(nonatomic) pid_t processID; // @synthesize processID=_processID;
 @property(readonly) XCAccessibilityElement *accessibilityElement;

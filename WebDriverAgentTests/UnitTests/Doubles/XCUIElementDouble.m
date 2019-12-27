@@ -35,6 +35,9 @@
     self.wdAccessibilityContainer = NO;
     self.elementType = XCUIElementTypeOther;
     self.wdType = @"XCUIElementTypeOther";
+#if TARGET_OS_TV
+    self.wdFocused = YES;
+#endif
     self.wdUID = 0;
   }
   return self;

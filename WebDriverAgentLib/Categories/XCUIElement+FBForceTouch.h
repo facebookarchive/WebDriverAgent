@@ -11,6 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#if !TARGET_OS_TV
 @interface XCUIElement (FBForceTouch)
 
 /**
@@ -35,5 +36,5 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)fb_forceTouchCoordinate:(CGPoint)relativeCoordinate pressure:(double)pressure duration:(double)duration error:(NSError **)error;
 
 @end
-
+#endif
 NS_ASSUME_NONNULL_END

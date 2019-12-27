@@ -12,7 +12,7 @@
 #import "FBApplication.h"
 #import "FBIntegrationTestCase.h"
 #import "FBTestMacros.h"
-#import "FBSpringboardApplication.h"
+#import "FBHomeboardApplication.h"
 #import "XCUIApplication+FBHelpers.h"
 #import "XCUIElement+FBIsVisible.h"
 
@@ -30,26 +30,26 @@
 - (void)testQueringSpringboard
 {
   [self goToSpringBoardFirstPage];
-  XCTAssertTrue([FBSpringboardApplication fb_springboard].icons[@"Safari"].exists);
-  XCTAssertTrue([FBSpringboardApplication fb_springboard].icons[@"Calendar"].exists);
+  XCTAssertTrue([FBHomeboardApplication fb_homeboard].icons[@"Safari"].exists);
+  XCTAssertTrue([FBHomeboardApplication fb_homeboard].icons[@"Calendar"].exists);
 }
 
 - (void)testTappingAppOnSpringboard
 {
   [self goToSpringBoardFirstPage];
   NSError *error;
-  XCTAssertTrue([[FBSpringboardApplication fb_springboard] fb_tapApplicationWithIdentifier:@"Safari" error:&error]);
+  XCTAssertTrue([[FBHomeboardApplication fb_homeboard] fb_openApplicationWithIdentifier:@"Safari" error:&error]);
   XCTAssertNil(error);
-  XCTAssertTrue([FBApplication fb_activeApplication].buttons[@"URL"].exists);
+  FBAssertWaitTillBecomesTrue([FBApplication fb_activeApplication].buttons[@"URL"].exists);
 }
 
 - (void)testWaitingForSpringboard
 {
   NSError *error;
   [[XCUIDevice sharedDevice] pressButton:XCUIDeviceButtonHome];
-  XCTAssertTrue([[FBSpringboardApplication fb_springboard] fb_waitUntilApplicationBoardIsVisible:&error]);
+  XCTAssertTrue([[FBHomeboardApplication fb_homeboard] fb_waitUntilApplicationBoardIsVisible:&error]);
   XCTAssertNil(error);
-  XCTAssertTrue([FBSpringboardApplication fb_springboard].icons[@"Safari"].fb_isVisible);
+  XCTAssertTrue([FBHomeboardApplication fb_homeboard].icons[@"Safari"].fb_isVisible);
 }
 
 - (void)testApplicationTree

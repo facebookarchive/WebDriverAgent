@@ -9,6 +9,8 @@
 
 #import "XCUIDevice+FBRotation.h"
 
+#if TARGET_OS_IOS
+
 static const NSTimeInterval kFBWebDriverOrientationChangeDelay = 5.0;
 static const CGFloat FBRotationCoolOffTime = 1.f;
 
@@ -49,21 +51,23 @@ static const CGFloat FBRotationCoolOffTime = 1.f;
 
 - (NSDictionary *)fb_rotationMapping
 {
-    static NSDictionary *rotationMap;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        rotationMap =
-        @{
-          @(UIDeviceOrientationUnknown) : @{@"x" : @(-1), @"y" : @(-1), @"z" : @(-1)},
-          @(UIDeviceOrientationPortrait) : @{@"x" : @(0), @"y" : @(0), @"z" : @(0)},
-          @(UIDeviceOrientationPortraitUpsideDown) : @{@"x" : @(0), @"y" : @(0), @"z" : @(180)},
-          @(UIDeviceOrientationLandscapeLeft) : @{@"x" : @(0), @"y" : @(0), @"z" : @(270)},
-          @(UIDeviceOrientationLandscapeRight) : @{@"x" : @(0), @"y" : @(0), @"z" : @(90)},
-          @(UIDeviceOrientationFaceUp) : @{@"x" : @(90), @"y" : @(0), @"z" : @(0)},
-          @(UIDeviceOrientationFaceDown) : @{@"x" : @(270), @"y" : @(0), @"z" : @(0)},
-          };
-    });
-    return rotationMap;
+  static NSDictionary *rotationMap;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    rotationMap =
+    @{
+      @(UIDeviceOrientationUnknown) : @{@"x" : @(-1), @"y" : @(-1), @"z" : @(-1)},
+      @(UIDeviceOrientationPortrait) : @{@"x" : @(0), @"y" : @(0), @"z" : @(0)},
+      @(UIDeviceOrientationPortraitUpsideDown) : @{@"x" : @(0), @"y" : @(0), @"z" : @(180)},
+      @(UIDeviceOrientationLandscapeLeft) : @{@"x" : @(0), @"y" : @(0), @"z" : @(270)},
+      @(UIDeviceOrientationLandscapeRight) : @{@"x" : @(0), @"y" : @(0), @"z" : @(90)},
+      @(UIDeviceOrientationFaceUp) : @{@"x" : @(90), @"y" : @(0), @"z" : @(0)},
+      @(UIDeviceOrientationFaceDown) : @{@"x" : @(270), @"y" : @(0), @"z" : @(0)},
+      };
+  });
+  return rotationMap;
 }
 
 @end
+
+#endif

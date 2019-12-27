@@ -21,6 +21,7 @@
 #import "XCPointerEventPath.h"
 #import "XCTRunnerDaemonSession.h"
 
+#if !TARGET_OS_TV
 @implementation XCUIElement (FBForceTouch)
 
 - (BOOL)fb_forceTouchWithPressure:(double)pressure duration:(double)duration error:(NSError **)error
@@ -87,3 +88,5 @@
 }
 
 @end
+#endif
+

@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode9.2
+osx_image: xcode10.1
 sudo: false
 
 cache:
@@ -15,23 +15,32 @@ branches:
 
 env:
 # Builds
-- ACTION=build TARGET=runner SDK=sim
-- ACTION=build TARGET=runner SDK=device
+- PLATFORM=ios ACTION=build TARGET=runner SDK=sim
+- PLATFORM=ios ACTION=build TARGET=runner SDK=device
+- PLATFORM=tvos ACTION=build TARGET=runner SDK=sim
+- PLATFORM=tvos ACTION=build TARGET=runner SDK=device
 
 # Analyze
-- ACTION=analyze TARGET=lib SDK=sim
-- ACTION=analyze TARGET=runner SDK=sim
+- PLATFORM=ios ACTION=analyze TARGET=lib SDK=sim
+- PLATFORM=ios ACTION=analyze TARGET=runner SDK=sim
+- PLATFORM=tvos ACTION=analyze TARGET=lib SDK=sim
+- PLATFORM=tvos ACTION=analyze TARGET=runner SDK=sim
 
 # Unit tests
-- ACTION=unit_test DEST=iphone TARGET=lib SDK=sim
-- ACTION=unit_test DEST=ipad TARGET=lib SDK=sim
+- PLATFORM=ios ACTION=unit_test DEST=iphone TARGET=lib SDK=sim
+- PLATFORM=ios ACTION=unit_test DEST=ipad TARGET=lib SDK=sim
+- PLATFORM=tvos ACTION=unit_test DEST=atv TARGET=lib SDK=sim
 
 # Integration tests iPhone
-- ACTION=int_test_1 DEST=iphone TARGET=lib SDK=sim
-- ACTION=int_test_2 DEST=iphone TARGET=lib SDK=sim
-- ACTION=int_test_3 DEST=iphone TARGET=lib SDK=sim
+- PLATFORM=ios ACTION=int_test_1 DEST=iphone TARGET=lib SDK=sim
+- PLATFORM=ios ACTION=int_test_2 DEST=iphone TARGET=lib SDK=sim
+- PLATFORM=ios ACTION=int_test_3 DEST=iphone TARGET=lib SDK=sim
 
 # Integration tests iPad
-- ACTION=int_test_1 DEST=ipad TARGET=lib SDK=sim
-- ACTION=int_test_2 DEST=ipad TARGET=lib SDK=sim
-- ACTION=int_test_3 DEST=ipad TARGET=lib SDK=sim
+- PLATFORM=ios ACTION=int_test_1 DEST=ipad TARGET=lib SDK=sim
+- PLATFORM=ios ACTION=int_test_2 DEST=ipad TARGET=lib SDK=sim
+- PLATFORM=ios ACTION=int_test_3 DEST=ipad TARGET=lib SDK=sim
+
+# Integration tests Apple TV
+- PLATFORM=tvos ACTION=int_test_1 DEST=atv TARGET=lib SDK=sim
+- PLATFORM=tvos ACTION=int_test_2 DEST=atv TARGET=lib SDK=sim
