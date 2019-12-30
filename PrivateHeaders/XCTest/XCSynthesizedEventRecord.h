@@ -10,15 +10,21 @@
 {
     NSMutableArray *_eventPaths;
     NSString *_name;
+#if TARGET_OS_IOS
     UIInterfaceOrientation _interfaceOrientation;
+#endif
 }
+#if TARGET_OS_IOS
 @property(readonly) UIInterfaceOrientation interfaceOrientation; // @synthesize interfaceOrientation=_interfaceOrientation;
+#endif
 @property(readonly, copy) NSString *name; // @synthesize name=_name;
 @property(readonly) double maximumOffset;
 @property(readonly) NSArray *eventPaths;
 
 - (void)addPointerEventPath:(XCPointerEventPath *)arg1;
+#if TARGET_OS_IOS
 - (id)initWithName:(NSString *)arg1 interfaceOrientation:(UIInterfaceOrientation)arg2;
+#endif
 - (id)init;
 - (BOOL)synthesizeWithError:(NSError **)arg1;
 
