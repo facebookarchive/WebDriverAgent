@@ -33,9 +33,9 @@
 
 + (BOOL)typeText:(NSString *)text frequency:(NSUInteger)frequency error:(NSError **)error
 {
-  if (![FBKeyboard waitUntilVisibleWithError:error]) {
-    return NO;
-  }
+//  if (![FBKeyboard waitUntilVisibleWithError:error]) {
+//    return NO;
+//  }
   __block BOOL didSucceed = NO;
   __block NSError *innerError;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
