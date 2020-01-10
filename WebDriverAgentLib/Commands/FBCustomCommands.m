@@ -14,6 +14,7 @@
 #import "FBApplication.h"
 #import "FBConfiguration.h"
 #import "FBExceptionHandler.h"
+#import "FBPasteboard.h"
 #import "FBKeyboard.h"
 #import "FBResponsePayload.h"
 #import "FBRoute.h"
@@ -40,6 +41,8 @@
     [[FBRoute POST:@"/wda/keyboard/dismiss"] respondWithTarget:self action:@selector(handleDismissKeyboardCommand:)],
     [[FBRoute GET:@"/wda/elementCache/size"] respondWithTarget:self action:@selector(handleGetElementCacheSizeCommand:)],
     [[FBRoute POST:@"/wda/elementCache/clear"] respondWithTarget:self action:@selector(handleClearElementCacheCommand:)],
+    [[FBRoute POST:@"/wda/setPasteboard"] respondWithTarget:self action:@selector(handleSetPasteboard:)],
+    [[FBRoute POST:@"/wda/getPasteboard"] respondWithTarget:self action:@selector(handleGetPasteboard:)],
   ];
 }
 
@@ -107,4 +110,32 @@
   [elementCache clear];
   return FBResponseWithOK();
 }
+
++ (id<FBResponsePayload>)handleSetPasteboard:(FBRouteRequest *)request
+{
+  NSString *contentType = request.arguments[@"contentType"] ?: @"plaintext";
+  NSData *content = [[NSData alloc] initWithBase64EncodedString:(NSString *)request.arguments[@"content"]
+                                                        options:NSDataBase64DecodingIgnoreUnknownCharacters];
+  if (nil == content) {
+    return FBResponseWithStatus(FBCommandStatusInvalidArgument, @"Cannot decode the pasteboard content from base64");
+  }
+  NSError *error;
+  if (![FBPasteboard setData:content forType:contentType error:&error]) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithOK();
+}
+
++ (id<FBResponsePayload>)handleGetPasteboard:(FBRouteRequest *)request
+{
+  NSString *contentType = request.arguments[@"contentType"] ?: @"plaintext";
+  NSError *error;
+  id result = [FBPasteboard dataForType:contentType error:&error];
+  if (nil == result) {
+    return FBResponseWithError(error);
+  }
+  return FBResponseWithStatus(FBCommandStatusNoError,
+          [result base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength]);
+}
+
 @end
